@@ -1,0 +1,265 @@
+# Data Extraction Form
+
+## Study Identification
+
+- **Study ID**: Bethlehem2020
+- **Reference File Names**: Bethlehem2020.pdf.md; Bethlehem2020_sup1.pdf.md
+- **Author, Journal, Year**: Bethlehem et al., Communications Biology, 2020
+- **Title**: A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder
+- **DOI**: 10.1038/s42003-020-01212-9
+
+---
+
+## Study Characteristics
+
+- **Study Objective**: To apply normative modeling to examine cortical thickness (CT) in autism spectrum disorder (ASD) as an individualized metric of atypicality relative to typically-developing (TD) age-related norms, and to isolate subgroups with highly age-atypical CT across a large sample and wide age range.
+- **Study Design**: Cross-sectional
+- **Study Design Other**: -
+
+---
+
+## Reference Cohort & Imaging
+
+#### Dataset Name
+- **Answer**: ABIDE I; ABIDE II
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### HC N
+- **Answer**: 624
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### HC Age
+- **Answer**: mean 15.35; SD 6.37; min 5.89; max 39.4
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### HC Sex
+- **Answer**: Male 660 (males only analyzed after matching; female excluded due to small sample size and known sex differential effects in autism)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Imaging Modality
+- **Answer**: T1-weighted MRI
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Analysis Level
+- **Answer**: ROI-level
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Preprocessing Pipeline
+- **Answer**: FreeSurfer v5.3.0; 308-region parcellation (~500 mm2 each parcel); 360-region HCP multi-modal parcellation
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Quality Checking
+- **Answer**: Yes
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Quality Checking Detail
+- **Answer**: Euler index used as quantitative proxy of segmentation quality; excluded subjects with Euler index ≥300 in either hemisphere; top 10% of subjects with extreme Euler index excluded; Euler index included as confound variable in all models; also included mean framewise displacement as confound regressor; final sample after QC: 870 per group before normative modeling selection, 699 ASD and 624 TD after normative modeling selection
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Site Effect Handling
+- **Answer**: Model-based
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Site Effect Handling Detail
+- **Answer**: Scanner site included as random effect in linear mixed effect models; site identified as dominant source of variance (explaining ~15% of total variance on average alongside age); no ComBat harmonization applied; matched samples across sites using non-parametric nearest neighbour matching procedure (MatchIt package in R)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+---
+
+## Normative Modeling
+
+#### Model Origin
+- **Answer**: New
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Model Origin Detail
+- **Answer**: -
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Modeling Method
+- **Answer**: LOESS (Locally Estimated Scatterplot Smoothing; local polynomial regression fitting procedure)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Software Tool
+- **Answer**: R (stats package optim function); custom code available on GitHub
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Response Variable
+- **Answer**: Cortical thickness (CT) across 308 cortical regions
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Predictor Variables
+- **Answer**: Age; Sex; Site (scanner site); Euler index; Mean framewise displacement (in-scanner head motion)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Predictor Effects
+- **Answer**: Site: random effect (in linear mixed effect models used for case-control comparisons); Age: fixed effect; Sex: fixed effect; Euler index and framewise displacement: confound regressors. For normative LOESS modeling: age is the primary predictor with local smoothing kernel optimized using hyperparameter optimization across 5-100% of full age range using Brent's method; sex-stratified models (males only in final analysis)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### NM Vldtn Handle NS
+- **Answer**: Partial
+- **Confidence Rating**: Medium
+- **Negative Answer Category**: Unclear/Incomplete
+- **Reason**: The study addresses some nuisance structure by including Euler index (image quality) and mean framewise displacement (motion) as confound variables, and by treating site as a random effect in linear mixed models. The study also conducted extensive sensitivity analyses (excluding top 5-25% of motion and Euler subjects) showing spatial consistency of results. Age-wise binning was used to create normative statistics per age bin. However, the paper does not explicitly model heteroscedasticity (variance changing with age) in the LOESS approach, relying on standard deviation estimates from discrete age bins. The bootstrapping validation (1000 bootstraps with replacement) showed robustness of w-scores, with median of only 1 unreliable region per subject. Site-age interactions are acknowledged as likely present but not explicitly modeled. The study notes that LOESS may be sensitive to small samples in age bins and excluded bins with fewer than 5 datapoints.
+- **Supporting Text**: To address this issue in the present analysis we included mean framewise displacement in our models... To further assess the sensitivity of motion on the present approach we include sensitivity analyses based on systematic removal of high motion subjects and find that the spatial topology of effects was strongly conserved... Because w-score maps are computed for each individual, we ran hypothesis tests at each brain region... However, since it is based on estimation of standard deviation from a normative sample it is potentially sensitive to small samples in a given age-bin (e.g. if there are only four datapoints for a given age-bin there is likely to be a less reliable sd). Hence in situations where data is spare the LOESS approach may allow for less reliable normative scores. In order to assess the sensitivity of our approach in the present data we implemented the aforementioned bootstrapping procedure to identify robustness of outlier detection... Age bins that contained fewer than five data-points in the TD group were excluded from subsequent analysis as the standard deviations for these bins would essentially be zero (and thus the w-score could not be computed).
+- **Location**: Main text Methods section; Supplementary materials sensitivity analysis section
+
+#### NM Vldtn Same Domain Nonindep
+- **Answer**: Yes
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The study performed extensive bootstrap validation using the training (normative) sample itself. They permuted the normative sample 1000 times with replacement and computed 1000 bootstrapped w-scores for each individual and brain region. They computed FDR-corrected p-values by determining the position of real w-scores in the bootstrapped distribution. Results showed high reliability with median of only 1 unreliable region per subject (out of 308 regions). They also performed one-sample linear mixed effects modeling in the normative group only to check if any brain regions showed deviation from w-score = 0, finding no significant deviations even without multiple comparison correction.
+- **Supporting Text**: To assess the reliability of the normative w-score we permuted the normative sample (1000 bootstraps, with replacement) and computed 1000 permuted w-scores for each individual and each brain region. To subsequently quantify the reliability of the w-score we computed an FDR corrected analogous p-value for each subject by computing the absolute position of the real w-score in the distribution of permuted w-scores... The median number of brain regions per subject with a significant p-value in the normative sample was 1 (out of 308), indicating that the normative sample is topologically robust and that the w-score is a robust reflection of atypicality. To further assess the distribution in the normative group we also conducted one-sample linear mixed effects modelling in the normative group only to determine if any of all brain regions would show outlier consistency. There were no brain regions for which the w-score showed a deviation significant from zero in the normative group (even without correcting for multiple comparisons across all brain regions).
+- **Location**: Main text Methods section: Normative modelling reliability; Supplementary materials: Bootstrapping section
+
+#### NM Vldtn Same Domain Indep
+- **Answer**: Partial
+- **Confidence Rating**: Medium
+- **Negative Answer Category**: Unclear/Incomplete
+- **Reason**: The study used data from both ABIDE I and ABIDE II, which could be considered as somewhat independent datasets within the same domain (both autism neuroimaging datasets). They compared centile estimation approach with LOESS regression approach across these datasets, showing high correlation in w-score ratios (r=0.87, p=4e-119 for ABIDE I and r=0.66, p=5.7e-39 for ABIDE II). However, both datasets were pooled for the main normative model training rather than using one as training and the other as independent validation. The comparison is more of a methodological sensitivity analysis (LOESS vs centile) rather than true independent validation.
+- **Supporting Text**: Both approaches showed high significant correlation in determining whole-brain w-score ratios (r=0.87, p=4e-119 and r=0.66, p=5.7e-39 for ABIDE I and ABIDE II respectively)... In this study, we first sought to leverage large neuroimaging datasets to yield greater statistical power for identifying subtle effects. To achieve this, we utilized the ABIDE datasets (ABIDE I and II).
+- **Location**: Supplementary materials: Comparison to centile modelling section; Main text Methods section
+
+#### NM Vldtn Diff Domain
+- **Answer**: No
+- **Confidence Rating**: High
+- **Negative Answer Category**: Missing
+- **Reason**: The study does not validate the normative model on data from a different domain (e.g., different cohort, different scanner types, different acquisition protocols external to ABIDE). All analyses were conducted within the ABIDE I and II datasets. The paper does compare results conceptually with the EU-AIMS LEAP cohort study by Zabihi et al. (2019), noting some spatial consistency in findings despite methodological differences, but this is discussed as external consistency rather than formal validation of their model on that external dataset.
+- **Supporting Text**: The current results can be contrasted with a recent study on the EU-AIMS LEAP cohort. This study differs from the current work in being based on a completely independent dataset (EU-AIMS LEAP vs. ABIDE). The studies also differ in how normative models are estimated - LOESS and centiles vs. Gaussian process regression... Despite these differences, some important consistencies emerge... Thus, despite the methodological differences, the overall consistency suggests that many of the inferences from these works generalize to the autism population.
+- **Location**: Main text Discussion section
+
+---
+
+## Clinical Application & Analysis
+
+#### Clinical Dataset
+- **Answer**: ABIDE I; ABIDE II
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Diseases Studied
+- **Answer**: Autism Spectrum Disorder (ASD)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Clinical Groups N
+- **Answer**: ASD:699 (after normative modeling selection); ASD:754 males, 116 females (before normative modeling selection, after matching and QC)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Clinical Groups Age
+- **Answer**: Mean 14.93; SD 5.97; Median 13.40; Min 5.53; Max 39.2 (n=699 after normative selection). Before normative selection: Males mean 16.32±9.09 (n=754), Females mean 15.06±8.43 (n=116)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Clinical Groups Sex
+- **Answer**: Males only analyzed in final normative modeling (n=699). Before normative selection: Male 754 (87%), Female 116 (13%)
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Deviation Metric
+- **Answer**: w-score (analogous to z-score) computed as: w = (individual CT - normative mean CT for age bin) / (normative SD for age bin). Threshold of |w| ≥ 2 SD used to define significant atypicality. Also computed individual global w-score ratio = (number of regions with |w| ≥ 2) / 308 to assess global vs regional atypicality. Prevalence maps showing percentage of ASD patients with atypical w-scores per region.
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+- **Association Analysis**: Spearman correlations between w-scores and phenotypic measures (ADOS, SRS, SCQ, AQ, FIQ, Age) with FDR correction for multiple comparisons (6 phenotypes × 308 regions = 1848 tests). Linear mixed effect models for case-control comparisons with site as random effect, age/sex/Euler/motion as fixed effects or confounds. Comparison of case-control results before and after removal of w-score outliers (|w| ≥ 2). Chi-square test to assess whether prevalence of outliers differs from expected 5%. Bootstrapping for reliability assessment. Multiple sensitivity analyses: systematic exclusion of top 5-25% motion and Euler subjects with spatial correlation of resulting effect maps.
+- **Key Findings Brief**: Only a small subset (~7.6%) of ASD individuals show highly age-atypical CT (>2 SD from TD norms), predominantly in ages 6-20 years, and most small on-average case-control differences are driven by these outliers rather than representing true population-level effects.
+- **Key Findings Detailed**: The study found that conventional case-control analysis revealed 27 regions (8.7% of 308 regions) with small effect sizes (26 of 27 regions showing Cohen's d <0.2) passing FDR correction. However, after removing outlier patients with age-atypical CT (w-scores >2 SD), the number of significant regions dropped by 1.9-fold to only 14 regions, demonstrating that most small case-control differences were driven by a small subset of highly atypical patients. Normative w-score analysis itself revealed no regions surviving FDR correction for on-average non-zero w-scores. The median prevalence of ASD patients with |w| ≥ 2 was 7.6% across brain regions (significantly higher than expected 5%, χ²=3.85, p=0.049 with Yates correction), with some regions showing up to >10% prevalence. Age analysis showed outliers were predominantly in 6-20 year age range (median outlier age: 10.6-20.2 years), with lower prevalence beyond age 20. Only 14 subjects (2%) showed global CT atypicality (ratio >0.5), all with globally thinner cortices likely reflecting image quality issues rather than biology. Brain-behavior correlations (exploratory) identified regions associated with SRS (lateral frontal/parietal cortex) and ADOS (lateral/inferior temporal cortex) that were largely distinct from case-control and on-average w-score difference regions. The same pattern of outlier-driven effects was found for cortical volume, surface area, and local gyrification index. Multivariate clustering (tSNE + k-medoid) failed to separate ASD from TD groups, with ASD variation entirely nested within TD variation.
+- **Key Limitations**: Cross-sectional design cannot make claims about individual trajectories; age range (5-40 years) misses very early development and late adulthood; post-hoc multi-site data collection (ABIDE) with highly heterogeneous scanners, sequences, parameters, and ascertainment; site had large effect on CT variance; potential systematic site-age interactions; LOESS approach may be sensitive to small samples in age bins; sample matched on IQ, excluding individuals with IQ <70, limiting generalizability; females excluded due to small sample size despite known sex effects; limited phenotypic data available for outlier subgroup; motion/quality confounds despite inclusion of Euler and framewise displacement; age distribution skewed toward younger ages, potentially explaining age-related outlier patterns.
+- **Application Notes**: Authors emphasize moving beyond case-control approaches toward individualized dimensional approaches for precision medicine in ASD. The normative modeling approach identifies a clinically meaningful subgroup (~7.6%) with extreme age-related CT atypicality that may have specific biological mechanisms (analogous to highly penetrant genetic mechanisms affecting small ASD subsets). Results suggest limited utility of whole-brain CT for diagnostic classification, as ASD variation is nested within typical variation. Authors note that CT atypicality potentially normalizes with increasing age, though this may reflect dataset age distribution. Future work should: (1) obtain detailed phenotypic/genetic data on outlier subgroup, (2) examine earlier developmental periods and later aging, (3) use longitudinal data to model individual trajectories, (4) combine normative modeling with stratification approaches to avoid trivial clustering from confounds.
+
+---
+
+## General Notes
+
+**General Notes**: This is a male-only analysis due to insufficient female sample size after age-wise binning and known sex differential effects in autism. The study extensively validated the robustness of findings through: (1) bootstrap validation with 1000 permutations, (2) comparison of LOESS vs centile approaches, (3) systematic sensitivity analyses excluding varying proportions of high-motion and poor-quality scans, (4) replication across cortical thickness, volume, surface area, and gyrification. Code and data openly available on GitHub (https://doi.org/10.5281/ZENODO.1325171). The study positions itself within the broader normative modeling literature, comparing favorably with Zabihi et al. (2019) EU-AIMS LEAP study despite different datasets (ABIDE vs EU-AIMS LEAP), different methods (LOESS vs GPR), and different sample characteristics (males only vs both sexes). Both studies found spatial consistency in CT outlier patterns and some overlap in brain-behavior associations (e.g., ADOS with left inferior frontal gyrus). The paper makes conceptual contributions beyond statistical advances: it challenges the assumption of on-average group differences in autism neuroanatomy and advocates for identifying extreme individuals who may have distinct biological mechanisms.

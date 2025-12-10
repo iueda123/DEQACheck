@@ -1,0 +1,274 @@
+# Data Extraction Form
+
+## Study Identification
+
+- **Study ID**: null
+- **Reference File Names**: null
+- **Author, Journal, Year**: null
+- **Title**: null
+- **DOI**: null
+
+---
+
+## Study Characteristics
+
+- **Study Objective**: null
+- **Study Design**: null
+- **Study Design Other**: null
+
+---
+
+## Reference Cohort & Imaging
+
+#### Dataset Name
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### HC N
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### HC Age
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### HC Sex
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Imaging Modality
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Analysis Level
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Preprocessing Pipeline
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Quality Checking
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Quality Checking Detail
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Site Effect Handling
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Site Effect Handling Detail
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+---
+
+## Normative Modeling
+
+#### Model Origin
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Model Origin Detail
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Modeling Method
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Software Tool
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Response Variable
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Predictor Variables
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Predictor Effects
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### NM Vldtn Handle NS
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### NM Vldtn Same Domain Nonindep
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### NM Vldtn Same Domain Indep
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### NM Vldtn Diff Domain
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+---
+
+## Clinical Application & Analysis
+
+#### Clinical Dataset
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Diseases Studied
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Clinical Groups N
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Clinical Groups Age
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Clinical Groups Sex
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+#### Deviation Metric
+- **Answer**: 
+- **Confidence Rating**: 
+- **Negative Answer Category**: 
+- **Reason**: 
+- **Supporting Text**: 
+- **Location**: 
+
+- **Association Analysis**: null
+- **Key Findings Brief**: null
+- **Key Findings Detailed**: null
+- **Key Limitations**: null
+- **Application Notes**: null
+
+---
+
+## General Notes
+
+**General Notes**: null
+
+
+NONCANONICAL_DATA:
+- 1: {"1-1": {"study_id": "Bethlehem2020"}, "1-2": {"reference_file_names": "Bethlehem2020.pdf.md; Bethlehem2020_sup1.pdf.md"}, "1-3": {"author_journal_year": "Bethlehem et al., Communications Biology, 2020"}, "1-4": {"title": "A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder"}, "1-5": {"doi": "10.1038/s42003-020-01212-9"}}
+- 2: {"2-1": {"study_objective": "To examine how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms, and to isolate a subgroup of individuals with highly age-atypical CT."}, "2-2": {"study_design": "Cross-sectional"}, "2-3": {"study_design_other": "-"}}
+- 3: {"3-1": {"dataset_name": "ABIDE I and II"}, "3-2": {"hc_n": "870"}, "3-3": {"hc_age": "TD Male: Mean 16.64, SD 8.98, N 660, Median 13.69, Min 5.89, Max 64. TD Female: Mean 13.25, SD 5.33, N 210, Median 11.09, Min 5.91, Max 32"}, "3-4": {"hc_sex": "Male: 660, Female: 210"}, "3-5": {"imaging_modality": "T1-weighted MRI"}, "3-6": {"analysis_level": "ROI-level"}, "3-7": {"preprocessing_pipeline": "FreeSurfer v5.3.0"}, "3-8": {"quality_checking": "Yes"}, "3-9": {"quality_checking_detail": "The Euler number was used as a quantitative proxy index of segmentation quality. Subjects with an extreme Euler index (top 10%, corresponding to a Euler index of ~300) were excluded. The index itself was also included as a confound variable in all models. In-scanner head-motion was estimated in the form of framewise displacement and also included as a confound."}, "3-10": {"site_effect_handling": "Model-based"}, "3-11": {"site_effect_handling_detail": "Scanner site was included as a random effect in a linear mixed effects model. The paper notes that scanner site and age were the most dominant sources of variance."}}
+- 4: {"4-1": {"model_origin": "New"}, "4-2": {"model_origin_detail": "-"}, "4-3": {"modeling_method": "LOESS (local polynomial regression fitting procedure)"}, "4-4": {"software_tool": "R (stats package, Matchit package)"}, "4-5": {"response_variable": "Cortical thickness (CT)"}, "4-6": {"predictor_variables": "Age, Sex, Site, In-scanner head motion, Euler index"}, "4-7": {"predictor_effects": "Site as a random effect. Age, sex, in-scanner head motion, and Euler index as fixed effects."}, "4-8": {"nm_vldtn_handle_ns": {"Answer": "Yes", "Confidence Rating": "High", "Negative Answer Category": "Not Negative", "Reason": "The study explicitly modeled site effects as a random effect and included age, sex, motion, and a quality control metric (Euler index) as fixed effects to account for these nuisance variables.", "Supporting Text": "We used a linear mixed effects model with scanner site as a random effect. Given the potentially strong contribution of age we chose to include this as /uniFB01 xed effects covariates in the model. All models also included Euler indices 38 and mean framewise displacement 37 as confound regressors", "Location": "Bethlehem2020.pdf.md, Methods section."}}, "4-9": {"nm_vldtn_same_domain_nonindep": {"Answer": "Yes", "Confidence Rating": "High", "Negative Answer Category": "Not Negative", "Reason": "The reliability of the w-scores was assessed using a bootstrapping procedure on the normative sample.", "Supporting Text": "To assess the reliability of the normative w-score we permuted the normative sample (1000 bootstraps, with replacement) and computed 1000 permuted w-scores for each individual and each brain region.", "Location": "Bethlehem2020.pdf.md, Methods section."}}, "4-10": {"nm_vldtn_same_domain_indep": {"Answer": "No", "Confidence Rating": "High", "Negative Answer Category": "Missing", "Reason": "The study does not appear to have used a separate, independent hold-out set from the same data source for validation.", "Supporting Text": "N/A", "Location": "N/A"}}, "4-11": {"nm_vldtn_diff_domain": {"Answer": "No", "Confidence Rating": "High", "Negative Answer Category": "Missing", "Reason": "The study did not validate the model on an external dataset from a different domain.", "Supporting Text": "N/A", "Location": "N/A"}}}
+- 5: {"5-1": {"clinical_dataset": "ABIDE I and II"}, "5-2": {"diseases_studied": "Autism spectrum disorder (ASD)"}, "5-3": {"clinical_groups_n": "870"}, "5-4": {"clinical_groups_age": "Autism Male: Mean 16.32, SD 9.09, N 754, Median 13.75, Min 5.13, Max 64. Autism Female: Mean 15.06, SD 8.43, N 116, Median 12.57, Min 5.22, Max 54"}, "5-5": {"clinical_groups_sex": "Male: 754, Female: 116"}, "5-6": {"deviation_metric": "w-score (analogous to a z-score)"}, "5-7": {"association_analysis": "Spearman correlations between w-scores and phenotypic features (ADOS, SRS, SCQ, AQ, FIQ and Age). FDR correction was used for multiple comparisons."}, "5-8": {"key_findings_brief": "A normative modeling approach reveals that only a small subgroup of males with ASD show age-atypical cortical thickness, and these outliers drive the small on-average case-control differences reported in traditional analyses."}, "5-9": {"key_findings_detailed": "Conventional case-control analyses show small CT differences in a few brain regions, but these are driven by a small subgroup of ASD individuals with highly atypical CT for their age (w-scores > 2 SD). Removing these outliers eliminates most case-control differences. The prevalence of these atypical individuals is about 7.6% per brain region. The w-scores also show associations with clinical symptoms (ADOS and SRS) in brain regions that are different from those identified in case-control analyses."}, "5-10": {"key_limitations": "The study is cross-sectional, not longitudinal. The dataset is heterogeneous due to the multi-site nature of ABIDE. The normative model (LOESS) can be sensitive to small sample sizes in age bins. The analysis was restricted to males due to smaller female sample size."}, "5-11": {"application_notes": "The study demonstrates that normative modeling can identify a small, but potentially important, subgroup of individuals with a specific biological characteristic, which could be a target for future research and personalized medicine."}}
+- 6: {"general_notes": "The study also performed the same analysis on cortical volume, surface area and gyrification, with similar findings (results in supplementary materials)."}

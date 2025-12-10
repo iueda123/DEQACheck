@@ -1,0 +1,98 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.diffplug.spotless' version '5.17.1'
+
+    id 'org.springframework.boot' version '3.3.4'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'com.vaadin' version '24.4.8'
+}
+
+group 'com.org-he'
+version 'v20251127'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    vaadinVersion = '24.4.8'
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    // Use Spring Boot's managed Jackson version instead of specifying explicitly
+    //implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    implementation 'com.vaadin:vaadin-spring-boot-starter'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+    }
+}
+
+application {
+    //mainClass = 'iu.IuMindMap.v1_1_0.Starter'
+    //mainClass = 'iu.LCAC.Starters.MainStarter'
+    mainClass = 'iu.SpringBoot.Vaadin.Application'
+}
+
+jar{
+    manifest{
+        attributes 'Main-Class': 'iu.LCAC.Starters.MainStarter'
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'iu.LCAC.Startup.MainStarter.Starter'
+    }
+    archiveClassifier = 'all'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    destinationDirectory = file("./share_package/jar")
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
+
+test {
+    useJUnitPlatform()
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
+// Build frontend for production builds before packaging
+if (project.hasProperty('vaadin.productionMode') && project.property('vaadin.productionMode').toString().toBoolean()) {
+    tasks.named('bootJar') {
+        dependsOn 'vaadinBuildFrontend'
+    }
+}
+
+// Customize bootJar output file name
+bootJar {
+    archiveBaseName = 'DEQACheck-VaadinApp'
+    archiveVersion = version
+    // Output: DEQACheck-VaadinApp-v20251127.jar
+
+    // If you want to specify the complete file name directly:
+    // archiveFileName = 'DEQACheck-VaadinApp-v20251127.jar'
+}

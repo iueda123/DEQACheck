@@ -1,0 +1,290 @@
+# Data Extraction Form
+
+## Study Identification
+
+- **Study ID**: Bedford2025
+- **Reference File Names**: Bedford2025.pdf.md; 1-s2.0-S0006322324015130-mmc2.pdf.md; 1-s2.0-S0006322324015130-mmc1.md
+- **Author, Journal, Year**: Bedford et al., Biological Psychiatry, 2025
+- **Title**: Brain-Charting Autism and Attention-Deficit/Hyperactivity Disorder Reveals Distinct and Overlapping Neurobiology
+- **DOI**: 10.1016/j.biopsych.2024.07.024
+
+---
+
+## Study Characteristics
+
+- **Study Objective**: This study used population modeling (normative modeling) with a large, multisite neuroimaging dataset to characterize cortical anatomy associated with autism and ADHD, benchmarked against models of average brain development. The study examined sex and age differences, relationships with autistic traits, and the co-occurrence of autism and ADHD.
+- **Study Design**: Cross-sectional
+- **Study Design Other**: -
+
+---
+
+## Reference Cohort & Imaging
+
+#### Dataset Name
+- **Answer**: ABIDE I and II; POND; HBN (Child Mind Institute); ADHD200 Consortium; Multimodal Developmental Neurogenetics of Females with ASD (NIMH NDAR); UK MRC-AIMS; UCSD Biomarkers of Autism
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The paper explicitly lists seven datasets across 49 sites used to assemble the multisite sample. All datasets are clearly named in the methods section.
+- **Supporting Text**: T1-weighted scans were combined from 49 sites across 7 datasets, including the ABIDE (Autism Brain Imaging Data Exchange), the POND (Province of Ontario Neurodevelopmental) Network, the HBN (Healthy Brain Network) at the Child Mind Institute, the ADHD200 Consortium, the Multimodal Developmental Neurogenetics of Females with ASD dataset from the National Institute of Mental Health Data Archive, the UK MRC-AIMS (Medical Research Council Autism Imaging Multi-centre Study), and the University of California San Diego Biomarkers of Autism study.
+- **Location**: Bedford2025.pdf.md: 41-47
+
+#### HC N
+- **Answer**: 1869
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Post-QC count of typically developing control participants is clearly reported with sex breakdown. This is the final analyzed sample after quality control exclusions.
+- **Supporting Text**: The final dataset after quality control (QC) included 4255 individuals (1869 typically developing control participants [687 female, 1182 male], 987 individuals with ADHD [270 female, 717 male], and 1399 autistic individuals [288 female, 1111 male], ages 2–64 years [mean 14.0, median 12.4]).
+- **Location**: Bedford2025.pdf.md: 43-46
+
+#### HC Age
+- **Answer**: Overall sample mean 14.0, median 12.4; age range 2-64 years. From supplementary Table S1.2.5: TD mean age 15.0 (SD 7.9)
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The main text provides overall sample statistics. The supplementary materials Table S1.2.5 provides TD-specific mean and SD age statistics (mean 15.0, SD 7.9).
+- **Supporting Text**: Main text: 'ages 2–64 years [mean 14.0, median 12.4]'. Supplementary Table S1.2.5: 'Age, mean (sd) ... TD ... 15.0 (7.9)'
+- **Location**: Bedford2025.pdf.md: 43-46; 1-s2.0-S0006322324015130-mmc2.pdf.md: 327
+
+#### HC Sex
+- **Answer**: F 687 (36.8%), M 1182 (63.2%)
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Female and male counts for the control group are explicitly provided in the main text. Percentages are confirmed in supplementary Table S1.2.5.
+- **Supporting Text**: Main text: '1869 typically developing control participants [687 female, 1182 male]'. Supplementary Table S1.2.5: 'TD ... Sex: Female (%) ... 36.8%'
+- **Location**: Bedford2025.pdf.md: 43-46; 1-s2.0-S0006322324015130-mmc2.pdf.md: 325
+
+#### Imaging Modality
+- **Answer**: T1-weighted MRI
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The sample and datasets section explicitly states that T1-weighted scans were used across all datasets.
+- **Supporting Text**: T1-weighted scans were combined from 49 sites across 7 datasets, including the ABIDE ... Images from each dataset were processed using FreeSurfer, version 6.0.1.
+- **Location**: Bedford2025.pdf.md: 41-49
+
+#### Analysis Level
+- **Answer**: ROI-level
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Regional estimates were extracted based on the Desikan-Killiany atlas, which is a parcellation-based (ROI-level) approach. Both global and regional measures were analyzed.
+- **Supporting Text**: Regional estimates of each cortical measure were extracted based on the Desikan-Killiany atlas (106). For computational efficiency and because BrainChart models for separate hemispheres were not available at the time of analysis, measures were averaged across hemispheres for each parcellation.
+- **Location**: Bedford2025.pdf.md: 49-50
+
+#### Preprocessing Pipeline
+- **Answer**: FreeSurfer v6.0.1; Desikan-Killiany atlas parcellation; hemispheric averaging; FSQC manual quality control tool; Euler number quality metric
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The data processing section clearly describes FreeSurfer version, atlas used, and quality control procedures including FSQC tool and Euler number.
+- **Supporting Text**: T1 images from each dataset were processed using FreeSurfer, version 6.0.1 (105). Regional estimates of each cortical measure were extracted based on the Desikan-Killiany atlas (106). For computational efficiency ... measures were averaged across hemispheres for each parcellation. ... All scans underwent manual QC of raw image and FreeSurfer surface reconstructions using our FSQC tool (107) ... we also included the FreeSurfer-derived Euler number (110) as a covariate in all analyses.
+- **Location**: Bedford2025.pdf.md: 48-52
+
+#### Quality Checking
+- **Answer**: Yes
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Manual QC using FSQC tool with threshold cutoff and inclusion of Euler number as covariate are explicitly described. Multiple sensitivity analyses with different QC methods were also conducted.
+- **Supporting Text**: All scans underwent manual QC of raw image and FreeSurfer surface reconstructions using our FSQC tool (107), which allows for the evaluation of both surface reconstruction and raw scan quality, including motion artifacts (108). A cutoff of 2.5 was used for FSQC (107). Because even small variations in quality can bias downstream analyses (108,109), we also included the FreeSurfer-derived Euler number (110) as a covariate in all analyses.
+- **Location**: Bedford2025.pdf.md: 51-52
+
+#### Quality Checking Detail
+- **Answer**: Manual QC using FSQC tool (cutoff 2.5) for evaluation of surface reconstruction and raw scan quality including motion artifacts; Euler number included as covariate in all analyses. From supplementary: Before QC N=4736; after QC N=4255. Attrition ranged from 0% (UCSD) to 37.1% (ABIDE I autistic females). Sensitivity analyses tested: FSQC-only cutoff (N=4255), Euler-only cutoff (N=4367; threshold at 2 median absolute deviations, equivalent to Euler=254), and both FSQC+Euler cutoffs (N=4015).
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Main text details FSQC threshold and Euler covariate usage. Supplementary materials provide detailed QC numbers, exclusion rates, and sensitivity analysis results with different QC approaches.
+- **Supporting Text**: Main text: 'All scans underwent manual QC ... FSQC tool ... A cutoff of 2.5 was used ... Euler number as a covariate'. Supplement: 'Before quality control, our sample included data from 4736 participants ... The final dataset after quality control (QC) included 4255 individuals'. 'we have also rerun all interaction and main effect analyses using various combinations ... FSQC only (N = 4255) ... Euler number only (N = 4367) ... both FSQC and Euler number (N = 4015). ... cut off point for the Euler number was at 2 median absolute deviations, which was equivalent to a Euler number of 254.'
+- **Location**: Bedford2025.pdf.md: 51-52; 1-s2.0-S0006322324015130-mmc2.pdf.md: 107, 383-385
+
+#### Site Effect Handling
+- **Answer**: Batch-removal
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: ComBat harmonization was explicitly applied to remove site batch effects prior to GAMLSS modeling. The BrainCharts reference models also account for site/scanner effects.
+- **Supporting Text**: ComBat was applied to the entire dataset across all global and regional measures, with each site treated as a batch and with covariates of age, sex, and diagnosis to preserve related biological variation. ComBat-harmonized data were used as inputs to the out-of-sample maximum likelihood estimation to generate centile scores. ... reference models ... accounting for effects of age, sex, and site/scanner.
+- **Location**: Bedford2025.pdf.md: 63-64, 61
+
+#### Site Effect Handling Detail
+- **Answer**: Two-step approach: (1) ComBat harmonization applied to entire dataset with each site treated as batch and covariates age, sex, diagnosis to preserve biological variation; (2) Out-of-sample GAMLSS centile estimation using BrainCharts reference models (trained on 75,241 TD individuals) that account for site/scanner effects. ABIDE and ADHD200 sites were treated individually (not as single combined datasets) to enable proper site correction. Sensitivity analyses compared ComBat-harmonized vs non-ComBat centiles, and in-sample vs out-of-sample centiles. The study also merged POND sites post-ComBat because some sites lacked control participants.
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The paper provides detailed description of ComBat application with batch variables and covariates, explains the GAMLSS site/scanner accounting, and discusses the rationale for treating sites separately. Supplementary materials provide extensive detail on sensitivity analyses comparing harmonization approaches.
+- **Supporting Text**: Main text: 'ComBat was applied to the entire dataset across all global and regional measures, with each site treated as a batch and with covariates of age, sex, and diagnosis to preserve related biological variation'. Supplement: 'we first used ComBat and then GAMLSS, correcting for each site within these datasets ... the original openly available BrainCharts models did not separate individual sites in some of the large, combined datasets such as ABIDE and ADHD200 ... Initially, the different POND data collection sites were treated as separate sites ... However, some of these sites did not have any control participants ... Thus, ComBat was run on all data with the sites separated, and they were recombined after ComBat harmonisation'.
+- **Location**: Bedford2025.pdf.md: 63-64; 1-s2.0-S0006322324015130-mmc2.pdf.md: 357, 81
+
+---
+
+## Normative Modeling
+
+#### Model Origin
+- **Answer**: Pre-trained
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The study uses pre-existing BrainCharts GAMLSS reference models that were previously generated on a large typically developing sample, and applies out-of-sample centile estimation to the current study sample.
+- **Supporting Text**: Our previous work (98) generated reference models using generalized additive models of location scale and shape to map neuroanatomical developmental trajectories across the life span, using a sample of 75,241 TD individuals ... Out-of-sample centile scores for our study sample were generated based on these reference models using Brent's maximum likelihood estimation.
+- **Location**: Bedford2025.pdf.md: 55-61
+
+#### Model Origin Detail
+- **Answer**: BrainCharts reference GAMLSS models trained on 75,241 typically developing individuals accounting for age, sex, and site/scanner. Out-of-sample centile scores for the current study sample were generated using Brent's maximum likelihood estimation on ComBat-harmonized data. See Bethlehem et al., Nature 2022 (reference 98) for full details of the BrainCharts models.
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The methods section describes the origin dataset size (75,241 TD), the modeling framework (GAMLSS), variables accounted for (age, sex, site/scanner), and the out-of-sample inference procedure (Brent's MLE). Reference to the original BrainCharts paper is provided.
+- **Supporting Text**: Our previous work (98) generated reference models using generalized additive models of location scale and shape to map neuroanatomical developmental trajectories across the life span, using a sample of 75,241 TD individuals, for total GMV, subcortical GMV (sGMV), white matter volume (WMV), ventricular volume, total SA, mean CT, regional CT, regional cortical volume (CV), and regional SA, while accounting for effects of age, sex, and site/scanner. ... Out-of-sample centile scores for our study sample were generated based on these reference models using Brent's maximum likelihood estimation. ... Reference 98: Bethlehem RAI, Seidlitz J, White SR, et al. (2022): Brain charts for the human lifespan. Nature 604:525–533.
+- **Location**: Bedford2025.pdf.md: 55-61
+
+#### Modeling Method
+- **Answer**: GAMLSS (Generalized Additive Models for Location, Scale and Shape)
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The modeling framework is explicitly named multiple times and described in detail in the centile generation section.
+- **Supporting Text**: Our previous work (98) generated reference models using generalized additive models of location scale and shape to map neuroanatomical developmental trajectories across the life span ... Out-of-sample centile scores for our study sample were generated based on these reference models using Brent's maximum likelihood estimation.
+- **Location**: Bedford2025.pdf.md: 55-61
+
+#### Software Tool
+- **Answer**: Brain Charts algorithm; R version 4.3.1; RStudio; tidyverse R package; ggpubr R package; ggplot2 R package
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The key resources table in supplementary materials lists the Brain Charts algorithm with GitHub repository and shiny app URL, along with R software and packages used for analysis.
+- **Supporting Text**: From supplementary key resources table: 'Software; Algorithm | Brain Charts algorithm | https://brainchart.shinyapps.io/brainchart/ | https://github.com/ucam-department-of-psychiatry/Lifespan'; 'Software; Algorithm | R version 4.3.1 | https://cran.r-project.org/bin/windows/base/ | v 4.3.1'; Additional R packages listed: RStudio, tidyverse, ggpubr, ggplot2.
+- **Location**: 1-s2.0-S0006322324015130-mmc1.md: 18-23
+
+#### Response Variable
+- **Answer**: Global measures: Total gray matter volume (GMV); Subcortical gray matter volume (sGMV); White matter volume (WMV); Ventricular volume; Total surface area (SA); Mean cortical thickness (CT). Regional measures: Cortical thickness (CT); Cortical volume (CV); Surface area (SA) for Desikan-Killiany atlas regions, averaged across hemispheres.
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The measures modeled by BrainCharts and analyzed in this study are comprehensively listed in the centile generation section and figure captions, including both global and regional measures.
+- **Supporting Text**: Our previous work (98) generated reference models ... for total GMV, subcortical GMV (sGMV), white matter volume (WMV), ventricular volume, total SA, mean CT, regional CT, regional cortical volume (CV), and regional SA, while accounting for effects of age, sex, and site/scanner. Models for subcortical structures and the cerebellum were not available at the time of analysis.
+- **Location**: Bedford2025.pdf.md: 55-61
+
+#### Predictor Variables
+- **Answer**: Age; Sex; Site/Scanner (as batch effect)
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The reference GAMLSS models account for age, sex, and site/scanner. ComBat harmonization uses site as batch variable with covariates age, sex, and diagnosis.
+- **Supporting Text**: Our previous work (98) generated reference models ... accounting for effects of age, sex, and site/scanner. ... ComBat was applied to the entire dataset across all global and regional measures, with each site treated as a batch and with covariates of age, sex, and diagnosis to preserve related biological variation.
+- **Location**: Bedford2025.pdf.md: 55-64
+
+#### Predictor Effects
+- **Answer**: In GAMLSS reference models: Age and sex included as predictors (specific fixed/random structure not detailed in this paper; see Bethlehem et al. 2022 for details); Site/scanner effects modeled in GAMLSS framework. In ComBat harmonization: Site as batch variable; age, sex, diagnosis as covariates to preserve biological variation.
+- **Confidence Rating**: Medium
+- **Negative Answer Category**: Not Negative
+- **Reason**: The paper specifies variables used in GAMLSS and ComBat but does not detail the exact fixed vs random effect structure of the GAMLSS models (refers to prior work). The supplement provides additional detail on GAMLSS formulation including study-specific random effects.
+- **Supporting Text**: Main text: 'accounting for effects of age, sex, and site/scanner ... ComBat ... each site treated as a batch and with covariates of age, sex, and diagnosis'. Supplement: 'Adopting a sex-stratified approach, the GAMLSS model included age, preprocessing pipeline, and study in estimating first-order (μ) and second-order (σ) distribution parameters ... Where γ represents the study specific random-effects, β the fixed-effects, and D the combined reference dataset.'
+- **Location**: Bedford2025.pdf.md: 55-64; 1-s2.0-S0006322324015130-mmc2.pdf.md: 337-349
+
+#### NM Vldtn Handle NS
+- **Answer**: Yes
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Multiple nuisance structures are appropriately handled: (1) Site/scanner batch effects via ComBat harmonization and GAMLSS site/scanner terms; (2) Image quality via FSQC threshold and Euler number covariate; (3) Age and sex effects modeled in GAMLSS; (4) Motion artifacts evaluated via QC; (5) Heteroscedasticity handled via GAMLSS modeling of variance (σ); (6) Multiple sensitivity analyses confirm robustness to QC methods and harmonization approaches.
+- **Supporting Text**: ComBat harmonization for site effects, FSQC manual QC with threshold, Euler number as covariate for quality, GAMLSS models account for age/sex/site. Supplement: 'GAMLSS model included age, preprocessing pipeline, and study in estimating first-order (μ) and second-order (σ) distribution parameters ... Sensitivity analyses using different QC methods ... Sensitivity analysis: comparison with non-ComBat harmonised centiles ... we also included the FreeSurfer-derived Euler number as a covariate in all analyses ... manual QC ... including motion artifacts'.
+- **Location**: Bedford2025.pdf.md: 51-64; 1-s2.0-S0006322324015130-mmc2.pdf.md: 337, 361-367, 381-385
+
+#### NM Vldtn Same Domain Nonindep
+- **Answer**: Partial
+- **Confidence Rating**: Medium
+- **Negative Answer Category**: Unclear/Incomplete
+- **Reason**: The supplement reports high correlations (r=0.88-0.97) between out-of-sample centiles computed in this study and original in-sample BrainCharts centiles for ABIDE, demonstrating consistency. The original BrainCharts paper (Bethlehem et al. 2022) conducted leave-one-study-out cross-validation showing r~0.99 for held-out studies, and noted N>100 adequate for stable out-of-sample estimation. However, this current study does not perform direct within-study retraining/validation on the new data.
+- **Supporting Text**: Supplement: 'We ... calculated correlation values, using ABIDE as an example, between our out-of-sample centile scores and the in-sample centiles originally calculated, and found very high correlation values for the four main global phenotypes: r = 0.88 for GMV, r = 0.91 for WMV, r = 0.93 for sGMV, and r = 0.97 for ventricular volume. These are slightly lower than the ~0.99 correlation values reported in the original paper ... The original paper ... conducted a leave-one-study-out analysis, demonstrating that when removing a study from the sample and re-fitting the GAMLSS model, the new out-of-sample centiles for the removed study are essentially unchanged from the original in-sample centile scores (r = ~0.99). ... Robustness analyses, including jack-knife and leave-one-study-out, indicated that a study size of N > 100 scans was adequate for stable and unbiased estimation of out-of-sample centile scores'.
+- **Location**: 1-s2.0-S0006322324015130-mmc2.pdf.md: 353-357
+
+#### NM Vldtn Same Domain Indep
+- **Answer**: No
+- **Confidence Rating**: Medium
+- **Negative Answer Category**: Missing
+- **Reason**: This study applies pre-trained BrainCharts models to clinical data but does not report an independent held-out validation set within the same domain (typically developing samples) to test model performance. The comparison to original in-sample centiles serves as a consistency check rather than independent validation.
+- **Supporting Text**: No explicit same-domain independent validation set is described in this paper. The study uses out-of-sample estimation on the clinical cohorts.
+- **Location**: -
+
+#### NM Vldtn Diff Domain
+- **Answer**: No
+- **Confidence Rating**: High
+- **Negative Answer Category**: Missing
+- **Reason**: No validation on a different domain/dataset (outside the BrainCharts training distribution or a completely separate cohort) is reported. The study applies the model to clinical populations (autism, ADHD) but this is the primary application, not a validation analysis.
+- **Supporting Text**: Not reported.
+- **Location**: -
+
+---
+
+## Clinical Application & Analysis
+
+#### Clinical Dataset
+- **Answer**: Same as reference cohort: ABIDE I and II; POND; HBN (Child Mind Institute); ADHD200 Consortium; Multimodal Developmental Neurogenetics of Females with ASD (NIMH NDAR); UK MRC-AIMS (Cambridge site only); UCSD Biomarkers of Autism
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The seven datasets provide both the typically developing controls for the reference population and the clinical participants (autism, ADHD) for the application analyses.
+- **Supporting Text**: T1-weighted scans were combined from 49 sites across 7 datasets ... Individuals with magnetic resonance imaging data and a primary diagnosis of autism or ADHD or no diagnosis were included.
+- **Location**: Bedford2025.pdf.md: 41-47
+
+#### Diseases Studied
+- **Answer**: Autism Spectrum Disorder (ASD); Attention-Deficit/Hyperactivity Disorder (ADHD); Co-occurring autism+ADHD
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The two primary diagnoses and their co-occurrence are explicitly stated throughout the abstract, methods, and results sections.
+- **Supporting Text**: Abstract: 'autism and attention-deficit/hyperactivity disorder (ADHD) are heterogeneous neurodevelopmental conditions'. Methods: 'Individuals with magnetic resonance imaging data and a primary diagnosis of autism or ADHD or no diagnosis were included. ... A subset of individuals with documented co-occurring autism and ADHD were examined in further analyses.'
+- **Location**: Bedford2025.pdf.md: 9, 43-44, 77
+
+#### Clinical Groups N
+- **Answer**: ASD: 1399 (F 288, M 1111); ADHD: 987 (F 270, M 717); Co-occurring ASD+ADHD: 203 (F 28, M 175)
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Group sample sizes with sex breakdown for ASD and ADHD are clearly stated in the main text. Co-occurring subgroup size is in methods, with sex breakdown in supplementary table.
+- **Supporting Text**: Main text: 'The final dataset after quality control (QC) included 4255 individuals ... 987 individuals with ADHD [270 female, 717 male], and 1399 autistic individuals [288 female, 1111 male] ... We compared a subgroup of 203 individuals with recorded clinical diagnoses of both conditions (autism + ADHD) to the control group'. Supplement Table S12.1.1: Co-occurring group shows F 13.8%, M 86.2%, which with N=203 gives approximately F 28, M 175.
+- **Location**: Bedford2025.pdf.md: 43-46, 77; 1-s2.0-S0006322324015130-mmc2.pdf.md: 456
+
+#### Clinical Groups Age
+- **Answer**: Overall sample: ages 2-64 years, mean 14.0, median 12.4. From supplementary Table S1.2.5: Autism mean 14.8 (SD 8.9); ADHD mean 11.1 (SD 3.1); Co-occurring autism+ADHD mean 11.37 (SD 4.51).
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: The main text provides overall age range and summary statistics. Supplementary Table S1.2.5 provides group-specific mean ages and SDs for autism and ADHD. Supplementary Table S12.1.1 provides mean age for the co-occurring group.
+- **Supporting Text**: Main text: 'ages 2–64 years [mean 14.0, median 12.4]'. Supplement Table S1.2.5: 'Age, mean (sd) | Autism | 14.8 (8.9) | ADHD | 11.1 (3.1) | TD | 15.0 (7.9)'. Supplement Table S12.1.1: 'Autism + ADHD | Age, mean (sd) | 11.37 (4.51)'.
+- **Location**: Bedford2025.pdf.md: 43-46; 1-s2.0-S0006322324015130-mmc2.pdf.md: 327, 458
+
+#### Clinical Groups Sex
+- **Answer**: ASD: F 288 (20.6%), M 1111 (79.4%); ADHD: F 270 (27.4%), M 717 (72.6%); Co-occurring ASD+ADHD: F 28 (13.8%), M 175 (86.2%)
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Sex counts and percentages for ASD and ADHD are provided in main text and confirmed in supplementary tables. Co-occurring group percentages are in supplement Table S12.1.1.
+- **Supporting Text**: Main text: '987 individuals with ADHD [270 female, 717 male], and 1399 autistic individuals [288 female, 1111 male]'. Supplement Table S1.2.5: 'Sex: Female (%) | Autism | 20.6% | ADHD | 27.4%'. Supplement Table S12.1.1: 'Sex: Female (%) | Autism + ADHD | 13.8%'.
+- **Location**: Bedford2025.pdf.md: 43-46; 1-s2.0-S0006322324015130-mmc2.pdf.md: 325, 456
+
+#### Deviation Metric
+- **Answer**: Centile scores (0–1 scale, with 0.5 representing average of reference sample). Extreme deviations defined as centile scores >0.99 or <0.01 (top/bottom 1%) for overlap analyses. Cohen's d effect sizes calculated for group comparisons.
+- **Confidence Rating**: High
+- **Negative Answer Category**: Not Negative
+- **Reason**: Centile scoring is described in methods as the primary deviation metric. Extreme centile thresholds are specified in supplement for overlap analyses. Statistical analyses use centile scores as outcomes.
+- **Supporting Text**: Main text: 'Centile scores quantify variation in brain development and range from 0 to 1, with 0.5 representing the average of the reference sample. ... Separate multiple linear regressions were used to examine diagnostic group differences in centile scores ... Cohen's d effect sizes were calculated'. Supplement: 'We first identified individuals who had centile scores in the top or bottom percentile; i.e. a centile score of >0.99, or <0.01 for each cortical region and measure'.
+- **Location**: Bedford2025.pdf.md: 61, 66-69; 1-s2.0-S0006322324015130-mmc2.pdf.md: 375
+
+- **Association Analysis**: Answer: Multiple linear regressions examined diagnostic group differences in centile scores, controlling for age and Euler number; FDR correction for multiple comparisons applied separately for each analysis and cortical measure. Sex-by-diagnosis interactions tested; sex-stratified analyses conducted. Age-by-diagnosis interactions examined. Spearman correlations and spin permutation tests used to assess spatial similarity of effect size maps. Regional overlap analysis quantified percentage of individuals with extreme centiles (>0.99 or <0.01) per group. Dimensional analyses tested associations between cortical centiles and clinical measures (ADOS CSS, RBS-R, SRS, SWAN) using linear models. Sensitivity analyses: controlling for global measures; different QC methods; equal sex-matched subsamples; multimodality testing.
+Confidence Rating: High
+Negative Answer Category: Not Negative
+Reason: Statistical methods are comprehensively described in the methods section and supplementary materials, covering main effects, interactions, dimensional analyses, and multiple sensitivity approaches.
+Supporting Text: Main text: 'Separate multiple linear regressions were used to examine diagnostic group differences in centile scores for all global volumes and regional measures. Sex-by-diagnosis interactions were examined ... All analyses included Euler number as a covariate, as well as age ... Multiple comparisons were controlled for using the false discovery rate correction ... Cohen's d effect sizes were calculated ... We also examined the amount of regional overlap in participants in each group with the greatest divergences ... An age-by-diagnosis interaction was conducted ... dimensional associations between cortical measures and autistic and ADHD traits'. Supplement provides extensive detail on spin tests, overlap analyses, global measure control, QC sensitivity, sex-matching, multimodality testing, and dimensional analyses.
+Location: Bedford2025.pdf.md: 66-79; 1-s2.0-S0006322324015130-mmc2.pdf.md: 369-443
+- **Key Findings Brief**: Answer: Autism and ADHD showed distinct cortical signatures: autism had localized increases in cortical thickness and volume in superior temporal cortex, while ADHD showed global increases in cortical thickness but widespread decreases in cortical volume and surface area. Co-occurring autism+ADHD showed a unique pattern with widespread cortical thickness increases and some surface area decreases. Sex modulated autism neuroanatomy but not ADHD; age-by-diagnosis interaction observed for ADHD only.
+Confidence Rating: High
+Negative Answer Category: Not Negative
+Reason: The abstract conclusions section clearly summarizes the main findings in one concise statement.
+Supporting Text: Abstract conclusions: 'These results indicate distinct cortical differences in autism and ADHD that are differentially affected by age and sex as well as potentially unique patterns related to their co-occurrence.' Results summary: 'Overall, autistic individuals showed greater cortical thickness and volume that was localized to the superior temporal cortex, whereas individuals with ADHD showed more global increases in cortical thickness but lower cortical volume and surface area across much of the cortex. The co-occurring autism + ADHD group showed a unique pattern of widespread increases in cortical thickness and certain decreases in surface area. We also found that sex modulated the neuroanatomy of autism but not ADHD, and there was an age-by-diagnosis interaction for ADHD only.'
+Location: Bedford2025.pdf.md: 13-15
+- **Key Findings Detailed**: Answer: Robust neuroanatomical signatures were observed for both autism and ADHD benchmarked against BrainCharts normative models. Autistic individuals showed significantly greater ventricular volume centiles (d=0.150, p<.0001) and localized increases in superior temporal gyrus (STG) cortical thickness (CT; d=0.13-0.15) and volume (CV; d=0.13-0.15), but no surface area (SA) differences. ADHD showed significantly lower total cortical and subcortical gray matter volume (GMV d=-0.139, sGMV d=-0.132), white matter volume (WMV d=-0.156), and total SA (d=-0.178) centiles, but greater mean CT centiles (d=0.089) than controls. Regionally, ADHD showed widespread decreases in CV (d=-0.07 to -0.18) and SA (d=-0.07 to -0.18) but increases in CT (d=0.09-0.10) across most cortical regions. Effect sizes were relatively small. The co-occurring autism+ADHD group (n=203) showed a distinct profile with widespread significant increases in CT (d=0.10-0.24) and decreased SA in frontal/parietal regions (d=-0.11 to -0.14), resembling ADHD more than autism-only. Sex significantly modulated autism effects: males showed STG increases while females showed fusiform gyrus SA decreases (d=-0.18); no sex interaction for ADHD. Age-by-diagnosis interactions were limited: autism showed interaction only in superior frontal CT; ADHD showed interactions primarily in frontal/parietal CT with age correlations (partial r=0.07-0.14). Controlling for global measures drastically altered ADHD results but not autism, indicating ADHD effects were largely driven by global changes. Multimodal distributions of centiles were observed across most cortex for autism but not ADHD or controls. Dimensional analyses revealed limited significant but weak associations between neuroanatomy and clinical measures (ADOS CSS, RBS-R, SRS, SWAN).
+Confidence Rating: High
+Negative Answer Category: Not Negative
+Reason: Results section provides comprehensive numerical details including effect sizes, p-values, and specific brain regions for all main findings. Supplementary materials provide complete statistical tables.
+Supporting Text: Results section comprehensively reports findings with effect sizes for global measures (Table 1), regional differences (Figure 2), sex interactions (Figure 3, Table S11.1-2), age interactions (Figure 4, Table S11.3), co-occurring group (Figure 5, Table S11.4), and dimensional analyses. Discussion synthesizes: 'Using an aggregated dataset and existing models of brain development, we observed largely distinct, robust neuroanatomical signatures of autism and ADHD ... Both conditions presented with greater CT ... localized to the STG in autism but widespread in ADHD. In contrast, while autistic individuals also showed STG increases in CV, ADHD was associated with globally decreased CV and SA.'
+Location: Bedford2025.pdf.md: 85-145, Tables/Figures throughout
+- **Key Limitations**: Answer: Multiple data sources with different scanners, protocols, recruitment procedures, and demographics create heterogeneity that cannot be fully eliminated despite harmonization efforts; Effect sizes were very small and may have limited clinical/practical significance; Out-of-sample centiles generated despite some overlap with original BrainCharts to account for site differences (smaller sites could lead to overestimation); Hemispheric averaging due to model availability may miss atypical asymmetry effects known in autism/ADHD; Lack of consistent phenotypic and diagnostic information limited clinical measure and co-occurring diagnosis analyses; IQ not controlled (partially due to data availability and concerns about removing biological variation); Sample representativeness issues: large male/female imbalance, lack of participants with lower IQ/high support needs, insufficient racial-ethnic diversity; Lack of longitudinal data limits conclusions about developmental trajectories over time.
+Confidence Rating: High
+Negative Answer Category: Not Negative
+Reason: The discussion section includes a comprehensive limitations paragraph covering data heterogeneity, effect sizes, methodological constraints, phenotypic data availability, sample composition, and study design.
+Supporting Text: Discussion limitations: 'Our results should be interpreted in light of some limitations. First ... the data come from multiple sources, with different scanners, protocols, recruitment procedures, and demographic characteristics ... the effect sizes observed in most analyses were very small and thus may have limited clinical or practical significance ... out-of-sample centiles were generated for our dataset, despite some of these being included in the original BrainCharts models ... in smaller sites could lead to overestimation of effects. Second, due to the availability of the models, cortical measures were averaged across hemispheres. Both autism and ADHD have been associated with atypical asymmetry ... Third, the lack of consistent phenotypic and diagnostic information led to limited data in the analyses of clinical measures and co-occurring diagnoses ... we also did not investigate relationships with IQ ... Fourth, despite its large size, the representativeness of the sample is still suboptimal. There is still a large imbalance ... lack of participants with lower IQ and/or high support needs, and insufficient diversity across racial-ethnic groups. Finally, the lack of longitudinal data limits our ability to draw conclusions about developmental trajectories'.
+Location: Bedford2025.pdf.md: 193-196
+- **Application Notes**: Answer: Two-step harmonization approach: ComBat by site with age/sex/diagnosis covariates, then out-of-sample BrainCharts GAMLSS centile estimation. Rigorous QC: FSQC manual threshold (2.5) plus Euler covariate, with sensitivity analyses using multiple QC strategies. Spin permutation tests to control for spatial autocorrelation when comparing brain maps. Extensive sensitivity analyses including: controlling for global measures (GMV, SA, mean CT), different QC methods, sex-matched subsamples, ComBat vs non-ComBat harmonization, in-sample vs out-of-sample centiles. Regional overlap analysis of extreme deviations (>99th or <1st centile) to characterize individual variability. Multimodality testing using Hartigan's dip test to assess potential subgroups. Study treated ABIDE/ADHD200 sites individually rather than as combined datasets for proper site correction, and merged POND sites post-ComBat due to lack of controls at some sites. Hemispheric averaging was necessary due to BrainCharts model availability but may miss asymmetry effects. Clinical measures (ADOS CSS, RBS-R, SRS, SWAN) analyzed dimensionally in subsamples with available data. Co-occurring autism+ADHD analysis replicated using SWAN cutoff criteria in addition to clinical diagnosis.
+Confidence Rating: High
+Negative Answer Category: Not Negative
+Reason: Methods and supplement provide extensive detail on novel methodological approaches, quality control procedures, sensitivity analyses, and analytical strategies specific to this application.
+Supporting Text: Methods describe ComBat+GAMLSS approach, FSQC+Euler QC, spin tests, sensitivity analyses. Supplement details: 'two-step process ... ComBat and then GAMLSS, correcting for each site ... Initially, the different POND data collection sites were treated as separate sites ... recombined after ComBat ... We first identified individuals who had centile scores in the top or bottom percentile ... Multimodality was tested using Hartigan's dip test ... We attempted to replicate this result using continuous clinical measures ... using the SWAN inattentive and hyperactivity/impulsivity subscale scores'.
+Location: Bedford2025.pdf.md: 48-79; 1-s2.0-S0006322324015130-mmc2.pdf.md: throughout
+
+---
+
+## General Notes
+
+**General Notes**: Subcortical structures and cerebellum: Normative models were not available at the time of analysis, so these regions were not examined. Future work should extend to subcortex/cerebellum given known alterations in autism/ADHD. Hemisphere-specific models: Not available from BrainCharts at analysis time, requiring hemispheric averaging despite known asymmetry effects in both conditions. Sample overlap with BrainCharts: Some datasets (ABIDE, ADHD200) were in original BrainCharts training, but out-of-sample centiles computed here to enable proper site-level correction. Correlations between out-of-sample and original in-sample centiles for ABIDE were high (GMV r=0.88; WMV r=0.91; sGMV r=0.93; ventricular volume r=0.97), slightly lower than leave-one-study-out r~0.99 in original paper due to treating individual ABIDE sites separately. Robustness: Original BrainCharts work showed N>100 adequate for stable out-of-sample estimation. Full dataset list: 7 main datasets across 49 sites included ABIDE I (24 sites), ABIDE II (19 sites), ADHD200 (8 sites), POND (3 sites, merged post-ComBat), HBN/CMI (3 sites), Female ASD (6 sites from 4 centers, some split by scanner), UCSD (1 site), UK MRC-AIMS Cambridge (1 site). IQ data: Available for subsets; weak correlations with centiles (GMV/WMV/SA rho=0.12-0.14); not controlled due to collinearity with diagnosis, differing measures across sites, and concerns about removing biological variation. Secondary diagnoses: Not consistently available; autism+ADHD co-occurring group (n=203) likely underestimates true co-occurrence. Replication using SWAN cutoff (n=118) showed similar patterns. Consortium authorship: Paper includes MRC AIMS Consortium and Lifespan Brain Chart Consortium members listed in supplement/online. Ethical approval: Obtained for each primary study; Cambridge Psychology Research Ethics deemed secondary analysis of de-identified data did not require additional oversight (PRE.2020.104).
