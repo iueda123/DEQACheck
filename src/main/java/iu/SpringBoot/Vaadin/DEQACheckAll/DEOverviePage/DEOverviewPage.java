@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class DEOverviewPage extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";
-    final static String DEQACheckJar = "share_package/jar/DEQACheck-v20251127-all.jar";
+    final static String DEQACheckJar = "share_package/jar/DEQACheck-v20251210-all.jar";
     final static String TEMPLATE_FOR_HUMAN_DE = "share_package/templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json";
 
     public DEOverviewPage() {

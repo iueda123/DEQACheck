@@ -113,16 +113,24 @@ public class SummaryView extends VerticalLayout {
         appendHeaderCell(trHead, "Study Name");
 
         int subSectionSize = rows.get(0).valueList_SI.size();
-        // SI1, SI2 はスキップ。SI3 は "Study Name" として表示したため、ここでは SI4 以降を追加
+        // SI1, SI2 はスキップ。SI3 は "Study Name" として表示したため、ここでは SI4 以降を追加。ただし SI5 は削除
         for (int i = 4; i <= subSectionSize; i++) {
+            if (i == 5) continue; // SI5 を削除
             appendHeaderCell(trHead, "SI" + i);
         }
         subSectionSize = rows.get(0).valueList_SC.size();
-        for (int i = 1; i <= subSectionSize; i++) {
+        // SC1-3 は削除
+        for (int i = 4; i <= subSectionSize; i++) {
             appendHeaderCell(trHead, "SC" + i);
         }
         subSectionSize = rows.get(0).valueList_RCI.size();
-        for (int i = 1; i <= subSectionSize; i++) {
+        // RCI の見出しを個別に設定
+        if (subSectionSize >= 1) appendHeaderCellWithStyle(trHead, "Dataset", "width:16ch;");
+        if (subSectionSize >= 2) appendHeaderCell(trHead, "N");
+        if (subSectionSize >= 3) appendHeaderCell(trHead, "RC Age");
+        if (subSectionSize >= 4) appendHeaderCell(trHead, "RCI4");
+        if (subSectionSize >= 5) appendHeaderCell(trHead, "Modality");
+        for (int i = 6; i <= subSectionSize; i++) {
             appendHeaderCell(trHead, "RCI" + i);
         }
         subSectionSize = rows.get(0).valueList_NM.size();
@@ -153,27 +161,39 @@ public class SummaryView extends VerticalLayout {
             if (even) {
                 tr.setAttribute("style", "background: var(--lumo-contrast-5pct);");
             }
-            // 先頭列: Study Name (SI3)
+            // 先頭列: Study Name (SI3) → 文字列表示
             String studyName = (row.valueList_SI.size() >= 3) ? row.valueList_SI.get(2) : "";
-            appendCheckBoxCell(tr, studyName);
+            appendNormalCell(tr, studyName);
 
-            // SI4 以降
+            // SI4 以降（SI5 は削除）
             subSectionSize = row.valueList_SI.size();
-            for (int i = 3; i < subSectionSize; i++) {
+            for (int i = 3; i < subSectionSize; i++) { // i=3 -> SI4
+                if (i == 4) continue; // SI5 をスキップ
                 appendCheckBoxCell(tr, row.valueList_SI.get(i));
             }
             subSectionSize = row.valueList_SC.size();
-            for (int i = 0; i < subSectionSize; i++) {
+            // SC1-3 は削除
+            for (int i = 3; i < subSectionSize; i++) { // i=3 -> SC4
                 appendCheckBoxCell(tr, row.valueList_SC.get(i));
             }
             subSectionSize = row.valueList_RCI.size();
             for (int i = 0; i < subSectionSize; i++) {
-                // RCI3: 擬似ボックスプロット（年齢）
-                // RCI4: 性比の円グラフ
-                if (i == 2) {
+                // RCI1: Dataset → 文字列
+                // RCI2: N → 文字列
+                // RCI3: RC Age → 擬似ボックスプロット
+                // RCI4: 性比 → 円グラフ
+                // RCI5: Modality → 文字列
+                // それ以降は従来通りチェックボックス
+                if (i == 0) {
+                    appendDatasetCell(tr, row.valueList_RCI.get(i));
+                } else if (i == 1) {
+                    appendNormalCell(tr, row.valueList_RCI.get(i));
+                } else if (i == 2) {
                     appendAgeBoxPlotCell(tr, row.valueList_RCI.get(i));
                 } else if (i == 3) {
                     appendSexPieCell(tr, row.valueList_RCI.get(i));
+                } else if (i == 4) {
+                    appendNormalCell(tr, row.valueList_RCI.get(i));
                 } else {
                     appendCheckBoxCell(tr, row.valueList_RCI.get(i));
                 }
@@ -213,7 +233,14 @@ public class SummaryView extends VerticalLayout {
     // ヘッダセル（Element API）
     private void appendHeaderCell(Element tr, String text) {
         Element th = new Element("th");
-        th.setAttribute("style", "position: sticky; top: 0; z-index: 1; text-align: left; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+        th.setAttribute("style", "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+        th.setText(text == null ? "" : text);
+        tr.appendChild(th);
+    }
+    private void appendHeaderCellWithStyle(Element tr, String text, String extraCss) {
+        Element th = new Element("th");
+        String base = "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);";
+        th.setAttribute("style", base + (extraCss != null ? (" " + extraCss) : ""));
         th.setText(text == null ? "" : text);
         tr.appendChild(th);
     }
@@ -222,6 +249,12 @@ public class SummaryView extends VerticalLayout {
     private void appendNormalCell(Element tr, String text) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+        td.setText(text == null ? "" : text);
+        tr.appendChild(td);
+    }
+    private void appendDatasetCell(Element tr, String text) {
+        Element td = new Element("td");
+        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); width:16ch; max-width:16ch; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;");
         td.setText(text == null ? "" : text);
         tr.appendChild(td);
     }
@@ -359,34 +392,16 @@ public class SummaryView extends VerticalLayout {
             return;
         }
 
-        double domainMin;
-        double domainMax;
-        if (stats.min != null && stats.max != null && stats.max > stats.min) {
-            domainMin = stats.min;
-            domainMax = stats.max;
-        } else if (stats.mean != null && stats.sd != null && stats.sd > 0) {
-            domainMin = stats.mean - 2 * stats.sd;
-            domainMax = stats.mean + 2 * stats.sd;
-        } else {
-            domainMin = 0;
-            domainMax = 100;
-        }
-        if (domainMax <= domainMin) {
-            domainMax = domainMin + 1.0;
-        }
+        // ドメインは全行固定で 0–100 歳
+        double domainMin = 0.0;
+        double domainMax = 100.0;
 
-        // 箱（IQR の代替として mean±sd）
+        // 箱（IQR の代替として mean±sd）。sd が NR(欠損)のときは箱を描画しない。
         Double boxL = null;
         Double boxR = null;
         if (stats.mean != null && stats.sd != null && stats.sd > 0) {
             boxL = stats.mean - stats.sd;
             boxR = stats.mean + stats.sd;
-        }
-        if (boxL == null || boxR == null || boxR <= boxL) {
-            double center = (domainMin + domainMax) / 2.0;
-            double w = (domainMax - domainMin) * 0.1; // 10% width as a placeholder
-            boxL = center - w / 2.0;
-            boxR = center + w / 2.0;
         }
 
         Double centerVal = stats.mean; // 中央線として mean を採用
@@ -395,7 +410,7 @@ public class SummaryView extends VerticalLayout {
         container.setAttribute("title", text);
         container.getStyle().set("position", "relative");
         container.getStyle().set("width", "120px");
-        container.getStyle().set("height", "16px");
+        container.getStyle().set("height", "22px");
         container.getStyle().set("display", "inline-block");
 
         // ベースライン（全体）
@@ -408,44 +423,50 @@ public class SummaryView extends VerticalLayout {
         base.getStyle().set("background", "#bbbbbb");
         container.appendChild(base);
 
-        // min tick
-        Element minTick = new Element("div");
-        minTick.getStyle().set("position", "absolute");
-        minTick.getStyle().set("left", toPct(stats.min != null ? stats.min : domainMin, domainMin, domainMax));
-        minTick.getStyle().set("top", "3px");
-        minTick.getStyle().set("width", "1px");
-        minTick.getStyle().set("height", "10px");
-        minTick.getStyle().set("background", "#555555");
-        container.appendChild(minTick);
-
-        // max tick
-        Element maxTick = new Element("div");
-        maxTick.getStyle().set("position", "absolute");
-        maxTick.getStyle().set("left", toPct(stats.max != null ? stats.max : domainMax, domainMin, domainMax));
-        maxTick.getStyle().set("top", "3px");
-        maxTick.getStyle().set("width", "1px");
-        maxTick.getStyle().set("height", "10px");
-        maxTick.getStyle().set("background", "#555555");
-        container.appendChild(maxTick);
-
-        // box
-        double boxLClamped = Math.max(domainMin, Math.min(domainMax, boxL));
-        double boxRClamped = Math.max(domainMin, Math.min(domainMax, boxR));
-        if (boxRClamped < boxLClamped) {
-            double tmp = boxLClamped;
-            boxLClamped = boxRClamped;
-            boxRClamped = tmp;
+        // min tick（値がわかる場合のみ描画）
+        if (stats.min != null) {
+            Element minTick = new Element("div");
+            minTick.getStyle().set("position", "absolute");
+            minTick.getStyle().set("left", toPct(stats.min, domainMin, domainMax));
+            minTick.getStyle().set("top", "3px");
+            minTick.getStyle().set("width", "1px");
+            minTick.getStyle().set("height", "10px");
+            minTick.getStyle().set("background", "#555555");
+            container.appendChild(minTick);
         }
-        Element box = new Element("div");
-        box.getStyle().set("position", "absolute");
-        box.getStyle().set("left", toPct(boxLClamped, domainMin, domainMax));
-        box.getStyle().set("width", toPctWidth(boxLClamped, boxRClamped, domainMin, domainMax));
-        box.getStyle().set("top", "2px");
-        box.getStyle().set("height", "12px");
-        box.getStyle().set("background", "#dde9f7");
-        box.getStyle().set("border", "1px solid #2986cc");
-        box.getStyle().set("border-radius", "2px");
-        container.appendChild(box);
+
+        // max tick（値がわかる場合のみ描画）
+        if (stats.max != null) {
+            Element maxTick = new Element("div");
+            maxTick.getStyle().set("position", "absolute");
+            maxTick.getStyle().set("left", toPct(stats.max, domainMin, domainMax));
+            maxTick.getStyle().set("top", "3px");
+            maxTick.getStyle().set("width", "1px");
+            maxTick.getStyle().set("height", "10px");
+            maxTick.getStyle().set("background", "#555555");
+            container.appendChild(maxTick);
+        }
+
+        // box（sd がない場合は描画しない）
+        if (boxL != null && boxR != null && boxR > boxL) {
+            double boxLClamped = Math.max(domainMin, Math.min(domainMax, boxL));
+            double boxRClamped = Math.max(domainMin, Math.min(domainMax, boxR));
+            if (boxRClamped < boxLClamped) {
+                double tmp = boxLClamped;
+                boxLClamped = boxRClamped;
+                boxRClamped = tmp;
+            }
+            Element box = new Element("div");
+            box.getStyle().set("position", "absolute");
+            box.getStyle().set("left", toPct(boxLClamped, domainMin, domainMax));
+            box.getStyle().set("width", toPctWidth(boxLClamped, boxRClamped, domainMin, domainMax));
+            box.getStyle().set("top", "2px");
+            box.getStyle().set("height", "12px");
+            box.getStyle().set("background", "#dde9f7");
+            box.getStyle().set("border", "1px solid #2986cc");
+            box.getStyle().set("border-radius", "2px");
+            container.appendChild(box);
+        }
 
         // center line (mean)
         if (centerVal != null) {
@@ -461,6 +482,28 @@ public class SummaryView extends VerticalLayout {
         }
 
         td.appendChild(container);
+        // ラベル: 左下 0、右下 100
+        Element labelLeft = new Element("div");
+        labelLeft.setText("0");
+        labelLeft.getStyle().set("position", "absolute");
+        labelLeft.getStyle().set("left", "0");
+        labelLeft.getStyle().set("bottom", "0");
+        labelLeft.getStyle().set("font-size", "10px");
+        labelLeft.getStyle().set("color", "#666");
+        labelLeft.getStyle().set("line-height", "1");
+
+        Element labelRight = new Element("div");
+        labelRight.setText("100");
+        labelRight.getStyle().set("position", "absolute");
+        labelRight.getStyle().set("right", "0");
+        labelRight.getStyle().set("bottom", "0");
+        labelRight.getStyle().set("font-size", "10px");
+        labelRight.getStyle().set("color", "#666");
+        labelRight.getStyle().set("line-height", "1");
+
+        // td は position: static なのでラベルの座標基準に container を使うため、container に append
+        container.appendChild(labelLeft);
+        container.appendChild(labelRight);
         tr.appendChild(td);
     }
 

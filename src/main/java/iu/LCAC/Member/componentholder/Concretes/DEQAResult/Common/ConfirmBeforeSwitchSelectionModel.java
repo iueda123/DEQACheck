@@ -38,7 +38,14 @@ public class ConfirmBeforeSwitchSelectionModel extends DefaultSingleSelectionMod
             return;
         }
 
-        if (!canLeaveTab(current)) {
+        // 初回（modelのselectedIndexが-1）に限り、
+        // 画面上で選択されていると想定される先頭タブ(0)を「現在タブ」とみなして確認を行う。
+        int effectiveCurrent = current;
+        if (effectiveCurrent < 0 && !managers.isEmpty()) {
+            effectiveCurrent = 0;
+        }
+
+        if (!canLeaveTab(effectiveCurrent)) {
             return;
         }
 
