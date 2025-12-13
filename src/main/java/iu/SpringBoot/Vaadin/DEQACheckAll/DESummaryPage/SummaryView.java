@@ -351,13 +351,23 @@ public class SummaryView extends VerticalLayout {
                     appendCheckBoxCell(tr, row.valueList_RCI.get(i));
                 }
             }
+            // NM: NM1（index 0）は文字列、それ以外はチェックボックス
             subSectionSize = row.valueList_NM.size();
             for (int i = 0; i < subSectionSize; i++) {
-                appendCheckBoxCell(tr, row.valueList_NM.get(i));
+                if (i == 0) {
+                    appendNormalCell(tr, row.valueList_NM.get(i));
+                } else {
+                    appendCheckBoxCell(tr, row.valueList_NM.get(i));
+                }
             }
+            // CAA: CAA2（index 1）は文字列、それ以外はチェックボックス
             subSectionSize = row.valueList_CAA.size();
             for (int i = 0; i < subSectionSize; i++) {
-                appendCheckBoxCell(tr, row.valueList_CAA.get(i));
+                if (i == 1) {
+                    appendNormalCell(tr, row.valueList_CAA.get(i));
+                } else {
+                    appendCheckBoxCell(tr, row.valueList_CAA.get(i));
+                }
             }
             subSectionSize = row.valueList_GN.size();
             for (int i = 0; i < subSectionSize; i++) {
