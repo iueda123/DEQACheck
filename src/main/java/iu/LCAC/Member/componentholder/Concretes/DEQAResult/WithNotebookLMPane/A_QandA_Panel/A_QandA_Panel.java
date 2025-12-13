@@ -1,6 +1,6 @@
-package iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLM.A_QandA_Panel;
+package iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLMPane.A_QandA_Panel;
 
-import iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLM.WithNotebookLMPanelHolder;
+import iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLMPane.WithNotebookLMPanelHolder;
 import iu.LCAC.Utils.ColorChangeableTextArea;
 
 import javax.swing.*;
@@ -43,9 +43,10 @@ public class A_QandA_Panel extends JPanel {
 
         Box box_for_QuestionLabelAndScbButton = Box.createHorizontalBox();
         box_for_QuestionLabelAndScbButton.add(questionLabel);
-        box_for_QuestionLabelAndScbButton.add(Box.createHorizontalStrut(5));
-        box_for_QuestionLabelAndScbButton.add(button_SendQuestionToClipboard);
+        //box_for_QuestionLabelAndScbButton.add(Box.createHorizontalStrut(5));
         box_for_QuestionLabelAndScbButton.add(Box.createGlue());
+        box_for_QuestionLabelAndScbButton.add(button_SendQuestionToClipboard);
+        //box_for_QuestionLabelAndScbButton.add(Box.createGlue());
 
         JPanel questionPanel = new JPanel(new BorderLayout());
         questionPanel.add(new JLabel("Q: "), BorderLayout.NORTH);
@@ -56,9 +57,10 @@ public class A_QandA_Panel extends JPanel {
 
         Box box_for_AnswerLabelAndScbButton = Box.createHorizontalBox();
         box_for_AnswerLabelAndScbButton.add(answerLabel);
-        box_for_AnswerLabelAndScbButton.add(Box.createHorizontalStrut(5));
-        box_for_AnswerLabelAndScbButton.add(button_SendAnswerToClipboard);
+        //box_for_AnswerLabelAndScbButton.add(Box.createHorizontalStrut(5));
         box_for_AnswerLabelAndScbButton.add(Box.createGlue());
+        box_for_AnswerLabelAndScbButton.add(button_SendAnswerToClipboard);
+        //box_for_AnswerLabelAndScbButton.add(Box.createGlue());
 
         JPanel answerPanel = new JPanel(new BorderLayout());
         answerPanel.add(new JLabel("A: "), BorderLayout.NORTH);

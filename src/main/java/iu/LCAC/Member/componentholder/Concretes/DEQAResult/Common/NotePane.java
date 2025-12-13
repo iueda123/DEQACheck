@@ -25,7 +25,7 @@ public class NotePane extends JPanel {
     ColorChangeableTextField tFiled_Status = new ColorChangeableTextField("");
     final String tooltipForStatusFiled = "先頭文字がタブに表示される。タブ視認性向上のために使う。";
 
-    JButton openPdfButton = new JButton("PDF");
+    JButton button_OpenPdf = new JButton("PDF");
     JButton openMaterialsFolderButton = new JButton("materials/");
 
     ColorChangeableTextArea tArea_Note = new ColorChangeableTextArea("");
@@ -73,8 +73,8 @@ public class NotePane extends JPanel {
         tFiled_Status.setPreferredSize(new Dimension(150, 30));
         upperOfRightNorthArea.add(tFiled_Status);
         // PDF Button and Materials Button
-        upperOfRightNorthArea.add(openPdfButton);
-        openPdfButton.setMaximumSize(new Dimension(50, 30));
+        upperOfRightNorthArea.add(button_OpenPdf);
+        button_OpenPdf.setMaximumSize(new Dimension(50, 30));
         upperOfRightNorthArea.add(openMaterialsFolderButton);
         openMaterialsFolderButton.setMaximumSize(new Dimension(50, 30));
         rightOfNorthArea.add(upperOfRightNorthArea);
@@ -102,8 +102,8 @@ public class NotePane extends JPanel {
         tFiled_Status.setToolTipText(tooltipForStatusFiled);
 
         /* ** openPdfButton と openMaterialsFolderButton のセットアップ ** */
-        setupButton(openPdfButton, "/icons/pdf.png", "pdf", "メインPDFを開く");
-        openPdfButton.addActionListener(new AbstractAction() {
+        setupButton(button_OpenPdf, "/icons/pdf.png", "pdf", "メインPDFを開く");
+        button_OpenPdf.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openPdf();

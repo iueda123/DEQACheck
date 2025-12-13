@@ -1,10 +1,11 @@
-package iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLM;
+package iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLMPane;
 
 
 import iu.LCAC.Mediator.action.ActionMediator;
 import iu.LCAC.Mediator.componentholder.CHolderMediator;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMember;
-import iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLM.A_QandA_Panel.A_QandA_Panel;
+import iu.LCAC.Member.componentholder.Concretes.DEQAResult.Common.NotePane;
+import iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLMPane.A_QandA_Panel.A_QandA_Panel;
 import iu.LCAC.Utils.ColorChangeableTextField;
 import iu.LCAC.Utils.FontManager;
 import iu.LCAC.Utils.JsonManagerWithConflictSafe.JsonManagerCallback;
@@ -15,9 +16,16 @@ import com.google.gson.JsonObject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class WithNotebookLMPanelHolder extends AbstCHolderMember implements JsonManagerCallback {
 
@@ -37,6 +45,8 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
     JButton button_SaveNotebookLmUrl = new JButton("save url");
     JButton button_OpenNotebookLm = new JButton("open url");
 
+    JButton button_OpenPdf = new JButton("PDF");
+    JButton button_OpenMaterialsFolder = new JButton("materials/");
 
     JButton button_Save_QandA = new JButton("save Q&A");
     JButton button_Load_QandA = new JButton("load Q&A");
@@ -92,6 +102,23 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
             }
         });
 
+
+        /* ** openPdfButton と openMaterialsFolderButton のセットアップ ** */
+        setupButton(button_OpenPdf, "/icons/pdf.png", "pdf", "メインPDFを開く");
+        button_OpenPdf.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openPdf();
+            }
+        });
+        setupButton(button_OpenMaterialsFolder, "/icons/folder_gray.png", "materials/", "materialsフォルダを開く");
+        button_OpenMaterialsFolder.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openMaterialsFolder();
+            }
+        });
+
         button_Save_QandA.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,11 +161,11 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
         Box box_buttons = Box.createHorizontalBox();
         box_buttons.add(button_SaveNotebookLmUrl);
         box_buttons.add(button_OpenNotebookLm);
+        box_buttons.add(button_OpenPdf);
+        box_buttons.add(button_OpenMaterialsFolder);
         subapane_for_NotebookLMAddress.add(box_buttons, BorderLayout.EAST);
         subapane_for_NotebookLMAddress.setMaximumSize(new Dimension(800, 50));
         box_north.add(subapane_for_NotebookLMAddress);
-
-
 
         /* **** JSON LOAD and SAVE Area **** */
         Box box_QandA_Panel_Controller = Box.createHorizontalBox();
@@ -150,6 +177,7 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
         //basePanel.add(authorYearLabel);
         box_QandA_Panel_Controller.add(button_Load_QandA);
         box_QandA_Panel_Controller.add(button_Save_QandA);
+        box_QandA_Panel_Controller.add(Box.createHorizontalStrut(10));
         box_QandA_Panel_Controller.add(button_Add_A_QandA_Panel);
         //box_QandA_Panel_Controller.setMaximumSize(new Dimension(600, 50));
         box_north.add(box_QandA_Panel_Controller);
@@ -220,12 +248,32 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
     }
 
     public void moveUpPanel(String id) {
-
+        for (int i = 0; i < list_of_A_QandA_Panel.size(); i++) {
+            if (list_of_A_QandA_Panel.get(i).ID.equals(id)) {
+                if (i > 0) {
+                    A_QandA_Panel panel = list_of_A_QandA_Panel.remove(i);
+                    list_of_A_QandA_Panel.add(i - 1, panel);
+                    rebuild_QandA_Panels();
+                }
+                break;
+            }
+        }
     }
 
     public void moveDewnPanel(String id) {
-
+        for (int i = 0; i < list_of_A_QandA_Panel.size(); i++) {
+            if (list_of_A_QandA_Panel.get(i).ID.equals(id)) {
+                if (i < list_of_A_QandA_Panel.size() - 1) {
+                    A_QandA_Panel panel = list_of_A_QandA_Panel.remove(i);
+                    list_of_A_QandA_Panel.add(i + 1, panel);
+                    rebuild_QandA_Panels();
+                }
+                break;
+            }
+        }
     }
+
+
 
     public void add_One_QandA_Panel(String ID) {
 
@@ -372,6 +420,130 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
         } catch (Exception ex) {
             showTemporaryMessage("URLを開けませんでした: " + ex.getMessage(), Color.RED);
         }
+    }
+
+    public void openPdf() {
+        String currentWorkingDirectoryPathStr = System.getProperty("user.dir");
+
+        // authorYearFolder 下にある authorYear+".pdf" という名前の（例えば、Bedford2025.pdf）PDFを検索して、最初に見つかったものを開こうとする
+        Path authorYearFolderPath = Paths.get(currentWorkingDirectoryPathStr, authorYear);
+        try {
+            if (!authorYearFolderPath.toFile().exists()) {
+                JOptionPane.showMessageDialog(
+                        basePanel,
+                        "フォルダが見つかりません: " + authorYearFolderPath.toAbsolutePath(),
+                        "エラー",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // authorYearFolder 配下を再帰的に検索して、authorYear+".pdf" を探す
+            String targetPdfName = authorYear + ".pdf";
+            Optional<Path> foundPdfPath;
+
+            try (Stream<Path> pathStream = Files.walk(authorYearFolderPath)) {
+                foundPdfPath = pathStream
+                        .filter(Files::isRegularFile)
+                        .filter(p -> p.getFileName().toString().equals(targetPdfName))
+                        .findFirst();
+            }
+
+            if (foundPdfPath.isPresent()) {
+                Path pdfPath = foundPdfPath.get();
+                System.out.println("Found PDF: " + pdfPath.toAbsolutePath());
+
+                if (Desktop.isDesktopSupported()) {
+                    Desktop desktop = Desktop.getDesktop();
+                    desktop.open(pdfPath.toFile());
+                } else {
+                    JOptionPane.showMessageDialog(
+                            basePanel,
+                            "このシステムではファイルを開く機能がサポートされていません。",
+                            "エラー",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            } else {
+                JOptionPane.showMessageDialog(
+                        basePanel,
+                        "PDFファイルが見つかりません: " + targetPdfName + " in " + authorYearFolderPath.toAbsolutePath(),
+                        "エラー",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                    basePanel,
+                    "ファイル検索中にエラーが発生しました: " + e.getMessage(),
+                    "エラー",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    basePanel,
+                    "ファイルを開く際にエラーが発生しました: " + e.getMessage(),
+                    "エラー",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        }
+    }
+
+    public void openMaterialsFolder() {
+        String currentWorkingDirectoryPathStr = System.getProperty("user.dir");
+
+        Path materialsPath = Paths.get(currentWorkingDirectoryPathStr, authorYear, "/materials/");
+
+        try {
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+
+                if (materialsPath.toFile().exists()) {
+                    desktop.open(materialsPath.toFile());
+                } else {
+                    JOptionPane.showMessageDialog(
+                            basePanel,
+                            "Materialsフォルダが見つかりません: " + materialsPath.toAbsolutePath(),
+                            "エラー",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            } else {
+                JOptionPane.showMessageDialog(
+                        basePanel,
+                        "このシステムではフォルダを開く機能がサポートされていません。",
+                        "エラー",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    basePanel,
+                    "フォルダを開く際にエラーが発生しました: " + e.getMessage(),
+                    "エラー",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @param icon_location   : /icons/folder_icon.png などを渡す
+     * @param alternative_str
+     * @param tooltip
+     */
+    protected void setupButton(JButton setupTargetButton, String icon_location, String alternative_str, String tooltip) {
+        URL icon_url = NotePane.class.getResource(icon_location);
+        if (icon_url == null) {
+            System.err.println("JSONアイコンが見つかりません。パスを確認してください: " + icon_url);
+            setupTargetButton.setText(alternative_str);
+        } else {
+            setupTargetButton.setText("");
+            setupTargetButton.setIcon(new ImageIcon(icon_url));
+        }
+        setupTargetButton.setToolTipText(tooltip);
     }
 
     private static void createAndShowGUI() {

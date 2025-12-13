@@ -1,8 +1,7 @@
-package iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLM;
+package iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLMPane;
 
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMember;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMemberFactory;
-import iu.LCAC.Member.componentholder.Concretes.Sample.ButtonPanel.ButtonPanelHolder;
 
 public class WithNotebookLMPanelHolderFactory extends AbstCHolderMemberFactory {
 

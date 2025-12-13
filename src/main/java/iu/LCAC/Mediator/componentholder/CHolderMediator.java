@@ -6,7 +6,7 @@ import iu.LCAC.Mediator.action.ActionMediator;
 import iu.LCAC.Member.MemberIntrfc;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMember;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMemberFactory;
-import iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLM.WithNotebookLMPanelHolderFactory;
+import iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLMPane.WithNotebookLMPanelHolderFactory;
 import iu.LCAC.Member.componentholder.Concretes.MainWindow.MainWindowHolderFactory;
 import iu.LCAC.Member.componentholder.Concretes.StatusPanel.StatusPanelHolderFactory;
 import iu.LCAC.Member.componentholder.Concretes.Sample.ButtonPanel.ButtonPanelHolderFactory;
