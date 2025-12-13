@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Italinna2023",
+    "si2_reference_file_names": "Italinna2023.pdf.md",
+    "si3_author_journal_year": "Itälinna et al., PLoS Computational Biology, 2023",
+    "si4_title": "Using normative modeling and machine learning for detecting mild traumatic brain injury from magnetoencephalography data",
+    "si5_doi": "10.1371/journal.pcbi.1011613"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "To use normative modeling and machine learning to detect mild traumatic brain injury (mTBI) from resting-state MEG measurements by comparing source-level power spectra of mTBI patients to a large normative reference dataset and quantifying deviations from normal variation.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "Cam-CAN (Cambridge Centre for Ageing and Neuroscience)",
+      "confidence_rating": "High",
+      "reason": "The paper clearly states that a large open neuroimaging dataset by the Cambridge Centre for Ageing and Neuroscience (Cam-CAN) containing MEG and MRI measurements of nearly 700 healthy participants aged 18 to 87 was used for creating the normative reference data. This is the dataset used for healthy controls/normative reference.",
+      "supporting_text": "A large open neuroimaging dataset by the Cambridge Centre for Ageing and Neuroscience (Cam-CAN) [29], containing MEG and MRI measurements of nearly 700 healthy participants aged 18 to 87, was used for creating the normative reference data.",
+      "location": "Italinna2023.pdf.md: Normative dataset, L122-L125"
+    },
+    "rci2_hc_n": {
+      "answer": "621",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states that subjects with missing or incomplete resting-state MEG measurements or T1-weighted MRI images were excluded from the analyses, resulting in a set of 621 subjects from the Cam-CAN dataset.",
+      "supporting_text": "Subjects with missing or incomplete resting-state MEG measurements or T1-weighted MRI images were excluded from the analyses, resulting in a set of 621 subjects.",
+      "location": "Italinna2023.pdf.md: Normative dataset, L126-L127"
+    },
+    "rci3_hc_age": {
+      "answer": "min 18; max 87; mean NR; sd NR",
+      "confidence_rating": "Medium",
+      "reason": "The paper provides the age range (18 to 87 years) and the distribution across age decades, but does not report the overall mean and SD for the 621 subjects. The dataset is described as containing approximately 50 men and 50 women in each age decade (18-27, 28-37, 38-47, 48-57, 58-67, 68-77, and 78-87 years), and the number of subjects in each age group is given as 56, 92, 104, 93, 95, 102, and 79 from youngest to oldest. However, without exact ages within each decade, I cannot compute the overall mean and SD with precision.",
+      "supporting_text": "A large open neuroimaging dataset by the Cambridge Centre for Ageing and Neuroscience (Cam-CAN) [29], containing MEG and MRI measurements of nearly 700 healthy participants aged 18 to 87, was used for creating the normative reference data. The curated, cross-sectional Cam-CAN dataset contains measurements from approximately 50 men and 50 women in each age decade (18-27, 28-37, 38-47, 48-57, 58-67, 68-77 and 78-87 years). ... The number of subjects in each age group was 56, 92, 104, 93, 95, 102 and 79, from the youngest to oldest.",
+      "location": "Italinna2023.pdf.md: Normative dataset, L122-L127"
+    },
+    "rci4_hc_sex": {
+      "answer": "Approximately 50 men and 50 women per age decade; exact N and percentages NR",
+      "confidence_rating": "Medium",
+      "reason": "The paper states that the Cam-CAN dataset contains measurements from approximately 50 men and 50 women in each age decade, but does not provide exact counts or percentages for the 621 subjects used in this study. Given that there are 7 age decades and approximately equal numbers per decade, we can estimate the distribution is roughly balanced, but exact numbers are not reported.",
+      "supporting_text": "The curated, cross-sectional Cam-CAN dataset contains measurements from approximately 50 men and 50 women in each age decade (18-27, 28-37, 38-47, 48-57, 58-67, 68-77 and 78-87 years).",
+      "location": "Italinna2023.pdf.md: Normative dataset, L124-L125"
+    },
+    "rci5_imaging_modality": {
+      "answer": "MEG (magnetoencephalography); T1-weighted MRI",
+      "confidence_rating": "High",
+      "reason": "The paper clearly states that resting-state, eyes-closed MEG and anatomical T1-weighted MRI were used from the Cam-CAN dataset. The exclusion criteria also mention T1-weighted MRI images specifically.",
+      "supporting_text": "In this study, only the resting-state, eyes-closed MEG and anatomical MRI were used. ... Subjects with missing or incomplete resting-state MEG measurements or T1-weighted MRI images were excluded from the analyses",
+      "location": "Italinna2023.pdf.md: Normative dataset, L124-L127"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level",
+      "supporting_text": "The brain sources were automatically grouped together according to an anatomical parcellation scheme with 448 cortical regions [41], where the activity of a cortical region was represented by the mean power of the source points within that region",
+      "location": "Italinna2023.pdf.md: Feature engineering, L153-L155"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "MaxFilter (tSSS for artifact reduction); FastICA in MNE-Python for ICA-based artifact removal; FreeSurfer for cortical surface reconstruction; MNE-Python for source modeling; dSPM inverse solution; ico-4 decimation (5124 cortical locations); single-compartment BEM; 448-region anatomical parcellation; fsaverage template for morphing",
+      "confidence_rating": "High",
+      "reason": "The paper provides detailed description of the preprocessing pipeline including specific software packages and methods. The temporal extension of signal space separation (tSSS) was used for artifact reduction, ICA for removing cardiac and eye movement artifacts (1-4 components removed), FreeSurfer for cortical reconstruction, and MNE-Python for source modeling with dSPM inverse solution. Source space used ico-4 decimation resulting in 5124 cortical locations, and data were morphed to fsaverage template. An anatomical parcellation scheme with 448 cortical regions was used for binning.",
+      "supporting_text": "The temporal extension of the signal space separation (tSSS) [33] method implemented in the MaxFilter software package (MEGIN Oy) was used for reducing external artifacts in the MEG data. ... independent component analysis (ICA) [34] was used ... The FastICA algorithm available in MNE-Python software [35] was used for the ICA processing. ... An automated source-modeling pipeline was applied on the measurements to compute power spectral densities (PSDs) at each cortical location using the MNE-Python software [36]. Reconstruction of each subject's cortical surface was performed using the FreeSurfer software [37,38] ... For the forward computation, a surface-based source space with the ico-4 decimation was created, resulting in a set of 5124 cortical locations ... A single-compartment BEM head model was formed ... The dSPM inverse solution, which was applied ... the subject-specific cortical PSDs were morphed to a reference brain (the 'fsaverage' brain provided by FreeSurfer) ... The brain sources were automatically grouped together according to an anatomical parcellation scheme with 448 cortical regions [41]",
+      "location": "Italinna2023.pdf.md: Data preprocessing, L128-L155"
+    },
+    "rci8_quality_checking": {
+      "answer": "Yes",
+      "detail": "Manual inspection of ICA components for artifact removal; 1-2 components typically removed, up to 3-4 based on inspection; subjects with missing or incomplete resting-state MEG or T1-weighted MRI excluded; ECG and EOG recorded for managing heartbeat and eye movement artifacts",
+      "confidence_rating": "Medium",
+      "supporting_text": "To suppress artifacts caused by cardiac activity and eye movement, independent component analysis (ICA) [34] was used for identifying components most prominently related to the aforementioned sources. In most cases, 1-2 components were removed, but for some subjects three or even four components were removed based on manual inspection of the spatial patterns and time courses of the components. ... Subjects with missing or incomplete resting-state MEG measurements or T1-weighted MRI images were excluded from the analyses ... Electrocardiogram and horizontal and vertical electro-oculograms were measured for managing artifacts caused by heartbeat and eye movement",
+      "location": "Italinna2023.pdf.md: Data preprocessing, L128-L132; Normative dataset, L126-L127; mTBI patients and healthy controls, L118-L119"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "None",
+      "detail": "-",
+      "confidence_rating": "Medium",
+      "supporting_text": "The deviation values for the control subjects are overall slightly lower compared to the normative dataset, which might be an effect of different measurement sites. ... To alleviate these effects, multi-site calibration approaches that have been developed for normative modeling of MRI data could be adapted to MEG data as well [57]. Here, since the same normative model was applied to both patient and control data, we do not expect the effect on the classification results to be notable.",
+      "location": "Italinna2023.pdf.md: Discussion, L285-L286"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "New",
+      "detail": "-",
+      "confidence_rating": "High",
+      "supporting_text": "To obtain normative models, the mean μ and standard deviation σ of the power spectra were calculated across the subjects from the normative dataset (Fig 1B). These statistics were then used for converting the power spectrum matrices for the patients and their healthy controls, into deviations maps of Z-scores over the entire cortex",
+      "location": "Italinna2023.pdf.md: Feature engineering, L148-L151"
+    },
+    "nm2_modeling_method": {
+      "answer": "Z-score normalization (mean and standard deviation calculated from normative dataset)",
+      "confidence_rating": "High",
+      "reason": "The normative modeling approach used in this study is based on calculating Z-scores using the mean μ and standard deviation σ of power spectra from the normative dataset. The authors note this is a relatively simple and straightforward approach, as robust statistical inference was not the primary concern since the normative modeling provided features for supervised machine learning. They mention that more sophisticated methods like Gaussian process regression could be explored in future work.",
+      "supporting_text": "To obtain normative models, the mean μ and standard deviation σ of the power spectra were calculated across the subjects from the normative dataset (Fig 1B). These statistics were then used for converting the power spectrum matrices for the patients and their healthy controls, into deviations maps of Z-scores over the entire cortex, calculated as ... In this study, a relatively simple and straightforward calculation of Z-scores was adapted, as robust statistical inference was not of concern: the normative modeling provided features for supervised machine learning rather than being directly used for discriminating patients from controls.",
+      "location": "Italinna2023.pdf.md: Feature engineering, L148-L152; Discussion, L283-L284"
+    },
+    "nm3_software_tool": {
+      "answer": "Custom implementation using mean and SD calculations; MNE-Python for preprocessing and source modeling",
+      "confidence_rating": "High",
+      "reason": "The normative modeling itself was implemented as a straightforward calculation of mean and standard deviation followed by Z-score computation. The preprocessing and feature extraction used MNE-Python. No specific normative modeling software package (like PCNtoolkit) was mentioned.",
+      "supporting_text": "To obtain normative models, the mean μ and standard deviation σ of the power spectra were calculated across the subjects from the normative dataset (Fig 1B). These statistics were then used for converting the power spectrum matrices for the patients and their healthy controls, into deviations maps of Z-scores over the entire cortex ... An automated source-modeling pipeline was applied on the measurements to compute power spectral densities (PSDs) at each cortical location using the MNE-Python software [36].",
+      "location": "Italinna2023.pdf.md: Feature engineering, L148-L151; Source modeling, L134-L135"
+    },
+    "nm4_response_variable": {
+      "answer": "Source-level power spectral density (PSD) across cortex; 5124 cortical locations × 319 frequency values (1-40 Hz); binned into 448 cortical regions × 6 frequency bands (delta 1-4 Hz, theta 4-8 Hz, alpha 8-13 Hz, low beta 13-17 Hz, high beta 17-30 Hz, gamma 30-40 Hz)",
+      "confidence_rating": "High",
+      "reason": "The paper clearly describes that power spectral densities were computed at each cortical location. The source space used ico-4 decimation resulting in 5124 cortical locations. PSDs were obtained from the Fourier transform over 1-40 Hz frequency range, yielding 319 frequency values. For dimensionality reduction, data were binned into 448 cortical regions according to an anatomical parcellation scheme and into 6 canonical frequency bands.",
+      "supporting_text": "An automated source-modeling pipeline was applied on the measurements to compute power spectral densities (PSDs) at each cortical location ... For the forward computation, a surface-based source space with the ico-4 decimation was created, resulting in a set of 5124 cortical locations ... A source-level PSD was obtained by taking the magnitude of the estimate at each source point, yielding a matrix X of size 5124 (number of source locations) × 319 (number of frequency values) ... The brain sources were automatically grouped together according to an anatomical parcellation scheme with 448 cortical regions [41] ... In the frequency dimension, six frequency bands were defined: delta (1-4 Hz), theta (4-8 Hz), alpha (8-13 Hz), low beta (13-17 Hz), high beta (17-30 Hz), and gamma (30-40 Hz).",
+      "location": "Italinna2023.pdf.md: Source modeling and Feature engineering, L134-L156"
+    },
+    "nm5_predictor_variables": {
+      "answer": "None (Z-score normalization based on implicit age and individual variation)",
+      "confidence_rating": "High",
+      "reason": "The normative modeling approach used in this study calculated mean and standard deviation across subjects without explicitly modeling covariates. However, the paper explores the effect of age-matching by constructing age-matched normative models where subjects were compared only to their own age decade. This suggests age was considered implicitly through subsetting rather than as an explicit predictor variable in a regression model. No other covariates (sex, site, etc.) are mentioned as predictor variables in the normative model.",
+      "supporting_text": "To obtain normative models, the mean μ and standard deviation σ of the power spectra were calculated across the subjects from the normative dataset (Fig 1B). ... To test the effect of using normative data from a specific age group, the model was trained and evaluated on an age-matched subset of the normative data, i.e., only the power spectra belonging to the same age decade as the subject were used. The age groups were defined according to the normative dataset as 18-27, 28-37, 38-47, 48-57 and 58-67 years.",
+      "location": "Italinna2023.pdf.md: Feature engineering and Model training, L148-L171"
+    },
+    "nm6_predictor_effects": {
+      "answer": "Not applicable; simple mean and SD calculation without explicit predictor modeling",
+      "confidence_rating": "High",
+      "reason": "The normative modeling approach was a straightforward calculation of Z-scores using mean and standard deviation across subjects. There was no explicit modeling of predictor effects (fixed or random). Age was explored through subsetting (age-matched models) rather than as a modeled covariate. The authors note that more sophisticated approaches like Gaussian process regression could be explored in future work.",
+      "supporting_text": "To obtain normative models, the mean μ and standard deviation σ of the power spectra were calculated across the subjects from the normative dataset (Fig 1B). These statistics were then used for converting the power spectrum matrices for the patients and their healthy controls, into deviations maps of Z-scores ... In this study, a relatively simple and straightforward calculation of Z-scores was adapted, as robust statistical inference was not of concern",
+      "location": "Italinna2023.pdf.md: Feature engineering and Discussion, L148-L151, L283-L284"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The study addressed some aspects of nuisance structure but not all. Age effects were explored through age-matched normative models, and artifact removal procedures (tSSS, ICA) addressed measurement-related nuisance factors. However, site/scanner effects between the normative dataset (Cam-CAN) and clinical data were acknowledged but not explicitly modeled or harmonized. The authors note that deviation values for controls were slightly below zero due to different measurement sites, but did not apply harmonization methods. QC metrics (number of ICA components) were used but not included as covariates in the normative model itself.",
+      "supporting_text": "To test the effect of using normative data from a specific age group, the model was trained and evaluated on an age-matched subset of the normative data ... The deviation values for the control subjects are overall slightly lower compared to the normative dataset, which might be an effect of different measurement sites. ... To alleviate these effects, multi-site calibration approaches that have been developed for normative modeling of MRI data could be adapted to MEG data as well [57]. Here, since the same normative model was applied to both patient and control data, we do not expect the effect on the classification results to be notable.",
+      "location": "Italinna2023.pdf.md: Model training and Discussion, L170-L171, L285-L286"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The paper does not report validation of the normative model on the training data itself or using non-independent resampling methods. The normative dataset (Cam-CAN, N=621) was used to compute mean and SD, which were then applied to a completely separate clinical dataset (25 mTBI patients and 20 controls). There is no mention of bootstrap assessments or sensitivity analyses on the normative cohort itself.",
+      "supporting_text": "We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls. In addition, we employed a large, separate dataset, utilizing MEG recordings from a total of 621 healthy participants [29] as normative data. ... To obtain normative models, the mean μ and standard deviation σ of the power spectra were calculated across the subjects from the normative dataset (Fig 1B). These statistics were then used for converting the power spectrum matrices for the patients and their healthy controls, into deviations maps of Z-scores",
+      "location": "Italinna2023.pdf.md: Datasets and Feature engineering, L66-L68, L148-L151"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The normative model (mean and SD from Cam-CAN dataset) was not validated on a held-out subset from the same Cam-CAN dataset. Instead, the entire Cam-CAN dataset (N=621) was used to compute the normative statistics, which were then applied to a completely separate clinical dataset. The cross-validation described in the paper (5×7-fold nested CV) was for the SVM classifier trained on the clinical data (patients vs controls), not for validating the normative model itself.",
+      "supporting_text": "We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls. In addition, we employed a large, separate dataset, utilizing MEG recordings from a total of 621 healthy participants [29] as normative data. ... A nested cross-validation strategy was selected for evaluating model performance. In the inner 5-fold cross-validation loop, the best values for the regularization hyperparameters C and γ were chosen ... In the outer 7-fold loop, the model was re-trained using the chosen hyperparameters",
+      "location": "Italinna2023.pdf.md: Datasets and Model training, L66-L68, L162-L163"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The normative model was trained on the Cam-CAN dataset and applied to a completely different dataset from Kaltiainen et al., which was measured at a different site (Aalto Neuroimaging MEG Core) with different equipment and protocols. The paper explicitly notes site differences and their effects. The clinical data (25 mTBI patients and 20 controls) came from a different cohort measured at Helsinki University Hospital and Aalto University, representing a different domain from the Cam-CAN normative dataset.",
+      "supporting_text": "We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls. In addition, we employed a large, separate dataset, utilizing MEG recordings from a total of 621 healthy participants [29] as normative data. ... The MEG measurements were performed at Aalto Neuroimaging MEG Core, Aalto University School of Science, Espoo, Finland ... The deviation values for the control subjects are overall slightly lower compared to the normative dataset, which might be an effect of different measurement sites.",
+      "location": "Italinna2023.pdf.md: Datasets, mTBI patients section, and Discussion, L66-L68, L118-L119, L285-L286"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "Kaltiainen et al. dataset (measured at Aalto Neuroimaging MEG Core, Aalto University School of Science and Helsinki University Hospital)",
+      "confidence_rating": "High",
+      "reason": "The paper clearly states that the clinical dataset comprising 25 mTBI patients and 20 healthy controls was originally measured by Kaltiainen and colleagues [27,28]. The MEG measurements were performed at Aalto Neuroimaging MEG Core, Aalto University School of Science, Espoo, Finland. This is a different dataset from the Cam-CAN normative dataset.",
+      "supporting_text": "We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls. ... The MEG measurements were performed at Aalto Neuroimaging MEG Core, Aalto University School of Science, Espoo, Finland, using a 306-channel whole-head MEG device (Elekta Neuromag; MEGIN Oy, Helsinki, Finland).",
+      "location": "Italinna2023.pdf.md: Datasets and mTBI patients sections, L66-L68, L118-L119"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Mild traumatic brain injury (mTBI)",
+      "confidence_rating": "High",
+      "reason": "The paper focuses exclusively on mild traumatic brain injury. All patients fulfilled the American Congress of Rehabilitation Medicine (ACRM) criteria for mTBI with specific criteria including GCS 13-15, loss of consciousness <30 minutes, and post-traumatic amnesia <24 hours.",
+      "supporting_text": "The patient group consisted of 25 mild traumatic brain injury patients ... All patients fulfilled the criteria for mTBI according to the American Congress of Rehabilitation Medicine (ACRM) criteria [32] with loss of consciousness of less than 30 minutes at the time of the accident, GCS varying between 13-15 at 30 min after the accident and the duration of post-traumatic amnesia less than 24h.",
+      "location": "Italinna2023.pdf.md: mTBI patients and healthy controls, L74-L76"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "mTBI: 25; Healthy controls: 20",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states the sample sizes for both groups. The patient group consisted of 25 mild traumatic brain injury patients, and the control group comprised 20 healthy subjects.",
+      "supporting_text": "The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males) with a mean age of 42 years (range 20-59 years). The control group comprised 20 healthy subjects (8 females, 12 males) with a mean age of 39 years (range 19-58 years).",
+      "location": "Italinna2023.pdf.md: mTBI patients and healthy controls, L74-L75"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "mTBI: mean 42 (reported as 41.6 in Table 1); range 20-59; sd NR; Controls: mean 39; range 19-58; sd NR",
+      "confidence_rating": "High",
+      "reason": "The paper provides mean ages and ranges for both groups. For mTBI patients, the text states mean age of 42 years with range 20-59 years, while Table 1 shows average age of 41.6 years. For controls, mean age of 39 years with range 19-58 years is reported. Standard deviations are not reported for either group.",
+      "supporting_text": "The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males) with a mean age of 42 years (range 20-59 years). The control group comprised 20 healthy subjects (8 females, 12 males) with a mean age of 39 years (range 19-58 years). ... Average [in Table 1]: 41.6",
+      "location": "Italinna2023.pdf.md: mTBI patients and healthy controls, L74-L75; Table 1, L106"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "mTBI: F 11 (44.0%); M 14 (56.0%); Controls: F 8 (40.0%); M 12 (60.0%)",
+      "confidence_rating": "High",
+      "reason": "The paper provides exact counts for both groups. For mTBI patients: 11 females and 14 males out of 25 total. For controls: 8 females and 12 males out of 20 total. Percentages calculated as: mTBI F: 11/25=44.0%, M: 14/25=56.0%; Controls F: 8/20=40.0%, M: 12/20=60.0%.",
+      "supporting_text": "The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males) with a mean age of 42 years (range 20-59 years). The control group comprised 20 healthy subjects (8 females, 12 males) with a mean age of 39 years (range 19-58 years).",
+      "location": "Italinna2023.pdf.md: mTBI patients and healthy controls, L74-L75"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Z-scores calculated as (X - μ) / σ where X is individual power spectrum, μ and σ are normative mean and SD; threshold of 2 SD (|z| > 2) used to identify aberrant low-frequency activity; feature vectors of 2688 features (448 regions × 6 frequency bands) used for classification",
+      "confidence_rating": "High",
+      "reason": "The paper clearly describes the deviation metric as Z-scores computed by subtracting the normative mean and dividing by the normative standard deviation. A threshold of 2 standard deviations was mentioned when identifying patients with abnormal theta activity. After binning into 448 cortical regions and 6 frequency bands, the deviation matrices were flattened into feature vectors of 2688 features per subject for the SVM classifier.",
+      "supporting_text": "These statistics were then used for converting the power spectrum matrices for the patients and their healthy controls, into deviations maps of Z-scores over the entire cortex, calculated as ... where X ∈ R 5124 × 319 is the power spectrum of an individual subject. ... Finally, the deviation matrices were flattened into feature vectors containing the six frequency features for each cortical region, resulting in 2688 features per subject. ... where the Z-maps (computed with the full normative dataset) revealed such aberrant low-frequency activity in eight patients ... theta band activity exceeding two standard deviations from the healthy subjects' average was found in seven of the 26 mTBI patients",
+      "location": "Italinna2023.pdf.md: Feature engineering and Deviation scores, L148-L157, L245-L248"
+    },
+    "caa7_association_analysis": "Support vector machine (SVM) with radial basis function (RBF) kernel for classification of mTBI patients vs controls; nested cross-validation (5-fold inner loop for hyperparameter tuning, 7-fold outer loop for evaluation, repeated 5 times for total of 35 folds); hyperparameters C (1, 5, 10) and γ (0.1, 0.01, 0.001) tested; class weighting inversely proportional to frequencies; data centered by median and scaled to IQR; hierarchical clustering with Spearman correlations to reduce feature multicollinearity; permutation feature importance to estimate feature significance; permutation tests (1000 iterations) for statistical significance (p < 0.05); Mann-Whitney U-test to assess differences in decision function scores between patients with/without visible MRI lesions; comparison of correctly vs incorrectly classified subjects; correlation with patient demographics (timing of MEG recording, RPQ score).",
+    "caa8_key_findings_brief": "The SVM classifier achieved 79.0% accuracy in distinguishing mTBI patients from healthy controls using deviation scores from normative MEG power spectra, with theta-band (4-8 Hz) features in parietal, temporal, and occipital regions providing the most significant discriminative features.",
+    "caa9_key_findings_detailed": "Using normative modeling combined with SVM classification, the study achieved 79.0% accuracy (sensitivity 91.2%, specificity 63.8%) in distinguishing 25 mTBI patients from 20 healthy controls. The best performance was obtained using the full normative dataset (N=621) across all ages, outperforming age-matched (76.1% accuracy) and random subset (71.1% accuracy) approaches. Classification without normative data yielded comparable accuracy (78.6%). Theta-band (4-8 Hz) activity provided the most significant features for classification, consistent with previous literature associating low-frequency activity with axonal injury. The most important discriminative features were located in parietal regions (supramarginal gyrus, postcentral gyrus, superior and inferior parietal lobule, precuneus), with additional contributions from temporal and occipital lobes. Eight patients showed aberrant theta activity exceeding 2 SD from the normative mean, and these were classified with 95.0% accuracy. Only two patients were consistently misclassified, both measured relatively late post-injury (3.5-4 months) with below-average RPQ scores. Three of 20 controls showed increased theta activity and were incorrectly classified as patients. No significant difference in decision function output was found between patients with and without visible MRI lesions (p=0.52, Mann-Whitney U-test). The results demonstrate the feasibility of using normative modeling of MEG data for individual-level diagnosis of mTBI, with interpretable deviation maps that could aid clinical decision-making.",
+    "caa10_key_limitations": {
+      "answer": "Small clinical dataset (N=45 total); large standard deviations in performance metrics (0.15-0.32) limiting robustness; simple Z-score approach rather than sophisticated methods like Gaussian process regression; site differences between normative and clinical data not harmonized; manual ICA component inspection required (not fully automated); heterogeneity in injury location, timing, and symptoms; some patients likely recovered to normal function making 100% accuracy unrealistic; deviation values for controls slightly below zero due to site differences; limited specificity as low-frequency abnormalities can occur from causes other than mTBI.",
+      "supporting_text": "Large functional imaging datasets from clinical populations are, however, rarely available, and drawing reliable conclusions about classification results is often hindered by the small size of the datasets. In this study, the effect of the dataset size was most clearly seen in the large standard deviations of the accuracy, sensitivity and specificity scores, which ranged from 0.15 to 0.32. ... The deviation values for the control subjects are overall slightly lower compared to the normative dataset, which might be an effect of different measurement sites. ... One limiting factor in translating research on candidate biomarkers for detecting mTBI from MEG data to clinical settings are the sometimes complex analysis pipelines, which may be time-consuming or require extensive expertise. Here, the analysis was automated with the exception of artefact removal, which required manual inspection of the ICA components ... such deviations from the normal range can occur also from other causes (ie. the deviations are not specific to mTBI).",
+      "location": "Italinna2023.pdf.md: Discussion, L285-L295"
+    },
+    "caa11_application_notes": "Data segmentation using sliding window (200s length, 50s stride) resulting in 7 time series per subject for robustness; cross-validation splits constructed to avoid data leakage (samples from same subject only in training or validation, never both); predicted class label determined by majority vote across segments; comparison of full normative data vs age-matched vs random subset to explore optimal reference cohort selection; comparison to classification without normative data to assess added value; visual comparison of individual Z-score maps to findings from earlier study (Kaltiainen et al.) for reliability assessment; feature selection via hierarchical clustering to reduce multicollinearity before permutation importance calculation; cortical visualization of feature importance for interpretability."
+  },
+  "general_note_part": {
+    "gn1_general_notes": "This is a MEG-based normative modeling study, different from the typical MRI-based studies in this systematic review. The normative modeling served as a feature engineering step for supervised machine learning rather than being the primary diagnostic tool. The study used a publicly available normative dataset (Cam-CAN) which could facilitate reproducibility. The clinical measurements were performed 1-26 weeks post-injury (median ~8 weeks), with 19/25 within 9 weeks (subacute stage). Nine patients had follow-up at 6 months but these data were not analyzed due to small sample size. 60% (15/25) of patients had visible lesions in MRI. GCS scores ranged 14-15 (mean 14.4). RPQ scores ranged 3-36 (mean 17.2). The code to reproduce findings is available at https://doi.org/10.5281/zenodo.8360527. MEG data from mTBI patients and controls are not publicly available due to privacy concerns but can be shared with collaborators via ethics committee approval and data transfer agreement (contact: eettinen.toimikunta@hus.fi)."
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Feng2025",
+    "si2_reference_file_names": "Feng2025.pdf.md; Feng2025_sup.pdf.md",
+    "si3_author_journal_year": "Feng et al., Alzheimer's & Dementia, 2025",
+    "si4_title": "Microstructural mapping of neural pathways in Alzheimer's disease using macrostructure-informed normative tractometry",
+    "si5_doi": "NR"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "To investigate how white matter microstructure and macrostructure are jointly altered in mild cognitive impairment and dementia using a novel macrostructure-informed normative tractometry (MINT) framework, and to compare MINT-derived metrics with univariate diffusion tensor imaging metrics to examine how fiber geometry may impact the interpretation of microstructure.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "TractoInferno",
+      "confidence_rating": "High",
+      "reason": "The paper clearly states that for pretraining the normative model, they used the TractoInferno dataset. The paper states: 'this pretraining dataset consisted of 198 single-shell dMRI volumes already preprocessed from the publicly available TractoInferno training dataset' (line 127-128). This is the dataset used for healthy controls/normative reference.",
+      "supporting_text": "this pretraining dataset consisted of 198 single-shell dMRI volumes already preprocessed from the publicly available TractoInferno training dataset, acquired on 3T scanners with b-values around 1000 s/mm2 from six studies.",
+      "location": "Feng2025.pdf.md: Methods / 2.2.3 TractoInferno, lines 127-128"
+    },
+    "rci2_hc_n": {
+      "answer": "198",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states the number of healthy control subjects used in the TractoInferno pretraining dataset. For the target datasets (ADNI and NIMHANS), healthy controls were also used, but these were split for fine-tuning and testing. The normative model was initially trained on 198 subjects from TractoInferno.",
+      "supporting_text": "this pretraining dataset consisted of 198 single-shell dMRI volumes already preprocessed from the publicly available TractoInferno training dataset",
+      "location": "Feng2025.pdf.md: Methods / 2.2.3 TractoInferno, lines 127-128"
+    },
+    "rci3_hc_age": {
+      "answer": "NR",
+      "confidence_rating": "High",
+      "reason": "The paper does not report age statistics for the TractoInferno dataset. The paper includes a footnote stating 'All participants in the TractoInferno are healthy adults. Demographics including age and sex are available elsewhere.' This indicates that while the data exists, it is not reported in this paper.",
+      "supporting_text": "All participants in the TractoInferno are healthy adults. Demographics including age and sex are available elsewhere.",
+      "location": "Feng2025.pdf.md: ENDNOTES, lines 305"
+    },
+    "rci4_hc_sex": {
+      "answer": "NR",
+      "confidence_rating": "High",
+      "reason": "Sex distribution for the TractoInferno dataset is not reported in the paper. As noted in the endnotes, demographics including sex are available elsewhere but not in this manuscript.",
+      "supporting_text": "All participants in the TractoInferno are healthy adults. Demographics including age and sex are available elsewhere.",
+      "location": "Feng2025.pdf.md: ENDNOTES, lines 305"
+    },
+    "rci5_imaging_modality": {
+      "answer": "Diffusion MRI (FA, MD, RD, AxD from DTI)",
+      "confidence_rating": "High",
+      "reason": "The paper uses diffusion-weighted MRI (dMRI) and derives diffusion tensor imaging (DTI) metrics. The specific metrics mentioned are fractional anisotropy (FA), mean diffusivity (MD), radial diffusivity (RD), and axial diffusivity (AxD). These are standard DTI-derived metrics from single-shell diffusion MRI data.",
+      "supporting_text": "After processing dMRI, diffusion tensors were fitted at each voxel using the non-linear least-squares method to produce FA, MD, RD, and AxD scalar maps in the dMRI native space... DTI metrics were projected onto the corresponding bundle in the native space. Each streamline was resampled to 128 equidistant points... with seven input features x, y, z, FA, MD, RD, and AxD.",
+      "location": "Feng2025.pdf.md: Methods / 2.2.2 National Institute of Mental Health and Neurosciences, lines 97-98; Methods / 2.3.2 Data preparation and training, lines 161-162"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level",
+      "supporting_text": "We used the bundle analytics (BUAN) tractometry framework for bundle segmentation, subsequent bundle profiling... DiPy's autocalibrated RecoBundles method was used to segment 30 WM bundles... we created 100 along-tract segments, aligned across subjects... Every point in X was assigned a segment index (1 to 100)",
+      "location": "Feng2025.pdf.md: Methods / 2.2.4 Bundle segmentation, lines 132-133; Methods / 2.3.3 Bundle profiling, lines 172-175"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "DiPy (denoising with local PCA, Gibbs ringing removal); FSL topup and eddy_cuda (susceptibility, eddy current, motion correction); MRtrix dwibiascorrect (bias field correction); Synb0-DisCo (synthetic b0 for Siemens data); Non-linear least-squares DTI fitting; RUMBA-SD with contextual enhancement (fiber orientation); Particle filtering tracking; RecoBundles for bundle segmentation (HCP-842 atlas); BUAN framework for bundle profiling",
+      "confidence_rating": "High",
+      "reason": "The paper provides detailed descriptions of the preprocessing pipeline in multiple sections. For NIMHANS data, the preprocessing is described comprehensively. For ADNI data, the paper references previous work. The TractoInferno dataset was already preprocessed. The key steps include denoising, artifact correction, DTI fitting, tractography, and bundle segmentation.",
+      "supporting_text": "Preprocessing steps for all dMRI volumes in the NIMHANS cohort... included denoising using local principal component analysis (PCA) implemented in DiPy, Gibbs ringing removal implemented in DiPy, susceptibility-induced distortion, eddy current, and motion correction using FSL's topup and eddy_cuda and bias field inhomogeneity correction using MRtrix's dwibiascorrect... diffusion tensors were fitted at each voxel using the non-linear least-squares method... Fiber orientations were reconstructed using Robust and Unbiased Model-Based Spherical Deconvolution (RUMBA-SD) along with contextual enhancement. Particle filtering tracking was used to generate whole-brain tractograms... DiPy's autocalibrated RecoBundles method was used to segment 30 WM bundles using the population-averaged HCP-842 atlas",
+      "location": "Feng2025.pdf.md: Methods / 2.2.2 NIMHANS, lines 96-98; lines 120-121; Methods / 2.2.4 Bundle segmentation, lines 132-133"
+    },
+    "rci8_quality_checking": {
+      "answer": "Yes",
+      "detail": "Bundles with fewer than 96 streamlines were removed; autocalibration step in RecoBundles performs additional pruning to reduce false positives; detailed quality assurance protocols referenced for NIMHANS data; preprocessing includes multiple artifact correction steps",
+      "confidence_rating": "Medium",
+      "supporting_text": "Bundles with fewer than 96 streamlines were removed... The autocalibration step performs additional pruning and can help reduce false positives and extract bundles of various shapes and sizes without manually tuning parameters... Detailed descriptions of the acquisitions and quality assurance can be found in Parekh et al.",
+      "location": "Feng2025.pdf.md: Methods / 2.2.4 Bundle segmentation, lines 132-133; Methods / 2.2.2 NIMHANS, line 96"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "Batch-removal",
+      "detail": "ComBat harmonization applied to bundle profiles; batch variable = protocol/scanner (9 protocols total across ADNI and NIMHANS); covariates preserved = age and sex; empirical Bayes method; parameters estimated on training set (CN only) then applied to test set to prevent data leakage; bundle-wise approach pooling information across 100 segments per bundle; harmonization effectiveness evaluated by comparing fixed effect coefficients before and after ComBat",
+      "confidence_rating": "High",
+      "supporting_text": "Along-tract bundle profiles for all nine features were harmonized using ComBat using the bundle-wise approach... ComBat is a 'location and scale' model, where we assume that each measurement is affected by the additive and multiplicative effects of the scanner and protocol, estimated using an empirical Bayes method. Covariates can also be specified in ComBat to preserve the known biological variability across subjects (eg, age and sex). In this study, ComBat was run for each of the 30 bundles and nine features, by pooling information across 100 segments of each bundle, with age and sex modeled as covariates... To prevent data leakage, we estimated ComBat parameters on bundle profiles created from the training set... The estimated ComBat parameters were then applied to bundle profiles from the test set",
+      "location": "Feng2025.pdf.md: Methods / 2.3.3 Bundle profiling, lines 181-183"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "Pre-trained",
+      "detail": "Pre-trained on TractoInferno dataset (N=198, 6 studies, multi-site); ConvVAE with 1D convolutional layers; covariates = 3D coordinates (x,y,z) + FA, MD, RD, AxD; pretraining for 24,000 steps; then fine-tuned separately on ADNI (35% of CN, N~156) and NIMHANS (35% of CN, N~43) training sets for 5,000 steps each; transfer learning approach with separate fine-tuning per cohort to simulate scenarios where sites cannot share raw data",
+      "confidence_rating": "High",
+      "supporting_text": "We used a deep learning method to encode the mathematical properties of normal statistical variation in the brain's WM bundles, assisted by auxiliary information from another high-quality dataset. Such an auxiliary dataset is referred to as a pretraining dataset... this pretraining dataset consisted of 198 single-shell dMRI volumes already preprocessed from the publicly available TractoInferno training dataset... The pretraining data... contains over 100 million streamlines... and was pretrained for 24,000 steps. For both the ADNI and NIMHANS datasets, data from the CN participants were split into independent subsets of size 35%/15%/50% for training/validation/testing... The pretrained VAE model was fine-tuned on 30 bundles from the subjects in the training set, in each cohort, for 5000 steps. We did not pool the training data in ADNI and NIMHANS together in this step, to simulate the scenario where sites cannot share raw data",
+      "location": "Feng2025.pdf.md: Methods / 2.2.3 TractoInferno, lines 126-128; Methods / 2.3.2 Data preparation and training, lines 166-168"
+    },
+    "nm2_modeling_method": {
+      "answer": "Variational Autoencoder (VAE) with 1D convolutional layers; depth-wise separable convolution (SepConv); asymmetric encoder-decoder architecture; ELBO loss with cyclical annealing on KL divergence",
+      "confidence_rating": "High",
+      "reason": "The paper provides detailed description of the modeling method. VAE is a generative model used here for normative modeling. The architecture uses 1D convolutional layers to model sequential dependency along streamlines. The paper specifies the use of depth-wise separable convolution for efficient parameterization, an asymmetric architecture (encoder larger than decoder), and cyclical annealing to prevent posterior collapse during training.",
+      "supporting_text": "VAE is considered to be one of many non-linear extensions of dimensionality reduction methods, such as PCA, where the variation in a multidimensional dataset is often encoded using a small number of latent factors... we use 1D convolutional layers to model streamline-level information... One-dimensional depth-wise separable convolution (SepConv) was used in the encoder and decoder... the encoder consists of four 1D SepConv layers with kernel sizes of 15, and 32, 64, 128, and 256 channels; the decoder consists of three 1D SepConv layers with the same kernel sizes of 15, and 128, 96, and 64 channels... This asymmetric architecture, where the decoder is smaller than the encoder, was adopted to encourage the model to learn more robust representations... The model was trained with the evidence-based lower bound (ELBO) loss. We used cyclical annealing on the Kullback-Leibler (KL) divergence term to prevent posterior collapse",
+      "location": "Feng2025.pdf.md: Methods / 2.3.1 Macrostructure modeling, lines 144-145; Methods / 2.3.2 Data preparation and training, lines 164-167"
+    },
+    "nm3_software_tool": {
+      "answer": "DiPy (tractography, bundle segmentation); FURY (visualization); PyTorch (implied for VAE implementation); Python neuroCombat (ComBat harmonization); Pingouin v0.5.4 (partial correlation)",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly mentions several software tools. DiPy is used for tractography and RecoBundles segmentation. FURY is used for visualization. Python implementation of neuroCombat is used for harmonization. Pingouin is used for statistical analysis. While not explicitly stated, the VAE implementation likely uses PyTorch or similar deep learning framework based on the references to pytorch-lightning in the acknowledgments.",
+      "supporting_text": "DiPy's autocalibrated RecoBundles method was used to segment 30 WM bundles... We used the Python implementation of ComBat (https://github.com/Jfortin1/neuroCombat)... We used the partial correlation implementation from the Pingouin Python package version 0.5.4... All visualizations in these figures were created using the FURY package... We also thank the DIPY, FURY, and pytorch-lightning contributors and community",
+      "location": "Feng2025.pdf.md: Methods / 2.2.4 Bundle segmentation, line 132; Methods / 2.3.3 Bundle profiling, line 182; Methods / 2.5 Associations with clinical metrics, line 194; Results / 3.1, lines 200-201; Acknowledgments, line 286"
+    },
+    "nm4_response_variable": {
+      "answer": "Along-tract deviation scores (MAE) for 5 features: Shape (from 3D coordinates), FA, MD, RD, and AxD; computed at 100 segments per bundle for 30 WM bundles; whole-brain fiber geometry and microstructure jointly modeled",
+      "confidence_rating": "High",
+      "reason": "The response variable in MINT is the reconstruction error, quantified as mean absolute error (MAE), calculated for 5 features: shape (derived from 3D coordinates) and the 4 DTI metrics. These are computed at 100 along-tract segments for each of 30 bundles. The model reconstructs the input (7-dimensional features per point on streamlines) and the deviation from expected is the response variable used for downstream analysis.",
+      "supporting_text": "We then calculated the deviation using mean absolute error (MAE) for each segment i and feature k... the features include shape (calculated from 3D coordinates), FA, MD, RD, and AxD... For each subject's bundle, X, we created along-tract profiles for a total of nine features: MAE scores were calculated for five features at 100 along-tract segments, which we will refer to as MAE-Shape, MAE-FA, MAE-MD, MAE-RD, and MAE-AxD",
+      "location": "Feng2025.pdf.md: Methods / 2.3.3 Bundle profiling, lines 172-180"
+    },
+    "nm5_predictor_variables": {
+      "answer": "Age; Sex; (Site/Scanner/Protocol implicitly through ComBat harmonization)",
+      "confidence_rating": "High",
+      "reason": "In the normative model training phase, the VAE learns from the 7-dimensional input features (x, y, z coordinates and 4 DTI metrics) without explicit covariates. However, in the downstream statistical analysis, age and sex are modeled as covariates. Site/scanner/protocol effects are handled through ComBat harmonization where age and sex are preserved as biological covariates. The model itself learns patterns from healthy controls across multiple protocols.",
+      "supporting_text": "Covariates can also be specified in ComBat to preserve the known biological variability across subjects (eg, age and sex). In this study, ComBat was run for each of the 30 bundles and nine features, by pooling information across 100 segments of each bundle, with age and sex modeled as covariates... A linear regression model was fitted for each of the 100 segments in 30 bundles with harmonized diffusion metrics modeled as the dependent variable, and diagnosis (DX), age, and sex as independent variables",
+      "location": "Feng2025.pdf.md: Methods / 2.3.3 Bundle profiling, lines 181-182; Methods / 2.4 Statistical analysis, lines 186-187"
+    },
+    "nm6_predictor_effects": {
+      "answer": "Age and sex are modeled as fixed effects (covariates) in ComBat harmonization and in downstream linear regression; Site/Scanner/Protocol are modeled as batch effects in ComBat (additive and multiplicative effects estimated via empirical Bayes); The VAE normative model itself learns non-parametric representations through deep neural networks without explicit linear predictor specification",
+      "confidence_rating": "High",
+      "reason": "The paper describes a two-stage approach. In the normative model (VAE), predictors are not specified in a traditional linear sense - instead, the deep neural network learns complex non-linear relationships from the input features. In the harmonization and statistical analysis stages, age and sex are explicitly modeled as fixed effects/covariates, while site/scanner/protocol effects are modeled as batch effects in ComBat using an empirical Bayes approach.",
+      "supporting_text": "ComBat is a 'location and scale' model, where we assume that each measurement is affected by the additive and multiplicative effects of the scanner and protocol, estimated using an empirical Bayes method. Covariates can also be specified in ComBat to preserve the known biological variability across subjects (eg, age and sex)... A linear regression model was fitted for each of the 100 segments in 30 bundles with harmonized diffusion metrics modeled as the dependent variable, and diagnosis (DX), age, and sex as independent variables",
+      "location": "Feng2025.pdf.md: Methods / 2.3.3 Bundle profiling, lines 181-182; Methods / 2.4 Statistical analysis, lines 186-187"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study appropriately handles multiple sources of nuisance structure. Site/scanner/protocol effects are handled through ComBat harmonization. Age and sex are included as covariates in both harmonization and statistical models. The VAE architecture with 1D convolutions models spatial dependencies along streamlines. Quality control is performed (bundles with <96 streamlines removed, autocalibration pruning). The fine-tuning approach separately for each cohort accounts for cohort-specific differences. The supplementary materials evaluate harmonization effectiveness.",
+      "supporting_text": "ComBat is a 'location and scale' model, where we assume that each measurement is affected by the additive and multiplicative effects of the scanner and protocol, estimated using an empirical Bayes method. Covariates can also be specified in ComBat to preserve the known biological variability across subjects (eg, age and sex)... To prevent data leakage, we estimated ComBat parameters on bundle profiles created from the training set for both cohorts previously used in fine-tuning... Bundles with fewer than 96 streamlines were removed... The autocalibration step performs additional pruning and can help reduce false positives... To evaluate how ComBat influences statistical analysis, we compared the fixed effect coefficient for diagnosis before and after using ComBat",
+      "location": "Feng2025.pdf.md: Methods / 2.3.3 Bundle profiling, lines 181-183; Methods / 2.2.4 Bundle segmentation, lines 132-133; Feng2025_sup.pdf.md: Section 5.0.2, line 153"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The paper includes validation/test sets for model evaluation, but the relationship between training and validation is not entirely clear regarding independence. A validation set (15% of CN) was used to adjust fine-tuning parameters and inspect reconstruction quality. The test set (50% CN) was kept separate. However, it's unclear whether reconstruction quality metrics or model fit statistics on the training or validation sets are explicitly reported as a form of validation. The supplementary materials show harmonization evaluation which could be considered a form of validation.",
+      "supporting_text": "For both the ADNI and NIMHANS datasets, data from the CN participants were split into independent subsets of size 35%/15%/50% for training/validation/testing... The validation set was used to adjust the model's fine-tuning parameters, such as batch size and number of training steps, and inspect the reconstruction quality... To evaluate how ComBat influences statistical analysis, we compared the fixed effect coefficient for diagnosis before and after using ComBat",
+      "location": "Feng2025.pdf.md: Methods / 2.3.2 Data preparation and training, lines 167-168; Feng2025_sup.pdf.md: Section 5.0.2, line 153"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study uses proper train/validation/test splits with independent holdout sets. For both ADNI and NIMHANS, CN participants were split 35%/15%/50% for training/validation/testing. The normative model was trained on the training set, parameters were tuned using the validation set, and final evaluation was performed on the test set. Importantly, ComBat harmonization parameters were estimated only on the training set and then applied to the test set to prevent data leakage. The test set (50% CN plus all MCI/dementia cases) was kept independent for statistical analysis.",
+      "supporting_text": "For both the ADNI and NIMHANS datasets, data from the CN participants were split into independent subsets of size 35%/15%/50% for training/validation/testing. Data from participants with MCI or dementia were concatenated with the 50% CN subjects to create the test set... To prevent data leakage, we estimated ComBat parameters on bundle profiles created from the training set for both cohorts previously used in fine-tuning. The training set contained only CN subjects... The estimated ComBat parameters were then applied to bundle profiles from the test set, which included CN and subjects with MCI and dementia",
+      "location": "Feng2025.pdf.md: Methods / 2.3.2 Data preparation and training, lines 167-168; Methods / 2.3.3 Bundle profiling, lines 182-183"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study validates across different domains in multiple ways. First, the model pretrained on TractoInferno (6 studies, different sites) is applied to ADNI and NIMHANS (different cohorts, different populations, different demographics, different geographic regions). Second, ADNI and NIMHANS are analyzed separately and results are compared across cohorts. ADNI includes 7 different acquisition protocols across multiple sites. NIMHANS includes 2 different scanners. The paper explicitly discusses cross-cohort differences and similarities in findings, demonstrating external validation.",
+      "supporting_text": "The pretrained VAE model was fine-tuned on 30 bundles from the subjects in the training set, in each cohort, for 5000 steps. We did not pool the training data in ADNI and NIMHANS together in this step, to simulate the scenario where sites cannot share raw data, but can still share bundle profiles computed from their own fine-tuned model... Linear regression was fitted separately for each cohort to compare MCI and dementia effects between ADNI and NIMHANS... Although multisite data can be harmonized across scanners and protocols, we analyzed ADNI and NIMHANS data separately because participants in these two cohorts were recruited from different geographic regions and had very different demographics",
+      "location": "Feng2025.pdf.md: Methods / 2.3.2 Data preparation and training, lines 168-169; Methods / 2.4 Statistical analysis, line 187; Discussion / 4.4 Comparing findings across cohorts, lines 274-276"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "ADNI Phase 3; NIMHANS",
+      "confidence_rating": "High",
+      "reason": "The paper uses two clinical datasets. ADNI Phase 3 provides the MCI and dementia cases for the North American cohort. NIMHANS provides the clinical cases for the Indian cohort. Both datasets also contributed healthy controls. The clinical groups (MCI and dementia) are drawn from the same sources as the healthy controls but are separate participants.",
+      "supporting_text": "In total, we analyzed diffusion data of 1032 subjects from two cohorts - 730 participants from the Alzheimer's Disease Neuroimaging Initiative (ADNI) Phase 3 collected using seven acquisition protocols and an independent sample of 302 Indian-ancestry participants, evaluated and scanned at two scanners at the National Institute of Mental Health and Neurosciences (NIMHANS) in Bangalore, India. The subset of the ADNI cohort that was scanned with dMRI consisted of 447 cognitively normal (CN) participants, 214 diagnosed with MCI, and 69 with dementia... The NIMHANS cohort consisted of dMRI data from 123 CN participants, 89 people with MCI, and 90 with dementia",
+      "location": "Feng2025.pdf.md: Methods / 2.1 Participant demographics, lines 76-78"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Mild cognitive impairment (MCI); Dementia (including Alzheimer's disease)",
+      "confidence_rating": "High",
+      "reason": "The paper studies two clinical groups: MCI and dementia. While the focus is on Alzheimer's disease-related dementia (as indicated by the title and ADNI focus), the paper refers to clinical diagnoses as 'MCI' and 'dementia' rather than specifically 'AD'. The NIMHANS cohort diagnosis was based on NIA-AA criteria. The paper discusses AD pathology but the clinical groups are defined as MCI and dementia.",
+      "supporting_text": "The subset of the ADNI cohort that was scanned with dMRI consisted of 447 cognitively normal (CN) participants, 214 diagnosed with MCI, and 69 with dementia... The NIMHANS cohort consisted of dMRI data from 123 CN participants, 89 people with MCI, and 90 with dementia... For the NIMHANS cohort, diagnosis was determined according to the National Institute on Aging and Alzheimer's Association (NIA-AA) criteria and CDR, where CDR = 0.5 is MCI and CDR = 1 denotes dementia",
+      "location": "Feng2025.pdf.md: Methods / 2.1 Participant demographics, lines 77-78; Methods / 2.2.2 NIMHANS, lines 124-125"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "ADNI: MCI 214, Dementia 69; NIMHANS: MCI 89, Dementia 90",
+      "confidence_rating": "High",
+      "reason": "The paper provides exact sample sizes for each clinical group in each cohort in Table 1 and in the text. For ADNI, there are 214 MCI and 69 dementia cases. For NIMHANS, there are 89 MCI and 90 dementia cases. These numbers are consistently reported across the paper.",
+      "supporting_text": "The subset of the ADNI cohort that was scanned with dMRI consisted of 447 cognitively normal (CN) participants, 214 diagnosed with MCI, and 69 with dementia... The NIMHANS cohort consisted of dMRI data from 123 CN participants, 89 people with MCI, and 90 with dementia",
+      "location": "Feng2025.pdf.md: Methods / 2.1 Participant demographics, lines 77-78; Table 1, lines 103-116"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "ADNI MCI: mean NR, sd NR (overall MCI + dementia ages included in protocol-specific means); ADNI Dementia: mean NR, sd NR; NIMHANS MCI: mean NR, sd NR; NIMHANS Dementia: mean NR, sd NR; ADNI Total (all groups): mean 74.13, sd 7.93; NIMHANS Total (all groups): mean 67.25, sd 7.86",
+      "confidence_rating": "Medium",
+      "reason": "The paper provides age statistics broken down by protocol/scanner in Table 1, but these include mixed diagnostic groups (CN, MCI, dementia combined). Age for specific diagnostic groups (MCI only, dementia only) is not reported separately. Only the overall cohort ages are provided: ADNI total 74.13±7.93, NIMHANS total 67.25±7.86. The text states that ADNI was significantly older than NIMHANS overall. To get diagnosis-specific ages would require computing weighted averages from the protocol-specific data, but Table 1 doesn't break down by diagnosis within each protocol.",
+      "supporting_text": "Comparing the two cohorts, ADNI (74.13 ± 7.93) was significantly older than the NIMHANS cohort (67.25 ± 7.86); t(1030) = 12.72, p = 1.5 × 10^-34",
+      "location": "Feng2025.pdf.md: Methods / 2.2.2 NIMHANS, lines 124; Table 1, lines 103-116"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "ADNI (total, all diagnostic groups): Male 349 (47.81%), Female 381 (52.19%); NIMHANS (total, all diagnostic groups): Male 177 (58.61%), Female 125 (41.39%); MCI-specific and dementia-specific sex distributions not reported",
+      "confidence_rating": "Medium",
+      "reason": "Table 1 provides sex distribution by protocol/scanner, but these are aggregated across all diagnostic groups (CN, MCI, dementia). The paper does not report sex distribution separately for MCI and dementia groups. I computed the total females by subtracting males from total N. For ADNI total: 730 - 349 = 381 females. For NIMHANS total: 302 - 177 = 125 females.",
+      "supporting_text": "Table 1 shows: ADNI Total N=730, Male 349 (47.81%); NIMHANS Total N=302, Male 177 (58.61%)",
+      "location": "Feng2025.pdf.md: Table 1, lines 103-116"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Mean absolute error (MAE) between observed and reconstructed values from VAE normative model; calculated for 5 features (Shape, FA, MD, RD, AxD) at 100 along-tract segments per bundle; MAE quantifies point-wise deviation from normative distribution learned from healthy controls",
+      "confidence_rating": "High",
+      "reason": "The deviation metric is clearly defined. Each subject's bundle data is passed through the fine-tuned VAE model to obtain a reconstruction. The mean absolute error (MAE) between the input and reconstruction is calculated for each of the 5 features (shape and 4 DTI metrics) at each of 100 along-tract segments. Higher MAE indicates greater deviation from the normative pattern. No specific threshold for abnormality is defined; instead, MAE values are used as continuous variables in statistical analysis.",
+      "supporting_text": "At inference time... each bundle X from the test set of participants in both ADNI and NIMHANS was passed through its respective fine-tuned model, to obtain their reconstruction X′ of the same shape. We then used the bundle profiling approach from BUAN to create 100 along-tract segments, aligned across subjects. Every point in X was assigned a segment index (1 to 100), and the same index was applied to the reconstructed bundle. We then calculated the deviation using mean absolute error (MAE) for each segment i and feature k... the features include shape (calculated from 3D coordinates), FA, MD, RD, and AxD",
+      "location": "Feng2025.pdf.md: Methods / 2.3.3 Bundle profiling, lines 171-176"
+    },
+    "caa7_association_analysis": "Linear regression models fitted for each of 100 segments in 30 bundles with harmonized diffusion metrics (9 features: MAE-Shape, MAE-FA, MAE-MD, MAE-RD, MAE-AxD, DTI-FA, DTI-MD, DTI-RD, DTI-AxD) as dependent variables, and diagnosis (DX), age, and sex as independent variables (formula: metric ~ Age + Sex + DX); CN used as reference group compared to MCI and dementia separately; also dementia vs MCI comparison; FDR correction for multiple comparisons across 3000 tests (30 bundles × 100 segments); separate analyses for each cohort; merged cohort analysis using linear mixed models with cohort as random effect and age, sex, DX as fixed effects; quantile-quantile (Q-Q) plots to rank metrics by sensitivity to dementia; partial Spearman rank-order correlations between bundle-averaged diffusion metrics and clinical assessments (CDRsb, ADAS13, MMSE for ADNI; WLDR, SMIR, SMDR for NIMHANS), controlling for age and sex; FDR correction for correlations",
+    "caa8_key_findings_brief": "MINT identified consistent patterns of white matter microstructural and macrostructural abnormalities in MCI and dementia across two independent cohorts, with diffusivity measures (MD, RD) showing the strongest associations with dementia, and joint modeling of microstructure and macrostructure helping to disentangle disease effects from crossing fiber artifacts, particularly for fractional anisotropy.",
+    "caa9_key_findings_detailed": "In two independent cohorts (ADNI N=730, NIMHANS N=302), MINT revealed widespread white matter abnormalities in MCI and dementia. Mean diffusivity (MD) and radial diffusivity (RD) showed the strongest associations with dementia, with largest effects in temporal lobe pathways (inferior longitudinal fasciculus, uncinate fasciculus, arcuate fasciculus) and corpus callosum. Both DTI-derived and MINT-derived MD measures showed similar patterns, but MINT-derived fractional anisotropy (FA) measures showed fewer significant regions after accounting for macrostructural variations. A paradoxical 'fan-shaped' pattern was observed in projection pathways, where proximal regions showed higher DTI-FA in dementia (contrary to expected WM degeneration), corresponding to areas with lower macrostructural anomalies (MAE-Shape). This pattern, previously reported in the literature, is likely due to crossing fibers at the corona radiata. MAE diffusivity measures showed stronger correlations with episodic memory (WLDR) in the NIMHANS cohort compared to corresponding DTI measures, particularly in temporal and posterior association pathways. MAE-Shape showed significant associations with clinical dementia severity (CDRsb) comparable to DTI-FA, indicating macrostructural changes are associated with neurodegeneration. Findings were largely consistent across ADNI and NIMHANS cohorts despite demographic differences (ADNI older: 74.13±7.93 vs NIMHANS 67.25±7.86 years, p<10^-34), with stronger statistical significance in the larger ADNI sample. Transfer learning with separate fine-tuning per cohort enabled efficient multi-site analysis while accounting for site-specific variations.",
+    "caa10_key_limitations": {
+      "answer": "Cross-sectional design (longitudinal data available but not analyzed); fornix and cingulum bundles difficult to reconstruct with automated methods and excluded despite showing early aging changes; some bundles (UF, IFOF) showed inconsistent segmentation quality across protocols affecting harmonization; NIMHANS Siemens protocol showed greater protocol differences than Philips; smaller sample size for NIMHANS may affect model encoding of fiber geometry and statistical power; demographic and cognitive assessment differences across cohorts not fully harmonized; confounders like education and lifestyle not available for NIMHANS; single-shell dMRI with b=1000 limits advanced microstructural modeling; partial volume effects near ventricles may affect MD; generalizability of findings across populations uncertain despite two-cohort validation",
+      "supporting_text": "Data from repeated visits and new subjects from ADNI3 and ADNI4 will be included in future longitudinal studies... some key bundles, such as the fornix and the cingulum, are difficult to reconstruct using automated methods due to their unique shape and location, although the fornix is a key structure showing early changes in aging... Out of all bundles, the uncinate fasciculus (UF) and inferior fronto-occipital fasciculus (IFOF) bundles show the least alignment after ComBat harmonization. This may be due to inconsistent quality of tractography and segmentation of these bundles across all protocols... The NIMHANS Siemens protocol shows the greatest protocol difference when compared to the Philips protocol from the same cohort or the ADNI protocols... Compared to ADNI, fewer subjects in NIMHANS were used for model fine-tuning and statistical analysis... MINT may more effectively encode patterns of whole-brain fiber geometry when a larger sample of healthy controls is used for fine-tuning... Confounders such as education and lifestyle factors are not currently available for the NIMHANS cohort",
+      "location": "Feng2025.pdf.md: Discussion / 4.3, lines 272-273; Discussion / 4.4, lines 274-277; Feng2025_sup.pdf.md: Section 5.0.1, line 130"
+    },
+    "caa11_application_notes": "Transfer learning approach enables multi-site analysis without sharing raw data; separate fine-tuning per cohort simulates federated learning scenarios; bundle profiles can be shared across sites after local fine-tuning; Q-Q plots provide intuitive ranking of diffusion metrics by sensitivity to disease; visualization using FURY package enables along-tract mapping of effects; model and code publicly available at https://github.com/wendyfyx/MINT"
+  },
+  "general_note_part": {
+    "gn1_general_notes": "This is a methodological study introducing MINT (Macrostructure-Informed Normative Tractometry), a novel framework combining deep learning (VAE with 1D convolutional layers) with tractometry to jointly model white matter microstructure (DTI metrics) and macrostructure (fiber geometry from tractography). Key innovation is using whole-brain normalization and multi-bundle training to encode fiber proximity and crossing patterns. The VAE has 464,408 parameters with asymmetric encoder-decoder architecture. Pretraining on TractoInferno (198 subjects, 6 studies, >100 million streamlines, 24,000 steps) followed by fine-tuning on target cohorts (5,000 steps each). The paper compares 9 diffusion features: 5 MINT-derived MAE scores (Shape, FA, MD, RD, AxD) and 4 traditional DTI measures (FA, MD, RD, AxD). ComBat harmonization applied at the bundle profile level (post-modeling) rather than at the raw data level. The study demonstrates that joint modeling can help disentangle true microstructural changes from artifacts due to crossing fibers and macrostructural variations. Supplementary materials include detailed along-tract visualizations for all metrics and harmonization evaluation. Code and pretrained models are publicly available. The paper addresses an important limitation of standard tractometry by accounting for whole-brain fiber geometry, though some key tracts (fornix, cingulum) remain difficult to reconstruct. The transfer learning approach is particularly relevant for multi-site studies where data sharing is restricted."
+  }
+}

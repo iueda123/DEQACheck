@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Wang2023",
+    "si2_reference_file_names": "Wang2023.pdf.md; Supplementary.pdf.md",
+    "si3_author_journal_year": "Wang Y et al., bioRxiv, 2023",
+    "si4_title": "Distinct Neurodevelopmental Patterns and Intermediate Integration-Based Predictive Modeling in Autism Spectral Disorder",
+    "si5_doi": "10.1101/2023.06.26.546426"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "This study aims to characterize the distinct developmental patterns of cortical morphology in individuals with Autism Spectrum Disorder (ASD), identify important neural biomarkers for ASD diagnostics, and propose a deep-learning workflow (LMFGCN) for ASD prediction.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "ABIDE-I; ABIDE-II; KQJH",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states that the data was acquired from three datasets: ABIDE-I, ABIDE-II, and KQJH. These were used for both the typically developing (TD) / healthy control (HC) group and the clinical group.",
+      "supporting_text": "All data are acquired from ABIDE-I [40], ABIDE-II [41] and KQJH.",
+      "location": "Wang2023.pdf.md: METHODS / Participants"
+    },
+    "rci2_hc_n": {
+      "answer": "998",
+      "confidence_rating": "High",
+      "reason": "The paper provides a table (Table 1) summarizing the demographics of participants included after quality assurance. The total number of typically developing (TD) participants is listed as 998.",
+      "supporting_text": "Total | TD 998",
+      "location": "Wang2023.pdf.md: Table 1. Demographics of participants included after QA."
+    },
+    "rci3_hc_age": {
+      "answer": "mean 14.6; sd 7.52; range NR",
+      "confidence_rating": "High",
+      "reason": "Table 1 in the main paper provides the mean and standard deviation for the total TD (HC) group. The age range for the combined group is not explicitly stated, though ranges for the individual datasets are mentioned in the text.",
+      "supporting_text": "Total | TD | Age, years, mean (SD) | 14.6(7.52)",
+      "location": "Wang2023.pdf.md: Table 1. Demographics of participants included after QA."
+    },
+    "rci4_hc_sex": {
+      "answer": "F 276 (27.7%); M 722 (72.3%)",
+      "confidence_rating": "High",
+      "reason": "Table 1 in the main paper provides the counts for female (F) and male (M) participants in the total TD (HC) group. The percentages were calculated from these counts (F: 276/998; M: 722/998).",
+      "supporting_text": "Total | TD | Sex, F/M, n | 276/722",
+      "location": "Wang2023.pdf.md: Table 1. Demographics of participants included after QA."
+    },
+    "rci5_imaging_modality": {
+      "answer": "T1-weighted MRI",
+      "confidence_rating": "High",
+      "reason": "The supplementary material clearly states that T1-weighted scans were chosen from all datasets and describes the acquisition parameters for the KQJH dataset as a T1-weighted MPRAGE sequence.",
+      "supporting_text": "All T1-weighted scans were chosen from 1112 ABIDE-I participants..., 1114 ABIDE-II participants..., and 323 KQJH participants... KQJH dataset was acquired in the sagittal plane on 3 T scanners (Siemens Skyra) using a magnetization prepared rapid gradient echo (MPRAGE) sequence.",
+      "location": "Supplementary.pdf.md: MRI acquisition"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level",
+      "supporting_text": "The FreeSurfer algorithm automatically parcellates the cortex and assigns a neuroanatomical label to each location on a cortical surface model based on probabilistic information. The parcellation scheme of the Desikan-Killiany atlas [46, 47] was used to divide the cortex into 34 regions per hemisphere.",
+      "location": "Wang2023.pdf.md: METHODS / MRI acquisition and preprocessing"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "InfantFreeSurfer (0-2 years); ANTs and FreeSurfer v7.1.117 (3-6 years); FreeSurfer v7.1.117 (>6 years); Desikan-Killiany atlas",
+      "confidence_rating": "High",
+      "reason": "The paper and supplementary materials describe a multi-pipeline approach depending on age. InfantFreesurfer was used for ages 0-2, a combination of ANTs and Freesurfer v7.1.117 for ages 3-6, and standard Freesurfer v7.1.117 for ages >6. The Desikan-Killiany atlas was used for parcellation.",
+      "supporting_text": "For 0-2-year-old children, we used the month-wised MRI preprocessing by Infantfreesurfer tools [42]. For 3-6-year-old children, we first applied the age-specific brain template and created the prior masks using ANTs [43]. Then, we conducted agewised preprocessing using Freesurfer [44, 45]. For participants whose age over 6 years old, we used a standard MRI preprocessing pipeline in Freesurfer [44]. ... The parcellation scheme of the Desikan-Killiany atlas [46, 47] was used to divide the cortex into 34 regions per hemisphere.",
+      "location": "Wang2023.pdf.md: METHODS / MRI acquisition and preprocessing; Supplementary.pdf.md: Image preprocessing and feature extraction"
+    },
+    "rci8_quality_checking": {
+      "answer": "Yes",
+      "detail": "Manual visual inspection by two reviewers; Automated QC via MRIQC; Exclusion based on low contrast-to-noise ratio (CNR) and high subject motion (entropy focus criterion, EFC). Total rejected: 470/2479 participants.",
+      "confidence_rating": "High",
+      "supporting_text": "The quality control was assessed by inspecting the image and the cortical reconstructed results across individual brains by two independent reviewers (YL.W. and S.T.). To enhance the accuracy of QA and to investigate the reasons of image exclusion, we also use quality control software for MRI data (MRIQC, [48]) to compute image quality metrics for each dataset...",
+      "location": "Wang2023.pdf.md: METHODS / Quality assurance (QA) and exclusion criteria; Supplementary.pdf.md: Quality assurance (QA)"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "Batch-removal",
+      "detail": "ComBat was used to control for confounding effects of age, sex, and site effects. This was applied before the case-control analysis, but after the normative modeling.",
+      "confidence_rating": "Medium",
+      "supporting_text": "...we then used ComBat (github.com/ Jfortin1/ComBatHarmonization) [57], a batch-effect correction tool, to control for confounding effect of age, sex, and site effects.",
+      "location": "Wang2023.pdf.md: METHODS / Case-control Analyses"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "New",
+      "detail": "-",
+      "confidence_rating": "High",
+      "supporting_text": "To capture the developmental trajectory of ASD and TD, GAMLSS models were fitted to structural MRI data for the mean CT (MCT), total SA (TSA), and total GV (TGV) separately.",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology"
+    },
+    "nm2_modeling_method": {
+      "answer": "GAMLSS",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states the use of Generalized additive models for location, scale and shape (GAMLSS) to model the developmental trajectories.",
+      "supporting_text": "Generalized additive models for location, scale and shape (GAMLSS) can be used to model multi-parameter distributions, where each parameter of the distribution, i.e., location, scale, and shape, can be modeled as a function of several input variables, thereby accommodating a wide range of distributions [53-55].",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology"
+    },
+    "nm3_software_tool": {
+      "answer": "NR (GAMLSS), mlr package",
+      "confidence_rating": "Medium",
+      "reason": "The paper states that GAMLSS was used but does not specify the software package (e.g., R's gamlss package). It does mention using the 'mlr' package for model performance evaluation.",
+      "supporting_text": "Finally, we used the mlr package to evaluate the performance of 5 models.",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology"
+    },
+    "nm4_response_variable": {
+      "answer": "Mean Cortical Thickness (MCT); Total Surface Area (TSA); Total Gray Matter Volume (TGV)",
+      "confidence_rating": "High",
+      "reason": "The paper clearly states which global structural MRI measures were modeled.",
+      "supporting_text": "To capture the developmental trajectory of ASD and TD, GAMLSS models were fitted to structural MRI data for the mean CT (MCT), total SA (TSA), and total GV (TGV) separately.",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology"
+    },
+    "nm5_predictor_variables": {
+      "answer": "Age; Sex; Site",
+      "confidence_rating": "High",
+      "reason": "The paper describes different GAMLSS models (M1a-M1e) that include age as a smooth effect and sex and site as fixed or random effects.",
+      "supporting_text": "We can only choose model age smooth effect for μ and σ (M1a), and add sex and site intercepts for μ and σ as a fixed effect (M1b), and add age smooth effect for ν and τ (M1c), and add sex and site intercepts for ν and τ (M1d), and adjust sex and site for μ and σ as random effects (M1e).",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology"
+    },
+    "nm6_predictor_effects": {
+      "answer": "Age modeled with smooth effects; Sex and Site modeled as fixed or random effects depending on the model.",
+      "confidence_rating": "High",
+      "reason": "The text explicitly describes modeling age with a smoothing function and testing models where sex and site are either fixed or random effects.",
+      "supporting_text": "...add sex and site intercepts for μ and σ as a fixed effect (M1b)...and adjust sex and site for μ and σ as random effects (M1e).",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study used GAMLSS with a SHASH distribution to model non-gaussian distributions and heteroscedasticity. It modeled age non-linearity using smoothing functions and included site as a covariate (fixed or random effect) to handle site effects.",
+      "supporting_text": "Given the effect of age over the lifespan seems to be slightly non-linear and non-gaussian distribution, Sinh-Arcsinh (SHASH) [56] was adopted to estimate a model for four parameter distribution. We next compare several models with different additive items for ASD and TD group: ... add sex and site intercepts for μ and σ as a fixed effect (M1b), ... and adjust sex and site for μ and σ as random effects (M1e).",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not mention using non-independent resampling methods like bootstrapping on the full dataset for validation of the GAMLSS models. The focus was on train/test split validation.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states that the data was split into a 70% training set and a 30% testing set, and that models were compared on the training set and then validated on the testing set.",
+      "supporting_text": "First, all data was split into 70% train dataset and 30% test dataset. ... Then, we compared each models in the training set and then validate the models in the testing set.",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The study developed and validated its normative models on a combined dataset (ABIDE I, II, KQJH). There is no mention of validating the models on a completely external, different-domain dataset.",
+      "supporting_text": "-",
+      "location": "-"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "ABIDE-I; ABIDE-II; KQJH",
+      "confidence_rating": "High",
+      "reason": "The same datasets used for the reference cohort were also used for the clinical (ASD) group. The paper lists the participant numbers for ASD from each dataset.",
+      "supporting_text": "All data are acquired from ABIDE-I [40], ABIDE-II [41] and KQJH. ABIDE-I consists of 1112 participants in total, 539 ASD participants and 573 TD participants... ABIDE-II consists of 1114 participants, 521 ASD participants and 593 TD participants... KQJH dataset currently consists of 323 participants in total, 237 ASD participants, 86 TD participants.",
+      "location": "Wang2023.pdf.md: METHODS / Participants"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Autism Spectrum Disorder (ASD)",
+      "confidence_rating": "High",
+      "reason": "The entire paper is focused on Autism Spectrum Disorder (ASD).",
+      "supporting_text": "Autism Spectrum Disorder (ASD) is known to exhibit a more rapid expansion in brain structure during the early years of life compared to typically developing children (TD).",
+      "location": "Wang2023.pdf.md: ABSTRACT"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "ASD: 1011",
+      "confidence_rating": "High",
+      "reason": "Table 1 in the main paper clearly states the total number of participants in the ASD group after quality assurance is 1011.",
+      "supporting_text": "Total | ASD 1011",
+      "location": "Wang2023.pdf.md: Table 1. Demographics of participants included after QA."
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "mean 12.7; sd 8.4; range NR",
+      "confidence_rating": "High",
+      "reason": "Table 1 in the main paper provides the mean and standard deviation for the total ASD group. The age range for the combined group is not explicitly stated.",
+      "supporting_text": "Total | ASD | Age, years, mean (SD) | 12.7(8.4)",
+      "location": "Wang2023.pdf.md: Table 1. Demographics of participants included after QA."
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "F 150 (14.8%); M 861 (85.2%)",
+      "confidence_rating": "High",
+      "reason": "Table 1 in the main paper provides the counts for female (F) and male (M) participants in the total ASD group. The percentages were calculated from these counts (F: 150/1011; M: 861/1011).",
+      "supporting_text": "Total | ASD | Sex, F/M, n | 150/861",
+      "location": "Wang2023.pdf.md: Table 1. Demographics of participants included after QA."
+    },
+    "caa6_deviation_metric": {
+      "answer": "The study does not quantify individual deviations from the normative model (e.g., as z-scores or centiles). Instead, it creates separate normative models (growth charts) for the TD and ASD groups and compares the trajectories of the two groups.",
+      "confidence_rating": "High",
+      "reason": "The methodology describes fitting separate GAMLSS models to the ASD and TD groups to capture their respective developmental trajectories. It then compares these trajectories. The 'Case-control Analyses' section compares the groups directly using GLMs after harmonization, rather than calculating individual deviation scores from a single normative model.",
+      "supporting_text": "To capture the developmental trajectory of ASD and TD, GAMLSS models were fitted to structural MRI data for the mean CT (MCT), total SA (TSA), and total GV (TGV) separately. ... The growth trajectories of MCT, TGV, and TSA were explicitly estimated using GAMLSS (Figure 1), providing formal quantification of developmental changes in between-subject variability.",
+      "location": "Wang2023.pdf.md: METHODS / Modeling developmental trajectories of brain morphology; RESULTS / Tractography analysis"
+    },
+    "caa7_association_analysis": "The study performed case-control comparisons between ASD and TD groups on ROI-level cortical measures (CT, SA, GV) using general linear models after applying ComBat for harmonization and correcting for multiple comparisons with the Bonferroni method. It did not associate deviation metrics with clinical variables, but rather compared the groups directly.",
+    "caa8_key_findings_brief": "The study found distinct developmental trajectories for cortical thickness and surface area in ASD, with early overgrowth followed by pseudonormalization, and demonstrated that a novel deep learning model (LMFGCN) achieved high accuracy (81.77%) in classifying ASD.",
+    "caa9_key_findings_detailed": "This study used GAMLSS to model normative trajectories of cortical morphology, revealing that individuals with ASD show separate developmental paths for cortical thickness (CT) and surface area (SA) compared to typically developing (TD) controls, often characterized by rapid early growth followed by a period of 'pseudonormalization'. The larger brain volume in young children with ASD was mainly due to increased SA, not CT. Case-control analyses identified significant regional differences in CT, SA, and gray matter volume between ASD and TD groups. The proposed deep-learning model, LMFGCN, which uses an intermediate fusion approach, outperformed other machine learning models and fusion strategies in classifying ASD, achieving an accuracy of 81.77%.",
+    "caa10_key_limitations": {
+      "answer": "Limitations include the challenges of multi-site data and sex differences despite efforts to control for them; the need for replication of the classification model on independent datasets before clinical use; and the use of cross-sectional data to infer longitudinal trajectories, which requires confirmation from future longitudinal studies.",
+      "supporting_text": "There are several limitations to the current study. Firstly, current study has a larger sample size cross the life span, but various participating sites and sex differences still be challenging for multi-sits datasets. While we made effects to control for these effects in our models, it cannot fully exclude potential influence. Secondly, the classification model for ASD must be replicated on other independent datasets before any application in clinical decision-making. Lastly, the developmental trajectories for brain changes in ASD are predominantly drawn from our current cross-sectional data, future longitudinal studies with larger sample sizes are essential to clarify reported developmental trajectories...",
+      "location": "Wang2023.pdf.md: Discussion"
+    },
+    "caa11_application_notes": "The study introduces a novel deep-learning framework (LMFGCN) that combines Graph Convolutional Networks (GCNs) with Low-Rank Multimodal Fusion (LMF) as an 'intermediate fusion' strategy. This end-to-end model was shown to be superior to early and late fusion methods for ASD classification."
+  },
+  "general_note_part": {
+    "gn1_general_notes": "This study does not follow a typical normative modeling approach where a single model of healthy development is built and patients are compared against it. Instead, it builds separate 'normative' models (developmental charts) for both the healthy control (TD) and clinical (ASD) populations and compares these two models. The 'deviation' is therefore a group-level comparison of trajectories, not an individual-level metric."
+  }
+}

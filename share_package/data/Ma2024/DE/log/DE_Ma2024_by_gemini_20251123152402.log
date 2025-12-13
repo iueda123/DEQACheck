@@ -1,0 +1,66 @@
+
+========== Gemini コマンド ==========
+gemini \
+    "DE_Guide_v10_1.md に従って作業をしてください。作業結果は DE_Ma2024_by_gemini_20251123152402.json へ書き込んでください。" \
+    --approval-mode auto_edit \
+    --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Gemini が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Loaded cached credentials.
+Okay, I understand. I will read `DE_Guide_v10_1.md` and then proceed to perform the task, writing the results to `DE_Ma2024_by_gemini_20251123152402.json`.
+I've reviewed the `DE_Guide_v10_1.md` and will proceed with data extraction, outputting to `DE_Ma2024_by_gemini_20251123152402.json`. I'll begin by extracting the "SI. Study Identification Part" details, starting with "Ma2024" for `SI-1`, and `Ma2024.pdf.md` for `SI-2`. I'll then read `Ma2024.pdf.md` to gather the information for `SI-3`, `SI-4`, and `SI-5`.
+I've extracted the SI part: Study ID: Ma2024, Reference File Names: Ma2024.pdf.md, Author, Journal, and Year: Ma et al., Journal of Behavioral Addictions, 2024, Title: Comparative analysis of cortical anatomy in male participants with internet gaming disorder or tobacco use disorder: Insights from normative modeling, and DOI: 10.1556/2006.2024.00044. I will now write this to the JSON file.
+I've completed the Study Characteristics section. The objective is to analyze cortical thickness development in male IGD and TUD patients via normative modeling to elucidate neural mechanisms, identify commonalities/differences, and inform IGD classification. The study design is cross-sectional, therefore "Study Design Other" is "-". I'll now append this data to the JSON file.
+I will now proceed with populating the JSON for the "RCI. Reference Cohort & Imaging Part." I've identified the following:
+
+- **RCI-1. Dataset Name**: Brain Genomics Superstruct Project (GSP)
+- **RCI-2. HC_N**: 665
+- **RCI-3. HC_Age**: mean 21.65; sd 3.04; min 19; max 35
+- **RCI-4. HC_Sex**: M 665 (100%); F 0 (0%)
+- **RCI-5. Imaging Modality**: T1-weighted MRI
+- **RCI-6. Analysis Level**: ROI-level
+- **RCI-7. Preprocessing Pipeline**: CAT-12 toolbox; SPM-12; Desikan-Killiany atlas
+- **RCI-8. Quality Checking**: Yes; IQR ratings; Euler index thresholding and manual examination; exclusion of 0 HC, 8 IGD, 6 TUD for Euler index.
+- **RCI-9. Site Effect Handling**: Model-based; Euler index as covariate in normative model; GSP is multi-site.
+
+I will now update the JSON.
+I will now complete the "NM. Normative Modeling Part" of the JSON. I've identified the following:
+
+- **NM-1. Model Origin**: "New", as the model was developed within this study using the provided HC data, not pre-trained externally.
+- **NM-2. Modeling Method**: Gaussian Process Regression (GPR).
+- **NM-3. Software Tools**: Predictive Clinical Neuroscience toolkit (PCNtoolkit).
+- **NM-4. Response Variable**: Cortical thickness (CT) at an ROI-level, using the Desikan-Killiany atlas.
+- **NM-5. Predictor Variables**: Age; Euler index.
+- **NM-6. Predictor Effects**: GPR, a non-parametric approach, models non-linear relationships with age and Euler index as covariates.
+- **NM-7. Normative Modeling Validation with Handling Nuisance Structure**: Yes, due to inclusion of age and Euler index as covariates in the GPR model, which accounts for non-linearity and site-related variance.
+- **NM-8. Normative Modeling Validation Strategy using Same Domain Non-Independent Dataset**: Yes, using 10-fold cross-validation on the HC group.
+- **NM-9. Normative Modeling Validation Strategy using Same Domain Independent Dataset**: Yes, the 10-fold cross-validation on the HC group fits this definition.
+- **NM-10. NM Validation Strategy using Different Domain Dataset**: Yes, the model trained on GSP data is applied to the separately recruited IGD and TUD patient cohorts, which are considered different domain datasets for validation.
+
+Now I will populate the JSON.
+I will now complete the "CAA. Clinical Application & Analysis Part" of the JSON. I've gathered the following information:
+
+- **CAA-1. Clinical Dataset**: Newly enrolled participants for this study (IGD and TUD cohorts).
+- **CAA-2. Diseases Studied**: Internet gaming disorder (IGD); tobacco use disorder (TUD).
+- **CAA-3. N of Clinical Groups**: IGD:68; TUD:71 (post-matching and QC).
+- **CAA-4. Age of Clinical Groups**: IGD: mean 21.46; sd 2.22; min 19; max 29. TUD: mean 22.13; sd 1.80; min 19; max 26.
+- **CAA-5. Sex of Clinical Group Groups**: IGD: F 0 (0%); M 68 (100%). TUD: F 0 (0%); M 71 (100%).
+- **CAA-6. Deviation Metric**: Z-score; percentage of extreme deviations (thresholds z=±2.6, z=±1.65).
+- **CAA-7. Association Analysis**: ROI-level t-tests (Bonferroni-Holm corrected) for group differences in z-scores; Spearman correlation (FDR corrected) between regional Z-scores and clinical severity scores (DSM, FTND) via partial correlation (excluding gender, head motion, Euler index).
+- **CAA-8. Key Findings Brief**: Both IGD and TUD groups showed widespread cortical thinning, with individual-level heterogeneity, and distinct cortical thickness developmental trends were observed in the pericalcarine cortex between the two groups.
+- **CAA-9. Key Findings Detailed**: Widespread cortical thinning in both groups, especially bilateral temporal pole and medial orbitofrontal cortex. TUD group showed greater heterogeneity (positive deviations: 20.59% ROIs for TUD vs 8.82% for IGD; negative deviations: 73.53% ROIs for TUD vs 42.65% for IGD). Opposite CT trends in pericalcarine cortex and pars triangularis between groups. IGD DSM scores correlated positively with Z-scores in left entorhinal, right lateral orbitofrontal, right parahippocampal, and right frontal pole (r=0.25-0.27, pFDR<0.041). TUD FTND scores negatively correlated with Z-scores in left lateral orbitofrontal, right medial orbitofrontal, right rostral anterior cingulate, right rostral middle frontal, left superior parietal, and left superior temporal cortex (r=-0.24 to -0.38, pFDR<0.047).
+- **CAA-10. Key Limitations**: ROI-wise analysis may lose local information; exclusion of other addictions by verbal inquiry only (lacking scale/biochemical data); GSP dataset lacks IGD/TUD diagnoses, potentially affecting normative modeling results; cross-sectional data limits brain development trajectory interpretation.
+- **CAA-11. Application Notes**: Used 10-fold cross-validation for unbiased estimation. Employed a fixed statistical significance threshold (z=±2.6) for extreme deviations to simplify comparisons and reduce sensitivity to overall changes. Calculated percentage of extreme deviations as a summary score. Used Python 3.8 for analyses. The approach combines group-level and individualized analyses.
+
+Now I will populate the JSON.
+I've completed the Clinical Application & Analysis section and will now address the "GN. General Note Part." The primary uncaptured information is that all participants were male, and age and education matching occurred via non-parametric nearest neighbor matching using the MatchIt package in R. I'll add this to the JSON.
+All requested information has been extracted and written to `DE_Ma2024_by_gemini_20251123152402.json`, completing the task.
+Error executing tool run_shell_command: Command "echo "All data extracted."" is not in the list of allowed tools for non-interactive mode.
+Attempt 1 failed: You have exhausted your capacity on this model. Your quota will reset after 0s.. Retrying after 506.86133ms...
+I have successfully extracted all the requested information and written it to the `DE_Ma2024_by_gemini_20251123152402.json` file. The task is complete.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Gemini による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

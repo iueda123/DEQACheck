@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Mansour2025",
+    "si2_reference_file_names": "Mansour2025.pdf.md; NIHPP2025.01.16.25320639v1-supplement-1.pdf.md",
+    "si3_author_journal_year": "Sina Mansour L. et al., medRxiv, 2025",
+    "si4_title": "Spectral normative modeling of brain structure",
+    "si5_doi": "10.1101/2025.01.16.25320639"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "Propose and validate a new method, spectral normative modeling (SNM), to create efficient, multi-scale normative brain charts independent of predefined parcellations, and demonstrate its utility in characterizing atrophy in Alzheimer's disease.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "Human Connectome Project (HCP) Young Adult; HCP Aging; HCP Development",
+      "confidence_rating": "High",
+      "reason": "The manuscript explicitly lists the three aggregated HCP cohorts used as the healthy reference dataset for training the normative model.",
+      "supporting_text": "This study uses three publicly available healthy brain imaging datasets that were provided and curated by the Human Connectome Project (HCP) 101 ; namely, HCP's Young Adult 102 , Aging 103 , and Development 104 cohorts.",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data"
+    },
+    "rci2_hc_n": {
+      "answer": "2473",
+      "confidence_rating": "High",
+      "reason": "The manuscript explicitly states the total number of healthy participants across the three aggregated cohorts.",
+      "supporting_text": "These cohorts collectively comprised 2473 healthy individuals (54.7% female) spanning a wide age range, from 5 to 100 years old.",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data"
+    },
+    "rci3_hc_age": {
+      "answer": "min 5; max 100",
+      "confidence_rating": "High",
+      "reason": "The paper states the overall age range for the total healthy cohort. Detailed mean and SD are provided per sub-cohort (HCP-D, HCP-YA, HCP-A) in the supplementary material (Table S.1), but an overall mean/SD is not provided. The range is the most direct and accurate summary.",
+      "supporting_text": "These cohorts collectively comprised 2473 healthy individuals (54.7% female) spanning a wide age range, from 5 to 100 years old.",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data"
+    },
+    "rci4_hc_sex": {
+      "answer": "F 1353 (54.7%); M 1120 (45.3%)",
+      "confidence_rating": "High",
+      "reason": "The total number of participants and the percentage of females are explicitly stated. The number and percentage of males were calculated from these values.",
+      "supporting_text": "These cohorts collectively comprised 2473 healthy individuals (54.7% female)...",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data"
+    },
+    "rci5_imaging_modality": {
+      "answer": "T1-weighted MRI; Diffusion-weighted MRI",
+      "confidence_rating": "High",
+      "reason": "The paper states that T1-weighted imaging was used to derive cortical thickness, and diffusion-weighted imaging was used to construct the connectome for the eigenmode decomposition.",
+      "supporting_text": "Across all datasets, FreeSurfer processing of the T1-weighted (T1w) structural brain imaging data was used to extract high-resolution maps of cortical thickness. ... In brief, diffusion-weighted imaging data were used to estimate structural connectivity.",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data; Section 4.6 High-resolution Connectomes"
+    },
+    "rci6_analysis_level": {
+      "answer": "Vertex-level; ROI-level; Network-level",
+      "supporting_text": "SNM achieves a 98.3% speedup in computing accurate normative ranges across spatial scales, from millimeters to the whole brain. ... We evaluate SNM's performance ... in reconstructing normative ranges for brain-wide, regional, and high-resolution thickness queries.",
+      "location": "Mansour2025.pdf.md: Abstract"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "HCP minimal preprocessing pipeline; FreeSurfer (v5.2 and v6.0); MSMAll for surface registration; Projection to fs-LR 32k surface space.",
+      "confidence_rating": "High",
+      "reason": "The supplementary material provides a detailed description of the preprocessing pipelines used for the different cohorts, including specific software and registration steps.",
+      "supporting_text": "Acquired images underwent preprocessing using the HCP's minimal preprocessing pipeline. ... Cortical surface reconstruction was performed using FreeSurfer (version 5.2) ... registered to the Conte69 surface template with a multimodal surface matching algorithm (MSMAll) ... and downsampled to ... the fs-LR 32k space.",
+      "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Section A.1.1 HCP Lifespan Data"
+    },
+    "rci8_quality_checking": {
+      "answer": "No",
+      "detail": "The manuscript relies on pre-processed data from the HCP and MACC datasets. While these original datasets likely underwent quality control, this specific paper does not report any details on quality checking procedures, such as visual inspection, automated QC metrics, or exclusion of participants based on data quality. -",
+      "confidence_rating": "Medium",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "Model-based",
+      "detail": "The paper explicitly describes using hierarchical modeling (random effects for site/dataset) to handle site effects in the main analysis and a transfer learning/fine-tuning approach for the external validation dataset. Site/dataset effects were harmonized using a Hierarchical Bayesian Regression (HBR) model where dataset was included as a random effect on the mean and deviation intercepts. For the external clinical dataset (MACC), the model was adapted via transfer learning by fine-tuning site-specific parameters on a local healthy control subsample.",
+      "confidence_rating": "High",
+      "supporting_text": "Batch effects (for dataset harmonization) are modeled as intercepts for the mean ( β µ ∼ N ( µ β µ , σ β µ ) ) and deviation ( β + σ ∼ N ( µ β + σ , σ 2 β + σ ) ) that are randomly drawn from another prior distribution; this results in hierarchically modeling batch as a random effect. ... However, site parameters for dataset harmonization were fine-tuned on a subsample of 66 healthy individuals (50% of the HC cohort) from the MACC clinical cohort.",
+      "location": "Mansour2025.pdf.md: Section 4.8.2 Direct Method; Section 4.5 Clinical Fine-tuning"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "New",
+      "detail": "-",
+      "confidence_rating": "High",
+      "supporting_text": "In this work, we introduce spectral normative modeling (SNM) as a novel method to establish normative reference brain charts that are independent of any spatial resolution or parcellation atlas.",
+      "location": "Mansour2025.pdf.md: Section 1 Introduction"
+    },
+    "nm2_modeling_method": {
+      "answer": "Spectral Normative Modeling (SNM) using Hierarchical Bayesian Regression (HBR)",
+      "confidence_rating": "High",
+      "reason": "The paper introduces SNM as the overall framework and specifies that the implementation uses HBR to model the normative ranges of the spectral coefficients derived from the phenotype.",
+      "supporting_text": "For clarity and without loss of generality, we focus on an exemplary instantiation using Hierarchical Bayesian Regression (HBR). ... In the training phase, k direct normative models are independently fitted to the projection of phenotypes on the first k brain eigenmodes...",
+      "location": "Mansour2025.pdf.md: Section 4.8 Normative Modeling Framework and 4.8.3 Spectral Normative Model (SNM)"
+    },
+    "nm3_software_tool": {
+      "answer": "PyMC; scikit-learn; Numpy; Scipy",
+      "confidence_rating": "High",
+      "reason": "The acknowledgements section explicitly lists the key Python packages used for the analysis, including PyMC for probabilistic programming (used for HBR) and scikit-learn for machine learning components.",
+      "supporting_text": "The analytical pipeline made use of several open-source Python packages, including Numpy 129 , Scipy 130 , Matplotlib 131 , Pandas 132 , scikit-learn 133 , PyMC 134 , xarray 135 , and Nibabel 136 .",
+      "location": "Mansour2025.pdf.md: Acknowledgments"
+    },
+    "nm4_response_variable": {
+      "answer": "Vertex-wise cortical thickness (spectral coefficients)",
+      "confidence_rating": "High",
+      "reason": "The paper models the spectral coefficients of high-resolution, vertex-wise cortical thickness maps as the primary response variable.",
+      "supporting_text": "In this space, cortical thickness is represented as a high-resolution vector T i ∈ R 1 × N v ( N v = 59 , 412 )... for each i th individual's cortical surface. ... for each i ≤ k , the spectral coefficient s i ∈ R N train × 1 associated with Ψ i is first computed...",
+      "location": "Mansour2025.pdf.md: Section 4.3 Cortical Thickness and 4.8.3 Spectral Normative Model (SNM)"
+    },
+    "nm5_predictor_variables": {
+      "answer": "Age; Sex; Site/Dataset",
+      "confidence_rating": "High",
+      "reason": "Section 4.4 explicitly names age, sex, and batch effects (imaging cohorts/sites) as the covariates.",
+      "supporting_text": "For simplicity, we consider the covariates of age and sex, although other covariates can be straightforwardly incorporated. Moreover, batch effects were included in the model to facilitate harmonization among the three imaging cohorts (development, young adult, and aging).",
+      "location": "Mansour2025.pdf.md: Section 4.4 Normative Covariates"
+    },
+    "nm6_predictor_effects": {
+      "answer": "Age and Sex were modeled as fixed effects (with non-linear B-splines for age). Site/Dataset was modeled as a random effect.",
+      "confidence_rating": "High",
+      "reason": "Section 4.8.2 details the HBR model, specifying that age (via B-spline basis expansion) and sex are fixed effects, while batch/site effects are modeled hierarchically as random effects.",
+      "supporting_text": "...wµ and w+σ are weights that model the fixed effect of age by a basis expansion Φ. A B-spline basis expansion...was used... The fixed effect of sex is modeled by intercepts... Batch effects (for dataset harmonization) are modeled as intercepts...that are randomly drawn from another prior distribution; this results in hierarchically modeling batch as a random effect.",
+      "location": "Mansour2025.pdf.md: Section 4.8.2 Direct Method"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The model explicitly handles several nuisance factors: site/scanner effects via hierarchical random effects, non-linear age trends using B-splines, and heteroscedasticity by modeling variance as a function of covariates.",
+      "supporting_text": "...model its moments (mean and variance) as a function of covariates (age and sex) while controlling for batch effects... A B-spline basis expansion (cubic spline with three evenly spaced knots; df=5) was used to capture the non-linear effects of age. ... Batch effects (for dataset harmonization) are modeled as intercepts ... as a random effect.",
+      "location": "Mansour2025.pdf.md: Section 4.8.2 Direct Method"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper's validation strategy is focused on an independent held-out test set and an external clinical dataset. It does not mention using non-independent resampling methods like bootstrapping on the full dataset or reporting fit on the training data.",
+      "supporting_text": "Healthy individuals were stratified into train and test splits to enable validation of the fitted models on unseen data. ... 80% (N train =1978 individuals) ... were used to train the model, and the remaining 20% (N test =495) were used for out-of-sample validation",
+      "location": "Mansour2025.pdf.md: Section 4.2 Train Test Split"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly describes and uses a stratified 80/20 train/test split of the healthy HCP dataset for out-of-sample validation of the model's performance.",
+      "supporting_text": "Healthy individuals were stratified into train and test splits to enable validation of the fitted models on unseen data. Namely, 80% ( N train =1978 individuals) of the healthy data were used to train the model, and the remaining 20% ( N test =495) were used for out-of-sample validation",
+      "location": "Mansour2025.pdf.md: Section 4.2 Train Test Split"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The model trained on the HCP lifespan dataset was validated on a completely separate clinical dataset (MACC) to assess its generalizability and clinical utility, demonstrating validation on a different domain.",
+      "supporting_text": "In addition to the healthy datasets used to train the normative model, we evaluated the model's translational capabilities to real-world data from memory clinics (Memory, Ageing & Cognition Centre at the National University of Singapore: MACC).",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "Memory, Ageing & Cognition Centre (MACC)",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly names the MACC dataset as the independent clinical sample used for evaluating the model's translational capabilities.",
+      "supporting_text": "In addition to the healthy datasets used to train the normative model, we evaluated the model's translational capabilities to real-world data from memory clinics (Memory, Ageing & Cognition Centre at the National University of Singapore: MACC).",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Alzheimer's Disease (AD); Mild Cognitive Impairment (MCI)",
+      "confidence_rating": "High",
+      "reason": "The paper clearly specifies that the clinical MACC cohort includes individuals diagnosed with Alzheimer's Disease (AD) and Mild Cognitive Impairment (MCI), in addition to healthy controls.",
+      "supporting_text": "This data comprised 542 samples...including 132 cognitively healthy individuals (24.3%), 202 individuals with mild cognitive impairment (MCI; 37.3%), and 208 individuals diagnosed with Alzheimer's Disease (38.4%)",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "AD: 208; MCI: 202; HC: 132",
+      "confidence_rating": "High",
+      "reason": "The exact sample sizes for the AD, MCI, and healthy control (HC) groups within the clinical MACC dataset are provided in the main text and duplicated in the supplementary table.",
+      "supporting_text": "This data comprised 542 samples...including 132 cognitively healthy individuals (24.3%), 202 individuals with mild cognitive impairment (MCI; 37.3%), and 208 individuals diagnosed with Alzheimer's Disease (38.4%)",
+      "location": "Mansour2025.pdf.md: Section 4.1 Brain Imaging Data"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "AD: mean 75.49, sd 7.19; MCI: mean 74.29, sd 6.70; HC: mean 68.49, sd 7.58",
+      "confidence_rating": "High",
+      "reason": "Supplementary Table S.2 explicitly lists the mean and standard deviation of age for each of the three groups (HC, MCI, AD) in the MACC clinical dataset.",
+      "supporting_text": "Table S.2. Sample Characteristic of MACC-H dataset. ... Age | 68.49 ± 7.58 (HC) | 74.29 ± 6.70 (MCI) | 75.49 ± 7.19 (AD)",
+      "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "AD: 68.8% female; MCI: 58.4% female; HC: 54.5% female",
+      "confidence_rating": "High",
+      "reason": "Supplementary Table S.2 explicitly lists the percentage of female participants for each of the three groups (HC, MCI, AD) in the MACC clinical dataset.",
+      "supporting_text": "Table S.2. Sample Characteristic of MACC-H dataset. ... Sex | 54.5% female (HC) | 58.4% female (MCI) | 68.8% female (AD)",
+      "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Vertex-wise Z-score; Extremely Thin Vertex Count (ETVC)",
+      "confidence_rating": "High",
+      "reason": "The paper defines and uses two primary metrics for deviation: vertex-wise Z-scores calculated from the high-resolution normative model, and a summary statistic called ETVC, which counts the number of vertices exceeding an extreme thinning threshold (z < -1.96).",
+      "supporting_text": "...the model is adapted to this independent dataset and can identify deviations in cortical thickness at high spatial resolution (i.e., vertex-wise z-scores...). ... we quantify the number of cortical vertices exhibiting extreme thinning for each individual ( z < -1 . 96 ...). This extreme value statistic, termed Extremely Thin Vertex Count (ETVC)...",
+      "location": "Mansour2025.pdf.md: Section 2.5 SNM Uncovers Cortical Signatures of Atrophy in Alzheimer's Disease"
+    },
+    "caa7_association_analysis": "Group comparisons of deviation maps between HC and AD were done with a two-sample t-test with FDR correction. Associations between vertex-wise z-scores and cognitive scores (MMSE) were tested with Pearson correlation with permutation-based FDR correction. The predictive power of the summary metric ETVC on MMSE scores was tested with Pearson correlation.",
+    "caa8_key_findings_brief": "The proposed SNM method efficiently creates accurate, high-resolution normative brain charts, which successfully identified known cortical atrophy patterns in Alzheimer's Disease, predicted cognitive impairment, and revealed significant inter-individual heterogeneity in atrophy.",
+    "caa9_key_findings_detailed": "The novel Spectral Normative Modeling (SNM) method achieves accuracy comparable to direct models with a >98% speedup, enabling high-resolution (vertex-wise) brain charts. Applied to an independent clinical cohort, SNM replicated established AD-related cortical thinning in temporal, parietal, and frontal lobes. A derived metric, Extremely Thin Vertex Count (ETVC), which quantifies vertices with z-scores < -1.96, showed a significant correlation with cognitive impairment (MMSE score, r=-0.45). The analysis also highlighted substantial heterogeneity in individual atrophy patterns within the AD group, which could not be explained by diagnosis or severity alone.",
+    "caa10_key_limitations": {
+      "answer": "1. Assumption of Gaussianity may not be suitable for all phenotypes and could be addressed by incorporating warping techniques in future work. 2. The method's accuracy depends on the phenotype being well-approximated by the low-pass spectral filter. 3. The choice of connectome-based eigenmodes may influence results, though the framework is generalizable to other orthonormal basis sets.",
+      "supporting_text": "First, the current spectral model assumes Gaussianity... Second, SNM assumes that, with an adequate number of low-frequency eigenmodes, the phenomenon under evaluation...is well-captured by the spectral basis set... Lastly, this study utilized a spatial basis set constructed from connectome eigenmodes...",
+      "location": "Mansour2025.pdf.md: Section 3.5 Future Directions and Limitations"
+    },
+    "caa11_application_notes": "A key innovation is the decoupling of model training from assessment. This allows pre-trained spectral normative models to be shared and used by researchers without access to the large-scale private training data, enhancing accessibility and enabling federated learning applications."
+  },
+  "general_note_part": {
+    "gn1_general_notes": "The core innovation of this paper is the mathematical framework (SNM) that transforms a high-dimensional normative modeling problem into a low-dimensional one by operating in the graph spectral domain of brain eigenmodes. This allows for massive computational speed-up and flexibility to derive normative values for any arbitrary, post-hoc defined region of interest without re-training, a significant departure from traditional ROI- or voxel-based methods. The model is demonstrated on cortical thickness but is theoretically applicable to other modalities. The use of a random-walk Laplacian is a specific choice, and the framework is generalizable to other basis sets."
+  }
+}

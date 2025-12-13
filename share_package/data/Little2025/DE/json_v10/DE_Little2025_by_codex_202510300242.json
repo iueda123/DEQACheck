@@ -1,0 +1,208 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Little2025",
+    "si2_reference_file_names": "Little2025.pdf.md; imag_a_00438-supp.pdf.md",
+    "si3_author_journal_year": "Little et al., Imaging Neuroscience, 2025",
+    "si4_title": "Brain morphology normative modelling platform for abnormality and centile estimation: Brain MoNoCle",
+    "si5_doi": "10.1162/imag_a_00438"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "Present Brain MoNoCle, an open-source web platform with pre-trained normative models for cortical morphology that estimates individual abnormalities (z-scores, centiles) and supports group/individual analyses, and validate it on bipolar disorder and temporal lobe epilepsy cohorts.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Datasets and site details are listed in Supplementary Table S1.1 with names, sample sizes, ages, sex, country, and FreeSurfer versions; main text also states training used several large databases and 21 sites.",
+      "supporting_text": "Table S1.1: Descriptive statistics of each study dataset included in the normative model … Total 3,276 … 21 sites. We trained our models using healthy control data from several large databases (Supplementary Materials S1 and S6).",
+      "location": "Supp S1 Table S1.1; materials/Little2025.pdf.md L189-L197"
+    },
+    "rci2_hc_n": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Total number of healthy controls used for pre-training is explicitly reported as 3,276.",
+      "supporting_text": "Total | 3,276 | 33 (5 - 95) | 1,911 (58.3%)",
+      "location": "Supp S1 Table S1.1 Total row"
+    },
+    "rci3_hc_age": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Age is reported as median and range (5–95 years) in the total normative sample; mean and standard deviation are not provided.",
+      "supporting_text": "Total … Age in years [median(range)] 33 (5 - 95).",
+      "location": "Supp S1 Table S1.1 Total row"
+    },
+    "rci4_hc_sex": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sex counts and percent for females are provided in S1; total female n and % are given, allowing inference of male counts.",
+      "supporting_text": "Total … Sex [n female (%)] 1,911 (58.3%).",
+      "location": "Supp S1 Table S1.1 Total row"
+    },
+    "rci5_imaging_modality": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The modality for morphology extraction is explicitly stated as T1-weighted MRI with FreeSurfer processing.",
+      "supporting_text": "T1-weighted MRI scans were pre-processed in FreeSurfer …",
+      "location": "materials/Little2025.pdf.md L51-L55"
+    },
+    "rci6_analysis_level": {
+      "answer": "Yes",
+      "supporting_text": "… aparcstats2table … for 68 brain regions according to the Desikan–Killiany parcellation … Normative models were fitted independently for each region … and hemisphere …",
+      "location": "materials/Little2025.pdf.md L51-L55; L100-L103"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Detailed preprocessing includes FreeSurfer recon-all, localGI pipeline, and aparcstats2table; FreeSurfer version differences corrected during harmonisation.",
+      "supporting_text": "… pre-processed in FreeSurfer using the standard recon-all pipeline … We also ran the localGI pipeline … aparcstats2table … The version of FreeSurfer varied across datasets … which was corrected during site/batch harmonisation.",
+      "location": "materials/Little2025.pdf.md L51-L57"
+    },
+    "rci8_quality_checking": "Yes",
+    "rci9_quality_checking_detail": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Explicit thresholds and procedures are provided (residuals > 5 MAD, visual checks, listwise deletion).",
+      "supporting_text": "… flagged outliers defined by residuals more than five median absolute deviations … visual inspections … listwise deletion …",
+      "location": "materials/Little2025.pdf.md L67-L75"
+    },
+    "rci10_site_effect_handling": "Yes",
+    "rci11_site_effect_handling_detail": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Model-based harmonisation: GAMLSS with site random effects for mean and variance; for new datasets, estimate site-specific mean/variance from local HCs to compute offsets and SDs.",
+      "supporting_text": "… site (random effect) … model harmonises scanning site effects for mean and variance … First, we predicted the distribution parameters based on the HCs in each new site/batch … The mean of the residuals … used to calculate the site-specific offset … If <30 HCs, use average SD across normative sites; otherwise estimate from unseen HCs …",
+      "location": "materials/Little2025.pdf.md L93-L101; L108-L128; L193-L199"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": "Yes",
+    "nm2_model_origin_detail": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Pre-trained on 3,276 healthy controls across 21 sites from multiple datasets (S1, S6); applied via R Shiny app with calibration using local controls.",
+      "supporting_text": "We included a large and diverse sample of 3,276 healthy controls across 21 sites to pretrain normative models … Supplementary Materials S1 and S6 detail datasets … The pre-trained normative models are implemented on the R Shiny App back-end to score new, unseen individuals …",
+      "location": "materials/Little2025.pdf.md L41-L45; L100-L128; Supp S1/S6"
+    },
+    "nm3_modeling_method": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Generalized Additive Models for Location, Scale and Shape (GAMLSS) with sinh-arcsinh distribution, modeling mean, sd, skew, kurtosis as functions of age, sex, and site.",
+      "supporting_text": "GAMLSS using the gamlss package … simultaneously model the parameters (mean, standard deviation, skew, and kurtosis) … sex, age, and scanning site/batch …",
+      "location": "materials/Little2025.pdf.md L93-L101; materials/imag_a_00438-supp.pdf.md S2"
+    },
+    "nm4_software_tool": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "R Shiny App for the platform; modeling via R gamlss package; morphology K/I/S via CorticalFoldingAnalysisTools.",
+      "supporting_text": "We designed our software as an R Shiny App … GAMLSS using the gamlss package … We used the toolbox … CorticalFoldingAnalysisTools …",
+      "location": "materials/Little2025.pdf.md L77-L89; L93-L101; L63-L71"
+    },
+    "nm5_response_variable": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Cortical thickness, cortical volume, pial surface area, and independent morphometrics K, I, S are modeled at region and hemisphere levels.",
+      "supporting_text": "… aparcstats2table … cortical thickness, cortical volume, and pial surface area … three novel metrics … K, I, and S …",
+      "location": "materials/Little2025.pdf.md L51-L55; L63-L71"
+    },
+    "nm6_predictor_variables": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Predictors are age, sex, and site/batch.",
+      "supporting_text": "… parameters … as response variables of the explanatory variables sex, age, and scanning site/batch.",
+      "location": "materials/Little2025.pdf.md L93-L99"
+    },
+    "nm7_predictor_effects": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sex modeled as fixed effect; site as random effect for mean and SD; age as smooth term; skew depends on sex and age; kurtosis depends on age.",
+      "supporting_text": "the mean depends on sex (fixed effect), site (random effect), and a smooth function of age; the standard deviation depends on sex (fixed effect), site (random effect), and a smooth function of age; the skew depends on sex (fixed effect) and a smooth function of age; and the kurtosis depends on a smooth function of age.",
+      "location": "materials/Little2025.pdf.md L93-L101; materials/imag_a_00438-supp.pdf.md S2"
+    },
+    "nm8_nm_vldtn_handle_ns": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Nuisance structures handled via site random effects (mean/variance), smooth age effects, and non-normal distribution (skew/kurt modeled). New-site calibration adjusts mean and SD using local controls.",
+      "supporting_text": "… model harmonises scanning site effects for mean and variance … we use flexible smooth terms for age effects and explicitly model skew and kurtosis with GAMLSS … First, we … calculated residuals … site-specific offset … If <30 HCs, we used the average standard deviation across normative sites … otherwise estimated from unseen HCs …",
+      "location": "materials/Little2025.pdf.md L193-L201; L108-L128"
+    },
+    "nm9_nm_vldtn_same_domain_nonindep": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "Model specification validated by comparing 11 alternative GAMLSS formulations using AIC weights across regions/metrics (in-sample model selection).",
+      "supporting_text": "To test our model formula, we fitted alternative models … comparison of 11 models … Fig. S2.1–S2.3 weighted relative AIC …",
+      "location": "materials/imag_a_00438-supp.pdf.md L47-L53; L63; L75; L101"
+    },
+    "nm10_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Held-out validation within the same normative domain: correlations of residuals and MAE convergence using 200 held-out subjects and varying training sample sizes; stability achieved around n≈2000.",
+      "supporting_text": "… tested correlations between models using a subset of the full data set and the convergence of errors on a random sample of held-out subjects … Pearson correlation … MAE of predictions on the test set …",
+      "location": "materials/imag_a_00438-supp.pdf.md L137-L145"
+    },
+    "nm11_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Different-domain validations include: (i) agreement of cortical thickness effect sizes with ENIGMA mTLE (r>0.5); (ii) predicting TLE lateralization in IDEAS (accuracy 0.782); (iii) correlating z-scores with CentileBrain in IDEAS HCs.",
+      "supporting_text": "… agreement (correlation larger than 0.5) with ENIGMA … Predictions using cortical volume performed best, achieving an accuracy 0.782 … We correlated the z-scores … CentileBrain … show good agreement …",
+      "location": "materials/imag_a_00438-supp.pdf.md L147-L153; L155-L161; L163-L169"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "IDEAS (mesial TLE); BLISS (Bipolar); matched healthy controls for each (HC-mTLE; HC-BD)",
+      "confidence_rating": "High",
+      "reason": "Main text lists two exemplar clinical datasets with group sizes and ethics details.",
+      "supporting_text": "A sample of 133 adults with mesial TLE … IDEAS dataset … We also included a sample of 56 adults with bipolar disorder (BD) … BLISS …",
+      "location": "materials/Little2025.pdf.md L69-L77; Table 1"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Mesial Temporal Lobe Epilepsy (mTLE); Bipolar Disorder (BD)",
+      "confidence_rating": "High",
+      "reason": "Diseases stated in the exemplar datasets section and used in validations.",
+      "supporting_text": "… mesial TLE … bipolar disorder (BD) …",
+      "location": "materials/Little2025.pdf.md L69-L77"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "BD:56; HC-BD:26; mTLE-left:74; mTLE-right:59; HC-mTLE:99",
+      "confidence_rating": "High",
+      "reason": "Sample sizes are tabulated in Table 1.",
+      "supporting_text": "Table 1 … N | 56 | 26 | 74 | 59 | 99",
+      "location": "materials/Little2025.pdf.md Table 1"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "BD: 45.36 (12.15); HC-BD: 48.46 (11.80); mTLE-left: 36.0 (11.2); mTLE-right: 38.2 (10.8); HC-mTLE: 39.1 (12.1) [mean (SD) years]",
+      "confidence_rating": "High",
+      "reason": "Age means and SDs are listed in Table 1.",
+      "supporting_text": "Age [mean (SD)] … BD 45.36 (12.15) …",
+      "location": "materials/Little2025.pdf.md Table 1"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "BD: 35F (62%); HC-BD: 12F (46%); mTLE-left: 43F (58%); mTLE-right: 39F (66%); HC-mTLE: 62F (63%)",
+      "confidence_rating": "High",
+      "reason": "Sex female counts and percentages are tabulated in Table 1.",
+      "supporting_text": "Sex [n female (%)] …",
+      "location": "materials/Little2025.pdf.md Table 1"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Individual z-scores and centiles; group-level effect sizes (Cohen's d) for validation",
+      "confidence_rating": "High",
+      "reason": "App computes z-scores and centiles; TLE validation compares Cohen's d vs. controls by region.",
+      "supporting_text": "… individual abnormalities as z-scores and centiles … Abnormalities were calculated as effect sizes (Cohen's d) …",
+      "location": "materials/Little2025.pdf.md L193-L201 (z, centiles described earlier); materials/imag_a_00438-supp.pdf.md L147-L153"
+    },
+    "caa7_association_analysis": "TLE: regional abnormalities (Cohen's d) correlated with ENIGMA effect sizes (r>0.5) and lateralisation predicted from hemisphere z-score differences (accuracy 0.782). BD: group outputs aligned with literature only after normative modelling; cross-app validation showed good agreement of z-scores with CentileBrain.",
+    "caa8_key_findings_brief": "Pre-trained GAMLSS-based normative models on 3,276 HCs across 21 sites enable robust individual z/centile scoring; validations show agreement with prior large consortia, accurate TLE lateralisation, and highlight superior age/sex modeling for the K morphometric.",
+    "caa9_key_findings_detailed": "Normative models trained on 3,276 HCs from 21 sites (age 5–95) using GAMLSS (shash) with sex fixed effects, site random effects, and smooth age captured mean/variance/skew/kurtosis. QC combined statistical outlier detection (>5 MAD residuals) and visual checks with listwise deletion. Stability analyses with 200 held-out subjects showed residual correlations >0.995 and MAE convergence ~n=2000. Different-domain validations: regional cortical thickness effects in IDEAS TLE agreed with ENIGMA (r>0.5), hemisphere z-score differences predicted lateralisation with accuracy 0.782 (best for cortical volume), and z-scores correlated well with CentileBrain. Among metrics, the independent morphometric K achieved R2≈0.8 versus 0.4–0.6 for traditional measures, suggesting improved nuisance modeling and sensitivity.",
+    "caa11_application_notes": "Open web R Shiny app integrates with FreeSurfer outputs; supports group and individual outputs (z, centiles), hemisphere and 68 ROI analyses; model-based site harmonisation (random effects + local HC calibration); includes traditional and independent morphometrics (K, I, S).",
+    "caa10_key_limitations": {
+      "answer": "Current platform focuses on cortical measures (e.g., limited detection of subcortical abnormalities in mTLE); FreeSurfer versions vary across datasets (handled via harmonisation); requires local HCs for calibration of new sites and SD estimation (if <30 HCs, uses normative SD proxy).",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "general_note_part": {
+    "gn1_general_notes": "Platform URL: https://cnnplab.shinyapps.io/BrainMoNoCle/ . Normative datasets listed in Supp S1 include ADHD1000, CamCAN, HCP, NKI, OASIS3, MEGUK sites, NCL-dementia, NIMH-IHV, Stanford-CR, UCLH, Chronotype, Greene-HM, BLISS. Age range 5–95. Preprocessing via FreeSurfer recon-all + localGI; 68 DK regions. Modeling: GAMLSS (shash) with sex fixed, site random, smooth(age) for mean/sd, skew~sex+smooth(age), kurtosis~smooth(age). New-site calibration uses local HCs to compute offsets and SD (if <30 HCs use normative average SD). Future roadmap mentions multiscale morphometrics, additional atlases, vertex-wise, longitudinal extensions."
+  }
+}

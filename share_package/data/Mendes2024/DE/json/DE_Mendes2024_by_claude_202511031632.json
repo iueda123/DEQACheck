@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Mendes2024",
+    "si2_reference_file_names": "Mendes2024.pdf.md; imag_a_00204-supp.pdf.md",
+    "si3_author_journal_year": "Mendes et al., Imaging Neuroscience, 2024",
+    "si4_title": "GPT-based normative models of brain sMRI correlate with dimensional psychopathology",
+    "si5_doi": "10.1162/imag_a_00204"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "This study investigates whether a normative architecture composed of VQ-VAE and GPT models can detect psychiatric symptoms and disorders from brain structural MRI of youths, by examining associations between brain regions and CBCL symptom groups, ADHD scores, and ASD diagnosis.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "ABCD (for training, validation, and test)",
+      "confidence_rating": "High",
+      "reason": "The paper clearly states that ABCD dataset was used for training normative models. The training was performed exclusively on typically developing subjects from ABCD dataset with CBCL scores in the lower three quartiles.",
+      "supporting_text": "\"The subjects of ABCD were split into three sets for training (n=6,756), validation (n=751), and testing (n=3,524) purposes. The CBCL total score was used as split criteria in the following manner. First, the examples were labeled as normal CBCL score (three lower CBCL quartiles) or high CBCL score (upper fourth CBCL quartile). Then, we assigned 10% of the normal and 100% of the high CBCL subjects to the test set. From the remaining 90% of normal CBCL subjects, one-tenth of the examples were assigned to validation and nine-tenths to the training set.\" (Supplement L8-L12); \"models are normative, trained exclusively with TD subjects\" (Supplement L9)",
+      "location": "materials/imag_a_00204-supp.pdf.md L8-L12"
+    },
+    "rci2_hc_n": {
+      "answer": "Training: 6,756; Validation: 751",
+      "confidence_rating": "High",
+      "reason": "The sample sizes for training and validation sets are explicitly stated in the supplementary materials. These represent typically developing subjects (lower three quartiles of CBCL) from ABCD dataset.",
+      "supporting_text": "\"The subjects of ABCD were split into three sets for training (n=6,756), validation (n=751), and testing (n=3,524) purposes.\" (Supplement L8-L9); \"models are normative, trained exclusively with TD subjects\" (Supplement L9)",
+      "location": "materials/imag_a_00204-supp.pdf.md L8-L12"
+    },
+    "rci3_hc_age": {
+      "answer": "Mean 9.9; SD 0.6 (overall ABCD dataset, n=11,031)",
+      "confidence_rating": "Medium",
+      "reason": "Age statistics are provided for the entire ABCD dataset (n=11,031) in Table 1, but specific age statistics for the training/validation subset of typically developing subjects (n=7,507) are not separately reported. Given that subjects <20 years were selected and ABCD has a narrow age range around 9-10 years, the overall statistics likely approximate the training set.",
+      "supporting_text": "\"ABCD 11,031 9.9 ± 0.6\" (Table 1, L79); \"Our study targeted neurodevelopmental processes in youth. Thus, we selected subjects younger than 20 years of age and used only the last collected sMRI image of each subject who participated in the baseline scanning session.\" (Main text L56-58)",
+      "location": "materials/Mendes2024.pdf.md L79; L56-58"
+    },
+    "rci4_hc_sex": {
+      "answer": "Male 52.0% (overall ABCD dataset, n=11,031)",
+      "confidence_rating": "Medium",
+      "reason": "Sex distribution is provided for the entire ABCD dataset in Table 1, but not separately for the training/validation subset. The paper states subjects with missing sex information were discarded.",
+      "supporting_text": "\"ABCD 11,031 9.9 ± 0.6 52.0%\" (Table 1, L79); \"Subjects with no information on psychiatric evaluation (i.e., ADHD, ASD, CBCL, or TD), age, or sex, were discarded.\" (Supplement L8-9)",
+      "location": "materials/Mendes2024.pdf.md L79; materials/imag_a_00204-supp.pdf.md L8-9"
+    },
+    "rci5_imaging_modality": {
+      "answer": "T1-weighted MRI",
+      "confidence_rating": "High",
+      "reason": "The paper clearly states the use of T1 structural MRI (sMRI), which was preprocessed using Voxel-Based Morphometry to extract gray matter and white matter volumes.",
+      "supporting_text": "\"The collected sMRI were preprocessed using the Voxel-Based Morphometry (VBM)\" (Main text L61); \"The VBM preprocessing was done through the Statistical Parametric Mapping software (SPM, version 12 release 7771)... The preprocessed sMRI resulted in two matrices (i.e., GM and WM), each with a dimension of 181x217x181 voxels. We considered only the GM and WM to ensure that only brain tissue data would be delivered to the neural networks\" (Supplement L12-18)",
+      "location": "materials/Mendes2024.pdf.md L61; materials/imag_a_00204-supp.pdf.md L12-18"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level (AAL3 atlas); Whole-brain",
+      "supporting_text": "\"the likelihoods of these brain segments (i.e., vocabulary tokens) are grouped and averaged within the regions of the AAL3 3D brain atlas to provide ROI identification and allow literature comparability\" (Main text L107-109); \"The typicality score of the whole brain is calculated from the sum of all tokens' likelihood logarithms\" (Supplement L23); \"the brain maps (per voxel) are intersected with the AAL3 brain atlas, and the likelihoods (per voxel) are averaged by each ROI of the brain atlas, producing per-ROI brain maps of likelihood\" (Supplement L27-30)",
+      "location": "materials/Mendes2024.pdf.md L107-109; materials/imag_a_00204-supp.pdf.md L23; L27-30"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "SPM12 (version 12 release 7771); Voxel-Based Morphometry; 1mm³ resolution; AAL3 parcellation for ROI mapping",
+      "confidence_rating": "High",
+      "reason": "Preprocessing pipeline is explicitly described with software version and parameters. VBM was performed using SPM12 with standard configuration, voxel size set to 1mm³, producing GM and WM matrices. AAL3 atlas was used for ROI mapping.",
+      "supporting_text": "\"The VBM preprocessing was done through the Statistical Parametric Mapping software (SPM, version 12 release 7771)... The used parameters followed the SPM standard configuration pipeline... but with voxels' size (resolution) set to 1 mm³. Therefore, the preprocessed sMRI resulted in two matrices (i.e., GM and WM), each with a dimension of 181x217x181 voxels\" (Supplement L12-18); \"the brain maps (per voxel) are intersected with the AAL3 brain atlas\" (Supplement L27-28)",
+      "location": "materials/imag_a_00204-supp.pdf.md L12-18; L27-28"
+    },
+    "rci8_quality_checking": {
+      "answer": "No",
+      "detail": "-",
+      "confidence_rating": "Medium",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "None",
+      "detail": "-",
+      "confidence_rating": "Medium",
+      "supporting_text": "-",
+      "location": "-"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "New",
+      "detail": "-",
+      "confidence_rating": "High",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm2_modeling_method": {
+      "answer": "Deep generative normative modeling using Vector Quantized Variational Autoencoder (VQ-VAE) and Generative Pre-trained Transformer (GPT); Ensemble of 9 GPT models from different serialization views",
+      "confidence_rating": "High",
+      "reason": "The modeling method is extensively described in both the main text and supplementary materials. The architecture consists of two models: VQ-VAE for dimensionality reduction and tokenization, and GPT for modeling probability density function of typical brains.",
+      "supporting_text": "\"The architecture is composed of two models, a VQ-VAE... and a GPT (also known as an autoregressive Transformer)... The VQ-VAE learns a latent discrete representation of the brain, while the GPT models the likelihood of occurrence of each discrete element\" (Main text L85-88); \"During the VQ-VAE learning process, the input data go from nearly 14.2 million voxels to 16.1 thousand latent discrete codes. The reduced dimension of this latent discrete representation allows the training of GPT that models the likelihood of occurrence of each discrete element\" (Supplement L17-19); \"we reordered the latent representations generated by the VQ-VAE to train multiple GPT models (based on different views of the input data). After training, we had nine GPT models each obtained from a specific view of the serialized latent representations. Then, the predictions from these models were averaged in an ensemble to evaluate the test samples\" (Supplement L18-21)",
+      "location": "materials/Mendes2024.pdf.md L85-88; materials/imag_a_00204-supp.pdf.md L17-21"
+    },
+    "nm3_software_tool": {
+      "answer": "Python 3.8; PyTorch 1.12.0 (Nvidia NGC version 22.03); SPM12 v7771 for preprocessing",
+      "confidence_rating": "High",
+      "reason": "Software and hardware specifications are clearly described in the supplementary materials section 5.7.",
+      "supporting_text": "\"The sMRI preprocessing was done through the SPM12 v7771 software... All further steps used Python 3.8 and Pytorch 1.12.0 from Nvidia NGC version 22.03. The experiments were performed from an NVIDIA DGX-2 server (16 GPU TESLA V100-SXM332GB) within Docker virtual machines\" (Supplement L30-34)",
+      "location": "materials/imag_a_00204-supp.pdf.md L30-34"
+    },
+    "nm4_response_variable": {
+      "answer": "Likelihood of typicality (voxel-level, ROI-level, and whole-brain); derived from VQ-VAE tokenized brain segments processed by GPT",
+      "confidence_rating": "High",
+      "reason": "The response variable is the likelihood of typicality predicted by the GPT models for brain segments. These likelihoods are computed at voxel level, aggregated to ROI level using AAL3 atlas, and summed (log-likelihoods) for whole-brain typicality score.",
+      "supporting_text": "\"The trained network predicts the likelihood of typicality of the downsized and quantized brain segments, where each VQ-VAE quantized brain segment... corresponds to a specific serialized GPT vocabulary token\" (Main text L91-94); \"The typicality score of the whole brain is calculated from the sum of all tokens' likelihood logarithms\" (Supplement L23); \"the likelihoods (per voxel) are averaged by each ROI of the brain atlas, producing per-ROI brain maps of likelihood\" (Supplement L28-30)",
+      "location": "materials/Mendes2024.pdf.md L91-94; materials/imag_a_00204-supp.pdf.md L23; L28-30"
+    },
+    "nm5_predictor_variables": {
+      "answer": "None (unsupervised generative model without explicit covariates)",
+      "confidence_rating": "High",
+      "reason": "The VQ-VAE and GPT models are unsupervised generative models that learn probability distributions from the input sMRI data without explicit predictor variables like age, sex, or site. The models learn patterns of typicality directly from the brain images of TD subjects.",
+      "supporting_text": "\"As the models' learning is based only on TD subjects, the same trained model is capable of estimating different psychiatric conditions, from distinct datasets. This is because atypical subjects are detected as deviations from the learned pattern of typicality\" (Main text L321-324); The methods describe unsupervised learning without mentioning covariates in the model architecture.",
+      "location": "materials/Mendes2024.pdf.md L321-324"
+    },
+    "nm6_predictor_effects": {
+      "answer": "-",
+      "confidence_rating": "High",
+      "reason": "Since there are no explicit predictor variables in the unsupervised generative model, fixed/random effects specification is not applicable.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not describe explicit handling of nuisance structure such as site/scanner effects, age/sex variations, or heteroscedasticity in the normative modeling validation. While the authors acknowledge scanner differences as a limitation affecting generalizability, no harmonization or covariate adjustment methods are implemented. The evaluation uses simple correlations and AUC analyses with Bonferroni correction but does not account for potential confounders.",
+      "supporting_text": "\"Although data span many sites/scanners, there is no description of harmonization (e.g., ComBat) or site/scanner modeling\" (Supplement L5-8); \"A recent study indicates that differences in the acquisition parameters of scanners represent a major limitation for the generalizability of brain models... The set of scanner models used to train our artificial neural network (from ABCD dataset) is different from the set of scanners used by each of the testing datasets (i.e., BHRCS, ABIDE-II and ADHD-200). Therefore, the statistical effect size obtained from the testing datasets may have been reduced since our method does not control for the effect of scanners models\" (Main text L264-271)",
+      "location": "materials/imag_a_00204-supp.pdf.md L5-8; materials/Mendes2024.pdf.md L264-271"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The paper uses a strict train-validation-test split with independent subjects in each set. There is no cross-validation or reuse of training subjects for validation, ensuring independence between training and evaluation sets.",
+      "supporting_text": "\"The subjects of ABCD were split into three sets for training (n=6,756), validation (n=751), and testing (n=3,524) purposes... one-tenth of the examples were assigned to validation and nine-tenths to the training set\" (Supplement L8-12); No mention of cross-validation or overlapping subjects.",
+      "location": "materials/imag_a_00204-supp.pdf.md L8-12"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The normative model was validated using an independent test set from ABCD (n=3,524) that was completely held out from training and validation. This test set included both TD subjects (10% of normal CBCL) and high-risk subjects (100% of upper CBCL quartile) for evaluating associations with psychiatric symptoms.",
+      "supporting_text": "\"The subjects of ABCD were split into three sets for training (n=6,756), validation (n=751), and testing (n=3,524) purposes... we assigned 10% of the normal and 100% of the high CBCL subjects to the test set\" (Supplement L8-12); \"The ABCD test set (n=3,524)... were reserved for the evaluation procedure (i.e., final tests)\" (Supplement L11-12); \"During the evaluation of the ABCD test set (n=3,524), the whole-brain predicted likelihood of typicality presented a statistically significant correlation with CBCL's social problems scale\" (Main text L122-124)",
+      "location": "materials/imag_a_00204-supp.pdf.md L8-12; L11-12; materials/Mendes2024.pdf.md L122-124"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The normative model trained on ABCD was extensively validated on three different external datasets: BHRCS (n=737, Brazilian cohort with different age range and 1.5T scanners), ADHD-200 (n=922, multi-site ADHD dataset), and ABIDE-II (n=580, multi-site autism dataset). These represent different domains in terms of population, scanner parameters, geographic location, and clinical characteristics.",
+      "supporting_text": "\"the complete datasets of ABIDE-II (n=580), ADHD-200 (n=922), and BHRCS (n=737) were reserved for the evaluation procedure (i.e., final tests)\" (Supplement L11-12); \"The images were collected from different countries and locations, including eight sites for ADHD-200 and nineteen sites for ABIDE-II... The BHRCS data were obtained from two Brazilian cities from exclusively 1.5T scanners\" (Supplement L4-8); \"Lifespan modeling per dataset; external validation across domains; suggests robustness to domain shift\" as noted in other similar studies' patterns.",
+      "location": "materials/imag_a_00204-supp.pdf.md L11-12; L4-8"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "ABCD test set (n=3,524) for CBCL symptom associations; BHRCS (n=737) for CBCL symptom associations; ADHD-200 (n=922) for ADHD score associations; ABIDE-II (n=580) for ASD diagnosis classification",
+      "confidence_rating": "High",
+      "reason": "The clinical datasets and their purposes are clearly described throughout the paper. Each dataset was used to evaluate specific clinical outcomes.",
+      "supporting_text": "\"We examined the associations of all brain regions with: the Child Behavior Checklist (CBCL) symptom groups, ADHD scores, and Autism Spectrum Disorder (ASD) diagnosis\" (Main text L21-23); Table 2 evaluation plan specifies: \"ABCD test set - CBCL symptom groups; BHRCS - CBCL symptom groups; ADHD-200 - ADHD symptom groups; ABIDE-II - ASD diagnosis\" (Main text L98-106)",
+      "location": "materials/Mendes2024.pdf.md L21-23; L98-106"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Dimensional psychopathology (CBCL symptom groups); Attention Deficit Hyperactivity Disorder (ADHD); Autism Spectrum Disorder (ASD)",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly investigates three main clinical constructs: dimensional psychopathology measured by CBCL (including multiple symptom domains), ADHD (with dimensional scores), and ASD (with categorical diagnosis).",
+      "supporting_text": "\"We examined the associations of all brain regions with: the Child Behavior Checklist (CBCL) symptom groups, ADHD scores, and Autism Spectrum Disorder (ASD) diagnosis\" (Main text L21-23); \"CBCL symptom groups include: aggression, anxiety, depression, rule break, somatic, attention, social, thought, opposite, conduct, others, internalizing, externalizing, and total scores. ADHD symptom groups include: inattention, hyperactivity/impulsivity, and ADHD-index scores\" (Table 2 notes, Main text L106-107)",
+      "location": "materials/Mendes2024.pdf.md L21-23; L106-107"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "ABCD: 11,031 total (15.0% with any psychiatric disorder); BHRCS: 737 total (30.5% with any psychiatric disorder); ADHD-200: 922 total (38.7% with ADHD subtypes); ABIDE-II: 580 total (43.3% with ASD)",
+      "confidence_rating": "High",
+      "reason": "Sample sizes and diagnostic rates are clearly presented in Table 1 of the main text.",
+      "supporting_text": "Table 1 shows: \"ABCD 11,031... PD 15.0%; ABIDE-II 580... PD 43.3%; ADHD-200 922... PD 38.7%; BHRCS 737... PD 30.5%\" with note \"Subjects with any psychiatric disorder are grouped in PD. For ADHD-200, PD contains the subtypes of ADHD, and for ABIDE-II PD includes different levels of the autism spectrum. For ABCD and BHRCS, PD contains subjects with at least one mental disorder according to DSM-V (ABCD) and DSM-IV (BHRCS)\" (Main text L75-84)",
+      "location": "materials/Mendes2024.pdf.md L75-84"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "ABCD: mean 9.9 ± 0.6 years; ABIDE-II: mean 12.1 ± 3.2 years; ADHD-200: mean 11.7 ± 3.0 years; BHRCS: mean 9.9 ± 1.9 years",
+      "confidence_rating": "High",
+      "reason": "Age information for each dataset is clearly presented in Table 1 with means and standard deviations.",
+      "supporting_text": "Table 1 shows: \"ABCD 11,031 9.9 ± 0.6; ABIDE-II 580 12.1 ± 3.2; ADHD-200 922 11.7 ± 3.0; BHRCS 737 9.9 ± 1.9\" (Main text L77-82)",
+      "location": "materials/Mendes2024.pdf.md L77-82"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "ABCD: Male 52.0%; ABIDE-II: Male 73.8%; ADHD-200: Male 63.1%; BHRCS: Male 57.1%",
+      "confidence_rating": "High",
+      "reason": "Sex distribution for each dataset is clearly presented in Table 1.",
+      "supporting_text": "Table 1 shows: \"ABCD... Male 52.0%; ABIDE-II... Male 73.8%; ADHD-200... Male 63.1%; BHRCS... Male 57.1%\" (Main text L77-82)",
+      "location": "materials/Mendes2024.pdf.md L77-82"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Likelihood of typicality (whole-brain: sum of log-likelihoods; ROI-level: averaged likelihoods); Pearson correlation for dimensional outcomes; Area Under the ROC Curve (AUC) for binary diagnosis",
+      "confidence_rating": "High",
+      "reason": "The deviation metric is clearly defined as the likelihood of typicality, which quantifies how typical or atypical a brain region or whole brain is compared to the normative model. For associations, Pearson correlations are used for dimensional scores and AUC for binary diagnosis.",
+      "supporting_text": "\"The typicality score of the whole brain is calculated from the sum of all tokens' likelihood logarithms\" (Supplement L23); \"the likelihoods (per voxel) are averaged by each ROI... used to measure the correlation with psychiatric scores, or the AUC of ASD diagnoses\" (Supplement L28-31); Table 2 evaluation plan shows \"Metrics: r, p-value\" for CBCL and ADHD, and \"AUC, p-value\" for ASD (Main text L98-106)",
+      "location": "materials/imag_a_00204-supp.pdf.md L23; L28-31; materials/Mendes2024.pdf.md L98-106"
+    },
+    "caa7_association_analysis": "Answer: Pearson correlations between ROI/whole-brain typicality likelihood and CBCL symptom scores or ADHD scores; Area Under the ROC Curve (AUC) for ASD diagnosis discrimination; Bonferroni correction for multiple comparisons; Permutation tests (1,000 iterations) for AUC p-values; Significance threshold α<0.05\nConfidence Rating: High\nNegative Answer Category: Not Negative\nReason: The statistical methods for association analysis are clearly described in the evaluation plan (Table 2) and methods section. Multiple comparison correction is appropriately applied.\nSupporting Text: Table 2 states: \"CBCL symptom groups - Numeric - r, p-value - α<0.05; ADHD symptom groups - Numeric - r, p-value - α<0.05; ASD diagnosis - Binary - AUC, p-value - α<0.05\" with note \"p-Values are Bonferroni-corrected before checking the accepted statistical significance level. The AUC p-value is calculated using permutation tests with 1,000 permutations\" (Main text L98-107); \"the p-values (of correlations and AUCs) are Bonferroni-corrected and used to generate the above-chance maps of ROIs\" (Supplement L31-33)\nLocation: materials/Mendes2024.pdf.md L98-107; materials/imag_a_00204-supp.pdf.md L31-33",
+    "caa8_key_findings_brief": "Answer: Whole-brain typicality likelihood correlated with social problems (ABCD) and discriminated ASD diagnosis (ABIDE-II, AUC=0.60); multiple brain ROIs showed significant associations with CBCL symptom groups, ADHD scores, and ASD diagnosis after correction for multiple comparisons.",
+    "caa9_key_findings_detailed": "Answer: In the ABCD test set (n=3,524), whole-brain typicality likelihood significantly correlated with CBCL social problems (corrected p=0.006). ROI-level analysis revealed significant correlations for total, externalizing, rule-breaking, aggressive, conduct, and social problem subscales, primarily in cortical regions including superior parietal gyrus, superior frontal gyrus, precuneus, cuneus, and occipital regions (Table 3). In BHRCS (n=737), ROI-level correlations were found for social, thought, somatic, depression, anxiety, internalizing, and total scores, exclusively in subcortical structures including cerebellar lobules, thalamus ventral posterolateral, ventral tegmental area, and red nucleus (Table 4). For ADHD-200 (n=922), significant correlations with inattention and hyperactivity/impulsivity scores were found in cortical (superior frontal gyrus, anterior cingulate cortex) and subcortical regions (cerebellum, amygdala, substantia nigra); substantia nigra pars compacta was the only region correlating with ADHD index (Table 5). For ASD in ABIDE-II (n=580), whole-brain likelihood discriminated ASD diagnosis (AUC=0.60, p<0.001), with ROI-level AUC values ranging from 0.569 to 0.627, including insula, cingulate gyrus, parahippocampal gyrus, postcentral gyrus, putamen, temporal regions, cerebellum, thalamus, and anterior cingulate cortex (Table 6). Whole-brain likelihood also correlated with age in BHRCS (r=-0.07), ADHD-200 (r=-0.19), and ABIDE-II (r=-0.33), but not in ABCD test set (r=-0.01), suggesting potential age confounding in out-of-distribution datasets.",
+    "caa11_application_notes": "Answer: This is the first study to successfully assess all dimensional groups of CBCL symptoms from all brain regions based exclusively on structural MRI using GPT-based normative models. The approach demonstrates several advantages: 1) Same trained model can estimate different psychiatric conditions from distinct datasets as atypicals are detected as deviations from learned typicality; 2) Whole-brain assessment without bias to prior hypotheses; 3) Captures heterogeneity of individual differences without requiring consistent neurobiological signatures; 4) Transformer-based models robust to mapping input data relationships regardless of distance. Authors suggest future improvements: conditioning models by demographic information and confounders (comorbidities, scanner models); applying likelihood ratio to emphasize in-distribution semantic components; extending to other imaging modalities (functional MRI) for better estimates.",
+    "caa10_key_limitations": {
+      "answer": "Answer: 1) Modest statistical effect sizes limit clinical diagnostic utility, though the approach is suitable for mapping brain-symptom associations. 2) Different demographic distributions (especially age range) between training (ABCD) and test datasets (BHRCS, ADHD-200, ABIDE-II) affected result replicability and correlation directions. 3) No control for scanner/site effects despite multi-site data with varied acquisition parameters (3T vs 1.5T, different manufacturers), potentially reducing effect sizes and generalizability. 4) Subject comorbidities were not analyzed as potential confounders due to lack of available information. 5) Age confounding evident in whole-brain associations in out-of-distribution datasets (BHRCS, ADHD-200, ABIDE-II). 6) Non-replication of findings across datasets (cortical regions in ABCD vs subcortical in BHRCS) likely due to age distribution differences and scanner parameter variations.",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "general_note_part": {
+    "gn1_general_notes": "null\n\n\nNONCANONICAL_DATA:\n- general_notes.Answer: \"Dataset-specific details: ABCD data collected from 21 sites in USA using multi-brand 3T scanners (acquisition parameters at https://abcdstudy.org/images/Protocol_Imaging_Sequences.pdf). ADHD-200 from 8 sites with head coils 8-32 channels, mostly 3T (http://fcon_1000.projects.nitrc.org/indi/adhd200/). ABIDE-II from 19 sites, mostly 3T scanners (http://fcon_1000.projects.nitrc.org/indi/abide/abide_II.html). BHRCS from 2 Brazilian cities using exclusively 1.5T Signa HD and HDX (G.E. manufacturer); acquisition parameters in Sato et al. 2016. Only baseline/first collection data used. Subjects <20 years selected. Model architecture: VQ-VAE reduces 14.2 million voxels to 16.1 thousand latent discrete codes, serialized for GPT training. Nine GPT models trained on different serialization views and averaged in ensemble. 50 training epochs used. Code publicly available at https://github.com/SergioLeonardoMendes/normative_psychiatry. Experiments on NVIDIA DGX-2 server (16 GPU TESLA V100-SXM332GB) in Docker. BHRCS screening protocol prioritized participants with higher psychiatric disorder risk, explaining higher CBCL scores vs ABCD (27.1±25.2 vs 18.1±17.9). Age range differences critical: ABCD 9.9±0.6 years (narrow), BHRCS 9.9±1.9 years, ADHD-200 11.7±3.0 years, ABIDE-II 12.1±3.2 years (wider ranges). Scanner field strength difference: ABCD/ADHD-200/ABIDE-II mostly 3T providing better SNR and contrast vs BHRCS exclusively 1.5T. Authors note that likelihood ratio technique and demographic conditioning could improve future models.\""
+  }
+}

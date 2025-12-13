@@ -1,0 +1,111 @@
+
+========== Gemini コマンド ==========
+gemini \
+    "DE_Guide_v10_1.md に従って作業をしてください。作業結果は DE_Lv2021_by_gemini_20251123165021.json へ書き込んでください。" \
+    --approval-mode auto_edit \
+    --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Gemini が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Loaded cached credentials.
+I understand. I will now process the `DE_Guide_v10_1.md` file to understand the data extraction process. Then I will extract the data from `Lv2021.pdf.md` and `41380_2020_882_MOESM1_ESM.docx.md` based on the guide, format it as JSON, and write the output to `DE_Lv2021_by_gemini_20251123165021.json`.
+
+Here's my plan:
+1. Read `DE_Guide_v10_1.md`.
+2. Extract data from the relevant source markdown files (likely `Lv2021.pdf.md` and `41380_2020_882_MOESM1_ESM.docx.md`) based on the guide.
+3. Format the extracted data into JSON.
+4. Write the JSON output to `DE_Lv2021_by_gemini_20251123165021.json`.
+I will start by reading `DE_Guide_v10_1.md`.
+I have successfully read and understood the `DE_Guide_v10_1.md` file. It outlines a detailed process for data extraction from research articles related to normative modeling in neuroimaging, specifying objectives, extraction rules, item definitions, and output formats.
+
+My next step is to begin the data extraction process. I will start with the Study Identification (SI) part for the document `Lv2021.pdf.md`. To determine the "Study ID" (Author name + year), I need to read the content of `Lv2021.pdf.md`.
+I have reviewed the content of `Lv2021.pdf.md` and extracted the following Study Identification (SI) details:
+
+*   **SI-1. Study ID**: Lv2020
+*   **SI-2. Reference File Names**: `Lv2021.pdf.md; 41380_2020_882_MOESM1_ESM.docx.md`
+*   **SI-3. Author, Journal, and Year**: Lv J et al., NR, 2020 (Journal not explicitly stated in the provided text, so noted as NR)
+*   **SI-4. Title**: Individual deviations from normative models of brain structure in a large cross-sectional schizophrenia cohort
+*   **SI-5. DOI**: 10.1038/s41380-020-00882-5
+
+I will now format these into JSON.
+I have completed the extraction of the Study Characteristics (SC) section.
+
+*   **SC-1. Study Objective**: This study aimed to map individual deviations from normative ranges of brain structure in schizophrenia patients and evaluate if these deviations align with group-average pathology maps. It also explored genetic and clinical drivers of such deviations.
+*   **SC-2. Study Design**: Cross-sectional
+*   **SC-3. Study Design Other**: -
+
+I will now add this information to the existing JSON output.
+Adding SC items to JSON now.
+I have finished extracting the Study Characteristics (SC) section and updated the JSON file.
+
+Now I am moving on to the Reference Cohort & Imaging (RCI) section. I have extracted `RCI-1. Dataset Name` and `RCI-2. HC_N` from `Lv2021.pdf.md`.
+
+For `RCI-3. HC_Age`, the main text of `Lv2021.pdf.md` only provides the age range of "healthy adults (18-65 years)" as inclusion criteria, and mentions that "Demographic information and basic clinical characteristics are shown in Supplementary Table 1." To get the actual mean, SD, and range, I need to check the supplementary material. I will now read `41380_2020_882_MOESM1_ESM.docx.md`.
+I have now extracted the `RCI-3`, `RCI-4`, `RCI-5`, and `RCI-6` elements.
+
+*   **RCI-3. HC_Age**: mean 40.30; sd 14.00; min 18; max 65
+*   **RCI-4. HC_Sex**: M 97 (49.7%); F 98 (50.3%)
+*   **RCI-5. Imaging Modality**: T1-weighted MRI; Diffusion-weighted MRI (FA)
+*   **RCI-6. Analysis Level**: ROI-level; Vertex-level
+
+I will now update the JSON file with these RCI details.
+Adding extracted RCI items to JSON object.
+I have completed extracting RCI-7, RCI-8, and RCI-9.
+
+*   **RCI-7. Preprocessing Pipeline**: FSL 5.11 (eddy tool); ANTs; ICBM-DTI-81 white matter atlas (for FA); Freesurfer 6.0 (motion correction, intensity normalization, non-brain tissue removal, spatial normalization to Talairach-like space, segmentation, surface reconstruction); Desikan-Killiany atlas (for CT)
+*   **RCI-8. Quality Checking**:
+    *   **Answer**: Yes
+    *   **Detail**: Exclusion of participants due to MRI artifacts, gross artifacts, cerebellar cropping, significant head motion, movement, ghosting, and signal dropout; 6 individuals with schizophrenia excluded from FA analysis; absence of association between AAI and head motion estimates.
+*   **RCI-9. Site Effect Handling**:
+    *   **Answer**: Other
+    *   **Detail**: Prior inter-site calibration using a phantom and a traveling individual; retrospective harmonization for diffusion-weighted images using a robust nonlinear mapping procedure (reference site Brisbane, age and sex-matched healthy controls for other sites, based on rotation invariant spherical harmonics); acquisition site included as a nuisance confound/covariate ($C_i$) in quantile regression model; harmonization not performed for structural MRI as CT maps were consistent across sites.
+
+I will now update the JSON file.
+Adding extracted RCI items to JSON object.
+I have extracted the Normative Modeling (NM) section, covering NM-1 through NM-10.
+
+Here's a summary of the extracted NM items:
+
+*   **NM-1. Model Origin**: New
+*   **NM-2. Modeling Method**: Quantile regression
+*   **NM-3. Software Tools**: Matlab (quantreg function)
+*   **NM-4. Response Variable**: Fractional Anisotropy (FA) in 48 white matter tracts (ICBM-DTI-81 white matter atlas); Cortical Thickness (CT) in 68 cortical regions (Desikan-Killiany atlas)
+*   **NM-5. Predictor Variables**: Age; Sex; Acquisition site (as nuisance confound)
+*   **NM-6. Predictor Effects**: Age (linear and non-linear, modeled by age-squared term when justified by BIC); Sex; Sex-by-age interaction (when justified by BIC); Acquisition site (as fixed effect/covariate)
+*   **NM-7. Normative Modeling Validation with Handling Nuisance Structure**: Yes
+*   **NM-8. Normative Modeling Validation Strategy using Same Domain Non-Independent Dataset**: Yes
+*   **NM-9. Normative Modeling Validation Strategy using Same Domain Independent Dataset**: Yes
+*   **NM-10. NM Validation Strategy using Different Domain Dataset**: No
+
+I will now update the JSON file with this information.
+Adding extracted NM items to JSON object.
+I have completed the extraction for the Clinical Application & Analysis (CAA) section.
+
+Here's a summary of the extracted CAA items:
+
+*   **CAA-1. Clinical Dataset**: Australian Schizophrenia Research Bank (ASRB)
+*   **CAA-2. Diseases Studied**: Schizophrenia; Schizoaffective disorder
+*   **CAA-3. N of Clinical Groups**: Schizophrenia/Schizoaffective disorder:322
+*   **CAA-4. Age of Clinical Groups**: Schizophrenia/Schizoaffective disorder: mean 38.90; sd 10.60
+*   **CAA-5. Sex of Clinical Group Groups**: Schizophrenia/Schizoaffective disorder: M 223 (69.3%); F 99 (30.7%)
+*   **CAA-6. Deviation Metric**: Percentile score (infra-normal <5th percentile; supra-normal >95th percentile); Z-score (supra-normal z > 1.96 for 95th percentile; infra-normal z < -1.96 for 5th percentile); Numerical encoding (+1 supra-normal, 0 normal, -1 infra-normal); Average Abnormality Index (AAI) as whole-brain summary
+*   **CAA-7. Association Analysis**: Pearson correlation for AAI with polygenic risk score (PRS) and cognitive/symptom dimensions; Canonical Correlation Analysis (CCA) with permutation testing (5000 permutations) and familywise error rate control for multivariate associations between deviation scores and PRS/cognitive-symptom dimensions; Two-sample t-tests with permutation testing (5000 permutations) and False Discovery Rate (FDR) control at 5% for individual DIP items and deviation scores; Pearson correlation for AAI (CT/FA) with current IQ.
+*   **CAA-8. Key Findings Brief**: Schizophrenia-related brain structural changes are highly heterogeneous across individuals, making group-consensus pathological maps unrepresentative of most individual patients, but normative modeling can help parse this heterogeneity.
+*   **CAA-9. Key Findings Detailed**: Group-level analyses showed widespread reductions in FA and CT in schizophrenia patients, affecting 83% of white matter tracts and 88% of cortical regions. However, individually, no more than 17-18% of patients deviated from the normative range for any single tract or region. Despite this, 79% of patients exhibited infra-normal deviations in at least one locus (compared to 59 ± 2% of healthy individuals, p < 0.001), while 46% showed supra-normal deviations (compared to 61 ± 3% of healthy individuals, p < 0.001), indicating high individual heterogeneity in deviation loci. Higher polygenic risk for schizophrenia was associated with a greater number of regions with infra-normal CT deviations (r = -0.17, p = 0.006). Multivariate analyses revealed a significant association between PRS and deviation scores (CCA r = 0.69, p = 0.044) and a marginally significant association between symptom/cognition dimensions and deviation scores (CCA r = 0.75, p = 0.048).
+*   **CAA-10. Key Limitations**: MRI data noise and artifacts; dMRI harmonization issues at smaller sites; subjective definition of normative ranges (5-95% percentiles); smaller normative sample size; individual variation in medication status, age of onset, and illness duration; potential for alternative normative modeling techniques.
+*   **CAA-11. Application Notes**: Individual deviation maps can identify personalized targets for neural stimulation therapies, enable patient-centered approaches to antipsychotic drug selection, and delineate putative subtypes.
+
+I will now update the JSON file with this information.
+Adding extracted CAA items to JSON object.
+I have finished extracting the Clinical Application & Analysis (CAA) section. Now I'm moving on to the General Note (GN) section.
+
+*   **GN-1. General Note**: Data (genetic, clinical, neuropsychological, brain imaging) from the Australian Schizophrenia Research Bank (ASRB) is accessible upon approval. The Matlab function 'quantreg' used for quantile regression with bootstrapping confidence intervals is publicly accessible.
+
+I will now update the JSON file with this final piece of information.
+Adding extracted GN item to JSON object.
+I have successfully extracted all data from `Lv2021.pdf.md` and `41380_2020_882_MOESM1_ESM.docx.md` following the guidelines in `DE_Guide_v10_1.md`, and saved the results to `DE_Lv2021_by_gemini_20251123165021.json`. The task is complete.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Gemini による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

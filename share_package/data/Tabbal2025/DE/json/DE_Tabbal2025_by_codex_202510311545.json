@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Tabbal2025",
+    "si2_reference_file_names": "Tabbal2025.pdf.md; 41531_2025_957_MOESM1_ESM.docx.md; 41531_2025_957_MOESM2_ESM.xlsx.md",
+    "si3_author_journal_year": "Tabbal et al., npj Parkinson's Disease, 2025",
+    "si4_title": "Characterizing the heterogeneity of neurodegenerative diseases through EEG normative modeling",
+    "si5_doi": "10.1038/s41531-025-00957-6"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "Use EEG-based normative modeling to chart age-related trajectories of spectral power and source-level functional connectivity in healthy adults over 40, and quantify individual-level deviations in Parkinson's disease (PD) and Alzheimer's disease (AD) and their clinical relevance.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "Multi-site aggregated dataset (14 clinical units; includes BASEL)",
+      "confidence_rating": "Medium",
+      "reason": "The study aggregates resting-state EEG from 14 sites. One site is explicitly named as BASEL in methods; full dataset list is in Supplementary Data 1.",
+      "supporting_text": "Resting-state EEG data from 14 clinical units ... (n = 499 HC) ... (Methods mention dataset 3 (BASEL))",
+      "location": "materials/Tabbal2025.pdf.md L9; L171"
+    },
+    "rci2_hc_n": {
+      "answer": "499 (HC total); model training used 400 HC with 99 HC held-out",
+      "confidence_rating": "High",
+      "reason": "Abstract states 499 healthy adults; methods specify 400 HC in training and 99 HC held-out for testing.",
+      "supporting_text": "included healthy adults (n = 499) ... Normative models were trained on 400 ... HC ... while 99 ... HC ... were held out",
+      "location": "materials/Tabbal2025.pdf.md L9; L39"
+    },
+    "rci3_hc_age": {
+      "answer": "No",
+      "confidence_rating": "Low",
+      "reason": "HC-specific mean/SD/range are not reported in text; only overall cohort age summary and figures are provided.",
+      "supporting_text": "An overview of the age distribution across groups ... is provided in Fig. 1.",
+      "location": "materials/Tabbal2025.pdf.md L39; L59"
+    },
+    "rci4_hc_sex": {
+      "answer": "Partial: HC(train) 46% male (n=400); HC(test) 42% male (n=99); overall HC sex breakdown not explicitly reported",
+      "confidence_rating": "Medium",
+      "reason": "Sex percentages are provided separately for HC train and held-out sets but not combined for all 499 HC.",
+      "supporting_text": "Normative models were trained on 400 (46% M) HC ... while 99 (42% M) HC ... were held out",
+      "location": "materials/Tabbal2025.pdf.md L39"
+    },
+    "rci5_imaging_modality": {
+      "answer": "EEG (resting-state, eyes-closed)",
+      "confidence_rating": "High",
+      "reason": "Repeatedly described as resting-state EEG recordings with eyes closed across sites.",
+      "supporting_text": "Resting-state eyes-closed EEG data ... across 14 sites",
+      "location": "materials/Tabbal2025.pdf.md L39; L169"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level; Network-level",
+      "supporting_text": "Scalp-level spectral features ... downsampled to a common 10–20 montage ... Source-level functional connectivity features ... downsampled ... to 68 ... Desikan-Killiany atlas ... computed ... connectivity between pairwise regions",
+      "location": "materials/Tabbal2025.pdf.md L171–L190"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "Bandpass (1–100 Hz) and notch filtering; downsample to 200 Hz (one dataset at 160 Hz); bad-channel detection via pyprep (RANSAC) with interpolation; common average reference; ICA with ICLabel for ocular artifact removal; second bandpass 1–45 Hz; 10-s epochs; Autoreject for bad epochs; MNE-Python BEM head models; eLORETA source estimation; AEC with Hilbert transform; pairwise orthogonalization; mapping to 10–20 montage (19 channels) for scalp spectral.",
+      "confidence_rating": "High",
+      "reason": "Detailed preprocessing and feature computation steps are provided in Methods.",
+      "supporting_text": "The EEG preprocessing ... bandpass ... downsampled ... notch filter ... pyprep ... common average reference ... ICA ... ICLabel ... Autoreject ... dataset 3 (BASEL) ... MNE-Python ... eLORETA ... Desikan-Killiany ... AEC ... pairwise orthogonalization ... 10–20 montage (19 electrodes)",
+      "location": "materials/Tabbal2025.pdf.md L171–L190"
+    },
+    "rci8_quality_checking": {
+      "answer": "Yes",
+      "detail": "Automated and visual QC: pyprep (RANSAC) bad-channel detection with interpolation; ICA with ICLabel to remove eye blinks; Autoreject to detect/clean/reject bad epochs; common average rereference; dataset 3 (BASEL) preprocessed per prior refs; exclusion counts not specified.",
+      "confidence_rating": "Medium",
+      "supporting_text": "pyprep algorithm, which employs a RANSAC-based approach ... ICA ... ICLabel ... Autoreject toolbox ... dataset 3 (BASEL) ... already preprocessed",
+      "location": "materials/Tabbal2025.pdf.md L171–L178"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "Model-based",
+      "detail": "Sex and site evaluated as fixed vs random effects in GAMLSS; BIC-driven inclusion; LOSO validation across sites (all r > 0.88 spectral; r > 0.90 connectivity).",
+      "confidence_rating": "High",
+      "supporting_text": "considered both as a fixed effect and a random effect ... compared based on their BIC scores ... leave-one-study-out ... very high correlation",
+      "location": "materials/Tabbal2025.pdf.md L200–L219"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "New",
+      "detail": "-",
+      "confidence_rating": "High",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm2_modeling_method": {
+      "answer": "GAMLSS (Generalized Additive Models for Location, Scale, and Shape)",
+      "confidence_rating": "High",
+      "reason": "Methods section explicitly states GAMLSS was used.",
+      "supporting_text": "we implemented the Generalized Additive Models for Location, Scale, and Shape (GAMLSS)",
+      "location": "materials/Tabbal2025.pdf.md L190–L196"
+    },
+    "nm3_software_tool": {
+      "answer": "R (gamlss package)",
+      "confidence_rating": "High",
+      "reason": "Software specified for normative modeling.",
+      "supporting_text": "using the gamlss package",
+      "location": "materials/Tabbal2025.pdf.md L190–L196"
+    },
+    "nm4_response_variable": {
+      "answer": "EEG relative power (delta, theta, alpha, beta, gamma) at 19 scalp electrodes; source-level functional connectivity (AEC) across 68 Desikan-Killiany regions in 5 frequency bands",
+      "confidence_rating": "High",
+      "reason": "Methods detail spectral features and source-level connectivity as responses.",
+      "supporting_text": "spectral features ... Relative power in specific frequency bands ... downsampled ... to 19 electrodes ... source-level functional connectivity ... downsampled ... to 68 ... computed ... AEC ...",
+      "location": "materials/Tabbal2025.pdf.md L171–L190"
+    },
+    "nm5_predictor_variables": {
+      "answer": "Age; Sex; Site",
+      "confidence_rating": "High",
+      "reason": "Age is the main covariate; sex and site considered as additional covariates.",
+      "supporting_text": "age serves as the main covariate. The inclusion of other covariates such as sex and data collection sites is detailed ...",
+      "location": "materials/Tabbal2025.pdf.md L200–L204"
+    },
+    "nm6_predictor_effects": {
+      "answer": "Age: fixed with fractional polynomials (nonlinear). Sex/Site: empirically selected as fixed vs random effects via BIC in GAMLSS.",
+      "confidence_rating": "High",
+      "reason": "Methods state use of fractional polynomials for age and testing sex/site as fixed vs random effects with BIC-based selection.",
+      "supporting_text": "we used fractional polynomials as a smoothing function ... Model covariates beyond age, including sex and site (considered both as a fixed effect and a random effect), are empirically selected ... BIC scores",
+      "location": "materials/Tabbal2025.pdf.md L200–L208"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "Nuisance structure handled via: nonlinearity (fractional polynomials), site effects (fixed/random), sex effects, and distributional flexibility (μ, σ, ν, τ) with BIC selection; diagnostics with residual/Q-Q plots.",
+      "supporting_text": "parameters (μ, σ, ν, τ) ... distribution with the lowest BIC ... fractional polynomials ... residuals ... Q–Q plots ... sex and site ... fixed/random",
+      "location": "materials/Tabbal2025.pdf.md L200–L214"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "Internal validation via residual diagnostics and BIC-based model selection on the training data (HC(train)).",
+      "supporting_text": "We examined the normalized quantile residuals ... residuals plotted ... Q–Q plots ... adequate fit",
+      "location": "materials/Tabbal2025.pdf.md L206–L214"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Independent same-domain validation via: (1) held-out HC(test) set (20% of HC); (2) leave-one-study-out (LOSO) re-fitting and trajectory comparison with high correlations.",
+      "supporting_text": "HC(train) (80%) ... HC(test) (remaining 20%) ... leave-one-study-out analyses ... very high correlation (all r > 0.88 spectral; all r > 0.90 FC)",
+      "location": "materials/Tabbal2025.pdf.md L224–L234; L214–L219"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "No external-domain normative validation beyond the aggregated 14-site EEG data is described.",
+      "supporting_text": "—",
+      "location": "—"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "PD and AD patient cohorts from the same 14 sites used for HC reference",
+      "confidence_rating": "High",
+      "reason": "PD and AD groups are described alongside HC from the multi-site datasets.",
+      "supporting_text": "patients with PD (n = 237) and AD (n = 197) ... across 14 sites",
+      "location": "materials/Tabbal2025.pdf.md L9; L39"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Parkinson's disease; Alzheimer's disease",
+      "confidence_rating": "High",
+      "reason": "Explicitly stated in abstract and throughout.",
+      "supporting_text": "patients with PD (n = 237) and AD (n = 197)",
+      "location": "materials/Tabbal2025.pdf.md L9"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "PD n = 237; AD n = 197",
+      "confidence_rating": "High",
+      "reason": "Explicit counts given in abstract.",
+      "supporting_text": "patients with PD (n = 237) and AD (n = 197)",
+      "location": "materials/Tabbal2025.pdf.md L9"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "No",
+      "confidence_rating": "Low",
+      "reason": "Group-specific age summary (mean/SD/range) for PD and AD not reported in text; figures only.",
+      "supporting_text": "Age distribution ... provided in Fig. 1.",
+      "location": "materials/Tabbal2025.pdf.md L39; L59"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "PD: 65% male; AD: 37% male",
+      "confidence_rating": "High",
+      "reason": "Sex percentages for clinical groups are reported.",
+      "supporting_text": "The clinical groups comprised 237 PD patients (65% M), and 197 AD patients (37% M).",
+      "location": "materials/Tabbal2025.pdf.md L39"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Subject-wise z-scores from GAMLSS quantile randomized residuals; extreme deviation defined as |z| > 2; overlap maps computed",
+      "confidence_rating": "High",
+      "reason": "Deviation scoring and thresholds are specified in Methods.",
+      "supporting_text": "calculate the deviation scores (z-scores) using the quantile randomized residuals approach ... An extreme deviation is defined as |z-score| > 2",
+      "location": "materials/Tabbal2025.pdf.md L224–L234"
+    },
+    "caa7_association_analysis": "Deviations correlate with clinical severity: PD deviations vs UPDRS (rho = 0.24, p = 0.025); AD deviations vs MMSE (rho = -0.26, p = 0.01).",
+    "caa8_key_findings_brief": "~30% of patients show spectral deviations; ~80% show source connectivity deviations; spatial overlap among deviants ≤60% (spectral) and ≤25% (connectivity); deviations associate with worse UPDRS (PD) and lower MMSE (AD).",
+    "caa9_key_findings_detailed": "Normative modeling of EEG spectral power and source-level connectivity reveals marked heterogeneity in PD and AD. Approximately 30% of patients exhibit spectral deviations while about 80% show connectivity deviations. Spatial overlap of deviant features is limited (≤60% for spectral, ≤25% for connectivity), indicating individualized deviation patterns. LOSO analyses show robust normative trajectories (r > 0.88/0.90). Deviations correlate with clinical scales (UPDRS, MMSE).",
+    "caa11_application_notes": "EEG deviation maps may enrich individualized clinical assessment in Precision Neurology by capturing patient-specific EEG abnormalities beyond group averages.",
+    "caa10_key_limitations": {
+      "answer": "Heterogeneous EEG systems and protocols not harmonized; downsampling to 19-channel montage may lose information; optimal channel count for reliable source networks uncertain; variable sample sizes across datasets; fixed frequency bands used instead of individualized alpha frequency; recommend advanced harmonization (e.g., ComBat family) and inclusion of environmental covariates in future work.",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "general_note_part": {
+    "gn1_general_notes": "Data aggregated from 14 clinical units; full dataset/site details, demographics, systems, and criteria are provided in Supplementary Data 1. Dataset 3 (BASEL) was preprocessed per prior publications (refs. 69–71)."
+  }
+}

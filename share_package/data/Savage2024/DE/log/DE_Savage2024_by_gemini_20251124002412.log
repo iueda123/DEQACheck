@@ -1,0 +1,280 @@
+
+========== Gemini コマンド ==========
+gemini \
+    "DE_Guide_v10_1.md に従って作業をしてください。作業結果は DE_Savage2024_by_gemini_20251124002412.json へ書き込んでください。" \
+    --approval-mode auto_edit \
+    --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Gemini が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Loaded cached credentials.
+はい、承知いたしました。`DE_Guide_v10_1.md` の指示に従って作業を開始し、結果を `DE_Savage2024_by_gemini_20251124002412.json` に書き込みます。まず、ガイドラインを読み込み、タスクを完全に理解することから始めます。
+`DE_Guide_v10_1.md` の内容を理解しました。これは神経画像における規範的モデリングに関する研究論文からデータを抽出し、特定の命名規則と構造を持つJSONファイルとして出力するための詳細なガイドです。
+
+次に、処理すべき論文を特定します。ユーザー指定の出力ファイル名に「Savage2024」とあり、現在のディレクトリに `Savage2024.pdf.md` というファイルが存在するため、これが主要な資料であると判断します。また、補足資料として `42003_2024_6573_MOESM1_ESM.pdf.md` も利用します。
+
+これから `Savage2024.pdf.md` を読み、ガイドに従って情報抽出を開始します。
+`Savage2024.pdf.md`は読み終えました。次に、補足資料`42003_2024_6573_MOESM1_ESM.pdf.md`を読み、必要な情報をすべて入手します。
+Attempt 1 failed: You have exhausted your capacity on this model. Your quota will reset after 0s.. Retrying after 481.276289ms...
+わかりました。`Savage2024.pdf.md`と補足資料`42003_2024_6573_MOESM1_ESM.pdf.md`を読み込み、研究内容とデータを理解しました。
+
+これから`DE_Guide_v10_1.md`の指示に従って、項目ごとに情報を抽出します。まずJSON構造を内部メモリに作成し、全情報抽出後に指定ファイルへ書き出します。
+
+計画は以下の通りです。
+1.  **SI（研究の特定）：** 論文の基本情報を抽出します。
+2.  **SC（研究の特徴）：** 研究目的とデザインを抽出します。
+3.  **RCI（参照コホートと画像）：** 参照データセット、人口統計、画像パラメータの詳細を抽出します。
+4.  **NM（規範的モデリング）：** 規範的モデル自体の詳細を抽出します。
+5.  **CAA（臨床応用と分析）：** 臨床応用、患者データ、所見の詳細を抽出します。
+6.  **GN（一般注記）：** その他の重要な注記を追加します。
+7.  **最終JSON作成：** 抽出した全データを最終JSONオブジェクトにまとめます。
+8.  **ファイル書き込み：** JSONオブジェクトを`DE_Savage2024_by_gemini_20251124002412.json`に書き込みます。
+
+**SI**セクションから始めます。
+
+*   **SI-1. Study ID:** Savage2024
+*   **SI-2. Reference File Names:** Savage2024.pdf.md; 42003_2024_6573_MOESM1_ESM.pdf.md
+*   **SI-3. Author, Journal, and Year:** Hannah S. Savage et al., Communications Biology, 2024
+*   **SI-4. Title:** Dissecting task-based fMRI activity using normative modelling: an application to the Emotional Face Matching Task
+*   **SI-5. DOI:** 10.1038/s42003-024-06573-z
+
+次に**SC**セクションです。
+
+*   **SC-1. Study Objective:** この論文の要旨には、「fMRIタスク活性化の規範的モデリングが、さまざまなタスク選択の影響を説明し、再現可能な個人差をマッピングするために使用できることを実証し、今後の研究で他の神経画像タスクへの応用を推奨する」と記載されています。主な目的は、大規模なfMRIデータセット（感情的顔照合タスク）に規範的モデリングを使用して、脳活性化の個人差を特徴付け、これをタスク設計と取得パラメータの影響から分離し、このモデルを臨床コホートに適用して逸脱をマッピングし、それらを診断横断的な精神症状に関連付けることです。
+*   **SC-2. Study Design:** この研究は既存のデータセットを使用しており、これらは横断的です。
+*   **SC-3. Study Design Other:** "-"
+
+次に**RCI**セクションです。これはより詳細で、`ACRSL_Style`形式が必要です。
+
+**RCI-1. Dataset Name**
+*   **Answer:** Human Connectome Project Young Adult; Human Connectome Project Development; UK Biobank; Amsterdam Open MRI Collection Population Imaging of Psychology; Duke Neurogenetics Study; MIND-Set.
+*   **Confidence Rating:** High
+*   **Reason:** 論文の表1と方法セクションで使用されたデータセットが明示されています。
+*   **Supporting Text:** 「我々は、EFMTの高品質なfMRIデータが利用可能な6つの独立したサイトから大規模な参照サンプルを照合しました：AOMIC PIOP2、Duke Neurogenetics Study、HCP Development、HCP Young Adult（1200リリース）、UK Biobank、および臨床集団も含むMIND-Setコホート。」
+*   **Location:** Savage2024.pdf.md: Methods / Data sets
+
+**RCI-2. HC_N**
+*   **Answer:** 7728
+*   **Confidence Rating:** High
+*   **Reason:** 抄録と本文には、参照規範モデルに使用された参加者の総数が記載されています。個々のサンプルサイズは表1にあります。確認のために合計します。HCP-YA: 1044, HCP-D: 201, UKB: 5000, AOMIC: 200, DNS: 1246, MIND-Set (参照部分): 37. 合計 = 1044 + 201 + 5000 + 200 + 1246 + 37 = 7728。論文には、「我々は、生涯にわたる7728人の個人からのデータを使用して、顔>形状および顔>ベースラインのコントラストについて、EFMT関連のBOLD活性化の規範モデルを推定した」と記載されています。
+*   **Supporting Text:** 「次に、生涯にわたる7728人の個人からのデータを使用して、顔>形状および顔>ベースラインのコントラストについて、EFMT関連のBOLD活性化の規範モデルを推定しました。」および「サンプルサイズ 1044 201 | 5000 | 200 | 1246 | 参照: 37/309」
+*   **Location:** Savage2024.pdf.md: Results / Fitting reference normative models for emotional face processing, and Table 1.
+
+**RCI-3. HC_Age**
+*   **Answer:** 詳細は表1を参照。複数のデータセットがあるため複雑です。各データセットの範囲を報告し、可能であれば加重平均を計算します。
+    *   HCP-YA: 28.76 ± 3.70 [22-37] (N=1044)
+    *   HCP-D: 13.86 ± 3.83 [8-21] (N=201)
+    *   UKB: 63.94 ± 7.45 [46-82] (N=5000)
+    *   AOMIC: 22.16 ± 1.79 [18.25-26.25] (N=200)
+    *   DNS: 20.22 ± 1.21 [18.09-23.07] (N=1246)
+    *   MIND-Set (Ref): 38.0 ± 16.11 [20-74] (N=37)
+    加重平均とプールされたSDを計算します。
+    加重平均年齢 = (1044 * 28.76 + 201 * 13.86 + 5000 * 63.94 + 200 * 22.16 + 1246 * 20.22 + 37 * 38.0) / 7728 = (29905.44 + 2785.86 + 319700 + 4432 + 25194.12 + 1406) / 7728 = 383423.42 / 7728 = 49.62
+    プールされたSDはより複雑です。個々の統計を報告するだけにします。
+*   **Answer:** HCP-YA: N=1044, mean 28.76, SD 3.70, range 22-37; HCP-D: N=201, mean 13.86, SD 3.83, range 8-21; UKB: N=5000, mean 63.94, SD 7.45, range 46-82; AOMIC: N=200, mean 22.16, SD 1.79, range 18.25-26.25; DNS: N=1246, mean 20.22, SD 1.21, range 18.09-23.07; MIND-Set (Ref): N=37, mean 38.0, SD 16.11, range 20-74. Overall N=7728, weighted mean age 49.62 years, age range 8-82.
+*   **Confidence Rating:** High
+*   **Reason:** 表1には各コホートの年齢情報が記載されています。加重平均を計算しました。全体の範囲はHCP-Dの最小値からUKBの最大値までです。
+*   **Supporting Text:** "年齢 (平均 + S.D) [範囲] | 28.76 ± 3.70 [22 - 37] 13.86 ± 3.83 [8 - 21] | 63.94 ± 7.45 [46 - 82] | 22.16 ± 1.79 [18.25 - 26.25] | 20.22 ± 1.21 [18.09-23.07] | 38.0 ± 16.11 [20 - 74]"
+*   **Location:** Savage2024.pdf.md: Table 1
+
+**RCI-4. HC_Sex**
+*   **Answer:** 表1からの詳細。女性と男性の総数を計算します。
+    *   HCP-YA: 561 F (53.7%)
+    *   HCP-D: 110 F (54.7%)
+    *   UKB: 2495 F (49.9%)
+    *   AOMIC: 114 F (57.0%)
+    *   DNS: 707 F (56.7%)
+    *   MIND-Set (Ref): 21 F (56.7%)
+    *   合計 F = 561 + 110 + 2495 + 114 + 707 + 21 = 4008
+    *   合計 N = 7728
+    *   合計 M = 7728 - 4008 = 3720
+    *   パーセント F = (4008 / 7728) * 100 = 51.86%
+    *   パーセント M = (3720 / 7728) * 100 = 48.14%
+*   **Answer:** F 4008 (51.9%); M 3720 (48.1%)
+*   **Confidence Rating:** High
+*   **Reason:** 表1は各コホートの女性の数と割合を示しています。女性の数を合計し、総Nから引いて男性の数を求めました。その後、全体の割合を計算しました。
+*   **Supporting Text:** "性別 | 561 F (53.7%) 110 F (54.7%) | 2495 F (49.9%) | 114 F (57.0%) | 707 F (56.7%) | 21 F (56.7%)"
+*   **Location:** Savage2024.pdf.md: Table 1
+
+**RCI-5. Imaging Modality**
+*   **Answer:** fMRI (BOLD)
+*   **Confidence Rating:** High
+*   **Reason:** 論文全体がタスクベースのfMRIデータの分析に関するものです。手法ではBOLD信号が指定されています。
+*   **Supporting Text:** 「タスクベースの機能的ニューロイメージング（機能的磁気共鳴画像法；fMRI）は広く応用されてきました...」および「我々はEFMT関連のBOLD活性化の規範モデルを推定しました」
+*   **Location:** Savage2024.pdf.md: Introduction, Paragraph 1 and Results / Fitting reference normative models...
+
+**RCI-6. Analysis Level**
+*   **Answer:** Voxel-level
+*   **Supporting Text:** 「この方法をタスクベースのfMRIデータに適用することで、脳内の各ボクセルまたはROI内の機能的活動が個人間でどのように異なるかを特徴付けることができます...」および「我々は、共変量のベクトルと応答との間の機能的関係を特定しました。EFMT関連のBOLD活性化マップの規範モデルを作成しました...」
+*   **Location:** Savage2024.pdf.md: Introduction, Paragraph 3 and Methods / Normative models.
+
+**RCI-7. Preprocessing Pipeline**
+*   **Answer:** FSLベースのパイプライン; 勾配アンワーピング; モーション補正; フィールドマップベースのEPI歪み補正; EPIからT1への境界ベースの位置合わせ; ICA-AROMAによるノイズ除去; MNI152空間への非線形位置合わせ; 2mm3へのリサンプリング; 5mm FWHMガウス平滑化
+*   **Confidence Rating:** High
+*   **Reason:** メソッドセクションには、すべてのサイトに適用された統一された前処理パイプラインが詳述されています。
+*   **Supporting Text:** 「データの前処理はすべてのサイトで統一されました。FSLベースのパイプライン33が一貫して適用されました...すべての機能データは、勾配アンワーピング、モーション補正、フィールドマップベースのEPI歪み補正（フィールドマップが利用可能な場合）、構造T1強調スキャンへのEPIの境界ベースの位置合わせ、ICA-AROMA35で実装されている自動ノイズ選択を使用した二次的な頭部運動関連アーティファクトのノイズ除去、MNI152空間への非線形位置合わせ、およびグランドミーン強度正規化を受けました。該当する場合、データセットは2mm3の解像度にリサンプリングされ、すべてのデータは5mm FWHMガウスカーネルを使用して空間的に平滑化されました。」
+*   **Location:** Savage2024.pdf.md: Methods / fMRI pre-processing
+
+**RCI-8. Quality Checking**
+*   **Answer:** はい
+*   **Detail:** 平均相対RMSが0.5 mmを超える参加者は除外されました。UK Biobankデータについては、vmPFCの信号カバレッジに関する追加のQCが実行され、v-vmPFC、l-vmPFC、d-vmPFC、およびdmPFC ROIの信号存在に基づいて上位5000人の参加者が選択されました。
+*   **Confidence Rating:** High
+*   **Reason:** メソッドセクションでは、2つの主要なQCステップが明示的に説明されています。
+*   **Supporting Text:** 「平均相対RMSが0.5 mmを超える参加者は除外されました。UK Biobankサンプルの前頭前皮質の信号カバレッジについて追加の品質管理が実施されました（補足メソッドと補足図2、3を参照）。」
+*   **Location:** Savage2024.pdf.md: Methods / Quality control
+
+**RCI-9. Site Effect Handling**
+*   **Answer:** モデルベース
+*   **Detail:** サイトはベイジアン線形回帰モデルでダミーコード化された共変量として含まれていました。このアプローチは、データセットを共通の参照モデルに結び付け、データハーモナイゼーションを必要とせずにサイト効果を除去すると論文は述べています。
+*   **Confidence Rating:** High
+*   **Reason:** この規範モデルは、サイト間の差異を説明するために「サイト」を予測変数として明示的に含んでいます。
+*   **Supporting Text:** 「我々は、サイト、年齢、性別、頭蓋内容積、および取得[TR、マルチバンドシーケンス、収集されたボリューム数（該当する場合は実行ごと）]およびタスクパラメータ[タスクの長さ（秒単位、該当する場合は実行ごと）、ターゲットブロックの数、顔条件の指示、およびターゲット刺激（つまり、どの刺激セットから来たか）]の関数として、EFMT関連のBOLD活性化マップの規範モデルを作成し、ベイジアン線形回帰（BLR）モデルをトレーニングしました...」および「マルチサイトfMRIデータの文脈における規範モデリングフレームワークの重要な特徴は、複数のサンプルにわたるデータを共通の参照モデルに結合することによって集約できることです。これにより、データをハーモナイズする必要なくデータからサイト効果を除去するなど、複数の利点が得られます...」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models and Discussion, Paragraph 2
+
+これでRCIセクションは完了です。次に**NM**セクションに進みます。
+
+**NM-1. Model Origin**
+*   **Answer:** 新規
+*   **Detail:** -
+*   **Confidence Rating:** High
+*   **Reason:** この論文では、照合されたデータセットで新しいモデルをトレーニングすることについて説明しています。
+*   **Supporting Text:** 「我々は、顔>形状のコントラストについてBOLD信号を予測するためにベイジアン線形回帰（BLR）モデルをトレーニングすることにより、EFMT関連のBOLD活性化の規範モデルを推定しました。一般化可能性は、半分の分割トレインテストサンプル（トレイン：3885、テスト：3843）を使用して評価されました。」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models
+
+**NM-2. Modeling Method**
+*   **Answer:** ベイジアン線形回帰 (BLR)
+*   **Confidence Rating:** High
+*   **Reason:** メソッドセクションで使用されたモデルが明示されています。
+*   **Supporting Text:** 「...顔>形状コントラストのBOLD信号を予測するためのベイジアン線形回帰（BLR）モデルをトレーニングすることによって。」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models
+
+**NM-3. Software Tools**
+*   **Answer:** PCNtoolkit v0.26; FSL v6.03
+*   **Confidence Rating:** High
+*   **Reason:** メソッドセクションでは、使用された特定のソフトウェアについて言及しています。
+*   **Supporting Text:** 「これは、python 3.8で実装されたPredictive Clinical Neuroscience toolkit（PCNtoolkit）ソフトウェアv0.26（https://pcntoolkit.readthedocs.io/en/latest）で実行されました。」および「線形モデルパラメータは、FSLソフトウェアパッケージバージョン6.03を使用して推定されました」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models and Methods / fMRIgenerallinearmodelling(GLM) -single subject
+
+**NM-4. Response Variable**
+*   **Answer:** 2つのコントラストのfMRI GLMからのボクセルごとのz統計マップ：顔＞形状および顔＞ベースライン。
+*   **Confidence Rating:** High
+*   **Reason:** メソッドセクションでは、規範モデルの応答変数が明確に定義されています。
+*   **Supporting Text:** 「各被験者のコントラスト顔＞形状（コントラストベクトル[1, -1]、標準空間で5mm平滑化）のz統計マップを、規範モデルの応答変数として使用しました。」および「また、顔条件のみのBOLD信号を予測するモデルも作成しました（すなわち、顔＞ベースラインコントラストベクトル[1, 0]...）」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models
+
+**NM-5. Predictor Variables**
+*   **Answer:** サイト; 年齢; 性別; 頭蓋内容積; 取得パラメータ (TR, マルチバンドシーケンス, 収集されたボリューム数); タスクパラメータ (タスクの長さ, ターゲットブロック数, 顔条件の指示, ターゲット刺激セット)
+*   **Confidence Rating:** High
+*   **Reason:** メソッドセクションには、モデルで使用された共変量がリストされています。
+*   **Supporting Text:** 「我々は、サイト、年齢、性別、頭蓋内容積、および取得[TR、マルチバンドシーケンス、収集されたボリューム数（該当する場合は実行ごと）]およびタスクパラメータ[タスクの長さ（秒単位、および該当する場合は実行ごと）、ターゲットブロックの数、顔条件の指示、およびターゲット刺激（すなわち、それらがどの刺激セットから来たか）]の関数として、EFMT関連のBOLD活性化マップの規範モデルを、ベイジアン線形回帰（BLR）モデルをトレーニングすることによって作成しました...」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models
+
+**NM-6. Predictor Effects**
+*   **Answer:** すべての予測変数は、ベイジアン線形回帰モデルの固定効果としてモデル化されました。サイトは、一連のダミーコード化された変数として含まれていました。
+*   **Confidence Rating:** Medium
+*   **Reason:** このモデルは、ベイジアン線形回帰（BLR）として指定されています。この文脈では、ランダム効果や階層構造についての言及がなければ、予測変数は固定効果として扱われます。この論文では、「ダミーコード化されたサイト関連変数を追加の無関心共変量として含めた」と述べており、サイト変数に対するこのアプローチを確認しています。
+*   **Supporting Text:** 「...BOLD信号を予測するためのベイジアン線形回帰（BLR）モデルをトレーニングすることにより...我々は、関心のない追加の共変量としてダミーコード化されたサイト関連変数を含めました。」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models
+
+**NM-7. Normative Modeling Validation with Handling Nuisance Structure**
+*   **Answer:** はい
+*   **Confidence Rating:** High
+*   **Reason:** このモデルには、サイト、取得パラメータ、タスク設計のバリエーションなどの迷惑構造を処理するための共変量が明示的に含まれていました。年齢の非線形性と異質性は、モデリングフレームワークに固有の機能です。また、モーションと信号のドロップアウトについてもQCを実行しました。
+*   **Supporting Text:** 「我々は、サイト、年齢、性別、頭蓋内容積、および取得[TR、マルチバンドシーケンス、収集されたボリューム数...]およびタスクパラメータ[タスク長...、ターゲットブロック数、顔条件の指示、およびターゲット刺激...]の関数として、EFMT関連BOLD活性化マップの規範モデルを作成しました。」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models
+
+**NM-8. Normative Modeling Validation Strategy using Same Domain Non-Independent Dataset**
+*   **Answer:** いいえ
+*   **Confidence Rating:** Medium
+*   **Reason:** この論文の検証戦略は、独立したホールドアウトテストセット（トレイン/テスト分割）とテスト/リテストサンプルに焦点を当てていました。トレーニングデータ自体での検証や、完全なデータセットでのブートストラップのような非独立リサンプリングについての言及はありません。
+*   **Supporting Text:** 「一般化可能性は、半分の分割トレインテストサンプル（トレイン：3885、テスト：3843）を使用して評価されました。」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models
+
+**NM-9. Normative Modeling Validation Strategy using Same Domain Independent Dataset**
+*   **Answer:** はい
+*   **Confidence Rating:** High
+*   **Reason:** この研究では、モデルの一般化可能性を評価するために、参照コホートの50/50のトレーニング/テスト分割を使用しました。モデルは半分でトレーニングされ、ホールドアウトされたもう半分で評価されました（例：説明された分散）。
+*   **Supporting Text:** 「一般化可能性は、半分の分割トレインテストサンプル（トレイン：3885、テスト：3843）を使用して評価されました。」および「テストセットで説明された分散は良好でした（0.525に達する）、特にグループレベルで活性化を示した領域で」
+*   **Location:** Savage2024.pdf.md: Methods / Normative models and Results / Fitting reference normative models...
+
+**NM-10. NM Validation Strategy using Different Domain Dataset**
+*   **Answer:** はい
+*   **Confidence Rating:** High
+*   **Reason:** 大規模なマルチサイト参照コホートでトレーニングされた規範モデルは、完全に別の臨床データセット（MIND-Set患者コホート）に適用され、逸脱スコアを生成し、臨床症状との関連をテストしました。これは、異なるドメイン（臨床対一般集団）への応用を表しています。
+*   **Supporting Text:** 「次に、これらのモデルを、MIND-Setコホートから現在の精神的健康状態にあるか、または神経発達が異なる200人以上の参加者に適用して...参照コホートと比較して患者の逸脱をマッピングします」および「大規模な参照コホートから推定された規範モデルに関して患者コホートを評価しました。」
+*   **Location:** Savage2024.pdf.md: Introduction, Paragraph 4 and Results / Application of normative model to a naturalistic clinical sample
+
+**NM**セクションはこれで完了です。次に**CAA**セクションに進みます。
+
+**CAA-1. Clinical Dataset**
+*   **Answer:** MIND-Set
+*   **Confidence Rating:** High
+*   **Reason:** 論文では、臨床応用がMIND-Setコホートで実施されたことが明記されています。
+*   **Supporting Text:** 「我々は、参照データを用いて作成した規範モデルを、MINDSetコホートの異質な患者サンプル（n = 236、平均年齢 = 37.1 ± 13.27; 女性41.94%）で検証した。」
+*   **Location:** Savage2024.pdf.md: Methods / Clinical application
+
+**CAA-2. Diseases Studied**
+*   **Answer:** 気分障害（単極性または双極性うつ病）; 全般性不安障害; 社会恐怖症; パニック障害; 注意欠陥・多動性障害（ADHD）; 自閉症スペクトラム障害（ASD）。
+*   **Confidence Rating:** High
+*   **Reason:** 論文には、臨床サンプルに存在する診断がリストされています。
+*   **Supporting Text:** 「これには、現在の気分障害（単極性または双極性うつ病）と診断された150人の患者、全般性不安障害の12人、社会恐怖症の22人、パニック障害の14人、注意欠陥多動性障害の71人、および自閉症の55人が含まれていました...」
+*   **Location:** Savage2024.pdf.md: Methods / Clinical application
+
+**CAA-3. N of Clinical Groups**
+*   **Answer:** 合計：236。気分障害：150; 全般性不安障害：12; 社会恐怖症：22; パニック障害：14; ADHD：71; ASD：55。（注：被験者は複数の診断カテゴリーに属することができます）。
+*   **Confidence Rating:** High
+*   **Reason:** 論文では、メソッドセクションで総数と診断別の内訳が提供されています。
+*   **Supporting Text:** 「...MINDSetコホートからの異種患者サンプル（n = 236...）」および「これには、現在の気分障害と診断された150人の患者...全般性不安障害の12人、社会恐怖症の22人、パニック障害の14人、注意欠陥多動性障害の71人、および自閉症の55人が含まれていました（完全な詳細については表1を参照し、被験者が複数の診断カテゴリに分類される可能性があることに注意してください）。」
+*   **Location:** Savage2024.pdf.md: Methods / Clinical application and Table 1.
+
+**CAA-4. Age of Clinical Groups**
+*   **Answer:** 全サンプル：平均37.1; SD 13.27; 範囲20-74.
+*   **Confidence Rating:** High
+*   **Reason:** 表1とメソッドセクションは、複合臨床サンプルの年齢人口統計を提供します。年齢は特定の診断によって分類されていません。
+*   **Supporting Text:** 「我々は、MINDSetコホートの異種患者サンプル（n = 236、平均年齢= 37. 1 ± 13.27; 41.94％女性）を用いて、参照データを用いて作成した規範モデルをテストしました。」および「年齢（平均+ S.D）[範囲] | 37.1 ± 13.27 [20  -  74]」
+*   **Location:** Savage2024.pdf.md: Methods / Clinical application and Table 1.
+
+**CAA-5. Sex of Clinical Group Groups**
+*   **Answer:** 全サンプル：99 F (41.9%)。これは137 M (58.1%)を意味します。
+*   **Confidence Rating:** High
+*   **Reason:** 表1は、複合臨床サンプルの性別内訳を提供します。男性の数と割合を計算しました。
+*   **Supporting Text:** 「性別 | 99 F (41.9%)」
+*   **Location:** Savage2024.pdf.md: Table 1.
+
+**CAA-6. Deviation Metric**
+*   **Answer:** 規範的確率マップ（NPM）Zスコア。極端な逸脱は|Z|≥2.6と定義されました。
+*   **Confidence Rating:** High
+*   **Reason:** この方法は、逸脱指標と使用されたしきい値を明確に定義しています。
+*   **Supporting Text:** 「各参加者の典型的な脳機能からの地域的逸脱のパターンを推定するために、規範モデルからのボクセルごとの逸脱を定量化する規範的確率マップ（NPM）を導出しました。被験者固有のZスコアは、予測された活性化と真の活性化との差を予測分散でスケーリングしたものを示します。参加者のNPMをしきい値Z =±2.6（すなわちp <.005）で処理しました。」
+*   **Location:** Savage2024.pdf.md: Methods / Quantifying voxel-wise deviations from the reference normative model
+
+**CAA-7. Association Analysis**
+*   **Answer:** スパース正準相関分析（SCCA）を用いて、全脳逸脱マップを4つの診断横断的機能領域（負の価数、認知機能、社会的プロセス、覚醒/抑制）と関連付けた。マン・ホイットニーU検定を用いて、患者と対照群との間で極端な逸脱の頻度を比較した。また、生データに対してボクセルワイズの症例対照t検定も比較のために実施した。
+
+**CAA-8. Key Findings Brief**
+*   **Answer:** タスクfMRIデータの規範的モデリングは、従来のグループレベル分析では不明瞭な、再現可能で診断横断的に関連する脳機能の個人差をマッピングできる。
+
+**CAA-9. Key Findings Detailed**
+*   **Answer:** 感情的な顔照合タスクの規範モデルは、大規模な参照コホート（N=7728）においてBOLD活性化の分散の最大52.5%を説明した。個々の逸脱マップは、個人間の有意な異質性を明らかにした。臨床コホート（N=236）では、患者はfaces>shapesコントラストでより高い頻度の極端な逸脱を示した。逸脱の多変量パターンは、従来の診断ラベルではなく、診断横断的な症状ドメイン（例：負の価数、認知機能）と有意に関連していた。faces>baselineコントラストは、より一般的なfaces>shapesコントラストよりも機能ドメインとの関連性が強く、コントラストの選択が重要であることを示唆している。
+
+**CAA-10. Key Limitations**
+*   **Answer:** 参照サンプルは、中年期（37～46歳）の個人を過小評価していました。多くの予測変数はサイト間で共線性があり、タスクパラメータからの体系的な違いを検出する能力が制限されていました。モデルは横断的データに基づいており、逸脱のテスト-リテスト信頼性は中程度から良好でしたが、将来の研究では縦断的変化を明示的にモデル化する必要があります。
+*   **Supporting Text:** 「中年期（特に37歳から46歳の間）の参加者は、我々のサンプルでは過小評価されていました... 我々のサンプルでは、多くの予測変数がサイト間で共線的であり、タスクパラメーターの違いから生じる体系的な違いを検出する能力が制限されていました... タスクfMRIのテスト・リテスト信頼性の一般的な限界による制約を認めつつも、我々の結果は、規範モデルからの逸脱スコアがテスト・リテストスキャンで再現可能であることを有望に示しています。」
+*   **Location:** Savage2024.pdf.md: Discussion
+
+**CAA-11. Application Notes**
+*   **Answer:** この研究は、規範的モデリングがBOLD活性化に対するタスク設計の選択（例：指示、刺激）の影響を解き明かすことができることを示しています。また、コントラストの選択（faces>shapes vs. faces>baseline）が精神病理に関する補完的な情報をもたらすことも強調しています。
+
+**GN-1. General Note**
+*   **Answer:** この研究は、規範的モデlingが大規模で複数施設のタスクfMRIデータセットにどのように適用され、グループレベルの統計を超えて進むことができるかを示す強力なデモンストレーションを提供します。異種データを共通の参照に結び付け、個人差とその臨床的関連性を診断横断的に分析することを可能にします。コードとグループレベルのマップは公開されています。
+
+これで必要な情報をすべて抽出しました。最終的なJSONオブジェクトを構築し、ファイルに書き込みます。
+`DE_Guide_v10_1.md` に従ってデータを抽出し、指定ファイル `DE_Savage2024_by_gemini_20251124002412.json` に保存しました。
+
+これから、書き込まれたファイルの内容が正しいか確認します。
+JSONファイルの作成と内容の確認に成功しました。データ抽出は完了し、出力ファイルは正常です。これでユーザーの要求は完了しました。
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Gemini による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

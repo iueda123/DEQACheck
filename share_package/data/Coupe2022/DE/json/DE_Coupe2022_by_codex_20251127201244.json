@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Coupe2022",
+    "si2_reference_file_names": "Coupe2022.pdf.md",
+    "si3_author_journal_year": "Coupé et al., Human Brain Mapping, 2022",
+    "si4_title": "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models",
+    "si5_doi": "NR"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "Propose HAVAs, a simple MRI-based score combining normative (CN) and pathological (AD) lifespan volume models to detect AD and predict MCI progression, and compare performance against normative modeling, classical ML, and DL with external validation.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "C-MIND; NDAR; ABIDE; ICBM; IXI; OASIS; ADNI",
+      "confidence_rating": "High",
+      "reason": "Table 1 lists seven open access databases used for CN and AD in the training dataset; CN cohort spans C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, and ADNI.",
+      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases (Table 1).\" ... Table 1 shows: C-MIND; NDAR; ABIDE; ICBM; IXI; OASIS; ADNI",
+      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset (Table 1)"
+    },
+    "rci2_hc_n": {
+      "answer": "2655",
+      "confidence_rating": "High",
+      "reason": "The paper states the training dataset included 2,655 cognitively normal (CN) subjects; this is the HC sample used to fit CN normative trajectories.",
+      "supporting_text": "\"This dataset was composed of 2,655 CN subjects (CN) and 377 patients with AD.\"",
+      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+    },
+    "rci3_hc_age": {
+      "answer": "mean 36.07; sd NR; min 0.74; max 94",
+      "confidence_rating": "Medium",
+      "reason": "Overall mean age computed as weighted mean across CN datasets listed in Table 1 (sum of n×mean divided by total n=2655). SD not reported. Min–max taken from per-dataset ranges (0.74–94 years).",
+      "supporting_text": "Table 1 (CN): C-MIND 8.44 (0.74–18.86); NDAR 12.39 (1.08–49.92); ABIDE 17.53 (6.50–52.20); ICBM 33.75 (18–80); IXI 48.76 (20.0–86.2); OASIS 45.34 (18–94); ADNI 74.81 (60–90)",
+      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset (Table 1)"
+    },
+    "rci4_hc_sex": {
+      "answer": "F 1226 (46.2%); M 1429 (53.8%)",
+      "confidence_rating": "High",
+      "reason": "Summed female and male counts across CN rows in Table 1 and computed percentages relative to total CN N=2655.",
+      "supporting_text": "Table 1 CN gender counts: C-MIND F=129/M=107; NDAR F=174/M=208; ABIDE F=84/M=408; ICBM F=142/M=152; IXI F=307/M=242; OASIS F=187/M=111; ADNI F=203/M=201",
+      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset (Table 1)"
+    },
+    "rci5_imaging_modality": {
+      "answer": "T1-weighted MRI",
+      "confidence_rating": "High",
+      "reason": "The study explicitly states the dataset comprised T1-weighted MRI and uses volumetric analysis of structures.",
+      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI ...\"",
+      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level",
+      "supporting_text": "\"the brain was segmented into several structures ... Neuromorphometrics protocol ... 132 structures ... combined to create tissue ... regional tissue ... and lobar segmentations\"",
+      "location": "Coupe2022.pdf.md: 2.2 Image processing"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "AssemblyNet; Denoising; N4 bias correction; Affine MNI registration; Automatic QC (RegQCNet); Second inhomogeneity correction (MNI space); Intensity standardization; Neuromorphometrics/BrainCOLOR parcellation",
+      "confidence_rating": "High",
+      "reason": "Methods describe AssemblyNet preprocessing steps and segmentation protocol including atlases and QC.",
+      "supporting_text": "\"All the considered images were processed using AssemblyNet ... preprocessing pipeline ... denoising ... inhomogeneity correction (Tustison et al., 2010), affine registration to the MNI space, automatic quality control (QC) (Denis de Senneville et al., 2020), a second inhomogeneity correction in the MNI space (Ashburner & Friston, 2005) and a final intensity standardization ...\"; \"segmented into several structures ... Neuromorphometrics protocol ... BrainCOLOR protocol\"",
+      "location": "Coupe2022.pdf.md: 2.2 Image processing"
+    },
+    "rci8_quality_checking": {
+      "answer": "Yes",
+      "detail": "Automatic QC using RegQCNet; manual visual assessment for QC failures; subjects failing QC removed from training dataset",
+      "confidence_rating": "High",
+      "supporting_text": "\"automatic quality control (QC) (Denis de Senneville et al., 2020)\"; \"For all the training subjects detected as failure by the automatic QC RegQCNet ... a visual assessment was performed ... If the failure was confirmed ... the subject was removed\"",
+      "location": "Coupe2022.pdf.md: 2.2 Image processing"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "None",
+      "detail": "-",
+      "confidence_rating": "Medium",
+      "supporting_text": "\"Our training dataset was composed of ... from seven open access databases\"; \"we normalized all the structure volumes using the intracranial cavity volume (ICV) ... we performed z-score normalization ...\" (no explicit site/batch harmonization reported)",
+      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset; 2.3 Volume normalization"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "New",
+      "detail": "-",
+      "confidence_rating": "High",
+      "supporting_text": "\"To create our lifespan models, we estimated normal and pathological trajectories ... models were estimated on two different groups to generate CN and AD trajectories\"",
+      "location": "Coupe2022.pdf.md: 2.4 Lifespan model estimation"
+    },
+    "nm2_modeling_method": {
+      "answer": "Polynomial regression lifespan models (linear/quadratic/cubic) with model selection via ANOVA/T-tests and BIC",
+      "confidence_rating": "High",
+      "reason": "They fit low-order polynomial models for trajectories; candidates required significant overall fit and coefficients; BIC used for selection.",
+      "supporting_text": "\"To estimate the volume trajectories, we considered several low order polynomial models: Linear ... Quadratic ... Cubic ... a polynomial model was considered ... when ... F-statistic ... and ... coefficients ... significant ... Afterwards ... we used the Bayesian Information Criterion\"",
+      "location": "Coupe2022.pdf.md: 2.4 Lifespan model estimation"
+    },
+    "nm3_software_tool": {
+      "answer": "NR",
+      "confidence_rating": "Low",
+      "reason": "The paper does not specify software used to fit the lifespan polynomial models; Matlab is mentioned only for SVM/LASSO baselines and ClinicaDL for dataset curation; segmentation used AssemblyNet.",
+      "supporting_text": "\"We used the ClinicaDL software ... to define the groups ...\"; \"we used the nonlinear SVM with RBF kernel of Matlab ... and the logistic regression with LASSO regularization of Matlab ...\"",
+      "location": "Coupe2022.pdf.md: 2.1.2 Testing dataset; 2.6 Comparison"
+    },
+    "nm4_response_variable": {
+      "answer": "Z-scores of normalized brain structure volumes (% ICV) at ROI level (tissues, lobes, 132 Neuromorphometrics structures); HAVAs combines hippocampus, amygdala, and inferior lateral ventricle",
+      "confidence_rating": "High",
+      "reason": "They normalize volumes by ICV, z-score using CN, and analyze multiple ROI scales; HAVAs focuses on specific ROIs.",
+      "supporting_text": "\"we normalized all the structure volumes using the intracranial cavity volume (ICV) ... we performed z-score normalization ...\"; \"segmented into ... 132 structures ... combined to create tissue ... regional tissue ... and lobar segmentations\"; \"we proposed a novel Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs)\"",
+      "location": "Coupe2022.pdf.md: 2.3 Volume normalization; 2.2 Image processing; Abstract"
+    },
+    "nm5_predictor_variables": {
+      "answer": "Age (polynomial terms)",
+      "confidence_rating": "High",
+      "reason": "Trajectories model volume as a function of age using linear/quadratic/cubic polynomials; models are fit separately for CN and AD groups.",
+      "supporting_text": "\"To create our lifespan models ... trajectories of structure volumes across the entire lifespan ... we considered several low order polynomial models\"",
+      "location": "Coupe2022.pdf.md: 2.4 Lifespan model estimation"
+    },
+    "nm6_predictor_effects": {
+      "answer": "Age modeled with fixed polynomial effects; no hierarchical/site random effects",
+      "confidence_rating": "Medium",
+      "reason": "Methods describe only low-order polynomial fits by age and do not include random effects or site terms.",
+      "supporting_text": "\"we considered several low order polynomial models\" (no mention of random or hierarchical effects)",
+      "location": "Coupe2022.pdf.md: 2.4 Lifespan model estimation"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Age nonlinearity is modeled via polynomials; QC performed (automatic + visual). However, no explicit site/scanner harmonization (e.g., ComBat/HBR), heteroscedasticity or distributional modeling is described.",
+      "supporting_text": "\"automatic quality control ... RegQCNet ... visual assessment ...\"; \"we normalized ... using ICV ... z-score normalization ...\"; (no site/batch harmonization reported)",
+      "location": "Coupe2022.pdf.md: 2.2 Image processing; 2.3 Volume normalization"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They report classification performance on the training ADNI dataset without an independent split (in-sample evaluation).",
+      "supporting_text": "\"Performance of the classification ... on the training ADNI dataset (404 CN vs. 332 AD) ...\"",
+      "location": "Coupe2022.pdf.md: Table 3 caption"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "No held-out split or k-fold cross-validation with re-fitting on training folds is described for the aggregated training dataset; instead, external datasets are used for independent validation.",
+      "supporting_text": "Methods describe external validation on AIBL/MIRIAD and MCI prognosis on ADNI, but do not describe an internal held-out split.",
+      "location": "Coupe2022.pdf.md: 2.1.2 Testing dataset; 3. Results"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They validate AD vs CN on external datasets (AIBL, MIRIAD) and MCI prognosis on ADNI using standardized criteria (ClinicaDL).",
+      "supporting_text": "\"we built a testing dataset based on two open access databases (AIBL and MIRIAD) ... In addition, we used subjects with mild cognitive impairment (MCI) from ADNI ...\"",
+      "location": "Coupe2022.pdf.md: 2.1.2 Testing dataset"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "AIBL; MIRIAD; ADNI (MCI)",
+      "confidence_rating": "High",
+      "reason": "External AD vs CN validation on AIBL and MIRIAD; prognosis on ADNI sMCI vs pMCI.",
+      "supporting_text": "\"we built a testing dataset based on ... AIBL and MIRIAD ... In addition, we used ... MCI from ADNI ...\"",
+      "location": "Coupe2022.pdf.md: 2.1.2 Testing dataset"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Alzheimer's disease (AD); Mild cognitive impairment (MCI)",
+      "confidence_rating": "High",
+      "reason": "AD vs CN detection and MCI prognosis are the stated applications.",
+      "supporting_text": "\"Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic ...\"",
+      "location": "Coupe2022.pdf.md: Abstract"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "AD (AIBL):82; AD (MIRIAD):46; sMCI (ADNI):255; pMCI (ADNI):235",
+      "confidence_rating": "High",
+      "reason": "Counts taken directly from Table 2 for external validation and prognosis groups.",
+      "supporting_text": "Table 2: AIBL AD 82; MIRIAD AD 46; ADNI sMCI 255; ADNI pMCI 235",
+      "location": "Coupe2022.pdf.md: 2.1.2 Testing dataset (Table 2)"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "AD (AIBL): mean 74.8; min 55.5; max 93.4; AD (MIRIAD): mean 69.3; min 55.6; max 85.8; sMCI (ADNI): mean 72.3; min 55; max 89.5; pMCI (ADNI): mean 74.0; min 55; max 88.0",
+      "confidence_rating": "High",
+      "reason": "Per-group ages with ranges are provided in Table 2.",
+      "supporting_text": "Table 2: AIBL AD 74.8 (55.5–93.4); MIRIAD AD 69.3 (55.6–85.8); ADNI sMCI 72.3 (55–89.5); ADNI pMCI 74.0 (55–88.0)",
+      "location": "Coupe2022.pdf.md: 2.1.2 Testing dataset (Table 2)"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "AD (AIBL): F 47/M 36; AD (MIRIAD): F 27/M 19; sMCI (ADNI): F 100/M 155; pMCI (ADNI): F 103/M 132",
+      "confidence_rating": "High",
+      "reason": "Sex breakdowns are listed per group in Table 2.",
+      "supporting_text": "Table 2 gender: AIBL AD F=47/M=36; MIRIAD AD F=27/M=19; ADNI sMCI F=100/M=155; ADNI pMCI F=103/M=132",
+      "location": "Coupe2022.pdf.md: 2.1.2 Testing dataset (Table 2)"
+    },
+    "caa6_deviation_metric": {
+      "answer": "HAVAs probability score based on distances to CN and AD lifespan models; normative baseline used z-score abnormality with 2σ threshold",
+      "confidence_rating": "High",
+      "reason": "They define nonbinary AD and CN scores from distances to trajectories (HAVAs). For normative modeling comparison, they detect abnormality using |z|>2.",
+      "supporting_text": "\"we proposed new scores of being an AD patient (respectively a CN subject) based on the distance to the models ...\"; \"we used 2 σ as threshold to detect abnormal values when using normative model-based methods\"",
+      "location": "Coupe2022.pdf.md: 2.5 Classification; 3. Results (prelude to Figure 2/Table)"
+    },
+    "caa7_association_analysis": "Diagnostic classification metrics (BACC, SPE, SEN, AUC) for AD vs CN and prognosis (pMCI vs sMCI); comparisons to normative modeling, DL (ClinicaDL), and classical ML (SVM, LASSO) baselines.",
+    "caa8_key_findings_brief": "HAVAs achieved high AD vs CN accuracy on external datasets (AUC ≥ 94%) and discriminated pMCI vs sMCI (AUC ≈ 78%), outperforming normative, ML, and DL baselines.",
+    "caa9_key_findings_detailed": "Across AIBL and MIRIAD external datasets, HAVAs showed very accurate AD detection (AUC ≥ 94%) and, on ADNI, achieved AUC ~78% for pMCI vs sMCI classification. Screening identified hippocampus, amygdala, and inferior lateral ventricle as most discriminant, and combining them into HAVAs improved performance over single-ROI normative, deep learning (ClinicaDL ROI/subject/patch CNNs), and classical ML (SVM/LASSO) approaches.",
+    "caa10_key_limitations": {
+      "answer": "NR",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "caa11_application_notes": "HAVAs intended for clinical use due to simplicity and interpretability; authors state HAVAs will be made available on volBrain/AssemblyNet-AD."
+  },
+  "general_note_part": {
+    "gn1_general_notes": "HC mean age (36.07 years) computed as weighted mean across CN datasets in Table 1; SD not reported. No explicit site harmonization (e.g., ComBat/HBR) described beyond ICV normalization and z-scoring. MCI groups defined using ClinicaDL selection criteria; pMCI converts within 36 months; sMCI stable over 3 years."
+  }
+}

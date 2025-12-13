@@ -3,11 +3,14 @@ package iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.router.PageTitle;
@@ -35,6 +38,16 @@ public class SummaryView extends VerticalLayout {
     final static String DATA_FOLDER_NAME = "share_package/data";
     final static String DEQACheckJar = "share_package/jar/DEQACheck-v20251127-all.jar";
     final static String TEMPLATE_FOR_HUMAN_DE = "share_package/templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json";
+
+    // ソートオプション
+    private static final String SORT_BY_YEAR = "年数順 (Study Name内)";
+    private static final String SORT_BY_N = "N (サンプルサイズ) 順";
+    private static final String SORT_BY_ALPHABET = "アルファベット順 (Study Name)";
+
+    // インスタンス変数
+    private List<RowObject> rows;
+    private Div scrollWrapper;
+    private boolean useNormalizedModality = true; // Modality(RCI5)の表示を正規化するか
 
     public SummaryView() {
         // layout settings
@@ -81,7 +94,7 @@ public class SummaryView extends VerticalLayout {
         }
 
         // デモ用データ（行データ構築は外部クラスへ切り出し）
-        List<RowObject> rows = SummaryRowsBuilder.constructRowObjectList(
+        rows = SummaryRowsBuilder.constructRowObjectList(
                 pathListOfAuthorYearDir,
                 msg -> add(new Paragraph(msg))
         );
@@ -90,32 +103,169 @@ public class SummaryView extends VerticalLayout {
             add(new Paragraph("Human系JSONファイルが見つかりません。"));
             return;
         }
-        // リロードボタン
+
+        // リロードボタンとソートUIを横並びに配置
+        HorizontalLayout controlLayout = new HorizontalLayout();
+        controlLayout.setAlignItems(Alignment.BASELINE);
+        controlLayout.setSpacing(true);
+
         Button reloadButton = new Button("リロード", e -> UI.getCurrent().getPage().reload());
-        add(reloadButton);
+        controlLayout.add(reloadButton);
+
+        // ソート用ComboBox
+        ComboBox<String> sortComboBox = new ComboBox<>("ソート順");
+        sortComboBox.setItems(SORT_BY_ALPHABET, SORT_BY_YEAR, SORT_BY_N);
+        sortComboBox.setValue(SORT_BY_ALPHABET);
+        sortComboBox.setWidth("250px");
+        controlLayout.add(sortComboBox);
+
+        // Modality表示: Raw/Normalized トグル
+        Checkbox normalizeToggle = new Checkbox("Normalized Modality", true);
+        normalizeToggle.addValueChangeListener(e -> {
+            useNormalizedModality = Boolean.TRUE.equals(e.getValue());
+            rebuildTable();
+        });
+        controlLayout.add(normalizeToggle);
+
+        // SORTボタン
+        Button sortButton = new Button("SORT", e -> {
+            String selected = sortComboBox.getValue();
+            if (selected != null) {
+                sortRows(selected);
+                rebuildTable();
+            }
+        });
+        sortButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        controlLayout.add(sortButton);
+
+        add(controlLayout);
 
         add(new Paragraph("チェックの入ったチェックボックス（☑）は _DE_AuthorXXXX_by_Human_.json のAnswer欄に何らかの入力がなされていることを意味します。マウスポインタを重ねるとその値が参照できます。（なお、チェックを入れたり消したりしてもjsonファイルには何ら影響は及ぼしません。）なお、RCI3 列は年齢の擬似ボックスプロット、RCI4 列は性比の円グラフ（F=ピンク, M=青, NR=灰）を表示します。"));
 
         // Gridは使わず、Vaadinの要素APIとコンポーネントでtableを構築
-        Div scrollWrapper = new Div();
+        scrollWrapper = new Div();
         scrollWrapper.getStyle().set("max-height", "70vh");
         scrollWrapper.getStyle().set("overflow", "auto");
         scrollWrapper.getStyle().set("border", "1px solid var(--lumo-contrast-20pct)");
 
+        // テーブルを構築
+        rebuildTable();
+
+        add(scrollWrapper);
+
+
+        // 戻るリンク
+        add(new RouterLink("メインページへ戻る", MainView.class));
+    }
+
+    // ソート処理
+    private void sortRows(String sortOption) {
+        if (rows == null || rows.isEmpty()) return;
+
+        Comparator<RowObject> comparator;
+        switch (sortOption) {
+            case SORT_BY_YEAR:
+                // Study Name から年数を抽出してソート
+                comparator = Comparator.comparingInt(this::extractYearFromStudyName);
+                break;
+            case SORT_BY_N:
+                // N（サンプルサイズ）でソート（RCI2）
+                comparator = Comparator.comparingInt(this::extractNFromRow);
+                break;
+            case SORT_BY_ALPHABET:
+            default:
+                // Study Name（SI3）のアルファベット順
+                comparator = Comparator.comparing(
+                        row -> getStudyName(row).toLowerCase(Locale.ROOT)
+                );
+                break;
+        }
+        rows.sort(comparator);
+    }
+
+    // Study Nameを取得
+    private String getStudyName(RowObject row) {
+        return (row.valueList_SI.size() >= 3) ? row.valueList_SI.get(2) : "";
+    }
+
+    // Study Name から年数を抽出（例: "Bayer2022" → 2022）
+    private int extractYearFromStudyName(RowObject row) {
+        String studyName = getStudyName(row);
+        java.util.regex.Matcher m = java.util.regex.Pattern
+                .compile("(\\d{4})")
+                .matcher(studyName);
+        if (m.find()) {
+            try {
+                return Integer.parseInt(m.group(1));
+            } catch (NumberFormatException ignore) {
+            }
+        }
+        return 0; // 年数が見つからない場合は0
+    }
+
+    // N（サンプルサイズ）を抽出（RCI2から）
+    private int extractNFromRow(RowObject row) {
+        if (row.valueList_RCI.size() >= 2) {
+            String nStr = row.valueList_RCI.get(1);
+            if (nStr != null && !nStr.isEmpty()) {
+                // 数字のみを抽出
+                String digits = nStr.replaceAll("[^0-9]", "");
+                if (!digits.isEmpty()) {
+                    try {
+                        return Integer.parseInt(digits);
+                    } catch (NumberFormatException ignore) {
+                    }
+                }
+            }
+        }
+        return 0; // Nが見つからない場合は0
+    }
+
+    // テーブルを再構築
+    private void rebuildTable() {
+        // 既存のテーブルをクリア
+        scrollWrapper.getElement().removeAllChildren();
+
+        // このビュー専用のスタイル（第2列: Title を3行折返し＋20ch幅, 第4列: 中央揃え）
+        Element style = new Element("style");
+        style.setText(
+                ".summary-table td:nth-child(2), .summary-table th:nth-child(2) {" +
+                "  white-space: normal;" +
+                "  overflow: hidden;" +
+                "  text-overflow: ellipsis;" +
+                "  display: -webkit-box;" +
+                "  -webkit-line-clamp: 3;" +
+                "  -webkit-box-orient: vertical;" +
+                "  line-height: 1.2;" +
+                "  max-height: calc(1.2em * 3);" +
+                "  word-break: break-word;" +
+                "  width: 20ch;" +
+                "  max-width: 20ch;" +
+                "}\n" +
+                ".summary-table td:nth-child(4), .summary-table th:nth-child(4) {" +
+                "  text-align: center;" +
+                "}"
+        );
+        scrollWrapper.getElement().appendChild(style);
+
         Element table = new Element("table");
         table.setAttribute("style", "border-collapse: collapse; width: 100%; font-size: var(--lumo-font-size-m);");
+        table.setAttribute("class", "summary-table");
 
         // thead
         Element thead = new Element("thead");
         Element trHead = new Element("tr");
 
-        // 先頭列: Study Name (SI3)
-        appendHeaderCell(trHead, "Study Name");
+        // 先頭列: Study Name (SI3) - 幅20文字制限
+        appendHeaderCellWithStyle(trHead, "Study Name", "width: 20ch; max-width: 20ch;");
+
+        // 第2列: SI4 を Title 列として表示（20ch, 最大3行, …省略）。ヘッダ名は Title。
+        appendHeaderCellWithStyle(trHead, "Title", "width: 20ch; max-width: 20ch;");
 
         int subSectionSize = rows.get(0).valueList_SI.size();
-        // SI1, SI2 はスキップ。SI3 は "Study Name" として表示したため、ここでは SI4 以降を追加。ただし SI5 は削除
+        // SI1, SI2 はスキップ。SI3 は Study Name、SI4 は Title として表示済み。ここでは SI5 も削除し、SI6 以降を追加
         for (int i = 4; i <= subSectionSize; i++) {
-            if (i == 5) continue; // SI5 を削除
+            if (i == 4 || i == 5) continue; // SI4=Title と SI5 は表示しない
             appendHeaderCell(trHead, "SI" + i);
         }
         subSectionSize = rows.get(0).valueList_SC.size();
@@ -126,7 +276,7 @@ public class SummaryView extends VerticalLayout {
         subSectionSize = rows.get(0).valueList_RCI.size();
         // RCI の見出しを個別に設定
         if (subSectionSize >= 1) appendHeaderCellWithStyle(trHead, "Dataset", "width:16ch;");
-        if (subSectionSize >= 2) appendHeaderCell(trHead, "N");
+        if (subSectionSize >= 2) appendHeaderCellWithStyle(trHead, "N", "text-align: center;");
         if (subSectionSize >= 3) appendHeaderCell(trHead, "RC Age");
         if (subSectionSize >= 4) appendHeaderCell(trHead, "RCI4");
         if (subSectionSize >= 5) appendHeaderCell(trHead, "Modality");
@@ -154,21 +304,24 @@ public class SummaryView extends VerticalLayout {
         // tbody
         Element tbody = new Element("tbody");
         boolean even = false;
-        //for (RowObject row : rows) {
         for (int r = 0; r < rows.size(); r++) {
             RowObject row = rows.get(r);
             Element tr = new Element("tr");
             if (even) {
                 tr.setAttribute("style", "background: var(--lumo-contrast-5pct);");
             }
-            // 先頭列: Study Name (SI3) → 文字列表示
-            String studyName = (row.valueList_SI.size() >= 3) ? row.valueList_SI.get(2) : "";
-            appendNormalCell(tr, studyName);
+            // 先頭列: Study Name (SI3) → リンクをクリックするとDEQACheck.jarが起動（幅20文字制限）
+            String studyName = getStudyName(row);
+            appendStudyNameLauncherCell(tr, studyName, row.authorYear);
 
-            // SI4 以降（SI5 は削除）
+            // 第2列: SI4 を Title として表示（3行折返し, 20ch）
+            String si4 = (row.valueList_SI.size() > 3) ? row.valueList_SI.get(3) : ""; // index 3 -> SI4
+            appendWrapped3LinesCell(tr, si4);
+
+            // SI4 は Title として表示済み、SI5 は削除。ここでは SI6 以降をチェックボックスで表示
             subSectionSize = row.valueList_SI.size();
             for (int i = 3; i < subSectionSize; i++) { // i=3 -> SI4
-                if (i == 4) continue; // SI5 をスキップ
+                if (i == 3 || i == 4) continue; // SI4=Title と SI5 はスキップ
                 appendCheckBoxCell(tr, row.valueList_SI.get(i));
             }
             subSectionSize = row.valueList_SC.size();
@@ -187,13 +340,13 @@ public class SummaryView extends VerticalLayout {
                 if (i == 0) {
                     appendDatasetCell(tr, row.valueList_RCI.get(i));
                 } else if (i == 1) {
-                    appendNormalCell(tr, row.valueList_RCI.get(i));
+                    appendCenteredCell(tr, row.valueList_RCI.get(i)); // N列は中央揃え
                 } else if (i == 2) {
                     appendAgeBoxPlotCell(tr, row.valueList_RCI.get(i));
                 } else if (i == 3) {
                     appendSexPieCell(tr, row.valueList_RCI.get(i));
                 } else if (i == 4) {
-                    appendNormalCell(tr, row.valueList_RCI.get(i));
+                    appendModalityCell(tr, row.valueList_RCI.get(i));
                 } else {
                     appendCheckBoxCell(tr, row.valueList_RCI.get(i));
                 }
@@ -218,17 +371,8 @@ public class SummaryView extends VerticalLayout {
         }
         table.appendChild(tbody);
 
-        scrollWrapper.getElement().
-
-                appendChild(table);
-
-        add(scrollWrapper);
-
-
-        // 戻るリンク
-        add(new RouterLink("メインページへ戻る", MainView.class));
+        scrollWrapper.getElement().appendChild(table);
     }
-
 
     // ヘッダセル（Element API）
     private void appendHeaderCell(Element tr, String text) {
@@ -259,6 +403,153 @@ public class SummaryView extends VerticalLayout {
         tr.appendChild(td);
     }
 
+    // RCI5: Modality 表示（Raw/Normalized 切替、ツールチップに元文字列、欠損はNA）
+    private void appendModalityCell(Element tr, String raw) {
+        String tooltip = (raw == null || raw.trim().isEmpty()) ? "NA" : raw.trim();
+        String display;
+        if (isMissingOrInvalidModality(raw)) {
+            display = "NA";
+        } else if (useNormalizedModality) {
+            String norm = normalizeModality(raw);
+            display = (norm == null || norm.isEmpty()) ? "NA" : norm;
+        } else {
+            display = stripTrailingPeriod(raw.trim());
+        }
+
+        Element td = new Element("td");
+        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+        td.setAttribute("title", tooltip);
+        td.setText(display);
+        tr.appendChild(td);
+    }
+
+    private boolean isMissingOrInvalidModality(String raw) {
+        if (raw == null) return true;
+        String s = raw.trim();
+        if (s.isEmpty()) return true;
+        String lower = s.toLowerCase(Locale.ROOT);
+        return lower.equals("nr") || lower.equals("na") || lower.equals("n/a") || lower.equals("yes")
+                || lower.contains("not reported");
+    }
+
+    private String stripTrailingPeriod(String s) {
+        if (s == null) return null;
+        String t = s.trim();
+        if (t.endsWith(".")) t = t.substring(0, t.length() - 1);
+        return t;
+    }
+
+    // Modality 正規化（カテゴリのみ: T1w MRI / T2w MRI / fMRI / dMRI / PET / EEG / MEG / Others）
+    private String normalizeModality(String raw) {
+        if (raw == null) return "";
+        String s = stripTrailingPeriod(raw).replace('\u3000', ' ').trim();
+        if (s.isEmpty()) return "";
+
+        // セミコロンで分割し、各要素をカテゴリにマップ。重複は除去。
+        String[] parts = s.split("\\s*;\\s*");
+        java.util.LinkedHashSet<String> cats = new java.util.LinkedHashSet<>();
+        for (String p0 : parts) {
+            String p = p0.trim();
+            if (p.isEmpty()) continue;
+            String c = classifyModalityCategory(p);
+            if (c != null && !c.isEmpty()) cats.add(c);
+        }
+        return String.join("; ", cats);
+    }
+    private String classifyModalityCategory(String t) {
+        String src = t.trim();
+        String lower = src.toLowerCase(Locale.ROOT);
+
+        // T1w MRI
+        if (lower.matches(".*\\bt1\\s*-?weighted\\b.*\\bmri\\b.*")
+                || lower.contains("structural mri")
+                || lower.matches(".*\\bsmri\\b.*")
+                || lower.matches(".*\\bt1w\\b.*")) {
+            return "T1w MRI";
+        }
+        // T2w MRI (includes FLAIR)
+        if ((lower.contains("t2-weighted") && lower.contains("mri")) || lower.contains("flair")) {
+            return "T2w MRI";
+        }
+        // fMRI (any)
+        if (lower.contains("fmri")) {
+            return "fMRI";
+        }
+        // dMRI (includes DTI/DWI/DSI)
+        if (lower.contains("diffusion") || lower.contains("dwi") || lower.contains("dti") || lower.contains("dmri") || lower.contains("dsi")) {
+            return "dMRI";
+        }
+        // PET (any)
+        if (lower.contains("pet")) {
+            return "PET";
+        }
+        // EEG
+        if (lower.contains("eeg")) {
+            return "EEG";
+        }
+        // MEG
+        if (lower.contains("meg")) {
+            return "MEG";
+        }
+        // Others
+        return "Others";
+    }
+
+    private String canonicalizeFmriDetail(String d) {
+        String lower = d.toLowerCase(Locale.ROOT);
+        if (lower.contains("bold")) return "BOLD";
+        if (lower.contains("alff")) return "ALFF";
+        if (lower.contains("functional connectivity") || lower.equals("fc")) return "FC";
+        return d;
+    }
+
+    private String extractDetails(String src, String[] keys) {
+        String lower = src.toLowerCase(Locale.ROOT);
+        List<String> found = new ArrayList<>();
+        // 既存の括弧を優先
+        int lp = src.indexOf('(');
+        int rp = src.lastIndexOf(')');
+        if (lp >= 0 && rp > lp) {
+            String in = src.substring(lp + 1, rp).trim();
+            if (!in.isEmpty()) found.add(in);
+        }
+        // キーワード検出
+        for (String k : keys) {
+            if (lower.contains(k)) {
+                String label = k.equals("mp-rage") ? "MPRAGE" : k.toUpperCase(Locale.ROOT);
+                if (!containsIgnoreCase(found, label)) found.add(label);
+            }
+        }
+        return String.join(", ", found);
+    }
+
+    private String extractMetrics(String lower, String[] metrics) {
+        List<String> found = new ArrayList<>();
+        for (String m : metrics) {
+            if (lower.matches(".*\\b" + java.util.regex.Pattern.quote(m) + "\\b.*")) {
+                String up = m.toUpperCase(Locale.ROOT);
+                if (up.equals("AXD")) up = "AxD";
+                found.add(up);
+            }
+        }
+        return String.join(", ", found);
+    }
+
+    private boolean containsIgnoreCase(List<String> list, String s) {
+        for (String e : list) {
+            if (e.equalsIgnoreCase(s)) return true;
+        }
+        return false;
+    }
+
+    // 中央揃えセル
+    private void appendCenteredCell(Element tr, String text) {
+        Element td = new Element("td");
+        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); text-align: center;");
+        td.setText(text == null ? "" : text);
+        tr.appendChild(td);
+    }
+
     // チェックボックスセル
     private void appendCheckBoxCell(Element tr, String text) {
         // チェックボックスセルを作成
@@ -273,6 +564,42 @@ public class SummaryView extends VerticalLayout {
         checkbox.setAttribute("title", text == null ? "" : text);
 
         td.appendChild(checkbox);
+        tr.appendChild(td);
+    }
+
+    // チェックボックスセル（中央揃えオプション）
+    private void appendCheckBoxCell(Element tr, String text, boolean center) {
+        Element td = new Element("td");
+        String base = "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);";
+        if (center) {
+            base += " text-align: center;";
+        }
+        td.setAttribute("style", base);
+
+        Element checkbox = new Element("input");
+        checkbox.setAttribute("type", "checkbox");
+
+        boolean checked = (text != null && !text.isEmpty());
+        checkbox.setProperty("checked", checked);
+        checkbox.setAttribute("title", text == null ? "" : text);
+
+        td.appendChild(checkbox);
+        tr.appendChild(td);
+    }
+
+    // 3行まで折返し表示する通常テキストセル（幅20文字制限）
+    private void appendWrapped3LinesCell(Element tr, String text) {
+        Element td = new Element("td");
+        // 折返し＋3行で切る（-webkit-line-clamp）、幅20ch
+        td.setAttribute(
+                "style",
+                "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);" +
+                " width: 20ch; max-width: 20ch;" +
+                " white-space: normal; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3;" +
+                " -webkit-box-orient: vertical; line-height: 1.2; max-height: calc(1.2em * 3); word-break: break-word;"
+        );
+        td.setAttribute("title", text == null ? "" : text); // ツールチップで全文表示
+        td.setText(text == null ? "" : text);
         tr.appendChild(td);
     }
 
@@ -576,6 +903,43 @@ public class SummaryView extends VerticalLayout {
 
         Button launcher = new Button(text == null ? "" : text);
         launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
+        launcher.addClickListener(e -> {
+            Dialog d = new Dialog();
+            d.add(new Paragraph("DECheck.jarを起動しますか？"));
+            Button yes = new Button("Yes", ev -> {
+                d.close();
+
+                boolean ok = ExternalJarLauncher.launch(DEQACheckJar, DATA_FOLDER_NAME, authorYear);
+                if (ok) {
+                    Notification.show("起動要求を送信しました");
+                } else {
+                    Notification.show("起動に失敗しました（ログを確認してください）");
+                }
+            });
+            Button no = new Button("No", ev -> d.close());
+            d.getFooter().add(no, yes);
+            add(d);
+            d.open();
+        });
+
+        td.appendChild(launcher.getElement());
+        tr.appendChild(td);
+    }
+
+    // Study Name用ランチャーセル：幅を20文字に制限し、はみ出し部分は「...」で省略
+    private void appendStudyNameLauncherCell(Element tr, String text, String authorYear) {
+        Element td = new Element("td");
+        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); width: 20ch; max-width: 20ch;");
+
+        Button launcher = new Button(text == null ? "" : text);
+        launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
+        // ボタンの幅を制限し、はみ出し部分を省略表示
+        launcher.getStyle().set("max-width", "20ch");
+        launcher.getStyle().set("overflow", "hidden");
+        launcher.getStyle().set("text-overflow", "ellipsis");
+        launcher.getStyle().set("white-space", "nowrap");
+        launcher.getStyle().set("display", "block");
+        launcher.getElement().setAttribute("title", text == null ? "" : text); // ツールチップで全文を表示
         launcher.addClickListener(e -> {
             Dialog d = new Dialog();
             d.add(new Paragraph("DECheck.jarを起動しますか？"));

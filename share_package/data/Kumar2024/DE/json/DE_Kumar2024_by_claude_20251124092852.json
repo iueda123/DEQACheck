@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Kumar2024",
+    "si2_reference_file_names": "Kumar2024.pdf.md; media-1.docx.md; media-2.docx.md; media-3.docx.md",
+    "si3_author_journal_year": "Kumar et al., Not yet published (preprint), 2024",
+    "si4_title": "Multimodal normative modeling in Alzheimer's Disease with introspective variational autoencoders",
+    "si5_doi": "NR"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "To develop a multimodal soft-introspective variational autoencoder (mmSIVAE) that enhances normative modeling by achieving more precise representations of healthy anatomy and implementing a Mixture-of-Product-of-Experts (MOPOE) approach to efficiently aggregate multimodal information and improve abnormality detection in Alzheimer's Disease.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "ADNI (Alzheimer's Disease Neuroimaging Initiative)",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states the dataset used for healthy controls. On page 1, lines 188-191, they state they selected 248 cognitively unimpaired (healthy control) subjects from the ADNI dataset. This is the normative reference cohort.",
+      "supporting_text": "For training, we selected 248 cognitively unimpaired (healthy control) subjects from the Alzheimer's Disease Neuroimaging (ADNI) dataset Mueller et al., 2005 with Clinical Dementia Rating (CDR) = 0 and no amyloid pathology.",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 188-191"
+    },
+    "rci2_hc_n": {
+      "answer": "248",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states the sample size for training healthy controls. The text clearly states 248 cognitively unimpaired subjects were selected for training the normative model.",
+      "supporting_text": "For training, we selected 248 cognitively unimpaired (healthy control) subjects from the Alzheimer's Disease Neuroimaging (ADNI) dataset Mueller et al., 2005 with Clinical Dementia Rating (CDR) = 0 and no amyloid pathology.",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 188-191"
+    },
+    "rci3_hc_age": {
+      "answer": "mean NR; sd NR; min NR; max NR",
+      "confidence_rating": "Low",
+      "reason": "The paper does not report age statistics for the healthy control training cohort. Table S1 in the supplementary materials (media-3.docx.md) reports demographics for ADNI-CU (N=434, mean age 71.5±7.2) and ADRC-CU (N=301, mean age 68.2±7.3), but these appear to be separate holdout cohorts used for validation, not the 248 training healthy controls mentioned in the main text. The training cohort demographics are not explicitly reported.",
+      "supporting_text": "For training, we selected 248 cognitively unimpaired (healthy control) subjects from the Alzheimer's Disease Neuroimaging (ADNI) dataset... For model evaluation, we used 48 healthy controls for a separate holdout cohort...",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 188-192"
+    },
+    "rci4_hc_sex": {
+      "answer": "Unknown",
+      "confidence_rating": "Low",
+      "reason": "Sex distribution is not reported for the 248 training healthy controls. Table S1 reports sex for ADNI-CU (N=434, M:F 205:229) but this is a different cohort than the 248 training subjects. The paper only states they conditioned on age and sex but does not report the sex distribution of the training cohort.",
+      "supporting_text": "We conditioned our model on the age and sex of patients, represented as one-hot encoding vectors, to remove the effects of covariates from the MRI and PET features.",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 192-193"
+    },
+    "rci5_imaging_modality": {
+      "answer": "T1-weighted MRI; Amyloid PET (AV45/Florbetapir)",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states the two imaging modalities used for the normative model training. Lines 188-189 state they used 'regional brain volumes extracted from T1-weighted MRI scans and regional Standardized Uptake Value Ratio (SUVR) values extracted from AV45 Amyloid PET scans'. The supplementary materials confirm the use of [18F]-Florbetapir (FBP) for amyloid imaging.",
+      "supporting_text": "We used regional brain volumes extracted from T1-weighted MRI scans and regional Standardized Uptake Value Ratio (SUVR) values extracted from AV45 Amyloid PET scans as the two input modalities for our model",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 188-190"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level",
+      "supporting_text": "Both brain volumes and SUVR values were extracted from 66 cortical (Desikan-Killiany atlas) and 24 subcortical regions.",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 190-191"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "FreeSurfer v5.3; Desikan-Killiany atlas (66 cortical regions); 24 subcortical regions; PET Unified Pipeline (PUP) for PET processing; 8mm FWHM smoothing for PET; motion correction; co-registration of PET to T1-MRI",
+      "confidence_rating": "High",
+      "reason": "The preprocessing details are provided in the supplementary materials (media-3.docx.md). FreeSurfer version 5.3 was used for both structural MRI processing (SM1.2) and PET ROI extraction (SM2.2). The Desikan atlas is used for cortical parcellation. For ADRC data specifically, the PET Unified Pipeline was used with specific smoothing parameters. The main paper states both modalities were extracted from the same 66 cortical and 24 subcortical regions.",
+      "supporting_text": "Images were processed using FreeSurfer[1] (version 5.3)... parcellation of the cerebral cortex based upon the Desikan atlas... All PET data from Knight ADRC were processed with an in-house pipeline using regions of interest derived from FreeSurfer (PET Unified Pipeline... Initially, images were smoothed to achieve a target resolution of 8 mm FWHM (full width and half maximum) and underwent motion correction. Subsequently, the images were co-registered with the participant's T1weighted-MRI acquisition",
+      "location": "media-3.docx.md: SM1.2 Image preprocessing, lines 10-11; SM2.2 Image preprocessing, lines 19-21"
+    },
+    "rci8_quality_checking": {
+      "answer": "Yes",
+      "detail": "The supplementary materials mention quality control for MRI processing but provide minimal detail. SM1.2 states that images failing QC were reprocessed, implying some form of quality checking was performed. However, specific QC metrics, thresholds, or exclusion numbers are not reported. No mention of PET quality control procedures. Visual QC performed for MRI; failed scans were reprocessed; details: 'For all images failing a quality control check, the processing pipeline was rerun to ensure consistency across all scans'",
+      "confidence_rating": "Medium",
+      "supporting_text": "For all images failing a quality control check, the processing pipeline was rerun to ensure consistency across all scans.",
+      "location": "media-3.docx.md: SM1.2 Image preprocessing, lines 11"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "None",
+      "detail": "The paper does not mention any site effect handling, batch removal, or harmonization methods for the normative model training. The training data came from a single source (ADNI) for the healthy controls, so site harmonization may not have been necessary. The paper focuses on covariate adjustment (age and sex) but does not discuss multi-site effects. -",
+      "confidence_rating": "High",
+      "supporting_text": "We conditioned our model on the age and sex of patients, represented as one-hot encoding vectors, to remove the effects of covariates from the MRI and PET features.",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 192-193"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "New",
+      "detail": "The paper presents a novel multimodal soft-introspective VAE (mmSIVAE) framework that was developed and trained from scratch. The introduction states they 'introduce a novel multimodal soft-introspective VAE (mmSIVAE)' and the methods describe the complete training procedure. This is not a pre-trained model being adapted. -",
+      "confidence_rating": "High",
+      "supporting_text": "First, we introduce a novel multimodal softintrospective VAE (mmSIVAE) for normative modeling across multiple neuroimaging modalities.",
+      "location": "Kumar2024.pdf.md: Section 1 Introduction, lines 26-27"
+    },
+    "nm2_modeling_method": {
+      "answer": "Multimodal Soft-Introspective Variational Autoencoder (mmSIVAE) with Mixture-of-Product-of-Experts (MOPOE) latent aggregation",
+      "confidence_rating": "High",
+      "reason": "The paper clearly describes the modeling approach. The method extends Soft-Introspective VAE (SIVAE) to the multimodal setting and uses MOPOE for aggregating information from multiple modalities in the latent space. This is an adversarial training framework for VAEs that enables the encoder to distinguish between generated and real data.",
+      "supporting_text": "We introduce a novel multimodal softintrospective VAE (mmSIVAE) for normative modeling across multiple neuroimaging modalities. SoftIntroVAE (SIVAE) (Daniel and Tamar, 2021) is a state-of-the-art framework for image generation and outof-distribution (OOD) detection, training a VAE adversarially to enable the encoder to distinguish between generated and real data. We extend SIVAE to handle multiple modalities... Second, we adopted the Mixtureof-Product-of-Experts (MOPOE) approach, combining the strengths of POE and MOE to aggregate multimodal information effectively in the latent space.",
+      "location": "Kumar2024.pdf.md: Section 1 Introduction, lines 26-30"
+    },
+    "nm3_software_tool": {
+      "answer": "PyTorch; Adam optimizer; Multi-view-AE python package (for baseline models)",
+      "confidence_rating": "High",
+      "reason": "The paper states the implementation was done in PyTorch with Adam optimizer. The baseline models (mmJSD, JMVAE, MVTCAE) were implemented using the Multi-view-AE python package. The mmSIVAE appears to be custom implementation in PyTorch.",
+      "supporting_text": "Models mmJSD, JMVAE and MVTCAE were implemented using the open-source Multi-view-AE python package Aguila et al., 2023... All models were implemented in Pytorch and trained using Adam optimizer",
+      "location": "Kumar2024.pdf.md: Section 4.2 Baselines and implementation details, lines 197-200"
+    },
+    "nm4_response_variable": {
+      "answer": "Regional brain volumes from T1-weighted MRI (66 cortical regions from Desikan-Killiany atlas + 24 subcortical regions); Regional amyloid SUVR values from AV45 PET (same 66 cortical + 24 subcortical regions)",
+      "confidence_rating": "High",
+      "reason": "The response variables are clearly described. The model uses two modalities as response: (1) regional brain volumes from structural MRI and (2) regional SUVR values from amyloid PET. Both are extracted from the same set of 66 cortical (Desikan-Killiany) and 24 subcortical regions, totaling 90 regional features per modality.",
+      "supporting_text": "We used regional brain volumes extracted from T1-weighted MRI scans and regional Standardized Uptake Value Ratio (SUVR) values extracted from AV45 Amyloid PET scans as the two input modalities for our model (Figure 1). Both brain volumes and SUVR values were extracted from 66 cortical (Desikan-Killiany atlas) and 24 subcortical regions.",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 188-191"
+    },
+    "nm5_predictor_variables": {
+      "answer": "Age; Sex",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states that age and sex were used as covariates/predictors to condition the model. These were represented as one-hot encoding vectors and used by the decoders together with latent codes for reconstruction.",
+      "supporting_text": "We conditioned our model on the age and sex of patients, represented as one-hot encoding vectors, to remove the effects of covariates from the MRI and PET features... Both the modality-specific decoders used these vectors together with the latent code to reconstruct the brain data.",
+      "location": "Kumar2024.pdf.md: Section 4.1, lines 192-193; media-3.docx.md: SM4.3 Training details, lines 53"
+    },
+    "nm6_predictor_effects": {
+      "answer": "Age and sex modeled as conditional variables (one-hot encoded); used in decoder for reconstruction conditioning; no explicit fixed/random effect specification in generative model",
+      "confidence_rating": "High",
+      "reason": "The paper describes age and sex as conditioning variables rather than traditional fixed/random effects. They are one-hot encoded and concatenated with latent codes in the decoder to condition the reconstruction. The supplementary methods explain that age is represented as a 44-position vector (ages 47-91) and sex as a 2-position vector. This is a conditional VAE approach rather than classical regression modeling.",
+      "supporting_text": "We conditioned our model on the age and sex of patients, represented as one-hot encoding vectors, to remove the effects of covariates from the MRI and PET features... After this transformation, each subject had an age vector with 44 positions, where each position corresponds to a year within the range of 47–91 years... Both the modality-specific decoders used these vectors together with the latent code to reconstruct the brain data.",
+      "location": "Kumar2024.pdf.md: Section 4.1, lines 192-193; media-3.docx.md: SM4.3, lines 51-53"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The model addresses some nuisance structure by conditioning on age and sex as covariates. However, there is no explicit handling of multi-site effects (though training data appears to be from single source), no mention of scanner/protocol effects, and no discussion of handling heteroscedasticity or non-Gaussian distributions beyond the introspective VAE framework itself. The SIVAE framework may implicitly handle some nuisance through adversarial training, but this is not validated explicitly for nuisance structure.",
+      "supporting_text": "We conditioned our model on the age and sex of patients, represented as one-hot encoding vectors, to remove the effects of covariates from the MRI and PET features.",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 192-193"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The paper does not report validation on the training data itself or use bootstrap/cross-validation on the training cohort. The model is trained on 248 healthy controls and then evaluated on separate holdout cohorts. No in-sample validation metrics or bootstrapping procedures are described.",
+      "supporting_text": "For training, we selected 248 cognitively unimpaired (healthy control) subjects... For model evaluation, we used 48 healthy controls for a separate holdout cohort and a disease cohort of 726 amyloid positive AD spectrum (ADS) individuals",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 188-192"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The paper uses a held-out independent subset of 48 healthy controls from the same ADNI dataset for validation. This is a proper train/test split where the normative model was trained on 248 controls and validated on a separate 48 controls. The validation assessed reconstruction errors and outlier detection on this independent test set.",
+      "supporting_text": "For training, we selected 248 cognitively unimpaired (healthy control) subjects from the Alzheimer's Disease Neuroimaging (ADNI) dataset... For model evaluation, we used 48 healthy controls for a separate holdout cohort... The latent mahalanobis deviations D ml (Equation 16) and the feature mahalanobis deviations D mf (Equation 17) were estimated independently for the ADS cohort and separate holdout cohort of healthy controls",
+      "location": "Kumar2024.pdf.md: Section 4.1, lines 188-192; Section 5.2, lines 218-220"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The paper appears to use data from Knight ADRC as a different domain dataset for some validation analyses. The supplementary tables (Table 1, S1, S2, S3, S4) consistently report results for both ADNI-ADS and ADRC-ADS cohorts, suggesting the ADNI-trained model was applied to ADRC data. However, the main methods section does not explicitly describe this external validation, and it's unclear if the ADRC data represents truly independent external validation or if it was part of a combined analysis. The supplementary methods describe separate ADRC imaging protocols (SM1, SM2), suggesting different acquisition parameters.",
+      "supporting_text": "Table 1: Descriptive statistics for the ADNI-ADS and ADRC-ADS datasets... Table S1: Descriptive statistics for the ADNI-CU and ADRC-CU datasets... MRI data were acquired on a Siemens Biograph mMR or Trio 3T scanner [in ADRC]",
+      "location": "media-1.docx.md: Table 1; media-3.docx.md: Table S1, SM1.1"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "ADNI (Alzheimer's Disease Neuroimaging Initiative); Knight ADRC (Alzheimer's Disease Research Center)",
+      "confidence_rating": "High",
+      "reason": "The clinical application uses AD patients from ADNI for the main analysis. The supplementary tables consistently show results for both ADNI-ADS (N=231) and ADRC-ADS (N=129) cohorts, indicating that Knight ADRC data was also used for clinical application. The main text mentions 726 amyloid positive AD spectrum individuals for evaluation, which likely combines both datasets.",
+      "supporting_text": "For model evaluation, we used 48 healthy controls for a separate holdout cohort and a disease cohort of 726 amyloid positive AD spectrum (ADS) individuals across the following AD stages: preclinical stage with no symptoms ( CDR = 0 , A +)( N = 305) , (b) CDR = 0 . 5( N = 236) and (c) CDR &gt; = 1( N = 185)... Table 1: Descriptive statistics for the ADNI-ADS and ADRC-ADS datasets",
+      "location": "Kumar2024.pdf.md: Section 4.1, lines 191-192; media-1.docx.md: Table 1"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Alzheimer's Disease spectrum (AD); including preclinical AD, very mild dementia (CDR 0.5), and mild or more severe dementia (CDR ≥1)",
+      "confidence_rating": "High",
+      "reason": "The paper focuses on Alzheimer's Disease spectrum, specifically amyloid-positive individuals across different clinical severity stages defined by Clinical Dementia Rating (CDR) scores. The study includes preclinical AD (CDR=0, amyloid positive), very mild dementia (CDR=0.5), and mild or more severe dementia (CDR≥1).",
+      "supporting_text": "a disease cohort of 726 amyloid positive AD spectrum (ADS) individuals across the following AD stages: preclinical stage with no symptoms ( CDR = 0 , A +)( N = 305) , (b) CDR = 0 . 5( N = 236) and (c) CDR &gt; = 1( N = 185)",
+      "location": "Kumar2024.pdf.md: Section 4.1 Data and feature preprocessing, lines 191-192"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "ADNI-ADS: CDR=0 (preclinical AD): 121; CDR=0.5 (very mild dementia): 80; CDR≥1 (mild or more severe dementia): 30; Total ADNI-ADS: 231; ADRC-ADS: CDR=0: 98; CDR=0.5: 24; CDR≥1: 7; Total ADRC-ADS: 129; Combined total reported in main text: 726 (CDR=0: 305; CDR=0.5: 236; CDR≥1: 185)",
+      "confidence_rating": "Medium",
+      "reason": "The main text reports total N=726 ADS with CDR breakdown (305/236/185). Table 1 in media-1 provides separate breakdowns for ADNI-ADS (N=231, CDR 121/80/30) and ADRC-ADS (N=129, CDR 98/24/7). The sum of ADNI-ADS and ADRC-ADS (231+129=360) does not match the total 726 mentioned in the main text, suggesting some discrepancy or additional data not shown in Table 1. The numbers reported here are taken from the most explicit sources.",
+      "supporting_text": "a disease cohort of 726 amyloid positive AD spectrum (ADS) individuals across the following AD stages: preclinical stage with no symptoms ( CDR = 0 , A +)( N = 305) , (b) CDR = 0 . 5( N = 236) and (c) CDR &gt; = 1( N = 185)... Table 1: Descriptive statistics for the ADNI-ADS and ADRC-ADS datasets. N ADNI-ADS 231, ADRC-ADS 129, CDR (0/0.5/>=1) ADNI: 121/80/30, ADRC: 98/24/7",
+      "location": "Kumar2024.pdf.md: Section 4.1, lines 191-192; media-1.docx.md: Table 1"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "ADNI-ADS: mean 73.6; sd 6.9; ADRC-ADS: mean 71.5; sd 8.3",
+      "confidence_rating": "High",
+      "reason": "Table 1 in the supplementary materials provides age statistics for the clinical groups. ADNI-ADS has mean age 73.6±6.9 years and ADRC-ADS has mean age 71.5±8.3 years. No separate age breakdowns by CDR stage are provided.",
+      "supporting_text": "Table 1: Descriptive statistics for the ADNI-ADS and ADRC-ADS datasets... Age (mean +/- SD) ADNI-ADS 73.6 +/- 6.9, ADRC-ADS 71.5 +/- 8.3",
+      "location": "media-1.docx.md: Table 1, lines 3-7"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "ADNI-ADS: M 108 (46.8%); F 123 (53.2%); ADRC-ADS: M 48 (37.2%); F 81 (62.8%)",
+      "confidence_rating": "High",
+      "reason": "Table 1 provides sex breakdown for the clinical groups. ADNI-ADS has 108 males and 123 females (total 231). ADRC-ADS has 48 males and 81 females (total 129). Percentages calculated as: ADNI-ADS M: 108/231=46.8%, F: 123/231=53.2%; ADRC-ADS M: 48/129=37.2%, F: 81/129=62.8%.",
+      "supporting_text": "Table 1: Descriptive statistics for the ADNI-ADS and ADRC-ADS datasets... Sex, Male: Female ADNI-ADS 108:123, ADRC-ADS 48:81",
+      "location": "media-1.docx.md: Table 1, lines 3-6"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Latent-space Mahalanobis distance (D_ml); Feature-space Mahalanobis distance (D_mf); Latent Z-scores (Z_ml) for individual latent dimensions (|Z| > 1.96 or p < 0.05 as significant); Feature Z-scores (Z_mf) for regional deviations (|Z| < -1.96 for MRI, |Z| > 1.96 for amyloid/tau as abnormal after FDR correction)",
+      "confidence_rating": "High",
+      "reason": "The paper uses multiple deviation metrics. Equation 16 defines latent Mahalanobis distance D_ml measuring deviation from healthy latent distribution. Equation 17 defines feature-space Mahalanobis distance D_mf based on reconstruction errors. Equations 18-19 define Z-scores for latent dimensions and features. Thresholds are explicitly stated: p<0.001 for outlier classification (Tabachnick et al. 2013), and |Z|>1.96 (p<0.05) for identifying significant latent dimensions. For regional features, |Z|<-1.96 for MRI atrophy and |Z|>1.96 for elevated amyloid/tau.",
+      "supporting_text": "To quantify how much AD each subject deviates from the latent distribution of healthy controls, we measured the Mahalanobis distance... subjects with statistically significant ( p &lt; 0 . 001 ) deviations Tabachnick et al., 2013 were labeled as abnormal/outliers... We identified 5 out of 15 latent dimensions (6,7,8,14 and 15) whose mean absolute Z ml &gt; 1 . 96 ( p &lt; 0 . 05 )... Z &lt; -1.96 for MRI and Z &gt; 1.96 for amyloid and tau",
+      "location": "Kumar2024.pdf.md: Section 3.4, lines 166-180; Section 5.2, lines 218-220; Section 5.4.1, lines 291-292; media-3.docx.md: Figure S1 caption"
+    },
+    "caa7_association_analysis": "Positive likelihood ratio = (proportion of disease subjects labeled as outliers) / (proportion of controls labeled as outliers) used to assess outlier detection performance; Earth Mover's Distance to quantify separation between control and disease deviation distributions; Pearson correlation with Steiger's Z-test to compare associations between deviations and neuropsychological composites (memory, executive, language, visual-spatial); linear regression adjusted for age and sex for associations with cognitive scores; Cohen's d effect size for pairwise group comparisons of regional deviations across CDR stages; FDR correction for multiple comparisons in regional analyses; Kaplan-Meier survival analysis with log-rank tests for CDR progression (shown in supplementary Figure/Table S4)",
+    "caa8_key_findings_brief": "mmSIVAE with MOPOE aggregation achieved superior reconstruction of healthy controls, outperformed baseline methods in outlier detection (likelihood ratios up to 10.2), demonstrated strong associations with cognitive decline, and enabled interpretable mapping of latent deviations to brain regions associated with AD pathology.",
+    "caa9_key_findings_detailed": "The proposed mmSIVAE with MOPOE latent aggregation demonstrated the lowest reconstruction errors for both MRI and amyloid modalities across all brain regions compared to baseline models (SIVAE, mmVAE, VAE, mmJSD, JMVAE, MVTCAE). For outlier detection, latent Mahalanobis deviations achieved higher likelihood ratios (up to 10.2 for d=15 latent dimensions) compared to feature-space deviations (up to 3.34), with mmSIVAE+MOPOE consistently outperforming all baselines. Introspective VAE methods showed superior performance over vanilla VAE approaches. The Earth Mover's Distance between control and disease distributions was highest for mmSIVAE (34.043), indicating better separation. Latent deviations correlated significantly with cognitive decline: memory (r=-0.573), executive (r=-0.467), language (r=-0.421), and visual-spatial (r=-0.442), with significantly stronger correlations than mmVAE and VAE baselines (p<0.05 by Steiger's Z-test). Regional deviation patterns were consistent with known AD pathology, showing greatest MRI atrophy effects in temporal, parietal, and hippocampal regions, and elevated amyloid uptake in accumbens, precuneus, frontal, and temporal regions. Five latent dimensions (6,7,8,14,15) showed statistically significant deviations (|Z|>1.96) and were successfully mapped to interpretable regional abnormalities.",
+    "caa10_key_limitations": {
+      "answer": "Not explicitly stated in paper",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "caa11_application_notes": "The study demonstrated clinical validation across progressive AD stages (CDR 0, 0.5, ≥1) showing increasing effect sizes for regional deviations with disease severity. Kaplan-Meier survival analyses (Table S4) showed significant differences in CDR progression rates across deviation quartiles. The framework enables interpretation of latent space deviations by identifying significant latent dimensions and mapping them to feature-space abnormalities. Hamming distance was used to quantify within-group heterogeneity in abnormality patterns (Figure S2). The model was evaluated on both ADNI and external Knight ADRC datasets, suggesting generalizability."
+  },
+  "general_note_part": {
+    "gn1_general_notes": "This is a preprint (dated December 13, 2024) and has not yet been peer-reviewed or published in a journal, hence no DOI. The paper extends previous work (Kumar, Payne, & Sotiras, 2023) on multimodal VAE normative modeling by incorporating the introspective VAE framework and MOPOE aggregation. There is some inconsistency in sample size reporting: main text states N=726 ADS total, but Table 1 shows only 360 (ADNI-ADS 231 + ADRC-ADS 129). The 248 training healthy controls are separate from the validation cohorts shown in Table S1 (ADNI-CU N=434, ADRC-CU N=301). The paper includes extensive theoretical analysis (Nash equilibrium proofs in Appendix A, MOPOE generalization proofs in Appendix B). Hyperparameters: β_rec=β_kl=1, β_neg=10, γ_r=10^-8, s=1/90, latent dimensions tested=[5,10,15,20] with d=15 showing best performance. The study used specific neuropsychological composite scores described in SM3, with some differences between ADNI and ADRC test batteries."
+  }
+}

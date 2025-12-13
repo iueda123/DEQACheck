@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "OliveiraSaraiva2023",
+    "si2_reference_file_names": "OliveiraSaraiva2023.pdf.md",
+    "si3_author_journal_year": "Oliveira-Saraiva and Ferreira, Frontiers in Psychiatry, 2023",
+    "si4_title": "Normative model detects abnormal functional connectivity in psychiatric disorders",
+    "si5_doi": "10.3389/fpsyt.2023.1068397"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "To develop and evaluate a normative model based on autoencoders trained on resting-state functional MRI data from healthy controls to quantify individual deviations and identify abnormal functional brain network connectivity patterns in schizophrenia, bipolar disorder, and attention-deficit hyperactivity disorder.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "CoRR (BNU3, HNU1, IPCAS1, IPCAS3, IPCAS4, MRN1, NYU2, Utah1, Utah2); UCLA LA5c",
+      "confidence_rating": "High",
+      "reason": "The methods section explicitly lists the public rs-fMRI datasets used for healthy controls. CoRR (Consortium for Reliability and Reproducibility) includes multiple subsets (BNU3, HNU1, IPCAS1, IPCAS3, IPCAS4, MRN1, NYU2, Utah1, Utah2) and UCLA LA5c Study was used, as detailed in Table 1.",
+      "supporting_text": "The brain rs-fMRI images used in this project were obtained from three public neuroimaging databases. The Consortium for Reliability and Reproducibility (CoRR) public database (36) was chosen because it contains a large number of different datasets with data from healthy subjects... The UCLA Consortium for Neuropsychiatric Phenomics LA5c Study (UCLA) public dataset (37) was selected to train and test the normative model since it contains healthy individuals and ADHD, BD, and SCZ patients.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L81-L82;L92-L105"
+    },
+    "rci2_hc_n": {
+      "answer": "366",
+      "confidence_rating": "High",
+      "reason": "Table 2 explicitly reports that H-Train consists of 366 healthy subjects from CoRR and UCLA datasets used to train the normative model.",
+      "supporting_text": "H-Train represents the 366 healthy subjects from CORR and UCLA datasets that were used to train the model.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L155;L163"
+    },
+    "rci3_hc_age": {
+      "answer": "mean 26 years; range 18-49 years; SD not reported",
+      "confidence_rating": "Medium",
+      "reason": "Table 2 provides the mean age (26 years) and age range (18-49 years) for H-Train, but the standard deviation is not reported.",
+      "supporting_text": "| H-Train     | CORR and UCLA |      366 |              47 | 18-49       |         26 |",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L155"
+    },
+    "rci4_hc_sex": {
+      "answer": "F 47% (172), M 53% (194)",
+      "confidence_rating": "Medium",
+      "reason": "Table 2 reports 47% females in H-Train (366 subjects). Male percentage is inferred as 53% (100% - 47%). Exact counts are calculated: F = 366 × 0.47 ≈ 172, M = 366 - 172 = 194.",
+      "supporting_text": "| H-Train     | CORR and UCLA |      366 |              47 | 18-49       |         26 |",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L155"
+    },
+    "rci5_imaging_modality": {
+      "answer": "Resting-state functional MRI (rs-fMRI)",
+      "confidence_rating": "High",
+      "reason": "Both the abstract and methods explicitly state that resting-state functional MRI data were used throughout the study.",
+      "supporting_text": "We trained our autoencoder on resting-state functional magnetic resonance imaging (rs-fMRI) data from healthy controls.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L43"
+    },
+    "rci6_analysis_level": {
+      "answer": "Network-level",
+      "supporting_text": "We used the fourteen FBNs from Shirer et al. (48) as a template... The Pearson's correlation coefficients between the time series of all FBNs pairs were calculated. In the end, a 14 × 14 functional connectivity matrix was created for each subject... the remaining half of the matrix was transformed into a vector containing 91 features (pairs of FBNs) for feeding the normative model.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L121-L126"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "FSL (MELODIC; MCFLIRT; FIX); ANTs (brain extraction); Dual regression; ICA; Motion correction; Spatial smoothing (5 mm FWHM); High-pass filter (0.01 Hz); BBR registration; Non-linear transformation to MNI152",
+      "confidence_rating": "High",
+      "reason": "The preprocessing pipeline is comprehensively described in the methods section, including brain extraction with ANTs, FSL tools (MELODIC for ICA, MCFLIRT for motion correction, FIX for denoising), spatial smoothing, filtering, and registration procedures.",
+      "supporting_text": "brain extraction of the T1-weighted images of all subjects was performed with the OASIS template using the Advanced Normalization Tools (ANTs)... the pre-processing of rs-fMRI images was handled within the FMRIB Software Library (FSL)... motion correction using the MCFLIRT tool... spatial smoothing using a Gaussian kernel with 5 mm full width at half maximum (FWHM)... highpass filter with a cut-off of 0.01 Hz... single-session spatial independent component analysis (ICA)... the FSL's tool FMRIB's ICA-based Xnoiseifier (FIX) was applied to automatically detect and remove non-brain signal components... The cleaned 4D preprocessed functional image underwent registration to the individual T1-weighted structural image through the boundary-based registration (BBR) method, and then to the MNI152 standard space through a non-linear transformation. For group-level comparisons, dual regression was applied.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L90-L121"
+    },
+    "rci8_quality_checking": {
+      "answer": "Yes",
+      "detail": "Motion parameter-based QC: maximum framewise displacement >3 mm, motion in translation >3 mm, or angular deviation >3° used as exclusion criteria. 32 subjects (out of original 700) were excluded. Additional exclusions due to missing rs-fMRI or T1-weighted images. Final sample: 655 subjects. FSL FIX was used for automatic detection and removal of non-brain signal ICA components after hand-labeling training on 10 subjects per dataset.",
+      "confidence_rating": "High",
+      "supporting_text": "data in which the maximum framewise displacement exceeded 3 mm, motion in translation exceeded 3 mm, or angular deviation exceeded 3° were excluded from the sample (46, 47). Following these criteria, 32 subjects were removed from the analysis. In addition, it was not possible to finish data preprocessing for several subjects due to the lack of a rs-fMRI image or T1-weighted image. In the end, 655 subjects continued to the subsequent analysis... the FSL's tool FMRIB's ICA-based Xnoiseifier (FIX) was applied to automatically detect and remove non-brain signal components. To create a robust training set, ten healthy subjects from each dataset (and the subject from Utah2) were randomly selected, and hand-labeled classification of the ICA components was performed.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L113-L117"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "None",
+      "detail": "-",
+      "confidence_rating": "High",
+      "supporting_text": "In the end, the normative model was tested on an independent dataset, COBRE... to evaluate the generalization of the model.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L193"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "New",
+      "detail": "-",
+      "confidence_rating": "High",
+      "supporting_text": "Autoencoder was the selected architecture for the generation of the normative model, and it was implemented using the Keras Python library.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L143"
+    },
+    "nm2_modeling_method": {
+      "answer": "Deep Learning (Autoencoder)",
+      "confidence_rating": "High",
+      "reason": "The study explicitly uses an autoencoder architecture for normative modeling. The autoencoder learns to reconstruct healthy functional connectivity patterns and identifies deviations in patient data through reconstruction error.",
+      "supporting_text": "Here, we propose a normative model based on autoencoders... The underlying concept is that the autoencoder learns to copy the input data to its output. Therefore, the proposed autoencoder will learn to encode the healthy patterns from the input data to the latent representation, and then, only using the information from the latent representation, will try to reconstruct the input data as closely as possible to the original input data. As such, when presented with patient data it is expected that the reconstruction 'fails,' and therefore abnormal functional connectivity patterns can be identified.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L41-L76"
+    },
+    "nm3_software_tool": {
+      "answer": "Keras (Python)",
+      "confidence_rating": "High",
+      "reason": "The autoencoder implementation is explicitly stated to use the Keras Python library.",
+      "supporting_text": "Autoencoder was the selected architecture for the generation of the normative model, and it was implemented using the Keras Python library.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L143"
+    },
+    "nm4_response_variable": {
+      "answer": "Functional connectivity: Pearson correlation coefficients between 14 functional brain network time series (91 unique pairs from 14×14 correlation matrix, lower triangular without diagonal)",
+      "confidence_rating": "High",
+      "reason": "The response variable is clearly defined as functional connectivity measured by Pearson correlations between 14 functional brain networks. The 14×14 matrix yields 91 unique features after removing redundancy.",
+      "supporting_text": "The Pearson's correlation coefficients between the time series of all FBNs pairs were calculated. In the end, a 14 × 14 functional connectivity matrix was created for each subject, giving information about inter FBNs connectivity. Considering that Pearson's correlation coefficient has no information about the direction of functional connectivity, the network matrix is symmetric. Therefore, to avoid redundancy, the diagonal matrix and one-half of the network matrix were discarded. Taking into account that 14 × 14 - 14 / 2 = 91, the remaining half of the matrix was transformed into a vector containing 91 features (pairs of FBNs) for feeding the normative model.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L125-L126"
+    },
+    "nm5_predictor_variables": {
+      "answer": "None (unsupervised autoencoder; features z-normalized using H-Train mean and SD)",
+      "confidence_rating": "High",
+      "reason": "The autoencoder is unsupervised and does not model covariates such as age, sex, or site as predictor variables. The input features (functional connectivity values) are standardized using the mean and standard deviation from the training set, but no demographic or site variables are included as predictors.",
+      "supporting_text": "where x represents the original value of the feature for a specific subject, µ represents the mean value of the feature for all subjects of the H-Train set, and σ the standard deviation value of the feature for all subjects of the H-Train set. To calculate the mean and the standard deviation values for standardization, only the subjects belonging to the training set were used.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L137-L139"
+    },
+    "nm6_predictor_effects": {
+      "answer": "-",
+      "confidence_rating": "High",
+      "reason": "Since no predictor variables (covariates) are modeled in the unsupervised autoencoder approach, fixed/random effects specification is not applicable.",
+      "supporting_text": "Autoencoder was the selected architecture for the generation of the normative model... [unsupervised reconstruction without covariate modeling]",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L143"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The study does not explicitly handle nuisance structure such as site/scanner effects, age nonlinearity, sex differences, motion covariates (beyond exclusion), or heteroscedasticity. Data from multiple sites are aggregated without harmonization (no ComBat, no hierarchical modeling of site effects). Age and sex are not modeled as covariates. While motion-based exclusion is performed, motion parameters are not included as covariates in the model. Only z-score standardization is applied to features.",
+      "supporting_text": "The brain rs-fMRI images used in this project were obtained from three public neuroimaging databases [multiple sites, scanners]... Data standardization was performed before training the model... where x represents the original value of the feature for a specific subject, µ represents the mean value of the feature for all subjects of the H-Train set, and σ the standard deviation value of the feature for all subjects of the H-Train set... [no mention of site, age, sex, or motion covariates in modeling]",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L81-L105;L133-L139"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Ten-fold cross-validation was performed on the training data (H-Train) to optimize and validate the model. This represents validation using non-independent data within the same training domain, as the folds are derived from the training set.",
+      "supporting_text": "Ten fold cross-validation was applied to validate the optimized model while studying its generalization. The proportion of datasets was kept similar for the different folds. The model was trained and tested ten times, using a different fold as the validation set in each time.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L143"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The model was tested on independent held-out healthy subjects (H-Test-U, n=39) from the UCLA dataset, which is part of the same domain as the training data. These subjects were not used for training and represent truly independent validation within the same dataset domain.",
+      "supporting_text": "H-Test-U is the set of 39 healthy subjects from the UCLA dataset that were used to test the model... After training the autoencoder with 366 healthy subjects, it was tested with both healthy subjects and patients.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L156;L163;L175"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The model was validated on an independent dataset from a different domain: COBRE (H-Test-C: 70 healthy subjects; SCZ-Test-C: 49 SCZ patients). This dataset is completely independent from the training data and represents a different acquisition site, allowing evaluation of model generalization across domains.",
+      "supporting_text": "In the end, the normative model was tested on an independent dataset, COBRE... to evaluate the generalization of the model... The Center for Biomedical Research Excellence (COBRE) public dataset (38-41), which is composed of healthy individuals and SCZ patients, was also chosen to evaluate the performance of the trained model on an independent dataset.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L82;L193"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "UCLA LA5c; COBRE",
+      "confidence_rating": "High",
+      "reason": "Clinical patient groups were drawn from two datasets: UCLA LA5c (SCZ, BD, ADHD) and COBRE (SCZ for independent validation).",
+      "supporting_text": "The UCLA Consortium for Neuropsychiatric Phenomics LA5c Study (UCLA) public dataset (37) was selected to train and test the normative model since it contains healthy individuals and ADHD, BD, and SCZ patients. The Center for Biomedical Research Excellence (COBRE) public dataset (38-41), which is composed of healthy individuals and SCZ patients, was also chosen to evaluate the performance of the trained model on an independent dataset... SCZ-Test-U, BD-Test-U, and ADHD-Test-U are the sets of psychiatric patients consisting of 47 SCZ patients, 45 BD patients, and 39 ADHD patients from the UCLA dataset, respectively... SCZ-Test-C are the independent test sets consisting of... 49 SCZ patients from the COBRE dataset.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L82;L163"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Schizophrenia (SCZ); Bipolar Disorder (BD); Attention-Deficit/Hyperactivity Disorder (ADHD)",
+      "confidence_rating": "High",
+      "reason": "The abstract and methods clearly state that three psychiatric disorders were studied: schizophrenia (SCZ), bipolar disorder (BD), and attention-deficit hyperactivity disorder (ADHD).",
+      "supporting_text": "The model was then tested on schizophrenia (SCZ), bipolar disorder (BD), and attention-deficit hyperactivity disorder (ADHD) patients... we aim to investigate if normative models based on functional connectivity are able to discriminate against different psychiatric disorders... we propose a normative model based on autoencoders to evaluate functional connectivity abnormalities in SCZ, BD, and ADHD.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L43;L75"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "SCZ-Test-U:47; BD-Test-U:45; ADHD-Test-U:39; SCZ-Test-C:49",
+      "confidence_rating": "High",
+      "reason": "Table 2 explicitly reports the sample sizes for each clinical group: UCLA SCZ (47), BD (45), ADHD (39), and COBRE SCZ (49).",
+      "supporting_text": "SCZ-Test-U, BD-Test-U, and ADHD-Test-U are the sets of psychiatric patients consisting of 47 SCZ patients, 45 BD patients, and 39 ADHD patients from the UCLA dataset, respectively... and SCZ-Test-C are the independent test sets consisting of... 49 SCZ patients from the COBRE dataset, respectively.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L157-L161;L163"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "SCZ-Test-U: mean 37, range 22-49; BD-Test-U: mean 35, range 21-50; ADHD-Test-U: mean 32, range 21-50; SCZ-Test-C: mean 31, range 19-50 (SD not reported for any group)",
+      "confidence_rating": "High",
+      "reason": "Table 2 provides mean age and age range for all clinical groups, though standard deviations are not reported.",
+      "supporting_text": "| SCZ-Test-U  | UCLA          |       47 |              26 | 22-49       |         37 |\n| BD-Test-U   | UCLA          |       45 |              44 | 21-50       |         35 |\n| ADHD-Test-U | UCLA          |       39 |              49 | 21-50       |         32 |\n| SCZ-Test-C  | UCLA          |       49 |              18 | 19-50       |         31 |",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L157-L161"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "SCZ-Test-U: F26% (12) M74% (35); BD-Test-U: F44% (20) M56% (25); ADHD-Test-U: F49% (19) M51% (20); SCZ-Test-C: F18% (9) M82% (40)",
+      "confidence_rating": "High",
+      "reason": "Table 2 reports female percentages for each clinical group. Male percentages are calculated as complements. Approximate counts are computed from the percentages and total sample sizes.",
+      "supporting_text": "| SCZ-Test-U  | UCLA          |       47 |              26 | 22-49       |         37 |\n| BD-Test-U   | UCLA          |       45 |              44 | 21-50       |         35 |\n| ADHD-Test-U | UCLA          |       39 |              49 | 21-50       |         32 |\n| SCZ-Test-C  | UCLA          |       49 |              18 | 19-50       |         31 |",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L157-L161"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Mean squared error per subject (MSEs): reconstruction error between autoencoder output and input; Mean squared error per feature (MSEf): reconstruction error for each FBN pair; Binarized abnormal pairs using top 20% threshold (threshold=1); Graph-theoretic node degree: number of abnormal connections per FBN; Absolute difference between reconstructed and input features for individual-level analysis",
+      "confidence_rating": "High",
+      "reason": "The paper clearly describes multiple deviation metrics used at different levels of analysis: subject-level (MSEs), feature-level (MSEf), binarized matrices with threshold, and graph theory metrics (node degree).",
+      "supporting_text": "a global metric per subject was defined by calculating the mean squared error between the reconstructed data and the input data of the autoencoder for each subject of the different sets (MSEs)... The generated difference vectors for each subject were reshaped into a 14 × 14 lower triangular matrix, and binarized using the threshold that is defined in the results section. Note that the retained values represent pairs of FBNs that were more abnormal. Graph theory was used to obtain the network degree for each subject... To study which pairs of FBNs were abnormal in each test set, the mean squared error was calculated for each feature, giving a global metric per feature [mean squared error per feature (MSEf)]... For defining the threshold, we first merged the difference vectors of all subjects used to test the autoencoder. Then, we considered the 20% higher values of the merged vector, which corresponds to a threshold value equal to 1.",
+      "location": "materials/OliveiraSaraiva2023.pdf.md:L143-L178;L224"
+    },
+    "caa7_association_analysis": "Mann-Whitney tests compared MSEs distributions between patient groups and healthy controls, and between different patient groups (p=0.05). Graph theory analysis compared median node degree distributions across groups and for individual FBNs. MSEf matrices were generated for each group and differences (patient MSEf minus healthy MSEf) were calculated to identify disorder-specific abnormal FBN pairs. The 10% worst reconstructed pairs were identified for characterization of each disorder. Individual-level analysis examined absolute reconstruction error patterns for characteristic FBN pairs to assess heterogeneity within groups. Additional robustness analysis doubled H-Test-U size (78 subjects) with corresponding H-Train reduction (327 subjects) to validate findings.",
+    "caa8_key_findings_brief": "The autoencoder-based normative model successfully identified disorder-characteristic functional connectivity patterns agreeing with literature, and generalized to an independent SCZ dataset (COBRE), but group-level differences did not withstand individual-level analysis, revealing high heterogeneity within psychiatric disorders.",
+    "caa9_key_findings_detailed": "Patients showed significantly higher reconstruction errors than healthy controls (Mann-Whitney p<0.05 for all comparisons: H-Test-U vs SCZ-Test-U p=0.002, vs BD-Test-U p=0.011, vs ADHD-Test-U p=0.007), but patient groups did not differ significantly from each other (p>0.3). Basal ganglia network (BGN) connectivity plays an important role in BD and SCZ, with BGN-language network connectivity more specific to BD. In SCZ, connections involving higher visual network (HVN) and right executive control network (RECN), particularly HVN-RECN and ASN-BGN pairs, were most relevant. In ADHD, anterior salience network (ASN)-precuneus network (PN) connectivity was most relevant. Characteristic SCZ pairs included ASN-BGN, BGN-HVN, HVN-RECN, ASN-LECN, BGN-PSN, and HVN-PVN. BD was characterized by BGN-DDMN, BGN-HVN, BGN-LN, HVN-PVN, AN-BGN, AN-PVN, and PVN-RECN. ADHD showed abnormalities in ASN-LN, ASN-PN, LN-RECN, HVN-PVN, ASN-VN, and LN-VN. Independent validation on COBRE showed similar patterns for SCZ groups (6 of 9 thresholded pairs shared: ASN-BGN, BGN-HVN, BGN-DDMN, ASN-LN, LN-SN, PN-VDMN), supporting generalizability. However, individual-level analysis revealed high heterogeneity within each patient group, with reconstruction error patterns varying substantially across individuals despite group-level trends, suggesting psychiatric disorders exist on a continuous spectrum with undefined boundaries.",
+    "caa11_application_notes": "The study demonstrates that unsupervised deep learning normative modeling can identify functional connectivity patterns characterizing psychiatric disorders without requiring diagnostic labels during training. The approach allows localization of abnormalities at the network-pair level. The findings support a precision-based medical approach focused on individual-level functional network changes rather than traditional group-based diagnostic classification. The authors suggest future work should incorporate unsupervised clustering following normative modeling to identify subgroups within psychiatric disorders. The model's architecture consisted of three hidden layers (91-46-13-46-91), leaky ReLU activation, L2 regularization (1e-5), dropout (0.5), MSE loss, He initialization, trained for 1,000 epochs with Adam optimizer (β1=0.9, β2=0.999, ε=1e-7, learning rate=0.0005). Standardization used only H-Train statistics to avoid data leakage.",
+    "caa10_key_limitations": {
+      "answer": "No handling of nuisance structure (site, scanner, age, sex effects) beyond preprocessing; short scan durations and limited temporal resolution; template for dual regression not specific to study data; intranetwork connectivity not explored; small sample sizes; autoencoder did not incorporate age/sex information; medication doses, disease severity, and disease course not controlled; functional connectivity may be less stable than structural measures; some pairs of FBNs that were poorly reconstructed for healthy controls may represent natural variability rather than pathology, potentially limiting model specificity.",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "general_note_part": {
+    "gn1_general_notes": "CoRR healthy subsets included: BNU3 (48), HNU1 (30), IPCAS1 (30), IPCAS3 (34), IPCAS4 (20), MRN1 (39), NYU2 (81), Utah1 (16), Utah2 (1), totaling 299 subjects from CoRR. Combined with UCLA healthy subjects (67 based on original sample before splitting), the training pool was 366. The 14 functional brain networks (FBNs) analyzed were from Shirer et al. template: anterior salience network (ASN), auditory network (AN), basal ganglia network (BGN), dorsal default mode network (DDMN), higher visual network (HVN), language network (LN), left executive control network (LECN), posterior salience network (PSN), precuneus network (PN), primary visual network (PVN), right executive control network (RECN), sensorimotor network (SN), ventral default mode network (VDMN), and visuospatial network (VN). Original sample was 700 subjects, reduced from larger initial dataset by applying inclusion criteria (age 18-50 years, TR=2s, eyes open during scan). After QC exclusions (32 subjects for motion, additional subjects for missing data), final sample was 655 subjects. The study notes comparison difficulties between COBRE and UCLA healthy groups (H-Test-C vs H-Test-U Mann-Whitney p=0.1), suggesting dataset-specific patterns. An additional robustness analysis doubled H-Test-U to 78 subjects (correspondingly reducing H-Train to 327) to validate which FBN pairs consistently characterize each disorder. Acquisition parameters varied across sites (Table 1): scanners included Siemens TrioTim, GE Discovery MR750, Siemens Allegra; field strength all 3T; TE ranged 15-30ms; acquisition time 5:04-10:00 min; time points 150-300; voxel sizes 3-4mm isotropic. Eyes-open condition varied: 1=fixated on target, 2=toward blank screen, 3=open (unspecified)."
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Feng2024",
+    "si2_reference_file_names": "Feng2024.pdf.md",
+    "si3_author_journal_year": "Feng et al., bioRxiv, 2024",
+    "si4_title": "Deep Normative Tractometry for Identifying Joint White Matter Macro- and Micro-structural Abnormalities in Alzheimer's Disease",
+    "si5_doi": "10.1101/2024.02.05.578943"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "To introduce the Deep Normative Tractometry (DNT) framework that encodes the joint distribution of both macrostructural and microstructural profiles of brain white matter tracts through a variational autoencoder (VAE), and to assess its generalizability using transfer learning on an independent cohort to detect along-tract abnormalities in mild cognitive impairment and Alzheimer's disease.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study uses TractoInferno training dataset for pre-training (198 single-shell dMRI volumes from 6 sites), and NIMHANS dataset for fine-tuning and clinical application (302 participants from National Institute of Mental Health and Neuro Sciences in India). Fifty CN subjects from NIMHANS were used for fine-tuning.\nEXTRAS: {\"Extracted\": \"TractoInferno (pre-training); NIMHANS (fine-tuning and clinical application)\"}",
+      "supporting_text": "The pre-training dataset was composed of 198 single-shell dMRI volumes from the publicly available TractoInferno training dataset [32], acquired on 3T scanners from 6 sites... We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort... Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model for 5000 steps.",
+      "location": "lines 55-56, lines 36-37, lines 71-72"
+    },
+    "rci2_hc_n": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "For pre-training: 198 healthy participants from TractoInferno dataset. For fine-tuning: 50 CN subjects from NIMHANS. The remaining CN subjects (123 total CN - 50 for fine-tuning = 73) were used at inference time. Total reference cohort includes 198 (pre-training) + 50 (fine-tuning) = 248 healthy controls used for normative model training.\nEXTRAS: {\"Extracted\": \"Pre-training: 198 (TractoInferno); Fine-tuning: 50 (NIMHANS CN); Total for model training: 248\"}",
+      "supporting_text": "The pre-training dataset was composed of 198 single-shell dMRI volumes from the publicly available TractoInferno training dataset... Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model... The dataset consists of neuroimaging data from 123 cognitively normal participants (CN)...",
+      "location": "lines 55-56, lines 71-72, lines 37-38"
+    },
+    "rci3_hc_age": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Age information is provided for the entire NIMHANS cohort (67.26 ± 7.86 years for total sample) but not specifically broken down for the CN group separately. No age information is provided for the TractoInferno pre-training dataset. The 50 CN subjects used for fine-tuning were stratified by sex and scanner, but their age statistics are not explicitly reported.\nEXTRAS: {\"Extracted\": \"NIMHANS total sample: mean 67.26, SD 7.86 (CN-specific statistics not reported separately); TractoInferno: not reported\"}",
+      "supporting_text": "Total: 302, Diagnosis (CN/MCI/AD): 123/89/90, Age: 67.26 ± 7.86... Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model",
+      "location": "Table I line 49, lines 71-72"
+    },
+    "rci4_hc_sex": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Sex information is provided for the entire NIMHANS cohort (177 male, 125 female for total 302 participants) but not specifically broken down for the CN group separately. The 50 CN subjects used for fine-tuning were stratified by sex, but the exact breakdown is not reported. No sex information is provided for the TractoInferno pre-training dataset.\nEXTRAS: {\"Extracted\": \"NIMHANS total sample: M 177 (58.6%), F 125 (41.4%) (CN-specific breakdown not reported separately); TractoInferno: not reported\"}",
+      "supporting_text": "Total: 302, Sex (M/F): 177/125... Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner",
+      "location": "Table I line 49, lines 71-72"
+    },
+    "rci5_imaging_modality": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study uses diffusion MRI (dMRI) with tractography and diffusion tensor imaging (DTI) to derive fractional anisotropy (FA) and mean diffusivity (MD) measures.\nEXTRAS: {\"Extracted\": \"Diffusion MRI (single-shell, b=1000 s/mm², 64 directions)\"}",
+      "supporting_text": "Diffusion MRI (dMRI) can be used to investigate 3D neural pathways and their microstructural properties... Anisotropy and diffusivity measures computed from diffusion tensor imaging (DTI)... 3T diffusion MRI (dMRI) data... diffusion weighting was encoded along 64 independent orientations, using b-value of 1000 s/mm²... Diffusion tensors were fitted with non-linear least-squares to produce fractional anisotropy (FA) and medial diffusivity (MD) scalar maps",
+      "location": "lines 23-24, lines 36-53"
+    },
+    "rci6_analysis_level": {
+      "answer": "Yes",
+      "supporting_text": "Tractometry leverages both DTI and tractography by performing statistics on microstructural scalar measures mapped onto WM tracts... DIPY's auto-calibrated RecoBundles was used to segment thirty WM bundles... Bundles extracted in the MNI space were used to create 100 along-tract segments, aligned across subjects... Each bundle and its reconstruction were then divided into 100 along-tract segments",
+      "location": "lines 24-25, lines 55-56, lines 67, lines 72"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Comprehensive preprocessing pipeline is described, including denoising, Gibbs ringing removal, distortion correction, eddy current correction, bias field correction, DTI fitting, fiber orientation reconstruction using RUMBA-SD, tractography using particle filtering tracking, and bundle segmentation using DIPY's RecoBundles. For pre-training data, constrained spherical deconvolution and deterministic tracking were used.\nEXTRAS: {\"Extracted\": \"NIMHANS data: Denoising (local PCA); Gibbs ringing removal; Susceptibility/eddy current/bias field correction; DTI fitting (non-linear least-squares); RUMBA-SD for fiber orientation; Particle filtering tracking (8 seeds/voxel, step=0.2mm, angle threshold=30°); DIPY RecoBundles for bundle segmentation. TractoInferno data: Constrained spherical deconvolution; Deterministic tracking; DIPY RecoBundles\"}",
+      "supporting_text": "Preprocessing steps for all DWI volumes included: denoising using local principal component analysis [23], Gibbs ringing removal [24], [25], correction of susceptibility-induced distortion [26], eddy currents [27] and bias field inhomogeneity [28]. Diffusion tensors were fitted with non-linear least-squares to produce fractional anisotropy (FA) and medial diffusivity (MD) scalar maps... Fiber orientations were reconstructed using Robust and Unbiased Model-BAsed Spherical Deconvolution (RUMBA-SD)... Particle filtering tracking [31] was using to generate whole-brain tractograms (WBT)... DIPY's auto-calibrated RecoBundles was used to segment thirty WM bundles... Constrained spherical deconvolution [33] and deterministic tracking [34] were used to generate WBTs [for pre-training data]",
+      "location": "lines 51-56"
+    },
+    "rci8_quality_checking": "Partial",
+    "rci9_quality_checking_detail": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "While quality control is mentioned for the TractoInferno dataset, specific QC metrics, thresholds, or the number/percentage of excluded participants are not reported. No QC procedures are described for the NIMHANS dataset.\nEXTRAS: {\"Extracted\": \"-\"}",
+      "supporting_text": "TractoInferno... has been carefully quality controlled [but no specific metrics or exclusion numbers provided]",
+      "location": "lines 103-104"
+    },
+    "rci10_site_effect_handling": "Yes",
+    "rci11_site_effect_handling_detail": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "In DNT: anomaly scores are corrected for scanner effects (along with age and sex) using linear regression after model inference. In BUAN comparison: scanner is modeled as a random effect in linear mixed models. The study design also addresses site effects through transfer learning: pre-training on multi-site data (6 sites) followed by fine-tuning on a new site (NIMHANS with 2 scanners: Philips Ingenia and Siemens Skyra), with fine-tuning sample stratified by scanner. This approach allows the model to generalize across sites/scanners.\nEXTRAS: {\"Extracted\": \"DNT: Linear regression correction for scanner (plus age, sex) applied to anomaly scores post-inference; Transfer learning approach: pre-training on 6-site multi-site data (TractoInferno), fine-tuning on 2-scanner data (NIMHANS: Philips Ingenia, Siemens Skyra) with scanner-stratified sampling. BUAN: Scanner as random effect in LMM\"}",
+      "supporting_text": "We then corrected for age, sex, and scanner effect using linear regression [on anomaly scores]... linear mixed model (LMM), where diagnosis, age, and sex were modeled as fixed effects, and subject and scanner were modeled as random effects... TractoInferno training dataset [32], acquired on 3T scanners from 6 sites... sample of 302 participants from two scanners from the NIMHANS... Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner... assess DNT's generalizability using transfer learning",
+      "location": "lines 71-72, lines 67-68, lines 55-56, lines 36-37, abstract line 17"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": "Yes",
+    "nm2_model_origin_detail": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Since the model_origin is 'New', this field is not applicable. The model was newly trained in this study using the two-stage approach described above.\nEXTRAS: {\"Extracted\": \"-\"}",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm3_modeling_method": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study uses a Convolutional Variational Autoencoder (ConvVAE) architecture with depthwise separable convolution as the deep generative model for normative tractometry.\nEXTRAS: {\"Extracted\": \"Deep Learning (Convolutional Variational Autoencoder with depthwise separable convolution)\"}",
+      "supporting_text": "This study introduces the Deep Normative Tractometry (DNT) framework, that encodes the joint distribution of both macrostructural and microstructural profiles of the brain white matter tracts through a variational autoencoder (VAE)... we showed that a convolutional variational autoencoder (ConvVAE) can embed tractography streamlines into a compact latent space... ConvVAE model to jointly model both bundle geometry and microstructure. The model had an asymmetric architecture, with a 4-layer encoder, a 3-layer decoder, and a latent dimension of 64. Depthwise separable convolution [38] was used in each layer",
+      "location": "abstract lines 16-17, lines 25-26, lines 69-71"
+    },
+    "nm4_software_tool": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "DIPY is explicitly mentioned for tractography and bundle segmentation (RecoBundles). Various preprocessing tools are referenced but specific software packages for the VAE implementation (e.g., TensorFlow, PyTorch) are not explicitly stated. MRtrix3 is cited for some preprocessing steps.\nEXTRAS: {\"Extracted\": \"DIPY (tractography, RecoBundles); MRtrix3 (preprocessing); deep learning framework for VAE not specified\"}",
+      "supporting_text": "DIPY's auto-calibrated RecoBundles [7], [35] was used to segment thirty WM bundles... [34] E. Garyfallidis et al., 'Dipy, a library for the analysis of diffusion MRI data,' Frontiers in Neuroinformatics, 2014... [28] J.-D. Tournier et al., 'MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation,' NeuroImage, 2019",
+      "location": "lines 55-56, lines 155-156, lines 146-147"
+    },
+    "nm5_response_variable": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The response variables are the joint distribution of white matter tract macrostructure (3D spatial coordinates) and microstructure (FA and MD), encoded as bundle profiles where each streamline consists of 128 points with 5 features (3D coordinates + FA + MD).\nEXTRAS: {\"Extracted\": \"3D tract geometry (spatial coordinates); Fractional anisotropy (FA); Mean diffusivity (MD) along 30 white matter bundles (128 points per streamline, 5 features: x, y, z, FA, MD)\"}",
+      "supporting_text": "encodes the joint distribution of both macrostructural and microstructural profiles of the brain white matter tracts... Each streamline from 30 bundles in the MNI space... was first resampled to 128 equidistant points; DTI-derived FA and MD scalars were then mapped to each point on the corresponding native space bundle to create the bundle profile. Combined with the 3D spatial coordinates, each streamline, of size 128 × 5, was used as input",
+      "location": "abstract line 17, lines 69-70"
+    },
+    "nm6_predictor_variables": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The VAE model is trained in an unsupervised manner directly on bundle profiles (3D coordinates + FA + MD) without explicit covariates in the normative model itself. However, age, sex, and scanner effects are corrected for post-hoc using linear regression on the anomaly scores after inference. The fine-tuning sample was stratified by sex and scanner, suggesting these factors were considered. In contrast, the BUAN comparison pipeline explicitly models diagnosis, age, sex as fixed effects and subject/scanner as random effects.\nEXTRAS: {\"Extracted\": \"DNT normative model: None explicitly (unsupervised VAE on bundle profiles); Post-hoc correction: Age; Sex; Scanner. BUAN comparison: Age; Sex; Diagnosis (fixed effects); Subject; Scanner (random effects)\"}",
+      "supporting_text": "We then corrected for age, sex, and scanner effect using linear regression [on anomaly scores]... Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model... For each group comparison (MCI vs. CN and AD vs. CN), we computed group statistics using a linear mixed model (LMM), where diagnosis, age, and sex were modeled as fixed effects, and subject and scanner were modeled as random effects",
+      "location": "lines 71-72, lines 67-68"
+    },
+    "nm7_predictor_effects": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The DNT normative model itself is an unsupervised deep generative model (VAE) without explicit fixed/random effects specification in the traditional statistical sense. Age, sex, and scanner effects are handled post-hoc through linear regression on anomaly scores. The BUAN comparison pipeline uses a traditional LMM framework with fixed and random effects.\nEXTRAS: {\"Extracted\": \"DNT: No fixed/random effects in the normative model itself (unsupervised VAE); post-hoc linear regression correction for age, sex, scanner on anomaly scores. BUAN comparison: Fixed effects for diagnosis, age, sex; random effects for subject, scanner\"}",
+      "supporting_text": "We then corrected for age, sex, and scanner effect using linear regression... we computed group statistics using a linear mixed model (LMM), where diagnosis, age, and sex were modeled as fixed effects, and subject and scanner were modeled as random effects",
+      "location": "lines 71-72, lines 67-68"
+    },
+    "nm8_nm_vldtn_handle_ns": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The study addresses some aspects of nuisance structure: (1) scanner effects are handled through post-hoc linear regression correction on anomaly scores and through LMM random effects in BUAN; (2) the model is pre-trained on multi-site data (6 sites) and fine-tuned with scanner-stratified sampling, potentially capturing site/scanner variance; (3) age and sex effects are also corrected post-hoc. However, there is no explicit validation of how well the VAE handles these nuisance structures (e.g., through evaluation metrics, residual analysis, or comparison with/without correction). Quality control metrics (motion, SNR) are not described. The VAE may implicitly capture some variance structure through its latent representation, but this is not explicitly evaluated.\nEXTRAS: {\"Extracted\": \"Partial: Scanner effects addressed through (1) post-hoc linear regression correction on anomaly scores, (2) multi-site pre-training and scanner-stratified fine-tuning, (3) random effects modeling in BUAN comparison. Age and sex also corrected post-hoc. Quality control mentioned but not detailed. No explicit validation of nuisance structure handling by the VAE model itself\"}",
+      "supporting_text": "We then corrected for age, sex, and scanner effect using linear regression... The pre-training dataset... acquired on 3T scanners from 6 sites... Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner... subject and scanner were modeled as random effects... TractoInferno... has been carefully quality controlled",
+      "location": "lines 71-72, lines 55-56, lines 67-68, lines 103-104"
+    },
+    "nm9_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The study does not report validation using non-independent data from the same domain (e.g., held-out validation set from the training data, cross-validation on training data). The pre-training is done on TractoInferno, fine-tuning on 50 NIMHANS CN, and inference on the remaining NIMHANS participants (CN, MCI, AD), but no systematic validation metrics (e.g., reconstruction error, EV, MSLL, calibration) are reported for the training or validation sets.\nEXTRAS: {\"Extracted\": \"-\"}",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm10_nm_vldtn_same_domain_indep": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The study does not report validation on an independent held-out test set from the same domain as the training data. While 73 NIMHANS CN participants (123 total - 50 for fine-tuning) were used at inference time alongside MCI/AD patients, no normative model validation metrics (e.g., predicted vs observed, calibration, EV, MSLL) are reported for these CN subjects. The focus is on group difference testing (MCI/AD vs CN) rather than normative model validation.\nEXTRAS: {\"Extracted\": \"-\"}",
+      "supporting_text": "At inference time, bundle profiles from the remaining CN, MCI, and AD subjects were passed through the model to obtain their point-by-point reconstruction",
+      "location": "lines 72-73"
+    },
+    "nm11_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study validates generalizability across different domains through transfer learning: the model is pre-trained on TractoInferno dataset (198 participants from 6 sites in Europe and North America, using constrained spherical deconvolution and deterministic tracking) and then fine-tuned and applied to the NIMHANS dataset (acquired in India with different acquisition/processing protocols using RUMBA-SD and particle filtering tracking). This represents validation on a different domain (different geographic region, site, scanner models, acquisition parameters, and tractography methods). The successful detection of along-tract abnormalities and alignment with BUAN results suggests cross-domain generalizability.\nEXTRAS: {\"Extracted\": \"Yes: Transfer learning from TractoInferno (6 sites, Europe/North America, CSD + deterministic tracking) to NIMHANS (India, 2 scanners, RUMBA-SD + particle filtering tracking). Generalizability assessed through successful detection of MCI/AD abnormalities and alignment with BUAN results in the new domain\"}",
+      "supporting_text": "Leveraging a large sample size via generative pre-training, we assess DNT's generalizability using transfer learning on data from an independent cohort acquired in India... The pre-training dataset was composed of 198 single-shell dMRI volumes from the publicly available TractoInferno training dataset [32], acquired on 3T scanners from 6 sites... Fifty CN subjects from the NIMHANS dataset... were then used to fine-tune the model... DNT detects widespread along-tract diffusivity abnormalities in MCI and AD, aligning closely with results from the Bundle Analytics (BUAN) tractometry pipeline",
+      "location": "abstract lines 16-17, lines 55-56, lines 71-72, abstract lines 17-18"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The clinical application uses the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort from India, comprising 302 participants scanned on two scanners (Philips 3T Ingenia and Siemens 3T Skyra).\nEXTRAS: {\"Extracted\": \"NIMHANS\"}",
+      "supporting_text": "We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India. The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD",
+      "location": "lines 36-38"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study examines mild cognitive impairment (MCI) and Alzheimer's disease (AD).\nEXTRAS: {\"Extracted\": \"Mild Cognitive Impairment (MCI); Alzheimer's Disease (AD)\"}",
+      "supporting_text": "detect widespread diffusivity abnormalities along tracts in mild cognitive impairment and Alzheimer's disease... 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD... MCI vs. CN and AD vs. CN group statistics",
+      "location": "abstract line 17, lines 37-38, lines 67-68"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sample sizes are clearly reported in Table I: 123 CN (but 50 used for fine-tuning, so 73 at inference), 89 MCI, 90 AD, for a total of 302 participants.\nEXTRAS: {\"Extracted\": \"CN: 123 total (50 for fine-tuning, 73 for inference); MCI: 89; AD: 90\"}",
+      "supporting_text": "We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants... The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD... Total: 302, Diagnosis (CN/MCI/AD): 123/89/90... Fifty CN subjects from the NIMHANS dataset... were then used to fine-tune the model for 5000 steps. At inference time, bundle profiles from the remaining CN, MCI, and AD subjects were passed through the model",
+      "location": "lines 36-38, Table I line 49, lines 71-73"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age statistics are provided by scanner in Table I, with overall mean 67.26 ± 7.86 years. Philips Ingenia: 67.67 ± 7.13; Siemens Skyra: 67.02 ± 8.26. While diagnosis-specific age is not reported, the groups appear comparable given the overall statistics and the fact that age is included as a covariate in analyses.\nEXTRAS: {\"Extracted\": \"Overall: mean 67.26 ± 7.86 years (Philips scanner: 67.67 ± 7.13; Siemens scanner: 67.02 ± 8.26). Diagnosis-specific age not reported separately\"}",
+      "supporting_text": "Philips Ingenia: Total 110, Diagnosis (CN/MCI/AD): 32/44/34, Age: 67.67 ± 7.13... Siemens Skyra: Total 192, Diagnosis (CN/MCI/AD): 91/45/56, Age: 67.02 ± 8.26... Total: 302, Diagnosis (CN/MCI/AD): 123/89/90, Age: 67.26 ± 7.86",
+      "location": "Table I lines 46-49"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sex distribution is provided by scanner in Table I, with overall 177 male (58.6%) and 125 female (41.4%). Philips Ingenia: 66 male, 44 female; Siemens Skyra: 116 male, 81 female. While diagnosis-specific sex breakdown is not reported, the overall distribution is provided and sex is included as a covariate in analyses.\nEXTRAS: {\"Extracted\": \"Overall: M 177 (58.6%), F 125 (41.4%) (Philips: M 66, F 44; Siemens: M 116, F 81). Diagnosis-specific sex breakdown not reported separately\"}",
+      "supporting_text": "Philips Ingenia: Total 110, Sex (M/F): 66/44... Siemens Skyra: Total 192, Sex (M/F): 116/81... Total: 302, Sex (M/F): 177/125",
+      "location": "Table I lines 46-49"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The deviation metric is the reconstruction error from the VAE, quantified using Mean Absolute Error (MAE) for each of 100 along-tract segments and for each feature (3D shape coordinates, FA, MD). Anomaly scores are corrected for age, sex, and scanner effects using linear regression.\nEXTRAS: {\"Extracted\": \"Mean Absolute Error (MAE) of reconstruction error for each along-tract segment (100 segments per bundle) and each feature (shape/3D coordinates, FA, MD), corrected for age, sex, and scanner using linear regression\"}",
+      "supporting_text": "At inference time, data from the patient group is passed through the network, and the reconstruction error can be used to conduct group statistics, or for anomaly detection... At inference time, bundle profiles from the remaining CN, MCI, and AD subjects were passed through the model to obtain their point-by-point reconstruction. Each bundle and its reconstruction were then divided into 100 along-tract segments using the same approach described in Section III-A. The anomaly scores are computed using the Mean Absolute Error (MAE) for each segment, and each feature - 3D coordinates (shape), FA, and MD. We then corrected for age, sex, and scanner effect using linear regression",
+      "location": "lines 25-26, lines 72-73"
+    },
+    "caa7_association_analysis": "Answer: Yes\nConfidence Rating: High\nNegative Answer Category: Not Negative\nReason: For DNT: 1-tailed Mann-Whitney U tests comparing MCI vs CN and AD vs CN on anomaly scores (after age/sex/scanner correction), with FDR correction for multiple comparisons (100 segments per bundle). For BUAN comparison: linear mixed models (LMM) with diagnosis, age, sex as fixed effects and subject, scanner as random effects, also with FDR correction. The number of significant segments and effect patterns are compared between the two methods.\nSupporting Text: We then corrected for age, sex, and scanner effect using linear regression. With the assumption that the anomaly score is higher in the MCI and AD group for all features, we conducted MCI vs. CN and AD vs. CN group statistics on the anomaly scores using a 1-tailed Mann-Whitney U test. We corrected for multiple comparisons using the same FDR approach as the one used for BUAN... For each group comparison (MCI vs. CN and AD vs. CN), we computed group statistics using a linear mixed model (LMM), where diagnosis, age, and sex were modeled as fixed effects, and subject and scanner were modeled as random effects. We then corrected for multiple comparisons using the false discovery rate (FDR) method [37] for 100 segments on each bundle; we report pFDR < 0.05\nLocation: lines 71-73, lines 67-68\nEXTRAS: {\"Extracted\": \"DNT: 1-tailed Mann-Whitney U test (MCI vs CN, AD vs CN) on MAE anomaly scores corrected for age/sex/scanner, FDR correction p<0.05. BUAN: Linear mixed model with diagnosis/age/sex (fixed effects), subject/scanner (random effects), FDR correction p<0.05. Comparison of number of significant segments and spatial patterns between methods\"}",
+    "caa8_key_findings_brief": "Answer: Yes\nConfidence Rating: High\nNegative Answer Category: Not Negative\nReason: The key finding is clearly stated in the abstract and throughout the paper.\nSupporting Text: Our findings demonstrate DNT's capacity to detect widespread diffusivity abnormalities along tracts in mild cognitive impairment and Alzheimer's disease, aligning closely with results from the Bundle Analytics (BUAN) tractometry pipeline. By incorporating tract geometry information, DNT may be able to distinguish disease-related abnormalities in anisotropy from tract macrostructure, and shows promise in enhancing fine-scale mapping and detection of white matter alterations in neurodegenerative conditions\nLocation: abstract lines 17-19\nEXTRAS: {\"Extracted\": \"DNT detects widespread along-tract diffusivity abnormalities in MCI and AD with high alignment to BUAN results, and incorporating tract geometry may help distinguish anisotropy changes from macrostructural abnormalities, showing promise for fine-scale mapping of white matter alterations in neurodegenerative diseases\"}",
+    "caa9_key_findings_detailed": "Answer: Yes\nConfidence Rating: High\nNegative Answer Category: Not Negative\nReason: Detailed findings are presented throughout the Results and Discussion sections, including specific tract findings, comparisons between methods, and effect patterns.\nSupporting Text: Most notably, we see widespread MD differences between AD and CN - identified by both methods - in the commissural, association, and projection tracts, followed by moderate alignment in MD differences between MCI and CN... BUAN reports higher MD and DNT also reports higher MD anomaly scores in both MCI and AD groups when compared to CN... DNT reveals MD abnormality patterns similar to BUAN along the length of the tracts, even when accounting for shape changes... BUAN reveals more along-tract regions with significant FA differences in both MCI and AD than DNT, with few alignments between the two methods. However, by incorporating information on 3D spatial coordinates (i.e., the tract's overall geometrical shape), DNT identifies a moderate number of tracts with significant shape differences, primarily in the projection and commissural tracts... BUAN identifies significant FA differences in both bundles, whereas DNT identifies significant group differences of FA anomalies only in OPT L, but shape anomalies in both. Patterns of FA group differences in OPT L from both methods are similar to that of the shape shown from DNT. In the forceps major, patterns of FA differences from BUAN are aligned with the profile of group differences in shape anomalies from DNT, but we observe no difference in FA when the macrostructure is jointly modeled with the microstructure. Accounting for shape changes, FA differences in OPT L in AD subjects may reflect aspects of the underlying loss of fiber integrity in AD, and FA differences in the forceps major observed in BUAN may be attributed to disease-related macrostructural changes... Both macrostructural and diffusivity changes are more widespread along tracts in AD - with a medium to large effect compared to MCI, where segments with significant differences in MCI are also identified in AD. Patterns of shape differences are more localized along-tract, whereas patterns of MD differences are also more widespread. MD results reported by DNT are also consistent with those previously reported by BUAN applied to an MCI cohort from ADNI3\nLocation: lines 75-90\nEXTRAS: {\"Extracted\": \"Widespread MD abnormalities detected by both DNT and BUAN in commissural, association, and projection tracts in AD vs CN, with moderate alignment in MCI vs CN. Both methods show higher MD in MCI/AD. FA findings differ between methods: BUAN detects more FA differences, while DNT incorporating tract geometry reveals that some FA differences (e.g., forceps major) may reflect macrostructural rather than microstructural changes. DNT identifies significant shape abnormalities primarily in projection and commissural tracts. In forceps major (AD vs CN), BUAN shows FA differences but DNT shows shape differences without FA differences when geometry is accounted for, suggesting macrostructural origin. In occipito-pontine tract, both methods show similar FA differences and DNT shows shape differences, suggesting true microstructural changes. AD shows more widespread and larger effects than MCI (medium-large effect sizes). Shape differences are more localized; MD differences more widespread. Findings consistent with prior BUAN results on ADNI3 MCI cohort\"}",
+    "caa11_application_notes": "Answer: Yes\nConfidence Rating: High\nNegative Answer Category: Not Negative\nReason: Several notable application aspects are discussed, including the normative modeling framework advantages, future directions, and potential clinical applications.\nSupporting Text: The normative tractometry framework in DNT can better account for variability within the group, as opposed to testing for mean differences in the traditional case-control schema. Generative models, which explicitly model the marginal or the joint distribution - as opposed to discriminative models - are well-suited for normative modeling. In DNT, the VAE model learns the joint distributions of shape, MD, and FA from CN subjects at the training stage. To compare with the LMM results from BUAN, we used the along-tract anomaly scores from DNT for group difference testing. However, a normative framework such as DNT can also be applied for single subject anomaly detection, or regression analysis with non-imaging phenotypes... Future work will include more advanced diffusion models such as the tensor distribution function (TDF) [47], neurite orientation dispersion and density imaging (NODDI) [48] and diffusion kurtosis imaging (DKI) [49], which may be able to evaluate AD-related abnormalities with greater sensitivity and specificity... In future, we will also investigate the effect of pre-training, data sources, feature sets, sample size, and fine-tuning techniques\nLocation: lines 105-106, lines 103-106\nEXTRAS: {\"Extracted\": \"Normative modeling framework advantages: better accounts for within-group variability vs traditional case-control; generative models well-suited for learning joint distributions; can be applied to single-subject anomaly detection or regression with non-imaging phenotypes beyond group testing. Transfer learning approach: large-scale pre-training followed by fine-tuning enables generalization to new sites/populations. Joint modeling: simultaneously captures macro- and micro-structure, potentially helping disentangle partial volume effects from true pathology. Future directions: incorporate advanced diffusion models (TDF, NODDI, DKI) for improved sensitivity/specificity; investigate effects of pre-training data sources, feature sets, sample sizes, and fine-tuning techniques; develop advanced shape metrics for detailed characterization\"}",
+    "caa10_key_limitations": {
+      "answer": "Answer: Yes\nConfidence Rating: High\nNegative Answer Category: Not Negative\nReason: Limitations are explicitly discussed in the Discussion section, including issues with DTI, tractography, partial volume effects, crossing fibers, and the need for additional validation.\nSupporting Text: One surprising finding is that when accounting for bundle macrostructure, DNT detects no difference in FA in the commissural tracts. This could suggest that changes in FA may be confounded by the underlying tract structural abnormalities, and our framework could help to alleviate the partial volume effect by integrating non-local information from streamlines. In the current DNT framework, reconstruction error is used as a proxy for shape anomalies, and it does not provide a detailed characterization of structural changes, such as fiber length, curvature, cross-section, and density. Future work will investigate advanced shape metrics to quantify multi-scale shape differences... As crossing fibers are widespread in the brain [43], [44], both micro- and macro-structural abnormalities detected by DNT in one WM tract could still be due, partly or fully, to differences in another fiber population, even when accounting for bundle geometry. Due to the underlying limitations of DTI and tractography [45], it remains challenging to disentangle the effect of multiple fiber populations in a single voxel or fixel [44] from diseased-related bundle macrostructural and microstructural changes with high specificity... Aside from directly modeling bundle geometry, DNT is pretrained on data that BUAN has not seen, and could contribute to the differences in signals detected by both methods\nLocation: lines 92-104\nEXTRAS: {\"Extracted\": \"Limitations include: (1) reconstruction error as shape proxy lacks detailed characterization of specific shape features (length, curvature, cross-section, density); (2) crossing fibers may confound tract-specific abnormalities despite geometry modeling; (3) fundamental DTI and tractography limitations affect ability to disentangle multiple fiber populations with high specificity; (4) differences between DNT and BUAN may partly reflect different training data (pre-training on TractoInferno); (5) partial volume effects may still influence results despite geometry modeling; (6) need for validation on additional datasets and with advanced diffusion models (TDF, NODDI, DKI) beyond DTI\"}",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "general_note_part": {
+    "gn1_general_notes": "Full dataset list for reference cohort: Pre-training: TractoInferno dataset (198 participants from 6 sites with single-shell dMRI, publicly available). Fine-tuning and clinical application: NIMHANS dataset (302 participants from India, 2 scanners: Philips 3T Ingenia n=110, Siemens 3T Skyra n=192). Model architecture details: ConvVAE with asymmetric architecture (4-layer encoder, 3-layer decoder), latent dimension 64, depthwise separable convolution, 454,742 trainable parameters. Training: Pre-training 29,000 steps with batch size 512 on TractoInferno; fine-tuning 5,000 steps on 50 NIMHANS CN (stratified by sex and scanner). Tractography details: 30 WM bundles segmented using DIPY RecoBundles; each streamline resampled to 128 equidistant points with 5 features (x, y, z, FA, MD); each bundle divided into 100 along-tract segments for analysis. Notable methodological innovation: First tractometry study to jointly model macro- and micro-structure using deep generative model; transfer learning from multi-site pre-training to new site demonstrates cross-domain generalizability; may help distinguish true microstructural changes from partial volume effects. Source publication: bioRxiv preprint posted February 6, 2024 (not peer-reviewed). The study provides detailed comparison with BUAN tractometry pipeline, showing both convergent findings (MD abnormalities) and divergent findings (FA differences in some tracts may reflect macrostructural rather than microstructural changes when geometry is accounted for). ADNI is mentioned in the context of prior work and comparison of findings, but ADNI data is not used in this study."
+  }
+}

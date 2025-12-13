@@ -1,0 +1,106 @@
+
+
+
+この研究では、主に**19の国際的な拡散MRIデータセット**が用いられています。
+
+この19のデータセットは、生涯全体（4歳から91歳）をほぼカバーする大規模な規範モデルを構築するために使用され、合計54,583人分のデータが含まれています。
+
+これらの19のデータセットには、以下のような公的データセットおよび臨床データセット（健常対照群のみがトレーニングデータとして使用された）が含まれます：
+
+*   Adolescent Brain Cognitive Development (ABCD)
+*   Amsterdam Open MRI Collection (AOMIC)
+*   Cambridge Centre for Ageing and Neuroscience (CAMCAN)
+*   Cuban Human Brain Mapping Project (CHBMP)
+*   Chinese Human Connectome Project (CHCP)
+*   Human Connectome Project Aging & Development (HCP\_A & HCP\_D)
+*   Human Connectome Project Young Adult (HCP\_YA)
+*   NIH MRI Study of Normal Brain Development (PedsDTI)
+*   Pediatric Imaging, Neurocognition, and Genetics data repository (PING)
+*   Philadelphia Neurodevelopmental Cohort (PNC)
+*   Queensland Twin Adolescent Brain (QTAB)
+*   Queensland Twin Imaging dataset (QTIM)
+*   Southwest University Longitudinal Imaging Multimodal (SLIM) study
+*   UK BioBank (UKBB)
+*   Alzheimer’s Disease Neuroimaging Initiative（ADNI3、健常対照群のみ）
+*   Open Access Series of Imaging Studies（OASIS3、健常対照群のみ）
+*   Parkinson's Progression Markers Initiative（PPMI、健常対照群のみ）
+*   Healthy Brain Network（HBN、健常対照群のみ）
+
+また、モデル適応（Model Adaptation）実験のために、**NIMHANS**（高齢者コホート）と**UCLA**（22q11.2欠失症候群のデータセット）の**2つの追加の独立したデータセット**が使用されました。NIMHANSとUCLAのデータセットは、参照モデルの開発時には利用できず、現実世界のシナリオをシミュレートするために用いられました。
+
+
+-----------------------
+
+
+この研究で使用されたデータセットは、その目的に応じて主に**3つのカテゴリ**に分類されます。
+
+### 1. 規範モデル構築のための主要なデータセット (Training Data / Reference Cohorts)
+
+合計19の国際的な拡散MRIデータセットが、**階層的ベイズ回帰（HBR）規範モデルの推定**に使用されました。これらのデータセットは、生涯全体（4歳から91歳）の白質微細構造の規範分布（基準範囲）を定義するために使用されています。
+
+この19のデータセットのうち、臨床データセット（ADNI3、OASIS3、PPMI、HBN）に関しては、**健常対照群（Healthy Controls: HC）のみ**がトレーニングデータとしてプールされました。
+
+| データセット名 | 目的/用途 | 詳細 (健常対照群のみ使用) | 典拠 |
+| :--- | :--- | :--- | :--- |
+| ABCD, AOMIC, CAMCAN, CHBMP, CHCP, HCP-A, HCP-D, HCP-YA, PedsDTI, PING, PNC, QTAB, QTIM, SLIM, UKBB | **規範モデルのトレーニング** (Training Data) | これらのデータセットは集団ベースの研究であり、健常者を対象としたデータとしてモデル推定に使用されました。 |,,, |
+| ADNI3, OASIS3, PPMI, HBN | **規範モデルのトレーニング** (Training Data) | これらのデータセットは臨床研究に使用されますが、**健常対照群（Controls）のみ**がモデルのトレーニングデータセットに組み込まれました。 | |
+
+*注: 規範モデルの推定プロセスでは、安定性を確保するため、全データセット（臨床集団を除く）を**80%を訓練用（Train）**、**20%をテスト用（Test）**に分割する手順を10回繰り返して使用されました。*
+
+### 2. 異常検出のためのテストデータ (Anomaly Detection / Clinical Test Data)
+
+モデルが確立された後、臨床集団における白質微細構造の逸脱を検出するために、以下のデータセットの患者群が使用されました。
+
+| データセット名 | 目的/用途 | 詳細 | 典拠 |
+| :--- | :--- | :--- | :--- |
+| **ADNI3** (患者群) | **異常検出** (Anomaly Detection) | 軽度認知障害（MCI）および認知症（Dementia）の症例が、構築された規範モデルに対する異常検出実験の**テストデータ**として使用されました。 |, |
+| **OASIS3** (患者群) | **異常検出** (Anomaly Detection) | 軽度認知障害（MCI）および認知症（Dementia）の症例が、異常検出実験の**テストデータ**として使用されました。 |, |
+
+### 3. モデル適応実験のための独立したデータセット (Model Adaptation)
+
+現実世界のシナリオをシミュレートし、モデルを新しいデータセットに転用できるかを検証するために、以下の**2つの独立したデータセット**が使用されました。
+
+| データセット名 | 目的/用途 | 詳細 | 典拠 |
+| :--- | :--- | :--- | :--- |
+| **NIMHANS** | **モデル適応** (Model Adaptation) **および異常検出** | この高齢者コホートでは、健常対照群の**50%**が、参照モデルのハイパーパラメーターをローカルデータに適合させる**モデル適応**のために使用されました。残りの健常対照群50%と、MCIおよび認知症の患者は**異常検出**に使用されました。 |,, |
+| **UCLA** (22q11.2欠失症候群データセット) | **モデル適応** (Model Adaptation) **および異常検出** | この神経遺伝学的データセットでは、健常対照群の**50%**が**モデル適応**のために使用され、残りの健常対照群50%と22q11.2欠失症候群の患者が**異常検出**に使用されました。 |,, |
+
+
+-------------------
+
+ Normative Model（規範モデル）の構築に用いられた健常者データセットのN数について、全体（Overall）と学習（Train）の段階に分けてご説明します。
+
+### 1. 健常者データセットの全体 N数 (Overall Sample Size)
+
+規範モデルの推定には、主に**19の国際的な拡散MRIデータセット**が使用されました。これらのデータセットは、**生涯全体（4歳から91歳）**をカバーする白質微細構造のモデルを構築するために統合されています。
+
+*   **合計N数（品質管理後）**: **54,583人**
+
+この54,583人という人数は、品質管理（QC）と外れ値の除去を行った後の参加者数であり、**規範モデルの推定（学習、検証、テストの全プロセス）**のベースとして使用されました。
+
+この人数には、以下の19のデータセットの健常対照群のみが含まれています：
+ABCD, AOMIC, CAMCAN, CHBMP, CHCP, HCP\_A, HCP\_D, HCP\_YA, PedsDTI, PING, PNC, QTAB, QTIM, SLIM, UKBB, ADNI3 (Controls), OASIS3 (Controls), PPMI (Controls), HBN (Controls)。
+
+### 2. 学習段階（Train段階）のN数
+
+階層的ベイズ回帰（HBR）規範モデルの推定にあたり、安定性を確保するため、全データセット（臨床集団を除く54,583人）を**80%を訓練用（Train）**、**20%をテスト用（Test）**に分割する手順が10回繰り返されました。
+
+したがって、学習段階（Train）に使用されたN数は以下の通りです。
+
+*   **訓練用（Train）N数**: **43,666人** (54,583人の80%)
+
+この学習セット（80%のサンプル分割）に対し、HBRは10回実行されています。
+
+*   **テスト用（Test）N数**: **10,917人** (54,583人の20%)
+
+**まとめ**
+
+| 段階 | 用途 | N数 |
+| :--- | :--- | :--- |
+| **全体 (Overall)** | 規範モデル推定の全ベース人数（健常者のみ） | **54,583人** |
+| **学習 (Train)** | HBRモデルの学習に使用された人数（80%分割） | **43,666人** |
+| **テスト (Test)** | Zスコアの再計算などに使用された人数（20%分割） | **10,917人** |
+
+---------------------
+
+

@@ -1,0 +1,205 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Feng2024",
+    "si2_reference_file_names": "Feng2024.pdf.md; Feng2024_artifacts/image_000001_9f8c829b40647606876127e641ca814af81f3f2ea0f9bf82afa0253c979e8f70.png; Feng2024_artifacts/image_000002_809e3834e092e7157e2a62fe38d660edcec97aae186aa4b77e85a72d61b91501.png",
+    "si3_author_journal_year": "Feng et al., bioRxiv (preprint), 2024",
+    "si4_title": "Deep Normative Tractometry for Identifying Joint White Matter Macro- and Micro-structural Abnormalities in Alzheimer's Disease",
+    "si5_doi": "10.1101/2024.02.05.578943"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "Introduce and evaluate Deep Normative Tractometry (DNT), a variational autoencoder-based normative modeling framework that jointly models white matter tract geometry and DTI microstructure; leverage large-sample pretraining and transfer learning to an independent Indian cohort and assess detection of along-tract abnormalities in MCI and Alzheimer's disease, comparing to BUAN tractometry.",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "TractoInferno (pretraining); NIMHANS (CN controls for fine-tuning)",
+      "confidence_rating": "High",
+      "reason": "Methods explicitly state pretraining on TractoInferno (N=198, 6 sites) and fine-tuning on 50 CN from the NIMHANS dataset before inference on the remaining NIMHANS participants.",
+      "supporting_text": "The pre-training dataset was composed of 198 single-shell dMRI volumes from the publicly available TractoInferno training dataset ... acquired on 3T scanners from 6 sites.; Fifty CN subjects from the NIMHANS dataset ... were then used to fine-tune the model ...",
+      "location": "Feng2024.pdf.md: Methods / Pretraining & datasets; DNT fine-tuning section"
+    },
+    "rci2_hc_n": {
+      "answer": "198 (TractoInferno pretraining); 50 (NIMHANS CN fine-tuning)",
+      "confidence_rating": "High",
+      "reason": "Pretraining used 198 subjects from TractoInferno; fine-tuning used 50 CN from NIMHANS. These constitute the healthy reference data used to build/adapt the normative model.",
+      "supporting_text": "The pre-training dataset was composed of 198 single-shell dMRI volumes ... TractoInferno ...; Fifty CN subjects from the NIMHANS dataset ... were then used to fine-tune the model ...",
+      "location": "Feng2024.pdf.md: Methods / Pretraining & DNT fine-tuning"
+    },
+    "rci3_hc_age": {
+      "answer": "NR",
+      "confidence_rating": "Low",
+      "reason": "Age is provided for the full NIMHANS sample by scanner and total, not specifically for the CN subset used to fine-tune (50 CN). No age stats for CN-only are reported.",
+      "supporting_text": "Total           |     302 | 123/89/90               | 67.26 ± 7.86 | 177/125 (not CN-only)",
+      "location": "Feng2024.pdf.md: NIMHANS DATASET DESCRIPTION table"
+    },
+    "rci4_hc_sex": {
+      "answer": "NR",
+      "confidence_rating": "Low",
+      "reason": "Sex totals are reported by scanner and overall, but not for the CN subset used for fine-tuning the normative model.",
+      "supporting_text": "Sex (N/F) ... Philips Ingenia 66/44; Siemens Skyra 116/81; Total 177/125 (not stratified by diagnosis)",
+      "location": "Feng2024.pdf.md: NIMHANS DATASET DESCRIPTION table"
+    },
+    "rci5_imaging_modality": {
+      "answer": "Diffusion MRI (DTI: FA; MD); Tractography-based tractometry",
+      "confidence_rating": "High",
+      "reason": "The study models along-tract DTI-derived FA and MD on white matter bundles using diffusion MRI and tractography.",
+      "supporting_text": "Index Terms - ... diffusion MRI; Anisotropy and diffusivity measures computed from diffusion tensor imaging (DTI) ...; Diffusion tensors were fitted ... to produce fractional anisotropy (FA) and medial diffusivity (MD) ...",
+      "location": "Feng2024.pdf.md: Abstract; Introduction; Methods (scanner & preprocessing)"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level",
+      "supporting_text": "Bundles extracted in the MNI space were used to create 100 along-tract segments, aligned across subjects.",
+      "location": "Feng2024.pdf.md: Methods / BUAN and DNT setup"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "DWI denoising (local PCA); Gibbs ringing removal; Susceptibility, eddy-current, and bias-field correction; DTI fit (non-linear least squares) to FA and MD; RUMBA-SD for FODs; Particle filtering tractography; DIPY RecoBundles segmentation in native and MNI spaces; TractoInferno WBT via CSD + deterministic tracking",
+      "confidence_rating": "High",
+      "reason": "The Methods section lists explicit preprocessing and tractography steps and tools for both NIMHANS and pretraining datasets.",
+      "supporting_text": "Preprocessing steps for all DWI volumes included: denoising using local principal component analysis ... Gibbs ringing removal ... correction of susceptibility-induced distortion ... eddy currents ... bias field inhomogeneity ... Diffusion tensors were fitted ... to produce fractional anisotropy (FA) and medial diffusivity (MD) ... Fiber orientations were reconstructed using Robust and Unbiased Model-BAsed Spherical Deconvolution (RUMBA-SD) ... Particle filtering tracking ... generate whole-brain tractograms ...; Constrained spherical deconvolution and deterministic tracking were used to generate WBTs. DIPY's auto-calibrated RecoBundles was used to segment thirty WM bundles in the native and MNI space.",
+      "location": "Feng2024.pdf.md: Methods / Scanner & preprocessing; Pretraining dataset description"
+    },
+    "rci8_quality_checking": {
+      "answer": "No",
+      "detail": "Specific QC metrics, thresholds, or exclusions are not reported in the available Methods text beyond standard preprocessing corrections.",
+      "confidence_rating": "Low",
+      "supporting_text": "NR",
+      "location": "Feng2024.pdf.md: Methods (QC not reported)"
+    },
+    "rci9_site_effect_handling": {
+      "answer": "Model-based",
+      "detail": "Scanner modeled as random effect in LMM for along-tract group statistics; transfer learning fine-tuning with local CN to adapt model; pretraining data from 6 sites.",
+      "confidence_rating": "High",
+      "supporting_text": "... diagnosis, age, and sex were modeled as fixed effects, and subject and scanner were modeled as random effects.; ... transfer learning on data from an independent cohort acquired in India; ... TractoInferno ... acquired on 3T scanners from 6 sites.",
+      "location": "Feng2024.pdf.md: Methods / BUAN LMM; Abstract; Methods / Pretraining dataset"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": {
+      "answer": "Pre-trained",
+      "detail": "Pretrained ConvVAE on TractoInferno (N=198, 6 sites, 3T); fine-tuned with 50 NIMHANS CN; applied to remaining NIMHANS CN/MCI/AD for inference.",
+      "confidence_rating": "High",
+      "supporting_text": "The pre-training dataset was composed of 198 single-shell dMRI volumes ... TractoInferno ... 6 sites.; Fifty CN subjects from the NIMHANS dataset ... were then used to fine-tune the model ... At inference time, bundle profiles from the remaining CN, MCI, and AD subjects were passed through the model ...",
+      "location": "Feng2024.pdf.md: Methods / Pretraining & DNT pipeline"
+    },
+    "nm2_modeling_method": {
+      "answer": "Variational autoencoder (ConvVAE) for normative modeling",
+      "confidence_rating": "High",
+      "reason": "Both the Abstract and Methods describe a VAE/ConvVAE used to model bundle profiles for normative modeling.",
+      "supporting_text": "... through a variational autoencoder (VAE). By training on data from healthy controls, DNT learns the normative distribution ...; Each streamline ... was used as input to the ConvVAE model ...",
+      "location": "Feng2024.pdf.md: Abstract; Methods / DNT"
+    },
+    "nm3_software_tool": {
+      "answer": "NR",
+      "confidence_rating": "Low",
+      "reason": "The specific software framework for the ConvVAE (e.g., PyTorch/TensorFlow) is not reported in the available text.",
+      "supporting_text": "NR",
+      "location": "Feng2024.pdf.md: Methods (software not specified)"
+    },
+    "nm4_response_variable": {
+      "answer": "Joint along-tract bundle profile: 3D streamline coordinates plus FA and MD sampled at 128 points per streamline across 30 bundles (ROI-level).",
+      "confidence_rating": "High",
+      "reason": "Methods state inputs per streamline include 3D coordinates and DTI-derived FA and MD values at 128 resampled points, across 30 bundles.",
+      "supporting_text": "Each streamline from 30 bundles in the MNI space ... was first resampled to 128 equidistant points; DTI-derived FA and MD scalars were then mapped to each point ... Combined with the 3D spatial coordinates, each streamline, of size 128 × 5, was used as input to the ConvVAE model ...",
+      "location": "Feng2024.pdf.md: Methods / DNT"
+    },
+    "nm5_predictor_variables": {
+      "answer": "None (unsupervised VAE; inputs are geometry + FA + MD)",
+      "confidence_rating": "Medium",
+      "reason": "The normative model is unsupervised; no demographic/site covariates are modeled within the VAE. Inputs are the bundle profiles (coordinates and DTI scalars).",
+      "supporting_text": "... each streamline ... DTI-derived FA and MD ... Combined with the 3D spatial coordinates ... used as input to the ConvVAE model ...",
+      "location": "Feng2024.pdf.md: Methods / DNT"
+    },
+    "nm6_predictor_effects": {
+      "answer": "NA (unsupervised generative model)",
+      "confidence_rating": "Medium",
+      "reason": "ConvVAE does not specify fixed vs random effects; it learns a latent distribution of inputs without explicit covariates.",
+      "supporting_text": "NR",
+      "location": "Feng2024.pdf.md: Methods / DNT"
+    },
+    "nm7_nm_vldtn_handle_ns": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Scanner/site differences are addressed via model-based strategies: pretraining on multi-site TractoInferno, transfer learning fine-tuned on local CN, and scanner random effects in the LMM for group statistics. Other nuisance factors (motion/QC, heteroscedasticity) are not reported.",
+      "supporting_text": "... acquired on 3T scanners from 6 sites.; ... used to fine-tune the model ...; ... subject and scanner were modeled as random effects.",
+      "location": "Feng2024.pdf.md: Methods / Pretraining & BUAN LMM"
+    },
+    "nm8_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "Low",
+      "reason": "No evidence that performance was evaluated non-independently on the same data used for fine-tuning or training; instead, inference used the remaining participants.",
+      "supporting_text": "NR",
+      "location": "Feng2024.pdf.md: Methods (validation approach not described as non-independent)"
+    },
+    "nm9_nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Fine-tuning used a subset of CN (50), with inference on the remaining CN, MCI, and AD participants from the same NIMHANS dataset.",
+      "supporting_text": "Fifty CN subjects ... were then used to fine-tune the model ... At inference time, bundle profiles from the remaining CN, MCI, and AD subjects were passed through the model ...",
+      "location": "Feng2024.pdf.md: Methods / DNT"
+    },
+    "nm10_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The model was pretrained on TractoInferno and adapted/applied to the independent NIMHANS cohort in India via transfer learning.",
+      "supporting_text": "Leveraging a large sample size via generative pre-training, we assess DNT's generalizability using transfer learning on data from an independent cohort acquired in India.; The pre-training dataset was composed of 198 ... TractoInferno ...",
+      "location": "Feng2024.pdf.md: Abstract; Methods / Pretraining"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "NIMHANS cohort (India)",
+      "confidence_rating": "High",
+      "reason": "The cohort is explicitly labeled as the NIMHANS dataset and described in a table by scanner.",
+      "supporting_text": "NIMHANS DATASET DESCRIPTION, BY SCANNER.",
+      "location": "Feng2024.pdf.md: NIMHANS DATASET DESCRIPTION section"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Mild cognitive impairment (MCI); Alzheimer's disease (AD)",
+      "confidence_rating": "High",
+      "reason": "Diagnoses listed in the dataset table and described in Abstract.",
+      "supporting_text": "Diagnosis (CN/MCI/AD); ... detect widespread diffusivity abnormalities ... in mild cognitive impairment and Alzheimer's disease ...",
+      "location": "Feng2024.pdf.md: NIMHANS DATASET DESCRIPTION table; Abstract"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "CN:123; MCI:89; AD:90",
+      "confidence_rating": "High",
+      "reason": "Counts are provided in the total row of the NIMHANS dataset table.",
+      "supporting_text": "Total           |     302 | 123/89/90",
+      "location": "Feng2024.pdf.md: NIMHANS DATASET DESCRIPTION table (Total row)"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "NR",
+      "confidence_rating": "Low",
+      "reason": "Only overall age is reported per scanner and total; age by diagnosis group is not provided.",
+      "supporting_text": "Total ... Age 67.26 ± 7.86 (not stratified by group)",
+      "location": "Feng2024.pdf.md: NIMHANS DATASET DESCRIPTION table"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "NR",
+      "confidence_rating": "Low",
+      "reason": "Sex totals are reported by scanner and overall but not by diagnosis group.",
+      "supporting_text": "Sex (N/F) ... Total 177/125 (not stratified by diagnosis)",
+      "location": "Feng2024.pdf.md: NIMHANS DATASET DESCRIPTION table"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Reconstruction error from ConvVAE mapped along tracts; segment-wise group statistics with FDR correction (p_FDR < 0.05)",
+      "confidence_rating": "Medium",
+      "reason": "Introduction describes using reconstruction error for group statistics/anomaly detection; Methods describe along-tract anomaly mapping and FDR-corrected segment-wise testing.",
+      "supporting_text": "... the reconstruction error can be used to conduct group statistics, or for anomaly detection.; ... along-tract anomaly mapping, and statistics ... 100 along-tract segments ... we computed group statistics ... and ... corrected ... using the false discovery rate (FDR) ... p_FDR < 0.05.",
+      "location": "Feng2024.pdf.md: Introduction; Methods / BUAN & DNT"
+    },
+    "caa7_association_analysis": "Linear mixed models on along-tract segments with diagnosis, age, sex as fixed effects and subject and scanner as random effects; multiple comparison correction by FDR.",
+    "caa8_key_findings_brief": "DNT detected widespread along-tract diffusivity abnormalities in MCI and AD that closely aligned with BUAN results; inclusion of tract geometry enabled separation of anisotropy from macrostructural effects.",
+    "caa9_key_findings_detailed": "Pretrained-and-finetuned DNT produced segment-wise maps highlighting abnormalities in MD and FA across multiple bundles; results paralleled BUAN tractometry while additionally providing 'shape' (geometry) anomaly maps, suggesting complementary sensitivity to macrostructural differences.",
+    "caa10_key_limitations": {
+      "answer": "NR",
+      "supporting_text": "NR",
+      "location": "Feng2024.pdf.md: Discussion/Limitations not available in provided extract"
+    },
+    "caa11_application_notes": "Fine-tuning used 50 local CN to calibrate the pretrained model; inference performed on remaining CN/MCI/AD; group stats via LMM with scanner random effects; 100 along-tract segments per bundle with FDR control."
+  },
+  "general_note_part": {
+    "gn1_general_notes": "Source is a bioRxiv preprint. Methods include detailed acquisition and preprocessing for NIMHANS and TractoInferno; however, QC procedures and CN-only demographics (age/sex) are not reported in the provided text. Figures in Feng2024_artifacts illustrate the pretraining→fine-tuning pipeline and along-tract significance maps."
+  }
+}
