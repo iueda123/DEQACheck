@@ -1,13 +1,17 @@
 package iu.LCAC.Member.componentholder.Concretes.Sample.CheckboxPanel;
 
+
 import iu.LCAC.Mediator.action.ActionMediator;
 import iu.LCAC.Mediator.componentholder.CHolderMediator;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMember;
+import iu.LCAC.Utils.FontManager;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.*;
 
 public class CheckboxPanelHolder extends AbstCHolderMember {
 
@@ -15,7 +19,7 @@ public class CheckboxPanelHolder extends AbstCHolderMember {
 
   JCheckBox SampleCheckBox = new JCheckBox("Change Color");
 
-  public CheckboxPanelHolder(String cholder_name, String short_name) {
+  public CheckboxPanelHolder(String cholder_name, String short_name, String... args) {
     super(cholder_name, short_name);
 
     SampleCheckBox.addActionListener(new SampleSelectionChangeListener());
@@ -84,5 +88,27 @@ public class CheckboxPanelHolder extends AbstCHolderMember {
         System.err.println("Action Starter is null!" + "@" + this.getClass().toString());
       }
     }
+  }
+
+  private static void createAndShowGUI() {
+    FontManager.setGlobalFont();
+
+    JFrame frame = new JFrame("Member Test");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    AbstCHolderMember holder = new CheckboxPanelHolder("checkbox_pane", "Checkbox Panel", "");
+    holder.initialize(); // Build the component before adding to frame
+
+    frame.getContentPane().add(holder.getBaseComponent(), BorderLayout.CENTER);
+    frame.pack();
+    frame.setSize(400, 300);
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
+
+    holder.postInitialize(); // Run post initialization after the component becomes visible
+  }
+
+  public static void main(String[] args) {
+    SwingUtilities.invokeLater(() -> createAndShowGUI());
   }
 }

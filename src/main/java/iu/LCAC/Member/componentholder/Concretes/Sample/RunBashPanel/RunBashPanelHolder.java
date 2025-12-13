@@ -4,8 +4,10 @@ import iu.LCAC.Mediator.action.ActionMediator;
 import iu.LCAC.Mediator.componentholder.CHolderMediator;
 import iu.LCAC.Member.action.Abstract.AbstActionMember;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMember;
+import iu.LCAC.Utils.FontManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class RunBashPanelHolder extends AbstCHolderMember {
@@ -14,7 +16,7 @@ public class RunBashPanelHolder extends AbstCHolderMember {
 
   JButton runScriptButton = new JButton("Run A Script");
 
-  public RunBashPanelHolder(String cholder_name, String short_name) {
+  public RunBashPanelHolder(String cholder_name, String short_name, String... args) {
     super(cholder_name, short_name);
 
     runScriptButton.addActionListener(
@@ -77,4 +79,26 @@ public class RunBashPanelHolder extends AbstCHolderMember {
 
   @Override
   public void doWorkAsMember() {}
+
+  private static void createAndShowGUI() {
+    FontManager.setGlobalFont();
+
+    JFrame frame = new JFrame("Member Test");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    AbstCHolderMember holder = new RunBashPanelHolder("run_bash_pane", "Run Bash Panel", "");
+    holder.initialize(); // Build the component before adding to frame
+
+    frame.getContentPane().add(holder.getBaseComponent(), BorderLayout.CENTER);
+    frame.pack();
+    frame.setSize(400, 300);
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
+
+    holder.postInitialize(); // Run post initialization after the component becomes visible
+  }
+
+  public static void main(String[] args) {
+    SwingUtilities.invokeLater(() -> createAndShowGUI());
+  }
 }

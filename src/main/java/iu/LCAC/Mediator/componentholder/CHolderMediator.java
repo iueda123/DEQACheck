@@ -6,6 +6,7 @@ import iu.LCAC.Mediator.action.ActionMediator;
 import iu.LCAC.Member.MemberIntrfc;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMember;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMemberFactory;
+import iu.LCAC.Member.componentholder.Concretes.DEQAResult.WithNotebookLM.WithNotebookLMPanelHolderFactory;
 import iu.LCAC.Member.componentholder.Concretes.MainWindow.MainWindowHolderFactory;
 import iu.LCAC.Member.componentholder.Concretes.StatusPanel.StatusPanelHolderFactory;
 import iu.LCAC.Member.componentholder.Concretes.Sample.ButtonPanel.ButtonPanelHolderFactory;
@@ -24,8 +25,7 @@ import iu.LCAC.Member.componentholder.Concretes.Sample.CheckboxPanel.CheckboxPan
 import iu.LCAC.Member.componentholder.Concretes.Sample.TextField.TextFieldPanelHolderFactory;
 import iu.LCAC.Member.componentholder.Concretes.DEQAResult.SummaryPane.SummaryPaneHolderFactory;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * メインフレームに対する各種操作を一手に引き受けるクラスのためのアブストラクトクラス。
@@ -237,11 +237,21 @@ public class CHolderMediator implements MediatorIntrfc {
 
         //------------------------------------------
 
+        /* 98. Notebook LM Pane */
+        chMemberFactory = MemberFactoryLoader.loadFactory(
+                WithNotebookLMPanelHolderFactory.class.getName(),
+                AbstCHolderMemberFactory.class);
+        AbstCHolderMember withNotebookLmPaneHoldFactory =
+                chMemberFactory.createCHolder("with_notebook_lm_pane_holder", "With NotebookLM Pane Holder", authorYears[0]);
+        withNotebookLmPaneHoldFactory.setCHolderMediator(this);
+        withNotebookLmPaneHoldFactory.initialize();
+        registerMemberToMap(withNotebookLmPaneHoldFactory);
+
+
         /* 99. Summary Pane */
-        chMemberFactory =
-                MemberFactoryLoader.loadFactory(
-                        SummaryPaneHolderFactory.class.getName(),
-                        AbstCHolderMemberFactory.class);
+        chMemberFactory = MemberFactoryLoader.loadFactory(
+                SummaryPaneHolderFactory.class.getName(),
+                AbstCHolderMemberFactory.class);
         AbstCHolderMember summaryPaneHoldFactory =
                 chMemberFactory.createCHolder("summary_pane_holder", "summary pane holder", authorYears[0]);
         summaryPaneHoldFactory.setCHolderMediator(this);
@@ -264,23 +274,28 @@ public class CHolderMediator implements MediatorIntrfc {
     }
 
     public AbstCHolderMember getInstanceOfAMember(String member_name) {
-        return (AbstCHolderMember) memberMap.get(member_name);
+        AbstCHolderMember aMember = (AbstCHolderMember) memberMap.get(member_name);
+        if (aMember == null) {
+            System.err.println("CHolderMember '" + member_name + "' が見つかりません。member呼び出し名やその紐付けを確認してください。");
+            return null;
+        } else {
+            return aMember;
+        }
     }
 
     public void registerActionMediatorToEachMember(ActionMediator actionMediator) {
-        Iterator<String> it = memberMap.keySet().iterator();
-        String key = null;
-        while (it.hasNext()) {
-            key = it.next();
+        List<String> keys = new ArrayList<>(memberMap.keySet());
+        Collections.sort(keys);
+        for (String key : keys) {
             memberMap.get(key).setActionMediator(actionMediator);
         }
     }
 
     public void postInitializeEachMember() {
-        Iterator<String> it = memberMap.keySet().iterator();
-        String key = null;
-        while (it.hasNext()) {
-            key = it.next();
+        //アルファベット順に初期化
+        List<String> keys = new ArrayList<>(memberMap.keySet());
+        Collections.sort(keys);
+        for (String key : keys) {
             ((AbstCHolderMember) memberMap.get(key)).postInitialize();
         }
     }

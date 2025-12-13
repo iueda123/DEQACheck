@@ -5,8 +5,8 @@ import java.util.Map;
 
 public interface MediatorIntrfc {
 
-  public abstract void createMembers();
 
+  public abstract void createMembers();
   public abstract void createMembers(String... arg);
 
   public abstract void requestFromMember();

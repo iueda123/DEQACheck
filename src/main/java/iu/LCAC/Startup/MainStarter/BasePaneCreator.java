@@ -80,9 +80,12 @@ public class BasePaneCreator {
     //tabbedPane.setToolTipTextAt(9, "Additional Comment of QA");
 
     //-----------------------
+    tabbedPane.add("98. NLM", (cHolderMediator.getInstanceOfAMember("with_notebook_lm_pane_holder")).getBaseComponent());
+    tabbedPane.setToolTipTextAt(9, "NotebookLM");
 
     tabbedPane.add("99. SMRRY", (cHolderMediator.getInstanceOfAMember("summary_pane_holder")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(9, "Summary Pane");
+    tabbedPane.setToolTipTextAt(10, "Summary Pane");
+
     //-----------------------
 
     JComponent explanationPanelHolder = (cHolderMediator.getInstanceOfAMember("explanation_panel_holder").getBaseComponent());

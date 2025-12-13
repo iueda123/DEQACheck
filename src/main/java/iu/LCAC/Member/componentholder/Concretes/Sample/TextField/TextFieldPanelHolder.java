@@ -3,19 +3,27 @@ package iu.LCAC.Member.componentholder.Concretes.Sample.TextField;
 import iu.LCAC.Mediator.action.ActionMediator;
 import iu.LCAC.Mediator.componentholder.CHolderMediator;
 import iu.LCAC.Member.componentholder.Abstract.AbstCHolderMember;
+import iu.LCAC.Utils.FontManager;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.*;
 
 public class TextFieldPanelHolder extends AbstCHolderMember {
 
   JPanel panel = new JPanel();
   JTextField SampleTextField = new JTextField("please write something.");
 
-  public TextFieldPanelHolder(String cholder_name, String short_name) {
+  public TextFieldPanelHolder(String cholder_name, String short_name, String... args) {
     super(cholder_name, short_name);
+
+
+
+
     panel.add(SampleTextField);
+
     SampleTextField.addPropertyChangeListener(new SamplePropertyChangeListener());
   }
 
@@ -67,5 +75,27 @@ public class TextFieldPanelHolder extends AbstCHolderMember {
         System.err.println("Action Starter is null!" + "@" + this.getClass().toString());
       }
     }
+  }
+
+  private static void createAndShowGUI() {
+    FontManager.setGlobalFont();
+
+    JFrame frame = new JFrame("Member Test");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    AbstCHolderMember holder = new TextFieldPanelHolder("text_field_pane", "Text Field Panel", "");
+    holder.initialize(); // Build the component before adding to frame
+
+    frame.getContentPane().add(holder.getBaseComponent(), BorderLayout.CENTER);
+    frame.pack();
+    frame.setSize(400, 300);
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
+
+    holder.postInitialize(); // Run post initialization after the component becomes visible
+  }
+
+  public static void main(String[] args) {
+    SwingUtilities.invokeLater(() -> createAndShowGUI());
   }
 }

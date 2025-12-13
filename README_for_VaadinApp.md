@@ -15,13 +15,20 @@
 
 ### 開発モードで起動する
 
+起動
 ```bash
 ./gradlew bootRun
 ```
-停止方法
 
+停止方法
 ```bash
 fuser -k 8080/tcp  # 起動したターミナルを見失ったとき用
+```
+
+再起動
+```bash
+fuser -k 8080/tcp
+./gradlew bootRun
 ```
 
 
