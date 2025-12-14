@@ -13,6 +13,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.dom.Element;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
 
 @PageTitle("DE Result Overview")
 @Route("summary-view")
+@StyleSheet("./styles/summary-table.css")
 public class SummaryView extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";
@@ -226,27 +228,7 @@ public class SummaryView extends VerticalLayout {
         // 既存のテーブルをクリア
         scrollWrapper.getElement().removeAllChildren();
 
-        // このビュー専用のスタイル（第2列: Title を3行折返し＋20ch幅, 第4列: 中央揃え）
-        Element style = new Element("style");
-        style.setText(
-                ".summary-table td:nth-child(2), .summary-table th:nth-child(2) {" +
-                "  white-space: normal;" +
-                "  overflow: hidden;" +
-                "  text-overflow: ellipsis;" +
-                "  display: -webkit-box;" +
-                "  -webkit-line-clamp: 3;" +
-                "  -webkit-box-orient: vertical;" +
-                "  line-height: 1.2;" +
-                "  max-height: calc(1.2em * 3);" +
-                "  word-break: break-word;" +
-                "  width: 20ch;" +
-                "  max-width: 20ch;" +
-                "}\n" +
-                ".summary-table td:nth-child(4), .summary-table th:nth-child(4) {" +
-                "  text-align: center;" +
-                "}"
-        );
-        scrollWrapper.getElement().appendChild(style);
+        // 列幅・整列などのスタイルは CSS ファイル（frontend/styles/summary-table.css）に分離
 
         Element table = new Element("table");
         table.setAttribute("style", "border-collapse: collapse; width: 100%; font-size: var(--lumo-font-size-m);");
@@ -256,14 +238,15 @@ public class SummaryView extends VerticalLayout {
         Element thead = new Element("thead");
         Element trHead = new Element("tr");
 
-        // 先頭列: Study Name (SI3) - 幅20文字制限
-        appendHeaderCellWithStyle(trHead, "Study Name", "width: 20ch; max-width: 20ch;");
+        // 先頭列: DEQACheck.jar ランチャー
+        appendHeaderCell(trHead, "DEQACheck.jar");
 
-        // 第2列: SI4 を Title 列として表示（20ch, 最大3行, …省略）。ヘッダ名は Title。
-        appendHeaderCellWithStyle(trHead, "Title", "width: 20ch; max-width: 20ch;");
+        // 第2列: Study Name (SI3) - 列幅等はCSSで制御
+        appendHeaderCell(trHead, "Study Name");
 
         int subSectionSize = rows.get(0).valueList_SI.size();
-        // SI1, SI2 はスキップ。SI3 は Study Name、SI4 は Title として表示済み。ここでは SI5 も削除し、SI6 以降を追加
+        // SI1, SI2 はスキップ。SI3 は Study Name、SI4 は列としては表示せず（ツールチップ表示）。
+        // SI5 も削除し、ここでは SI6 以降を追加
         for (int i = 4; i <= subSectionSize; i++) {
             if (i == 4 || i == 5) continue; // SI4=Title と SI5 は表示しない
             appendHeaderCell(trHead, "SI" + i);
@@ -296,8 +279,7 @@ public class SummaryView extends VerticalLayout {
             appendHeaderCell(trHead, "GN" + i);
         }
 
-        // 最終列: DEQACheck.jar ランチャー
-        appendHeaderCell(trHead, "DEQACheck.jar");
+        // 最終列にランチャーは置かない（先頭列に移動）
         thead.appendChild(trHead);
         table.appendChild(thead);
 
@@ -310,15 +292,15 @@ public class SummaryView extends VerticalLayout {
             if (even) {
                 tr.setAttribute("style", "background: var(--lumo-contrast-5pct);");
             }
-            // 先頭列: Study Name (SI3) → リンクをクリックするとDEQACheck.jarが起動（幅20文字制限）
+            // 先頭列: DEQACheck.jar ランチャー
+            appendLauncherCell(tr, "open", row.authorYear);
+
+            // 第2列: Study Name (SI3)。Title(SI4) はツールチップで表示
             String studyName = getStudyName(row);
-            appendStudyNameLauncherCell(tr, studyName, row.authorYear);
-
-            // 第2列: SI4 を Title として表示（3行折返し, 20ch）
             String si4 = (row.valueList_SI.size() > 3) ? row.valueList_SI.get(3) : ""; // index 3 -> SI4
-            appendWrapped3LinesCell(tr, si4);
+            appendStudyNameLauncherCell(tr, studyName, row.authorYear, si4);
 
-            // SI4 は Title として表示済み、SI5 は削除。ここでは SI6 以降をチェックボックスで表示
+            // SI4 は Title（列）を廃止したため表示しない。SI5 も削除。ここでは SI6 以降をチェックボックスで表示
             subSectionSize = row.valueList_SI.size();
             for (int i = 3; i < subSectionSize; i++) { // i=3 -> SI4
                 if (i == 3 || i == 4) continue; // SI4=Title と SI5 はスキップ
@@ -374,8 +356,7 @@ public class SummaryView extends VerticalLayout {
                 appendCheckBoxCell(tr, row.valueList_GN.get(i));
             }
 
-            // 最終列: ランチャー
-            appendLauncherCell(tr, "open", row.authorYear);
+            // 最終列のランチャーは廃止（先頭列に移動）
             tbody.appendChild(tr);
             even = !even;
         }
@@ -597,21 +578,7 @@ public class SummaryView extends VerticalLayout {
         tr.appendChild(td);
     }
 
-    // 3行まで折返し表示する通常テキストセル（幅20文字制限）
-    private void appendWrapped3LinesCell(Element tr, String text) {
-        Element td = new Element("td");
-        // 折返し＋3行で切る（-webkit-line-clamp）、幅20ch
-        td.setAttribute(
-                "style",
-                "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);" +
-                " width: 20ch; max-width: 20ch;" +
-                " white-space: normal; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3;" +
-                " -webkit-box-orient: vertical; line-height: 1.2; max-height: calc(1.2em * 3); word-break: break-word;"
-        );
-        td.setAttribute("title", text == null ? "" : text); // ツールチップで全文表示
-        td.setText(text == null ? "" : text);
-        tr.appendChild(td);
-    }
+    // Title 列は廃止（SI4 は Study Name のツールチップで表示）
 
     // RCI4: 性比を小さな円グラフで表示（F=ピンク, M=青, NR=灰）
     private void appendSexPieCell(Element tr, String text) {
@@ -936,20 +903,17 @@ public class SummaryView extends VerticalLayout {
         tr.appendChild(td);
     }
 
-    // Study Name用ランチャーセル：幅を20文字に制限し、はみ出し部分は「...」で省略
-    private void appendStudyNameLauncherCell(Element tr, String text, String authorYear) {
+    // Study Name用ランチャーセル：左寄せ・折返し可（幅はCSSで制御）
+    private void appendStudyNameLauncherCell(Element tr, String text, String authorYear, String titleTooltip) {
         Element td = new Element("td");
-        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); width: 20ch; max-width: 20ch;");
+        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); text-align: left; white-space: normal; word-break: break-word;");
 
         Button launcher = new Button(text == null ? "" : text);
         launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
-        // ボタンの幅を制限し、はみ出し部分を省略表示
-        launcher.getStyle().set("max-width", "20ch");
-        launcher.getStyle().set("overflow", "hidden");
-        launcher.getStyle().set("text-overflow", "ellipsis");
-        launcher.getStyle().set("white-space", "nowrap");
-        launcher.getStyle().set("display", "block");
-        launcher.getElement().setAttribute("title", text == null ? "" : text); // ツールチップで全文を表示
+        // ボタンラベルの折返しはCSSで制御
+        // ツールチップは Title（SI4）の内容を表示
+        String tip = (titleTooltip == null || titleTooltip.isEmpty()) ? (text == null ? "" : text) : titleTooltip;
+        launcher.getElement().setAttribute("title", tip);
         launcher.addClickListener(e -> {
             Dialog d = new Dialog();
             d.add(new Paragraph("DECheck.jarを起動しますか？"));
