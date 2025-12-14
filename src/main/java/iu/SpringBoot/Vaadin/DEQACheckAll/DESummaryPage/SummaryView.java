@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 public class SummaryView extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";
-    final static String DEQACheckJar = "share_package/jar/DEQACheck-v20251127-all.jar";
+    final static String DEQACheckJar = "share_package/jar/DEQACheck-v20251210-all.jar";
     final static String TEMPLATE_FOR_HUMAN_DE = "share_package/templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json";
 
     // ソートオプション
@@ -238,11 +238,10 @@ public class SummaryView extends VerticalLayout {
         Element thead = new Element("thead");
         Element trHead = new Element("tr");
 
-        // 先頭列: DEQACheck.jar ランチャー
-        appendHeaderCell(trHead, "DEQACheck.jar");
+        // 先頭列: AuthorYear（クリックでJARランチャー）
+        appendHeaderCell(trHead, "AuthorYear");
 
-        // 第2列: Study Name (SI3) - 列幅等はCSSで制御
-        appendHeaderCell(trHead, "Study Name");
+        // Study Name (SI3) は最終列の一つ前に配置するため、ここでは追加しない
 
         int subSectionSize = rows.get(0).valueList_SI.size();
         // SI1, SI2 はスキップ。SI3 は Study Name、SI4 は列としては表示せず（ツールチップ表示）。
@@ -261,22 +260,43 @@ public class SummaryView extends VerticalLayout {
         if (subSectionSize >= 1) appendHeaderCellWithStyle(trHead, "Dataset", "width:16ch;");
         if (subSectionSize >= 2) appendHeaderCellWithStyle(trHead, "N", "text-align: center;");
         if (subSectionSize >= 3) appendHeaderCell(trHead, "RC Age");
-        if (subSectionSize >= 4) appendHeaderCell(trHead, "RCI4");
+        if (subSectionSize >= 4) appendHeaderCell(trHead, "Sex");
         if (subSectionSize >= 5) appendHeaderCell(trHead, "Modality");
         for (int i = 6; i <= subSectionSize; i++) {
             appendHeaderCell(trHead, "RCI" + i);
         }
         subSectionSize = rows.get(0).valueList_NM.size();
         for (int i = 1; i <= subSectionSize; i++) {
-            appendHeaderCell(trHead, "NM" + i);
+            if (i == 1) {
+                appendHeaderCell(trHead, "Origin");
+            } else {
+                appendHeaderCell(trHead, "NM" + i);
+            }
         }
         subSectionSize = rows.get(0).valueList_CAA.size();
+        boolean hasFindings = subSectionSize >= 8;
         for (int i = 1; i <= subSectionSize; i++) {
-            appendHeaderCell(trHead, "CAA" + i);
+            if (i == 2) {
+                appendHeaderCell(trHead, "Disease");
+            } else if (i == 8) {
+                // Findings は最終列に配置するため、ここでは追加しない
+                continue;
+            } else {
+                appendHeaderCell(trHead, "CAA" + i);
+            }
         }
         subSectionSize = rows.get(0).valueList_GN.size();
         for (int i = 1; i <= subSectionSize; i++) {
             appendHeaderCell(trHead, "GN" + i);
+        }
+
+        // 最後から2列目に Study Name、最後の列に Findings を配置
+        appendHeaderCell(trHead, "Study Name");
+        if (hasFindings) {
+            appendHeaderCell(trHead, "Findings");
+        } else {
+            // Findings データが無い場合でも列を用意するなら以下を有効化
+            // appendHeaderCell(trHead, "Findings");
         }
 
         // 最終列にランチャーは置かない（先頭列に移動）
@@ -292,13 +312,12 @@ public class SummaryView extends VerticalLayout {
             if (even) {
                 tr.setAttribute("style", "background: var(--lumo-contrast-5pct);");
             }
-            // 先頭列: DEQACheck.jar ランチャー
-            appendLauncherCell(tr, "open", row.authorYear);
+            // 先頭列: AuthorYear（クリックでJARランチャー）
+            appendLauncherCell(tr, row.authorYear, row.authorYear);
 
-            // 第2列: Study Name (SI3)。Title(SI4) はツールチップで表示
+            // Study Name (SI3) は最後から2列目に配置するため、ここでは追加しない
             String studyName = getStudyName(row);
             String si4 = (row.valueList_SI.size() > 3) ? row.valueList_SI.get(3) : ""; // index 3 -> SI4
-            appendStudyNameLauncherCell(tr, studyName, row.authorYear, si4);
 
             // SI4 は Title（列）を廃止したため表示しない。SI5 も削除。ここでは SI6 以降をチェックボックスで表示
             subSectionSize = row.valueList_SI.size();
@@ -322,7 +341,8 @@ public class SummaryView extends VerticalLayout {
                 if (i == 0) {
                     appendDatasetCell(tr, row.valueList_RCI.get(i));
                 } else if (i == 1) {
-                    appendCenteredCell(tr, row.valueList_RCI.get(i)); // N列は中央揃え
+                    // N 列は正規化により複数行や Model/Phase 情報が入ることがあるため、改行表示に対応
+                    appendPreWrappedCell(tr, row.valueList_RCI.get(i), false);
                 } else if (i == 2) {
                     appendAgeBoxPlotCell(tr, row.valueList_RCI.get(i));
                 } else if (i == 3) {
@@ -342,9 +362,14 @@ public class SummaryView extends VerticalLayout {
                     appendCheckBoxCell(tr, row.valueList_NM.get(i));
                 }
             }
-            // CAA: CAA2（index 1）は文字列、それ以外はチェックボックス
+            // CAA: CAA2（index 1）は文字列、CAA8（index 7）は最終列に回す、その他はチェックボックス
             subSectionSize = row.valueList_CAA.size();
+            String findingsValue = null;
             for (int i = 0; i < subSectionSize; i++) {
+                if (i == 7) { // CAA8 -> Findings
+                    findingsValue = row.valueList_CAA.get(i);
+                    continue;
+                }
                 if (i == 1) {
                     appendNormalCell(tr, row.valueList_CAA.get(i));
                 } else {
@@ -354,6 +379,15 @@ public class SummaryView extends VerticalLayout {
             subSectionSize = row.valueList_GN.size();
             for (int i = 0; i < subSectionSize; i++) {
                 appendCheckBoxCell(tr, row.valueList_GN.get(i));
+            }
+
+            // 最後から2列目: Study Name (SI3)。Title(SI4) はツールチップで表示
+            appendStudyNameLauncherCell(tr, studyName, row.authorYear, si4);
+            // 最終列: Findings（CAA8）
+            if (findingsValue != null) {
+                appendNormalCell(tr, findingsValue);
+            } else {
+                appendNormalCell(tr, "");
             }
 
             // 最終列のランチャーは廃止（先頭列に移動）
@@ -541,6 +575,16 @@ public class SummaryView extends VerticalLayout {
         tr.appendChild(td);
     }
 
+    // 改行表示に対応したセル（white-space: pre-wrap）
+    private void appendPreWrappedCell(Element tr, String text, boolean center) {
+        Element td = new Element("td");
+        String style = "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-wrap;";
+        if (center) style += " text-align: center;"; else style += " text-align: left;";
+        td.setAttribute("style", style);
+        td.setText(text == null ? "" : text);
+        tr.appendChild(td);
+    }
+
     // チェックボックスセル
     private void appendCheckBoxCell(Element tr, String text) {
         // チェックボックスセルを作成
@@ -584,6 +628,14 @@ public class SummaryView extends VerticalLayout {
     private void appendSexPieCell(Element tr, String text) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+
+        // 複数行や Model/Phase を含む正規化済み表現はそのまま改行表示
+        if (text != null && (text.contains("\n") || text.contains("Model:") || text.contains("Phase:"))) {
+            td.setAttribute("style", td.getAttribute("style") + " white-space: pre-wrap; text-align: left;");
+            td.setText(text);
+            tr.appendChild(td);
+            return;
+        }
 
         Double femalePct = extractFemalePercentFromText(text);
 
@@ -678,6 +730,14 @@ public class SummaryView extends VerticalLayout {
     private void appendAgeBoxPlotCell(Element tr, String text) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+
+        // 正規化済みの複数行/Model/Phase 形式はそのまま改行表示
+        if (text != null && (text.contains("\n") || text.contains("Model:") || text.contains("Phase:"))) {
+            td.setAttribute("style", td.getAttribute("style") + " white-space: pre-wrap; text-align: left;");
+            td.setText(text);
+            tr.appendChild(td);
+            return;
+        }
 
         if (text == null || text.trim().isEmpty() || text.trim().equalsIgnoreCase("NR")) {
             Element span = new Element("span");
