@@ -1,0 +1,56 @@
+
+
+./Bedford2025/QA/json/QA_Bedford2025_by_gemini_202511111643.json の構造、キーについて問題があれば修正をお願いします。
+
+このJSONファイルは ./templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json と
+同じ構造、同じキーを持つことが期待されていますが、これら要件を満たしていない可能性があります。
+
+もし ./Bedford2025/QA/json/QA_Bedford2025_by_gemini_202511111643.json の構造やキーが ./templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json と不一致であれば修正してください。
+
+
+-----------------------
+
+
+
+
+
+./Bedford2025/QA/json/QA_Bedford2025_by_claude_20251111164309.json の構造、キーについて問題があれば修正をお願いします。
+
+このJSONファイルは ./templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json と
+同じ構造、同じキーを持つことが期待されていますが、これら要件を満たしていない可能性があります。
+
+もし ./Bedford2025/QA/json/QA_Bedford2025_by_claude_20251111164309.json の構造やキーが ./templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json と不一致であれば修正してください。
+
+
+
+--------------------------------------
+
+this_script_path="$(readlink -f "${BASH_SOURCE[0]}")"
+echo "\${this_script_path}: ${this_script_path}"
+this_script_name=$(basename "${this_script_path}")
+this_script_parent=$(dirname ${this_script_path})
+
+TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS.json
+#TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json
+
+AuthorYearArray=()
+AuthorYearArray+=("Bhome2024")
+
+echo ""
+echo "Let's ask ${AiAgentName}!"
+echo ""
+
+for _author_year in ${AuthorYearArray[@]}; do
+
+    pleaseNormalizeTheJsonFile "./${_author_year}/QA/json/QA_${_author_year}_by_claude_20251111164309.json"
+
+done
+
+function pleaseNormalizeTheJsonFile(){
+
+    _target_json_file=$1
+
+    codex exec --full-auto --skip-git-repo-check -C . "${_target_json_file} の構造、キーについて問題があれば修正をお願いします。このJSONファイルは ${TemplateFile} と 同じ構造、同じキーを持つことが期待されていますが、これら要件を満たしていない可能性があります。もし ${_target_json_file} の構造やキーが ${TemplateFile} と不一致であれば修正してください。"
+
+}
+

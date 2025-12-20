@@ -1,0 +1,17 @@
+package iu.LCCA.Member.action.Concretes.DEQAResultActions.SaveAndLoadNotePaneTexts;
+
+import iu.LCCA.Member.action.Abstract.AbstActionMember;
+import iu.LCCA.Member.action.Abstract.AbstActionMemberFactory;
+
+public class LoadNotePaneTextsActionFactory extends AbstActionMemberFactory {
+
+  private AbstActionMember action;
+
+  @Override
+  protected AbstActionMember createInstance(String action_name, String short_name, String... args) {
+    if (action == null) {
+      action = new LoadNotePaneTextsAction(action_name, short_name, args[0]);
+    }
+    return action;
+  }
+}

@@ -8,6 +8,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.component.html.Anchor;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
 
 @Route("")
 @PageTitle("Hello")
@@ -29,6 +30,8 @@ public class MainView extends VerticalLayout {
         add(link1);
         RouterLink link2 = new RouterLink("Summary View", SummaryView.class);
         add(link2);
+        RouterLink link3 = new RouterLink("Summary View 2", SummaryView2.class);
+        add(link3);
 
 
 
