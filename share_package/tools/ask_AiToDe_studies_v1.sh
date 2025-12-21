@@ -236,14 +236,14 @@ function askAiAgentForStudies(){
     _actual_run=$4
     _log_file_name=$5
 
-    # 結果ファイル情報を表示用に整形
-    local _result_msg="各 study_N/ フォルダ内の結果JSONファイルに書き込んでください。"
+    # プロンプトはガイドファイル参照のみ（詳細はMDファイルに集約）
+    local _prompt="${_guide_file} を読んで、記載された手順に従ってデータ抽出を行ってください。"
 
     if [[ ${_ai_agent_name} == "gemini" ]]; then
         techo ""
         techo "========== Gemini コマンド =========="
         techo "gemini \\"
-        techo "    \"${_guide_file} に従って作業をしてください。${_result_msg}\" \\"
+        techo "    \"${_prompt}\" \\"
         techo "    --approval-mode auto_edit \\"
         techo "    --allowed-tools \"ShellTool(git status,rm,mv,mkdir,cat)\""
         techo "===================================="
@@ -255,7 +255,7 @@ function askAiAgentForStudies(){
             techo "Gemini が作業を実行中..."
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
-            gemini "${_guide_file} に従って作業をしてください。${_result_msg}" \
+            gemini "${_prompt}" \
                 --approval-mode auto_edit \
                 --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)" \
                 2>&1 | tee -a "${_log_file_name}"
@@ -269,7 +269,7 @@ function askAiAgentForStudies(){
         techo ""
         techo "========== Claude コマンド =========="
         techo "claude -p \\"
-        techo "    \"${_guide_file} に従って作業をしてください。${_result_msg}\" \\"
+        techo "    \"${_prompt}\" \\"
         techo "    --allowedTools \"Bash,Read\" \\"
         techo "    --permission-mode acceptEdits"
         techo "===================================="
@@ -282,7 +282,7 @@ function askAiAgentForStudies(){
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
             claude -p \
-                "${_guide_file} に従って作業をしてください。${_result_msg}" \
+                "${_prompt}" \
                 --allowedTools "Bash,Read" \
                 --permission-mode acceptEdits \
                 2>&1 | tee -a "${_log_file_name}"
@@ -296,7 +296,7 @@ function askAiAgentForStudies(){
         techo ""
         techo "========== Codex コマンド =========="
         techo "codex exec --full-auto --skip-git-repo-check -C . \\"
-        techo "    \"${_guide_file} に従って作業をしてください。${_result_msg}\""
+        techo "    \"${_prompt}\""
         techo "===================================="
         techo ""
 
@@ -307,7 +307,7 @@ function askAiAgentForStudies(){
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
             codex exec --full-auto --skip-git-repo-check -C . \
-                "${_guide_file} に従って作業をしてください。${_result_msg}" \
+                "${_prompt}" \
                 2>&1 | tee -a "${_log_file_name}"
 
             techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
@@ -337,18 +337,20 @@ if [[ ${DryRun} == true ]]; then
 fi
 
 # 作業ディレクトリの設定
-wd_base=${this_script_parent}/../ai_workspace
+# ai_workspace/<timestamp>/ にGuide、Template、ログを配置
+# ai_workspace/<timestamp>/study_N/ に各研究のファイルを配置
+ai_workspace_base=${this_script_parent}/../ai_workspace
 _timestamp=$(date +%Y%m%d%H%M%S)
-working_directory=${wd_base}/${_timestamp}
+ai_workspace=${ai_workspace_base}/${_timestamp}
 
 # ロックファイルの設定
-LOCK_FILE="${working_directory}/.lock_${DEorQA}_processing"
+LOCK_FILE="${ai_workspace}/.lock_${DEorQA}_processing"
 
 # 作業ディレクトリを作成
-if [[ ! -d "${wd_base}" ]]; then
-    mkdir -p "${wd_base}"
+if [[ ! -d "${ai_workspace_base}" ]]; then
+    mkdir -p "${ai_workspace_base}"
 fi
-mkdir -p "${working_directory}"
+mkdir -p "${ai_workspace}"
 
 # ロックファイルが存在するかチェック
 if [[ -f "${LOCK_FILE}" ]]; then
@@ -374,19 +376,25 @@ EOF
 trap cleanup_lockfile EXIT INT TERM
 
 if [[ ${Verbose} == true ]]; then
-    echo "作業ディレクトリ: ${working_directory}"
+    echo "タイムスタンプフォルダ: ${ai_workspace}"
     echo "ロックファイルを作成しました: ${LOCK_FILE}"
 fi
 
 #######################
-# 各研究のファイルをコピー
+# Phase 1: 各研究のファイルをコピー（すべて準備してからAIを呼ぶ）
 #######################
+echo ""
+echo "============================================"
+echo "  Phase 1: ファイル準備"
+echo "============================================"
+
 declare -A ResultFileNames  # 研究名 -> 結果ファイル名のマッピング
+declare -A StudyDirs        # 研究名 -> study_Nディレクトリのマッピング
 
 for i in "${!StudiesArray[@]}"; do
     _author_year="${StudiesArray[$i]}"
     _study_num=$((i+1))
-    _study_dir="${working_directory}/study_${_study_num}"
+    _study_dir="${ai_workspace}/study_${_study_num}"
     _source_dir="${this_script_parent}/../data/${_author_year}/materials/optimized"
 
     echo "--------------------------------------------"
@@ -399,42 +407,53 @@ for i in "${!StudiesArray[@]}"; do
     # ソースディレクトリからファイルをコピー
     if [[ ! -d "${_source_dir}" ]]; then
         echo "警告: ソースディレクトリが見つかりません: ${_source_dir}"
-        echo "このresearchはスキップされます"
+        echo "この研究はスキップされます"
         continue
     fi
     echo "ファイルをコピー中: ${_source_dir} -> ${_study_dir}"
     cp -r "${_source_dir}"/* "${_study_dir}"/
 
-    # テンプレートファイルをコピーしてリネーム（共通のタイムスタンプを使用）
-    _result_file_name="${DEorQA}_${_author_year}_by_${AiAgentName}_${_timestamp}.json"
-    cp "${TemplateFile}" "${_study_dir}/${_result_file_name}"
-    ResultFileNames["${_author_year}"]="${_result_file_name}"
+    # study_N内の既存の結果JSONを削除
+    find "${_study_dir}" -type f -name "${DEorQA}*.json" -print -delete
 
-    echo "結果ファイル: ${_study_dir}/${_result_file_name}"
+    # テンプレートファイルをtimestamp直下にコピーしてリネーム
+    _result_file_name="${DEorQA}_${_author_year}_by_${AiAgentName}_${_timestamp}.json"
+    cp "${TemplateFile}" "${ai_workspace}/${_result_file_name}"
+    ResultFileNames["${_author_year}"]="${_result_file_name}"
+    StudyDirs["${_author_year}"]="${_study_dir}"
+
+    echo "結果ファイル: ${ai_workspace}/${_result_file_name}"
     echo ""
 done
 
-# ガイドファイルをコピー
-cp "${GuideFile}" "${working_directory}/"
-echo "ガイドファイルをコピーしました: ${working_directory}/$(basename "${GuideFile}")"
+# ガイドファイルをtimestamp直下にコピー
+cp "${GuideFile}" "${ai_workspace}/"
+echo "ガイドファイルをコピー: ${ai_workspace}/$(basename "${GuideFile}")"
+echo ""
+
+echo "============================================"
+echo "  Phase 1 完了: すべてのファイル準備完了"
+echo "============================================"
 echo ""
 
 #######################
-# 作業ディレクトリに移動
+# Phase 2: AIエージェントに依頼
 #######################
+echo ""
+echo "============================================"
+echo "  Phase 2: AI実行"
+echo "============================================"
+
 _previous_directory=$(pwd)
-cd "${working_directory}" || exit 1
+cd "${ai_workspace}" || exit 1
 echo "作業ディレクトリを変更しました: $(pwd)"
 echo ""
 
-#######################
-# AIエージェントに依頼
-#######################
 _run_agent=$( [[ ${DryRun} == false ]] && echo "true" || echo "false" )
 _log_file_name="${DEorQA}_studies_by_${AiAgentName}_${_timestamp}.log"
 _guide_file_relative="$(basename "${GuideFile}")"
 
-# 結果ファイル情報を作成
+# 結果ファイル情報を作成（AIへの指示用）
 _result_files_info=""
 for i in "${!StudiesArray[@]}"; do
     _author_year="${StudiesArray[$i]}"
@@ -444,21 +463,33 @@ for i in "${!StudiesArray[@]}"; do
     fi
 done
 
+echo "準備されたファイル構成:"
+echo "  ガイド: ${_guide_file_relative}"
+echo "  ログ: ${_log_file_name}"
+for i in "${!StudiesArray[@]}"; do
+    _author_year="${StudiesArray[$i]}"
+    _study_num=$((i+1))
+    if [[ -n "${ResultFileNames[${_author_year}]:-}" ]]; then
+        echo "  study_${_study_num}/ (${_author_year}) -> ${ResultFileNames[${_author_year}]}"
+    fi
+done
+echo ""
+
 askAiAgentForStudies "${AiAgentName}" "${_guide_file_relative}" "${_result_files_info}" "${_run_agent}" "${_log_file_name}"
 
 #######################
-# 結果を処理
+# Phase 3: 結果を処理
 #######################
+echo ""
+echo "============================================"
+echo "  Phase 3: 結果処理"
+echo "============================================"
+
 if [[ ${DryRun} == false ]]; then
-    echo ""
-    echo "============================================"
-    echo "  結果ファイルの処理"
-    echo "============================================"
 
     for i in "${!StudiesArray[@]}"; do
         _author_year="${StudiesArray[$i]}"
         _study_num=$((i+1))
-        _study_dir="${working_directory}/study_${_study_num}"
         _result_file_name="${ResultFileNames[${_author_year}]:-}"
 
         if [[ -z "${_result_file_name}" ]]; then
@@ -470,13 +501,14 @@ if [[ ${DryRun} == false ]]; then
         echo "study_${_study_num}: ${_author_year}"
         echo "--------------------------------------------"
 
-        if [[ ! -f "${_study_dir}/${_result_file_name}" ]]; then
-            echo "結果ファイルが見つかりません: ${_study_dir}/${_result_file_name}"
+        # 結果ファイルはtimestamp直下にある
+        if [[ ! -f "${ai_workspace}/${_result_file_name}" ]]; then
+            echo "結果ファイルが見つかりません: ${ai_workspace}/${_result_file_name}"
             continue
         fi
 
         # ファイルが空かどうかチェック
-        if [ "$(md5sum "${TemplateFile}" | awk '{print $1}')" = "$(md5sum "${_study_dir}/${_result_file_name}" | awk '{print $1}')" ]; then
+        if [ "$(md5sum "${TemplateFile}" | awk '{print $1}')" = "$(md5sum "${ai_workspace}/${_result_file_name}" | awk '{print $1}')" ]; then
             echo "警告: 結果ファイルが空です（テンプレートのまま）"
         else
             echo "結果ファイルが作成されました"
@@ -484,24 +516,27 @@ if [[ ${DryRun} == false ]]; then
             # 結果ファイルをコピー
             _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/json
             if [[ ! -d "${_dst}" ]]; then mkdir -p "${_dst}"; fi
-            cp "${_study_dir}/${_result_file_name}" "${_dst}"
+            cp "${ai_workspace}/${_result_file_name}" "${_dst}"
             echo "コピー先: ${_dst}/${_result_file_name}"
         fi
         echo ""
     done
 
-    # ログファイルをコピー
-    _log_dst=${this_script_parent}/../data/logs
-    if [[ ! -d "${_log_dst}" ]]; then mkdir -p "${_log_dst}"; fi
-    if [[ -f "${working_directory}/${_log_file_name}" ]]; then
-        cp "${working_directory}/${_log_file_name}" "${_log_dst}"
-        echo "ログファイルをコピーしました: ${_log_dst}/${_log_file_name}"
+    # ログファイルを各研究のDE/logにコピー
+    if [[ -f "${ai_workspace}/${_log_file_name}" ]]; then
+        for i in "${!StudiesArray[@]}"; do
+            _author_year="${StudiesArray[$i]}"
+            _log_dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/log
+            if [[ ! -d "${_log_dst}" ]]; then mkdir -p "${_log_dst}"; fi
+            cp "${ai_workspace}/${_log_file_name}" "${_log_dst}"
+            echo "ログファイルをコピーしました: ${_log_dst}/${_log_file_name}"
+        done
     fi
 
 else
     echo ""
     echo "【ドライラン】AIエージェントは実行されませんでした"
-    echo "作業ディレクトリ: ${working_directory}"
+    echo "タイムスタンプフォルダ: ${ai_workspace}"
     echo "結果ファイル・ログファイルはコピーされません"
 fi
 
@@ -518,5 +553,5 @@ echo ""
 echo "============================================"
 echo "  処理が完了しました"
 echo "============================================"
-echo "作業ディレクトリ: ${working_directory}"
+echo "タイムスタンプフォルダ: ${ai_workspace}"
 echo ""

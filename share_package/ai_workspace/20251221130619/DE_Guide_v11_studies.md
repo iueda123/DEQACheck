@@ -185,27 +185,6 @@ Model: structural | Phase: overall | mean: NR; sd: NR; median NR; iqr NR; min 2 
 Model: structural | Phase: train | mean NR; sd NR; median NR; iqr NR; min 2 inferred; max 100 inferred
 ```
 
-```
-"answer": {
-  "functional-model": { 
-    "overall-phase": {  
-      "mean": "39.85 weighted", 
-      "sd": "7.94 pooled", 
-      "median": "NR", 
-      "iqr_l": "NR", 
-      "iqr_u": "NR", 
-      "min": "2 inferred", 
-      "max": "100 inferred"
-    }, 
-    "train-phase": {
-      "mean": "NR", 
-      "sd": "NR", 
-      "median NR; iqr: NR; min: 2 inferred; max 100 inferred
-Model: structural | Phase: overall | mean: NR; sd: NR; median NR; iqr NR; min 2 inferred; max 100 inferred
-Model: structural | Phase: train | mean NR; sd NR; median NR; iqr NR; min 2 inferred; max 100 inferred
-}
-```
-
 #### DC-5. Sex Info
 * 抽出基準: Normative model構築時の健常者データセットの男女各々のN数および比率（%）について教えてください。Overall (trainだけでなくvalidationやtestも含めた) 段階と、train段階を区別して答えてください。
 * 抽出スタイル: ADCSL_Style
@@ -326,6 +305,7 @@ For Assessment Items `SI-1` 〜 `SI-5`, `SC-1` 〜 `SC-3`, `CAA-7`, `CAA-8`, `CA
   "rci8_quality_checking": "Yes"
 }
 ```
+
 -------------------------
 
 ## 抽出結果の出力
@@ -342,5 +322,34 @@ For Assessment Items `SI-1` 〜 `SI-5`, `SC-1` 〜 `SC-3`, `CAA-7`, `CAA-8`, `CA
     - キーは指定通り、item IDは snake_case。
     - Answer は混在内容なら文字列。純粋な数値は数値/文字列いずれでもよいが、ファイル内で一貫させる。
     - 末尾カンマ禁止、有効なJSONにする。
+
+
+  * 各研究で用いられているデータセットを列挙してください。
+
+{
+  "Study A": ["dataset_a", "dataset_b", "dataset_c"], 
+  "Study B": ["dataset_a", "dataset_d", "dataset_e"], 
+  "Study C": ["dataset_a", "dataset_d", "dataset_e"], 
+  "Study D": ["dataset_a", "dataset_d", "dataset_e"], 
+  "Study E": ["dataset_a", "dataset_d", "dataset_e"] 
+}
+
+  * 各研究の各データセット が何の目的（train, validation, test, transfer for clinical research, patient for clinical research など）に用いられているか？
+
+{
+  "Study A": {
+      "dataset_a": ,
+      "dataset_b": ,
+      "dataset_c": 
+  }, 
+  "Study B": {
+      "dataset_a": , 
+      "dataset_d": , 
+      "dataset_e": 
+  },  
+  "Study C": ["dataset_a", "dataset_d", "dataset_e"], 
+  "Study D": ["dataset_a", "dataset_d", "dataset_e"], 
+  "Study E": ["dataset_a", "dataset_d", "dataset_e"] 
+}
 
 
