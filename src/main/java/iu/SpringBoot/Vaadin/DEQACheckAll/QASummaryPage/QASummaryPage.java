@@ -23,9 +23,11 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import jakarta.annotation.security.RolesAllowed;
 
-@Route("qa-summary-per-ai")
-@PageTitle("QA Summary per AI")
+@Route("qa-summary")
+@PageTitle("AI QA Summary")
+@RolesAllowed({"USER", "GUEST"})
 public class QASummaryPage extends VerticalLayout {
 
     private static final String DATA_PATH = "share_package/data";

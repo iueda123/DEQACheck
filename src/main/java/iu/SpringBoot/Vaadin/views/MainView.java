@@ -10,9 +10,11 @@ import com.vaadin.flow.component.html.Anchor;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QASummaryPage.QASummaryPage;
+import jakarta.annotation.security.RolesAllowed;
 
 @Route("")
 @PageTitle("Hello")
+@RolesAllowed({"USER", "GUEST"})
 public class MainView extends VerticalLayout {
 
     public MainView() {

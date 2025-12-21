@@ -31,10 +31,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("DE Result Overview")
 @Route("summary-view")
 @StyleSheet("./styles/summary-table.css")
+@RolesAllowed("USER")
 public class SummaryView extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";

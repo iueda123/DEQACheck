@@ -26,9 +26,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("DE Result Overview")
 @Route("de-result-overview")
+@RolesAllowed("USER")
 public class DEOverviewPage extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";
