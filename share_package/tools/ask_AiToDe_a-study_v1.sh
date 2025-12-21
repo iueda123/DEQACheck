@@ -187,11 +187,12 @@ fi
     #GuideFile=${this_script_parent}/../prompts/DE_Guide_v9_1.md
     #GuideFile=${this_script_parent}/../prompts/DE_Guide_v10.md
     #GuideFile=${this_script_parent}/../prompts/DE_Guide_v10_1.md
-    GuideFile=${this_script_parent}/../prompts/across-type/Step1.md
+    GuideFile=${this_script_parent}/../prompts/DE_Guide_v11_a-study.md
 
     #TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v9.json
     #TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10.json
     #TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json
+    TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v11.json
 
 
 # ファイル存在確認
@@ -424,7 +425,6 @@ function askAiAgent(){
     _actual_run=$4
     _log_file_name=$5
 
-
     if [[ ${_ai_agent_name} == "gemini" ]]; then
         techo ""
         techo "========== Gemini コマンド =========="
@@ -556,113 +556,104 @@ for _author_year in ${AuthorYearArray[@]}; do
   if [[ ${_proceed} == true ]]; then
 
       # Make a flag file
-      if [[ ${DryRun} == false ]]; then
-          echo "The result json file is not created yet." \
-              > ${this_script_parent}/${DEorQA}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
-      fi
+      echo "The result json file is not created yet." \
+          > ${this_script_parent}/${DEorQA}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
 
       # Set Working Directory
-      # 新しい作業ディレクトリ構造: share_package/wd/study_01/
-      wd_base=${this_script_parent}/../wd
-      working_directory=${wd_base}/study_01
+      # ai_workspace/<timestamp>/ にGuideファイルとTemplateファイルを配置
+      # ai_workspace/<timestamp>/study_1/ に研究ファイルを配置し、AIはそこで作業する
+      ai_workspace_base=${this_script_parent}/../ai_workspace
+      _timestamp=$(date +%Y%m%d%H%M%S)
+      ai_workspace=${ai_workspace_base}/${_timestamp}
+      study_1_directory=${ai_workspace}/study_1
       source_directory=${this_script_parent}/../data/${_author_year}/materials/optimized
 
       if [[ ${Verbose} == true ]]; then
-          echo "作業ディレクトリ: ${working_directory}"
+          echo "AIワークスペースベース: ${ai_workspace_base}"
+          echo "タイムスタンプフォルダ: ${ai_workspace}"
+          echo "研究ディレクトリ: ${study_1_directory}"
           echo "ソースディレクトリ: ${source_directory}"
       fi
 
       # ロックファイルのチェックと作成
-      LOCK_FILE="${working_directory}/.lock_${DEorQA}_processing"
+      LOCK_FILE="${ai_workspace}/.lock_${DEorQA}_processing"
 
-      # ドライランでない場合のみロックファイルをチェック
-      if [[ ${DryRun} == false ]]; then
-          # 作業ディレクトリが存在しない場合は作成
-          if [[ ! -d "${working_directory}" ]]; then
-              mkdir -p "${working_directory}"
-          fi
+      # ai_workspaceディレクトリが存在しない場合は作成
+      if [[ ! -d "${ai_workspace}" ]]; then
+          mkdir -p "${ai_workspace}"
+      fi
 
-          # ロックファイルが存在するかチェック
-          if [[ -f "${LOCK_FILE}" ]]; then
-              echo ""
-              echo "警告: 他のプロセスが作業中です"
-              echo "ロックファイル: ${LOCK_FILE}"
-              echo "内容:"
-              cat "${LOCK_FILE}"
-              echo ""
-              echo "この研究(${_author_year})の処理をスキップします"
-              echo ""
-              continue
-          fi
+      # ロックファイルが存在するかチェック
+      if [[ -f "${LOCK_FILE}" ]]; then
+          echo ""
+          echo "警告: 他のプロセスが作業中です"
+          echo "ロックファイル: ${LOCK_FILE}"
+          echo "内容:"
+          cat "${LOCK_FILE}"
+          echo ""
+          echo "この研究(${_author_year})の処理をスキップします"
+          echo ""
+          continue
+      fi
 
-          # ロックファイルを作成
-          cat > "${LOCK_FILE}" << EOF
+      # ロックファイルを作成
+      cat > "${LOCK_FILE}" << EOF
 AIエージェント: ${AiAgentName}
 処理タイプ: ${DEorQA}
 研究: ${_author_year}
 PID: $$
 開始時刻: $(date '+%Y-%m-%d %H:%M:%S')
+DryRun: ${DryRun}
 EOF
 
-          if [[ ${Verbose} == true ]]; then
-              echo "ロックファイルを作成しました: ${LOCK_FILE}"
-          fi
-
-          # 異常終了時にロックファイルを削除するためのtrap設定
-          trap cleanup_lockfile EXIT INT TERM
+      if [[ ${Verbose} == true ]]; then
+          echo "ロックファイルを作成しました: ${LOCK_FILE}"
       fi
 
-      # ドライランでない場合のみファイル操作を実行
-      if [[ ${DryRun} == false ]]; then
-          # wd_base ディレクトリを作成
-          if [[ ! -d "${wd_base}" ]]; then
-              mkdir -p "${wd_base}"
-          fi
+      # 異常終了時にロックファイルを削除するためのtrap設定
+      trap cleanup_lockfile EXIT INT TERM
 
-          # 作業ディレクトリを作成（既存の場合はクリア）
-          if [[ -d "${working_directory}" ]]; then
-              echo "既存の作業ディレクトリをクリアします: ${working_directory}"
-              rm -rf "${working_directory}"
-          fi
-          mkdir -p "${working_directory}"
-
-          # ソースディレクトリからファイルをコピー
-          if [[ ! -d "${source_directory}" ]]; then
-              echo "エラー: ソースディレクトリが見つかりません: ${source_directory}"
-              cleanup_lockfile
-              continue
-          fi
-          echo "ファイルをコピー中: ${source_directory} -> ${working_directory}"
-          cp -r "${source_directory}"/* "${working_directory}"/
-
-          # Copy the guide file to wd_base (not working_directory)
-          if [[ ! -f "${GuideFile}" ]]; then
-              echo "エラー: ガイドファイルが見つかりません: ${GuideFile}"
-              exit 1
-          fi
-          cp "${GuideFile}" "${wd_base}/"
-
-          # Remove exist result jsons
-          find "${working_directory}" -type f -name "${DEorQA}*.json" -print -delete
-
-          # Prepare an empty result file
-          if [[ ! -f "${TemplateFile}" ]]; then
-              echo "エラー: テンプレートファイルが見つかりません: ${TemplateFile}"
-              exit 1
-          fi
-          cp "${TemplateFile}" "${working_directory}/"
-          _result_file_name="${DEorQA}_${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S).json"
-          mv "${working_directory}/$(basename "${TemplateFile}")" \
-             "${working_directory}/${_result_file_name}"
-
-        else
-          _result_file_name="${DEorQA}_${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S).json"
+      # study_1ディレクトリを作成（既存の場合はクリア）
+      if [[ -d "${study_1_directory}" ]]; then
+          echo "既存の研究ディレクトリをクリアします: ${study_1_directory}"
+          rm -rf "${study_1_directory}"
       fi
-      
-      # Change the current directory
+      mkdir -p "${study_1_directory}"
+
+      # ソースディレクトリからstudy_1へファイルをコピー
+      if [[ ! -d "${source_directory}" ]]; then
+          echo "エラー: ソースディレクトリが見つかりません: ${source_directory}"
+          cleanup_lockfile
+          continue
+      fi
+      echo "ファイルをコピー中: ${source_directory} -> ${study_1_directory}"
+      cp -r "${source_directory}"/* "${study_1_directory}"/
+
+      # GuideファイルをAIワークスペースにコピー
+      if [[ ! -f "${GuideFile}" ]]; then
+          echo "エラー: ガイドファイルが見つかりません: ${GuideFile}"
+          exit 1
+      fi
+      cp "${GuideFile}" "${ai_workspace}/"
+      echo "Guideファイルをコピー: ${ai_workspace}/$(basename "${GuideFile}")"
+
+      # TemplateファイルをAIワークスペースにコピーしてリネーム
+      if [[ ! -f "${TemplateFile}" ]]; then
+          echo "エラー: テンプレートファイルが見つかりません: ${TemplateFile}"
+          exit 1
+      fi
+      _result_file_name="${DEorQA}_${_author_year}_by_${AiAgentName}_${_timestamp}.json"
+      cp "${TemplateFile}" "${ai_workspace}/${_result_file_name}"
+      echo "Templateファイルをコピー: ${ai_workspace}/${_result_file_name}"
+
+      # study_1内の既存の結果JSONを削除
+      find "${study_1_directory}" -type f -name "${DEorQA}*.json" -print -delete
+
+      # AIの作業ディレクトリをstudy_1に変更
       _previous_directory=$(pwd)
-      cd ${working_directory}
-      echo "作業ディレクトリを変更しました: $(pwd)"
+      cd "${study_1_directory}" || exit 1
+      echo ""
+      echo "AIの作業ディレクトリを変更しました: $(pwd)"
       echo ""
 
 
@@ -674,52 +665,61 @@ EOF
 
       _log_file_name=${_result_file_name%.json}.log
 
-      # ガイドファイルは wd_base にあり、作業ディレクトリは wd_base/study_01 なので
-      # 相対パス ../Step1.md でアクセスする
+      # AIの作業ディレクトリは ai_workspace/<timestamp>/study_1 なので
+      # 相対パス ../ で ai_workspace/<timestamp>/ にアクセスする
+      # - ガイドファイル: ../DE_Guide_v11_a-study.md
+      # - 結果ファイル: ../${_result_file_name}
+      # - ログファイル: ../${_log_file_name}
       _guide_file_relative="../$(basename "${GuideFile}")"
+      _result_file_relative="../${_result_file_name}"
+      _log_file_relative="../${_log_file_name}"
 
-      askAiAgent "${AiAgentName}" "${_guide_file_relative}" "${_result_file_name}" "${_run_agent}" "${_log_file_name}"
-      
+      askAiAgent "${AiAgentName}" "${_guide_file_relative}" "${_result_file_relative}" "${_run_agent}" "${_log_file_relative}"
 
 
-      # ドライランでない場合のみ結果を処理
+
+      # 結果処理
       if [[ ${DryRun} == false ]]; then
-          if [ "$(md5sum ${TemplateFile} | awk '{print $1}')" = "$(md5sum ${working_directory}/${_result_file_name} | awk '{print $1}')" ]; then
+          # 実行モード: AIが実行された後の結果を処理
+          # 結果ファイルは ai_workspace/ に配置されている
+          if [ "$(md5sum "${TemplateFile}" | awk '{print $1}')" = "$(md5sum "${ai_workspace}/${_result_file_name}" | awk '{print $1}')" ]; then
               # 書き込まれていなければjsonファイルを削除しフラッグファイルは残す
               echo ""
               echo "エラー: 結果ファイルが空です"
-              rm ${working_directory}/${_result_file_name} #結果jsonファイルを削除
-              rm ${working_directory}/${_log_file_name} #logファイルを削除
-              
+              rm "${ai_workspace}/${_result_file_name}" #結果jsonファイルを削除
+              rm "${ai_workspace}/${_log_file_name}" #logファイルを削除
+
           else
-              # ちゃんと書き込まれていたらjsonファイルを移動させフラッグファイルも消す
+              # ちゃんと書き込まれていたらjsonファイルをコピーしフラッグファイルも消す
               echo ""
               echo "JSONファイルが作成されました"
 
               _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/json
-              if [[ ! -d ${_dst} ]]; then mkdir -p ${_dst}; fi
-              mv ${working_directory}/${_result_file_name} ${_dst} #結果jsonファイルを移動
+              if [[ ! -d "${_dst}" ]]; then mkdir -p "${_dst}"; fi
+              cp "${ai_workspace}/${_result_file_name}" "${_dst}" #結果jsonファイルをコピー
 
               _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/log
-              if [[ ! -d ${_dst} ]]; then mkdir -p ${_dst}; fi              
-              mv ${working_directory}/${_log_file_name} ${_dst} #logファイルを移動
+              if [[ ! -d "${_dst}" ]]; then mkdir -p "${_dst}"; fi
+              cp "${ai_workspace}/${_log_file_name}" "${_dst}" #logファイルをコピー
 
-              rm ${this_script_parent}/${DEorQA}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
+              rm "${this_script_parent}/${DEorQA}_${_author_year}_by_${AiAgentName}_is_not_yet.txt"
 
               echo "結果ファイル: ${_dst}/${_result_file_name}"
           fi
 
-
-          rm "${wd_base}/$(basename "${GuideFile}")" # Remove Guide File from wd_base
-          cleanup_lockfile # ロックファイルを削除
-
       else
-          _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/log
-          if [[ ! -d ${_dst} ]]; then mkdir -p ${_dst}; fi              
-          mv ${working_directory}/${_log_file_name} ${_dst} #logファイルを移動
+          # ドライランモード: AIは実行しないが、準備されたファイル構成を確認可能
+          echo ""
+          echo "【ドライラン】AIエージェントは実行されませんでした"
+          echo "AIワークスペース: ${ai_workspace}"
+          echo "研究ディレクトリ: ${study_1_directory}"
+          echo "結果テンプレート: ${_result_file_name}"
       fi
+
+      # 共通のクリーンアップ処理
+      cleanup_lockfile # ロックファイルを削除
   
-      cd ${_previous_directory}
+      cd "${_previous_directory}" || exit 1
       echo "作業ディレクトリを元に戻しました: $(pwd)"
       echo ""
   
