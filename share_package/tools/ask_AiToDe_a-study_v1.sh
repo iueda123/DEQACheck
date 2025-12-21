@@ -55,29 +55,29 @@ AIエージェント（Gemini, Claude, Codex）を使用して、
 
 オプション:
   -a, --agent AGENT      AIエージェント名を指定 (gemini|claude|codex)
-  -t, --type TYPE        処理タイプを指定 (DE|QA)
+  -n, --name NAME        処理名を指定（結果ファイル名に使用、例: DE, QA）
   -l, --list FILE        処理すべき研究名が1行ずつ記載されたファイルのパス
   -s, --study STUDY      単一の研究のみ処理 (互換目的)
   -r, --run              実際に処理を実行（デフォルトはドライラン）
-  -n, --dry-run          明示的にドライランに設定（デフォルト）
+  -d, --dry-run          明示的にドライランに設定（デフォルト）
   -v, --verbose          詳細な出力を表示
   -h, --help             このヘルプメッセージを表示
 
 使用例:
   # 研究名の一覧を記したファイルを指定して実行（例: list.txt）
-  ${this_script_name} --agent gemini --type DE --list tools/TaegetStudies.txt
+  ${this_script_name} --agent gemini --name DE --list tools/TaegetStudies.txt
 
   # Claudeを使用してQA処理を実行（複数の研究を対象）
-  ${this_script_name} -a claude -t QA -l tools/TaegetStudies.txt
+  ${this_script_name} -a claude -n QA -l tools/TaegetStudies.txt
 
   # ドライラン（実行内容の確認のみ・デフォルト）
-  ${this_script_name} -a codex -t DE -l tools/TaegetStudies.txt
+  ${this_script_name} -a codex -n DE -l tools/TaegetStudies.txt
 
   # 実行モードで処理を走らせる
-  ${this_script_name} -a codex -t DE -l tools/TaegetStudies.txt -r
+  ${this_script_name} -a codex -n DE -l tools/TaegetStudies.txt -r
 
 注意事項:
-  - --agent と --type は必須オプションです
+  - --agent と --name は必須オプションです
   - -l/--list または -s/--study のいずれかが必須です。
   - 既定はドライランです（実コマンドは実行されません）
   - 実行モードにするには -r または --run を指定してください
@@ -90,7 +90,7 @@ EOF
 # デフォルト値
 #######################
 AiAgentName=""
-DEorQA=""
+DE_Name=""
 ListFilePath=""
 SingleStudy=""  # backward-compat for -s/--study (deprecated)
 DryRun=true
@@ -105,8 +105,8 @@ while [[ $# -gt 0 ]]; do
             AiAgentName="$2"
             shift 2
             ;;
-        -t|--type)
-            DEorQA="$2"
+        -n|--name)
+            DE_Name="$2"
             shift 2
             ;;
         -l|--list)
@@ -122,7 +122,7 @@ while [[ $# -gt 0 ]]; do
             DryRun=false
             shift
             ;;
-        -n|--dry-run)
+        -d|--dry-run)
             # デフォルトがドライランのため、明示指定時も true に設定
             DryRun=true
             shift
@@ -151,8 +151,8 @@ if [[ -z "${AiAgentName}" ]]; then
     exit 1
 fi
 
-if [[ -z "${DEorQA}" ]]; then
-    echo "エラー: 処理タイプが指定されていません（-t または --type を使用）"
+if [[ -z "${DE_Name}" ]]; then
+    echo "エラー: 処理名称が指定されていません（-n または --name を使用）"
     echo "ヘルプを表示するには -h または --help を使用してください"
     exit 1
 fi
@@ -164,10 +164,15 @@ if [[ ! "${AiAgentName}" =~ ^(gemini|claude|codex)$ ]]; then
     exit 1
 fi
 
-# 処理タイプの検証
-if [[ ! "${DEorQA}" =~ ^(DE|QA)$ ]]; then
-    echo "エラー: 無効な処理タイプ: ${DEorQA}"
-    echo "有効な値: DE, QA"
+# 処理名の検証（ファイル名として有効な文字列かチェック）
+if [[ "${DE_Name}" =~ [/\\:\*\?\"\<\>\|[:space:][:cntrl:]] ]] || [[ -z "${DE_Name}" ]]; then
+    echo "エラー: 処理名にファイル名として無効な文字が含まれています: ${DE_Name}"
+    echo "使用できない文字: / \\ : * ? \" < > | 空白"
+    exit 1
+fi
+
+if [[ "${DE_Name}" == "." ]] || [[ "${DE_Name}" == ".." ]]; then
+    echo "エラー: 処理名に '.' または '..' は使用できません"
     exit 1
 fi
 
@@ -513,7 +518,7 @@ function askAiAgent(){
 #######################
 echo ""
 echo "============================================"
-echo "  ${AiAgentName} を使用した ${DEorQA} 処理を開始"
+echo "  ${AiAgentName} を使用した ${DE_Name} 処理を開始"
 echo "============================================"
 echo ""
 
@@ -530,9 +535,9 @@ for _author_year in ${AuthorYearArray[@]}; do
   echo "============================================"
   
   # Ask AI agent if the result json was not found.
-  _folder="${this_script_parent}/../data/${_author_year}/${DEorQA}/json/"
+  _folder="${this_script_parent}/../data/${_author_year}/${DE_Name}/json/"
   if [[ ! -d ${_folder} ]]; then mkdir -p ${_folder}; fi
-  _expected_result_file="${DEorQA}_${_author_year}_by_${AiAgentName}_*.json"
+  _expected_result_file="${DE_Name}_${_author_year}_by_${AiAgentName}_*.json"
 
   _proceed=false
   if find ${_folder} -maxdepth 1 -type f -iname ${_expected_result_file} | grep -q .; then
@@ -557,7 +562,7 @@ for _author_year in ${AuthorYearArray[@]}; do
 
       # Make a flag file
       echo "The result json file is not created yet." \
-          > ${this_script_parent}/${DEorQA}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
+          > ${this_script_parent}/${DE_Name}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
 
       # Set Working Directory
       # ai_workspace/<timestamp>/ にGuideファイルとTemplateファイルを配置
@@ -576,7 +581,7 @@ for _author_year in ${AuthorYearArray[@]}; do
       fi
 
       # ロックファイルのチェックと作成
-      LOCK_FILE="${ai_workspace}/.lock_${DEorQA}_processing"
+      LOCK_FILE="${ai_workspace}/.lock_${DE_Name}_processing"
 
       # ai_workspaceディレクトリが存在しない場合は作成
       if [[ ! -d "${ai_workspace}" ]]; then
@@ -599,7 +604,7 @@ for _author_year in ${AuthorYearArray[@]}; do
       # ロックファイルを作成
       cat > "${LOCK_FILE}" << EOF
 AIエージェント: ${AiAgentName}
-処理タイプ: ${DEorQA}
+処理タイプ: ${DE_Name}
 研究: ${_author_year}
 PID: $$
 開始時刻: $(date '+%Y-%m-%d %H:%M:%S')
@@ -642,12 +647,12 @@ EOF
           echo "エラー: テンプレートファイルが見つかりません: ${TemplateFile}"
           exit 1
       fi
-      _result_file_name="${DEorQA}_${_author_year}_by_${AiAgentName}_${_timestamp}.json"
+      _result_file_name="${DE_Name}_${_author_year}_by_${AiAgentName}_${_timestamp}.json"
       cp "${TemplateFile}" "${ai_workspace}/${_result_file_name}"
       echo "Templateファイルをコピー: ${ai_workspace}/${_result_file_name}"
 
       # study_1内の既存の結果JSONを削除
-      find "${study_1_directory}" -type f -name "${DEorQA}*.json" -print -delete
+      find "${study_1_directory}" -type f -name "${DE_Name}*.json" -print -delete
 
       # AIの作業ディレクトリをai_workspace/<timestamp>に変更
       # （Codexのサンドボックスが親ディレクトリへの書き込みを禁止するため、
@@ -696,15 +701,15 @@ EOF
               echo ""
               echo "JSONファイルが作成されました"
 
-              _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/json
+              _dst=${this_script_parent}/../data/${_author_year}/${DE_Name}/json
               if [[ ! -d "${_dst}" ]]; then mkdir -p "${_dst}"; fi
               cp "${ai_workspace}/${_result_file_name}" "${_dst}" #結果jsonファイルをコピー
 
-              _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/log
+              _dst=${this_script_parent}/../data/${_author_year}/${DE_Name}/log
               if [[ ! -d "${_dst}" ]]; then mkdir -p "${_dst}"; fi
               cp "${ai_workspace}/${_log_file_name}" "${_dst}" #logファイルをコピー
 
-              rm "${this_script_parent}/${DEorQA}_${_author_year}_by_${AiAgentName}_is_not_yet.txt"
+              rm "${this_script_parent}/${DE_Name}_${_author_year}_by_${AiAgentName}_is_not_yet.txt"
 
               echo "結果ファイル: ${_dst}/${_result_file_name}"
           fi
