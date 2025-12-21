@@ -1,8 +1,13 @@
 package iu.SpringBoot.Vaadin.views;
 
 import iu.SpringBoot.Vaadin.DEQACheckAll.DEOverviePage.DEOverviewPage;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
@@ -10,7 +15,10 @@ import com.vaadin.flow.component.html.Anchor;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QASummaryPage.QASummaryPage;
+import com.vaadin.flow.server.VaadinServletRequest;
 import jakarta.annotation.security.RolesAllowed;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 @Route("")
 @PageTitle("Hello")
@@ -22,11 +30,32 @@ public class MainView extends VerticalLayout {
         setAlignItems(Alignment.START);
         setPadding(true);
 
-        //add(new H1("Hello, Vaadin + Spring Boot!"));
-        add(new H1("DEQACheckAll"));
+        // Header with title and logout button
+        HorizontalLayout header = new HorizontalLayout();
+        header.setWidthFull();
+        header.setJustifyContentMode(JustifyContentMode.BETWEEN);
+        header.setAlignItems(Alignment.CENTER);
 
-        //Button button = new Button("Click me", e -> Notification.show("Hello!"));
-        //add(button);
+        H1 title = new H1("DEQACheckAll");
+        title.getStyle().set("margin", "0");
+
+        // User info and logout button
+        HorizontalLayout userSection = new HorizontalLayout();
+        userSection.setAlignItems(Alignment.CENTER);
+        userSection.setSpacing(true);
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Span userLabel = new Span("User: " + username);
+        userLabel.getStyle()
+            .set("font-size", "14px")
+            .set("color", "#666");
+
+        Button logoutButton = new Button("Logout", e -> logout());
+        logoutButton.addThemeVariants(ButtonVariant.LUMO_SMALL, ButtonVariant.LUMO_TERTIARY);
+
+        userSection.add(userLabel, logoutButton);
+        header.add(title, userSection);
+        add(header);
 
         // SubViewへのリンク
         RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
@@ -36,7 +65,7 @@ public class MainView extends VerticalLayout {
         RouterLink link3 = new RouterLink("Summary View 2", SummaryView2.class);
         add(link3);
 
-        RouterLink link4 = new RouterLink("QA Summary per AI", QASummaryPage.class);
+        RouterLink link4 = new RouterLink("QA Summary", QASummaryPage.class);
         add(link4);
 
         Anchor spreadsheetLink = new Anchor(
@@ -46,6 +75,16 @@ public class MainView extends VerticalLayout {
         spreadsheetLink.setTarget("_blank");
         add(spreadsheetLink);
 
+    }
+
+    private void logout() {
+        UI.getCurrent().getPage().setLocation("/login");
+        SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+        logoutHandler.logout(
+            VaadinServletRequest.getCurrent().getHttpServletRequest(),
+            null,
+            null
+        );
     }
 }
 
