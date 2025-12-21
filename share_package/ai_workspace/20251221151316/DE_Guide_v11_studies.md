@@ -374,6 +374,8 @@ When an item requires ASL_Style, provide the following structured information:
 
 1. **Answer**: The extracted information according to the extraction criteria.
 
+For Assessment Items `SI-1` 〜 `SI-5`, `SC-1` 〜 `SC-3`, `CAA-7`, `CAA-8`, `CAA-9`, `CAA-11`, and `GN-1`, provide only the answer without confidence rating, reason, supporting text, or location.
+
 #### Example: A_Style
 
 ```json
@@ -384,7 +386,7 @@ When an item requires ASL_Style, provide the following structured information:
 -------------------------
 
 ## 抽出結果の出力
-- 各研究の調査結果を別々のjsonファイルへ出力してください。
+- 5つ研究各々の調査結果を別々のjsonファイルへ出力してください。
 - ファイル形式
     - JSON。`./DE_Author20XX_by_Someone_YYYYmmddHHMMSS.json` の構造に合わせる。
 - ファイル名

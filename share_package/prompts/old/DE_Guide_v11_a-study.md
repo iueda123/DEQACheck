@@ -17,9 +17,21 @@
 
 -------------------
 
+## ファイル構成
+
+```
+<timestamp>/                          # カレントディレクトリ（ここで作業）
+├── DE_Guide_v11_a-study.md           # このファイル（ガイド）
+├── DE_<AuthorYear>_by_<agent>_*.json # 結果ファイル（ここに出力）
+└── study_1/                          # 研究の論文・資料
+    ├── <論文>.pdf.md
+    └── ...
+```
+
 ## ソース資料の場所
 
-- 対象となる論文はカレントディレクトリ下にある「study_1」下にあります。
+- 対象となる論文はカレントディレクトリ下にある `./study_1/` フォルダ内にあります。
+- 結果JSONファイルはカレントディレクトリ直下に出力してください（`study_1/` の中ではありません）。
 - 次のセクションにある抽出依頼にある情報を抽出してください。必要に応じてサブフォルダも参照してください。
 
 -------------------
@@ -102,16 +114,51 @@
 #### DC-1. Datasets Using in This Study
 * 抽出基準: この研究で用いられているデータセットを列挙してください。
 * 抽出スタイル: ADCSL_Style
-* 注: 
-  - 列挙する際の区切り文字は「;」を使用
+* "answer" 例:
+
+```json
+"answer": [
+  "Structural normative model repository (~58k subjects)",
+  "Functional normative model multi-site dataset (~40 sites, overall 21,594 HC across train/test)",
+  "HCP Young Adult",
+  "COBRE",
+  "UMich SchizGaze",
+  "OpenNeuro ds000243/ds002843/ds003798"
+]
+```
 
 #### DC-2. Purpose of Each Dataset
 * 抽出基準: この研究の各データセットは何の目的（train, validation, test, transfer for clinical research, patient for clinical research など）に用いられているか列挙してください。
 * 抽出スタイル: ADCSL_Style
+* "answer" 例: 
+
+```json
+"answer": {
+  "Structural repository": "normative training",
+  "Functional multi-site dataset": "normative training/testing",
+  "HCP": "regression benchmark (also partly in functional train/test)",
+  "COBRE and UMich": "transfer sets for classification/group difference",
+  "OpenNeuro ds000243/ds002843/ds003798": "additional transfer sets"
+}
+```
 
 #### DC-3. Number of Healthy Control
 * 抽出基準: この研究においてNormative model構築に用いられた健常者データセットのN数について教えてください。Overall (trainだけでなくvalidationやtestも含めた) 段階と、train段階を区別して答えてください。回答形式は以下のようにしてください。
 * 抽出スタイル: ADCSL_Style
+* "answer" 例:
+
+```json
+"answer": {
+  "functional-model": {
+    "overall-phase": 21594,
+    "train-phase": "NR"
+  },
+  "structural-model": {
+    "overall-phase": "NR",
+    "train-phase": 14473
+  }
+}
+```
 
 #### DC-4. Age Info
 * 抽出基準: Normative model構築時の健常者データセットの年齢に関するmean, sd, median, iqr, min, maxを教えてください。Overall (trainだけでなくvalidationやtestも含めた) 段階と、train段階を区別して答えてください。もし本文に明記されていない場合は、meanとsdに関しては weighted mean of ages、pooled sd of ages の算出を試みてください。その他統計値は文脈から推定を試みてください。
@@ -120,13 +167,92 @@
 * 注:
     - 提示された数・統計から導出値（百分率、加重平均/プールドSDなど）を計算してよい。百分率は小数1桁、平均/SDは小数2桁を基本（論文が別精度ならそれに合わせる）。
     - 性別の一方のみ記載がある場合、総Nから差し引いて推定し、Reasonで推定を明記。
+* "answer" 例: 
+
+```json
+"answer": {
+  "functional-model": {
+    "overall-phase": {
+      "mean": "39.85 weighted",
+      "sd": "7.94 pooled",
+      "median": "NR",
+      "iqr_l": "NR",
+      "iqr_u": "NR",
+      "min": "2 inferred",
+      "max": "100 inferred"
+    },
+    "train-phase": {
+      "mean": "NR",
+      "sd": "NR",
+      "median": "NR",
+      "iqr_l": "NR",
+      "iqr_u": "NR",
+      "min": "2 inferred",
+      "max": "100 inferred"
+    }
+  },
+  "structural-model": {
+    "overall-phase": {
+      "mean": "NR",
+      "sd": "NR",
+      "median": "NR",
+      "iqr_l": "NR",
+      "iqr_u": "NR",
+      "min": "2 inferred",
+      "max": "100 inferred"
+    },
+    "train-phase": {
+      "mean": "NR",
+      "sd": "NR",
+      "median": "NR",
+      "iqr_l": "NR",
+      "iqr_u": "NR",
+      "min": "2 inferred",
+      "max": "100 inferred"
+    }
+  }
+}
+```
 
 #### DC-5. Sex Info
 * 抽出基準: Normative model構築時の健常者データセットの男女各々のN数および比率（%）について教えてください。Overall (trainだけでなくvalidationやtestも含めた) 段階と、train段階を区別して答えてください。
 * 抽出スタイル: ADCSL_Style
 * 注:
     - 性別の一方のみ記載がある場合、総Nから差し引いて推定し、Reasonで推定を明記。
+* "answer" 例:
 
+```json
+"answer": {
+  "functional-model": {
+    "overall-phase": {
+      "female_n": 11085,
+      "female_pct": "51.5%",
+      "male_n": 10429,
+      "male_pct": "48.5%"
+    },
+    "train-phase": {
+      "female_n": 7517,
+      "female_pct": "51.9%",
+      "male_n": 6955,
+      "male_pct": "48.1%"
+    }
+  },
+  "structural-model": {
+    "overall-phase": {
+      "female_n": "NR",
+      "female_pct": "NR",
+      "male_n": "NR",
+      "male_pct": "NR"
+    },
+    "train-phase": {
+      "female_n": 15033,
+      "female_pct": "51.1%",
+      "male_n": 14385,
+      "male_pct": "48.9%"
+    }
+  }
+}
+```
 
 -----------------------
 

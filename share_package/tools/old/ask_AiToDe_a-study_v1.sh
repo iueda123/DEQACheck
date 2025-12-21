@@ -649,9 +649,11 @@ EOF
       # study_1内の既存の結果JSONを削除
       find "${study_1_directory}" -type f -name "${DEorQA}*.json" -print -delete
 
-      # AIの作業ディレクトリをstudy_1に変更
+      # AIの作業ディレクトリをai_workspace/<timestamp>に変更
+      # （Codexのサンドボックスが親ディレクトリへの書き込みを禁止するため、
+      #   study_1ではなくtimestampフォルダを作業ディレクトリにする）
       _previous_directory=$(pwd)
-      cd "${study_1_directory}" || exit 1
+      cd "${ai_workspace}" || exit 1
       echo ""
       echo "AIの作業ディレクトリを変更しました: $(pwd)"
       echo ""
@@ -665,14 +667,14 @@ EOF
 
       _log_file_name=${_result_file_name%.json}.log
 
-      # AIの作業ディレクトリは ai_workspace/<timestamp>/study_1 なので
-      # 相対パス ../ で ai_workspace/<timestamp>/ にアクセスする
-      # - ガイドファイル: ../DE_Guide_v11_a-study.md
-      # - 結果ファイル: ../${_result_file_name}
-      # - ログファイル: ../${_log_file_name}
-      _guide_file_relative="../$(basename "${GuideFile}")"
-      _result_file_relative="../${_result_file_name}"
-      _log_file_relative="../${_log_file_name}"
+      # AIの作業ディレクトリは ai_workspace/<timestamp>/ なので
+      # - ガイドファイル: ./DE_Guide_v11_a-study.md
+      # - 結果ファイル: ./${_result_file_name}
+      # - ログファイル: ./${_log_file_name}
+      # - 研究ファイル: ./study_1/ 内
+      _guide_file_relative="./$(basename "${GuideFile}")"
+      _result_file_relative="./${_result_file_name}"
+      _log_file_relative="./${_log_file_name}"
 
       askAiAgent "${AiAgentName}" "${_guide_file_relative}" "${_result_file_relative}" "${_run_agent}" "${_log_file_relative}"
 
