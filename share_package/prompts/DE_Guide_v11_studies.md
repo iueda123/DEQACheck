@@ -100,11 +100,8 @@
         - Location: 引用の所在
 
 - 記載の慣習
-    - 複数の研究を横断的に参照し、"answer" の記述形式や表現キーワードが各研究で統一されるよう工夫してください。
-    - 異なる条件（場合、段階）の情報を表現する必要がある場合は改行を使ってください。
-    - 条件の絞り込みを表現するときは "|" を使ってください
-    - 条件の説明を表現するときには ":" を使い、":" の左に条件の説明を記述してください。
-    - 複数の抽出情報を併記する場合は、";" を使って併記してください。 
+    - 複数の研究を横断的に参照し、"answer" の記述形式や表現キーワードが研究間で統一されるよう工夫してください。
+    - 異なる条件（場合、段階）、条件の絞り込み、複数の抽出情報の併記はJSONの入れ子構造や配列を利用して表現してください。 
 
 詳細なフォーマット要件と例は後述「抽出結果のスタイル」を参照。
 
@@ -141,9 +138,17 @@
 #### DC-1. Datasets Using in This Study
 * 抽出基準: この研究で用いられているデータセットを列挙してください。
 * 抽出スタイル: ADCSL_Style
+* "answer" 例:
 
-``
-Structural normative model repository (~58k subjects); Functional normative model multi-site dataset (~40 sites, overall 21,594 HC across train/test); HCP Young Adult; COBRE; UMich SchizGaze ; OpenNeuro ds000243/ds002843/ds003798
+```json
+"answer": [
+  "Structural normative model repository (~58k subjects)",
+  "Functional normative model multi-site dataset (~40 sites, overall 21,594 HC across train/test)",
+  "HCP Young Adult",
+  "COBRE",
+  "UMich SchizGaze",
+  "OpenNeuro ds000243/ds002843/ds003798"
+]
 ```
 
 #### DC-2. Purpose of Each Dataset
@@ -151,12 +156,14 @@ Structural normative model repository (~58k subjects); Functional normative mode
 * 抽出スタイル: ADCSL_Style
 * "answer" 例: 
 
-```
-Dataset: Structural repository | normative training
-Dataset: Functional multi-site dataset | normative training/testing
-Dataset: HCP | regression benchmark (also partly in functional train/test)
-Dataset: COBRE and UMich | transfer sets for classification/group difference
-Dataset: OpenNeuro ds000243/ds002843/ds003798 | additional transfer sets",
+```json
+"answer": {
+  "Structural repository": "normative training",
+  "Functional multi-site dataset": "normative training/testing",
+  "HCP": "regression benchmark (also partly in functional train/test)",
+  "COBRE and UMich": "transfer sets for classification/group difference",
+  "OpenNeuro ds000243/ds002843/ds003798": "additional transfer sets"
+}
 ```
 
 #### DC-3. Number of Healthy Control
@@ -164,9 +171,17 @@ Dataset: OpenNeuro ds000243/ds002843/ds003798 | additional transfer sets",
 * 抽出スタイル: ADCSL_Style
 * "answer" 例:
 
-```
-Model: functional | Phase: overall | 21,594
-Model: structural | Phase: train | 14,473
+```json
+"answer": {
+  "functional-model": {
+    "overall-phase": 21594,
+    "train-phase": "NR"
+  },
+  "structural-model": {
+    "overall-phase": "NR",
+    "train-phase": 14473
+  }
+}
 ```
 
 #### DC-4. Age Info
@@ -178,31 +193,48 @@ Model: structural | Phase: train | 14,473
     - 性別の一方のみ記載がある場合、総Nから差し引いて推定し、Reasonで推定を明記。
 * "answer" 例: 
 
-```
-Model: functional | Phase: overall | mean 39.85 weighted; sd: 7.94 pooled; median NR; iqr NR; min: 2 inferred; max 100 inferred
-Model: functional | Phase: train | mean NR; sd NR; median NR; iqr: NR; min: 2 inferred; max 100 inferred
-Model: structural | Phase: overall | mean: NR; sd: NR; median NR; iqr NR; min 2 inferred; max 100 inferred
-Model: structural | Phase: train | mean NR; sd NR; median NR; iqr NR; min 2 inferred; max 100 inferred
-```
-
-```
+```json
 "answer": {
-  "functional-model": { 
-    "overall-phase": {  
-      "mean": "39.85 weighted", 
-      "sd": "7.94 pooled", 
-      "median": "NR", 
-      "iqr_l": "NR", 
-      "iqr_u": "NR", 
-      "min": "2 inferred", 
+  "functional-model": {
+    "overall-phase": {
+      "mean": "39.85 weighted",
+      "sd": "7.94 pooled",
+      "median": "NR",
+      "iqr_l": "NR",
+      "iqr_u": "NR",
+      "min": "2 inferred",
       "max": "100 inferred"
-    }, 
+    },
     "train-phase": {
-      "mean": "NR", 
-      "sd": "NR", 
-      "median NR; iqr: NR; min: 2 inferred; max 100 inferred
-Model: structural | Phase: overall | mean: NR; sd: NR; median NR; iqr NR; min 2 inferred; max 100 inferred
-Model: structural | Phase: train | mean NR; sd NR; median NR; iqr NR; min 2 inferred; max 100 inferred
+      "mean": "NR",
+      "sd": "NR",
+      "median": "NR",
+      "iqr_l": "NR",
+      "iqr_u": "NR",
+      "min": "2 inferred",
+      "max": "100 inferred"
+    }
+  },
+  "structural-model": {
+    "overall-phase": {
+      "mean": "NR",
+      "sd": "NR",
+      "median": "NR",
+      "iqr_l": "NR",
+      "iqr_u": "NR",
+      "min": "2 inferred",
+      "max": "100 inferred"
+    },
+    "train-phase": {
+      "mean": "NR",
+      "sd": "NR",
+      "median": "NR",
+      "iqr_l": "NR",
+      "iqr_u": "NR",
+      "min": "2 inferred",
+      "max": "100 inferred"
+    }
+  }
 }
 ```
 
@@ -213,13 +245,38 @@ Model: structural | Phase: train | mean NR; sd NR; median NR; iqr NR; min 2 infe
     - 性別の一方のみ記載がある場合、総Nから差し引いて推定し、Reasonで推定を明記。
 * "answer" 例:
 
+```json
+"answer": {
+  "functional-model": {
+    "overall-phase": {
+      "female_n": 11085,
+      "female_pct": "51.5%",
+      "male_n": 10429,
+      "male_pct": "48.5%"
+    },
+    "train-phase": {
+      "female_n": 7517,
+      "female_pct": "51.9%",
+      "male_n": 6955,
+      "male_pct": "48.1%"
+    }
+  },
+  "structural-model": {
+    "overall-phase": {
+      "female_n": "NR",
+      "female_pct": "NR",
+      "male_n": "NR",
+      "male_pct": "NR"
+    },
+    "train-phase": {
+      "female_n": 15033,
+      "female_pct": "51.1%",
+      "male_n": 14385,
+      "male_pct": "48.9%"
+    }
+  }
+}
 ```
-Model: functional / Phase: overall / F 11,085 (51.5%), M 10,429 (48.5%) 
-Model: functional / Phase: train / F 7,517 (51.9%), M 6,955 (48.1%) 
-Mode: structural / Phase overall / F NR (NR), M NR (NR); train F NR (NR), M NR (NR)
-Model: structural / Phase: train / F 15033 (51.1%), M 14385 (48.9%) 
-```
-
 
 -----------------------
 
