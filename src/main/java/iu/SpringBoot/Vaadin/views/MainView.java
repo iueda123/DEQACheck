@@ -4,6 +4,8 @@ import iu.SpringBoot.Vaadin.DEQACheckAll.DEOverviePage.DEOverviewPage;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -15,7 +17,7 @@ import com.vaadin.flow.component.html.Anchor;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAInputPage.QAInputPage;
-import iu.SpringBoot.Vaadin.DEQACheckAll.QASummaryPage.QASummaryPage;
+import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultPage;
 import com.vaadin.flow.server.VaadinServletRequest;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,19 +60,32 @@ public class MainView extends VerticalLayout {
         header.add(title, userSection);
         add(header);
 
-        // SubViewへのリンク
-        RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
-        add(link1);
-        RouterLink link2 = new RouterLink("Summary View", SummaryView.class);
-        add(link2);
-        RouterLink link3 = new RouterLink("Summary View 2", SummaryView2.class);
-        add(link3);
+        /// ///////////////////////////////////////////////////////
 
-        RouterLink link4 = new RouterLink("QA Summary", QASummaryPage.class);
-        add(link4);
+        add(new H2("QA"));
 
         RouterLink link5 = new RouterLink("QA Input", QAInputPage.class);
         add(link5);
+
+        RouterLink link4 = new RouterLink("QA Results", QAResultPage.class);
+        add(link4);
+
+        /// ////////////////////////////////////////////////////////
+        Hr separator = new Hr();
+        separator.getStyle().set("width", "100%").set("margin", "10px 0");
+        add(separator);
+        /// ////////////////////////////////////////////////////////
+
+        add(new H2("DE"));
+
+        RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
+        add(link1);
+
+        RouterLink link2 = new RouterLink("Summary View", SummaryView.class);
+        add(link2);
+
+        RouterLink link3 = new RouterLink("Summary View 2", SummaryView2.class);
+        add(link3);
 
         Anchor spreadsheetLink = new Anchor(
             "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",

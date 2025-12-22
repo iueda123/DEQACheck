@@ -1,4 +1,4 @@
-package iu.SpringBoot.Vaadin.DEQACheckAll.QASummaryPage;
+package iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,10 +25,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import jakarta.annotation.security.RolesAllowed;
 
-@Route("qa-summary")
-@PageTitle("AI QA Summary")
+@Route("qa-results")
+@PageTitle("QA Result Page")
 @RolesAllowed({"USER", "GUEST"})
-public class QASummaryPage extends VerticalLayout {
+public class QAResultPage extends VerticalLayout {
 
     private static final String DATA_PATH = "share_package/data";
 
@@ -39,7 +39,7 @@ public class QASummaryPage extends VerticalLayout {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public QASummaryPage() {
+    public QAResultPage() {
         setSizeFull();
         setPadding(true);
         setSpacing(true);

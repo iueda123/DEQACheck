@@ -6,14 +6,17 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.FlexLayout.FlexWrap;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -36,6 +39,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,6 +51,7 @@ public class QAInputPage extends VerticalLayout {
     private static final String DATA_PATH = "share_package/data";
     private static final String TEMPLATE_PATH = "share_package/templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v9_with_criteria.json";
     private static final DateTimeFormatter TS_FORMAT = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    private static final Map<String, String> ITEM_DESCRIPTIONS = buildItemDescriptions();
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private JsonNode templateRoot;
@@ -82,11 +87,13 @@ public class QAInputPage extends VerticalLayout {
         existingFileCombo = new ComboBox<>("Select a QA (v9) report or create a new report");
         existingFileCombo.setWidth("480px");
 
-        Button createButton = new Button("[+]", e -> createNewReport());
+        Button createButton = new Button("[+]", e -> showCreateConfirm());
         createButton.setTooltipText("Create a QA report");
         createButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         Button loadButton = new Button("Load/Edit", e -> loadSelectedFile());
+        Button deleteButton = new Button("Delete", e -> showDeleteConfirm());
+        deleteButton.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
         saveButton = new Button("Save", e -> saveCurrentFile());
         saveButton.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
@@ -100,7 +107,7 @@ public class QAInputPage extends VerticalLayout {
         Div lineBreak2 = new Div();
         lineBreak2.getStyle().set("flex-basis", "100%").set("height", "0");
 
-        FlexLayout controls = new FlexLayout(authorYearCombo, reloadButton, lineBreak1, existingFileCombo, createButton, lineBreak2, loadButton, saveButton);
+        FlexLayout controls = new FlexLayout(authorYearCombo, reloadButton, lineBreak1, existingFileCombo, createButton, lineBreak2, loadButton, saveButton, deleteButton);
         controls.setWidthFull();
         controls.setFlexWrap(FlexWrap.WRAP);
         controls.setAlignItems(Alignment.END);
@@ -227,6 +234,87 @@ public class QAInputPage extends VerticalLayout {
         }
     }
 
+    private void deleteSelectedFile() {
+        String authorYear = authorYearCombo.getValue();
+        String fileName = existingFileCombo.getValue();
+        if (authorYear == null || authorYear.isEmpty()) {
+            Notification.show("Select AuthorYear first.", 3000, Notification.Position.BOTTOM_START);
+            return;
+        }
+        if (fileName == null || fileName.isEmpty()) {
+            Notification.show("Select a file to delete.", 3000, Notification.Position.BOTTOM_START);
+            return;
+        }
+
+        Path filePath = Paths.get(DATA_PATH, authorYear, "QA_v9", "json", fileName);
+        if (!Files.exists(filePath)) {
+            Notification.show("File not found: " + fileName, 4000, Notification.Position.BOTTOM_START);
+            return;
+        }
+
+        try {
+            Files.delete(filePath);
+            Notification.show("Deleted: " + fileName, 3000, Notification.Position.BOTTOM_START);
+            currentFile = null;
+            clearForm();
+            updateExistingFiles();
+        } catch (IOException e) {
+            Notification.show("Failed to delete file: " + e.getMessage(), 4000, Notification.Position.BOTTOM_START);
+        }
+    }
+
+    private void showCreateConfirm() {
+        Dialog dialog = new Dialog();
+        dialog.setCloseOnEsc(true);
+        dialog.setCloseOnOutsideClick(true);
+
+        VerticalLayout layout = new VerticalLayout();
+        layout.setPadding(true);
+        layout.setSpacing(true);
+        layout.add(new Paragraph("Create a new QA report from template?"));
+
+        Button confirm = new Button("Create", event -> {
+            dialog.close();
+            createNewReport();
+        });
+        confirm.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        Button cancel = new Button("Cancel", event -> dialog.close());
+
+        HorizontalLayout buttons = new HorizontalLayout(confirm, cancel);
+        buttons.setSpacing(true);
+
+        layout.add(buttons);
+        dialog.add(layout);
+        dialog.open();
+    }
+
+    private void showDeleteConfirm() {
+        Dialog dialog = new Dialog();
+        dialog.setCloseOnEsc(true);
+        dialog.setCloseOnOutsideClick(true);
+
+        VerticalLayout layout = new VerticalLayout();
+        layout.setPadding(true);
+        layout.setSpacing(true);
+        layout.add(new Paragraph("Delete the selected QA report? This cannot be undone."));
+
+        Button confirm = new Button("Delete", event -> {
+            dialog.close();
+            deleteSelectedFile();
+        });
+        confirm.addThemeVariants(ButtonVariant.LUMO_ERROR);
+
+        Button cancel = new Button("Cancel", event -> dialog.close());
+
+        HorizontalLayout buttons = new HorizontalLayout(confirm, cancel);
+        buttons.setSpacing(true);
+
+        layout.add(buttons);
+        dialog.add(layout);
+        dialog.open();
+    }
+
     private void loadSelectedFile() {
         String authorYear = authorYearCombo.getValue();
         String fileName = existingFileCombo.getValue();
@@ -320,6 +408,7 @@ public class QAInputPage extends VerticalLayout {
             String itemKey = prefix + "." + entry.getKey();
 
             Div card = new Div();
+            card.setWidthFull();
             card.getStyle()
                     .set("border", "1px solid #e0e0e0")
                     .set("border-radius", "6px")
@@ -327,28 +416,69 @@ public class QAInputPage extends VerticalLayout {
                     .set("margin-bottom", "10px");
 
             card.add(new H4(formatFieldName(entry.getKey())));
+            String desc = ITEM_DESCRIPTIONS.get(entry.getKey());
+            if (desc != null && !desc.isEmpty()) {
+                Paragraph helper = new Paragraph(desc);
+                helper.getStyle()
+                        .set("font-size", "12px")
+                        .set("color", "#555")
+                        .set("margin-top", "0")
+                        .set("margin-bottom", "8px");
+                card.add(helper);
+            }
 
             if (isAssessmentItem(itemNode)) {
-                FormLayout form = new FormLayout();
-                TextField answer = new TextField("Answer");
-                TextField confidence = new TextField("Confidence Rating");
+                ComboBox<String> answer = new ComboBox<>("Answer");
+                answer.setItems("Yes", "Partial", "No", "NA");
+                answer.setAllowCustomValue(false);
+
+                ComboBox<String> confidence = new ComboBox<>("Confidence Rating");
+                confidence.setItems("High", "Medium", "Low");
+                confidence.setAllowCustomValue(false);
+
                 TextArea reason = new TextArea("Reason");
                 TextArea supporting = new TextArea("Supporting Text");
-                TextField location = new TextField("Location");
+                ComboBox<String> location = new ComboBox<>("Location");
+                location.setItems(
+                    "Paper.pdf.md: Abstract",
+                    "Paper.pdf.md: Methods",
+                    "Paper.pdf.md: Results",
+                    "Paper.pdf.md: Discussion",
+                    "Supp.pdf.md: Table",
+                    "Supp.pdf.md: Figure"
+                );
+                location.setAllowCustomValue(true);
+                location.addCustomValueSetListener(ev -> location.setValue(ev.getDetail()));
+
+                answer.setHelperText("Choose Yes / Partial / No / NA per QA_Guide_v9.");
+                confidence.setHelperText("High / Medium / Low per evidence strength.");
+                reason.setHelperText("Explain which criteria are satisfied or missing (see guide).");
+                supporting.setHelperText("Quote the evidence supporting the judgment.");
+                location.setHelperText("File and section, e.g., Paper.pdf.md: Methods");
 
                 answer.setWidthFull();
                 confidence.setWidthFull();
                 location.setWidthFull();
                 reason.setWidthFull();
                 supporting.setWidthFull();
-                reason.setHeight("120px");
+                reason.setHeight("550px");
                 supporting.setHeight("120px");
 
-                form.add(answer, confidence, location, reason, supporting);
-                form.setResponsiveSteps(
-                        new FormLayout.ResponsiveStep("0", 1),
-                        new FormLayout.ResponsiveStep("800px", 2)
-                );
+                VerticalLayout leftCol = new VerticalLayout(answer, confidence, supporting, location);
+                leftCol.setPadding(false);
+                leftCol.setSpacing(true);
+                leftCol.setWidthFull();
+
+                VerticalLayout rightCol = new VerticalLayout(reason);
+                rightCol.setPadding(false);
+                rightCol.setSpacing(true);
+                rightCol.setWidthFull();
+
+                HorizontalLayout twoCol = new HorizontalLayout(leftCol, rightCol);
+                twoCol.setWidthFull();
+                twoCol.setSpacing(true);
+                twoCol.setFlexGrow(1, leftCol, rightCol);
+                twoCol.getStyle().set("align-items", "stretch");
 
                 inputFields.put(itemKey + ".answer", answer);
                 inputFields.put(itemKey + ".confidence_rating", confidence);
@@ -356,7 +486,7 @@ public class QAInputPage extends VerticalLayout {
                 inputFields.put(itemKey + ".supporting_text", supporting);
                 inputFields.put(itemKey + ".location", location);
 
-                card.add(form);
+                card.add(twoCol);
             } else if (itemNode.isObject()) {
                 VerticalLayout nested = new VerticalLayout();
                 nested.setPadding(false);
@@ -444,5 +574,28 @@ public class QAInputPage extends VerticalLayout {
     private String getCurrentUsername() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return username == null ? "user" : username;
+    }
+
+    private static Map<String, String> buildItemDescriptions() {
+        Map<String, String> map = new HashMap<>();
+        map.put("cm1_research_objectives", "Research questions/hypotheses are stated and the purpose of applying normative modeling (diagnostic support, personalized medicine, disease understanding) is described.");
+        map.put("nm1_selection_criteria_reference_cohort", "NEW model: eligibility of reference cohort (cite open datasets or list inclusion/exclusion), image quality/missing data standards, final N and exclusions. EXISTING model: cite original cohort; if transfer/recalibration, describe local eligibility; report quality standards and final N with exclusions.");
+        map.put("nm2_handling_of_covariates_reference_cohort", "Covariates such as age/sex are considered; for multi-site data, describe site-effect handling (site covariate, ComBat, hierarchical modeling, etc.).");
+        map.put("nm3_data_sources_reference_cohort", "NEW model: specify data source (database/study name or collection sites/time period). EXISTING model: specify dataset/study name or cite the original publication.");
+        map.put("nm4_image_acquisition_protocol", "PRIMARY data: modality/subtype (e.g., T1, DTI, fMRI), acquisition parameters (TR/TE/resolution), equipment specs (manufacturer, field strength). SECONDARY data: answer NA.");
+        map.put("nm5_data_preprocessing", "If preprocessing is performed: name software (FreeSurfer/FSL/SPM), steps or pipeline (e.g., recon-all, fMRIPrep), and QC. If only preprocessed data used: NA.");
+        map.put("nm6_internal_data_validation_reference_cohort", "NEW model: data partitioning for internal validation (hold-out, K-fold, LOOCV) using held-out samples. EXISTING model: NA.");
+        map.put("nm7_external_data_validation_reference_cohort", "NEW model: apply model to an independent external healthy-control dataset. EXISTING model: NA.");
+        map.put("nm8_normative_modeling_approach", "NEW model: model type (linear regression, GPR, hierarchical Bayes, etc.), key settings (kernels/priors/smoothing), and software/libraries. EXISTING model: NA.");
+        map.put("nm9_model_performance_reference_cohort", "NEW model: quantitative fit/calibration metrics for controls (R^2, predicted vs observed correlation, error, interval coverage). EXISTING model: NA.");
+        map.put("nm10_characteristics_reference_cohort_each_partition", "NEW model with partitioning: sample sizes per split and demographics (age/sex) per partition. If no partitioning or EXISTING model: NA.");
+        map.put("nm11_reproducibility", "NEW model: software/library versions; availability of code, trained models, data, and access conditions. EXISTING model: source of normative model (citation/repository/version).");
+        map.put("cr1_selection_criteria_clinical_cohort", "PRIMARY data: patient eligibility/diagnostic criteria, image quality/missing data standards, final N and exclusions. SECONDARY data: cite original publication plus any extra criteria; report quality standards and final N with exclusions.");
+        map.put("cr2_handling_of_clinical_covariates", "Consider clinical covariates beyond demographics (medication, illness duration, symptom severity, comorbidities) in deviation-score analyses.");
+        map.put("cr3_data_sources_clinical_cohort", "PRIMARY data: collection sites/time period. SECONDARY data: database/study name or citation of original publication.");
+        map.put("cr4_clinical_characteristics_clinical_cohort", "Report sample sizes and key demographics (age/sex) plus clinical characteristics (medication status, symptom severity, illness duration).");
+        map.put("cr5_clinical_assessment_measures", "Specify clinical measures (scales/diagnostic criteria with version) and assessment procedures (structured interview, self-report, clinician-rated).");
+        map.put("cr6_interpretation_of_deviation_scores", "Explain meaning/direction of deviation scores; if categorizing (extreme/atypical), give thresholds (e.g., |Z|>1.96); discuss clinical implications and limitations.");
+        return map;
     }
 }
