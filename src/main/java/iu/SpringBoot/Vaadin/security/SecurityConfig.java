@@ -31,6 +31,13 @@ public class SecurityConfig extends VaadinWebSecurity {
     @Value("${app.security.guest.password:guest}")
     private String guestPassword;
 
+    // Ueda user credentials
+    @Value("${app.security.ueda.username:ueda}")
+    private String uedaUsername;
+
+    @Value("${app.security.ueda.password:ueda}")
+    private String uedaPassword;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Allow access to static resources
@@ -60,7 +67,14 @@ public class SecurityConfig extends VaadinWebSecurity {
             .roles("GUEST")
             .build();
 
-        return new InMemoryUserDetailsManager(adminUser, guestUser);
+        // Ueda user - same access as guest (GUEST role only)
+        UserDetails uedaUser = User.builder()
+            .username(uedaUsername)
+            .password(passwordEncoder().encode(uedaPassword))
+            .roles("GUEST")
+            .build();
+
+        return new InMemoryUserDetailsManager(adminUser, guestUser, uedaUser);
     }
 
     @Bean

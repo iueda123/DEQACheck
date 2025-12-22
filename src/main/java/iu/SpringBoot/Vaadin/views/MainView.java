@@ -14,6 +14,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.component.html.Anchor;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
+import iu.SpringBoot.Vaadin.DEQACheckAll.QAInputPage.QAInputPage;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QASummaryPage.QASummaryPage;
 import com.vaadin.flow.server.VaadinServletRequest;
 import jakarta.annotation.security.RolesAllowed;
@@ -67,6 +68,9 @@ public class MainView extends VerticalLayout {
 
         RouterLink link4 = new RouterLink("QA Summary", QASummaryPage.class);
         add(link4);
+
+        RouterLink link5 = new RouterLink("QA Input", QAInputPage.class);
+        add(link5);
 
         Anchor spreadsheetLink = new Anchor(
             "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
