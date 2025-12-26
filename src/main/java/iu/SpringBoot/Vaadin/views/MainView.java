@@ -22,6 +22,7 @@ import iu.SpringBoot.Vaadin.DEQACheckAll.QAReportCreationPage.QAReportCreationPa
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultPerReviewerPage;
 import com.vaadin.flow.server.VaadinServletRequest;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultTablePage;
+import iu.SpringBoot.Vaadin.DEQACheckAll.HelpPages.TheFirstHelpPage;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -116,6 +117,22 @@ public class MainView extends VerticalLayout {
             spreadsheetLink.setTarget("_blank");
             add(spreadsheetLink);
         }
+
+        // Help link - fixed at bottom right
+        RouterLink helpLink = new RouterLink("Help", TheFirstHelpPage.class);
+        helpLink.getStyle()
+            .set("position", "fixed")
+            .set("bottom", "20px")
+            .set("right", "20px")
+            .set("background-color", "#1976d2")
+            .set("color", "white")
+            .set("padding", "10px 20px")
+            .set("border-radius", "20px")
+            .set("text-decoration", "none")
+            .set("font-weight", "bold")
+            .set("box-shadow", "0 2px 5px rgba(0,0,0,0.3)")
+            .set("z-index", "1000");
+        add(helpLink);
 
     }
 
