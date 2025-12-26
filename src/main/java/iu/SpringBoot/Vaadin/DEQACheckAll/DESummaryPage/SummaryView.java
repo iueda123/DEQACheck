@@ -36,7 +36,7 @@ import jakarta.annotation.security.RolesAllowed;
 @PageTitle("DE Result Overview")
 @Route("summary-view")
 @StyleSheet("./styles/summary-table.css")
-@RolesAllowed("USER")
+@RolesAllowed("ADMIN")
 public class SummaryView extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";

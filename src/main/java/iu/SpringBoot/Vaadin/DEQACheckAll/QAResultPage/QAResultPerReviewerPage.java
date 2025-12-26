@@ -26,26 +26,26 @@ import java.util.stream.Stream;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route("qa-results")
-@PageTitle("QA Result Page")
+@PageTitle("QA Result Per Reviewer Page")
 @RolesAllowed({"USER", "GUEST"})
-public class QAResultPage extends VerticalLayout {
+public class QAResultPerReviewerPage extends VerticalLayout {
 
     private static final String DATA_PATH = "share_package/data";
 
     private ComboBox<String> authorYearCombo;
-    private ComboBox<String> agentNameCombo;
-    private ComboBox<String> workNameCombo;
+    private ComboBox<String> promptNameCombo;
+    private ComboBox<String> reviewerNameCombo;
     private Div resultContainer;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public QAResultPage() {
+    public QAResultPerReviewerPage() {
         setSizeFull();
         setPadding(true);
         setSpacing(true);
 
         // Title
-        add(new H2("QA Summary per AI Agent"));
+        add(new H2("QA Summary per Reviewer"));
 
         // Back to MainView link
         RouterLink backLink = new RouterLink("< Back to Main", MainView.class);
@@ -79,30 +79,33 @@ public class QAResultPage extends VerticalLayout {
         authorYearCombo.setItems(getAuthorYearList());
         authorYearCombo.addValueChangeListener(e -> {
             if (e.getValue() != null) {
-                updateWorkNameOptions();
+                updatePromptNameOptions();
             }
         });
 
-        // AgentName dropdown
-        agentNameCombo = new ComboBox<>("AgentName");
-        agentNameCombo.setWidth("150px");
-        agentNameCombo.setItems("codex", "claude", "gemini", "human");
-        agentNameCombo.addValueChangeListener(e -> updateDisplay());
+        // PromptName dropdown
+        promptNameCombo = new ComboBox<>("PromptName");
+        promptNameCombo.setWidth("150px");
+        promptNameCombo.addValueChangeListener(e -> {
+            if (e.getValue() != null) {
+                updateReviewerNameOptions();
+            }
+        });
 
-        // WorkName dropdown
-        workNameCombo = new ComboBox<>("WorkName");
-        workNameCombo.setWidth("150px");
-        workNameCombo.addValueChangeListener(e -> updateDisplay());
+        // ReviewerName dropdown
+        reviewerNameCombo = new ComboBox<>("ReviewerName");
+        reviewerNameCombo.setWidth("150px");
+        reviewerNameCombo.addValueChangeListener(e -> updateDisplay());
 
         // Reload button
         Button reloadButton = new Button("Reload", e -> {
             authorYearCombo.setItems(getAuthorYearList());
-            updateWorkNameOptions();
+            updatePromptNameOptions();
             updateDisplay();
         });
 
         HorizontalLayout dropdownLayout = new HorizontalLayout(
-            authorYearCombo, agentNameCombo, workNameCombo, reloadButton
+            authorYearCombo, promptNameCombo, reviewerNameCombo, reloadButton
         );
         dropdownLayout.setAlignItems(Alignment.END);
         add(dropdownLayout);
@@ -127,16 +130,16 @@ public class QAResultPage extends VerticalLayout {
         return result;
     }
 
-    private void updateWorkNameOptions() {
+    private void updatePromptNameOptions() {
         String authorYear = authorYearCombo.getValue();
         if (authorYear == null) return;
 
-        List<String> workNames = new ArrayList<>();
+        List<String> promptNames = new ArrayList<>();
         Path authorDir = Paths.get(DATA_PATH, authorYear);
 
         if (Files.exists(authorDir) && Files.isDirectory(authorDir)) {
             try (Stream<Path> stream = Files.list(authorDir)) {
-                workNames = stream
+                promptNames = stream
                     .filter(Files::isDirectory)
                     .map(p -> p.getFileName().toString())
                     .filter(name -> name.startsWith("QA"))
@@ -147,26 +150,74 @@ public class QAResultPage extends VerticalLayout {
             }
         }
 
-        workNameCombo.setItems(workNames);
-        if (!workNames.isEmpty()) {
+        promptNameCombo.setItems(promptNames);
+        if (!promptNames.isEmpty()) {
             // Prefer "QA" if exists, otherwise the first one
-            if (workNames.contains("QA")) {
-                workNameCombo.setValue("QA");
+            if (promptNames.contains("QA")) {
+                promptNameCombo.setValue("QA");
             } else {
-                workNameCombo.setValue(workNames.get(0));
+                promptNameCombo.setValue(promptNames.get(0));
             }
         }
+    }
+
+    private void updateReviewerNameOptions() {
+        String authorYear = authorYearCombo.getValue();
+        String promptName = promptNameCombo.getValue();
+        if (authorYear == null || promptName == null) {
+            reviewerNameCombo.setItems(new ArrayList<>());
+            return;
+        }
+
+        List<String> reviewerNames = new ArrayList<>();
+        Path jsonDir = Paths.get(DATA_PATH, authorYear, promptName, "json");
+
+        if (Files.exists(jsonDir) && Files.isDirectory(jsonDir)) {
+            try (Stream<Path> stream = Files.list(jsonDir)) {
+                reviewerNames = stream
+                    .filter(Files::isRegularFile)
+                    .map(p -> p.getFileName().toString())
+                    .filter(name -> name.endsWith(".json"))
+                    .map(this::extractReviewerName)
+                    .filter(name -> name != null && !name.isEmpty())
+                    .distinct()
+                    .sorted()
+                    .collect(Collectors.toList());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        reviewerNameCombo.setItems(reviewerNames);
+        if (!reviewerNames.isEmpty()) {
+            reviewerNameCombo.setValue(reviewerNames.get(0));
+        }
+    }
+
+    private String extractReviewerName(String fileName) {
+        // ファイル名パターン: <AuthorYear>_by_<ReviewerName>_<timestamp>_for_QA_v9.json
+        // または: *_by_<ReviewerName>_*.json
+        String lowerName = fileName.toLowerCase();
+        int byIndex = lowerName.indexOf("_by_");
+        if (byIndex >= 0) {
+            String afterBy = fileName.substring(byIndex + 4);
+            int nextUnderscore = afterBy.indexOf("_");
+            if (nextUnderscore > 0) {
+                return afterBy.substring(0, nextUnderscore);
+            }
+        }
+        return null;
     }
 
     private void updateDisplay() {
         resultContainer.removeAll();
 
         String authorYear = authorYearCombo.getValue();
-        String agentName = agentNameCombo.getValue();
-        String workName = workNameCombo.getValue();
+        String promptName = promptNameCombo.getValue();
+        String reviewerName = reviewerNameCombo.getValue();
 
-        if (authorYear == null || agentName == null || workName == null) {
-            Div placeholder = new Div("Please select AuthorYear, AgentName, and WorkName to view QA results.");
+        if (authorYear == null || promptName == null || reviewerName == null) {
+            Div placeholder = new Div("Please select AuthorYear, PromptName, and ReviewerName to view QA results.");
             placeholder.getStyle()
                 .set("color", "#666")
                 .set("font-style", "italic")
@@ -176,7 +227,7 @@ public class QAResultPage extends VerticalLayout {
         }
 
         // Find matching JSON file
-        Path jsonDir = Paths.get(DATA_PATH, authorYear, workName, "json");
+        Path jsonDir = Paths.get(DATA_PATH, authorYear, promptName, "json");
         if (!Files.exists(jsonDir) || !Files.isDirectory(jsonDir)) {
             Div errorDiv = new Div("JSON folder not found: " + jsonDir);
             errorDiv.getStyle().set("color", "#dc3545");
@@ -187,13 +238,13 @@ public class QAResultPage extends VerticalLayout {
         try (Stream<Path> stream = Files.list(jsonDir)) {
             Optional<Path> matchingFile = stream
                 .filter(p -> p.getFileName().toString().endsWith(".json"))
-                .filter(p -> p.getFileName().toString().toLowerCase().contains(agentName.toLowerCase()))
+                .filter(p -> p.getFileName().toString().toLowerCase().contains(reviewerName.toLowerCase()))
                 .findFirst();
 
             if (matchingFile.isPresent()) {
                 displayJsonContent(matchingFile.get());
             } else {
-                Div notFoundDiv = new Div("No JSON file found for agent: " + agentName + " in " + jsonDir);
+                Div notFoundDiv = new Div("No JSON file found for reviewer: " + reviewerName + " in " + jsonDir);
                 notFoundDiv.getStyle().set("color", "#ffc107");
                 resultContainer.add(notFoundDiv);
             }

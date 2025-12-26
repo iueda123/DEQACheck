@@ -30,7 +30,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("DE Result Overview")
 @Route("de-result-overview")
-@RolesAllowed("USER")
+@RolesAllowed("ADMIN")
 public class DEOverviewPage extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";

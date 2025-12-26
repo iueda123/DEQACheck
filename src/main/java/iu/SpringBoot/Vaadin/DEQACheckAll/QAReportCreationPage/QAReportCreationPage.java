@@ -1,4 +1,4 @@
-package iu.SpringBoot.Vaadin.DEQACheckAll.QAInputPage;
+package iu.SpringBoot.Vaadin.DEQACheckAll.QAReportCreationPage;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
@@ -19,7 +18,6 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout.FlexWrap;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
@@ -43,13 +41,13 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Route("qa-input")
-@PageTitle("QA Input v9")
+@Route("qa-report-creation")
+@PageTitle("QA Report Creation (for QA_v9)")
 @RolesAllowed({"USER", "GUEST"})
-public class QAInputPage extends VerticalLayout {
+public class QAReportCreationPage extends VerticalLayout {
 
     private static final String DATA_PATH = "share_package/data";
-    private static final String TEMPLATE_PATH = "share_package/templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v9_with_criteria.json";
+    private static final String TEMPLATE_PATH = "share_package/templates/Author20XX_by_Someone_YYYYmmddHHMMSS_for_QA_v9_with_criteria.json";
     private static final DateTimeFormatter TS_FORMAT = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
     private static final Map<String, String> ITEM_DESCRIPTIONS = buildItemDescriptions();
 
@@ -65,7 +63,7 @@ public class QAInputPage extends VerticalLayout {
     private Path currentFile;
     private VerticalLayout formContainer;
 
-    public QAInputPage() {
+    public QAReportCreationPage() {
         setSizeFull();
         setPadding(true);
         setSpacing(true);
@@ -108,7 +106,17 @@ public class QAInputPage extends VerticalLayout {
         Div lineBreak2 = new Div();
         lineBreak2.getStyle().set("flex-basis", "100%").set("height", "0");
 
-        FlexLayout controls = new FlexLayout(authorYearCombo, reloadButton, lineBreak1, existingFileCombo, createButton, lineBreak2, loadButton, saveButton, deleteButton);
+        FlexLayout controls = new FlexLayout(
+                authorYearCombo,
+                reloadButton,
+                lineBreak1,
+                existingFileCombo,
+                createButton,
+                deleteButton,
+                lineBreak2,
+                loadButton,
+                saveButton
+        );
         controls.setWidthFull();
         controls.setFlexWrap(FlexWrap.WRAP);
         controls.setAlignItems(Alignment.END);
@@ -220,7 +228,7 @@ public class QAInputPage extends VerticalLayout {
             return;
         }
 
-        String newFileName = String.format("QA_%s_by_%s_%s_for_v9.json", authorYear, username, timestamp);
+        String newFileName = String.format("%s_by_%s_%s_for_QA_v9.json", authorYear, username, timestamp);
         Path targetPath = targetDir.resolve(newFileName);
         try {
             Files.copy(Paths.get(TEMPLATE_PATH), targetPath, StandardCopyOption.REPLACE_EXISTING);

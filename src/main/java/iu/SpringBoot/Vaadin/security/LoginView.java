@@ -29,7 +29,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         // Customize login form text (Japanese)
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form form = i18n.getForm();
-        form.setTitle("DEQACheckAll");
+        form.setTitle("");
         form.setUsername("Account");
         form.setPassword("Password");
         form.setSubmit("Login");

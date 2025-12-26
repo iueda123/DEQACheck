@@ -194,12 +194,14 @@ fi
 #
 #GuideFile=${this_script_parent}/../prompts/QA_Guide_v6_1.md
 #GuideFile=${this_script_parent}/../prompts/QA_Guide_v7_2.md
-GuideFile=${this_script_parent}/../prompts/QA_Guide_v8.md
+#GuideFile=${this_script_parent}/../prompts/QA_Guide_v8.md
+GuideFile=${this_script_parent}/../prompts/QA_Guide_v9.md
 
 #TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json
 #TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v7.json
-TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v8.json
-    
+#TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v8.json
+TemplateFile=${this_script_parent}/../templates/Author20XX_by_Someone_YYYYmmddHHMMSS_for_QA_v9.json
+
 
 # ファイル存在確認
 if [[ ! -f ${GuideFile} ]]; then
@@ -541,7 +543,7 @@ for _author_year in ${AuthorYearArray[@]}; do
   # Ask AI agent if the result json was not found.
   _folder="${this_script_parent}/../data/${_author_year}/${QA_Name}/json/"
   if [[ ! -d ${_folder} ]]; then mkdir -p ${_folder}; fi
-  _expected_result_file="${QA_Name}_${_author_year}_by_${AiAgentName}_*.json"
+  _expected_result_file="${_author_year}_by_${AiAgentName}_*_${QA_Name}.json"
 
   _proceed=false
   if find ${_folder} -maxdepth 1 -type f -iname ${_expected_result_file} | grep -q .; then
@@ -627,7 +629,7 @@ EOF
           cp ${GuideFile} ${working_directory}
 
           # Remove exist result jsons
-          find "$working_directory" -type f -name "${QA_Name}*.json" -print -delete
+          find "$working_directory" -type f -name "*_for_${QA_Name}.json" -print -delete
 
           # Prepare an empty result file
           if [[ ! -f ${TemplateFile} ]]; then
@@ -635,12 +637,12 @@ EOF
               exit 1
           fi
           cp ${TemplateFile} ${working_directory}
-          _result_file_name="${QA_Name}_${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S).json"
+          _result_file_name="${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S)_for_${QA_Name}.json"
           mv ${working_directory}/$(basename ${TemplateFile}) \
              ${working_directory}/${_result_file_name}
 
         else
-          _result_file_name="${QA_Name}_${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S).json"
+          _result_file_name="${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S)_for_${QA_Name}.json"
       fi
       
       # Change the current directory
@@ -684,7 +686,7 @@ EOF
               if [[ ! -d ${_dst} ]]; then mkdir -p ${_dst}; fi              
               mv ${working_directory}/${_log_file_name} ${_dst} #logファイルを移動
 
-              rm ${this_script_parent}/${QA_Name}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
+              rm ${this_script_parent}/${_author_year}_by_${AiAgentName}_for_${QA_Name}_is_not_yet.txt
 
               echo "結果ファイル: ${_dst}/${_result_file_name}"
           fi

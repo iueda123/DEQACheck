@@ -18,15 +18,18 @@ import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
 import iu.SpringBoot.Vaadin.DEQACheckAll.MaterialDownloader.MaterialDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.PromptDownloader.PromptDownloader;
-import iu.SpringBoot.Vaadin.DEQACheckAll.QAInputPage.QAInputPage;
-import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultPage;
+import iu.SpringBoot.Vaadin.DEQACheckAll.QAReportCreationPage.QAReportCreationPage;
+import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultPerReviewerPage;
 import com.vaadin.flow.server.VaadinServletRequest;
+import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultTablePage;
 import jakarta.annotation.security.RolesAllowed;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 @Route("")
-@PageTitle("Hello")
+@PageTitle("DEQACheckAll")
 @RolesAllowed({"USER", "GUEST"})
 public class MainView extends VerticalLayout {
 
@@ -80,36 +83,48 @@ public class MainView extends VerticalLayout {
 
         add(new H2("Quality Assessment"));
 
-        RouterLink link5 = new RouterLink("QA Input", QAInputPage.class);
+        RouterLink link5 = new RouterLink("Do QA", QAReportCreationPage.class);
         add(link5);
 
-        RouterLink link4 = new RouterLink("QA Results", QAResultPage.class);
+        RouterLink link4 = new RouterLink("QA Result Per Reviewer", QAResultPerReviewerPage.class);
         add(link4);
 
-        /// ////////////////////////////////////////////////////////
-        Hr separator2 = new Hr();
-        separator2.getStyle().set("width", "100%").set("margin", "10px 0");
-        add(separator2);
-        /// ////////////////////////////////////////////////////////
+        RouterLink link9 = new RouterLink("QA Result Table (Per AuthorYear and PromptName)", QAResultTablePage.class);
+        add(link9);
 
-        add(new H2("Data Extraction"));
+        // Data Extraction section - only visible to ADMIN users (admin, local)
+        if (hasAdminRole()) {
+            Hr separator2 = new Hr();
+            separator2.getStyle().set("width", "100%").set("margin", "10px 0");
+            add(separator2);
 
-        RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
-        add(link1);
+            add(new H2("Data Extraction (for local server)"));
 
-        RouterLink link2 = new RouterLink("Summary View", SummaryView.class);
-        add(link2);
+            RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
+            add(link1);
 
-        RouterLink link3 = new RouterLink("Summary View 2", SummaryView2.class);
-        add(link3);
+            RouterLink link2 = new RouterLink("Summary View", SummaryView.class);
+            add(link2);
 
-        Anchor spreadsheetLink = new Anchor(
-            "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
-            "Google Spreadsheet - table1_NM_2025.11.17"
-        );
-        spreadsheetLink.setTarget("_blank");
-        add(spreadsheetLink);
+            RouterLink link3 = new RouterLink("Summary View 2", SummaryView2.class);
+            add(link3);
 
+            Anchor spreadsheetLink = new Anchor(
+                "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
+                "Google Spreadsheet - table1_NM_2025.11.17"
+            );
+            spreadsheetLink.setTarget("_blank");
+            add(spreadsheetLink);
+        }
+
+    }
+
+    private boolean hasAdminRole() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) return false;
+        return auth.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .anyMatch(role -> role.equals("ROLE_ADMIN"));
     }
 
     private void logout() {

@@ -80,6 +80,13 @@ public class SecurityConfig extends VaadinWebSecurity {
     @Value("${app.security.etani.password:etani}")
     private String etaniPassword;
 
+    // Local user credentials (for local server access)
+    @Value("${app.security.local.username:local}")
+    private String localUsername;
+
+    @Value("${app.security.local.password:local}")
+    private String localPassword;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Allow access to static resources
@@ -95,11 +102,11 @@ public class SecurityConfig extends VaadinWebSecurity {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        // Admin user - full access (USER role)
+        // Admin user - full access (ADMIN, USER, GUEST roles)
         UserDetails adminUser = User.builder()
             .username(adminUsername)
             .password(passwordEncoder().encode(adminPassword))
-            .roles("USER", "GUEST")
+            .roles("ADMIN", "USER", "GUEST")
             .build();
 
         // Guest user - limited access (GUEST role only)
@@ -158,7 +165,14 @@ public class SecurityConfig extends VaadinWebSecurity {
             .roles("GUEST")
             .build();
 
-        return new InMemoryUserDetailsManager(adminUser, guestUser, uedaUser, takamatsuUser, saitoUser, takahashiUser, shibukwaUser, tamuraUser, etaniUser);
+        // Local user - admin access for local server (ADMIN, USER, GUEST roles)
+        UserDetails localUser = User.builder()
+            .username(localUsername)
+            .password(passwordEncoder().encode(localPassword))
+            .roles("ADMIN", "USER", "GUEST")
+            .build();
+
+        return new InMemoryUserDetailsManager(adminUser, guestUser, uedaUser, takamatsuUser, saitoUser, takahashiUser, shibukwaUser, tamuraUser, etaniUser, localUser);
     }
 
     @Bean

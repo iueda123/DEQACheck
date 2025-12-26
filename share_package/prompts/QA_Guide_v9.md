@@ -379,8 +379,8 @@ Language and stance
 
 ## Output of Extracted Results
 * File format
-    * JSON. Match the structure of `./QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json`.
+    * JSON. Match the structure of `./Author20XX_by_Someone_YYYYmmddHHMMSS_for_QA_v9.json`.
 * File name
-    * If you are Claude Code: e.g., `QA_Bethlehem2022_by_claude_202509191115.json` (pattern: `QA_AuthorYear_by_claude_YYYYMMDDhhdd.ext`).
-    * If you are Gemini CLI: e.g., `QA_Bethlehem2022_by_gemini_202509191115.json` (pattern: `QA_AuthorYear_by_gemini_YYYYMMDDhhdd.ext`).
-    * If you are Codex-CLI: e.g., `QA_Bethlehem2022_by_codex_202509191115.json` (pattern: `QA_AuthorYear_by_codex_YYYYMMDDhhdd.ext`).
+    * If you are Claude Code: e.g., `Bethlehem2022_by_claude_202509191115_for_QA_v9.json` (pattern: `QA_<AuthorYear>_by_claude_<YYYYMMDDhhdd>_for_<QA version>.json`).
+    * If you are Gemini CLI: e.g., `Bethlehem2022_by_gemini_202509191115_for_QA_v9.json` (pattern: `QA_<AuthorYear>_by_gemini_<YYYYMMDDhhdd>_for_<QA version>.json`).
+    * If you are Codex-CLI: e.g., `Bethlehem2022_by_codex_202509191115_for_QA_v9.json` (pattern: `QA_<AuthorYear>_by_codex_<YYYYMMDDhhdd>_for_<QA version>.json`).
