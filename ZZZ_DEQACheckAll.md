@@ -13,6 +13,12 @@ rsync -avhu --delete ./share_package/ /media/iu/homes_on_DS920/iueda/VaadinApps/
 rsync -avhu ./share_package/ /media/iu/homes_on_DS920/iueda/VaadinApps/share_package/
 ```
 
+**JAR ビルド**
+```bash
+./gradlew clean bootJar -Pvaadin.productionMode=true
+```
+
+
 **DEQACheck-VaadinApp-*.jarファイルをUpload↑**
 ```bash
 scp -P 22 ./build/libs/DEQACheck-VaadinApp-*.jar iueda@172.16.1.3:/var/services/homes/iueda/VaadinApps/
@@ -45,7 +51,19 @@ netstat -tlnp | grep 8080
 kill -9 <PID>
 ```
 
-2. または別のポートで起動する：
+VaadinAppの起動
 ```
-java -jar DEQACheck-VaadinApp-v20251210.jar --server.port=8081
+java -jar DEQACheck-VaadinApp-v20251226.jar
+```
+
+別のポートで起動
+```
+java -jar DEQACheck-VaadinApp-v20251226.jar --server.port=8081
+```
+
+権限不足でCreate Newに失敗するとき
+
+```bash
+sudo chown -R iueda:users share_package
+chmod -R u+rwX share_package
 ```

@@ -22,6 +22,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import iu.SpringBoot.Vaadin.views.MainView;
+import iu.SpringBoot.Vaadin.logging.UiActionLogger;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -220,18 +221,27 @@ public class QAReportCreationPage extends VerticalLayout {
         String username = getCurrentUsername();
         String timestamp = LocalDateTime.now().format(TS_FORMAT);
 
+        Map<String, Object> logDetails = new HashMap<>();
+        logDetails.put("authorYear", authorYear);
+        logDetails.put("user", username);
+        UiActionLogger.logAction("qa_report_create_request", logDetails);
+
         Path targetDir = Paths.get(DATA_PATH, authorYear, "QA_v9", "json");
         try {
             Files.createDirectories(targetDir);
         } catch (IOException e) {
+            logDetails.put("targetDir", targetDir.toAbsolutePath());
+            UiActionLogger.logError("qa_report_create_mkdir_failed", e, logDetails);
             Notification.show("Failed to create directory: " + e.getMessage(), 4000, Notification.Position.BOTTOM_START);
             return;
         }
 
         String newFileName = String.format("%s_by_%s_%s_for_QA_v9.json", authorYear, username, timestamp);
         Path targetPath = targetDir.resolve(newFileName);
+        logDetails.put("targetPath", targetPath.toAbsolutePath());
         try {
             Files.copy(Paths.get(TEMPLATE_PATH), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            UiActionLogger.logAction("qa_report_create_success", logDetails);
             Notification.show("Created: " + newFileName, 3000, Notification.Position.BOTTOM_START);
             updateExistingFiles();
             existingFileCombo.setValue(newFileName);
@@ -239,6 +249,7 @@ public class QAReportCreationPage extends VerticalLayout {
             populateForm(templateRoot);
             setSaveButtonsEnabled(true);
         } catch (IOException e) {
+            UiActionLogger.logError("qa_report_create_failed", e, logDetails);
             Notification.show("Failed to create file: " + e.getMessage(), 4000, Notification.Position.BOTTOM_START);
         }
     }
@@ -255,19 +266,30 @@ public class QAReportCreationPage extends VerticalLayout {
             return;
         }
 
+        Map<String, Object> logDetails = new HashMap<>();
+        logDetails.put("authorYear", authorYear);
+        logDetails.put("file", fileName);
+        UiActionLogger.logAction("qa_report_delete_request", logDetails);
+
         Path filePath = Paths.get(DATA_PATH, authorYear, "QA_v9", "json", fileName);
         if (!Files.exists(filePath)) {
+            logDetails.put("path", filePath.toAbsolutePath());
+            UiActionLogger.logAction("qa_report_delete_not_found", logDetails);
             Notification.show("File not found: " + fileName, 4000, Notification.Position.BOTTOM_START);
             return;
         }
 
         try {
             Files.delete(filePath);
+            logDetails.put("path", filePath.toAbsolutePath());
+            UiActionLogger.logAction("qa_report_delete_success", logDetails);
             Notification.show("Deleted: " + fileName, 3000, Notification.Position.BOTTOM_START);
             currentFile = null;
             clearForm();
             updateExistingFiles();
         } catch (IOException e) {
+            logDetails.put("path", filePath.toAbsolutePath());
+            UiActionLogger.logError("qa_report_delete_failed", e, logDetails);
             Notification.show("Failed to delete file: " + e.getMessage(), 4000, Notification.Position.BOTTOM_START);
         }
     }
@@ -336,8 +358,15 @@ public class QAReportCreationPage extends VerticalLayout {
             return;
         }
 
+        Map<String, Object> logDetails = new HashMap<>();
+        logDetails.put("authorYear", authorYear);
+        logDetails.put("file", fileName);
+
         Path filePath = Paths.get(DATA_PATH, authorYear, "QA_v9", "json", fileName);
+        logDetails.put("path", filePath.toAbsolutePath());
+        UiActionLogger.logAction("qa_report_load_request", logDetails);
         if (!Files.exists(filePath)) {
+            UiActionLogger.logAction("qa_report_load_not_found", logDetails);
             Notification.show("File not found: " + fileName, 4000, Notification.Position.BOTTOM_START);
             return;
         }
@@ -346,27 +375,37 @@ public class QAReportCreationPage extends VerticalLayout {
             populateForm(node);
             currentFile = filePath;
             setSaveButtonsEnabled(true);
+            UiActionLogger.logAction("qa_report_load_success", logDetails);
             Notification.show("Loaded: " + fileName, 2000, Notification.Position.BOTTOM_START);
         } catch (IOException e) {
+            UiActionLogger.logError("qa_report_load_failed", e, logDetails);
             Notification.show("Failed to load file: " + e.getMessage(), 4000, Notification.Position.BOTTOM_START);
         }
     }
 
     private void saveCurrentFile() {
         if (currentFile == null) {
+            UiActionLogger.logAction("qa_report_save_skipped", Map.of("reason", "no_current_file"));
             Notification.show("No file selected to save.", 3000, Notification.Position.BOTTOM_START);
             return;
         }
         if (templateRoot == null) {
+            UiActionLogger.logAction("qa_report_save_skipped", Map.of("reason", "template_missing"));
             Notification.show("Template not available. Cannot save.", 4000, Notification.Position.BOTTOM_START);
             return;
         }
 
         JsonNode newContent = buildNodeFromTemplate(templateRoot, "");
+        Map<String, Object> logDetails = new HashMap<>();
+        logDetails.put("file", currentFile.getFileName().toString());
+        logDetails.put("path", currentFile.toAbsolutePath());
+        UiActionLogger.logAction("qa_report_save_request", logDetails);
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(currentFile.toFile(), newContent);
+            UiActionLogger.logAction("qa_report_save_success", logDetails);
             Notification.show("Saved: " + currentFile.getFileName(), 2500, Notification.Position.BOTTOM_START);
         } catch (IOException e) {
+            UiActionLogger.logError("qa_report_save_failed", e, logDetails);
             Notification.show("Failed to save file: " + e.getMessage(), 4000, Notification.Position.BOTTOM_START);
         }
     }
