@@ -1,3 +1,5 @@
+  * 
+  * 
   * [x] RCAIパネルのsite_effect_handling_detail の初期化に失敗している。
   * [x] Answerエリアが１行未満になることがある Zeng2024において
   * [ ] リロード機能

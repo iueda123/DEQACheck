@@ -61,6 +61,7 @@ public class QAInputPage extends VerticalLayout {
     private ComboBox<String> authorYearCombo;
     private ComboBox<String> existingFileCombo;
     private Button saveButton;
+    private final List<Button> cardSaveButtons = new ArrayList<>();
     private Path currentFile;
     private VerticalLayout formContainer;
 
@@ -87,7 +88,7 @@ public class QAInputPage extends VerticalLayout {
         existingFileCombo = new ComboBox<>("Select a QA (v9) report or create a new report");
         existingFileCombo.setWidth("480px");
 
-        Button createButton = new Button("[+]", e -> showCreateConfirm());
+        Button createButton = new Button("Create New", e -> showCreateConfirm());
         createButton.setTooltipText("Create a QA report");
         createButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
@@ -97,7 +98,7 @@ public class QAInputPage extends VerticalLayout {
 
         saveButton = new Button("Save", e -> saveCurrentFile());
         saveButton.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
-        saveButton.setEnabled(false);
+        // 初期状態では無効（ファイル選択後に有効化）
 
         Button reloadButton = new Button("Reload AuthorYear list", e -> authorYearCombo.setItems(getAuthorYearList()));
 
@@ -167,7 +168,7 @@ public class QAInputPage extends VerticalLayout {
         existingFileCombo.clear();
         existingFileCombo.setItems(new ArrayList<>());
         currentFile = null;
-        saveButton.setEnabled(false);
+        setSaveButtonsEnabled(false);
         clearForm();
 
         String authorYear = authorYearCombo.getValue();
@@ -228,7 +229,7 @@ public class QAInputPage extends VerticalLayout {
             existingFileCombo.setValue(newFileName);
             currentFile = targetPath;
             populateForm(templateRoot);
-            saveButton.setEnabled(true);
+            setSaveButtonsEnabled(true);
         } catch (IOException e) {
             Notification.show("Failed to create file: " + e.getMessage(), 4000, Notification.Position.BOTTOM_START);
         }
@@ -336,7 +337,7 @@ public class QAInputPage extends VerticalLayout {
             JsonNode node = objectMapper.readTree(filePath.toFile());
             populateForm(node);
             currentFile = filePath;
-            saveButton.setEnabled(true);
+            setSaveButtonsEnabled(true);
             Notification.show("Loaded: " + fileName, 2000, Notification.Position.BOTTOM_START);
         } catch (IOException e) {
             Notification.show("Failed to load file: " + e.getMessage(), 4000, Notification.Position.BOTTOM_START);
@@ -365,7 +366,26 @@ public class QAInputPage extends VerticalLayout {
     private void buildFormFromTemplate(JsonNode root) {
         formContainer.removeAll();
         inputFields.clear();
+        cardSaveButtons.clear();
 
+        // Instruction Part
+        Div instructionBox = new Div();
+        instructionBox.getStyle()
+                .set("background", "#f5f5f5")
+                .set("border", "1px solid #ddd")
+                .set("border-radius", "6px")
+                .set("padding", "12px 16px")
+                .set("margin-bottom", "16px");
+        instructionBox.add(new H4("お願い"));
+        Div instructionList = new Div();
+        instructionList.getStyle().set("line-height", "1.6");
+        instructionList.add(new Paragraph("・Answer欄、Confidence Rating欄は必須です。"));
+        instructionList.add(new Paragraph("・Reason欄については判断根拠の記述を推奨します。初期状態で「[ ] Research hypotheses or ...」といった文字列が書かれていると思いますが、該当する場合は「[○] Research hypotheses or ...」という風に記述してください。また評価中で気になった点をReason欄に書いても良いです。"));
+        instructionList.add(new Paragraph("・Study Identificationの各欄、Supporting Text欄、Location欄などは空欄でも構いません。"));
+        instructionBox.add(instructionList);
+        formContainer.add(instructionBox);
+
+        // Study Identification Part
         if (root.has("study_identification_part")) {
             formContainer.add(new H3("Study Identification"));
             addFlatFieldsToLayout(formContainer, "study_identification_part", root.get("study_identification_part"));
@@ -487,6 +507,13 @@ public class QAInputPage extends VerticalLayout {
                 inputFields.put(itemKey + ".location", location);
 
                 card.add(twoCol);
+
+                // 各カードにSaveボタンを追加
+                Button cardSave = new Button("Save", ev -> saveCurrentFile());
+                cardSave.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
+                cardSave.setEnabled(false);
+                cardSaveButtons.add(cardSave);
+                card.add(cardSave);
             } else if (itemNode.isObject()) {
                 VerticalLayout nested = new VerticalLayout();
                 nested.setPadding(false);
@@ -569,6 +596,13 @@ public class QAInputPage extends VerticalLayout {
 
     private String formatFieldName(String key) {
         return key.replace("_", " ").toUpperCase();
+    }
+
+    private void setSaveButtonsEnabled(boolean enabled) {
+        saveButton.setEnabled(enabled);
+        for (Button btn : cardSaveButtons) {
+            btn.setEnabled(enabled);
+        }
     }
 
     private String getCurrentUsername() {

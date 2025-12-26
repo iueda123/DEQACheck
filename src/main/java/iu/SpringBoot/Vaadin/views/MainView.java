@@ -16,6 +16,8 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.component.html.Anchor;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
+import iu.SpringBoot.Vaadin.DEQACheckAll.MaterialDownloader.MaterialDownloader;
+import iu.SpringBoot.Vaadin.DEQACheckAll.PromptDownloader.PromptDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAInputPage.QAInputPage;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultPage;
 import com.vaadin.flow.server.VaadinServletRequest;
@@ -62,7 +64,21 @@ public class MainView extends VerticalLayout {
 
         /// ///////////////////////////////////////////////////////
 
-        add(new H2("QA"));
+        add(new H2("Common"));
+
+        RouterLink link7 = new RouterLink("Download Guides", PromptDownloader.class);
+        add(link7);
+
+        RouterLink link6 = new RouterLink("Download Materials", MaterialDownloader.class);
+        add(link6);
+
+        /// ////////////////////////////////////////////////////////
+        Hr separator1 = new Hr();
+        separator1.getStyle().set("width", "100%").set("margin", "10px 0");
+        add(separator1);
+        /// ////////////////////////////////////////////////////////
+
+        add(new H2("Quality Assessment"));
 
         RouterLink link5 = new RouterLink("QA Input", QAInputPage.class);
         add(link5);
@@ -71,12 +87,12 @@ public class MainView extends VerticalLayout {
         add(link4);
 
         /// ////////////////////////////////////////////////////////
-        Hr separator = new Hr();
-        separator.getStyle().set("width", "100%").set("margin", "10px 0");
-        add(separator);
+        Hr separator2 = new Hr();
+        separator2.getStyle().set("width", "100%").set("margin", "10px 0");
+        add(separator2);
         /// ////////////////////////////////////////////////////////
 
-        add(new H2("DE"));
+        add(new H2("Data Extraction"));
 
         RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
         add(link1);
