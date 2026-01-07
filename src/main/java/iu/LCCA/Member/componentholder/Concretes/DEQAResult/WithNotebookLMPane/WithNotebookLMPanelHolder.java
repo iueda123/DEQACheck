@@ -29,6 +29,8 @@ import java.util.stream.Stream;
 
 public class WithNotebookLMPanelHolder extends AbstCHolderMember implements JsonManagerCallback {
 
+    static final String ROOT_OF_AUTHOR_YEAR_FOLDER = "./data";
+
     private String authorYear = "";
     private String noteJsonFilePathStr = "";
     private JsonManagerWithConflictSafe jsonManager = null;
@@ -63,7 +65,7 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
             //System.out.println(args[0]);
             //sampleButton.setText("これは第１引数です → " + args[0]);
             authorYear = args[0];
-            noteJsonFilePathStr = authorYear + "/notes/WithNotebookLM.json";
+            noteJsonFilePathStr = ROOT_OF_AUTHOR_YEAR_FOLDER + "/" + authorYear + "/notes/WithNotebookLM.json";
         }
 
         this.jsonManager = new JsonManagerWithConflictSafe(noteJsonFilePathStr, this);

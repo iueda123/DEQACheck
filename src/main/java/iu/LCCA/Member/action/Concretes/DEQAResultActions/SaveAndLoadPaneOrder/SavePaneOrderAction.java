@@ -3,19 +3,9 @@ package iu.LCCA.Member.action.Concretes.DEQAResultActions.SaveAndLoadPaneOrder;
 import iu.LCCA.Mediator.action.ActionMediator;
 import iu.LCCA.Mediator.componentholder.CHolderMediator;
 import iu.LCCA.Member.action.Abstract.AbstActionMember;
-import iu.LCCA.Member.componentholder.Abstract.AbstCHolderMember;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.ManagerOfSubTabBasePane;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.DEQAResultPane.One_DEQAResult_Pane_Abs;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.SubTabsHolderItrfc;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DECAA.DECAA_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DEGN.DEGN_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DENM.DENM_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DERCI.DERCI_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DESC.DESC_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DESI.DESI_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACM.QACM_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACR.QACR_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QANM.QANM_SubTabsHolder;
 import iu.LCCA.Member.componentholder.Concretes.StatusPanel.StatusPanelHolder;
 
 import javax.swing.*;
@@ -48,16 +38,9 @@ public class SavePaneOrderAction extends AbstActionMember {
         System.out.println("perform() in " + this.getClass().toString() + " was called.");
 
         // 全セクションに拡張可能
-        savePaneOrder("SI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_de" + ".prop");
-        savePaneOrder("SC", "./data/" + authorYear + "/PaneOrder/" + "study_characteristics_of_de" + ".prop");
-        savePaneOrder("RCAI", "./data/" + authorYear + "/PaneOrder/" + "reference_cohort_and_imaging_of_de" + ".prop");
-        savePaneOrder("NM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_of_de" + ".prop");
-        savePaneOrder("CAAA", "./data/" + authorYear + "/PaneOrder/" + "clinical_application_and_analysis_of_de" + ".prop");
-        savePaneOrder("GN", "./data/" + authorYear + "/PaneOrder/" + "general_notes_of_de" + ".prop");
-
-        savePaneOrder("QACM", "./data/" + authorYear + "/PaneOrder/" + "common_part_of_qa" + ".prop");
-        savePaneOrder("QANM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_part_of_qa" + ".prop");
-        savePaneOrder("QACR", "./data/" + authorYear + "/PaneOrder/" + "clinical_research_part_of_qa" + ".prop");
+        for (PaneOrderSection section : PaneOrderSection.saveTargets()) {
+            savePaneOrder(section);
+        }
 
         //savePaneOrder("QASI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_qa" + ".prop");
         //savePaneOrder("QA1_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_1_v6" + ".prop");
@@ -65,72 +48,14 @@ public class SavePaneOrderAction extends AbstActionMember {
         //savePaneOrder("QAAC", "./data/" + authorYear + "/PaneOrder/" + "additional_comments" + ".prop");
     }
 
-    private void savePaneOrder(String member_name_key_word, String prop_file_path_str) {
-        AbstCHolderMember member;
-        SubTabsHolderItrfc subTabsHolder;
-        switch (member_name_key_word) {
-            case "DESI":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DESI");
-                subTabsHolder = (DESI_SubTabsHolder) member;
-                break;
-            case "DESC":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DESC");
-                subTabsHolder = (DESC_SubTabsHolder) member;
-                break;
-            case "DERCI":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DERCI");
-                subTabsHolder = (DERCI_SubTabsHolder) member;
-                break;
-            case "DENM":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DENM");
-                subTabsHolder = (DENM_SubTabsHolder) member;
-                break;
-            case "DECAA":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_dECAA");
-                subTabsHolder = (DECAA_SubTabsHolder) member;
-                break;
-            case "DEGN":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DEGN");
-                subTabsHolder = (DEGN_SubTabsHolder) member;
-                break;
-            case "QACM":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QACM");
-                subTabsHolder = (QACM_SubTabsHolder) member;
-                break;
-            case "QANM":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QANM");
-                subTabsHolder = (QANM_SubTabsHolder) member;
-                break;
-            case "QACR":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QACR");
-                subTabsHolder = (QACR_SubTabsHolder) member;
-                break;
-            //case "QASI":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QASI");
-            //    subTabsHolder = (QASI_SubTabsHolder) member;
-            //    break;
-            //case "QA1_v6":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QA1_v6");
-            //    subTabsHolder = (QA1_SubTabsHolder) member;
-            //    break;
-            //case "QA2_v6":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QA2_v6");
-            //    subTabsHolder = (QA2_SubTabsHolder) member;
-            //    break;
-            //case "QAAC":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QAAC");
-            //    subTabsHolder = (QAAC_SubTabsHolder) member;
-            //    break;
-            default:
-                System.err.println("未知のSection指定です" + "@" + this.getClass());
-                return;
-        }
+    private void savePaneOrder(PaneOrderSection section) {
+        SubTabsHolderItrfc subTabsHolder = section.resolveSubTabsHolder(this.cholderMediator);
 
         String sectionName = subTabsHolder.getSectionName();
         System.out.println("----- Save pane order of '" + sectionName + "' section -----");
 
         // 全タブ（SubSectionに相当）配置されているコンポーネントの順番を把握し、propertyへ書き込む
-        propManager = createPropertyManager(prop_file_path_str);
+        propManager = createPropertyManager(section.buildPropPath(authorYear));
         ArrayList<String> arrayList_PanelOrder = new ArrayList<>();
         for (ManagerOfSubTabBasePane managerOfSubTabBasePane : subTabsHolder.getArrayList_of_ManagerOfSubTabBasePane()) {
             String subSectionName = managerOfSubTabBasePane.getSubSectionName();
@@ -153,8 +78,7 @@ public class SavePaneOrderAction extends AbstActionMember {
         propManager = null;
 
         //保存が完了したことをフィードバック
-        member = this.cholderMediator.getInstanceOfAMember("status_panel_holder");
-        StatusPanelHolder statusPanelHolder = (StatusPanelHolder) member;
+        StatusPanelHolder statusPanelHolder = (StatusPanelHolder) this.cholderMediator.getInstanceOfAMember("status_panel_holder");
         if (property_save_result) {
             statusPanelHolder.showAMessageForWhile("The current panel order was saved.", 5000);
         } else {

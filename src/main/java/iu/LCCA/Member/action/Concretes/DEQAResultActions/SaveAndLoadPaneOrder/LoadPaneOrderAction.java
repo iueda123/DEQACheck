@@ -3,19 +3,9 @@ package iu.LCCA.Member.action.Concretes.DEQAResultActions.SaveAndLoadPaneOrder;
 import iu.LCCA.Mediator.action.ActionMediator;
 import iu.LCCA.Mediator.componentholder.CHolderMediator;
 import iu.LCCA.Member.action.Abstract.AbstActionMember;
-import iu.LCCA.Member.componentholder.Abstract.AbstCHolderMember;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.ManagerOfSubTabBasePane;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.DEQAResultPane.One_DEQAResult_Pane_Abs;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.SubTabsHolderItrfc;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DECAA.DECAA_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DEGN.DEGN_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DENM.DENM_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DERCI.DERCI_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DESC.DESC_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DESI.DESI_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACM.QACM_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACR.QACR_SubTabsHolder;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QANM.QANM_SubTabsHolder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,12 +37,9 @@ public class LoadPaneOrderAction extends AbstActionMember {
         //System.out.println("");
         //System.out.println("perform() in " + this.getClass().toString() + " was called.");
 
-        loadPaneOrder("DESI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_de" + ".prop");
-        loadPaneOrder("DESC", "./data/" + authorYear + "/PaneOrder/" + "study_characteristics_of_de" + ".prop");
-        loadPaneOrder("DERCI", "./data/" + authorYear + "/PaneOrder/" + "reference_cohort_and_imaging_of_de" + ".prop");
-        loadPaneOrder("DENM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_of_de" + ".prop");
-        loadPaneOrder("DECAA", "./data/" + authorYear + "/PaneOrder/" + "clinical_application_and_analysis_of_de" + ".prop");
-        loadPaneOrder("DEGN", "./data/" + authorYear + "/PaneOrder/" + "general_notes_of_de" + ".prop");
+        for (PaneOrderSection section : PaneOrderSection.deSections()) {
+            loadPaneOrder(section);
+        }
 
         //loadPaneOrder("QACM", "./data/" + authorYear + "/PaneOrder/" + "common_part_of_qa" + ".prop");
         //loadPaneOrder("QANM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_part_of_qa" + ".prop");
@@ -68,71 +55,13 @@ public class LoadPaneOrderAction extends AbstActionMember {
     /**
      * Loads pane order for a specific section keyed by member name.
      */
-    private void loadPaneOrder(String member_name_key_word, String prop_file_path_str) {
-        AbstCHolderMember member;
-        SubTabsHolderItrfc subTabsHolder;
-        switch (member_name_key_word) {
-            case "DESI":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DESI");
-                subTabsHolder = (DESI_SubTabsHolder) member;
-                break;
-            case "DESC":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DESC");
-                subTabsHolder = (DESC_SubTabsHolder) member;
-                break;
-            case "DERCI":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DERCI");
-                subTabsHolder = (DERCI_SubTabsHolder) member;
-                break;
-            case "DENM":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DENM");
-                subTabsHolder = (DENM_SubTabsHolder) member;
-                break;
-            case "DECAA":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DECAA");
-                subTabsHolder = (DECAA_SubTabsHolder) member;
-                break;
-            case "DEGN":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DEGN");
-                subTabsHolder = (DEGN_SubTabsHolder) member;
-                break;
-            //case "QACM":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QACM");
-            //    subTabsHolder = (QACM_SubTabsHolder) member;
-            //    break;
-            //case "QANM":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QANM");
-            //    subTabsHolder = (QANM_SubTabsHolder) member;
-            //    break;
-            //case "QACR":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QACR");
-            //    subTabsHolder = (QACR_SubTabsHolder) member;
-            //    break;
-            //case "QASI":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QASI");
-            //    subTabsHolder = (QASI_SubTabsHolder) member;
-            //    break;
-            //case "QA1_v6":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QA1_v6");
-            //    subTabsHolder = (QA1_SubTabsHolder) member;
-            //    break;
-            //case "QA2_v6":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QA2_v6");
-            //    subTabsHolder = (QA2_SubTabsHolder) member;
-            //    break;
-            //case "QAAC":
-            //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QAAC");
-            //    subTabsHolder = (QAAC_SubTabsHolder) member;
-            //    break;
-            default:
-                System.err.println("未知のSection指定です" + "@" + this.getClass());
-                return;
-        }
+    private void loadPaneOrder(PaneOrderSection section) {
+        SubTabsHolderItrfc subTabsHolder = section.resolveSubTabsHolder(this.cholderMediator);
 
         String sectionName = subTabsHolder.getSectionName();
         //System.out.println("----- Load pane order of '" + sectionName + "' section -----");
 
-        propManager = createPropertyManager(prop_file_path_str);
+        propManager = createPropertyManager(section.buildPropPath(authorYear));
         //System.out.println("Properties file '" + deresultpane_order_setting_file_path_str + "' was loaded.");
         //propManager.listUpProperty();
 
