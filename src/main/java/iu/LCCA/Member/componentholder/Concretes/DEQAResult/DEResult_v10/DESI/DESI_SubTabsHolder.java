@@ -67,7 +67,7 @@ public class DESI_SubTabsHolder extends AbstCHolderMember implements SubTabsHold
 
         // ./json/ フォルダの確認
         Path jsonFolderPathString = Paths.get("./DE/json");
-        jsonFolderPathString = Paths.get("./" + authorYear + "/").resolve(jsonFolderPathString);
+        jsonFolderPathString = Paths.get("./data/" + authorYear + "/").resolve(jsonFolderPathString);
         File jsonDir = jsonFolderPathString.toFile();
 
         // jsonディレクトリが存在しない、またはディレクトリではない場合

@@ -48,21 +48,21 @@ public class SavePaneOrderAction extends AbstActionMember {
         System.out.println("perform() in " + this.getClass().toString() + " was called.");
 
         // 全セクションに拡張可能
-        savePaneOrder("SI", "./settings/" + authorYear + "/PaneOrder/" + "study_identification_of_de" + ".prop");
-        savePaneOrder("SC", "./settings/" + authorYear + "/PaneOrder/" + "study_characteristics_of_de" + ".prop");
-        savePaneOrder("RCAI", "./settings/" + authorYear + "/PaneOrder/" + "reference_cohort_and_imaging_of_de" + ".prop");
-        savePaneOrder("NM", "./settings/" + authorYear + "/PaneOrder/" + "normative_modeling_of_de" + ".prop");
-        savePaneOrder("CAAA", "./settings/" + authorYear + "/PaneOrder/" + "clinical_application_and_analysis_of_de" + ".prop");
-        savePaneOrder("GN", "./settings/" + authorYear + "/PaneOrder/" + "general_notes_of_de" + ".prop");
+        savePaneOrder("SI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_de" + ".prop");
+        savePaneOrder("SC", "./data/" + authorYear + "/PaneOrder/" + "study_characteristics_of_de" + ".prop");
+        savePaneOrder("RCAI", "./data/" + authorYear + "/PaneOrder/" + "reference_cohort_and_imaging_of_de" + ".prop");
+        savePaneOrder("NM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_of_de" + ".prop");
+        savePaneOrder("CAAA", "./data/" + authorYear + "/PaneOrder/" + "clinical_application_and_analysis_of_de" + ".prop");
+        savePaneOrder("GN", "./data/" + authorYear + "/PaneOrder/" + "general_notes_of_de" + ".prop");
 
-        savePaneOrder("QACM", "./settings/" + authorYear + "/PaneOrder/" + "common_part_of_qa" + ".prop");
-        savePaneOrder("QANM", "./settings/" + authorYear + "/PaneOrder/" + "normative_modeling_part_of_qa" + ".prop");
-        savePaneOrder("QACR", "./settings/" + authorYear + "/PaneOrder/" + "clinical_research_part_of_qa" + ".prop");
+        savePaneOrder("QACM", "./data/" + authorYear + "/PaneOrder/" + "common_part_of_qa" + ".prop");
+        savePaneOrder("QANM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_part_of_qa" + ".prop");
+        savePaneOrder("QACR", "./data/" + authorYear + "/PaneOrder/" + "clinical_research_part_of_qa" + ".prop");
 
-        //savePaneOrder("QASI", "./settings/" + authorYear + "/PaneOrder/" + "study_identification_of_qa" + ".prop");
-        //savePaneOrder("QA1_v6", "./settings/" + authorYear + "/PaneOrder/" + "quality_assessment_1_v6" + ".prop");
-        //savePaneOrder("QA2_v6", "./settings/" + authorYear + "/PaneOrder/" + "quality_assessment_2_v6" + ".prop");
-        //savePaneOrder("QAAC", "./settings/" + authorYear + "/PaneOrder/" + "additional_comments" + ".prop");
+        //savePaneOrder("QASI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_qa" + ".prop");
+        //savePaneOrder("QA1_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_1_v6" + ".prop");
+        //savePaneOrder("QA2_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_2_v6" + ".prop");
+        //savePaneOrder("QAAC", "./data/" + authorYear + "/PaneOrder/" + "additional_comments" + ".prop");
     }
 
     private void savePaneOrder(String member_name_key_word, String prop_file_path_str) {

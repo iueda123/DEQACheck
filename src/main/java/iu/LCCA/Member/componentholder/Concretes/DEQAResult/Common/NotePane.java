@@ -16,6 +16,10 @@ import java.util.stream.Stream;
 
 public class NotePane extends JPanel {
 
+    private static final String AUTHOR_YEAR_FOLDER_LOCATION = "data";
+    private static final String MATERIALS_FOLDER_NAME = "materials";
+    private static final String MATERIALS_BUTTON_LABEL = MATERIALS_FOLDER_NAME + "/";
+
     final String sectionName;
     final String subSectionName;
     final String tabName;
@@ -26,7 +30,7 @@ public class NotePane extends JPanel {
     final String tooltipForStatusFiled = "先頭文字がタブに表示される。タブ視認性向上のために使う。";
 
     JButton button_OpenPdf = new JButton("PDF");
-    JButton openMaterialsFolderButton = new JButton("materials/");
+    JButton openMaterialsFolderButton = new JButton(MATERIALS_BUTTON_LABEL);
 
     ColorChangeableTextArea tArea_Note = new ColorChangeableTextArea("");
     final String tooltipForNoteArea = "自由記載ノート。";
@@ -109,7 +113,7 @@ public class NotePane extends JPanel {
                 openPdf();
             }
         });
-        setupButton(openMaterialsFolderButton, "/icons/folder_gray.png", "materials/", "materialsフォルダを開く");
+        setupButton(openMaterialsFolderButton, "/icons/folder_gray.png", MATERIALS_BUTTON_LABEL, "materialsフォルダを開く");
         openMaterialsFolderButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,7 +123,6 @@ public class NotePane extends JPanel {
 
 
     }
-
 
 
     /**
@@ -194,7 +197,7 @@ public class NotePane extends JPanel {
         String currentWorkingDirectoryPathStr = System.getProperty("user.dir");
 
         // authorYearFolder 下にある authorYear+".pdf" という名前の（例えば、Bedford2025.pdf）PDFを検索して、最初に見つかったものを開こうとする
-        Path authorYearFolderPath = Paths.get(currentWorkingDirectoryPathStr, authorYear);
+        Path authorYearFolderPath = Paths.get(currentWorkingDirectoryPathStr, AUTHOR_YEAR_FOLDER_LOCATION, authorYear);
         try {
             if (!authorYearFolderPath.toFile().exists()) {
                 JOptionPane.showMessageDialog(
@@ -262,8 +265,7 @@ public class NotePane extends JPanel {
     public void openMaterialsFolder() {
         String authorYear = managerOfSubTabBasePane.getAuthorYear();
         String currentWorkingDirectoryPathStr = System.getProperty("user.dir");
-
-        Path materialsPath = Paths.get(currentWorkingDirectoryPathStr,authorYear, "/materials/");
+        Path materialsPath = Paths.get(currentWorkingDirectoryPathStr, AUTHOR_YEAR_FOLDER_LOCATION, authorYear, MATERIALS_FOLDER_NAME);
 
         try {
             if (Desktop.isDesktopSupported()) {
@@ -302,4 +304,3 @@ public class NotePane extends JPanel {
         this.tArea_Explanation.setText(explanation);
     }
 }
-

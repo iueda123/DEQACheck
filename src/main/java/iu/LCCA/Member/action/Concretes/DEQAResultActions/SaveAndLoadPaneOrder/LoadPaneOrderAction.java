@@ -47,21 +47,21 @@ public class LoadPaneOrderAction extends AbstActionMember {
         //System.out.println("");
         //System.out.println("perform() in " + this.getClass().toString() + " was called.");
 
-        loadPaneOrder("DESI", "./settings/" + authorYear + "/PaneOrder/" + "study_identification_of_de" + ".prop");
-        loadPaneOrder("DESC", "./settings/" + authorYear + "/PaneOrder/" + "study_characteristics_of_de" + ".prop");
-        loadPaneOrder("DERCI", "./settings/" + authorYear + "/PaneOrder/" + "reference_cohort_and_imaging_of_de" + ".prop");
-        loadPaneOrder("DENM", "./settings/" + authorYear + "/PaneOrder/" + "normative_modeling_of_de" + ".prop");
-        loadPaneOrder("DECAA", "./settings/" + authorYear + "/PaneOrder/" + "clinical_application_and_analysis_of_de" + ".prop");
-        loadPaneOrder("DEGN", "./settings/" + authorYear + "/PaneOrder/" + "general_notes_of_de" + ".prop");
+        loadPaneOrder("DESI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_de" + ".prop");
+        loadPaneOrder("DESC", "./data/" + authorYear + "/PaneOrder/" + "study_characteristics_of_de" + ".prop");
+        loadPaneOrder("DERCI", "./data/" + authorYear + "/PaneOrder/" + "reference_cohort_and_imaging_of_de" + ".prop");
+        loadPaneOrder("DENM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_of_de" + ".prop");
+        loadPaneOrder("DECAA", "./data/" + authorYear + "/PaneOrder/" + "clinical_application_and_analysis_of_de" + ".prop");
+        loadPaneOrder("DEGN", "./data/" + authorYear + "/PaneOrder/" + "general_notes_of_de" + ".prop");
 
-        //loadPaneOrder("QACM", "./settings/" + authorYear + "/PaneOrder/" + "common_part_of_qa" + ".prop");
-        //loadPaneOrder("QANM", "./settings/" + authorYear + "/PaneOrder/" + "normative_modeling_part_of_qa" + ".prop");
-        //loadPaneOrder("QACR", "./settings/" + authorYear + "/PaneOrder/" + "clinical_research_part_of_qa" + ".prop");
+        //loadPaneOrder("QACM", "./data/" + authorYear + "/PaneOrder/" + "common_part_of_qa" + ".prop");
+        //loadPaneOrder("QANM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_part_of_qa" + ".prop");
+        //loadPaneOrder("QACR", "./data/" + authorYear + "/PaneOrder/" + "clinical_research_part_of_qa" + ".prop");
 
-        //loadPaneOrder("QASI", "./settings/" + authorYear + "/PaneOrder/" + "study_identification_of_qa" + ".prop");
-        //loadPaneOrder("QA1_v6", "./settings/" + authorYear + "/PaneOrder/" + "quality_assessment_1_v6" + ".prop");
-        //loadPaneOrder("QA2_v6", "./settings/" + authorYear + "/PaneOrder/" + "quality_assessment_2_v6" + ".prop");
-        //loadPaneOrder("QAAC", "./settings/" + authorYear + "/PaneOrder/" + "additional_comments" + ".prop");
+        //loadPaneOrder("QASI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_qa" + ".prop");
+        //loadPaneOrder("QA1_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_1_v6" + ".prop");
+        //loadPaneOrder("QA2_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_2_v6" + ".prop");
+        //loadPaneOrder("QAAC", "./data/" + authorYear + "/PaneOrder/" + "additional_comments" + ".prop");
 
     }
 

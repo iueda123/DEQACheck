@@ -46,20 +46,20 @@ public class LoadNotePaneTextsAction extends AbstActionMember {
         //System.out.println("perform() in " + this.getClass().toString() + " was called.");
 
         // 全セクションに拡張可能
-        loadNotePaneTexts("DESI", "./settings/" + authorYear + "/NotePane/" + "study_identification_of_de" + ".prop");
-        loadNotePaneTexts("DESC", "./settings/" + authorYear + "/NotePane/" + "study_characteristics_of_de" + ".prop");
-        loadNotePaneTexts("DERCI", "./settings/" + authorYear + "/NotePane/" + "reference_cohort_and_imaging_of_de" + ".prop");
-        loadNotePaneTexts("DENM", "./settings/" + authorYear + "/NotePane/" + "normative_modeling_of_de" + ".prop");
-        loadNotePaneTexts("DECAA", "./settings/" + authorYear + "/NotePane/" + "clinical_application_and_analysis_of_de" + ".prop");
-        loadNotePaneTexts("DEGN", "./settings/" + authorYear + "/NotePane/" + "general_notes_of_de" + ".prop");
+        loadNotePaneTexts("DESI", "./data/" + authorYear + "/NotePane/" + "study_identification_of_de" + ".prop");
+        loadNotePaneTexts("DESC", "./data/" + authorYear + "/NotePane/" + "study_characteristics_of_de" + ".prop");
+        loadNotePaneTexts("DERCI", "./data/" + authorYear + "/NotePane/" + "reference_cohort_and_imaging_of_de" + ".prop");
+        loadNotePaneTexts("DENM", "./data/" + authorYear + "/NotePane/" + "normative_modeling_of_de" + ".prop");
+        loadNotePaneTexts("DECAA", "./data/" + authorYear + "/NotePane/" + "clinical_application_and_analysis_of_de" + ".prop");
+        loadNotePaneTexts("DEGN", "./data/" + authorYear + "/NotePane/" + "general_notes_of_de" + ".prop");
 
-        //loadNotePaneTexts("QACM", "./settings/" + authorYear + "/NotePane/" + "common_part_of_qa" + ".prop");
-        //loadNotePaneTexts("QANM", "./settings/" + authorYear + "/NotePane/" + "normative_modeling_part_of_qa" + ".prop");
-        //loadNotePaneTexts("QACR", "./settings/" + authorYear + "/NotePane/" + "clinical_research_part_of_qa" + ".prop");
-        //loadNotePaneTexts("QASI", "./settings/" + authorYear + "/NotePane/" + "study_identification_of_qa" + ".prop");
-        //loadNotePaneTexts("QA1_v6", "./settings/" + authorYear + "/NotePane/" + "quality_assessment_1_v6" + ".prop");
-        //loadNotePaneTexts("QA2_v6", "./settings/" + authorYear + "/NotePane/" + "quality_assessment_2_v6" + ".prop");
-        //loadNotePaneTexts("QAAC", "./settings/" + authorYear + "/NotePane/" + "additional_comments" + ".prop");
+        //loadNotePaneTexts("QACM", "./data/" + authorYear + "/NotePane/" + "common_part_of_qa" + ".prop");
+        //loadNotePaneTexts("QANM", "./data/" + authorYear + "/NotePane/" + "normative_modeling_part_of_qa" + ".prop");
+        //loadNotePaneTexts("QACR", "./data/" + authorYear + "/NotePane/" + "clinical_research_part_of_qa" + ".prop");
+        //loadNotePaneTexts("QASI", "./data/" + authorYear + "/NotePane/" + "study_identification_of_qa" + ".prop");
+        //loadNotePaneTexts("QA1_v6", "./data/" + authorYear + "/NotePane/" + "quality_assessment_1_v6" + ".prop");
+        //loadNotePaneTexts("QA2_v6", "./data/" + authorYear + "/NotePane/" + "quality_assessment_2_v6" + ".prop");
+        //loadNotePaneTexts("QAAC", "./data/" + authorYear + "/NotePane/" + "additional_comments" + ".prop");
     }
 
     /**

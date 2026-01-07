@@ -17,65 +17,43 @@ import java.util.ArrayList;
 
 public class ExplanationPanelHolder extends AbstCHolderMember {
 
-    //private Path guideFilePath_of_DE = Paths.get("./settings/Guides/DE_Guide_v9_jp.md");
-    //private Path guideFilePath_of_DE = Paths.get("./settings/Guides/DE_Guide_v10.md");
-    private Path guideFilePath_of_DE = Paths.get("./settings/Guides/DE_Guide_v10_1.md");
-    private Path guideFilePath_of_QA = Paths.get("./settings/Guides/QA_Guide_v7_2.md");
-
     /**
-     * sub_tabs_holder_name と対応するガイドファイルのペア定義
+     * 表示するガイドファイルのパス一覧
      */
-    enum SubTabsHolderConfig {
-        DESI("sub_tabs_holder_DESI", "./settings/Guides/DE_Guide_v10_1.md"),
-        DESC("sub_tabs_holder_DESC", "./settings/Guides/DE_Guide_v10_1.md"),
-        DERCI("sub_tabs_holder_DERCI", "./settings/Guides/DE_Guide_v10_1.md"),
-        DENM("sub_tabs_holder_DENM", "./settings/Guides/DE_Guide_v10_1.md"),
-        DECAA("sub_tabs_holder_DECAA", "./settings/Guides/DE_Guide_v10_1.md"),
-        DEGN("sub_tabs_holder_DEGN", "./settings/Guides/DE_Guide_v10_1.md");
-        //QACM("sub_tabs_holder_QACM", "./settings/Guides/QA_Guide_v7_2.md"),
-        //QANM("sub_tabs_holder_QANM", "./settings/Guides/QA_Guide_v7_2.md"),
-        //QACR("sub_tabs_holder_QACR", "./settings/Guides/QA_Guide_v7_2.md");
-
-        private final String holderName;
-        private final String guideFilePath;
-
-        SubTabsHolderConfig(String holderName, String guideFilePath) {
-            this.holderName = holderName;
-            this.guideFilePath = guideFilePath;
-        }
-
-        public String getHolderName() {
-            return holderName;
-        }
-
-        public String getGuideFilePath() {
-            return guideFilePath;
-        }
-    }
+    String[] GUIDES = {"./settings/Guides/DE_Guide_v10_1.md", "./settings/Guides/QA_Guide_v7_2.md"};
 
     JPanel basePanel = new JPanel(new BorderLayout());
     JTabbedPane tabbedPane = new JTabbedPane();
-    JTextArea explanationTextArea_for_DE = new JTextArea("DE EXPLANATION");
-    JTextArea explanationTextArea_for_QA = new JTextArea("QA EXPLANATION");
+
+    /**
+     * 各ガイドファイルに対応するJTextAreaの配列
+     */
+    JTextArea[] explanationTextAreas;
 
     public ExplanationPanelHolder(String cholder_name, String short_name) {
         super(cholder_name, short_name);
 
-        // DE
-        JScrollPane scrollPane_for_DE = new JScrollPane(explanationTextArea_for_DE);
-        explanationTextArea_for_DE.setEditable(false);
-        scrollPane_for_DE.setPreferredSize(new Dimension(500, 9000));
-        scrollPane_for_DE.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane_for_DE.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        tabbedPane.add(guideFilePath_of_DE.toFile().getName(), scrollPane_for_DE);
+        // GUIDES配列の要素数に応じてJTextAreaを作成
+        explanationTextAreas = new JTextArea[GUIDES.length];
 
-        // QA
-        JScrollPane scrollPane_for_QA = new JScrollPane(explanationTextArea_for_QA);
-        explanationTextArea_for_QA.setEditable(false);
-        scrollPane_for_QA.setPreferredSize(new Dimension(500, 9000));
-        scrollPane_for_QA.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane_for_QA.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        tabbedPane.add(guideFilePath_of_QA.toFile().getName(), scrollPane_for_QA);
+        // GUIDESをループしてタブを生成
+        for (int i = 0; i < GUIDES.length; i++) {
+            String guideFilePath = GUIDES[i];
+            Path guidePath = Paths.get(guideFilePath);
+
+            // JTextAreaを作成
+            explanationTextAreas[i] = new JTextArea("Loading " + guidePath.getFileName() + "...");
+            explanationTextAreas[i].setEditable(false);
+
+            // JScrollPaneを作成
+            JScrollPane scrollPane = new JScrollPane(explanationTextAreas[i]);
+            scrollPane.setPreferredSize(new Dimension(500, 9000));
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+            // タブに追加（ファイル名をタブ名として使用）
+            tabbedPane.add(guidePath.getFileName().toString(), scrollPane);
+        }
 
         // Finalize
         basePanel.add(tabbedPane, BorderLayout.EAST);
@@ -91,42 +69,28 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
     public void postInitialize() {
 
         /* ** 説明文を書き込む ** */
-        // DE Guide
-        try {
-            StringBuilder content = new StringBuilder();
-            try (java.io.BufferedReader reader = new java.io.BufferedReader(
-                    new java.io.InputStreamReader(
-                            new java.io.FileInputStream(guideFilePath_of_DE.toFile()),
-                            java.nio.charset.StandardCharsets.UTF_8))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    content.append(line).append("\n");
-                }
-            }
-            explanationTextArea_for_DE.setText(content.toString());
-            explanationTextArea_for_DE.setCaretPosition(0);
-        } catch (java.io.IOException e) {
-            explanationTextArea_for_DE.setText("Error loading guide file: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // GUIDES配列をループしてガイドファイルの内容を読み込む
+        for (int i = 0; i < GUIDES.length; i++) {
+            String guideFilePath = GUIDES[i];
+            Path guidePath = Paths.get(guideFilePath);
 
-        // QA Guide
-        try {
-            StringBuilder content = new StringBuilder();
-            try (java.io.BufferedReader reader = new java.io.BufferedReader(
-                    new java.io.InputStreamReader(
-                            new java.io.FileInputStream(guideFilePath_of_QA.toFile()),
-                            java.nio.charset.StandardCharsets.UTF_8))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    content.append(line).append("\n");
+            try {
+                StringBuilder content = new StringBuilder();
+                try (java.io.BufferedReader reader = new java.io.BufferedReader(
+                        new java.io.InputStreamReader(
+                                new java.io.FileInputStream(guidePath.toFile()),
+                                java.nio.charset.StandardCharsets.UTF_8))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        content.append(line).append("\n");
+                    }
                 }
+                explanationTextAreas[i].setText(content.toString());
+                explanationTextAreas[i].setCaretPosition(0);
+            } catch (java.io.IOException e) {
+                explanationTextAreas[i].setText("Error loading guide file: " + e.getMessage());
+                e.printStackTrace();
             }
-            explanationTextArea_for_QA.setText(content.toString());
-            explanationTextArea_for_QA.setCaretPosition(0);
-        } catch (java.io.IOException e) {
-            explanationTextArea_for_QA.setText("Error loading guide file: " + e.getMessage());
-            e.printStackTrace();
         }
 
 
@@ -134,14 +98,13 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
 
         for (SubTabsHolderConfig config : SubTabsHolderConfig.values()) {
             String sub_tabs_holder_name = config.getHolderName();
-            //QACR_SubTabsHolder subTabsHolder_QACR = (QACR_SubTabsHolder) this.cholderMediator.getInstanceOfAMember(sub_tabs_holder_name);
             SubTabsHolderItrfc subTabsHolder = (SubTabsHolderItrfc) this.cholderMediator.getInstanceOfAMember(sub_tabs_holder_name);
             if (subTabsHolder != null) {
                 ArrayList<ManagerOfSubTabBasePane> managersOfSubTabBasePane = subTabsHolder.getArrayList_of_ManagerOfSubTabBasePane();
                 for (ManagerOfSubTabBasePane managerOfSubTabBasePane : managersOfSubTabBasePane) {
-                    String sectionType = managerOfSubTabBasePane.getSectionType();
                     String subSectionName = managerOfSubTabBasePane.getSubSectionName();
-                    String subsetExplanation = getSubsetOfExplanation(sectionType, subSectionName);
+                    // sub_tabs_holder_name からガイドファイルを特定して説明を抽出
+                    String subsetExplanation = getSubsetOfExplanation(sub_tabs_holder_name, subSectionName);
                     managerOfSubTabBasePane.addExplanationToNotePane(subsetExplanation);
                 }
             } else {
@@ -152,24 +115,27 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
 
     }
 
-    private String getSubsetOfExplanation(String sectionType, String subSectionName) {
-        String DEorQA = sectionType;
-        String subsetOfExplanation = "";
-        if (DEorQA.equals("DE")) {
-            // guideFilePath_of_DE が指し示すファイルから、subSectionName に関する部分を抜き出し、subsetOfExplanation に格納
-            subsetOfExplanation = extractSectionFromGuide(guideFilePath_of_DE, subSectionName);
+    /**
+     * sub_tabs_holder_name からガイドファイルを特定し、該当セクションの説明を抽出する
+     *
+     * @param sub_tabs_holder_name 例: "sub_tabs_holder_DESI"
+     * @param subSectionName 例: "si1_first_author", "rci2_dataset_name"
+     * @return 抽出された説明文
+     */
+    private String getSubsetOfExplanation(String sub_tabs_holder_name, String subSectionName) {
+        // sub_tabs_holder_name から対応するガイドファイルパスを取得
+        SubTabsHolderConfig config = SubTabsHolderConfig.fromHolderName(sub_tabs_holder_name);
 
-        } else if (DEorQA.equals("QA")) {
-            // guideFilePath_of_QA が指し示すファイルから、subSectionName に関する部分を抜き出し、subsetOfExplanation に格納
-            subsetOfExplanation = extractSectionFromGuide(guideFilePath_of_QA, subSectionName);
-        } else {
-            // Unknown Section
-            System.err.println("Unknown section name was specified: " + DEorQA + ".");
-            System.err.println("Please check the code: @" + this.getClass());
+        if (config == null) {
+            System.err.println("Unknown sub_tabs_holder_name: " + sub_tabs_holder_name);
+            System.err.println("Cannot determine guide file. @" + this.getClass());
+            return "Error: Unable to determine guide file for holder: " + sub_tabs_holder_name;
         }
-        return subsetOfExplanation;
-    }
 
+        // 対応するガイドファイルから説明を抽出
+        Path guideFilePath = Paths.get(config.getGuideFilePath());
+        return extractSectionFromGuide(guideFilePath, subSectionName);
+    }
 
 
     private String extractSectionFromGuide(Path guideFilePath, String subSectionName) {
@@ -254,8 +220,15 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
         return "#### " + letters + "-" + number + ".";
     }
 
+    /**
+     * 最初のタブ（index 0）のテキストを設定する
+     *
+     * @param text 設定するテキスト
+     */
     public void setText(String text) {
-        explanationTextArea_for_DE.setText(text);
+        if (explanationTextAreas != null && explanationTextAreas.length > 0) {
+            explanationTextAreas[0].setText(text);
+        }
     }
 
     @Override

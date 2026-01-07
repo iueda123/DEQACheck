@@ -45,16 +45,16 @@ public class SaveNotePaneTextsAction extends AbstActionMember {
         System.out.println("perform() in " + this.getClass().toString() + " was called.");
 
         // 全セクションに拡張可能
-        saveNotePaneState("DESI", "./settings/" + authorYear + "/NotePane/" + "study_identification_of_de" + ".prop");
-        saveNotePaneState("DESC", "./settings/" + authorYear + "/NotePane/" + "study_characteristics_of_de" + ".prop");
-        saveNotePaneState("DERCI", "./settings/" + authorYear + "/NotePane/" + "reference_cohort_and_imaging_of_de" + ".prop");
-        saveNotePaneState("DENM", "./settings/" + authorYear + "/NotePane/" + "normative_modeling_of_de" + ".prop");
-        saveNotePaneState("DECAA", "./settings/" + authorYear + "/NotePane/" + "clinical_application_and_analysis_of_de" + ".prop");
-        saveNotePaneState("DEGN", "./settings/" + authorYear + "/NotePane/" + "general_notes_of_de" + ".prop");
+        saveNotePaneState("DESI", "./data/" + authorYear + "/NotePane/" + "study_identification_of_de" + ".prop");
+        saveNotePaneState("DESC", "./data/" + authorYear + "/NotePane/" + "study_characteristics_of_de" + ".prop");
+        saveNotePaneState("DERCI", "./data/" + authorYear + "/NotePane/" + "reference_cohort_and_imaging_of_de" + ".prop");
+        saveNotePaneState("DENM", "./data/" + authorYear + "/NotePane/" + "normative_modeling_of_de" + ".prop");
+        saveNotePaneState("DECAA", "./data/" + authorYear + "/NotePane/" + "clinical_application_and_analysis_of_de" + ".prop");
+        saveNotePaneState("DEGN", "./data/" + authorYear + "/NotePane/" + "general_notes_of_de" + ".prop");
 
-        saveNotePaneState("QACM", "./settings/" + authorYear + "/NotePane/" + "common_part_of_qa" + ".prop");
-        saveNotePaneState("QANM", "./settings/" + authorYear + "/NotePane/" + "normative_modeling_part_of_qa" + ".prop");
-        saveNotePaneState("QACR", "./settings/" + authorYear + "/NotePane/" + "clinical_research_part_of_qa" + ".prop");
+        saveNotePaneState("QACM", "./data/" + authorYear + "/NotePane/" + "common_part_of_qa" + ".prop");
+        saveNotePaneState("QANM", "./data/" + authorYear + "/NotePane/" + "normative_modeling_part_of_qa" + ".prop");
+        saveNotePaneState("QACR", "./data/" + authorYear + "/NotePane/" + "clinical_research_part_of_qa" + ".prop");
 
     }
 
