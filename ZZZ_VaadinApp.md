@@ -62,14 +62,14 @@ fuser -k 8080/tcp
  
 --------
 
-## DS920上へ配備するときのポイント
+## サーバー上へ配備するときのポイント
 
 ```bash
 # バックグラウンド実行
-java -jar DEQACheck-VaadinApp-v********.jar &
+java -jar XXX.jar &
 
 # プロセスID（PID）を調べて停止
-ps aux | grep DEQACheck-VaadinApp-v*********..jar
+ps aux | grep XXX..jar
 
 # 停止
 kill 12345

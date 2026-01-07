@@ -58,14 +58,14 @@ public class BasePaneCreator {
 
     //-----------------------
 
-    tabbedPane.add("7. QA-CM", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_QACM")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(6, "Common Part of QA");
+    //tabbedPane.add("7. QA-CM", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_QACM")).getBaseComponent());
+    //tabbedPane.setToolTipTextAt(6, "Common Part of QA");
 
-    tabbedPane.add("8. QA-NM", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_QANM")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(7, "Normative Modeling Part of QA");
+    //tabbedPane.add("8. QA-NM", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_QANM")).getBaseComponent());
+    //tabbedPane.setToolTipTextAt(7, "Normative Modeling Part of QA");
 
-    tabbedPane.add("9. QA-CR", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_QACR")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(8, "Clinical Research Part of QA");
+    //tabbedPane.add("9. QA-CR", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_QACR")).getBaseComponent());
+    //tabbedPane.setToolTipTextAt(8, "Clinical Research Part of QA");
 
     //tabbedPane.add("7. QASI", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_QASI")).getBaseComponent());
     //tabbedPane.setToolTipTextAt(6, "Study Identification of QA");
@@ -81,10 +81,10 @@ public class BasePaneCreator {
 
     //-----------------------
     tabbedPane.add("98. NLM", (cHolderMediator.getInstanceOfAMember("with_notebook_lm_pane_holder")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(9, "NotebookLM");
+    tabbedPane.setToolTipTextAt(6, "NotebookLM");
 
     tabbedPane.add("99. SMRRY", (cHolderMediator.getInstanceOfAMember("summary_pane_holder")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(10, "Summary Pane");
+    tabbedPane.setToolTipTextAt(7, "Summary Pane");
 
     //-----------------------
 

@@ -40,7 +40,7 @@ import jakarta.annotation.security.RolesAllowed;
 public class SummaryView extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";
-    final static String DEQACheckJar = "share_package/jar/DEQACheck-v20251210-all.jar";
+    final static String DEQACheckJar = "share_package/jar/DEQACheck-v20260107-all.jar";
     final static String TEMPLATE_FOR_HUMAN_DE = "share_package/templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json";
 
     // ソートオプション
@@ -262,8 +262,8 @@ public class SummaryView extends VerticalLayout {
         if (subSectionSize >= 1) appendHeaderCellWithStyle(trHead, "Dataset", "width:16ch;");
         if (subSectionSize >= 2) appendHeaderCellWithStyle(trHead, "N", "text-align: center;");
         if (subSectionSize >= 3) appendHeaderCell(trHead, "RC Age");
-        if (subSectionSize >= 4) appendHeaderCell(trHead, "Sex");
-        if (subSectionSize >= 5) appendHeaderCell(trHead, "Modality");
+        if (subSectionSize >= 4) appendHeaderCell(trHead, "RCI4\nSex");
+        if (subSectionSize >= 5) appendHeaderCell(trHead, "RCI5\nModality");
         for (int i = 6; i <= subSectionSize; i++) {
             appendHeaderCell(trHead, "RCI" + i);
         }
@@ -404,13 +404,13 @@ public class SummaryView extends VerticalLayout {
     // ヘッダセル（Element API）
     private void appendHeaderCell(Element tr, String text) {
         Element th = new Element("th");
-        th.setAttribute("style", "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+        th.setAttribute("style", "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-line;");
         th.setText(text == null ? "" : text);
         tr.appendChild(th);
     }
     private void appendHeaderCellWithStyle(Element tr, String text, String extraCss) {
         Element th = new Element("th");
-        String base = "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);";
+        String base = "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-line;";
         th.setAttribute("style", base + (extraCss != null ? (" " + extraCss) : ""));
         th.setText(text == null ? "" : text);
         tr.appendChild(th);
@@ -492,11 +492,11 @@ public class SummaryView extends VerticalLayout {
                 || lower.contains("structural mri")
                 || lower.matches(".*\\bsmri\\b.*")
                 || lower.matches(".*\\bt1w\\b.*")) {
-            return "T1w MRI";
+            return "sMRI (T1)";
         }
         // T2w MRI (includes FLAIR)
-        if ((lower.contains("t2-weighted") && lower.contains("mri")) || lower.contains("flair")) {
-            return "T2w MRI";
+        if ((lower.contains("smri (t2)") || lower.contains("t2-weighted") && lower.contains("mri")) || lower.contains("flair") || lower.contains("t2w mri")) {
+            return "sMRI (T2)";
         }
         // fMRI (any)
         if (lower.contains("fmri")) {

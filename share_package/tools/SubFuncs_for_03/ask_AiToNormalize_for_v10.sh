@@ -137,7 +137,9 @@ fi
 # QA用テンプレートファイル
 # this_script_parent は tools/SubFuncs_for_03 なので、../../templates でプロジェクトルートのテンプレートを参照
 #
-TemplateFileForQA=${this_script_parent}/../../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v7.json
+#TemplateFileForQA=${this_script_parent}/../../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v7.json
+
+TemplateFileForQA=${this_script_parent}/../../templates/Author20XX_by_Someone_YYYYmmddHHMMSS_for_QA_v9.json
 
 #
 # DE用テンプレートファイル
@@ -145,7 +147,6 @@ TemplateFileForQA=${this_script_parent}/../../templates/QA_Author20XX_by_Someone
 #TemplateFileForDE=${this_script_parent}/../../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v9.json
 #TemplateFileForDE=${this_script_parent}/../../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10.json
 TemplateFileForDE=${this_script_parent}/../../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json
-
 
 # テンプレートファイル存在確認
 if [[ ! -f ${TemplateFileForDE} ]]; then
