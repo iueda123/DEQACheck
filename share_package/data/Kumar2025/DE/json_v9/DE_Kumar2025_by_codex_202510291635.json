@@ -1,0 +1,252 @@
+{
+  "study_identification": {
+    "study_id": "Kumar2025",
+    "reference_file_names": "Kumar2025.pdf.md; media-1.docx.md; media-3.docx.md",
+    "author_journal_year": "Kumar et al., Alzheimer's & Dementia, 2025",
+    "title": "Analyzing heterogeneity in Alzheimer disease using multimodal normative modeling on imaging-based ATN biomarkers",
+    "doi": "NR"
+  },
+  "study_characteristics": {
+    "study_objective": "Train a multimodal variational autoencoder (mmVAE) normative model on amyloid-negative cognitively unimpaired controls to quantify individual-level deviations across ATN biomarkers in the Alzheimer’s disease spectrum, derive a disease severity index (DSI), and evaluate its associations with dementia severity, cognition, and progression; replicate findings in an independent cohort.",
+    "study_design": "Cross-sectional",
+    "study_design_other": "-"
+  },
+  "reference_cohort_and_imaging": {
+    "dataset_name": {
+      "answer": "ADNI; Knight ADRC",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "The discovery dataset is ADNI and replication uses the Knight ADRC cohort.",
+      "supporting_text": "We constructed a discovery dataset consisting of individuals from ADNI and a replication dataset consisting of individuals from the Charles F. and Joanne Knight ADRC...",
+      "location": "materials/Kumar2025.pdf.md:L64-L68"
+    },
+    "hc_n": {
+      "answer": "ADNI-CU: 434; ADRC-CU: 301",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Counts of amyloid-negative cognitively unimpaired reference groups are reported for both datasets.",
+      "supporting_text": "A total of 434 amyloid-negative CU participants were included in the reference control group (ADNI-CU)… For ADRC, the reference group (ADRC-CU) consisted of 301 amyloid-negative CU individuals.",
+      "location": "materials/Kumar2025.pdf.md:L66-L68"
+    },
+    "hc_age": {
+      "answer": "ADNI-CU: mean 71.5, SD 7.2; ADRC-CU: mean 68.2, SD 7.3; range NR",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Mean and SD for CU groups are provided in Table S1; no age range reported.",
+      "supporting_text": "Age (mean +/- SD) | 71.5 +/- 7.2 | 68.2 +/- 7.3",
+      "location": "materials/media-3.docx.md:L96-L100"
+    },
+    "hc_sex": {
+      "answer": "ADNI-CU: M 205 (47.3%), F 229 (52.7%); ADRC-CU: M 127 (42.2%), F 174 (57.8%)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Male:female counts for CU cohorts are listed; percentages computed from reported totals.",
+      "supporting_text": "Sex, Male: Female | 205:229 | 127:174",
+      "location": "materials/media-3.docx.md:L96-L100"
+    },
+    "imaging_modality": {
+      "answer": "T1-weighted MRI; Amyloid PET (Florbetapir); Tau PET (Flortaucipir)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Study uses T1-weighted MRI and amyloid/tau PET (FBP/FTP) across both datasets.",
+      "supporting_text": "ADNI participants underwent amyloid-PET imaging with either [18F]Florbetapir (FBP) … and tau-PET imaging with [18F]-Flortaucipir (FTP)… participants were required to have T1-weighted MRI.",
+      "location": "materials/Kumar2025.pdf.md:L64-L66;L92-L104"
+    },
+    "analysis_level": {
+      "answer": "ROI-level",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Analyses are performed on regional measures with 90 ROIs per modality (270 total features).",
+      "supporting_text": "input matrix had dimensions of 326 × 270 (subjects x ROIs, with 90 ROIs for each modality).",
+      "location": "materials/Kumar2025.pdf.md:L124-L126"
+    },
+    "preprocessing_pipeline": {
+      "answer": "FreeSurfer v6.0 (ADNI T1/PET ROIs); FreeSurfer v5.3 (Knight ADRC T1); PUP (Knight ADRC PET); ADNI PET pre-processing per ADNI protocols",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Not Negative",
+      "reason": "Text specifies FreeSurfer v6 for ADNI-linked T1 for PET registration, and FreeSurfer v5.3 plus PET Unified Pipeline for Knight ADRC; ADNI PET pre-processing referenced to ADNI protocol.",
+      "supporting_text": "…registered to the nearest T1-weighted image, which was subsequently processed with FreeSurfer version 6… All PET images from Knight ADRC … were processed using the PET Unified Pipeline (https://github.com/ysu001/PUP). … The co-registered T1-weighted images were processed using FreeSurfer (version 5.3)…",
+      "location": "materials/Kumar2025.pdf.md:L102-L106; materials/media-3.docx.md:L15-L23"
+    },
+    "quality_checking": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Not Negative",
+      "reason": "Supplementary methods state that images failing a quality control check were reprocessed; no numeric thresholds reported.",
+      "supporting_text": "For all images failing a quality control check, the processing pipeline was rerun to ensure consistency across all scans.",
+      "location": "materials/media-3.docx.md:L11-L14"
+    },
+    "quality_checking_detail": {
+      "answer": "Images failing QC were rerun in the processing pipeline; no thresholds or exclusion counts reported.",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Unclear/Incomplete",
+      "reason": "QC is mentioned but without explicit metrics or exclusion numbers.",
+      "supporting_text": "For all images failing a quality control check, the processing pipeline was rerun to ensure consistency across all scans.",
+      "location": "materials/media-3.docx.md:L11-L14"
+    },
+    "site_effect_handling": {
+      "answer": "None",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Not Negative",
+      "reason": "No explicit modeling of site/scanner effects; tracer variability mitigated by restricting to FBP; cross-cohort adaptation via transfer learning.",
+      "supporting_text": "To avoid harmonization issues due to multiple tracers, we only included data collected using FBP… For replication … mmVAE pretrained on ADNI-CU-train underwent fine-tuning on ADRC-CU-tl through transfer learning.",
+      "location": "materials/Kumar2025.pdf.md:L92-L106;L124-L128"
+    },
+    "site_effect_handling_detail": {
+      "answer": "Restricted amyloid PET to FBP to avoid across-tracer harmonization; no ComBat or explicit site/scanner covariates; adapted to ADRC via transfer learning.",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Not Negative",
+      "reason": "Details reflect mitigation strategies rather than formal harmonization.",
+      "supporting_text": "…only included data collected using FBP… mmVAE … underwent fine-tuning on ADRC-CU-tl through transfer learning.",
+      "location": "materials/Kumar2025.pdf.md:L92-L106;L124-L128"
+    }
+  },
+  "normative_modeling": {
+    "model_origin": {
+      "answer": "New",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "mmVAE was trained on ADNI CU controls and then adapted to ADRC; not a pre-trained external model.",
+      "supporting_text": "Initially, mmVAE was trained using the ADNI-CU-train set … For replication … underwent fine-tuning on ADRC-CU-tl.",
+      "location": "materials/Kumar2025.pdf.md:L124-L128"
+    },
+    "model_origin_detail": {
+      "answer": "-",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Not applicable because the model is newly trained within this study.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "modeling_method": {
+      "answer": "Deep Learning (Multimodal Variational Autoencoder; mmVAE)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "The normative model is explicitly described as a multimodal variational autoencoder.",
+      "supporting_text": "…previously validated deep learning-based normative modeling framework… based on a multimodal variational autoencoder (mmVAE)…",
+      "location": "materials/Kumar2025.pdf.md:L120-L126"
+    },
+    "software_tool": {
+      "answer": "NR",
+      "confidence_rating": "Low",
+      "negative_answer_category": "Missing",
+      "reason": "No specific software package or library (e.g., PyTorch/TensorFlow) is reported in the provided materials.",
+      "supporting_text": "No explicit mention of implementation framework in main or supplementary materials.",
+      "location": "materials/Kumar2025.pdf.md; materials/media-3.docx.md (no mention)"
+    },
+    "response_variable": {
+      "answer": "Cortical and subcortical gray matter volumes; Amyloid PET SUVR (FBP); Tau PET SUVR (FTP)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Inputs comprise ROI-level MRI volumes and PET SUVR values for amyloid and tau.",
+      "supporting_text": "…input cross-sectional ATN biomarker data including regional gray matter volumes, as well as amyloid FBP and tau FTP SUVR values…",
+      "location": "materials/Kumar2025.pdf.md:L120-L126;L102-L106"
+    },
+    "predictor_variables": {
+      "answer": "Age; Sex",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Model was conditioned on age and sex to remove covariate effects.",
+      "supporting_text": "mmVAE was conditioned on the age and sex of participants to remove the effect of covariates…",
+      "location": "materials/Kumar2025.pdf.md:L120-L126; materials/media-3.docx.md:L53-L58"
+    },
+    "predictor_effects": {
+      "answer": "Covariates (age, sex) included as inputs via one-hot encoding; no fixed/random effect specification.",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Supplementary methods describe covariate conditioning via one-hot vectors; no hierarchical random effects described.",
+      "supporting_text": "Both age and sex were transformed into one-hot encoding vectors… decoders used these vectors together with the latent code.",
+      "location": "materials/media-3.docx.md:L53-L58"
+    },
+    "nm_vldtn_handle_ns": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Unclear/Incomplete",
+      "reason": "Age and sex are modeled as covariates, and tracer variation mitigated by restricting to FBP. No explicit handling of site/scanner effects or heteroscedasticity is reported.",
+      "supporting_text": "mmVAE was conditioned on the age and sex… To avoid harmonization issues due to multiple tracers, we only included data collected using FBP…",
+      "location": "materials/Kumar2025.pdf.md:L120-L126;L92-L100; materials/media-3.docx.md:L53-L58"
+    },
+    "nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Missing",
+      "reason": "Validation uses held-out splits within ADNI (CU-holdout/test; ADS groups) rather than reusing training subjects; thus no non-independent same-domain validation reported.",
+      "supporting_text": "The ADNI-CU group was divided into train/holdout/test (75:15:10).",
+      "location": "materials/Kumar2025.pdf.md:L68-L72"
+    },
+    "nm_vldtn_same_domain_indep": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Model performance and deviation statistics are compared using held-out and test subsets within ADNI and applied to ADNI ADS subjects not used in training.",
+      "supporting_text": "ADNI-CU split into train/holdout/test; ADS groups compared to CU-test; deviations standardized using CU-holdout.",
+      "location": "materials/Kumar2025.pdf.md:L68-L76;L128-L136"
+    },
+    "nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Findings replicated in an independent Knight ADRC dataset with transfer learning.",
+      "supporting_text": "The results were replicated in an independent dataset … Knight ADRC … mmVAE … underwent fine-tuning on ADRC-CU-tl through transfer learning.",
+      "location": "materials/Kumar2025.pdf.md:L58-L66;L124-L128"
+    }
+  },
+  "clinical_application_and_analysis": {
+    "clinical_dataset": {
+      "answer": "ADNI; Knight ADRC",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Clinical analyses conducted across AD spectrum in ADNI with replication in Knight ADRC.",
+      "supporting_text": "We constructed a discovery dataset consisting of individuals from ADNI and a replication dataset … Knight ADRC.",
+      "location": "materials/Kumar2025.pdf.md:L64-L68"
+    },
+    "diseases_studied": {
+      "answer": "Alzheimer's Disease (AD)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Study targets Alzheimer's disease spectrum.",
+      "supporting_text": "Analyzing heterogeneity in Alzheimer disease … across ATN biomarkers.",
+      "location": "materials/Kumar2025.pdf.md:L7-L14"
+    },
+    "clinical_groups_n": {
+      "answer": "ADNI-ADS: CDR=0 (preclinical AD): 121; CDR=0.5: 80; CDR≥1: 30. ADRC-ADS: CDR=0: 98; CDR=0.5: 24; CDR≥1: 7",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Counts per CDR-defined groups are provided for both datasets.",
+      "supporting_text": "ADNI-ADS… CDR = 0 (n = 121), CDR = 0.5 (n = 80), and CDR ≥ 1 (n = 30)… ADRC-ADS… 98, 24, and 7, respectively.",
+      "location": "materials/Kumar2025.pdf.md:L68-L72"
+    },
+    "clinical_groups_age": {
+      "answer": "ADNI-ADS: 73.6 ± 6.9 years; ADRC-ADS: 71.5 ± 8.3 years",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Age means and SDs reported for ADS cohorts in Table 1.",
+      "supporting_text": "Age (mean ± SD) | 73.6 ± 6.9 | 71.5 ± 8.3",
+      "location": "materials/Kumar2025.pdf.md:L170-L178; materials/media-1.docx.md:L6-L8"
+    },
+    "clinical_groups_sex": {
+      "answer": "ADNI-ADS: M 108 (46.8%), F 123 (53.2%); ADRC-ADS: M 48 (37.2%), F 81 (62.8%)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Male:female counts provided for ADS cohorts; percentages computed.",
+      "supporting_text": "Sex, male:female | 108:123 | 48:81",
+      "location": "materials/Kumar2025.pdf.md:L175-L178; materials/media-1.docx.md:L6-L8"
+    },
+    "deviation_metric": {
+      "answer": "Reconstruction error-based regional Z-scores (standardized using CU-holdout); abnormality defined at |Z|>1.96 (MRI: Z<-1.96; PET: Z>1.96); binary abnormality maps; DSI summarizing extent and magnitude.",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Methods describe deviation computation, normalization to Z-scores, and thresholds; DSI combines abnormal extent and magnitude.",
+      "supporting_text": "…normalize regional deviations… to generate modality-specific Z-score deviations… Z-scores below -1.96 (MRI) and above 1.96 (amyloid/tau) labeled abnormal…",
+      "location": "materials/Kumar2025.pdf.md:L128-L140;L144-L158"
+    },
+    "association_analysis": "Linear regression adjusted for age and sex relating DSI (overall and modality-specific) to neuropsychological composites (memory, executive functioning, language); survival analysis (Kaplan–Meier, log-rank) assessing progression to CDR≥1 by DSI quantiles; group comparisons across CDR stages with effect sizes.",
+    "key_findings_brief": "Multimodal normative deviations and the derived DSI capture individual heterogeneity across ATN, increase with dementia severity, correlate with cognitive impairment, and stratify progression risk; results replicate in an independent cohort.",
+    "key_findings_detailed": "In ADNI, DSI_all increased across CDR stages (CU-test mean=0.06, 95% CI [0.007–0.10]; preclinical AD=0.45 [0.39–0.52]; CDR=0.5=1.1 [0.87–1.25]; CDR≥1=1.8 [1.31–2.26]; pairwise differences FDR<0.05 except 0.5 vs ≥1). ADRC showed similar trends (CU-test=0.006 [0.002–0.008]; preclinical=0.21 [0.12–0.37]; 0.5=0.32 [0.21–0.50]). Higher DSI_all associated with worse cognition (e.g., ADNI memory r≈-0.62, p<0.001), and higher DSI quantiles exhibited greater risk of progression to CDR≥1 in survival analyses.",
+    "key_limitations": "Cohort demographic differences (age/sex) and North America-only samples may limit generalizability; transfer learning cannot fully address domain shifts; future work should include longitudinal cohorts and broader, more diverse populations.",
+    "application_notes": "Conditioned on age/sex; multimodal mmVAE with POE combines modalities; standardized deviations via CU-holdout; thresholded abnormality maps; DSI quantifies extent and magnitude; restricted to FBP tracer to avoid harmonization; transfer learning for cross-cohort replication."
+  },
+  "general_notes": {
+    "general_notes": "ROIs: 90 per modality (270 total features). PET SUVR normalization: ADNI—whole cerebellum (amyloid) and inferior cerebellar gray (tau); ADRC—cerebellum cortex for both."
+  }
+}

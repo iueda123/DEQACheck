@@ -1,0 +1,1304 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "QA_Guide_v9.md に従って作業をしてください。作業結果は Chan2025A_by_codex_20260107101546_for_QA_v9.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.73.0 (research preview)
+--------
+workdir: /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized
+model: gpt-5.1-codex-max
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019b9606-3be3-7630-8edc-67ddd6489046
+--------
+user
+QA_Guide_v9.md に従って作業をしてください。作業結果は Chan2025A_by_codex_20260107101546_for_QA_v9.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Listing files for QA_Guide_v9**
+exec
+/bin/bash -lc ls in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 18ms:
+1-s2.0-S1878929324001440-mmc1.docx.md
+1-s2.0-S1878929324001440-mmc1_artifacts
+Chan2025A.pdf.md
+Chan2025A_artifacts
+Chan2025A_by_codex_20260107101546_for_QA_v9.json
+Chan2025A_by_codex_20260107101546_for_QA_v9.log
+QA_Guide_v9.md
+
+thinking
+**Opening QA guide**
+exec
+/bin/bash -lc 'cat QA_Guide_v9.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 23ms:
+# Quality Assessment Guidance for Normative Modeling in Neuroimaging: A Systematic Review
+
+Also known as (AKA): The NORMA (Normative Modeling Assessment) Checklist: Reporting Standards for Normative Modeling in Neuroimaging
+
+Version based on `Quality_Assessment_Checklist_20251222.pdf`.
+
+-------------------
+
+## Prompt Overview
+You are a professional reviewer skilled at assessing the quality of research articles on normative modeling in neuroimaging. This assessment is conducted as part of a systematic review on methodological considerations and applications of neuroimaging for psychiatric and neurological disorders.
+
+-------------------
+
+## Our Systematic Review Objectives
+
+This systematic review will evaluate normative modeling studies that use neuroimaging and neurophysiological tests (e.g., MRI, PET, EEG, MEG). The review addresses three questions:
+
+  1. **Modality**: Which measurement techniques have been applied in normative modeling, and how often is each modality used? For common modalities like MRI, what specific sequences (e.g., T-weighted) are most frequently utilized?
+  2. **Methodology**: How are normative modeling studies designed and validated across modalities? We will extract information on sample size, covariates, image preprocessing, statistical models, harmonization procedures, and validation strategies.
+  3. **Clinical scope**: Which psychiatric or neurological conditions have been investigated with normative modeling, and what individual-level deviation patterns or clinical utilities have been reported?
+
+thinking
+**Planning JSON extraction and inspection**
+
+I'm opening the existing JSON and related PDF/markdown files to understand their structure and contents, aiming to devise a clear, manageable plan for extracting and filling the JSON data without handling overly large files at once.
+exec
+/bin/bash -lc "sed -n '1,200p' Chan2025A_by_codex_20260107101546_for_QA_v9.json" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 25ms:
+{
+  "study_identification_part": {
+    "si1_study_id": "",
+    "si2_reference_file_names": "",
+    "si3_author_journal_year": "",
+    "si4_title": "",
+    "si5_doi": ""
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "",
+      "confidence_rating": "",
+      "reason": "",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "",
+
+thinking
+**Planning multi-step extraction from docs**
+
+I'm preparing to read the converted PDFs to extract and parse information on normative modeling, then fill JSON output accordingly using an updated multi-step plan.
+Plan update
+  → Skim main paper markdown to understand study, modality, data, and methods
+  • Review supplement markdown for details on sample, imaging, modeling, and validation
+  • Populate QA JSON per QA_Guide_v9 requirements
+
+thinking
+**Sampling main paper start**
+
+I'm extracting the first 200 lines of the main paper to get an overview and decide how to summarize or process it further.
+exec
+/bin/bash -lc "sed -n '1,200p' Chan2025A.pdf.md" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 31ms:
+![Image](./Chan2025A_artifacts/image_000000_6b1b8625b769f27703e2e60f691cf84d823d04dc257b3fbf0d5df7bb15a8e342.png)
+
+Contents lists available at ScienceDirect
+
+## Developmental Cognitive Neuroscience
+
+journal homepage: www.elsevier.com/locate/dcn
+
+## Social behavior in ASD males: The interplay between cognitive flexibility, working memory, and functional connectivity deviations ☆
+
+![Image](./Chan2025A_artifacts/image_000001_35ea5ff483daecb25242fa06d5f02e8f92030bafa6131eca38ffa1858181297d.png)
+
+Shi Yu Chan a , Jasmine Si Min Chuah a , Pei Huang a , Ai Peng Tan
+
+a,b,c,*
+
+- a Institute for Human Development and Potential (IHDP), Agency for Science, Technology and Research (A*STAR), 30 Medical Dr, Singapore 117609, Singapore
+- b Yong Loo Lin School of Medicine, National University of Singapore (NUS), 10 Medical Dr, Singapore 117597, Singapore
+- c Department of Diagnostic Imaging, National University Health System, 1E Kent Ridge Rd, Singapore 119228, Singapore
+
+
+thinking
+**Assessing normative modeling details and validation**
+
+I'm confirming the study used an 80/20 train/test split with non-ASD controls for building and applying normative models, which counts as partial internal validation without cross-validation or performance metrics reported. External validation on independent datasets wasn't done, but sample characteristics per partition and software versions are documented; next, I'll check data and code availability statements.
+exec
+/bin/bash -lc 'rg -n "Data availability|Code availability|Availability" Chan2025A.pdf.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 28ms:
+274:## Data availability
+exec
+/bin/bash -lc "sed -n '260,340p' Chan2025A.pdf.md" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 30ms:
+## Declaration of Competing Interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+## Acknowledgements
+
+The authors would like to thank the project directors and team behind the Autism Brain Imaging Data Exchange.
+
+SYC is supported by funding from the National Medical Research Council, Singapore (NMRC) Open Fund -Young Individual Research Grant (MOH-001149 -00). APT is supported by funding from the NMRC Transition Award (MOH-001273 -00).
+
+## Appendix A. Supporting information
+
+Supplementary data associated with this article can be found in the online version at doi:10.1016/j.dcn.2024.101483.
+
+## Data availability
+
+Data for the current study is publicly available.
+
+## References
+
+
+thinking
+**Checking supplementary materials for inclusion criteria**
+
+I'll open the supplementary material document to find details about inclusion criteria or Supplementary Table 1 that might clarify participant selection.
+exec
+/bin/bash -lc "sed -n '1,200p' 1-s2.0-S1878929324001440-mmc1.docx.md" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 29ms:
+**Supplementary Online Content**
+
+**Social Behavior in ASD Males: The Interplay between Cognitive Flexibility, Working Memory and Between-Network Functional Connectivity Atypicality**
+
+Supplementary Fig 1 Study flow chart
+
+Supplementary Fig 2 Age distribution of training and testing datasets
+
+Supplementary Fig 3 Spread of FC across sites before and after ComBat harmonization
+
+Supplementary Fig 4 VANxDMN\_z and SRS Subscales Scores plots
+
+Supplementary Fig 5 Differences between ASD males and controls in the testing dataset
+
+Supplementary Table 1: Site-specific inclusion and exclusion criteria
+
+Supplementary Table 2 Site-Specific MRI Acquisition parameters
+
+Supplementary Tables 3a-b ComBat Harmonization
+
+
+thinking
+**Reviewing supplement and clinical data details**
+
+I'm verifying inclusion/exclusion criteria references, clinical measure locations, and interpretation of deviation scores in methods and main text, noting partial explanation of thresholds. I'm also checking publication metadata like title, journal, DOI, and year to confirm citation details accurately.
+exec
+/bin/bash -lc 'rg -n "2024" Chan2025A.pdf.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 29ms:
+65:Resting-state fMRI (rs-fMRI) data was processed as previously described (Chan et al., 2024), with the default pre-processing and de-noising pipelines using the CONN Toolbox v20b (Whitfield-Gabrieli and Nieto-Castanon, 2012). Scans underwent realignment with SPM12 realign &amp; unwarp procedure (Andersson et al., 2001). Temporal misalignment between different slices of the functional data was
+272:Supplementary data associated with this article can be found in the online version at doi:10.1016/j.dcn.2024.101483.
+294:- Chan, S.Y., Ngoh, Z.M., Ong, Z.Y., Teh, A.L., Kee, M.Z.L., Zhou, J.H., Fortier, M.V., et al., 2024. The influence of early-life adversity on the coupling of structural and functional brain connectivity across childhood. Nat. Ment. Health.
+
+thinking
+**Gathering exact line numbers for training/testing split**
+
+I'm preparing to extract precise line numbers from the primary markdown file to accurately cite the training/testing dataset split and other key methodological details.
+exec
+/bin/bash -lc "nl -ba Chan2025A.pdf.md | sed -n '34,120p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 26ms:
+    34	
+    35	While early behavioral markers lack the necessary sensitivity and specificity to accurately predict subsequent diagnoses of ASD, the existence of these early behavioral changes imply that aberrant brain development precedes the onset of readily diagnosable symptoms. Studies of neurodevelopmental disorders are now increasingly focused on understanding how disturbances in large-scale brain networks contribute to cognitive and affective dysfunctions (Menon, 2011). Of note, the ventral attention network (VAN), fronto-parietal network (FPN), default mode network (DMN), and the connectivity between them are associated with internally and externally-directed cognitive processing and social behavior, areas that are affected in ASD. For example, atypical interactions between the DMN and VAN might contribute to a lack of engagement with social stimuli in ASD (Menon, 2011). Neuroimaging research has uncovered a wealth of evidence that
+    36	
+    37	☆ Location of work: Translational Neuroscience, Institute for Human Development and Potential, 30 Medical Drive, Singapore 117609
+    38	
+    39	* Corresponding author at: Department of Diagnostic Imaging, National University Health System, 1E Kent Ridge Rd, Singapore 119228, Singapore. E-mail address: dnrtanap@nus.edu.sg (A.P. Tan).
+    40	
+    41	![Image](./Chan2025A_artifacts/image_000002_621f2f4b78da3a7002888729029552a470a76e4958e06c7e5cbd75f580c41093.png)
+    42	
+    43	![Image](./Chan2025A_artifacts/image_000003_0d2893016a2590b58a23ec695f85b5ab75f4d002a4ed4c4fe76067e2664401af.png)
+    44	
+    45	has led to an emerging model of abnormal brain connectivity in ASD (Ecker et al., 2015; Hernandez et al., 2015; Rane et al., 2015). Evidence from electrophysiology and functional neuroimaging (Vissers et al., 2012), as well as molecular genetics (Hashem et al., 2020), also support the tenet that ASD is characterized by atypical neural connectivity. Between-network connectivity increases with age in neurotypical individuals (Power et al., 2010), but not in autistic individuals (Padmanabhan et al., 2017). Therefore, it is plausible that deviations from normative trajectories of network development may underlie social behavioral problems in autistic individuals. Functional connectivity-based measures are likely to be a more proximal measure of behavior relative to structural-based measures, and thus potentially a more reliable biomarker (Ooi et al., 2022). In addition, functional-based measures are more dynamic and can potentially act as targets for intervention. For example, both cognitive behavioral therapy and trans-cranial magnetic stimulation have shown efficacy in altering functional connectivity as interventions for psychiatric disorders (Corlier et al., 2019; Sandman et al., 2020). Thus, we focus on between-network resting-state functional connectivity (rsFC) in our current study. To our knowledge, the present study is the first to directly investigate whether between-network connectivity in autistic individuals deviates from normative developmental trajectories.
+    46	
+    47	One of the primary obstacles impeding the clinical application of neurobiological markers is our inability to utilize these indicators for individual-level assessment. Normative modeling is an established technique for providing inferences at the level of the individual and has proved useful in dissecting the heterogeneity across clinical cohorts (Bethlehem et al., 2020; Wolfers et al., 2020; Zabihi et al., 2019). It is an appealing approach considering that many brain disorders stem from atypical brain development (Insel, 2014). Thus, deviations from a normative trajectory may reflect atypical brain development at a specific time-point. Understanding individual variations in such deviations allow us to potentially identify subgroups that share similar neurobiological patterns, that may in turn explain the heterogeneity observed in clinical symptoms. Prior work on the construction of normative models has focused on structural features such as cortical thickness and regional volume (Bethlehem et al., 2020; Rutherford et al., 2022). However, changes in brain functional connectivity, which are central to the underlying mechanisms of ASD, are not well known. Establishing the link between functional connectivity alterations and ASD symptoms at an individual level will form the critical first step for precision diagnosis and treatment in ASD.
+    48	
+    49	Executive function is a complex multifactorial construct (Sylvester et al., 2003) that involves various cognitive processes, including planning, cognitive flexibility, working memory, inhibition, initiation, and monitoring of action (Miyake and Friedman, 2012; Miyake et al., 2000). Executive dysfunction is evident in various fundamental aspects of ASD, encompassing both social and non-social domains. Autistic individuals have reported difficulties with planning (Hill, 2004), cognitive flexibility (Ozonoff and Jensen, 1999), working memory (Barendse et al., 2013), and monitoring of action (Russell and Jarrold, 1998). Theory of mind, which is believed to be core to socio-communication difficulties in ASD, is also strongly interconnected with executive function. It has been suggested that the development of executive functions facilitates the emergence of theory of mind (Prior and Hoffmann, 1990). Hence, atypical executive function development could also contribute to social behavioral difficulties observed in autistic children. Another perspective argues that strong executive function protects children who are at increased likelihood of developing neurodevelopmental disorders such as ASD by compensating for deficits in other brain systems (Johnson, 2012). Given that alterations in rsFC have also shown associations with executive dysfunction (Reineberg et al., 2018), inter-individual differences in rsFC may have an impact on both executive function and social behavior. Despite extensive evidence linking both executive dysfunction and alterations in brain connectivity with social difficulties in ASD, a unifying model which links these three factors is still not fully established. There is also a lack of consensus as to which executive function domains are implicated in social behavioral problems observed in children with ASD, in relation to the alterations in brain connectivity.
+    50	
+    51	We posit that social behavioral problems observed in children with ASD are attributed to deviations in between-network rsFC from the established norm. To test this hypothesis, we used data from the ABIDE consortium (Di Martino et al., 2014). We focused exclusively on males due to the increased prevalence of ASD in males (Werling and Geschwind, 2013) providing us with a greater study sample size and the sex differences observed in neurodevelopmental trajectories (Bethlehem et al., 2022) that would make it inadvisable to study males and females as one cohort. We first generated normative trajectories of between-network rsFC from 321 typically developing males between ages 5 and 14 years using generalized additive models. We then aligned these normative charts to rsFC measures of 418 males with ASD to quantify between-network rsFC deviations at the level of individual participants. Next, we examined the associations between rsFC deviations and distinct domains of social behaviors using sparse canonical correlation analysis. Executive function predicts performance on theory of mind tests but not the reverse (Hughes, 1998). This suggests that social behavioral problems, which are closely associated with deficiencies in theory of mind, can also be partially attributed to difficulties with executive functioning. Hence, we also examined whether executive function mediated the association between atypical rsFC and social behaviors in 151 ASD males. We were interested in exploring this pathway given the potential of executive function as a modifiable target for intervention. We hypothesized that executive dysfunction would significantly mediate the association between rsFC deviations and social difficulties. Finally, a follow-up analysis to examine the mediating role of eight executive function domains was performed.
+    52	
+    53	## 2. Materials and methods
+
+thinking
+**Requesting more lines for modeling**
+exec
+/bin/bash -lc "nl -ba Chan2025A.pdf.md | sed -n '118,190p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 26ms:
+   118	
+   119	## 2.5. Statistical analysis
+   120	
+   121	All statistical analyses were conducted in R v4.3.0 (R Core Team, 2023). Alpha level was set at p &lt; 0.05 (two-tailed unless stated otherwise).
+   122	
+   123	## 2.5.1. Normative modeling and deviation score calculation
+   124	
+   125	For each between-network rsFC ( FCi ), normative trajectories were modeled with Generalized Additive Models (GAMs) for the training dataset using the mgcv package v1.8 -42 (Wood, 2011). To model possible non-linear trajectories, a smoothing function was applied to age (predictor), where the effective degrees of freedom (edf) statistic reflects the degree of non-linearity of a curve. Mean relative motion was included as a co-variate of no interest. The suitability of model parameters was assessed with the GAM.check function. Details of GAM models are reported in Supplementary Table 4.
+   126	
+   127	<!-- formula-not-decoded -->
+   128	
+   129	The normative model was then applied to the testing dataset. Between-network FC was predicted in the testing dataset ( ̂ FCi ). Deviation scores (z) were then calculated by subtracting predicted betweennetwork FC from actual between-network FC, and dividing the difference by the training dataset standard deviation (population standard deviation). These z scores reflect the individual degree of betweennetwork FC atypicality from a typically developing population mean.
+   130	
+   131	Deviation Equation
+   132	
+   133	$$: zi = ( FCi GLYPH<0> FCi ) /$$
+   134	
+   135	̂ SD
+   136	
+   137	## 2.5.2. Sparse canonical correlation analysis
+
+thinking
+**Preparing to locate data availability lines**
+
+Planning to use line numbers around 260 and specifically around line 264 with `nl -ba` to find data availability locations in the file.
+exec
+/bin/bash -lc "nl -ba Chan2025A.pdf.md | sed -n '258,310p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 25ms:
+   258	Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections of the ABIDE initiative, publicly available at http://fcon\_1000.projects.nitrc.org/indi/abide/.
+   259	
+   260	## Declaration of Competing Interest
+   261	
+   262	The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+   263	
+   264	## Acknowledgements
+   265	
+   266	The authors would like to thank the project directors and team behind the Autism Brain Imaging Data Exchange.
+   267	
+   268	SYC is supported by funding from the National Medical Research Council, Singapore (NMRC) Open Fund -Young Individual Research Grant (MOH-001149 -00). APT is supported by funding from the NMRC Transition Award (MOH-001273 -00).
+   269	
+   270	## Appendix A. Supporting information
+   271	
+   272	Supplementary data associated with this article can be found in the online version at doi:10.1016/j.dcn.2024.101483.
+   273	
+   274	## Data availability
+   275	
+   276	Data for the current study is publicly available.
+   277	
+
+thinking
+**Considering line numbering for citations**
+
+I'm assessing whether to include line numbers for supplementary sections to aid citations, planning to use precise line references from the converted doc file only for relevant parts since the file is large.
+exec
+/bin/bash -lc "nl -ba 1-s2.0-S1878929324001440-mmc1.docx.md | sed -n '1,160p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized succeeded in 26ms:
+     1	**Supplementary Online Content**
+     2	
+     3	**Social Behavior in ASD Males: The Interplay between Cognitive Flexibility, Working Memory and Between-Network Functional Connectivity Atypicality**
+     4	
+     5	Supplementary Fig 1 Study flow chart
+     6	
+     7	Supplementary Fig 2 Age distribution of training and testing datasets
+     8	
+     9	Supplementary Fig 3 Spread of FC across sites before and after ComBat harmonization
+    10	
+    11	Supplementary Fig 4 VANxDMN\_z and SRS Subscales Scores plots
+    12	
+    13	Supplementary Fig 5 Differences between ASD males and controls in the testing dataset
+    14	
+    15	Supplementary Table 1: Site-specific inclusion and exclusion criteria
+    16	
+    17	Supplementary Table 2 Site-Specific MRI Acquisition parameters
+    18	
+    19	Supplementary Tables 3a-b ComBat Harmonization
+    20	
+
+thinking
+**Updating plan after review**
+Plan update
+  ✓ Skim main paper markdown to understand study, modality, data, and methods
+  ✓ Review supplement markdown for details on sample, imaging, modeling, and validation
+  → Populate QA JSON per QA_Guide_v9 requirements
+
+thinking
+**Summarizing detailed answers for JSON filling**
+
+I've organized careful answers with reasons, supporting quotes, and locations for all SI, ACRSL fields, clarifying nuanced Partial vs Yes/No decisions and noting citation lines. Next, I'll construct a precise JSON payload reflecting these to input via apply_patch.
+file update
+M /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
+@@ -2,7 +2,7 @@
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Chan2024",
++    "si2_reference_file_names": "Chan2025A.pdf.md; 1-s2.0-S1878929324001440-mmc1.docx.md",
++    "si3_author_journal_year": "Chan et al., Developmental Cognitive Neuroscience, 2024",
++    "si4_title": "Social behavior in ASD males: The interplay between cognitive flexibility, working memory, and functional connectivity deviations",
++    "si5_doi": "10.1016/j.dcn.2024.101483"
+   },
+@@ -10,7 +10,7 @@
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The introduction clearly states the goal to test whether between-network resting-state functional connectivity deviations from normative trajectories map onto social behavior in ASD males, and to examine whether executive function mediates those associations using ABIDE data. These statements directly articulate the study objectives and the intended application of normative modeling.",
++      "supporting_text": "“We posit that social behavioral problems observed in children with ASD are attributed to deviations in between-network rsFC from the established norm. To test this hypothesis, we used data from the ABIDE consortium… We first generated normative trajectories… We then aligned these normative charts to rsFC measures of 418 males with ASD… Next, we examined the associations between rsFC deviations and distinct domains of social behaviors… we also examined whether executive function mediated the association…”",
++      "location": "Chan2025A.pdf.md:51-52"
+     }
+@@ -19,77 +19,77 @@
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The reference cohort comprised non-ASD males aged 5.1–14 years from ABIDE I/II, with site-specific inclusion/exclusion criteria listed in Supplementary Table 1 and motion-based quality control (framewise displacement >0.9 mm or global BOLD changes >5 SD flagged as outliers). Final training/testing sample sizes for controls (321/77) are provided. However, reasons for exclusion at each site or after QC are not detailed, so eligibility and QC standards are partially but not fully documented.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… only males between ages 5.1 -14.0 years were included… The study dataset was then split into training and testing datasets. The training dataset was composed of 80 % of non-ASD males, while the testing dataset was composed of the remaining 20 % of non-ASD males and ASD males.” “Supplementary Table 1 summarizes the site-specific inclusion and exclusion criteria.” “Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers.”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:101; 1-s2.0-S1878929324001440-mmc1.docx.md:65-92"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Age was modeled with a smoothing function, mean relative motion was included as a covariate in the GAMs, and multi-site effects were addressed via ComBat harmonization (neuroCombat v1.0.13), satisfying consideration of demographic and site covariates.",
++      "supporting_text": "“Mean relative motion was included as a co-variate of no interest.” “To account for site effects, we employed the ComBat harmonization method… with the neuroCombat package v1.0.13.”",
++      "location": "Chan2025A.pdf.md:125-126; Chan2025A.pdf.md:105-107"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The reference cohort data source is explicitly identified as ABIDE I and II, a public dataset of ASD and control participants.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections of the ABIDE initiative… a publicly available dataset…”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Imaging data come entirely from existing ABIDE datasets (secondary use), and the item specifies NA for secondary data.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… a publicly available dataset…”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They detail preprocessing using CONN Toolbox v20b with SPM12 realign/unwarp, slice-timing correction, motion/global signal outlier detection, normalization, segmentation, smoothing, nuisance regression, and band-pass filtering, indicating a specified pipeline and QC handling.",
++      "supporting_text": "“Resting-state fMRI (rs-fMRI) data was processed… using the CONN Toolbox v20b… Scans underwent realignment with SPM12 realign & unwarp… Slice-timing correction… Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers… data were normalized… smoothed… nuisance variables… removed… band-pass filtered to… 0.008 and 0.09 Hz.”",
++      "location": "Chan2025A.pdf.md:65-101"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The dataset was partitioned with 80% of non-ASD males for training and 20% for testing, and normative models trained on the training set were applied to the held-out testing set, fulfilling internal partitioning.",
++      "supporting_text": "“The study dataset was then split into training and testing datasets. The training dataset was composed of 80 % of non-ASD males, while the testing dataset was composed of the remaining 20 % of non-ASD males and ASD males.” “Normative models were then applied to the testing dataset (n = 77 non-ASD males; n = 418 ASD males) to derive deviation scores (z).”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:67"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "All modeling and application used ABIDE data only; no independent external healthy dataset beyond ABIDE was used for validation.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II…” (only source described).",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They specify using generalized additive models (mgcv v1.8-42) with age smoothing and motion covariate, assessed via GAM.check, and applied to predict FC and compute z-scores, providing model type and key settings.",
++      "supporting_text": "“Normative trajectories were modeled with Generalized Additive Models (GAMs) for the training dataset using the mgcv package v1.8-42… a smoothing function was applied to age… Mean relative motion was included as a co-variate… The suitability of model parameters was assessed with the GAM.check function.”",
++      "location": "Chan2025A.pdf.md:123-126"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The paper describes fitting GAMs and applying them to derive deviation scores but does not report quantitative performance metrics (e.g., explained variance, prediction error, coverage) for the normative models on training or testing data.",
++      "supporting_text": "“Normative trajectories were derived for each between-network rsFC based on data from the training dataset… These models were then applied to the testing dataset… and the deviation between the predicted FC and actual FC in the testing dataset was calculated.”",
++      "location": "Chan2025A.pdf.md:173-175"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Table 1 reports sample sizes and demographics (age, IQ, SRS, BRIEF, motion) separately for the training controls (n=321) and testing controls (n=77), providing characteristics by partition.",
++      "supporting_text": "“Table 1 Phenotypic characteristics… Training N = 321… Testing (Control) N = 77…” with age, IQ, SRS, BRIEF, and motion values listed.",
++      "location": "Chan2025A.pdf.md:71-99"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions are provided (R 4.3.0, mgcv v1.8-42, PMA v1.2.1, mediation v4.5.0, CONN v20b, neuroCombat v1.0.13, SPM12), and data availability is stated. However, no code, trained model files, or access instructions beyond public data are provided.",
++      "supporting_text": "“All statistical analyses were conducted in R v4.3.0… mgcv package v1.8-42… PMA package v1.2.1… mediation package v4.5.0.” “Resting-state fMRI… processed… using the CONN Toolbox v20b… SPM12…” “To account for site effects, we employed the ComBat harmonization method… neuroCombat package v1.0.13.” “Data for the current study is publicly available.”",
++      "location": "Chan2025A.pdf.md:121-147; Chan2025A.pdf.md:65-107; Chan2025A.pdf.md:274-276"
+     }
+@@ -98,42 +98,42 @@
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Clinical participants (ASD males) were drawn from ABIDE I/II with site-specific inclusion/exclusion criteria listed in Supplementary Table 1, and motion outlier handling described. Final ASD sample size (n=418) is given, but reasons for exclusion and QC attrition are not detailed.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… only males between ages 5.1 -14.0 years were included… n = 816… testing dataset… ASD males [n = 418]. Supplementary Table 1 summarizes the site-specific inclusion and exclusion criteria.” “Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers.”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:67; Chan2025A.pdf.md:101; 1-s2.0-S1878929324001440-mmc1.docx.md:65-92"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relating deviation scores to social behavior and mediation by executive function did not report adjusting for clinical covariates such as medication status, illness duration, or comorbidities; the methods only describe including SRS and BRIEF scores as outcomes/mediators without additional clinical covariates.",
++      "supporting_text": "“Sparse canonical correlation analysis… Only ASD patients were included in this analysis.” “We then examined if executive function significantly mediates the association between between-network deviation scores and social behavioral problems… focused on VANxDMN_z… BRIEF.”",
++      "location": "Chan2025A.pdf.md:137-145; Chan2025A.pdf.md:185-187"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical cohort is specified as ASD participants from the ABIDE I/II datasets, which are publicly available.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections… a publicly available dataset of participants diagnosed with ASD and age-matched non-ASD participants.”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Table 1 provides sample size for ASD testing cohort (n=418) and reports age, IQ, SRS subscales, BRIEF scores, and motion, fulfilling demographic and clinical characteristics reporting.",
++      "supporting_text": "“Table 1… Testing (ASD) N = 418… Age at scan… Full IQ… Social Responsiveness Scale… BRIEF - Global Executive Composite… fMRI Mean Relative Motion (mm).”",
++      "location": "Chan2025A.pdf.md:71-99"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical measures are described, including the SRS (65-item parent-rated scale with five subscales and T-scores) and the BRIEF (86-item questionnaire with eight subscales and GEC T-scores), with scoring details.",
++      "supporting_text": "“The SRS… consists of 65 items… five subscales… Items are scored on a 4-point Likert scale… T-scores… used in our analyses.” “The BRIEF… 86-item questionnaire… eight clinical subscales… Higher scores indicate poorer executive function… Raw scores were linearly transformed to obtain T-scores, which were used in our analyses.”",
++      "location": "Chan2025A.pdf.md:111-118"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "They define deviation z-scores as reflecting individual atypicality from the normative mean and report that more positive deviations are associated with greater social behavioral problems. However, explicit thresholds or categorical definitions for atypicality are not provided.",
++      "supporting_text": "“Deviation scores (z)… reflect the individual degree of between-network FC atypicality from a typically developing population mean.” “Thus, a more positive deviation was associated with greater problems with social behavior.”",
++      "location": "Chan2025A.pdf.md:129-129; Chan2025A.pdf.md:155-156"
+     }
+apply_patch(auto_approved=true) exited 0 in 14ms:
+Success. Updated the following files:
+M Chan2025A_by_codex_20260107101546_for_QA_v9.json
+file update:
+diff --git a/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json b/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..7889072db0fe4ff7f9eac63c876bcf6fd73785e9
+--- a/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
++++ b/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Chan2024",
++    "si2_reference_file_names": "Chan2025A.pdf.md; 1-s2.0-S1878929324001440-mmc1.docx.md",
++    "si3_author_journal_year": "Chan et al., Developmental Cognitive Neuroscience, 2024",
++    "si4_title": "Social behavior in ASD males: The interplay between cognitive flexibility, working memory, and functional connectivity deviations",
++    "si5_doi": "10.1016/j.dcn.2024.101483"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The introduction clearly states the goal to test whether between-network resting-state functional connectivity deviations from normative trajectories map onto social behavior in ASD males, and to examine whether executive function mediates those associations using ABIDE data. These statements directly articulate the study objectives and the intended application of normative modeling.",
++      "supporting_text": "“We posit that social behavioral problems observed in children with ASD are attributed to deviations in between-network rsFC from the established norm. To test this hypothesis, we used data from the ABIDE consortium… We first generated normative trajectories… We then aligned these normative charts to rsFC measures of 418 males with ASD… Next, we examined the associations between rsFC deviations and distinct domains of social behaviors… we also examined whether executive function mediated the association…”",
++      "location": "Chan2025A.pdf.md:51-52"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The reference cohort comprised non-ASD males aged 5.1–14 years from ABIDE I/II, with site-specific inclusion/exclusion criteria listed in Supplementary Table 1 and motion-based quality control (framewise displacement >0.9 mm or global BOLD changes >5 SD flagged as outliers). Final training/testing sample sizes for controls (321/77) are provided. However, reasons for exclusion at each site or after QC are not detailed, so eligibility and QC standards are partially but not fully documented.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… only males between ages 5.1 -14.0 years were included… The study dataset was then split into training and testing datasets. The training dataset was composed of 80 % of non-ASD males, while the testing dataset was composed of the remaining 20 % of non-ASD males and ASD males.” “Supplementary Table 1 summarizes the site-specific inclusion and exclusion criteria.” “Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers.”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:101; 1-s2.0-S1878929324001440-mmc1.docx.md:65-92"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Age was modeled with a smoothing function, mean relative motion was included as a covariate in the GAMs, and multi-site effects were addressed via ComBat harmonization (neuroCombat v1.0.13), satisfying consideration of demographic and site covariates.",
++      "supporting_text": "“Mean relative motion was included as a co-variate of no interest.” “To account for site effects, we employed the ComBat harmonization method… with the neuroCombat package v1.0.13.”",
++      "location": "Chan2025A.pdf.md:125-126; Chan2025A.pdf.md:105-107"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The reference cohort data source is explicitly identified as ABIDE I and II, a public dataset of ASD and control participants.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections of the ABIDE initiative… a publicly available dataset…”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Imaging data come entirely from existing ABIDE datasets (secondary use), and the item specifies NA for secondary data.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… a publicly available dataset…”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They detail preprocessing using CONN Toolbox v20b with SPM12 realign/unwarp, slice-timing correction, motion/global signal outlier detection, normalization, segmentation, smoothing, nuisance regression, and band-pass filtering, indicating a specified pipeline and QC handling.",
++      "supporting_text": "“Resting-state fMRI (rs-fMRI) data was processed… using the CONN Toolbox v20b… Scans underwent realignment with SPM12 realign & unwarp… Slice-timing correction… Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers… data were normalized… smoothed… nuisance variables… removed… band-pass filtered to… 0.008 and 0.09 Hz.”",
++      "location": "Chan2025A.pdf.md:65-101"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The dataset was partitioned with 80% of non-ASD males for training and 20% for testing, and normative models trained on the training set were applied to the held-out testing set, fulfilling internal partitioning.",
++      "supporting_text": "“The study dataset was then split into training and testing datasets. The training dataset was composed of 80 % of non-ASD males, while the testing dataset was composed of the remaining 20 % of non-ASD males and ASD males.” “Normative models were then applied to the testing dataset (n = 77 non-ASD males; n = 418 ASD males) to derive deviation scores (z).”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:67"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "All modeling and application used ABIDE data only; no independent external healthy dataset beyond ABIDE was used for validation.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II…” (only source described).",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They specify using generalized additive models (mgcv v1.8-42) with age smoothing and motion covariate, assessed via GAM.check, and applied to predict FC and compute z-scores, providing model type and key settings.",
++      "supporting_text": "“Normative trajectories were modeled with Generalized Additive Models (GAMs) for the training dataset using the mgcv package v1.8-42… a smoothing function was applied to age… Mean relative motion was included as a co-variate… The suitability of model parameters was assessed with the GAM.check function.”",
++      "location": "Chan2025A.pdf.md:123-126"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The paper describes fitting GAMs and applying them to derive deviation scores but does not report quantitative performance metrics (e.g., explained variance, prediction error, coverage) for the normative models on training or testing data.",
++      "supporting_text": "“Normative trajectories were derived for each between-network rsFC based on data from the training dataset… These models were then applied to the testing dataset… and the deviation between the predicted FC and actual FC in the testing dataset was calculated.”",
++      "location": "Chan2025A.pdf.md:173-175"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Table 1 reports sample sizes and demographics (age, IQ, SRS, BRIEF, motion) separately for the training controls (n=321) and testing controls (n=77), providing characteristics by partition.",
++      "supporting_text": "“Table 1 Phenotypic characteristics… Training N = 321… Testing (Control) N = 77…” with age, IQ, SRS, BRIEF, and motion values listed.",
++      "location": "Chan2025A.pdf.md:71-99"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions are provided (R 4.3.0, mgcv v1.8-42, PMA v1.2.1, mediation v4.5.0, CONN v20b, neuroCombat v1.0.13, SPM12), and data availability is stated. However, no code, trained model files, or access instructions beyond public data are provided.",
++      "supporting_text": "“All statistical analyses were conducted in R v4.3.0… mgcv package v1.8-42… PMA package v1.2.1… mediation package v4.5.0.” “Resting-state fMRI… processed… using the CONN Toolbox v20b… SPM12…” “To account for site effects, we employed the ComBat harmonization method… neuroCombat package v1.0.13.” “Data for the current study is publicly available.”",
++      "location": "Chan2025A.pdf.md:121-147; Chan2025A.pdf.md:65-107; Chan2025A.pdf.md:274-276"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Clinical participants (ASD males) were drawn from ABIDE I/II with site-specific inclusion/exclusion criteria listed in Supplementary Table 1, and motion outlier handling described. Final ASD sample size (n=418) is given, but reasons for exclusion and QC attrition are not detailed.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… only males between ages 5.1 -14.0 years were included… n = 816… testing dataset… ASD males [n = 418]. Supplementary Table 1 summarizes the site-specific inclusion and exclusion criteria.” “Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers.”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:67; Chan2025A.pdf.md:101; 1-s2.0-S1878929324001440-mmc1.docx.md:65-92"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relating deviation scores to social behavior and mediation by executive function did not report adjusting for clinical covariates such as medication status, illness duration, or comorbidities; the methods only describe including SRS and BRIEF scores as outcomes/mediators without additional clinical covariates.",
++      "supporting_text": "“Sparse canonical correlation analysis… Only ASD patients were included in this analysis.” “We then examined if executive function significantly mediates the association between between-network deviation scores and social behavioral problems… focused on VANxDMN_z… BRIEF.”",
++      "location": "Chan2025A.pdf.md:137-145; Chan2025A.pdf.md:185-187"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical cohort is specified as ASD participants from the ABIDE I/II datasets, which are publicly available.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections… a publicly available dataset of participants diagnosed with ASD and age-matched non-ASD participants.”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Table 1 provides sample size for ASD testing cohort (n=418) and reports age, IQ, SRS subscales, BRIEF scores, and motion, fulfilling demographic and clinical characteristics reporting.",
++      "supporting_text": "“Table 1… Testing (ASD) N = 418… Age at scan… Full IQ… Social Responsiveness Scale… BRIEF - Global Executive Composite… fMRI Mean Relative Motion (mm).”",
++      "location": "Chan2025A.pdf.md:71-99"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical measures are described, including the SRS (65-item parent-rated scale with five subscales and T-scores) and the BRIEF (86-item questionnaire with eight subscales and GEC T-scores), with scoring details.",
++      "supporting_text": "“The SRS… consists of 65 items… five subscales… Items are scored on a 4-point Likert scale… T-scores… used in our analyses.” “The BRIEF… 86-item questionnaire… eight clinical subscales… Higher scores indicate poorer executive function… Raw scores were linearly transformed to obtain T-scores, which were used in our analyses.”",
++      "location": "Chan2025A.pdf.md:111-118"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "They define deviation z-scores as reflecting individual atypicality from the normative mean and report that more positive deviations are associated with greater social behavioral problems. However, explicit thresholds or categorical definitions for atypicality are not provided.",
++      "supporting_text": "“Deviation scores (z)… reflect the individual degree of between-network FC atypicality from a typically developing population mean.” “Thus, a more positive deviation was associated with greater problems with social behavior.”",
++      "location": "Chan2025A.pdf.md:129-129; Chan2025A.pdf.md:155-156"
+     }
+   }
+ }
+
+
+thinking
+**Confirming plan completion**
+file update:
+diff --git a/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json b/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..7889072db0fe4ff7f9eac63c876bcf6fd73785e9
+--- a/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
++++ b/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Chan2024",
++    "si2_reference_file_names": "Chan2025A.pdf.md; 1-s2.0-S1878929324001440-mmc1.docx.md",
++    "si3_author_journal_year": "Chan et al., Developmental Cognitive Neuroscience, 2024",
++    "si4_title": "Social behavior in ASD males: The interplay between cognitive flexibility, working memory, and functional connectivity deviations",
++    "si5_doi": "10.1016/j.dcn.2024.101483"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The introduction clearly states the goal to test whether between-network resting-state functional connectivity deviations from normative trajectories map onto social behavior in ASD males, and to examine whether executive function mediates those associations using ABIDE data. These statements directly articulate the study objectives and the intended application of normative modeling.",
++      "supporting_text": "“We posit that social behavioral problems observed in children with ASD are attributed to deviations in between-network rsFC from the established norm. To test this hypothesis, we used data from the ABIDE consortium… We first generated normative trajectories… We then aligned these normative charts to rsFC measures of 418 males with ASD… Next, we examined the associations between rsFC deviations and distinct domains of social behaviors… we also examined whether executive function mediated the association…”",
++      "location": "Chan2025A.pdf.md:51-52"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The reference cohort comprised non-ASD males aged 5.1–14 years from ABIDE I/II, with site-specific inclusion/exclusion criteria listed in Supplementary Table 1 and motion-based quality control (framewise displacement >0.9 mm or global BOLD changes >5 SD flagged as outliers). Final training/testing sample sizes for controls (321/77) are provided. However, reasons for exclusion at each site or after QC are not detailed, so eligibility and QC standards are partially but not fully documented.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… only males between ages 5.1 -14.0 years were included… The study dataset was then split into training and testing datasets. The training dataset was composed of 80 % of non-ASD males, while the testing dataset was composed of the remaining 20 % of non-ASD males and ASD males.” “Supplementary Table 1 summarizes the site-specific inclusion and exclusion criteria.” “Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers.”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:101; 1-s2.0-S1878929324001440-mmc1.docx.md:65-92"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Age was modeled with a smoothing function, mean relative motion was included as a covariate in the GAMs, and multi-site effects were addressed via ComBat harmonization (neuroCombat v1.0.13), satisfying consideration of demographic and site covariates.",
++      "supporting_text": "“Mean relative motion was included as a co-variate of no interest.” “To account for site effects, we employed the ComBat harmonization method… with the neuroCombat package v1.0.13.”",
++      "location": "Chan2025A.pdf.md:125-126; Chan2025A.pdf.md:105-107"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The reference cohort data source is explicitly identified as ABIDE I and II, a public dataset of ASD and control participants.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections of the ABIDE initiative… a publicly available dataset…”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Imaging data come entirely from existing ABIDE datasets (secondary use), and the item specifies NA for secondary data.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… a publicly available dataset…”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They detail preprocessing using CONN Toolbox v20b with SPM12 realign/unwarp, slice-timing correction, motion/global signal outlier detection, normalization, segmentation, smoothing, nuisance regression, and band-pass filtering, indicating a specified pipeline and QC handling.",
++      "supporting_text": "“Resting-state fMRI (rs-fMRI) data was processed… using the CONN Toolbox v20b… Scans underwent realignment with SPM12 realign & unwarp… Slice-timing correction… Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers… data were normalized… smoothed… nuisance variables… removed… band-pass filtered to… 0.008 and 0.09 Hz.”",
++      "location": "Chan2025A.pdf.md:65-101"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The dataset was partitioned with 80% of non-ASD males for training and 20% for testing, and normative models trained on the training set were applied to the held-out testing set, fulfilling internal partitioning.",
++      "supporting_text": "“The study dataset was then split into training and testing datasets. The training dataset was composed of 80 % of non-ASD males, while the testing dataset was composed of the remaining 20 % of non-ASD males and ASD males.” “Normative models were then applied to the testing dataset (n = 77 non-ASD males; n = 418 ASD males) to derive deviation scores (z).”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:67"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "All modeling and application used ABIDE data only; no independent external healthy dataset beyond ABIDE was used for validation.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II…” (only source described).",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They specify using generalized additive models (mgcv v1.8-42) with age smoothing and motion covariate, assessed via GAM.check, and applied to predict FC and compute z-scores, providing model type and key settings.",
++      "supporting_text": "“Normative trajectories were modeled with Generalized Additive Models (GAMs) for the training dataset using the mgcv package v1.8-42… a smoothing function was applied to age… Mean relative motion was included as a co-variate… The suitability of model parameters was assessed with the GAM.check function.”",
++      "location": "Chan2025A.pdf.md:123-126"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The paper describes fitting GAMs and applying them to derive deviation scores but does not report quantitative performance metrics (e.g., explained variance, prediction error, coverage) for the normative models on training or testing data.",
++      "supporting_text": "“Normative trajectories were derived for each between-network rsFC based on data from the training dataset… These models were then applied to the testing dataset… and the deviation between the predicted FC and actual FC in the testing dataset was calculated.”",
++      "location": "Chan2025A.pdf.md:173-175"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Table 1 reports sample sizes and demographics (age, IQ, SRS, BRIEF, motion) separately for the training controls (n=321) and testing controls (n=77), providing characteristics by partition.",
++      "supporting_text": "“Table 1 Phenotypic characteristics… Training N = 321… Testing (Control) N = 77…” with age, IQ, SRS, BRIEF, and motion values listed.",
++      "location": "Chan2025A.pdf.md:71-99"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions are provided (R 4.3.0, mgcv v1.8-42, PMA v1.2.1, mediation v4.5.0, CONN v20b, neuroCombat v1.0.13, SPM12), and data availability is stated. However, no code, trained model files, or access instructions beyond public data are provided.",
++      "supporting_text": "“All statistical analyses were conducted in R v4.3.0… mgcv package v1.8-42… PMA package v1.2.1… mediation package v4.5.0.” “Resting-state fMRI… processed… using the CONN Toolbox v20b… SPM12…” “To account for site effects, we employed the ComBat harmonization method… neuroCombat package v1.0.13.” “Data for the current study is publicly available.”",
++      "location": "Chan2025A.pdf.md:121-147; Chan2025A.pdf.md:65-107; Chan2025A.pdf.md:274-276"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Clinical participants (ASD males) were drawn from ABIDE I/II with site-specific inclusion/exclusion criteria listed in Supplementary Table 1, and motion outlier handling described. Final ASD sample size (n=418) is given, but reasons for exclusion and QC attrition are not detailed.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… only males between ages 5.1 -14.0 years were included… n = 816… testing dataset… ASD males [n = 418]. Supplementary Table 1 summarizes the site-specific inclusion and exclusion criteria.” “Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers.”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:67; Chan2025A.pdf.md:101; 1-s2.0-S1878929324001440-mmc1.docx.md:65-92"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relating deviation scores to social behavior and mediation by executive function did not report adjusting for clinical covariates such as medication status, illness duration, or comorbidities; the methods only describe including SRS and BRIEF scores as outcomes/mediators without additional clinical covariates.",
++      "supporting_text": "“Sparse canonical correlation analysis… Only ASD patients were included in this analysis.” “We then examined if executive function significantly mediates the association between between-network deviation scores and social behavioral problems… focused on VANxDMN_z… BRIEF.”",
++      "location": "Chan2025A.pdf.md:137-145; Chan2025A.pdf.md:185-187"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical cohort is specified as ASD participants from the ABIDE I/II datasets, which are publicly available.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections… a publicly available dataset of participants diagnosed with ASD and age-matched non-ASD participants.”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Table 1 provides sample size for ASD testing cohort (n=418) and reports age, IQ, SRS subscales, BRIEF scores, and motion, fulfilling demographic and clinical characteristics reporting.",
++      "supporting_text": "“Table 1… Testing (ASD) N = 418… Age at scan… Full IQ… Social Responsiveness Scale… BRIEF - Global Executive Composite… fMRI Mean Relative Motion (mm).”",
++      "location": "Chan2025A.pdf.md:71-99"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical measures are described, including the SRS (65-item parent-rated scale with five subscales and T-scores) and the BRIEF (86-item questionnaire with eight subscales and GEC T-scores), with scoring details.",
++      "supporting_text": "“The SRS… consists of 65 items… five subscales… Items are scored on a 4-point Likert scale… T-scores… used in our analyses.” “The BRIEF… 86-item questionnaire… eight clinical subscales… Higher scores indicate poorer executive function… Raw scores were linearly transformed to obtain T-scores, which were used in our analyses.”",
++      "location": "Chan2025A.pdf.md:111-118"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "They define deviation z-scores as reflecting individual atypicality from the normative mean and report that more positive deviations are associated with greater social behavioral problems. However, explicit thresholds or categorical definitions for atypicality are not provided.",
++      "supporting_text": "“Deviation scores (z)… reflect the individual degree of between-network FC atypicality from a typically developing population mean.” “Thus, a more positive deviation was associated with greater problems with social behavior.”",
++      "location": "Chan2025A.pdf.md:129-129; Chan2025A.pdf.md:155-156"
+     }
+   }
+ }
+
+Plan update
+  ✓ Skim main paper markdown to understand study, modality, data, and methods
+  ✓ Review supplement markdown for details on sample, imaging, modeling, and validation
+  ✓ Populate QA JSON per QA_Guide_v9 requirements
+
+thinking
+**Summarizing completed QA extraction**
+
+- Completed QA extraction into the specified JSON file following the provided guide.  
+- No tests were run as none were required for this task.  
+- Next steps: review the JSON output for accuracy and formatting; if adjustments to the year or additional quotes are needed, I’m ready to assist.
+codex
+Updated `Chan2025A_by_codex_20260107101546_for_QA_v9.json` with all SI, NM, CM, and CR assessments per QA_Guide_v9, using evidence from `Chan2025A.pdf.md` and the supplement. Added detailed ACRSL reasoning, confidence ratings, supporting quotes, and paths, plus filled study identification fields.
+
+Tests: not run (not applicable).
+
+If you want any answers revised (e.g., different year for Study ID or additional quotes), I can adjust quickly.
+file update:
+diff --git a/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json b/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..7889072db0fe4ff7f9eac63c876bcf6fd73785e9
+--- a/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
++++ b/10_DECheck/share_package/data/Chan2025A/materials/optimized/Chan2025A_by_codex_20260107101546_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Chan2024",
++    "si2_reference_file_names": "Chan2025A.pdf.md; 1-s2.0-S1878929324001440-mmc1.docx.md",
++    "si3_author_journal_year": "Chan et al., Developmental Cognitive Neuroscience, 2024",
++    "si4_title": "Social behavior in ASD males: The interplay between cognitive flexibility, working memory, and functional connectivity deviations",
++    "si5_doi": "10.1016/j.dcn.2024.101483"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The introduction clearly states the goal to test whether between-network resting-state functional connectivity deviations from normative trajectories map onto social behavior in ASD males, and to examine whether executive function mediates those associations using ABIDE data. These statements directly articulate the study objectives and the intended application of normative modeling.",
++      "supporting_text": "“We posit that social behavioral problems observed in children with ASD are attributed to deviations in between-network rsFC from the established norm. To test this hypothesis, we used data from the ABIDE consortium… We first generated normative trajectories… We then aligned these normative charts to rsFC measures of 418 males with ASD… Next, we examined the associations between rsFC deviations and distinct domains of social behaviors… we also examined whether executive function mediated the association…”",
++      "location": "Chan2025A.pdf.md:51-52"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The reference cohort comprised non-ASD males aged 5.1–14 years from ABIDE I/II, with site-specific inclusion/exclusion criteria listed in Supplementary Table 1 and motion-based quality control (framewise displacement >0.9 mm or global BOLD changes >5 SD flagged as outliers). Final training/testing sample sizes for controls (321/77) are provided. However, reasons for exclusion at each site or after QC are not detailed, so eligibility and QC standards are partially but not fully documented.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… only males between ages 5.1 -14.0 years were included… The study dataset was then split into training and testing datasets. The training dataset was composed of 80 % of non-ASD males, while the testing dataset was composed of the remaining 20 % of non-ASD males and ASD males.” “Supplementary Table 1 summarizes the site-specific inclusion and exclusion criteria.” “Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers.”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:101; 1-s2.0-S1878929324001440-mmc1.docx.md:65-92"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Age was modeled with a smoothing function, mean relative motion was included as a covariate in the GAMs, and multi-site effects were addressed via ComBat harmonization (neuroCombat v1.0.13), satisfying consideration of demographic and site covariates.",
++      "supporting_text": "“Mean relative motion was included as a co-variate of no interest.” “To account for site effects, we employed the ComBat harmonization method… with the neuroCombat package v1.0.13.”",
++      "location": "Chan2025A.pdf.md:125-126; Chan2025A.pdf.md:105-107"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The reference cohort data source is explicitly identified as ABIDE I and II, a public dataset of ASD and control participants.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections of the ABIDE initiative… a publicly available dataset…”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Imaging data come entirely from existing ABIDE datasets (secondary use), and the item specifies NA for secondary data.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… a publicly available dataset…”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They detail preprocessing using CONN Toolbox v20b with SPM12 realign/unwarp, slice-timing correction, motion/global signal outlier detection, normalization, segmentation, smoothing, nuisance regression, and band-pass filtering, indicating a specified pipeline and QC handling.",
++      "supporting_text": "“Resting-state fMRI (rs-fMRI) data was processed… using the CONN Toolbox v20b… Scans underwent realignment with SPM12 realign & unwarp… Slice-timing correction… Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers… data were normalized… smoothed… nuisance variables… removed… band-pass filtered to… 0.008 and 0.09 Hz.”",
++      "location": "Chan2025A.pdf.md:65-101"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The dataset was partitioned with 80% of non-ASD males for training and 20% for testing, and normative models trained on the training set were applied to the held-out testing set, fulfilling internal partitioning.",
++      "supporting_text": "“The study dataset was then split into training and testing datasets. The training dataset was composed of 80 % of non-ASD males, while the testing dataset was composed of the remaining 20 % of non-ASD males and ASD males.” “Normative models were then applied to the testing dataset (n = 77 non-ASD males; n = 418 ASD males) to derive deviation scores (z).”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:67"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "All modeling and application used ABIDE data only; no independent external healthy dataset beyond ABIDE was used for validation.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II…” (only source described).",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They specify using generalized additive models (mgcv v1.8-42) with age smoothing and motion covariate, assessed via GAM.check, and applied to predict FC and compute z-scores, providing model type and key settings.",
++      "supporting_text": "“Normative trajectories were modeled with Generalized Additive Models (GAMs) for the training dataset using the mgcv package v1.8-42… a smoothing function was applied to age… Mean relative motion was included as a co-variate… The suitability of model parameters was assessed with the GAM.check function.”",
++      "location": "Chan2025A.pdf.md:123-126"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The paper describes fitting GAMs and applying them to derive deviation scores but does not report quantitative performance metrics (e.g., explained variance, prediction error, coverage) for the normative models on training or testing data.",
++      "supporting_text": "“Normative trajectories were derived for each between-network rsFC based on data from the training dataset… These models were then applied to the testing dataset… and the deviation between the predicted FC and actual FC in the testing dataset was calculated.”",
++      "location": "Chan2025A.pdf.md:173-175"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Table 1 reports sample sizes and demographics (age, IQ, SRS, BRIEF, motion) separately for the training controls (n=321) and testing controls (n=77), providing characteristics by partition.",
++      "supporting_text": "“Table 1 Phenotypic characteristics… Training N = 321… Testing (Control) N = 77…” with age, IQ, SRS, BRIEF, and motion values listed.",
++      "location": "Chan2025A.pdf.md:71-99"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions are provided (R 4.3.0, mgcv v1.8-42, PMA v1.2.1, mediation v4.5.0, CONN v20b, neuroCombat v1.0.13, SPM12), and data availability is stated. However, no code, trained model files, or access instructions beyond public data are provided.",
++      "supporting_text": "“All statistical analyses were conducted in R v4.3.0… mgcv package v1.8-42… PMA package v1.2.1… mediation package v4.5.0.” “Resting-state fMRI… processed… using the CONN Toolbox v20b… SPM12…” “To account for site effects, we employed the ComBat harmonization method… neuroCombat package v1.0.13.” “Data for the current study is publicly available.”",
++      "location": "Chan2025A.pdf.md:121-147; Chan2025A.pdf.md:65-107; Chan2025A.pdf.md:274-276"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Clinical participants (ASD males) were drawn from ABIDE I/II with site-specific inclusion/exclusion criteria listed in Supplementary Table 1, and motion outlier handling described. Final ASD sample size (n=418) is given, but reasons for exclusion and QC attrition are not detailed.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II… only males between ages 5.1 -14.0 years were included… n = 816… testing dataset… ASD males [n = 418]. Supplementary Table 1 summarizes the site-specific inclusion and exclusion criteria.” “Scan volumes with framewise displacement above 0.9 mm or global BOLD signal changes above 5 standard deviations were identified as potential outliers.”",
++      "location": "Chan2025A.pdf.md:59-60; Chan2025A.pdf.md:67; Chan2025A.pdf.md:101; 1-s2.0-S1878929324001440-mmc1.docx.md:65-92"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relating deviation scores to social behavior and mediation by executive function did not report adjusting for clinical covariates such as medication status, illness duration, or comorbidities; the methods only describe including SRS and BRIEF scores as outcomes/mediators without additional clinical covariates.",
++      "supporting_text": "“Sparse canonical correlation analysis… Only ASD patients were included in this analysis.” “We then examined if executive function significantly mediates the association between between-network deviation scores and social behavioral problems… focused on VANxDMN_z… BRIEF.”",
++      "location": "Chan2025A.pdf.md:137-145; Chan2025A.pdf.md:185-187"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical cohort is specified as ASD participants from the ABIDE I/II datasets, which are publicly available.",
++      "supporting_text": "“Data for the current study were from the Autism Brain Imaging Data Exchange (ABIDE) I and ABIDE II collections… a publicly available dataset of participants diagnosed with ASD and age-matched non-ASD participants.”",
++      "location": "Chan2025A.pdf.md:59; Chan2025A.pdf.md:258-259"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Table 1 provides sample size for ASD testing cohort (n=418) and reports age, IQ, SRS subscales, BRIEF scores, and motion, fulfilling demographic and clinical characteristics reporting.",
++      "supporting_text": "“Table 1… Testing (ASD) N = 418… Age at scan… Full IQ… Social Responsiveness Scale… BRIEF - Global Executive Composite… fMRI Mean Relative Motion (mm).”",
++      "location": "Chan2025A.pdf.md:71-99"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical measures are described, including the SRS (65-item parent-rated scale with five subscales and T-scores) and the BRIEF (86-item questionnaire with eight subscales and GEC T-scores), with scoring details.",
++      "supporting_text": "“The SRS… consists of 65 items… five subscales… Items are scored on a 4-point Likert scale… T-scores… used in our analyses.” “The BRIEF… 86-item questionnaire… eight clinical subscales… Higher scores indicate poorer executive function… Raw scores were linearly transformed to obtain T-scores, which were used in our analyses.”",
++      "location": "Chan2025A.pdf.md:111-118"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "They define deviation z-scores as reflecting individual atypicality from the normative mean and report that more positive deviations are associated with greater social behavioral problems. However, explicit thresholds or categorical definitions for atypicality are not provided.",
++      "supporting_text": "“Deviation scores (z)… reflect the individual degree of between-network FC atypicality from a typically developing population mean.” “Thus, a more positive deviation was associated with greater problems with social behavior.”",
++      "location": "Chan2025A.pdf.md:129-129; Chan2025A.pdf.md:155-156"
+     }
+   }
+ }
+
+tokens used
+77,846
+Updated `Chan2025A_by_codex_20260107101546_for_QA_v9.json` with all SI, NM, CM, and CR assessments per QA_Guide_v9, using evidence from `Chan2025A.pdf.md` and the supplement. Added detailed ACRSL reasoning, confidence ratings, supporting quotes, and paths, plus filled study identification fields.
+
+Tests: not run (not applicable).
+
+If you want any answers revised (e.g., different year for Study ID or additional quotes), I can adjust quickly.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

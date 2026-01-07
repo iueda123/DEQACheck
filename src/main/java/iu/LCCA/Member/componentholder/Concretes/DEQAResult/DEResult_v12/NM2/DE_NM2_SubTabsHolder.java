@@ -64,7 +64,7 @@ public class DE_NM2_SubTabsHolder extends AbstCHolderMember implements SubTabsHo
                     "エラー",
                     JOptionPane.ERROR_MESSAGE
             );
-            System.exit(1);
+            //System.exit(1);
         }
         // ./json下のすべてのJSONファイルを取得
         File[] jsonFiles = jsonDir.listFiles((dir, name) -> name.endsWith(".json"));

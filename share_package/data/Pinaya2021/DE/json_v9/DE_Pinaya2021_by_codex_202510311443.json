@@ -1,0 +1,252 @@
+{
+  "study_identification": {
+    "study_id": "Pinaya2021",
+    "reference_file_names": "Pinaya2021.pdf.md; 41598_2021_95098_MOESM1_ESM.pdf.md",
+    "author_journal_year": "Pinaya et al., Scientific Reports, 2021",
+    "title": "Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study",
+    "doi": "10.1038/s41598-021-95098-0"
+  },
+  "study_characteristics": {
+    "study_objective": "Train a deep autoencoder-based normative model on UK Biobank healthy controls and quantify individual deviations in MCI/AD across multiple cohorts; compare deviation-based discrimination to traditional classifiers.",
+    "study_design": "Cross-sectional",
+    "study_design_other": "-"
+  },
+  "reference_cohort_and_imaging": {
+    "dataset_name": {
+      "answer": "UK Biobank; ADNI; AIBL; ARWiBo; OASIS-1; MIRIAD",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "The methods explicitly list six datasets used: UK Biobank for training and five clinical datasets (ADNI, AIBL, ARWiBo, OASIS-1, MIRIAD) for evaluation.",
+      "supporting_text": "Datasets. In our analysis, we used six datasets: the UK Biobank, the Alzheimer's Disease Neuroimaging Initiative (ADNI), the Australian Imaging Biomarkers and Lifestyle Study of Ageing (AIBL), the Alzheimer's Disease Repository Without Borders (ARWiBo), the Open Access Series of Imaging Studies: Cross-Sectional (OASIS-1), and the Minimal Interval Resonance Imaging in Alzheimer's Disease (MIRIAD).",
+      "location": "Pinaya2021.pdf.md:29"
+    },
+    "hc_n": {
+      "answer": "11,034 (UK Biobank healthy controls used for training)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "They state using an early release comprising 11,034 HC participants from a single scanner for the training reference cohort.",
+      "supporting_text": "Here, we used an early release of the project's data comprising of 11,034 HC participants.",
+      "location": "Pinaya2021.pdf.md:31"
+    },
+    "hc_age": {
+      "answer": "mean 61.6; sd 7.0; min 47; max 73",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Demographic table reports UK Biobank age mean±SD and range for the HC training cohort.",
+      "supporting_text": "Mean ± SD 61.6 ± 7.0; Range [47, 73]",
+      "location": "Pinaya2021.pdf.md:43-44"
+    },
+    "hc_sex": {
+      "answer": "F 5854 (53%); M 5180 (47%)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Demographic table reports sex counts and percentages for the UK Biobank HC cohort.",
+      "supporting_text": "Men 5180 (47); Women 5854 (53)",
+      "location": "Pinaya2021.pdf.md:46-47"
+    },
+    "imaging_modality": {
+      "answer": "T1-weighted MRI",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "They extracted regional volumes from T1-weighted images using FreeSurfer.",
+      "supporting_text": "We used the FreeSurfer software (version 6.0) to estimate the brain regions' volumes from the T1 weighted images.",
+      "location": "Pinaya2021.pdf.md:57"
+    },
+    "analysis_level": {
+      "answer": "ROI-level",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Volumes were computed for 101 regions (68 cortical + 33 subcortical), indicating region-of-interest level analysis.",
+      "supporting_text": "...cortical volume for each of the 68 cortical subregions... and the volume of 33 neuroanatomical structures, totalling 101 subregions/structures.",
+      "location": "Pinaya2021.pdf.md:57;99"
+    },
+    "preprocessing_pipeline": {
+      "answer": "FreeSurfer v6.0; Desikan–Killiany cortical parcellation; Aseg subcortical segmentation; relative volumes normalized by ICV; robust median/IQR scaling per ROI",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Methods specify FreeSurfer v6.0 with Desikan–Killiany and Aseg, then relative (ICV-normalized) volumes standardized via median/IQR scaling.",
+      "supporting_text": "We used the FreeSurfer software (version 6.0)... Desikan-Killiany atlas... Aseg atlas... estimating the relative brain region volumes... we performed a normalisation robust to outliers by subtracting the median value... and scaling according to its interquartile range.",
+      "location": "Pinaya2021.pdf.md:57;87-89;113"
+    },
+    "quality_checking": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Missing",
+      "reason": "The paper describes inclusion criteria and preprocessing but does not report any explicit image quality control steps (e.g., visual QC, Euler number thresholds) for the datasets analyzed.",
+      "supporting_text": "No explicit QC procedures (visual or automated) are described in Methods for included datasets; UK Biobank processing/QC is cited generally elsewhere.",
+      "location": "Pinaya2021.pdf.md:31-47;232"
+    },
+    "quality_checking_detail": {
+      "answer": "-",
+      "confidence_rating": "Low",
+      "negative_answer_category": "Missing",
+      "reason": "No QC metrics, thresholds, or exclusion counts are reported for structural MRI beyond general dataset descriptions.",
+      "supporting_text": "—",
+      "location": "—"
+    },
+    "site_effect_handling": {
+      "answer": "None",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Authors state they did not assess scanner/acquisition impacts and discuss harmonization (e.g., ComBat, Neuroharmony) as future work; no model-based site adjustment used.",
+      "supporting_text": "Although we evaluated our method... we did not assess the impact of MRI scanners and acquisition parameters... further studies... inter-scanner harmonisation... Neuroharmony or Combat.",
+      "location": "Pinaya2021.pdf.md:192;261-262"
+    },
+    "site_effect_handling_detail": {
+      "answer": "No explicit harmonization; training restricted to a single UK Biobank scanner; cross-cohort application without ComBat/HBR; authors note future harmonization (Neuroharmony/ComBat).",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Text explicitly notes absence of scanner effect assessment and points to harmonization tools as potential future steps.",
+      "supporting_text": "we did not assess the impact of MRI scanners... can be implemented using tools such as Neuroharmony or Combat.",
+      "location": "Pinaya2021.pdf.md:192;262"
+    }
+  },
+  "normative_modeling": {
+    "model_origin": {
+      "answer": "Pre-trained",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Autoencoder trained on an independent UK Biobank HC cohort and then applied to clinical datasets.",
+      "supporting_text": "We first trained the autoencoder on an independent dataset (UK Biobank dataset) with 11,034 healthy controls. Then, we estimated how each patient deviated from this norm...",
+      "location": "Pinaya2021.pdf.md:9"
+    },
+    "model_origin_detail": {
+      "answer": "Trained on UK Biobank HC (n=11,034; age 47–73; single scanner at Cheadle) to learn normative reconstruction; applied out-of-sample to ADNI, AIBL, ARWiBo, OASIS-1, MIRIAD.",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Methods detail the UK Biobank cohort composition and training setup prior to clinical application.",
+      "supporting_text": "used an early release... 11,034 HC... inclusion criteria: same MRI scanner (Cheadle), age 47–73... we trained the autoencoder... then applied to target clinical cohorts.",
+      "location": "Pinaya2021.pdf.md:31;9"
+    },
+    "modeling_method": {
+      "answer": "Deep Learning (Conditioned Adversarial Autoencoder)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "They implemented a conditioned adversarial autoencoder with age and sex inputs; architecture described with encoder/decoder/discriminator.",
+      "supporting_text": "we trained the AAE... conditioned AAE... The AAE's decoder used [age, sex] vectors together with the latent code... encoder with two hidden layers... discriminator...",
+      "location": "Pinaya2021.pdf.md:83-91"
+    },
+    "software_tool": {
+      "answer": "Python 3; TensorFlow 2.0 (normative model); sklearn_rvm (baseline classifier)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Explicitly states the software stack used for training and comparisons.",
+      "supporting_text": "We conducted our experiments in Python 3 using the Tensorflow 2.0 library... and the sklearn_rvm library...",
+      "location": "Pinaya2021.pdf.md:123"
+    },
+    "response_variable": {
+      "answer": "Relative regional brain volumes (101 FreeSurfer ROIs: 68 cortical; 33 subcortical/structures)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "They modeled ICV-normalized regional volumes across 101 ROIs.",
+      "supporting_text": "...cortical volume for each of the 68 cortical subregions... and the volume of 33 neuroanatomical structures, totalling 101... relative brain region volumes by dividing ... by the total intracranial volume.",
+      "location": "Pinaya2021.pdf.md:57;87;99"
+    },
+    "predictor_variables": {
+      "answer": "Age; Sex",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Age and sex were encoded and used to condition the decoder during reconstruction.",
+      "supporting_text": "we used a conditioned AAE... we transformed age and sex into one-hot encoding vectors... The AAE's decoder used these vectors together with the latent code...",
+      "location": "Pinaya2021.pdf.md:89"
+    },
+    "predictor_effects": {
+      "answer": "Age and Sex entered as conditioning inputs to the decoder (no fixed/random effect formulation; site/scanner not modeled).",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Architecture description indicates conditioning rather than fixed/random effect regression; no site effect terms included.",
+      "supporting_text": "The AAE's decoder used [age, sex] vectors together with the latent code to reconstruct the brain data.",
+      "location": "Pinaya2021.pdf.md:89"
+    },
+    "nm_vldtn_handle_ns": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Unclear/Incomplete",
+      "reason": "Age/sex effects handled via conditioning; robust median/IQR scaling used per ROI. However, site/scanner effects and inter-scanner variance were not modeled or assessed.",
+      "supporting_text": "we performed a normalisation robust to outliers... median... interquartile range... conditioned AAE with age and sex... we did not assess the impact of MRI scanners and acquisition parameters.",
+      "location": "Pinaya2021.pdf.md:87-90;192"
+    },
+    "nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Missing",
+      "reason": "No internal validation metrics on the training domain (UK Biobank) are reported for the normative model (e.g., EV/MSLL/held-out performance). Bootstrapping was used to resample training but validation focused on external cohorts.",
+      "supporting_text": "In each iteration of the bootstrap method... used the trained autoencoder to obtain the deviation metric of the subjects from the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets.",
+      "location": "Pinaya2021.pdf.md:93-101"
+    },
+    "nm_vldtn_same_domain_indep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "negative_answer_category": "Missing",
+      "reason": "No held-out independent subset from the same training domain (UK Biobank) is reported for validation.",
+      "supporting_text": "—",
+      "location": "—"
+    },
+    "nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Validated deviation magnitudes and discrimination across five independent clinical datasets (ADNI, AIBL, ARWiBo, OASIS-1, MIRIAD); reported group-wise deviation CIs and ROC-based performance and cross-cohort generalization.",
+      "supporting_text": "Figure 2 shows the mean value of the observed deviation for each group... For the ADNI dataset... For the AIBL dataset... For the ARWiBo dataset... For the OASIS-1 dataset... For the MIRIAD dataset... We examined if the observed deviations could be used to predict... using ROC curves.",
+      "location": "Pinaya2021.pdf.md:127-133"
+    }
+  },
+  "clinical_application_and_analysis": {
+    "clinical_dataset": {
+      "answer": "ADNI; AIBL; ARWiBo; OASIS-1; MIRIAD",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "These five independent clinical datasets were used for application and evaluation.",
+      "supporting_text": "...assessed the performance... using data from patients... in five additional datasets composed of patients with MCI, patients with AD, and HC subjects.",
+      "location": "Pinaya2021.pdf.md:25;29"
+    },
+    "diseases_studied": {
+      "answer": "Alzheimer's Disease (AD); Mild Cognitive Impairment (MCI; EMCI; LMCI)",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Study targets AD and MCI (including EMCI and LMCI in ADNI).",
+      "supporting_text": "...patients with Alzheimer's disease (n = 64) and mild cognitive impairment (EMCI n = 159; LMCI n = 82)...",
+      "location": "Pinaya2021.pdf.md:9;33-36"
+    },
+    "clinical_groups_n": {
+      "answer": "ADNI: HC 212; EMCI 159; LMCI 82; AD 64. AIBL: HC 262; MCI 46; AD 38. ARWiBo: HC 215; MCI 67; AD 37. OASIS-1: HC 41; AD 37. MIRIAD: HC 18; AD 30.",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Counts are reported in Methods for each dataset and group.",
+      "supporting_text": "ADNI... final dataset comprised of 517 subjects, where 212 HC, 159 EMCI, 82 LMCI, 64 AD... AIBL... 262 HC, 46 MCI, 38 AD... ARWiBo... 215 HC, 67 MCI, 37 AD... OASIS-1... 41 HC and 37 AD... MIRIAD... 18 HC and 30 AD.",
+      "location": "Pinaya2021.pdf.md:33-47;49-54"
+    },
+    "clinical_groups_age": {
+      "answer": "ADNI: HC 66.6±3.7 [56–72]; EMCI 66.4±4.2 [56–73]; LMCI 66.2±5.1 [56–73]; AD 66.6±5.4 [56–73]. AIBL: HC 68.2±3.2 [60–73]; MCI 68.2±3.6 [56–73]; AD 67.3±5.2 [55–73]. ARWiBo, OASIS-1, MIRIAD: NR in demographics table.",
+      "confidence_rating": "High (ADNI/AIBL); Low (others)",
+      "negative_answer_category": "Unclear/Incomplete (for ARWiBo/OASIS-1/MIRIAD)",
+      "reason": "Age statistics are provided for ADNI and AIBL in Table 1; not reported for ARWiBo, OASIS-1, MIRIAD within the same table.",
+      "supporting_text": "Mean ± SD and Range rows in Table 1 for ADNI and AIBL.",
+      "location": "Pinaya2021.pdf.md:41-44"
+    },
+    "clinical_groups_sex": {
+      "answer": "ADNI: HC M 90 (42%) / F 122 (58%); EMCI M 72 (45%) / F 87 (55%); LMCI M 40 (49%) / F 42 (51%); AD M 36 (56%) / F 28 (44%). AIBL: HC M 113 (43%) / F 149 (57%); MCI M 19 (41%) / F 27 (59%); AD M 17 (45%) / F 21 (55%). ARWiBo, OASIS-1, MIRIAD: NR in demographics table.",
+      "confidence_rating": "High (ADNI/AIBL); Low (others)",
+      "negative_answer_category": "Unclear/Incomplete (for ARWiBo/OASIS-1/MIRIAD)",
+      "reason": "Sex counts reported for ADNI and AIBL; not tabulated for ARWiBo, OASIS-1, MIRIAD in this demographics table.",
+      "supporting_text": "Sex, n (%) rows with Men/Women counts for ADNI and AIBL.",
+      "location": "Pinaya2021.pdf.md:45-47"
+    },
+    "deviation_metric": {
+      "answer": "Subject-level mean squared reconstruction error (MSE) across 101 ROIs from a conditioned adversarial autoencoder; per-region effect sizes via Cliff's delta and Mann–Whitney U tests.",
+      "confidence_rating": "High",
+      "negative_answer_category": "Not Negative",
+      "reason": "Equation defines MSE between original and reconstructed normalized ROI values; analyses use effect sizes and nonparametric tests.",
+      "supporting_text": "we calculated the mean squared error between the reconstruction and the inputted data as the metric of brain deviation (Eq. 1).",
+      "location": "Pinaya2021.pdf.md:95-101; ESM:86-93"
+    },
+    "association_analysis": "Group-wise comparisons using bootstrap 95% CIs of deviation; Mann–Whitney U tests and Cliff's delta per-region (supplementary tables); ROC/AUC to assess discrimination within and across cohorts; compared to RVM classifier with bootstrap-based CIs.",
+    "key_findings_brief": "Deviation scores increased with disease severity (HC < EMCI < LMCI < AD); deviations localized to medial temporal and ventricular regions; normative model showed comparable cross-cohort generalizability to traditional classifiers.",
+    "key_findings_detailed": "Mean deviation (95% CI): ADNI HC 0.28 [0.27, 0.32], EMCI 0.29 [0.28, 0.35], LMCI 0.32 [0.30, 0.38], AD 0.37 [0.34, 0.47]; AIBL HC 0.30 [0.28, 0.33], MCI 0.36 [0.34, 0.42], AD 0.40 [0.36, 0.50]; ARWiBo HC 0.32 [0.30, 0.38], MCI 0.37 [0.34, 0.47], AD 0.46 [0.40, 0.62]; OASIS-1 HC 0.41 [0.39, 0.46], AD 0.65 [0.58, 0.79]; MIRIAD HC 0.26 [0.24, 0.30], AD 0.48 [0.41, 0.71]. Classifier generalization AUCs (AD classification) generally high across datasets (e.g., training AIBL → test ADNI 0.88 [0.82, 0.93]; training ADNI → test MIRIAD 0.98 [0.95, 1.00]) with few significant differences vs normative approach.",
+    "key_limitations": "No assessment or adjustment for scanner/site effects; limited age range (47–73); potential MCI heterogeneity (not biomarker-stratified); QC steps not detailed.",
+    "application_notes": "Codes and trained models released (GitHub); conditioned AAE uses age/sex inputs; robust median/IQR scaling per ROI; potential for out-of-distribution detection and cooperative use with discriminative models."
+  },
+  "general_notes": {
+    "general_notes": "Training cohort restricted to UK Biobank single scanner (Cheadle). Full ROI list provided in Supplementary. Authors note future inter-scanner harmonization (Neuroharmony/ComBat)."
+  }
+}

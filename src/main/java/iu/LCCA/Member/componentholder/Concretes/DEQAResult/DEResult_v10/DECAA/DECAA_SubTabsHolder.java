@@ -19,6 +19,8 @@ import java.util.Arrays;
 
 public class DECAA_SubTabsHolder extends AbstCHolderMember implements SubTabsHolderItrfc {
 
+    static final String LOCATION_OF_JSON = "DE/json/";
+
 
     static String sectionName = "clinical_application_and_analysis_part";
 
@@ -95,8 +97,7 @@ public class DECAA_SubTabsHolder extends AbstCHolderMember implements SubTabsHol
         mngrOfSubTabBasePane_11.registerSubTabsHolder(this);
 
         // ./json/ フォルダの確認
-        Path jsonFolderPathString = Paths.get("./DE/json");
-        jsonFolderPathString = Paths.get("./data/" + authorYear + "/").resolve(jsonFolderPathString);
+        Path jsonFolderPathString = Paths.get("./data", authorYear).resolve(LOCATION_OF_JSON);
         File jsonDir = jsonFolderPathString.toFile();
 
         // jsonディレクトリが存在しない、またはディレクトリではない場合
@@ -107,7 +108,7 @@ public class DECAA_SubTabsHolder extends AbstCHolderMember implements SubTabsHol
                     "エラー",
                     JOptionPane.ERROR_MESSAGE
             );
-            System.exit(1);
+            //System.exit(1);
         }
         // ./json下のすべてのJSONファイルを取得
         File[] jsonFiles = jsonDir.listFiles((dir, name) -> name.endsWith(".json"));

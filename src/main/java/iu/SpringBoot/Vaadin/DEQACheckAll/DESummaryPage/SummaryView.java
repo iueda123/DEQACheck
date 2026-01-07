@@ -40,6 +40,7 @@ import jakarta.annotation.security.RolesAllowed;
 public class SummaryView extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";
+    final static String JAR_WORKING_DIR = "share_package";
     final static String DEQACheckJar = "share_package/jar/DEQACheck-v20260107-all.jar";
     final static String TEMPLATE_FOR_HUMAN_DE = "share_package/templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json";
 
@@ -948,7 +949,7 @@ public class SummaryView extends VerticalLayout {
             Button yes = new Button("Yes", ev -> {
                 d.close();
 
-                boolean ok = ExternalJarLauncher.launch(DEQACheckJar, DATA_FOLDER_NAME, authorYear);
+                boolean ok = ExternalJarLauncher.launch(DEQACheckJar, JAR_WORKING_DIR, authorYear);
                 if (ok) {
                     Notification.show("起動要求を送信しました");
                 } else {
@@ -982,7 +983,7 @@ public class SummaryView extends VerticalLayout {
             Button yes = new Button("Yes", ev -> {
                 d.close();
 
-                boolean ok = ExternalJarLauncher.launch(DEQACheckJar, DATA_FOLDER_NAME, authorYear);
+                boolean ok = ExternalJarLauncher.launch(DEQACheckJar, JAR_WORKING_DIR, authorYear);
                 if (ok) {
                     Notification.show("起動要求を送信しました");
                 } else {

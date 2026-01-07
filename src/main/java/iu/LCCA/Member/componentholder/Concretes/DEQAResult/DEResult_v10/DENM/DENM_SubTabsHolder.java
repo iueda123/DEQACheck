@@ -21,6 +21,8 @@ import java.util.Arrays;
 
 public class DENM_SubTabsHolder extends AbstCHolderMember implements SubTabsHolderItrfc {
 
+    static final String LOCATION_OF_JSON = "DE/json/";
+
     static String sectionName = "normative_modeling_part";
 
     static String subSection_1_Name = "nm1_model_origin";
@@ -91,8 +93,7 @@ public class DENM_SubTabsHolder extends AbstCHolderMember implements SubTabsHold
         mngrOfSubTabBasePane_10.registerSubTabsHolder(this);
 
         // ./json/ フォルダの確認
-        Path jsonFolderPathString = Paths.get("./DE/json");
-        jsonFolderPathString = Paths.get("./data/" + authorYear + "/").resolve(jsonFolderPathString);
+        Path jsonFolderPathString = Paths.get("./data", authorYear).resolve(LOCATION_OF_JSON);
         File jsonDir = jsonFolderPathString.toFile();
 
         // jsonディレクトリが存在しない、またはディレクトリではない場合
@@ -103,7 +104,7 @@ public class DENM_SubTabsHolder extends AbstCHolderMember implements SubTabsHold
                     "エラー",
                     JOptionPane.ERROR_MESSAGE
             );
-            System.exit(1);
+            //System.exit(1);
         }
         // ./json下のすべてのJSONファイルを取得
         File[] jsonFiles = jsonDir.listFiles((dir, name) -> name.endsWith(".json"));

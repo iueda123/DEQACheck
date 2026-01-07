@@ -69,7 +69,7 @@ public class HumanJsonFileGenerator {
 
                 try {
                     Files.copy(template, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                    messages.add("生成しました: " + newFileName);
+                    messages.add("生成しました: " + newFileName + " at " + targetPath.toFile().getParent());
                 } catch (IOException e) {
                     messages.add(authorYear + ": ファイルの生成に失敗 - " + e.getMessage());
                 }

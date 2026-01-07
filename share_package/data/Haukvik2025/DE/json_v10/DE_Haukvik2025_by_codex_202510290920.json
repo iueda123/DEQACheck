@@ -1,0 +1,208 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Haukvik2025",
+    "si2_reference_file_names": "materials/Haukvik2025.pdf.md; materials/41398_2025_3343_MOESM1_ESM.pdf.md",
+    "si3_author_journal_year": "Haukvik et al., Translational Psychiatry, 2025",
+    "si4_title": "Individual-level deviations from normative brain morphology in violence, psychosis, and psychopathy",
+    "si5_doi": "10.1038/s41398-025-03343-1"
+  },
+  "study_characteristics_part": {
+    "sc1_study_objective": "Assess individual-level deviations from normative brain morphology across schizophrenia spectrum disorder participants with and without a history of severe violence and violent participants without SSD, and test associations with psychopathy traits (PCL-R).",
+    "sc2_study_design": "Cross-sectional",
+    "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The reference normative models are described as pretrained (BrainCharts GitHub) and trained on 82 sites but specific dataset names are not listed.",
+      "supporting_text": "We used pretrained normative models from https://github.com/predictiveclinical-neuroscience/braincharts. ... models were trained using data of 58835 individuals ... from 82 sites.",
+      "location": "materials/Haukvik2025.pdf.md L57-L60"
+    },
+    "rci2_hc_n": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The size of the reference healthy cohort used to train the normative models is reported (n=58,835). Note the abstract reports 58,836; methods specify 58,835.",
+      "supporting_text": "models were trained using data of 58835 individuals aged 2-100 from 82 sites.",
+      "location": "materials/Haukvik2025.pdf.md L58-L60"
+    },
+    "rci3_hc_age": {
+      "answer": "No",
+      "confidence_rating": "Low",
+      "reason": "Age range (2–100 years) is reported for the reference data, but mean/SD and full range details for the healthy cohort are not provided in this paper.",
+      "supporting_text": "models were trained using data of 58835 individuals aged 2 -100 from 82 sites.",
+      "location": "materials/Haukvik2025.pdf.md L58-L60"
+    },
+    "rci4_hc_sex": {
+      "answer": "No",
+      "confidence_rating": "Low",
+      "reason": "Sex breakdown for the reference healthy cohort is not reported in this paper.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "rci5_imaging_modality": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Structural T1-weighted MRI is explicitly described for acquisition; cortical thickness/area and subcortical volumes were derived.",
+      "supporting_text": "T1-weighted volumes were collected on two GE 3T scanners ... MRI data acquisition.",
+      "location": "materials/Haukvik2025.pdf.md L45-L49"
+    },
+    "rci6_analysis_level": {
+      "answer": "Yes",
+      "supporting_text": "Normative models based on Freesurfer derived regions of interest ... cortical thickness, surface area, and subcortical volumes.",
+      "location": "materials/Haukvik2025.pdf.md L13-L13"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Pipeline includes MRIQC automated QC + visual QC, then FreeSurfer v7.1 with Destrieux parcellation for cortex and probabilistic atlas-based subcortical segmentation.",
+      "supporting_text": "Image quality checking was carried out in two steps. First, all T1w images were processed using MRIqc [42]. Then two trained raters visually examined the scans ... FreeSurfer v7.1 ... Destrieux atlas ... Subcortical volume segmentation ... [44,45].",
+      "location": "materials/Haukvik2025.pdf.md L51-L56"
+    },
+    "rci8_quality_checking": "Yes",
+    "rci9_quality_checking_detail": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Details include MRIQC screening, visual review of flagged scans, criteria for cortical map QC, and exact exclusion counts (52 male + 20 female for quality; +3 male for findings).",
+      "supporting_text": "If the surface values had negative values, unusual patterns, or a significant value imbalance across hemispheres, the individual was removed. ... 52 males and 20 females were excluded due to insufficient T1w image quality, and 3 additional male individuals were excluded due to spurious abnormal brain findings.",
+      "location": "materials/Haukvik2025.pdf.md L47-L55"
+    },
+    "rci10_site_effect_handling": "Model-based",
+    "rci11_site_effect_handling_detail": {
+      "answer": "Scanner modeled; out-of-sample calibration",
+      "confidence_rating": "High",
+      "reason": "Normative model includes scanner as a covariate; additional fine-tuning with local HC (n=998) enables alignment to unseen scanners. For group GLM on deviations, age and site matching (MatchIt) was applied.",
+      "supporting_text": "... independent variables were age and scanner. ... an additional harmonization step ... unmatched group of healthy controls (n = 998) ... fine-tune model parameters ... matchIt was used to match age and scanning sites ...",
+      "location": "materials/Haukvik2025.pdf.md L59-L64, L66-L69"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": "Pre-trained",
+    "nm2_model_origin_detail": {
+      "answer": "BrainCharts pretrained models trained on 58,835 TD from 82 sites; FreeSurfer ROI features; applied and adapted to unseen scanners with local HC.",
+      "confidence_rating": "High",
+      "reason": "Methods describe the source, training sample size/sites, variables, and adaptation procedure.",
+      "supporting_text": "... models were trained using data of 58835 individuals aged 2-100 from 82 sites ... dependent variable ROI values (volume, area, thickness) ... additional harmonization using unmatched HC (n=998).",
+      "location": "materials/Haukvik2025.pdf.md L58-L64"
+    },
+    "nm3_modeling_method": {
+      "answer": "Warped Bayesian Linear Regression (wBLR)",
+      "confidence_rating": "High",
+      "reason": "They state Bayesian linear regression with likelihood warping (sinh-arcsinh).",
+      "supporting_text": "To model non-linear effects accurately, normative models were trained using Bayesian linear regression with likelihood warping using sinarcsinsh function [46].",
+      "location": "materials/Haukvik2025.pdf.md L59-L61"
+    },
+    "nm4_software_tool": {
+      "answer": "PCNtoolkit v0.20; Python 3.8",
+      "confidence_rating": "High",
+      "reason": "Software for training/applying models is explicitly specified.",
+      "supporting_text": "Models were both trained and applied to our data using python 3.8 and PCNtoolkit package (version 0.20).",
+      "location": "materials/Haukvik2025.pdf.md L61-L62"
+    },
+    "nm5_response_variable": {
+      "answer": "Cortical thickness; Cortical surface area; Subcortical volumes (ROI-level)",
+      "confidence_rating": "High",
+      "reason": "Dependent variables are ROI values for thickness, area, and subcortical volume.",
+      "supporting_text": "The dependent variable was set to the ROI values of volume, area, or thickness.",
+      "location": "materials/Haukvik2025.pdf.md L60-L61"
+    },
+    "nm6_predictor_variables": {
+      "answer": "Age; Scanner (site)",
+      "confidence_rating": "High",
+      "reason": "Independent variables (covariates) used in the normative model are specified as age and scanner.",
+      "supporting_text": "... independent variables were age and scanner.",
+      "location": "materials/Haukvik2025.pdf.md L60-L61"
+    },
+    "nm7_predictor_effects": {
+      "answer": "Fixed effects for age and scanner; distribution warping (sinh-arcsinh)",
+      "confidence_rating": "Medium",
+      "reason": "wBLR models use fixed covariates with likelihood warping; no explicit random effects are described.",
+      "supporting_text": "... Bayesian linear regression with likelihood warping ... independent variables were age and scanner.",
+      "location": "materials/Haukvik2025.pdf.md L59-L61"
+    },
+    "nm8_nm_vldtn_handle_ns": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Nuisance structure is addressed via inclusion of scanner as a predictor, nonlinearity handling through likelihood warping, and adaptation to unseen sites using 998 local HCs.",
+      "supporting_text": "... independent variables were age and scanner. ... likelihood warping ... additional harmonization step ... unmatched group of healthy controls (n=998) ... to unseen sites.",
+      "location": "materials/Haukvik2025.pdf.md L59-L64"
+    },
+    "nm9_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not report internal cross-validation metrics (e.g., EV, MSLL) or goodness-of-fit diagnostics on the training domain within this study.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm10_nm_vldtn_same_domain_indep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "No validation using an independent split from the same domain is reported here; the study relies on pretrained models and adaptation.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm11_nm_vldtn_diff_domain": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "No external validation on a different domain or dataset is reported in this paper.",
+      "supporting_text": "-",
+      "location": "-"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Single-site clinical/forensic cohorts acquired at Oslo University Hospital on two GE 3T scanners; no named public dataset.",
+      "supporting_text": "T1-weighted volumes were collected on two GE 3 T scanners located at the Oslo University hospital, Norway ...",
+      "location": "materials/Haukvik2025.pdf.md L45-L49"
+    },
+    "caa2_diseases_studied": {
+      "answer": "Schizophrenia Spectrum Disorder (SSD); history of severe violence (forensic cohort)",
+      "confidence_rating": "High",
+      "reason": "Groups include SSD with violence, SSD without violence, and violent participants without SSD, compared to healthy controls.",
+      "supporting_text": "... SSD-V; n = 38 ... SSD-NV; n = 138 ... nonSSD-V; n = 20 ... healthy nonviolent participants (HC; n = 196).",
+      "location": "materials/Haukvik2025.pdf.md L13-L13"
+    },
+    "caa3_clinical_groups_n": {
+      "answer": "SSD-V:38; SSD-NV:138; nonSSD-V:20; HC:196",
+      "confidence_rating": "High",
+      "reason": "Sample sizes are stated explicitly in the abstract.",
+      "supporting_text": "... SSD-V; n = 38 ... SSD-NV; n = 138 ... nonSSD-V; n = 20 ... HC; n = 196 ...",
+      "location": "materials/Haukvik2025.pdf.md L13-L15"
+    },
+    "caa4_clinical_groups_age": {
+      "answer": "No",
+      "confidence_rating": "Low",
+      "reason": "Demographic table is referenced but mean/SD or ranges are not provided in the text extract.",
+      "supporting_text": "Demographic characteristics are summarized in Table 1.",
+      "location": "materials/Haukvik2025.pdf.md L74-L77"
+    },
+    "caa5_clinical_groups_sex": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Overall MRI data availability by sex and QC exclusions by sex are reported, but group-wise sex breakdowns are not detailed here.",
+      "supporting_text": "MRI data was available from 837 male participants and 628 female participants. Among these, 52 males and 20 females were excluded ...",
+      "location": "materials/Haukvik2025.pdf.md L46-L49"
+    },
+    "caa6_deviation_metric": {
+      "answer": "Z-score per ROI; extreme deviation threshold |Z| > 2; percentages and counts across modalities",
+      "confidence_rating": "High",
+      "reason": "Deviation scores (Z) are computed; extreme positive and negative deviations defined and analyzed by frequency per ROI and per individual.",
+      "supporting_text": "we computed deviation scores (Z-scores) ... extreme positive (Z > 2) and negative (Z < -2) ... percentage of subjects within each group with extreme deviations ...",
+      "location": "materials/Haukvik2025.pdf.md L66-L73; materials/41398_2025_3343_MOESM1_ESM.pdf.md L9-L16"
+    },
+    "caa7_association_analysis": "Between-group comparisons on deviation scores using PALM GLM with 10,000 permutations, controlling for age (and ICV for volumes/areas), FWE-corrected across ROIs, contrasts, and modalities; age and site matched via MatchIt (1:1). Associations of deviation scores with PCL-R total tested in violent cohorts; no significant associations reported.",
+    "caa8_key_findings_brief": "Individual-level deviation patterns were heterogeneous. All clinical groups showed more extreme negative deviations than controls (especially in SSD-V occipito-temporal/cerebellar regions), while positive deviations were fewer overall; no significant associations with psychopathy (PCL-R).",
+    "caa9_key_findings_detailed": "SSD-V, SSD-NV, and nonSSD-V exhibited higher frequencies of extreme negative deviations than HC in cortical area and subcortical volume, but not thickness. For SSD-V, highest negative deviations occurred in collateral transverse sulcus (13.2%), lingual gyrus (10.5%), and cerebellar cortex volume (10.5%). SSD-NV showed occipital and suborbital sulcus involvement (~7.2%); nonSSD-V showed paracentral lobule/sulcus and middle frontal gyrus (20%/15%). Significant differences included SSD-V > HC for negative deviations in right subcallosal area (pmc-fwe = 0.020, t = 4.5, d = 1.17) and left medial occipito-temporal/lingual sulcus thickness (pc-fwe = 0.022, t = 4.3, d = 0.99). SSD-NV showed larger positive deviations in left inferior lateral ventricle and pallidum volumes vs HC. No significant associations were found between deviation scores and PCL-R total across violent participants.",
+    "caa11_application_notes": "Normative models: BrainCharts pretrained wBLR (sinh-arcsinh), PCNtoolkit v0.20 in Python 3.8; scanner included as predictor with adaptation via 998 local HCs for unseen scanners. Deviation analyses used PALM with rigorous multi-level FWE and site/age matching via MatchIt.",
+    "caa10_key_limitations": {
+      "answer": "Relatively small violent subgroup and male-only sample limit generalizability; ROI-level parcellation may underperform vs vertex-wise analyses; lack of adjustment for substance use and cumulative antipsychotic exposure; participation constraints for most severe cases; binary violence definition narrower than WHO; cross-sectional design limits causal inference; cross-sectional NM has lower individual-level prediction than longitudinal models.",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "general_note_part": {
+    "gn1_general_notes": "Abstract reports 58,836 reference individuals, while methods specify 58,835; we retained 58,835 from methods. Dataset names for the reference cohort are not listed; source repository BrainCharts is cited. Sex-specific charts are mentioned in limitations but sex is not explicitly listed as a predictor in methods; main covariates were age and scanner."
+  }
+}
