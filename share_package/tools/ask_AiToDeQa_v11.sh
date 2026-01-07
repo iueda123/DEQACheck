@@ -55,30 +55,30 @@ AIエージェント（Gemini, Claude, Codex）を使用して、
 
 オプション:
   -a, --agent AGENT      AIエージェント名を指定 (gemini|claude|codex)
-  -n, --name NAME        処理名を指定（結果ファイル名に使用、例: DE, QA）
+  -t, --type TYPE        処理タイプを指定 (DE|QA)
   -l, --list FILE        処理すべき研究名が1行ずつ記載されたファイルのパス
-  -s, --study STUDY      単一の研究のみ処理 (互換目的)
+  -s, --study STUDY      【非推奨】単一の研究のみ処理 (互換目的)
   -r, --run              実際に処理を実行（デフォルトはドライラン）
-  -d, --dry-run          明示的にドライランに設定（デフォルト）
+  -n, --dry-run          明示的にドライランに設定（デフォルト）
   -v, --verbose          詳細な出力を表示
   -h, --help             このヘルプメッセージを表示
 
 使用例:
   # 研究名の一覧を記したファイルを指定して実行（例: list.txt）
-  ${this_script_name} --agent gemini --name DE --list tools/TaegetStudies.txt
+  ${this_script_name} --agent gemini --type DE --list tools/TaegetStudies.txt
 
   # Claudeを使用してQA処理を実行（複数の研究を対象）
-  ${this_script_name} -a claude -n QA -l tools/TaegetStudies.txt
+  ${this_script_name} -a claude -t QA -l tools/TaegetStudies.txt
 
   # ドライラン（実行内容の確認のみ・デフォルト）
-  ${this_script_name} -a codex -n DE -l tools/TaegetStudies.txt
+  ${this_script_name} -a codex -t DE -l tools/TaegetStudies.txt
 
   # 実行モードで処理を走らせる
-  ${this_script_name} -a codex -n DE -l tools/TaegetStudies.txt -r
+  ${this_script_name} -a codex -t DE -l tools/TaegetStudies.txt -r
 
 注意事項:
-  - --agent と --name は必須オプションです
-  - -l/--list または -s/--study のいずれかが必須です。
+  - --agent と --type は必須オプションです
+  - -l/--list または -s/--study のいずれかが必須です（-s は非推奨）
   - 既定はドライランです（実コマンドは実行されません）
   - 実行モードにするには -r または --run を指定してください
 
@@ -90,7 +90,7 @@ EOF
 # デフォルト値
 #######################
 AiAgentName=""
-QA_Name=""
+DEorQA=""
 ListFilePath=""
 SingleStudy=""  # backward-compat for -s/--study (deprecated)
 DryRun=true
@@ -105,8 +105,8 @@ while [[ $# -gt 0 ]]; do
             AiAgentName="$2"
             shift 2
             ;;
-        -n|--name)
-            QA_Name="$2"
+        -t|--type)
+            DEorQA="$2"
             shift 2
             ;;
         -l|--list)
@@ -116,13 +116,14 @@ while [[ $# -gt 0 ]]; do
         -s|--study)
             # backward compatibility (deprecated)
             SingleStudy="$2"
+            echo "警告: -s/--study は非推奨です。-l/--list を使用してください。" >&2
             shift 2
             ;;
         -r|--run|--execute)
             DryRun=false
             shift
             ;;
-        -d|--dry-run)
+        -n|--dry-run)
             # デフォルトがドライランのため、明示指定時も true に設定
             DryRun=true
             shift
@@ -151,8 +152,8 @@ if [[ -z "${AiAgentName}" ]]; then
     exit 1
 fi
 
-if [[ -z "${QA_Name}" ]]; then
-    echo "エラー: 処理名が指定されていません（-n または --name を使用）"
+if [[ -z "${DEorQA}" ]]; then
+    echo "エラー: 処理タイプが指定されていません（-t または --type を使用）"
     echo "ヘルプを表示するには -h または --help を使用してください"
     exit 1
 fi
@@ -164,23 +165,16 @@ if [[ ! "${AiAgentName}" =~ ^(gemini|claude|codex)$ ]]; then
     exit 1
 fi
 
-# 処理名の検証（ファイル名として有効な文字列かチェック）
-# 無効な文字: / \ : * ? " < > | 空白 制御文字
-if [[ "${QA_Name}" =~ [/\\:\*\?\"\<\>\|[:space:][:cntrl:]] ]] || [[ -z "${QA_Name}" ]]; then
-    echo "エラー: 処理名にファイル名として無効な文字が含まれています: ${QA_Name}"
-    echo "使用できない文字: / \\ : * ? \" < > | 空白"
-    exit 1
-fi
-
-# 処理名が . または .. の場合も無効
-if [[ "${QA_Name}" == "." ]] || [[ "${QA_Name}" == ".." ]]; then
-    echo "エラー: 処理名に '.' または '..' は使用できません"
+# 処理タイプの検証
+if [[ ! "${DEorQA}" =~ ^(DE|QA)$ ]]; then
+    echo "エラー: 無効な処理タイプ: ${DEorQA}"
+    echo "有効な値: DE, QA"
     exit 1
 fi
 
 # 研究リスト指定の必須チェック
 if [[ -z "${ListFilePath}" && -z "${SingleStudy}" ]]; then
-    echo "エラー: 対象研究が指定されていません。-l/--list または -s/--study のいずれかを指定してください。"
+    echo "エラー: 対象研究が指定されていません。-l/--list または -s/--study のいずれかを指定してください（-s は非推奨）。"
     echo "ヘルプを表示するには -h または --help を使用してください"
     exit 1
 fi
@@ -188,20 +182,28 @@ fi
 #######################
 # 設定ファイルの決定
 #######################
-
-#
-# QA系ドキュメント
-#
-#GuideFile=${this_script_parent}/../prompts/QA_Guide_v6_1.md
-#GuideFile=${this_script_parent}/../prompts/QA_Guide_v7_2.md
-#GuideFile=${this_script_parent}/../prompts/QA_Guide_v8.md
-GuideFile=${this_script_parent}/../prompts/QA_Guide_v9.md
-
-#TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json
-#TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v7.json
-#TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v8.json
-TemplateFile=${this_script_parent}/../templates/Author20XX_by_Someone_YYYYmmddHHMMSS_for_QA_v9.json
-
+if [[ "${DEorQA}" == "DE" ]]; then
+    #
+    # DE系ドキュメント
+    #
+    #GuideFile=${this_script_parent}/../prompts/DE_Guide_v9_1.md
+    #GuideFile=${this_script_parent}/../prompts/DE_Guide_v10.md
+    GuideFile=${this_script_parent}/../prompts/DE_Guide_v10_1.md
+    
+    #TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v9.json
+    #TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10.json
+    TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json
+else
+    #
+    # QA系ドキュメント
+    #
+    #GuideFile=${this_script_parent}/../prompts/QA_Guide_v6_1.md
+    GuideFile=${this_script_parent}/../prompts/QA_Guide_v7_2.md
+    
+    #TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS.json
+    TemplateFile=${this_script_parent}/../templates/QA_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v7.json
+    
+fi
 
 # ファイル存在確認
 if [[ ! -f ${GuideFile} ]]; then
@@ -223,7 +225,7 @@ if [[ ${Verbose} == true ]]; then
     echo "============================================"
     echo "スクリプトパス: ${this_script_path}"
     echo "AIエージェント: ${AiAgentName}"
-    echo "処理タイプ: ${QA_Name}"
+    echo "処理タイプ: ${DEorQA}"
     echo "ガイドファイル: ${GuideFile}"
     echo "テンプレートファイル: ${TemplateFile}"
     if [[ -n "${ListFilePath}" ]]; then
@@ -524,7 +526,7 @@ function askAiAgent(){
 #######################
 echo ""
 echo "============================================"
-echo "  ${AiAgentName} を使用した ${QA_Name} 処理を開始"
+echo "  ${AiAgentName} を使用した ${DEorQA} 処理を開始"
 echo "============================================"
 echo ""
 
@@ -541,9 +543,9 @@ for _author_year in ${AuthorYearArray[@]}; do
   echo "============================================"
   
   # Ask AI agent if the result json was not found.
-  _folder="${this_script_parent}/../data/${_author_year}/${QA_Name}/json/"
+  _folder="${this_script_parent}/../data/${_author_year}/${DEorQA}/json/"
   if [[ ! -d ${_folder} ]]; then mkdir -p ${_folder}; fi
-  _expected_result_file="${_author_year}_by_${AiAgentName}_*_${QA_Name}.json"
+  _expected_result_file="${DEorQA}_${_author_year}_by_${AiAgentName}_*.json"
 
   _proceed=false
   if find ${_folder} -maxdepth 1 -type f -iname ${_expected_result_file} | grep -q .; then
@@ -569,7 +571,7 @@ for _author_year in ${AuthorYearArray[@]}; do
       # Make a flag file
       if [[ ${DryRun} == false ]]; then
           echo "The result json file is not created yet." \
-              > ${this_script_parent}/${QA_Name}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
+              > ${this_script_parent}/${DEorQA}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
       fi
 
       # Set Working Directory
@@ -580,7 +582,7 @@ for _author_year in ${AuthorYearArray[@]}; do
       fi
 
       # ロックファイルのチェックと作成
-      LOCK_FILE="${working_directory}/.lock_${QA_Name}_processing"
+      LOCK_FILE="${working_directory}/.lock_${DEorQA}_processing"
 
       # ドライランでない場合のみロックファイルをチェック
       if [[ ${DryRun} == false ]]; then
@@ -605,7 +607,7 @@ for _author_year in ${AuthorYearArray[@]}; do
           # ロックファイルを作成
           cat > "${LOCK_FILE}" << EOF
 AIエージェント: ${AiAgentName}
-処理タイプ: ${QA_Name}
+処理タイプ: ${DEorQA}
 研究: ${_author_year}
 PID: $$
 開始時刻: $(date '+%Y-%m-%d %H:%M:%S')
@@ -629,7 +631,7 @@ EOF
           cp ${GuideFile} ${working_directory}
 
           # Remove exist result jsons
-          find "$working_directory" -type f -name "*_for_${QA_Name}.json" -print -delete
+          find "$working_directory" -type f -name "${DEorQA}*.json" -print -delete
 
           # Prepare an empty result file
           if [[ ! -f ${TemplateFile} ]]; then
@@ -637,12 +639,12 @@ EOF
               exit 1
           fi
           cp ${TemplateFile} ${working_directory}
-          _result_file_name="${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S)_for_${QA_Name}.json"
+          _result_file_name="${DEorQA}_${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S).json"
           mv ${working_directory}/$(basename ${TemplateFile}) \
              ${working_directory}/${_result_file_name}
 
         else
-          _result_file_name="${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S)_for_${QA_Name}.json"
+          _result_file_name="${DEorQA}_${_author_year}_by_${AiAgentName}_$(date +%Y%m%d%H%M%S).json"
       fi
       
       # Change the current directory
@@ -678,15 +680,15 @@ EOF
               echo ""
               echo "JSONファイルが作成されました"
 
-              _dst=${this_script_parent}/../data/${_author_year}/${QA_Name}/json
+              _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/json
               if [[ ! -d ${_dst} ]]; then mkdir -p ${_dst}; fi
               mv ${working_directory}/${_result_file_name} ${_dst} #結果jsonファイルを移動
 
-              _dst=${this_script_parent}/../data/${_author_year}/${QA_Name}/log
+              _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/log
               if [[ ! -d ${_dst} ]]; then mkdir -p ${_dst}; fi              
               mv ${working_directory}/${_log_file_name} ${_dst} #logファイルを移動
 
-              rm ${this_script_parent}/${_author_year}_by_${AiAgentName}_for_${QA_Name}_is_not_yet.txt
+              rm ${this_script_parent}/${DEorQA}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
 
               echo "結果ファイル: ${_dst}/${_result_file_name}"
           fi
@@ -696,7 +698,7 @@ EOF
           cleanup_lockfile # ロックファイルを削除
 
       else
-          _dst=${this_script_parent}/../data/${_author_year}/${QA_Name}/log
+          _dst=${this_script_parent}/../data/${_author_year}/${DEorQA}/log
           if [[ ! -d ${_dst} ]]; then mkdir -p ${_dst}; fi              
           mv ${working_directory}/${_log_file_name} ${_dst} #logファイルを移動
       fi
@@ -715,9 +717,3 @@ echo "============================================"
 echo "  処理が完了しました"
 echo "============================================"
 echo ""
-
-if [[ ${DryRun} == true ]]; then
-    echo "【ヒント】実際に処理を実行するには --run (-r) オプションを追加してください"
-    echo "例: ${this_script_name} -a ${AiAgentName} -n ${QA_Name} -l <リストファイル> -r"
-    echo ""
-fi

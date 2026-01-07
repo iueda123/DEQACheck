@@ -79,6 +79,8 @@ AIエージェント（Gemini, Claude, Codex）を使用して、
 注意事項:
   - --agent と --name は必須オプションです
   - -l/--list または -s/--study のいずれかが必須です。
+  - リストファイルでは行頭の # はコメントとしてスキップされます。
+    AuthorYear の後ろに # 以降でメモを付けることもできます。
   - 既定はドライランです（実コマンドは実行されません）
   - 実行モードにするには -r または --run を指定してください
 
@@ -569,7 +571,7 @@ for _author_year in ${AuthorYearArray[@]}; do
       # Make a flag file
       if [[ ${DryRun} == false ]]; then
           echo "The result json file is not created yet." \
-              > ${this_script_parent}/${QA_Name}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
+              > ${this_script_parent}/${_author_year}_by_${AiAgentName}_for_${QA_Name}_is_not_yet.txt
       fi
 
       # Set Working Directory

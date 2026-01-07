@@ -45,7 +45,7 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         setSpacing(true);
 
         // Title
-        add(new H2("QA Summary per Reviewer"));
+        add(new H2("QA Result per Reviewer"));
 
         // Back to MainView link
         RouterLink backLink = new RouterLink("< Back to Main", MainView.class);

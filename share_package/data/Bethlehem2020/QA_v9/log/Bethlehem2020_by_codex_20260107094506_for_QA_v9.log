@@ -1,0 +1,1274 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "QA_Guide_v9.md に従って作業をしてください。作業結果は Bethlehem2020_by_codex_20260107094506_for_QA_v9.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.73.0 (research preview)
+--------
+workdir: /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized
+model: gpt-5.1-codex-max
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019b95ea-2a1e-76b3-9c04-bce4c0724f94
+--------
+user
+QA_Guide_v9.md に従って作業をしてください。作業結果は Bethlehem2020_by_codex_20260107094506_for_QA_v9.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Locating QA guide file**
+exec
+/bin/bash -lc ls in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 19ms:
+Bethlehem2020.pdf.md
+Bethlehem2020_artifacts
+Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+Bethlehem2020_by_codex_20260107094506_for_QA_v9.log
+Bethlehem2020_sup1.pdf.md
+Bethlehem2020_sup1_artifacts
+QA_Guide_v9.md
+exec
+/bin/bash -lc 'cat QA_Guide_v9.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 29ms:
+# Quality Assessment Guidance for Normative Modeling in Neuroimaging: A Systematic Review
+
+Also known as (AKA): The NORMA (Normative Modeling Assessment) Checklist: Reporting Standards for Normative Modeling in Neuroimaging
+
+Version based on `Quality_Assessment_Checklist_20251222.pdf`.
+
+-------------------
+
+## Prompt Overview
+You are a professional reviewer skilled at assessing the quality of research articles on normative modeling in neuroimaging. This assessment is conducted as part of a systematic review on methodological considerations and applications of neuroimaging for psychiatric and neurological disorders.
+
+-------------------
+
+## Our Systematic Review Objectives
+
+This systematic review will evaluate normative modeling studies that use neuroimaging and neurophysiological tests (e.g., MRI, PET, EEG, MEG). The review addresses three questions:
+
+  1. **Modality**: Which measurement techniques have been applied in normative modeling, and how often is each modality used? For common modalities like MRI, what specific sequences (e.g., T-weighted) are most frequently utilized?
+  2. **Methodology**: How are normative modeling studies designed and validated across modalities? We will extract information on sample size, covariates, image preprocessing, statistical models, harmonization procedures, and validation strategies.
+  3. **Clinical scope**: Which psychiatric or neurological conditions have been investigated with normative modeling, and what individual-level deviation patterns or clinical utilities have been reported?
+
+thinking
+**Reviewing existing JSON structure**
+
+I'm opening the existing JSON to examine its structure and decide if a template or specific structure is needed for the task.
+exec
+/bin/bash -lc 'cat Bethlehem2020_by_codex_20260107094506_for_QA_v9.json' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 24ms:
+{
+  "study_identification_part": {
+    "si1_study_id": "",
+    "si2_reference_file_names": "",
+    "si3_author_journal_year": "",
+    "si4_title": "",
+    "si5_doi": ""
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "",
+      "confidence_rating": "",
+      "reason": "",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "",
+
+thinking
+**Preparing to extract content from PDF markdown**
+
+I'm planning to read the converted markdown of Bethlehem2020.pdf and its supplementary files, likely using ripgrep to locate relevant content for filling.
+exec
+/bin/bash -lc 'head -n 40 Bethlehem2020.pdf.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 20ms:
+1234567890():,;
+
+![Image](./Bethlehem2020_artifacts/image_000000_1e2ae785745b134a94a0757f9aeea23cd723b8b1cf1bc28b7ed98543758ecedb.png)
+
+## ARTICLE
+
+https://doi.org/10.1038/s42003-020-01212-9
+
+OPEN
+
+## A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder
+
+Richard A. I. Bethlehem 1,2 ✉ , Jakob Seidlitz 1,3 , Rafael Romero-Garcia 1 , Stavros Trakoshis 4,5 , Guillaume Dumas 6,7,8 &amp; Michael V. Lombardo 2,4
+
+Understanding heterogeneity is an important goal on the path to precision medicine for autism spectrum disorders (ASD). We examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms. Across a large sample ( n = 870 per group) and wide age range (5 -40 years), we applied normative modelling resulting in individualized whole-brain maps of agerelated CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT. Agenormed CT scores also highlights on-average differentiation, and associations with behavioural symptomatology that is separate from insights gleaned from traditional case-control approaches. This work showcases an individualized approach for understanding ASD heterogeneity that could potentially further prioritize work on a subset of individuals with cortical pathophysiology represented in age-related CT atypicality. Only a small subset of ASD individuals are actually highly atypical relative to age-norms. driving small on-average casecontrol differences.
+
+1 Brain Mapping Unit, Department of Psychiatry, University of Cambridge, Cambridge CB2 0SZ, UK. 2 Autism Research Centre, Department of Psychiatry, University of Cambridge, Cambridge CB2 8AH, UK. 3 Department of Child and Adolescent Psychiatry and Behavioral Science, Children ' s Hospital of Philadelphia, Philadelphia, PA 19104, USA. 4 Laboratory for Autism and Neurodevelopmental Disorders, Center for Neuroscience and Cognitive Systems @UniTn, Istituto Italiano di Tecnologia, Rovereto, Italy. 5 Department of Psychology, University of Cyprus, Nicosia, Cyprus. 6 Human Genetics and Cognitive Functions Unit, Institut Pasteur, Paris, France. 7 CNRS UMR3571 Genes, Synapses and Cognition, Institut Pasteur, Paris, France. 8 Human Genetics and Cognitive Functions Unit, University Paris Diderot, Sorbonne Paris Cité, Paris, France. ✉ email: rb643@medschl.cam.ac.uk
+
+![Image](./Bethlehem2020_artifacts/image_000001_36921f61ae9b9a68d2f7f21acc0058f6b4f87714471638353aef7d77a9737812.png)
+
+
+thinking
+**Planning search for Methods section**
+
+I'm preparing to locate the Methods section by searching for keywords like "Methods" or "Data collection" to find relevant headings and info organization.
+exec
+/bin/bash -lc 'rg -n "Methods" Bethlehem2020.pdf.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 28ms:
+31:Age-related normative modelling . Normative modelling of agerelated CT effects was done utilizing male-only data from the typically developing group (TD) (see ' Methods ' section for full sample description, Fig. 1 for a schematic overview and Supplementary Figs. 1 and 2 for more demographics information). All analyses were done on CT averaged within 308 cortical regions 33 . We used a local polynomial regression /uniFB01 tting procedure (LOESS) 34,35 , where the local width or smoothing kernel of the regression was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization across 5 -100% of the full age range using Brent ' s method 36 as implemented in the R optim function from the stats package. We also assessed consistency of our output using centiles scoring and consistency of the normative model using extensive bootstrapping and sensitivity analyses, both showed high outcome consistency (see ' Methods ' section and Supplementary Materials; Supplementary Figs. 3 -5). To align the TD and ASD groups,
+37:Fig. 1 Demographics and descriptive statistics. a Histogram of age distribution per sex. Females were excluded from further analyses due to known sex differential effects in autism and the lack of available data to estimate population norms (see ' Methods ' section for details). b Schematic overview of normative modelling. In the /uniFB01 rst instance LOESS regression is used to estimate the developmental trajectory on CT for every individual brain region to obtain an agespeci /uniFB01 c mean and standard deviation. Then we computed median for each one-year age-bin for these mean and median neurotypical estimates to align them with the ASD group. Next, for each individual with autism and each brain region the normative mean and standard deviation are used to compute a w-score relative to their neurotypical age-bin. Contrary to conventional boxplots, the second panel shows mean, 1 sd and 2 sd for the neurotypical group (in yellow) and individuals with an autism diagnosis in purple.
+85:Sensitivity analysis . Sensitivity analyses on the effects of reconstruction quality using Euler index as well as residual effects of inscanner head motion from the resting-state acquisition did not reveal a signi /uniFB01 cant impact on thresholded case-control differences or w-score. Speci /uniFB01 cally, systematic exclusion of top motion and Euler subjects resulted in highly spatially consistent effect size maps (all r &lt; 0.7). Individuals identi /uniFB01 ed as statistical outliers did not have disproportionally high motion or high Euler indices. For more details see ' Methods ' section and supplementary materials (Supplementary Figs. 2 and 3).
+107:## Methods
+exec
+/bin/bash -lc "sed -n '107,260p' Bethlehem2020.pdf.md" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 24ms:
+## Methods
+
+Participants . In this study, we /uniFB01 rst sought to leverage large neuroimaging datasets to yield greater statistical power for identifying subtle effects. To achieve this, we utilized the ABIDE datasets (ABIDE I and II; 15) (see Supplementary Fig. 1). Informed consent was given at each site included in the ABIDE studies, see the website for more details: http://fcon\_1000.projects.nitrc.org/indi/abide/. Given that the normalized modelling approach gives us individual level measures we chose to also include sites with limited numbers of subjects. Groups were subsequently matched on age using the non-parametric nearest neighbour matching procedure implemented in the Matchit package in R (https://cran.r-project.org/web/packages/ MatchIt/index.html) 52 . After matching case and control groups and excluding scans of poorer quality (see supplementary materials) we were left with a sample size N = 870 per group (Tables 2 and 3).
+
+Imaging processing and quanti /uniFB01 cation . Cortical surface reconstruction was performed using the MPRAGE (T1) image of each participant with FreeSurfer (http://surfer.nmr.mgh.harvard.edu/) version (v5.3.0, to ensure comparability with previous ABIDE publications). The reconstruction pipeline performed by FreeSurfer ' recon-all ' involved intensity normalization, registration to Talairach space, skull stripping, WM segmentation, tessellation of the WM boundary, and automatic correction of topological defects. Brie /uniFB02 y, non-uniformity intensity correction algorithms were applied before skull stripping 53 , resulting in resampled isotropic images of 1 mm. An initial segmentation of the white matter tissue was performed to generate a tessellated representation of the WM/GM boundary. The resulting surface was deformed outwards to the volume that maximizes the intensity contrast between GM and cerebrospinal /uniFB02 uid, generating the pial surface 54 . Resulting surfaces were constrained to a spherical topology and corrected for geometrical and topological abnormalities. CT of each vertex was de /uniFB01 ned as the shortest distance between vertices of the GM/WM boundary and the pial surface 55 . We chose to not conduct manual segmentations and excluded failed subjects from any subsequent analysis (and these subjects were removed prior to the matching and QC procedures). To assess the quality of Freesurfer reconstructions we computed the Euler index 38 . The Euler number is a quantitative proxy index of segmentation quality
+
+| Table 2 Sample characteristics of age.   | Table 2 Sample characteristics of age.   | Table 2 Sample characteristics of age.   | Table 2 Sample characteristics of age.   | Table 2 Sample characteristics of age.   | Table 2 Sample characteristics of age.   | Table 2 Sample characteristics of age.   | Table 2 Sample characteristics of age.   |
+|------------------------------------------|------------------------------------------|------------------------------------------|------------------------------------------|------------------------------------------|------------------------------------------|------------------------------------------|------------------------------------------|
+| Dx                                       | Sex                                      | Mean                                     | SD                                       | N                                        | Median                                   | Min                                      | Max                                      |
+| Autism                                   | Male                                     | 16.32                                    | 9.09                                     | 754                                      | 13.75                                    | 5.13                                     | 64                                       |
+| Autism                                   | Female                                   | 15.06                                    | 8.43                                     | 116                                      | 12.57                                    | 5.22                                     | 54                                       |
+| TD                                       | Male                                     | 16.64                                    | 8.98                                     | 660                                      | 13.69                                    | 5.89                                     | 64                                       |
+| TD                                       | Female                                   | 13.25                                    | 5.33                                     | 210                                      | 11.09                                    | 5.91                                     | 32                                       |
+
+| Table 3 Sample characteristics.   | Table 3 Sample characteristics.   | Table 3 Sample characteristics.   | Table 3 Sample characteristics.   | Table 3 Sample characteristics.   | Table 3 Sample characteristics.   | Table 3 Sample characteristics.   |
+|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
+| Measure                           | Dx                                | Sex                               | Mean                              | SD                                | N                                 | Median                            |
+| IQ                                | Autism                            | Male                              | 106.13                            | 16.51                             | 754                               | 107                               |
+|                                   | Autism                            | Female                            | 105.88                            | 16.21                             | 116                               | 106.5                             |
+|                                   | TD                                | Male                              | 111.28                            | 12.13                             | 660                               | 111                               |
+
+thinking
+**Reviewing supplementary info needs**
+
+I'm checking the supplementary file headers to identify study IDs and determine which files contain relevant extraction details beyond the main document.
+exec
+/bin/bash -lc 'head -n 40 Bethlehem2020_sup1.pdf.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 24ms:
+Supplementary information for: A normative modeling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder
+
+| Table of contents                                                                                                                                                       |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SITE AND PARTICIPANT INFORMATION .........................................................................................................................  2           |
+| Supplemental Figure S1:  Site distribution  ................................................................................................................. 2         |
+| QUALITY CONTROL ..................................................................................................................................................  2   |
+| Supplemental Figure S2:  Euler quality control .......................................................................................................... 4             |
+| SENSITIVITY ANALYSIS  ..............................................................................................................................................  4 |
+| Supplemental Figure S3:  Sensitivity analyses  ............................................................................................................ 7           |
+| BOOTSTRAPPING ....................................................................................................................................................  7   |
+| Supplemental Figure S4:  bootstrap validation .......................................................................................................... 8              |
+| COMPARISON TO CENTILE MODELLING OF NORMATIVE DEVIATION ....................................................................................  8                          |
+| Supplemental Figure S5:  Centile vs LOESS regression  ............................................................................................... 9                 |
+| INDIVIDUAL SUMMARY RATIOS  ...................................................................................................................................  9       |
+| Supplemental Figure S6:  Global individual W-Score ratios ..................................................................................... 10                      |
+| Supplemental Figure S7:  Outlier age distribution per brain region ........................................................................ 11                          |
+| AGE-RELATED CT DEVIANCE RELATIONSHIPS WITH SRS AND ADOS ................................................................................  12                            |
+| Supplemental Figure S8:  Phenotype - W-Score correlations ................................................................................. 12                          |
+| SURFACE AREA, LGI AND VOLUME ...........................................................................................................................  13            |
+exec
+/bin/bash -lc "sed -n '40,200p' Bethlehem2020_sup1.pdf.md" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 27ms:
+To assess quality of Freesurfer reconstructions we computed the Euler index (Rosen et al., 2018). The Euler number is a quantitative index of segmentation quality and has shown high overlap  with  manual  quality  control  labelling.  In  the  full  sample  we  found  a  small  but significant difference in both hemispheres (Figure S2) with the autism group having overall worse scan quality (d = 0.176 and d = 0.187 for left and right hemisphere respectively). We excluded  all  subjects  with  a  Euler  score  of  300  or  higher  in  either  hemisphere.  After thresholding  based  on  Euler  indices  and  after  re-running  the  sample  consisted  of  870 individuals with autism and 870 neurotypical individual, matched on Age, Euler and IQ.
+
+![Image](./Bethlehem2020_sup1_artifacts/image_000001_a87c59ec15fea36300988b9fcd71e2b11a83a9f48b19b760f0feaa5ec7ce4672.png)
+
+## Supplemental Figure 2: Euler quality control
+
+Panels A and B list  the  Euler  indices  for  both  left  and  right  hemisphere,  p-values  for  group  differences  were established with two-sided permutation testing (20000 permutations), Cohen's d was computed using custom R code  https://github.com/mvlombardo/utils/blob/master/cohens\_d.R.  Panels  C  and  D  show  the  left  and  right hemisphere Euler distribution across the different sites included in ABIDE. Panel E shows 3 example scans for Euler indices of 50, 300 and 800 respectively. Raincloud plots were created using: https://micahallen.org/2018/03/15/introducing-raincloud-plots/
+
+## Sensitivity Analysis
+
+To further assess the potential impact of data quality in the present study we processed the resting-state fMRI data to obtain estimates of in-scanner head-motion in the form of framewise displacement. We found that similar to the Euler index there were systematic group differences in  in-scanner  head  motion  (Figure  S3.A),  we  also  find  that  there  were  small  significant correlations between in-scanner absolute, negative and positive w-score ratios (r = 0.15, r = 0.16 and r = 0.09 respectively, all p &lt; .05, Figure S3.B). Then we assessed whether the extracted w-scores were spatially correlated with either Euler or head motion and found small (mostly negative) correlations ranging from r = -0.18 to r = 0.14 (Figure S3.C). Thus, we subsequently included both Euler index and framewise displacement as confound variables in all models.
+
+Then, to systematically evaluate whether either motion or reconstruction quality impacted any of our outcome measures we conducted a cross-validation analysis by systematically excluding the top 5% of motion subject and top 5% of Euler subjects and assessed the spatial correlation in resulting Cohen's D maps (Figure S3.D). Resulting maps were highly consistent, with the lowest correlation (r = 0.7) between the sample with 95% and 75% of Euler subjects included, which is reflective of a decrease in sample size. We also assess the effect on the resulting onesample assessment of the w-score between a model including motion as a confound and a model not including the motion confound (Figure S3.E). This showed near perfect consistency in  spatial  topology  (r  =  1.00,  p  &lt;  .0001).  In  similar  fashion  we  assessed  the  case-control differences in a model with and without motion (Figure S3.F) and again found high consistency in spatial topology (r = 0.96, p &lt; .0001).
+
+To more specifically assess the relation between w-score ratios and head-motion we visualised their individuals correlations and observed that despite the small correlations there was little indication that high w-score ratio individuals (ratio &gt; .5) were also the individuals with high motion (Figure S3G-I). To systematically assess their influence, we removed the top 5% of motion autism individuals. We then reassessed the correlation (Figure S3.J), the absolute wscore ratio (Figure S3.K) and the spatial prevalence (Figure S3.L) and found this exclusion did not impact our original results. In the same manner we excluded the top percentage of autism individuals with a high Euler index from the analysis (Figure S3M-O) and again found no impact on our original results.
+
+![Image](./Bethlehem2020_sup1_artifacts/image_000002_090c08cadc7a42cbc458be9d2dc405ade650537125c978387aff5f466f642b98.png)
+
+gs)
+
+
+thinking
+**Extracting study metadata and objectives**
+
+I'm gathering metadata for the study including ID, reference files, formatted author-journal-year, title, and DOI, confirming the journal as Communications Biology via DOI lookup. Next, I'm identifying research objectives from the introduction text and will approximate their location with line numbers from the main markdown file.
+exec
+/bin/bash -lc "nl -ba Bethlehem2020.pdf.md | sed -n '1,120p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 19ms:
+     1	1234567890():,;
+     2	
+     3	![Image](./Bethlehem2020_artifacts/image_000000_1e2ae785745b134a94a0757f9aeea23cd723b8b1cf1bc28b7ed98543758ecedb.png)
+     4	
+     5	## ARTICLE
+     6	
+     7	https://doi.org/10.1038/s42003-020-01212-9
+     8	
+     9	OPEN
+    10	
+    11	## A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder
+    12	
+    13	Richard A. I. Bethlehem 1,2 ✉ , Jakob Seidlitz 1,3 , Rafael Romero-Garcia 1 , Stavros Trakoshis 4,5 , Guillaume Dumas 6,7,8 &amp; Michael V. Lombardo 2,4
+    14	
+    15	Understanding heterogeneity is an important goal on the path to precision medicine for autism spectrum disorders (ASD). We examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms. Across a large sample ( n = 870 per group) and wide age range (5 -40 years), we applied normative modelling resulting in individualized whole-brain maps of agerelated CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT. Agenormed CT scores also highlights on-average differentiation, and associations with behavioural symptomatology that is separate from insights gleaned from traditional case-control approaches. This work showcases an individualized approach for understanding ASD heterogeneity that could potentially further prioritize work on a subset of individuals with cortical pathophysiology represented in age-related CT atypicality. Only a small subset of ASD individuals are actually highly atypical relative to age-norms. driving small on-average casecontrol differences.
+    16	
+    17	1 Brain Mapping Unit, Department of Psychiatry, University of Cambridge, Cambridge CB2 0SZ, UK. 2 Autism Research Centre, Department of Psychiatry, University of Cambridge, Cambridge CB2 8AH, UK. 3 Department of Child and Adolescent Psychiatry and Behavioral Science, Children ' s Hospital of Philadelphia, Philadelphia, PA 19104, USA. 4 Laboratory for Autism and Neurodevelopmental Disorders, Center for Neuroscience and Cognitive Systems @UniTn, Istituto Italiano di Tecnologia, Rovereto, Italy. 5 Department of Psychology, University of Cyprus, Nicosia, Cyprus. 6 Human Genetics and Cognitive Functions Unit, Institut Pasteur, Paris, France. 7 CNRS UMR3571 Genes, Synapses and Cognition, Institut Pasteur, Paris, France. 8 Human Genetics and Cognitive Functions Unit, University Paris Diderot, Sorbonne Paris Cité, Paris, France. ✉ email: rb643@medschl.cam.ac.uk
+    18	
+    19	![Image](./Bethlehem2020_artifacts/image_000001_36921f61ae9b9a68d2f7f21acc0058f6b4f87714471638353aef7d77a9737812.png)
+    20	
+
+thinking
+**Extracting criteria and sample details**
+
+I'm gathering inclusion/exclusion criteria and sample size details from main and supplement lines, noting male-only normative data from TD group on line 31 and sample size after QC on line 109, with partial eligibility clarity due to limited explicit criteria beyond ABIDE dataset and quality filters.
+exec
+/bin/bash -lc "nl -ba Bethlehem2020_sup1.pdf.md | sed -n '1,160p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 25ms:
+     1	Supplementary information for: A normative modeling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder
+     2	
+     3	| Table of contents                                                                                                                                                       |
+     4	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     5	| SITE AND PARTICIPANT INFORMATION .........................................................................................................................  2           |
+     6	| Supplemental Figure S1:  Site distribution  ................................................................................................................. 2         |
+     7	| QUALITY CONTROL ..................................................................................................................................................  2   |
+     8	| Supplemental Figure S2:  Euler quality control .......................................................................................................... 4             |
+     9	| SENSITIVITY ANALYSIS  ..............................................................................................................................................  4 |
+    10	| Supplemental Figure S3:  Sensitivity analyses  ............................................................................................................ 7           |
+    11	| BOOTSTRAPPING ....................................................................................................................................................  7   |
+    12	| Supplemental Figure S4:  bootstrap validation .......................................................................................................... 8              |
+    13	| COMPARISON TO CENTILE MODELLING OF NORMATIVE DEVIATION ....................................................................................  8                          |
+    14	| Supplemental Figure S5:  Centile vs LOESS regression  ............................................................................................... 9                 |
+    15	| INDIVIDUAL SUMMARY RATIOS  ...................................................................................................................................  9       |
+    16	| Supplemental Figure S6:  Global individual W-Score ratios ..................................................................................... 10                      |
+    17	| Supplemental Figure S7:  Outlier age distribution per brain region ........................................................................ 11                          |
+    18	| AGE-RELATED CT DEVIANCE RELATIONSHIPS WITH SRS AND ADOS ................................................................................  12                            |
+    19	| Supplemental Figure S8:  Phenotype - W-Score correlations ................................................................................. 12                          |
+    20	| SURFACE AREA, LGI AND VOLUME ...........................................................................................................................  13            |
+
+thinking
+**Extracting detailed data quality checklist answers**
+
+I'm compiling precise Yes/Partial/No/NA answers with reasons and supporting text references for 16 checklist items covering normative modeling and clinical cohort data, including covariates handling, validation, data sources, preprocessing, and reproducibility. Next, I'll fill the JSON accordingly with minimal quotes, line locations, and confidence levels.
+exec
+/bin/bash -lc 'rg -n "Data availability" -n Bethlehem2020.pdf.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 25ms:
+169:## Data availability
+exec
+/bin/bash -lc "nl -ba Bethlehem2020.pdf.md | sed -n '160,210p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 28ms:
+   160	
+   161	We also computed global w-score ratios for positive and negative w regions separately.
+   162	
+   163	Exploratory analyses . In addition to assessing the effect of normative outlier on conventional case-control analyses we also conducted some exploratory analysis on the normative w-scores. First, to explore whether the w-scores re /uniFB02 ect a potentially meaningful phenotypic feature we also computed Spearman correlations for each brain region between the most commonly shared phenotypic features in ABIDE: ADOS, SRS, SCQ, AQ, FIQ and Age. Resulting p -values matrices were corrected for multiple comparisons using Benjamini -Hochberg FDR correction and only regions surviving and FDR-corrected p -value of &lt; 0.05 are reported.
+   164	
+   165	Finally, we explored whether the raw CT values could be used in a multivariate fashion to separate groups by diagnosis or illuminate strati /uniFB01 cation within ASD into subgroups. Here we used k -medoid clustering on t-distributed stochastic neighbour embedding (tSNE) 66 . Barnes -Hut tSNE was used to construct a two-dimensional embedding for all parcels in order to be able to run k -medoid clustering in a 2D representation and in order to visually assess the most likely scenario within the framework suggested by Marquand and colleagues 21 . Next, we performed partitioning around medoids (PAM), estimating the optimum number of clusters using the optimum average silhouette width 67 . Details of this exploratory analysis are reported in the supplementary materials (Supplementary Fig. 13).
+   166	
+   167	Reporting summary . Further information on research design is available in the Nature Research Reporting Summary linked to this article.
+   168	
+   169	## Data availability
+   170	
+   171	All data is openly available on GitHub 32 , this includes all measures extracted from the raw imaging data alongside the relevant phenotypic and quality control measures. Original unprocessed neuroimaging data is openly available through the ABIDE consortium: http://fcon\_1000.projects.nitrc.org/indi/abide/abide\_I.html.
+   172	
+   173	## Code availability
+   174	
+   175	All code is openly available on GitHub 32 , Cohen ' s d were computed using: https://github. com/mvlombardo/utils/blob/master/cohens\_d.R and the centiles cross-validation code can be found in https://github.com/deep-introspection/PyNM.
+   176	
+   177	Received: 16 April 2020; Accepted: 5 August 2020;
+   178	
+   179	## References
+
+thinking
+**Mapping text locations for clinical measures**
+
+I've identified key line ranges for ADOS, SRS, and clinical characteristics references, mainly lines 113–120 for Table 3 and lines near 27 and 45–49 for deviation scores and thresholds, which I’ll use to supply exact supporting text locations in the JSON before applying the patch.
+file update
+M /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+@@ -2,7 +2,7 @@
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Bethlehem2020",
++    "si2_reference_file_names": "Bethlehem2020.pdf.md; Bethlehem2020_sup1.pdf.md",
++    "si3_author_journal_year": "Bethlehem et al., Communications Biology, 2020",
++    "si4_title": "A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder",
++    "si5_doi": "10.1038/s42003-020-01212-9"
+   },
+@@ -10,7 +10,7 @@
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The introduction states the goals of using normative modelling to parameterize cortical thickness atypicality in ASD, compare it against traditional case–control analyses, identify prevalence of age-atypical CT, and relate individualized deviation scores to behavioural symptoms. These statements meet both criteria about research questions and the purpose of applying normative modelling.",
++      "supporting_text": "“We examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms… we applied normative modelling resulting in individualized whole-brain maps of age-related CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT… we employ normative modelling… to isolate specific subsets of patients… Finally, we explore age-atypical CT-behaviour associations and assess whether such dimensional analyses… identify similar or different regions than typical case-control analyses.”",
++      "location": "Bethlehem2020.pdf.md:15-27"
+     }
+@@ -19,26 +19,26 @@
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The reference cohort comprised TD participants from the ABIDE I/II datasets, with analyses using male-only TD data, citing the original dataset. They report matching, exclusion of failed segmentations, and removal of poor-quality scans using an Euler-index threshold, giving the final sample size. However, detailed inclusion/exclusion criteria for TD subjects and comprehensive image quality standards beyond the Euler cutoff are not fully described.",
++      "supporting_text": "“Normative modelling of age-related CT effects was done utilizing male-only data from the typically developing group (TD)… After matching case and control groups and excluding scans of poorer quality… we were left with a sample size N = 870 per group.”; “We excluded all subjects with a Euler score of 300 or higher in either hemisphere… after thresholding… the sample consisted of 870 individuals with autism and 870 neurotypical individual, matched on Age, Euler and IQ.”",
++      "location": "Bethlehem2020.pdf.md:31,109-110; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Age is explicitly modelled through age-binned normative curves, analyses are sex-stratified, and multi-site effects are handled with scanner site as a random effect. Additional confounds such as head motion and Euler index are included in models, demonstrating consideration of key covariates.",
++      "supporting_text": "“We used a local polynomial regression fitting procedure (LOESS)… computed median for each one-year age-bin… This was done separately for each sex.”; “We used a linear mixed effects model with scanner site as a random effect… included… age, in-scanner head motion and Euler index as covariates.”",
++      "location": "Bethlehem2020.pdf.md:31-37,51"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies that normative data come from the openly available ABIDE I and II datasets and cites the source, satisfying the requirement to describe the data source of the reference cohort.",
++      "supporting_text": "“We… utilized the ABIDE datasets (ABIDE I and II; 15)… Informed consent was given at each site included in the ABIDE studies.”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "The imaging data are from the existing ABIDE datasets rather than primary collection in this study, so acquisition protocol reporting is not applicable per the guideline.",
+       "supporting_text": "",
+@@ -47,40 +47,40 @@
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described using FreeSurfer v5.3.0 recon-all with key steps (intensity normalization, skull stripping, WM segmentation, surface reconstruction) and QC procedures (Euler index computation, exclusion of failed subjects, thresholding high Euler scores).",
++      "supporting_text": "“Cortical surface reconstruction was performed… with FreeSurfer… v5.3.0… recon-all involved intensity normalization, registration to Talairach space, skull stripping, WM segmentation, tessellation… CT… defined as the shortest distance between… WM boundary and the pial surface… We chose to not conduct manual segmentations and excluded failed subjects… To assess the quality of Freesurfer reconstructions we computed the Euler index.”; “We excluded all subjects with a Euler score of 300 or higher… after thresholding… the sample consisted of 870… matched on Age, Euler and IQ.”",
++      "location": "Bethlehem2020.pdf.md:111-112; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The study reports hyperparameter optimization for LOESS bandwidth and evaluates reliability via 1000 bootstrap resamples of the normative sample, but it does not describe a partitioned validation strategy (e.g., hold-out or k-fold) where models are tested on unseen data.",
++      "supporting_text": "“The local width or smoothing kernel of the regression was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization across 5–100% of the full age range using Brent’s method.”; “We bootstrapped the normative sample (1000 bootstraps… ) and computed 1000 bootstrapped w-scores… The median number of brain regions per subject with a significant p-value was 1… indicating that the w-score provides a robust measure of atypicality.”",
++      "location": "Bethlehem2020.pdf.md:31; Bethlehem2020_sup1.pdf.md:66-74"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "All normative modelling is conducted on ABIDE I/II data with no application to an independent external healthy dataset, and no external validation set is described.",
++      "supporting_text": "“We… utilized the ABIDE datasets (ABIDE I and II).”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The normative modelling approach is detailed as LOESS regression with bandwidth optimization, computation of age-binned normative means/SDs, and derivation of w-scores, with implementation details (Brent’s method via R optim).",
++      "supporting_text": "“We used a local polynomial regression fitting procedure (LOESS)… the local width… was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization… using Brent’s method… implemented in the R optim function… For each age bin and every brain region we computed a normative mean and standard deviation… The w-score for an individual thus reflects how far away their CT is from TD norms in units of standard deviation.”",
++      "location": "Bethlehem2020.pdf.md:31-49"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Model performance is probed through consistency checks (centile comparison and bootstrap reliability of w-scores) but no standard predictive performance metrics (e.g., explained variance or prediction error on held-out data) are reported.",
++      "supporting_text": "“We… assessed consistency of our output using centiles scoring and consistency of the normative model using extensive bootstrapping and sensitivity analyses, both showed high outcome consistency.”; “We bootstrapped the normative sample (1000 bootstraps… )… The median number of brain regions per subject with a significant p-value was 1… indicating that the w-score provides a robust measure of atypicality.”",
++      "location": "Bethlehem2020.pdf.md:31-32; Bethlehem2020_sup1.pdf.md:66-74"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning (train/validation/test) of the normative cohort is reported; the modelling uses the full TD sample, so partition-specific characteristics are not applicable.",
+       "supporting_text": "",
+@@ -89,7 +89,7 @@
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Software versions and pipelines are specified (FreeSurfer v5.3.0, R packages), and the study provides open access to data and code with repository links, fulfilling reproducibility criteria.",
++      "supporting_text": "“Cortical surface reconstruction was performed… with FreeSurfer… v5.3.0… recon-all…”; “All data is openly available on GitHub… Original unprocessed neuroimaging data is openly available through the ABIDE consortium…”; “All code is openly available on GitHub… Cohen’s d were computed using: https://github.com/mvlombardo/utils/blob/master/cohens_d.R and the centiles cross-validation code can be found in https://github.com/deep-introspection/PyNM.”",
++      "location": "Bethlehem2020.pdf.md:111; Bethlehem2020.pdf.md:169-175"
+     }
+@@ -98,42 +98,42 @@
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The clinical cohort (ASD) is drawn from ABIDE I/II with age matching and exclusions for poor image quality (failed reconstructions and Euler >300), and the final sample size is given. However, detailed diagnostic criteria and full inclusion/exclusion standards for patients are not described within this paper.",
++      "supporting_text": "“We utilized the ABIDE datasets (ABIDE I and II)… After matching case and control groups and excluding scans of poorer quality… we were left with a sample size N = 870 per group.”; “We excluded all subjects with a Euler score of 300 or higher… after thresholding… the sample consisted of 870 individuals with autism and 870 neurotypical individual.”",
++      "location": "Bethlehem2020.pdf.md:109-110; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Analyses incorporate clinical and phenotypic covariates beyond demographics, including ADOS, SRS, SCQ, AQ, IQ, and age in brain–behaviour correlations, and models include motion and Euler indices as confounds.",
++      "supporting_text": "“We also conducted some exploratory analysis… computed Spearman correlations… between… ADOS, SRS, SCQ, AQ, FIQ and Age.”; “linear mixed effects model including site, sex, age, in-scanner head motion and Euler index as covariates.”",
++      "location": "Bethlehem2020.pdf.md:51,163-165"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The ASD clinical cohort is explicitly sourced from the ABIDE I/II datasets, an existing database, satisfying the requirement to describe the data source.",
++      "supporting_text": "“We utilized the ABIDE datasets (ABIDE I and II; 15)….”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The paper provides sample sizes and demographic/clinical characteristics, including age statistics by sex and diagnosis (Table 2) and clinical measures such as IQ, ADOS, and SRS with means, SDs, and Ns (Table 3).",
++      "supporting_text": "Table 2 lists age characteristics by diagnosis and sex (e.g., Autism Male N=754… TD Male N=660). Table 3 lists clinical measures (IQ, ADOS, SRS) with means, SD, and N for autism and controls by sex.",
++      "location": "Bethlehem2020.pdf.md:113-120"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical assessment tools used in analyses are specified, including ADOS and SRS scores reported in Table 3 and used in symptom correlations with w-scores.",
++      "supporting_text": "Table 3 includes ADOS and SRS measures with means and sample sizes; “computed Spearman correlations… for… ADOS, SRS, SCQ, AQ, FIQ and Age.”",
++      "location": "Bethlehem2020.pdf.md:113-120,163-164"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The manuscript defines w-scores as deviations from age-specific TD norms, explains that ±2 SD thresholds identify atypical individuals, and discusses their prevalence and behavioural associations, covering meaning, thresholds, and clinical relevance of deviation scores.",
++      "supporting_text": "“The w-score for an individual thus reflects how far away their CT is from TD norms in units of standard deviation.”; “We then describe the prevalence of ASD cases that show meaningful age-related deviance in CT (i.e. >2 standard deviations from age-related norms)….”; “To isolate subsets of individuals with significant age-related CT deviance, we used a cut-off score of 2 standard deviations (i.e. w >= 2 or w<=2)….”",
++      "location": "Bethlehem2020.pdf.md:45-49,27; Bethlehem2020_sup1.pdf.md:86-90"
+     }
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+file update:
+diff --git a/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json b/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..d2e5430b3b1a06d13de277bc8e067a213c0e6a50
+--- a/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
++++ b/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Bethlehem2020",
++    "si2_reference_file_names": "Bethlehem2020.pdf.md; Bethlehem2020_sup1.pdf.md",
++    "si3_author_journal_year": "Bethlehem et al., Communications Biology, 2020",
++    "si4_title": "A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder",
++    "si5_doi": "10.1038/s42003-020-01212-9"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The introduction states the goals of using normative modelling to parameterize cortical thickness atypicality in ASD, compare it against traditional case–control analyses, identify prevalence of age-atypical CT, and relate individualized deviation scores to behavioural symptoms. These statements meet both criteria about research questions and the purpose of applying normative modelling.",
++      "supporting_text": "“We examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms… we applied normative modelling resulting in individualized whole-brain maps of age-related CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT… we employ normative modelling… to isolate specific subsets of patients… Finally, we explore age-atypical CT-behaviour associations and assess whether such dimensional analyses… identify similar or different regions than typical case-control analyses.”",
++      "location": "Bethlehem2020.pdf.md:15-27"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The reference cohort comprised TD participants from the ABIDE I/II datasets, with analyses using male-only TD data, citing the original dataset. They report matching, exclusion of failed segmentations, and removal of poor-quality scans using an Euler-index threshold, giving the final sample size. However, detailed inclusion/exclusion criteria for TD subjects and comprehensive image quality standards beyond the Euler cutoff are not fully described.",
++      "supporting_text": "“Normative modelling of age-related CT effects was done utilizing male-only data from the typically developing group (TD)… After matching case and control groups and excluding scans of poorer quality… we were left with a sample size N = 870 per group.”; “We excluded all subjects with a Euler score of 300 or higher in either hemisphere… after thresholding… the sample consisted of 870 individuals with autism and 870 neurotypical individual, matched on Age, Euler and IQ.”",
++      "location": "Bethlehem2020.pdf.md:31,109-110; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Age is explicitly modelled through age-binned normative curves, analyses are sex-stratified, and multi-site effects are handled with scanner site as a random effect. Additional confounds such as head motion and Euler index are included in models, demonstrating consideration of key covariates.",
++      "supporting_text": "“We used a local polynomial regression fitting procedure (LOESS)… computed median for each one-year age-bin… This was done separately for each sex.”; “We used a linear mixed effects model with scanner site as a random effect… included… age, in-scanner head motion and Euler index as covariates.”",
++      "location": "Bethlehem2020.pdf.md:31-37,51"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies that normative data come from the openly available ABIDE I and II datasets and cites the source, satisfying the requirement to describe the data source of the reference cohort.",
++      "supporting_text": "“We… utilized the ABIDE datasets (ABIDE I and II; 15)… Informed consent was given at each site included in the ABIDE studies.”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "The imaging data are from the existing ABIDE datasets rather than primary collection in this study, so acquisition protocol reporting is not applicable per the guideline.",
+       "supporting_text": "",
+       "location": ""
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described using FreeSurfer v5.3.0 recon-all with key steps (intensity normalization, skull stripping, WM segmentation, surface reconstruction) and QC procedures (Euler index computation, exclusion of failed subjects, thresholding high Euler scores).",
++      "supporting_text": "“Cortical surface reconstruction was performed… with FreeSurfer… v5.3.0… recon-all involved intensity normalization, registration to Talairach space, skull stripping, WM segmentation, tessellation… CT… defined as the shortest distance between… WM boundary and the pial surface… We chose to not conduct manual segmentations and excluded failed subjects… To assess the quality of Freesurfer reconstructions we computed the Euler index.”; “We excluded all subjects with a Euler score of 300 or higher… after thresholding… the sample consisted of 870… matched on Age, Euler and IQ.”",
++      "location": "Bethlehem2020.pdf.md:111-112; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The study reports hyperparameter optimization for LOESS bandwidth and evaluates reliability via 1000 bootstrap resamples of the normative sample, but it does not describe a partitioned validation strategy (e.g., hold-out or k-fold) where models are tested on unseen data.",
++      "supporting_text": "“The local width or smoothing kernel of the regression was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization across 5–100% of the full age range using Brent’s method.”; “We bootstrapped the normative sample (1000 bootstraps… ) and computed 1000 bootstrapped w-scores… The median number of brain regions per subject with a significant p-value was 1… indicating that the w-score provides a robust measure of atypicality.”",
++      "location": "Bethlehem2020.pdf.md:31; Bethlehem2020_sup1.pdf.md:66-74"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "All normative modelling is conducted on ABIDE I/II data with no application to an independent external healthy dataset, and no external validation set is described.",
++      "supporting_text": "“We… utilized the ABIDE datasets (ABIDE I and II).”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The normative modelling approach is detailed as LOESS regression with bandwidth optimization, computation of age-binned normative means/SDs, and derivation of w-scores, with implementation details (Brent’s method via R optim).",
++      "supporting_text": "“We used a local polynomial regression fitting procedure (LOESS)… the local width… was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization… using Brent’s method… implemented in the R optim function… For each age bin and every brain region we computed a normative mean and standard deviation… The w-score for an individual thus reflects how far away their CT is from TD norms in units of standard deviation.”",
++      "location": "Bethlehem2020.pdf.md:31-49"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Model performance is probed through consistency checks (centile comparison and bootstrap reliability of w-scores) but no standard predictive performance metrics (e.g., explained variance or prediction error on held-out data) are reported.",
++      "supporting_text": "“We… assessed consistency of our output using centiles scoring and consistency of the normative model using extensive bootstrapping and sensitivity analyses, both showed high outcome consistency.”; “We bootstrapped the normative sample (1000 bootstraps… )… The median number of brain regions per subject with a significant p-value was 1… indicating that the w-score provides a robust measure of atypicality.”",
++      "location": "Bethlehem2020.pdf.md:31-32; Bethlehem2020_sup1.pdf.md:66-74"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning (train/validation/test) of the normative cohort is reported; the modelling uses the full TD sample, so partition-specific characteristics are not applicable.",
+       "supporting_text": "",
+       "location": ""
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Software versions and pipelines are specified (FreeSurfer v5.3.0, R packages), and the study provides open access to data and code with repository links, fulfilling reproducibility criteria.",
++      "supporting_text": "“Cortical surface reconstruction was performed… with FreeSurfer… v5.3.0… recon-all…”; “All data is openly available on GitHub… Original unprocessed neuroimaging data is openly available through the ABIDE consortium…”; “All code is openly available on GitHub… Cohen’s d were computed using: https://github.com/mvlombardo/utils/blob/master/cohens_d.R and the centiles cross-validation code can be found in https://github.com/deep-introspection/PyNM.”",
++      "location": "Bethlehem2020.pdf.md:111; Bethlehem2020.pdf.md:169-175"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The clinical cohort (ASD) is drawn from ABIDE I/II with age matching and exclusions for poor image quality (failed reconstructions and Euler >300), and the final sample size is given. However, detailed diagnostic criteria and full inclusion/exclusion standards for patients are not described within this paper.",
++      "supporting_text": "“We utilized the ABIDE datasets (ABIDE I and II)… After matching case and control groups and excluding scans of poorer quality… we were left with a sample size N = 870 per group.”; “We excluded all subjects with a Euler score of 300 or higher… after thresholding… the sample consisted of 870 individuals with autism and 870 neurotypical individual.”",
++      "location": "Bethlehem2020.pdf.md:109-110; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Analyses incorporate clinical and phenotypic covariates beyond demographics, including ADOS, SRS, SCQ, AQ, IQ, and age in brain–behaviour correlations, and models include motion and Euler indices as confounds.",
++      "supporting_text": "“We also conducted some exploratory analysis… computed Spearman correlations… between… ADOS, SRS, SCQ, AQ, FIQ and Age.”; “linear mixed effects model including site, sex, age, in-scanner head motion and Euler index as covariates.”",
++      "location": "Bethlehem2020.pdf.md:51,163-165"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The ASD clinical cohort is explicitly sourced from the ABIDE I/II datasets, an existing database, satisfying the requirement to describe the data source.",
++      "supporting_text": "“We utilized the ABIDE datasets (ABIDE I and II; 15)….”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The paper provides sample sizes and demographic/clinical characteristics, including age statistics by sex and diagnosis (Table 2) and clinical measures such as IQ, ADOS, and SRS with means, SDs, and Ns (Table 3).",
++      "supporting_text": "Table 2 lists age characteristics by diagnosis and sex (e.g., Autism Male N=754… TD Male N=660). Table 3 lists clinical measures (IQ, ADOS, SRS) with means, SD, and N for autism and controls by sex.",
++      "location": "Bethlehem2020.pdf.md:113-120"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical assessment tools used in analyses are specified, including ADOS and SRS scores reported in Table 3 and used in symptom correlations with w-scores.",
++      "supporting_text": "Table 3 includes ADOS and SRS measures with means and sample sizes; “computed Spearman correlations… for… ADOS, SRS, SCQ, AQ, FIQ and Age.”",
++      "location": "Bethlehem2020.pdf.md:113-120,163-164"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The manuscript defines w-scores as deviations from age-specific TD norms, explains that ±2 SD thresholds identify atypical individuals, and discusses their prevalence and behavioural associations, covering meaning, thresholds, and clinical relevance of deviation scores.",
++      "supporting_text": "“The w-score for an individual thus reflects how far away their CT is from TD norms in units of standard deviation.”; “We then describe the prevalence of ASD cases that show meaningful age-related deviance in CT (i.e. >2 standard deviations from age-related norms)….”; “To isolate subsets of individuals with significant age-related CT deviance, we used a cut-off score of 2 standard deviations (i.e. w >= 2 or w<=2)….”",
++      "location": "Bethlehem2020.pdf.md:45-49,27; Bethlehem2020_sup1.pdf.md:86-90"
+     }
+   }
+ }
+
+
+thinking
+**Validating JSON format**
+
+I'll check JSON validity using Python's json.tool to ensure proper quoting and structure before proceeding.
+file update:
+diff --git a/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json b/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..d2e5430b3b1a06d13de277bc8e067a213c0e6a50
+--- a/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
++++ b/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Bethlehem2020",
++    "si2_reference_file_names": "Bethlehem2020.pdf.md; Bethlehem2020_sup1.pdf.md",
++    "si3_author_journal_year": "Bethlehem et al., Communications Biology, 2020",
++    "si4_title": "A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder",
++    "si5_doi": "10.1038/s42003-020-01212-9"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The introduction states the goals of using normative modelling to parameterize cortical thickness atypicality in ASD, compare it against traditional case–control analyses, identify prevalence of age-atypical CT, and relate individualized deviation scores to behavioural symptoms. These statements meet both criteria about research questions and the purpose of applying normative modelling.",
++      "supporting_text": "“We examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms… we applied normative modelling resulting in individualized whole-brain maps of age-related CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT… we employ normative modelling… to isolate specific subsets of patients… Finally, we explore age-atypical CT-behaviour associations and assess whether such dimensional analyses… identify similar or different regions than typical case-control analyses.”",
++      "location": "Bethlehem2020.pdf.md:15-27"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The reference cohort comprised TD participants from the ABIDE I/II datasets, with analyses using male-only TD data, citing the original dataset. They report matching, exclusion of failed segmentations, and removal of poor-quality scans using an Euler-index threshold, giving the final sample size. However, detailed inclusion/exclusion criteria for TD subjects and comprehensive image quality standards beyond the Euler cutoff are not fully described.",
++      "supporting_text": "“Normative modelling of age-related CT effects was done utilizing male-only data from the typically developing group (TD)… After matching case and control groups and excluding scans of poorer quality… we were left with a sample size N = 870 per group.”; “We excluded all subjects with a Euler score of 300 or higher in either hemisphere… after thresholding… the sample consisted of 870 individuals with autism and 870 neurotypical individual, matched on Age, Euler and IQ.”",
++      "location": "Bethlehem2020.pdf.md:31,109-110; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Age is explicitly modelled through age-binned normative curves, analyses are sex-stratified, and multi-site effects are handled with scanner site as a random effect. Additional confounds such as head motion and Euler index are included in models, demonstrating consideration of key covariates.",
++      "supporting_text": "“We used a local polynomial regression fitting procedure (LOESS)… computed median for each one-year age-bin… This was done separately for each sex.”; “We used a linear mixed effects model with scanner site as a random effect… included… age, in-scanner head motion and Euler index as covariates.”",
++      "location": "Bethlehem2020.pdf.md:31-37,51"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies that normative data come from the openly available ABIDE I and II datasets and cites the source, satisfying the requirement to describe the data source of the reference cohort.",
++      "supporting_text": "“We… utilized the ABIDE datasets (ABIDE I and II; 15)… Informed consent was given at each site included in the ABIDE studies.”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "The imaging data are from the existing ABIDE datasets rather than primary collection in this study, so acquisition protocol reporting is not applicable per the guideline.",
+       "supporting_text": "",
+       "location": ""
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described using FreeSurfer v5.3.0 recon-all with key steps (intensity normalization, skull stripping, WM segmentation, surface reconstruction) and QC procedures (Euler index computation, exclusion of failed subjects, thresholding high Euler scores).",
++      "supporting_text": "“Cortical surface reconstruction was performed… with FreeSurfer… v5.3.0… recon-all involved intensity normalization, registration to Talairach space, skull stripping, WM segmentation, tessellation… CT… defined as the shortest distance between… WM boundary and the pial surface… We chose to not conduct manual segmentations and excluded failed subjects… To assess the quality of Freesurfer reconstructions we computed the Euler index.”; “We excluded all subjects with a Euler score of 300 or higher… after thresholding… the sample consisted of 870… matched on Age, Euler and IQ.”",
++      "location": "Bethlehem2020.pdf.md:111-112; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The study reports hyperparameter optimization for LOESS bandwidth and evaluates reliability via 1000 bootstrap resamples of the normative sample, but it does not describe a partitioned validation strategy (e.g., hold-out or k-fold) where models are tested on unseen data.",
++      "supporting_text": "“The local width or smoothing kernel of the regression was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization across 5–100% of the full age range using Brent’s method.”; “We bootstrapped the normative sample (1000 bootstraps… ) and computed 1000 bootstrapped w-scores… The median number of brain regions per subject with a significant p-value was 1… indicating that the w-score provides a robust measure of atypicality.”",
++      "location": "Bethlehem2020.pdf.md:31; Bethlehem2020_sup1.pdf.md:66-74"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "All normative modelling is conducted on ABIDE I/II data with no application to an independent external healthy dataset, and no external validation set is described.",
++      "supporting_text": "“We… utilized the ABIDE datasets (ABIDE I and II).”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The normative modelling approach is detailed as LOESS regression with bandwidth optimization, computation of age-binned normative means/SDs, and derivation of w-scores, with implementation details (Brent’s method via R optim).",
++      "supporting_text": "“We used a local polynomial regression fitting procedure (LOESS)… the local width… was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization… using Brent’s method… implemented in the R optim function… For each age bin and every brain region we computed a normative mean and standard deviation… The w-score for an individual thus reflects how far away their CT is from TD norms in units of standard deviation.”",
++      "location": "Bethlehem2020.pdf.md:31-49"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Model performance is probed through consistency checks (centile comparison and bootstrap reliability of w-scores) but no standard predictive performance metrics (e.g., explained variance or prediction error on held-out data) are reported.",
++      "supporting_text": "“We… assessed consistency of our output using centiles scoring and consistency of the normative model using extensive bootstrapping and sensitivity analyses, both showed high outcome consistency.”; “We bootstrapped the normative sample (1000 bootstraps… )… The median number of brain regions per subject with a significant p-value was 1… indicating that the w-score provides a robust measure of atypicality.”",
++      "location": "Bethlehem2020.pdf.md:31-32; Bethlehem2020_sup1.pdf.md:66-74"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning (train/validation/test) of the normative cohort is reported; the modelling uses the full TD sample, so partition-specific characteristics are not applicable.",
+       "supporting_text": "",
+       "location": ""
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Software versions and pipelines are specified (FreeSurfer v5.3.0, R packages), and the study provides open access to data and code with repository links, fulfilling reproducibility criteria.",
++      "supporting_text": "“Cortical surface reconstruction was performed… with FreeSurfer… v5.3.0… recon-all…”; “All data is openly available on GitHub… Original unprocessed neuroimaging data is openly available through the ABIDE consortium…”; “All code is openly available on GitHub… Cohen’s d were computed using: https://github.com/mvlombardo/utils/blob/master/cohens_d.R and the centiles cross-validation code can be found in https://github.com/deep-introspection/PyNM.”",
++      "location": "Bethlehem2020.pdf.md:111; Bethlehem2020.pdf.md:169-175"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The clinical cohort (ASD) is drawn from ABIDE I/II with age matching and exclusions for poor image quality (failed reconstructions and Euler >300), and the final sample size is given. However, detailed diagnostic criteria and full inclusion/exclusion standards for patients are not described within this paper.",
++      "supporting_text": "“We utilized the ABIDE datasets (ABIDE I and II)… After matching case and control groups and excluding scans of poorer quality… we were left with a sample size N = 870 per group.”; “We excluded all subjects with a Euler score of 300 or higher… after thresholding… the sample consisted of 870 individuals with autism and 870 neurotypical individual.”",
++      "location": "Bethlehem2020.pdf.md:109-110; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Analyses incorporate clinical and phenotypic covariates beyond demographics, including ADOS, SRS, SCQ, AQ, IQ, and age in brain–behaviour correlations, and models include motion and Euler indices as confounds.",
++      "supporting_text": "“We also conducted some exploratory analysis… computed Spearman correlations… between… ADOS, SRS, SCQ, AQ, FIQ and Age.”; “linear mixed effects model including site, sex, age, in-scanner head motion and Euler index as covariates.”",
++      "location": "Bethlehem2020.pdf.md:51,163-165"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The ASD clinical cohort is explicitly sourced from the ABIDE I/II datasets, an existing database, satisfying the requirement to describe the data source.",
++      "supporting_text": "“We utilized the ABIDE datasets (ABIDE I and II; 15)….”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The paper provides sample sizes and demographic/clinical characteristics, including age statistics by sex and diagnosis (Table 2) and clinical measures such as IQ, ADOS, and SRS with means, SDs, and Ns (Table 3).",
++      "supporting_text": "Table 2 lists age characteristics by diagnosis and sex (e.g., Autism Male N=754… TD Male N=660). Table 3 lists clinical measures (IQ, ADOS, SRS) with means, SD, and N for autism and controls by sex.",
++      "location": "Bethlehem2020.pdf.md:113-120"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical assessment tools used in analyses are specified, including ADOS and SRS scores reported in Table 3 and used in symptom correlations with w-scores.",
++      "supporting_text": "Table 3 includes ADOS and SRS measures with means and sample sizes; “computed Spearman correlations… for… ADOS, SRS, SCQ, AQ, FIQ and Age.”",
++      "location": "Bethlehem2020.pdf.md:113-120,163-164"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The manuscript defines w-scores as deviations from age-specific TD norms, explains that ±2 SD thresholds identify atypical individuals, and discusses their prevalence and behavioural associations, covering meaning, thresholds, and clinical relevance of deviation scores.",
++      "supporting_text": "“The w-score for an individual thus reflects how far away their CT is from TD norms in units of standard deviation.”; “We then describe the prevalence of ASD cases that show meaningful age-related deviance in CT (i.e. >2 standard deviations from age-related norms)….”; “To isolate subsets of individuals with significant age-related CT deviance, we used a cut-off score of 2 standard deviations (i.e. w >= 2 or w<=2)….”",
++      "location": "Bethlehem2020.pdf.md:45-49,27; Bethlehem2020_sup1.pdf.md:86-90"
+     }
+   }
+ }
+
+exec
+/bin/bash -lc 'python -m json.tool Bethlehem2020_by_codex_20260107094506_for_QA_v9.json' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Bethlehem2020/materials/optimized succeeded in 54ms:
+{
+    "study_identification_part": {
+        "si1_study_id": "Bethlehem2020",
+        "si2_reference_file_names": "Bethlehem2020.pdf.md; Bethlehem2020_sup1.pdf.md",
+        "si3_author_journal_year": "Bethlehem et al., Communications Biology, 2020",
+        "si4_title": "A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder",
+        "si5_doi": "10.1038/s42003-020-01212-9"
+    },
+    "common_part": {
+        "cm1_research_objectives": {
+            "answer": "Yes",
+            "confidence_rating": "High",
+            "reason": "The introduction states the goals of using normative modelling to parameterize cortical thickness atypicality in ASD, compare it against traditional case\u2013control analyses, identify prevalence of age-atypical CT, and relate individualized deviation scores to behavioural symptoms. These statements meet both criteria about research questions and the purpose of applying normative modelling.",
+            "supporting_text": "\u201cWe examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms\u2026 we applied normative modelling resulting in individualized whole-brain maps of age-related CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT\u2026 we employ normative modelling\u2026 to isolate specific subsets of patients\u2026 Finally, we explore age-atypical CT-behaviour associations and assess whether such dimensional analyses\u2026 identify similar or different regions than typical case-control analyses.\u201d",
+            "location": "Bethlehem2020.pdf.md:15-27"
+        }
+    },
+    "normative_modeling_part": {
+        "nm1_selection_criteria_reference_cohort": {
+            "answer": "Partial",
+
+thinking
+**Summarizing final modifications**
+
+Updated the QA JSON file with extracted data according to QA_Guide instructions; no tests were run. The changes are located in the specified file path. It’s recommended to review the outputs and consider running verification checks or refining inclusion criteria as needed.
+codex
+Filled `Bethlehem2020_by_codex_20260107094506_for_QA_v9.json` with extracted quality assessment results per QA_Guide_v9, including study identifiers, ACRSL judgments with reasons, supporting quotes, and locations from the main and supplementary files.
+
+Tests not run (not requested).
+file update:
+diff --git a/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json b/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..d2e5430b3b1a06d13de277bc8e067a213c0e6a50
+--- a/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
++++ b/10_DECheck/share_package/data/Bethlehem2020/materials/optimized/Bethlehem2020_by_codex_20260107094506_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Bethlehem2020",
++    "si2_reference_file_names": "Bethlehem2020.pdf.md; Bethlehem2020_sup1.pdf.md",
++    "si3_author_journal_year": "Bethlehem et al., Communications Biology, 2020",
++    "si4_title": "A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder",
++    "si5_doi": "10.1038/s42003-020-01212-9"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The introduction states the goals of using normative modelling to parameterize cortical thickness atypicality in ASD, compare it against traditional case–control analyses, identify prevalence of age-atypical CT, and relate individualized deviation scores to behavioural symptoms. These statements meet both criteria about research questions and the purpose of applying normative modelling.",
++      "supporting_text": "“We examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms… we applied normative modelling resulting in individualized whole-brain maps of age-related CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT… we employ normative modelling… to isolate specific subsets of patients… Finally, we explore age-atypical CT-behaviour associations and assess whether such dimensional analyses… identify similar or different regions than typical case-control analyses.”",
++      "location": "Bethlehem2020.pdf.md:15-27"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The reference cohort comprised TD participants from the ABIDE I/II datasets, with analyses using male-only TD data, citing the original dataset. They report matching, exclusion of failed segmentations, and removal of poor-quality scans using an Euler-index threshold, giving the final sample size. However, detailed inclusion/exclusion criteria for TD subjects and comprehensive image quality standards beyond the Euler cutoff are not fully described.",
++      "supporting_text": "“Normative modelling of age-related CT effects was done utilizing male-only data from the typically developing group (TD)… After matching case and control groups and excluding scans of poorer quality… we were left with a sample size N = 870 per group.”; “We excluded all subjects with a Euler score of 300 or higher in either hemisphere… after thresholding… the sample consisted of 870 individuals with autism and 870 neurotypical individual, matched on Age, Euler and IQ.”",
++      "location": "Bethlehem2020.pdf.md:31,109-110; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Age is explicitly modelled through age-binned normative curves, analyses are sex-stratified, and multi-site effects are handled with scanner site as a random effect. Additional confounds such as head motion and Euler index are included in models, demonstrating consideration of key covariates.",
++      "supporting_text": "“We used a local polynomial regression fitting procedure (LOESS)… computed median for each one-year age-bin… This was done separately for each sex.”; “We used a linear mixed effects model with scanner site as a random effect… included… age, in-scanner head motion and Euler index as covariates.”",
++      "location": "Bethlehem2020.pdf.md:31-37,51"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies that normative data come from the openly available ABIDE I and II datasets and cites the source, satisfying the requirement to describe the data source of the reference cohort.",
++      "supporting_text": "“We… utilized the ABIDE datasets (ABIDE I and II; 15)… Informed consent was given at each site included in the ABIDE studies.”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "The imaging data are from the existing ABIDE datasets rather than primary collection in this study, so acquisition protocol reporting is not applicable per the guideline.",
+       "supporting_text": "",
+       "location": ""
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described using FreeSurfer v5.3.0 recon-all with key steps (intensity normalization, skull stripping, WM segmentation, surface reconstruction) and QC procedures (Euler index computation, exclusion of failed subjects, thresholding high Euler scores).",
++      "supporting_text": "“Cortical surface reconstruction was performed… with FreeSurfer… v5.3.0… recon-all involved intensity normalization, registration to Talairach space, skull stripping, WM segmentation, tessellation… CT… defined as the shortest distance between… WM boundary and the pial surface… We chose to not conduct manual segmentations and excluded failed subjects… To assess the quality of Freesurfer reconstructions we computed the Euler index.”; “We excluded all subjects with a Euler score of 300 or higher… after thresholding… the sample consisted of 870… matched on Age, Euler and IQ.”",
++      "location": "Bethlehem2020.pdf.md:111-112; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The study reports hyperparameter optimization for LOESS bandwidth and evaluates reliability via 1000 bootstrap resamples of the normative sample, but it does not describe a partitioned validation strategy (e.g., hold-out or k-fold) where models are tested on unseen data.",
++      "supporting_text": "“The local width or smoothing kernel of the regression was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization across 5–100% of the full age range using Brent’s method.”; “We bootstrapped the normative sample (1000 bootstraps… ) and computed 1000 bootstrapped w-scores… The median number of brain regions per subject with a significant p-value was 1… indicating that the w-score provides a robust measure of atypicality.”",
++      "location": "Bethlehem2020.pdf.md:31; Bethlehem2020_sup1.pdf.md:66-74"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "All normative modelling is conducted on ABIDE I/II data with no application to an independent external healthy dataset, and no external validation set is described.",
++      "supporting_text": "“We… utilized the ABIDE datasets (ABIDE I and II).”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The normative modelling approach is detailed as LOESS regression with bandwidth optimization, computation of age-binned normative means/SDs, and derivation of w-scores, with implementation details (Brent’s method via R optim).",
++      "supporting_text": "“We used a local polynomial regression fitting procedure (LOESS)… the local width… was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization… using Brent’s method… implemented in the R optim function… For each age bin and every brain region we computed a normative mean and standard deviation… The w-score for an individual thus reflects how far away their CT is from TD norms in units of standard deviation.”",
++      "location": "Bethlehem2020.pdf.md:31-49"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Model performance is probed through consistency checks (centile comparison and bootstrap reliability of w-scores) but no standard predictive performance metrics (e.g., explained variance or prediction error on held-out data) are reported.",
++      "supporting_text": "“We… assessed consistency of our output using centiles scoring and consistency of the normative model using extensive bootstrapping and sensitivity analyses, both showed high outcome consistency.”; “We bootstrapped the normative sample (1000 bootstraps… )… The median number of brain regions per subject with a significant p-value was 1… indicating that the w-score provides a robust measure of atypicality.”",
++      "location": "Bethlehem2020.pdf.md:31-32; Bethlehem2020_sup1.pdf.md:66-74"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning (train/validation/test) of the normative cohort is reported; the modelling uses the full TD sample, so partition-specific characteristics are not applicable.",
+       "supporting_text": "",
+       "location": ""
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Software versions and pipelines are specified (FreeSurfer v5.3.0, R packages), and the study provides open access to data and code with repository links, fulfilling reproducibility criteria.",
++      "supporting_text": "“Cortical surface reconstruction was performed… with FreeSurfer… v5.3.0… recon-all…”; “All data is openly available on GitHub… Original unprocessed neuroimaging data is openly available through the ABIDE consortium…”; “All code is openly available on GitHub… Cohen’s d were computed using: https://github.com/mvlombardo/utils/blob/master/cohens_d.R and the centiles cross-validation code can be found in https://github.com/deep-introspection/PyNM.”",
++      "location": "Bethlehem2020.pdf.md:111; Bethlehem2020.pdf.md:169-175"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The clinical cohort (ASD) is drawn from ABIDE I/II with age matching and exclusions for poor image quality (failed reconstructions and Euler >300), and the final sample size is given. However, detailed diagnostic criteria and full inclusion/exclusion standards for patients are not described within this paper.",
++      "supporting_text": "“We utilized the ABIDE datasets (ABIDE I and II)… After matching case and control groups and excluding scans of poorer quality… we were left with a sample size N = 870 per group.”; “We excluded all subjects with a Euler score of 300 or higher… after thresholding… the sample consisted of 870 individuals with autism and 870 neurotypical individual.”",
++      "location": "Bethlehem2020.pdf.md:109-110; Bethlehem2020_sup1.pdf.md:38-41"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Analyses incorporate clinical and phenotypic covariates beyond demographics, including ADOS, SRS, SCQ, AQ, IQ, and age in brain–behaviour correlations, and models include motion and Euler indices as confounds.",
++      "supporting_text": "“We also conducted some exploratory analysis… computed Spearman correlations… between… ADOS, SRS, SCQ, AQ, FIQ and Age.”; “linear mixed effects model including site, sex, age, in-scanner head motion and Euler index as covariates.”",
++      "location": "Bethlehem2020.pdf.md:51,163-165"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The ASD clinical cohort is explicitly sourced from the ABIDE I/II datasets, an existing database, satisfying the requirement to describe the data source.",
++      "supporting_text": "“We utilized the ABIDE datasets (ABIDE I and II; 15)….”",
++      "location": "Bethlehem2020.pdf.md:109-110"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The paper provides sample sizes and demographic/clinical characteristics, including age statistics by sex and diagnosis (Table 2) and clinical measures such as IQ, ADOS, and SRS with means, SDs, and Ns (Table 3).",
++      "supporting_text": "Table 2 lists age characteristics by diagnosis and sex (e.g., Autism Male N=754… TD Male N=660). Table 3 lists clinical measures (IQ, ADOS, SRS) with means, SD, and N for autism and controls by sex.",
++      "location": "Bethlehem2020.pdf.md:113-120"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical assessment tools used in analyses are specified, including ADOS and SRS scores reported in Table 3 and used in symptom correlations with w-scores.",
++      "supporting_text": "Table 3 includes ADOS and SRS measures with means and sample sizes; “computed Spearman correlations… for… ADOS, SRS, SCQ, AQ, FIQ and Age.”",
++      "location": "Bethlehem2020.pdf.md:113-120,163-164"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The manuscript defines w-scores as deviations from age-specific TD norms, explains that ±2 SD thresholds identify atypical individuals, and discusses their prevalence and behavioural associations, covering meaning, thresholds, and clinical relevance of deviation scores.",
++      "supporting_text": "“The w-score for an individual thus reflects how far away their CT is from TD norms in units of standard deviation.”; “We then describe the prevalence of ASD cases that show meaningful age-related deviance in CT (i.e. >2 standard deviations from age-related norms)….”; “To isolate subsets of individuals with significant age-related CT deviance, we used a cut-off score of 2 standard deviations (i.e. w >= 2 or w<=2)….”",
++      "location": "Bethlehem2020.pdf.md:45-49,27; Bethlehem2020_sup1.pdf.md:86-90"
+     }
+   }
+ }
+
+tokens used
+80,076
+Filled `Bethlehem2020_by_codex_20260107094506_for_QA_v9.json` with extracted quality assessment results per QA_Guide_v9, including study identifiers, ACRSL judgments with reasons, supporting quotes, and locations from the main and supplementary files.
+
+Tests not run (not requested).
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

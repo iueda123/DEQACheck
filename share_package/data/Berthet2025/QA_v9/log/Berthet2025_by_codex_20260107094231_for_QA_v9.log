@@ -1,0 +1,1012 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "QA_Guide_v9.md に従って作業をしてください。作業結果は Berthet2025_by_codex_20260107094231_for_QA_v9.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.73.0 (research preview)
+--------
+workdir: /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized
+model: gpt-5.1-codex-max
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019b95e7-cb7f-7a23-b2b1-54cc256fb3bc
+--------
+user
+QA_Guide_v9.md に従って作業をしてください。作業結果は Berthet2025_by_codex_20260107094231_for_QA_v9.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Searching for QA Instructions**
+
+I'm using ripgrep to locate the file containing the QA_Guide instructions for review.
+exec
+/bin/bash -lc ls in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 17ms:
+Berthet2025.pdf.md
+Berthet2025_artifacts
+Berthet2025_by_codex_20260107094231_for_QA_v9.json
+Berthet2025_by_codex_20260107094231_for_QA_v9.log
+QA_Guide_v9.md
+media-1.pdf.md
+media-1_artifacts
+temp_output.json
+
+thinking
+**Opening QA guide file**
+exec
+/bin/bash -lc 'cat QA_Guide_v9.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 23ms:
+# Quality Assessment Guidance for Normative Modeling in Neuroimaging: A Systematic Review
+
+Also known as (AKA): The NORMA (Normative Modeling Assessment) Checklist: Reporting Standards for Normative Modeling in Neuroimaging
+
+Version based on `Quality_Assessment_Checklist_20251222.pdf`.
+
+-------------------
+
+## Prompt Overview
+You are a professional reviewer skilled at assessing the quality of research articles on normative modeling in neuroimaging. This assessment is conducted as part of a systematic review on methodological considerations and applications of neuroimaging for psychiatric and neurological disorders.
+
+-------------------
+
+## Our Systematic Review Objectives
+
+This systematic review will evaluate normative modeling studies that use neuroimaging and neurophysiological tests (e.g., MRI, PET, EEG, MEG). The review addresses three questions:
+
+  1. **Modality**: Which measurement techniques have been applied in normative modeling, and how often is each modality used? For common modalities like MRI, what specific sequences (e.g., T-weighted) are most frequently utilized?
+  2. **Methodology**: How are normative modeling studies designed and validated across modalities? We will extract information on sample size, covariates, image preprocessing, statistical models, harmonization procedures, and validation strategies.
+  3. **Clinical scope**: Which psychiatric or neurological conditions have been investigated with normative modeling, and what individual-level deviation patterns or clinical utilities have been reported?
+
+thinking
+**Locating source document and key metadata**
+
+I'm opening the main document, likely Berthet2025.pdf.md, to extract key sections and metadata like DOI for filling the JSON target file. I'll use tools to inspect the start and parse needed info efficiently.
+exec
+/bin/bash -lc "sed -n '1,200p' Berthet2025.pdf.md" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 26ms:
+## A 10-Year Longitudinal Study of Brain Cortical Thickness in People with FirstEpisode Psychosis Using Normative Models
+
+Pierre Berthet 1,2,13 , Beathe C. Haatveit 1,2,13 , Rikka Kjelkenes 1,2,13 , Amanda Worker 3 , Seyed Mostafa Kia 4-6 , Thomas Wolfers 1,2,7, , Saige Rutherford 4,8,9 , Dag Alnaes 1,2, , Richard Dinga 6 , Mads L. Pedersen 1,2 , Andreas Dahl 1,2 , Sara Fernandez-Cabello 1,2 , Paola Dazzan 3 , Ingrid Agartz 2,10,11 , Ragnar Nesvåg 12 , Torill Ueland 1,2 , Ole A. Andreassen 2 , Carmen Simonsen 2,10 , Lars T. Westlye 1,2,14, , Ingrid Melle 2,14 , Andre Marquand 4,8,*,14
+
+1 Department of Psychology, University of Oslo, Oslo, Norway;  2 Norwegian Center for Mental Disorders Research (NORMENT), University of Oslo, and Oslo University Hospital, Oslo, Norway;  3 Department of Psychosis Studies, Institute of Psychiatry, King's College, London, UK;  4 Donders Institute for Brain, Cognition, and Behaviour, Radboud University, Nijmegen, the Netherlands; 5 Department of Psychiatry, Utrecht University Medical Center, Utrecht, the Netherlands;  6 Department Cognitive Science and Artificial Intelligence, Tilburg University, the Netherlands;  7 Department of Psychiatry and Psychotherapy, T ü bingen Center for Mental Health, University of T ü bingen, T ü bingen, Germany;  8 Department of Cognitive Neuroscience, Radboud University Medical Center, Nijmegen, the Netherlands;  9 Department of Psychiatry, University of Michigan, Ann Arbor, MI, USA;  10 Department of Psychiatric Research, Diakonhjemmet Hospital, Oslo, Norway;  11 Centre for Psychiatry Research, Department of Clinical Neuroscience, Karolinska Institutet, Stockholm, Sweden;  12 Department of Mental Disorders, Norwegian Institute of Public Health, Oslo, Norway
+
+13 These authors shared first authorship.
+
+14 These authors shared last authorship.
+
+* To whom correspondence should be addressed: Department of Cognitive Neuroscience, Radboud University Medical Centre, Kapittelweg 29, Nijmegen 6525EN, the Netherlands; tel: (+31) 024-3668492, e-mail: andre.marquand@donders.ru.nl
+
+Background : Clinical  forecasting  models  have  potential to optimize treatment and improve outcomes in psychosis, but predicting long-term outcomes is challenging and longterm follow-up data are scarce. In this 10-year longitudinal study, we aimed to characterize the temporal evolution of cortical correlates of psychosis and their associations with symptoms. Design : Structural  magnetic  resonance  imaging (MRI) from people with first-episode psychosis and controls  ( n = 79  and  218)  were  obtained  at  enrollment, after  12  months  ( n = 67  and  197),  and  10  years  ( n = 23 and  77),  within  the  Thematically  Organized  Psychosis (TOP) study. Normative models for cortical thickness estimated on public MRI datasets ( n = 42 983) were applied to TOP data to obtain deviation scores for each region and timepoint. Positive and Negative Syndrome Scale (PANSS) scores were acquired at each timepoint along with registry data. Linear mixed effects models assessed effects of diagnosis, time, and their interactions on cortical deviations plus associations with symptoms. Results : LMEs revealed conditional main effects of diagnosis and time × diagnosis interactions in a distributed cortical network, where negative deviations in patients attenuate over time. In patients, symptoms also attenuate over time. LMEs revealed effects of anterior cingulate on PANSS total, and insular and orbitofrontal regions on PANSS negative scores. Conclusions :
+
+This  long-term  longitudinal  study  revealed  a  distributed pattern of cortical differences which attenuated over time together  with  a  reduction  in  symptoms.  These  findings are not in line with a simple neurodegenerative account of schizophrenia, and deviations from normative models offer a promising avenue to develop biomarkers to track clinical trajectories over time.
+
+Key words: schizophrenia/cortical thickness/long-term follow up/normative modeling
+
+## Introduction
+
+
+thinking
+**Planning metadata extraction**
+
+I'm focusing on locating answer items and extracting scholarly info like DOI and authors, planning to search the metadata section for DOI patterns to identify where this info resides.
+exec
+/bin/bash -lc 'rg -i "doi" Berthet2025.pdf.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 30ms:
+- biorxiv 2023.  doi:10.1101/2023.01.17.523348,  preprint:  not peer reviewed.
+
+thinking
+**Locating context near file end**
+
+Planning to search the last 520 lines with sed to find relevant context for the task.
+exec
+/bin/bash -lc 'rg -n "biorxiv" -n Berthet2025.pdf.md' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 29ms:
+271:- biorxiv 2023.  doi:10.1101/2023.01.17.523348,  preprint:  not peer reviewed.
+exec
+/bin/bash -lc "sed -n '250,280p' Berthet2025.pdf.md" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 29ms:
+51.  Kay SR, Fiszbein A, Opler LA. The Positive and Negative Syndrome Scale (PANSS) for schizophrenia. Schizophr Bull. 1987;13:261-276.
+52.  Destrieux  C,  Fischl  B,  Dale  A,  Halgren  E.  Automatic parcellation of human cortical gyri and sulci using standard anatomical nomenclature. Neuroimage. 2010;53:1-15.
+53.  Rosen  AFG,  Roalf  DR,  Ruparel  K,  et  al.  Quantitative assessment of structural image quality. Neuroimage. 2018;169:407-418.
+54.  Kia, S. M. et al. Hierarchical Bayesian regression for multi-site normative modeling of neuroimaging data. In: Proceedings of the 23rd international conference of Medical Image Computing and Computer Assisted Intervention (MICCAI) , Lima, Peru, 2020.  Published  in  Lecture  Notes  in  Computer  Science, Springer 2020.
+55.  Kia SM, Huijsdens H, Rutherford S, et al. Closing the lifecycle  of  normative  modeling  using  federated  hierarchical Bayesian regression. PLoS ONE. 2022;17:e0278776.
+56.  Ducharme S, Albaugh MD,  Nguyen  T-V, et al; Brain Development Cooperative Group. Trajectories of cortical thickness maturation in normal brain development-the importance of quality control procedures. Neuroimage. 2016;125:267-279.
+57.  Monereo-Sánchez J, de Jong JJA, Drenthen GS, et al. Quality control strategies for brain MRI segmentation and parcellation: practical approaches and recommendations-insights from the Maastricht study. Neuroimage. 2021;237(118174):118174.
+58.  Rutherford  S,  Kia  SM,  Wolfers  T,  et  al.  The  normative modeling  framework  for computational psychiatry. Nat Protoc. 2022;17:1711-1734.
+59.  Bayer JMM, Dinga R, Kia SM, et al. Accommodating site variation  in  neuroimaging  data  using  normative  and  hierarchical Bayesian models. Neuroimage. 2022;264:119699.
+60.  Benjamini  Y ,  Hochberg  Y .  Controlling  the  false  discovery rate: a practical and powerful approach to multiple testing. J R Stat Soc B: Stat Methodol. 1995;57:289-300.
+61.  Wolfers T, Beckmann CF, Hoogman M, Buitelaar JK, Franke B,  Marquand AF. Individual differences  v.  the  average  patient: mapping the heterogeneity in ADHD using normative models. Psychol Med. 2020;50:314-323.
+62.  Walton  E,  Hibar  DP,  van  Erp  TGM,  et  al;  Karolinska Schizophrenia  Project  Consortium  (KaSP).  Positive  symptoms associate with cortical thinning in the superior temporal gyrus  via  the  ENIGMA  Schizophrenia  consortium. Acta Psychiatr Scand. 2017;135:439-447.
+63.  Lv J, Di Biase M, Cash RFH, et al. Individual deviations from normative models of brain structure in a large cross-sectional schizophrenia cohort. Mol Psychiatry. 2021;26:3512-3523.
+64.  Sasabayashi D, Takayanagi Y , Takahashi T, et al. Reduced cortical thickness of the paracentral lobule in at-risk mental state  individuals  with  poor  1-year  functional  outcomes. Transl Psychiatry. 2021;11(396):396.
+65.  Barber L, Reniers R, Upthegrove R. A review of functional and structural neuroimaging studies to investigate the inner speech  model  of  auditory  verbal  hallucinations  in  schizophrenia. Transl Psychiatry. 2021;11(582):582.
+66.  Wolke D, Waylen A, Samara M, et al. Selective drop-out in longitudinal studies and non-biased prediction of behaviour disorders. Br J Psychiatry. 2009;195:249-256.
+67.  Pantelis C, Velakoulis D, McGorry PD, et al. Neuroanatomical abnormalities before and after onset of psychosis: a cross-sectional  and  longitudinal  MRI  comparison. Lancet. 2003;361:281-288.
+68.  Wylie  KP,  Tregellas  JR.  The  role  of  the  insula  in  schizophrenia. Schizophr Res. 2010;123:93-104.
+69.  Jalbrzikowski  M,  Hayes  RA,  Wood  SJ,  et  al;  ENIGMA Clinical High Risk for Psychosis Working Group. Association of structural magnetic resonance imaging measures with psychosis onset in individuals at clinical high risk for developing psychosis: an ENIGMA working group megaanalysis. JAMA Psychiatry. 2021;78:753.
+70.  Haas,  SS,  Ge  R,  Agartz  I,  et  al.  Normative  modeling  of brain  morphometry  in  clinical  high-risk  for  psychosis.
+
+thinking
+**Checking for supplementary data file**
+
+I'm identifying if a file like media-1 or supplemental exists for sample size info and preparing to produce a JSON data file using an existing template or a blank one if needed.
+exec
+/bin/bash -lc 'cat Berthet2025_by_codex_20260107094231_for_QA_v9.json' in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 24ms:
+{
+  "study_identification_part": {
+    "si1_study_id": "",
+    "si2_reference_file_names": "",
+    "si3_author_journal_year": "",
+    "si4_title": "",
+    "si5_doi": ""
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "",
+      "confidence_rating": "",
+      "reason": "",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "",
+
+thinking
+**Clarifying normative model origin**
+
+The study builds new normative models trained on a large public dataset, adapting them to their own data with healthy controls; next, I'll review supplemental files for detailed data and model specifics.
+exec
+/bin/bash -lc "sed -n '1,120p' media-1.pdf.md" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 24ms:
+## Supplementary Materials
+
+## Supplementary information (Methods / Results / Future Directions)
+
+Supplementary Figure 1 : Count plots for SCZ and CTRL at different timepoints, color-coded by diagnosis.
+
+Supplementary Figure 2 : Sankey diagram of the MRI sessions completed by patients with schizophrenia.
+
+Supplementary Figure 3: Significant differences in deviation scores between healthy individuals and people with schizophrenia at baseline (A), 12-month follow-up (B) and 10-year follow-up (C), color coded by effect size (Cohen's d ), (D) empirical cumulative distribution function plot of the effect size for the three time points.
+
+Supplementary Figure 4 :  Unthresholded  differences  in  deviation  scores  between  healthy  individuals  and patients with schizophrenia at baseline, 12-month follow-up (B) and 10-year follow-up (C), color coded by effect size (Cohen's d ).
+
+Supplementary Figure 5 : Interaction effects between time and diagnosis group for each significant interaction effect for the left hemisphere (A) and the right hemisphere (B).
+
+Supplementary Figure 6 :  Main effects for age, time since inclusion (B) and sex (C) from the linear mixed model shown in Figure 2 in the main manuscript.
+
+Supplementary Figure 7 : Significant interaction effects (FDR corrected) between time points and deviation score of the posterior ramus of the lateral sulcus in the left hemisphere.
+
+Supplementary Figure 8 : The deviation in mean cortical thickness across timepoints for the healthy controls. This shows that the normative model removes age related effects such that the trajectory of each healthy participant is flat and with the distribution centred at zero.
+
+
+thinking
+**Extracting metadata and references**
+
+Identifying probable journal as Schizophrenia Bulletin and picking year 2025 based on file name; deciding to fill JSON fields with answers and supporting text locations referencing exact file lines next.
+exec
+/bin/bash -lc "nl -ba Berthet2025.pdf.md | sed -n '1,200p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 33ms:
+     1	## A 10-Year Longitudinal Study of Brain Cortical Thickness in People with FirstEpisode Psychosis Using Normative Models
+     2	
+     3	Pierre Berthet 1,2,13 , Beathe C. Haatveit 1,2,13 , Rikka Kjelkenes 1,2,13 , Amanda Worker 3 , Seyed Mostafa Kia 4-6 , Thomas Wolfers 1,2,7, , Saige Rutherford 4,8,9 , Dag Alnaes 1,2, , Richard Dinga 6 , Mads L. Pedersen 1,2 , Andreas Dahl 1,2 , Sara Fernandez-Cabello 1,2 , Paola Dazzan 3 , Ingrid Agartz 2,10,11 , Ragnar Nesvåg 12 , Torill Ueland 1,2 , Ole A. Andreassen 2 , Carmen Simonsen 2,10 , Lars T. Westlye 1,2,14, , Ingrid Melle 2,14 , Andre Marquand 4,8,*,14
+     4	
+     5	1 Department of Psychology, University of Oslo, Oslo, Norway;  2 Norwegian Center for Mental Disorders Research (NORMENT), University of Oslo, and Oslo University Hospital, Oslo, Norway;  3 Department of Psychosis Studies, Institute of Psychiatry, King's College, London, UK;  4 Donders Institute for Brain, Cognition, and Behaviour, Radboud University, Nijmegen, the Netherlands; 5 Department of Psychiatry, Utrecht University Medical Center, Utrecht, the Netherlands;  6 Department Cognitive Science and Artificial Intelligence, Tilburg University, the Netherlands;  7 Department of Psychiatry and Psychotherapy, T ü bingen Center for Mental Health, University of T ü bingen, T ü bingen, Germany;  8 Department of Cognitive Neuroscience, Radboud University Medical Center, Nijmegen, the Netherlands;  9 Department of Psychiatry, University of Michigan, Ann Arbor, MI, USA;  10 Department of Psychiatric Research, Diakonhjemmet Hospital, Oslo, Norway;  11 Centre for Psychiatry Research, Department of Clinical Neuroscience, Karolinska Institutet, Stockholm, Sweden;  12 Department of Mental Disorders, Norwegian Institute of Public Health, Oslo, Norway
+     6	
+     7	13 These authors shared first authorship.
+     8	
+     9	14 These authors shared last authorship.
+    10	
+    11	* To whom correspondence should be addressed: Department of Cognitive Neuroscience, Radboud University Medical Centre, Kapittelweg 29, Nijmegen 6525EN, the Netherlands; tel: (+31) 024-3668492, e-mail: andre.marquand@donders.ru.nl
+    12	
+    13	Background : Clinical  forecasting  models  have  potential to optimize treatment and improve outcomes in psychosis, but predicting long-term outcomes is challenging and longterm follow-up data are scarce. In this 10-year longitudinal study, we aimed to characterize the temporal evolution of cortical correlates of psychosis and their associations with symptoms. Design : Structural  magnetic  resonance  imaging (MRI) from people with first-episode psychosis and controls  ( n = 79  and  218)  were  obtained  at  enrollment, after  12  months  ( n = 67  and  197),  and  10  years  ( n = 23 and  77),  within  the  Thematically  Organized  Psychosis (TOP) study. Normative models for cortical thickness estimated on public MRI datasets ( n = 42 983) were applied to TOP data to obtain deviation scores for each region and timepoint. Positive and Negative Syndrome Scale (PANSS) scores were acquired at each timepoint along with registry data. Linear mixed effects models assessed effects of diagnosis, time, and their interactions on cortical deviations plus associations with symptoms. Results : LMEs revealed conditional main effects of diagnosis and time × diagnosis interactions in a distributed cortical network, where negative deviations in patients attenuate over time. In patients, symptoms also attenuate over time. LMEs revealed effects of anterior cingulate on PANSS total, and insular and orbitofrontal regions on PANSS negative scores. Conclusions :
+    14	
+    15	This  long-term  longitudinal  study  revealed  a  distributed pattern of cortical differences which attenuated over time together  with  a  reduction  in  symptoms.  These  findings are not in line with a simple neurodegenerative account of schizophrenia, and deviations from normative models offer a promising avenue to develop biomarkers to track clinical trajectories over time.
+    16	
+    17	Key words: schizophrenia/cortical thickness/long-term follow up/normative modeling
+    18	
+    19	## Introduction
+    20	
+
+thinking
+**Preparing to extract criteria lines**
+
+I'm getting line numbers from the supplementary to identify where criteria and related info are located for focused data extraction.
+exec
+/bin/bash -lc "nl -ba media-1.pdf.md | sed -n '1,220p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 25ms:
+     1	## Supplementary Materials
+     2	
+     3	## Supplementary information (Methods / Results / Future Directions)
+     4	
+     5	Supplementary Figure 1 : Count plots for SCZ and CTRL at different timepoints, color-coded by diagnosis.
+     6	
+     7	Supplementary Figure 2 : Sankey diagram of the MRI sessions completed by patients with schizophrenia.
+     8	
+     9	Supplementary Figure 3: Significant differences in deviation scores between healthy individuals and people with schizophrenia at baseline (A), 12-month follow-up (B) and 10-year follow-up (C), color coded by effect size (Cohen's d ), (D) empirical cumulative distribution function plot of the effect size for the three time points.
+    10	
+    11	Supplementary Figure 4 :  Unthresholded  differences  in  deviation  scores  between  healthy  individuals  and patients with schizophrenia at baseline, 12-month follow-up (B) and 10-year follow-up (C), color coded by effect size (Cohen's d ).
+    12	
+    13	Supplementary Figure 5 : Interaction effects between time and diagnosis group for each significant interaction effect for the left hemisphere (A) and the right hemisphere (B).
+    14	
+    15	Supplementary Figure 6 :  Main effects for age, time since inclusion (B) and sex (C) from the linear mixed model shown in Figure 2 in the main manuscript.
+    16	
+    17	Supplementary Figure 7 : Significant interaction effects (FDR corrected) between time points and deviation score of the posterior ramus of the lateral sulcus in the left hemisphere.
+    18	
+    19	Supplementary Figure 8 : The deviation in mean cortical thickness across timepoints for the healthy controls. This shows that the normative model removes age related effects such that the trajectory of each healthy participant is flat and with the distribution centred at zero.
+    20	
+
+thinking
+**Identifying key line numbers**
+
+I'm pinpointing approximate line numbers for important sections like the normative model around line 45 and the DOI at about line 271, focusing on nearby content in the 200–270 range to guide detailed examination and editing.
+exec
+/bin/bash -lc "nl -ba Berthet2025.pdf.md | sed -n '240,300p'" in /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized succeeded in 25ms:
+   240	41.  Bethlehem RI, Seidlitz J, White SR, et al; 3R-BRAIN. Brain charts for the human lifespan. Nature. 2022;604:525-533.
+   241	42.  Antoniades M, Haas SS, Modabbernia A, et al. Personalized estimates  of  brain  structural  variability  in  individuals  with early psychosis. Schizophr Bull. 2021;47:1029-1038.
+   242	43.  Cole TJ. The development of growth references and growth charts. Ann Hum Biol. 2012;39:382-394.
+   243	44.  Marquand  AF,  Kia  SM,  Zabihi  M,  Wolfers  T,  Buitelaar JK,  Beckmann  CF.  Conceptualizing  mental  disorders  as deviations from  normative  functioning. Mol  Psychiatry. 2019;24:1415-1424.
+   244	45.  Marquand AF, Rezek I, Buitelaar J, Beckmann CF. Understanding  heterogeneity  in  clinical  cohorts  using  normative models: beyond case-control studies. Biol Psychiatry. 2016;80:552-561.
+   245	46.  Rutherford  S, Barkema  P,  Tso  IF,  et  al.  Evidence  for embracing normative modeling. Elife. 2023;12:e85082.
+   246	47.  Fraza CJ, Dinga R, Beckmann CF, Marquand AF. Warped Bayesian  linear  regression  for  normative  modelling  of  big data. Neuroimage. 2021;245(118715):118715.
+   247	48.  Marquand AF, Wolfers T, Mennes M, Buitelaar J, Beckmann CF.  Beyond  lumping  and  splitting:  a  review  of  computational  approaches  for  stratifying  psychiatric  disorders. Biol Psychiatry: Cognit Neurosci Neuroimag. 2016;1:433-447.
+   248	49.  Zabihi M, Oldehinkel M, Wolfers T, et al. Dissecting the heterogeneous  cortical  anatomy  of  autism  spectrum  disorder using  normative  models. Biol  Psychiatry  Cogn  Neurosci Neuroimaging. 2019;4:567-578.
+   249	50.  Gaiser C, Berthet P, Kia SM, et al. Estimating cortical thickness  trajectories  in  children  across  different  scanners  using transfer learning from normative models. Hum Brain Mapp. 2024;45:e26565.
+   250	51.  Kay SR, Fiszbein A, Opler LA. The Positive and Negative Syndrome Scale (PANSS) for schizophrenia. Schizophr Bull. 1987;13:261-276.
+   251	52.  Destrieux  C,  Fischl  B,  Dale  A,  Halgren  E.  Automatic parcellation of human cortical gyri and sulci using standard anatomical nomenclature. Neuroimage. 2010;53:1-15.
+   252	53.  Rosen  AFG,  Roalf  DR,  Ruparel  K,  et  al.  Quantitative assessment of structural image quality. Neuroimage. 2018;169:407-418.
+   253	54.  Kia, S. M. et al. Hierarchical Bayesian regression for multi-site normative modeling of neuroimaging data. In: Proceedings of the 23rd international conference of Medical Image Computing and Computer Assisted Intervention (MICCAI) , Lima, Peru, 2020.  Published  in  Lecture  Notes  in  Computer  Science, Springer 2020.
+   254	55.  Kia SM, Huijsdens H, Rutherford S, et al. Closing the lifecycle  of  normative  modeling  using  federated  hierarchical Bayesian regression. PLoS ONE. 2022;17:e0278776.
+   255	56.  Ducharme S, Albaugh MD,  Nguyen  T-V, et al; Brain Development Cooperative Group. Trajectories of cortical thickness maturation in normal brain development-the importance of quality control procedures. Neuroimage. 2016;125:267-279.
+   256	57.  Monereo-Sánchez J, de Jong JJA, Drenthen GS, et al. Quality control strategies for brain MRI segmentation and parcellation: practical approaches and recommendations-insights from the Maastricht study. Neuroimage. 2021;237(118174):118174.
+   257	58.  Rutherford  S,  Kia  SM,  Wolfers  T,  et  al.  The  normative modeling  framework  for computational psychiatry. Nat Protoc. 2022;17:1711-1734.
+   258	59.  Bayer JMM, Dinga R, Kia SM, et al. Accommodating site variation  in  neuroimaging  data  using  normative  and  hierarchical Bayesian models. Neuroimage. 2022;264:119699.
+   259	60.  Benjamini  Y ,  Hochberg  Y .  Controlling  the  false  discovery rate: a practical and powerful approach to multiple testing. J R Stat Soc B: Stat Methodol. 1995;57:289-300.
+
+thinking
+**Summarizing data quality and validation assessments**
+
+I've synthesized detailed answers for normative and clinical criteria including cohort selection, covariates, data sources, validation approaches, and reproducibility, leaning on partial answers where info is incomplete; now preparing a JSON patch reflecting these nuanced evaluations.
+file update
+M /home/iu/Dropbox/025_TokyoUniv/NorModSysRev/WorkingDirectory/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json
+@@ -2,7 +2,7 @@
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Berthet2025",
++    "si2_reference_file_names": "Berthet2025.pdf.md; media-1.pdf.md",
++    "si3_author_journal_year": "Berthet et al., Schizophrenia Bulletin, 2025",
++    "si4_title": "A 10-Year Longitudinal Study of Brain Cortical Thickness in People with FirstEpisode Psychosis Using Normative Models",
++    "si5_doi": "10.1101/2023.01.17.523348"
+   },
+@@ -10,7 +10,7 @@
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction explicitly state the aim to characterize longitudinal cortical changes in first-episode psychosis and relate normative-model deviations to symptoms over 10 years, describing why normative modeling is applied to track clinical trajectories.",
++      "supporting_text": "“we aimed to characterize the temporal evolution of cortical correlates of psychosis and their associations with symptoms… Normative models… were applied… Then, we assessed the association between CT deviations and symptom scales”",
++      "location": "Berthet2025.pdf.md:13-27"
+     }
+@@ -19,77 +19,77 @@
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Eligibility for healthy controls (language, IQ>70, no severe head trauma or major psychiatric/substance history) and patient diagnoses are described, and MRI quality control excluded Euler >5. Final sample sizes for controls at each wave are reported. However, detailed exclusion counts and criteria for the large public reference datasets used to train the normative model are not provided.",
++      "supporting_text": "“Healthy CTRL from the same geographic catchment area were invited… Exclusion criteria for healthy CTRL included a history of drug or alcohol abuse or dependency, psychosis, bipolar disorder, or major depressive disorder, or having a first-degree relative diagnosed with a psychotic or bipolar disorder.” / “Patients… had no history of severe head trauma, and had an IQ above 70.” / “samples with a value higher than 5 were removed.” / “N 218…197…77”",
++      "location": "Berthet2025.pdf.md:33-43,85-90; media-1.pdf.md:45-49"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Normative models included age as a covariate and modeled sex and scanner ID as batch effects within hierarchical Bayesian regression to address site/scanner variation.",
++      "supporting_text": "“using HBR with age as a covariate, and sex and scanner id as batch effects, to predict CT… This accommodated multisite pooling using transfer learning and comparisons across scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The reference normative models were trained on pooled data from mostly publicly available datasets spanning 77 sites with 40,435 participants, and then adapted to three Oslo scanners using held-out local controls.",
++      "supporting_text": "“Using pooled data from a collection of mostly publicly available datasets from 77 sites, and 40 435 participants… We then adapted the model to the 3 unseen Oslo scanners… using held-out cross-sectional data from CTRL from these 3 scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Three MRI scanners (1.5T Siemens Sonata, 3T GE Signa HDxT, 3T GE 750 Discovery) are described with coil types and key acquisition parameters (sequence, TR, TE, flip angle) and scanner distribution across timepoints.",
++      "supporting_text": "“Three scanners at Oslo University Hospital were used… 1.5 Tesla Siemens MANETOM Sonata… MPRAGE… TR = 2.730 ms, TE = 3.93 ms, FA = 7°… 3 Tesla GE Signa HDxT… FSPGR… TR = 7.8 ms, TE = 3.18 ms, FA = 12°… 3 Tesla GE 750 Discovery… BRAVO… TR = 8.16 ms, TE = 3.18 ms, FA = 12°.”",
++      "location": "Berthet2025.pdf.md:37-41"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing used FreeSurfer v5.3 with Destrieux atlas parcellation, and automatic quality control based on the Euler characteristic removed scans with Euler >5.",
++      "supporting_text": "“T1-weighted structural MRI scans were preprocessed through Freesurfer (version 5.3), and CT measures were parcellated using the Destrieux atlas… An automatic quality check procedure based on the Freesurfer Euler characteristic was run on all data and samples with a value higher than 5 were removed.”",
++      "location": "Berthet2025.pdf.md:43-44"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "Medium",
++      "reason": "The normative models were trained on 95% of 40,435 participants and validated on an independent 5% (2,548) hold-out set stratified by site; adaptation used held-out cross-sectional controls for the Oslo scanners.",
++      "supporting_text": "“the reference normative models were first trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites). We then adapted the model to the 3 unseen Oslo scanners… using held-out cross-sectional data from CTRL from these 3 scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Aside from the internal hold-out split and adaptation with local controls, no independent external healthy dataset was used to test the normative model; external validation is not reported.",
++      "supporting_text": "No application of the model to an independent external healthy dataset beyond the internal 5% validation and local adaptation is described.",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They used hierarchical Bayesian regression normative models per ROI with age as covariate and sex/scanner as batch effects, employing transfer learning to adapt to new scanners.",
++      "supporting_text": "“we used the Hierarchical Bayesian regression (HBR) approach for normative modeling… We estimated a normative model for each region of interest… using HBR with age as a covariate, and sex and scanner id as batch effects… We then adapted the model to the 3 unseen Oslo scanners, by transferring the (hyper) parameters as informed priors.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Low",
++      "reason": "They mention a 95%/5% train–validation split but do not report quantitative performance metrics (e.g., error, variance explained) for the reference cohort.",
++      "supporting_text": "“trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites).”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Low",
++      "reason": "Partitioning is described (95% training, 5% validation with 2,548 participants), but demographic characteristics for each partition are not provided.",
++      "supporting_text": "“reference normative models were first trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites).”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Key software and model details are given (FreeSurfer v5.3, Destrieux atlas, hierarchical Bayesian regression with specified covariates and transfer learning), but code/model availability, software library versions beyond FreeSurfer, and data access are not provided.",
++      "supporting_text": "“preprocessed through Freesurfer (version 5.3)… Destrieux atlas… we used the Hierarchical Bayesian regression (HBR)… using HBR with age as a covariate, and sex and scanner id as batch effects… adapted the model to the 3 unseen Oslo scanners.”",
++      "location": "Berthet2025.pdf.md:43-47"
+     }
+@@ -98,42 +98,42 @@
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical participants were first-episode schizophrenia spectrum patients recruited from Oslo hospitals with SCID-IV diagnoses, language/IQ/head trauma criteria, and exclusion of severe substance or mental illness history; healthy controls had psychiatric/substance exclusions. MRI QC excluded poor scans, and final sample sizes per wave are provided.",
++      "supporting_text": "“patients with a first-episode schizophrenia spectrum diagnosis… recruited… diagnosis… using the Structured Clinical Interview for DSM-IV Axis I Disorders… Healthy CTRL… Exclusion criteria for healthy CTRL included a history of drug or alcohol abuse or dependency, psychosis, bipolar disorder, or major depressive disorder” / “understood and spoke a Scandinavian language, had no history of severe head trauma, and had an IQ above 70… excluded… severe mental illness or… severe substance or alcohol abuse.” / “samples with a value higher than 5 were removed.” / “N 218…79…67…23”",
++      "location": "Berthet2025.pdf.md:31-43,85-90; media-1.pdf.md:45-49"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses of PANSS scores modeled time since inclusion, age at baseline, and sex; no clinical covariates beyond basic demographics (e.g., medication status, illness duration) were incorporated.",
++      "supporting_text": "“we used an LME model to assess the change in PANSS subscales over time, while controlling for age at baseline and sex.”",
++      "location": "Berthet2025.pdf.md:63-67"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical participants were drawn from the TOP study at the University of Oslo/Oslo University Hospital between October 2004 and October 2012, with recruitment sites listed.",
++      "supporting_text": "“All participants were recruited to a specific first-episode sub-study of the TOP study at the University of Oslo and Oslo University Hospital from October 27, 2004, to October 17, 2012… recruited from… inpatient and outpatient services at Oslo University Hospital and 3 additional hospitals in the larger Oslo area.”",
++      "location": "Berthet2025.pdf.md:31-33"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Sample sizes and demographics by timepoint are given in Table 1, and medication use proportions across visits are summarized.",
++      "supporting_text": "“N 218…79…197…67…77…23” / “Age, mean [SD]… Sex ratio (female)” / “patients primarily used second-generation antipsychotics (62% at baseline, 48% at 1 year, and 17% at 10 years) or did not use any antipsychotics (38%, 50%, and 83%).”",
++      "location": "Berthet2025.pdf.md:85-93,79; media-1.pdf.md:75-77"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Diagnoses were established with SCID-IV, and clinical symptoms were measured with the Positive and Negative Syndrome Scale (PANSS) at each timepoint.",
++      "supporting_text": "“Psychiatric diagnosis at baseline was established using the Structured Clinical Interview for DSM-IV Axis I Disorders (SCID-I)… Positive and Negative Syndrome Scale (PANSS) scores were acquired at each timepoint.”",
++      "location": "Berthet2025.pdf.md:31-33"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They defined extreme deviations as |z|>2 and interpreted negative deviations as greater symptom severity in specific regions, reporting associations with PANSS domains and attenuation over time.",
++      "supporting_text": "“We defined the threshold for extreme deviation values as | z | > 2.0.” / “Anterior cingulate gyrus was associated with PANSS total and PANSS general… insula… medial orbital sulcus… associated with PANSS negative. Negative associations indicate more negative deviation scores with higher symptom severity.” / “differences evident in the deviations at the first timepoint attenuate at later timepoints.”",
++      "location": "Berthet2025.pdf.md:45-47,121-139"
+     }
+apply_patch(auto_approved=true) exited 0 in 14ms:
+Success. Updated the following files:
+M Berthet2025_by_codex_20260107094231_for_QA_v9.json
+file update:
+diff --git a/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json b/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..faca29fd0d75060a1fe28801c7739a5b181b69b4
+--- a/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json
++++ b/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Berthet2025",
++    "si2_reference_file_names": "Berthet2025.pdf.md; media-1.pdf.md",
++    "si3_author_journal_year": "Berthet et al., Schizophrenia Bulletin, 2025",
++    "si4_title": "A 10-Year Longitudinal Study of Brain Cortical Thickness in People with FirstEpisode Psychosis Using Normative Models",
++    "si5_doi": "10.1101/2023.01.17.523348"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction explicitly state the aim to characterize longitudinal cortical changes in first-episode psychosis and relate normative-model deviations to symptoms over 10 years, describing why normative modeling is applied to track clinical trajectories.",
++      "supporting_text": "“we aimed to characterize the temporal evolution of cortical correlates of psychosis and their associations with symptoms… Normative models… were applied… Then, we assessed the association between CT deviations and symptom scales”",
++      "location": "Berthet2025.pdf.md:13-27"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Eligibility for healthy controls (language, IQ>70, no severe head trauma or major psychiatric/substance history) and patient diagnoses are described, and MRI quality control excluded Euler >5. Final sample sizes for controls at each wave are reported. However, detailed exclusion counts and criteria for the large public reference datasets used to train the normative model are not provided.",
++      "supporting_text": "“Healthy CTRL from the same geographic catchment area were invited… Exclusion criteria for healthy CTRL included a history of drug or alcohol abuse or dependency, psychosis, bipolar disorder, or major depressive disorder, or having a first-degree relative diagnosed with a psychotic or bipolar disorder.” / “Patients… had no history of severe head trauma, and had an IQ above 70.” / “samples with a value higher than 5 were removed.” / “N 218…197…77”",
++      "location": "Berthet2025.pdf.md:33-43,85-90; media-1.pdf.md:45-49"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Normative models included age as a covariate and modeled sex and scanner ID as batch effects within hierarchical Bayesian regression to address site/scanner variation.",
++      "supporting_text": "“using HBR with age as a covariate, and sex and scanner id as batch effects, to predict CT… This accommodated multisite pooling using transfer learning and comparisons across scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The reference normative models were trained on pooled data from mostly publicly available datasets spanning 77 sites with 40,435 participants, and then adapted to three Oslo scanners using held-out local controls.",
++      "supporting_text": "“Using pooled data from a collection of mostly publicly available datasets from 77 sites, and 40 435 participants… We then adapted the model to the 3 unseen Oslo scanners… using held-out cross-sectional data from CTRL from these 3 scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Three MRI scanners (1.5T Siemens Sonata, 3T GE Signa HDxT, 3T GE 750 Discovery) are described with coil types and key acquisition parameters (sequence, TR, TE, flip angle) and scanner distribution across timepoints.",
++      "supporting_text": "“Three scanners at Oslo University Hospital were used… 1.5 Tesla Siemens MANETOM Sonata… MPRAGE… TR = 2.730 ms, TE = 3.93 ms, FA = 7°… 3 Tesla GE Signa HDxT… FSPGR… TR = 7.8 ms, TE = 3.18 ms, FA = 12°… 3 Tesla GE 750 Discovery… BRAVO… TR = 8.16 ms, TE = 3.18 ms, FA = 12°.”",
++      "location": "Berthet2025.pdf.md:37-41"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing used FreeSurfer v5.3 with Destrieux atlas parcellation, and automatic quality control based on the Euler characteristic removed scans with Euler >5.",
++      "supporting_text": "“T1-weighted structural MRI scans were preprocessed through Freesurfer (version 5.3), and CT measures were parcellated using the Destrieux atlas… An automatic quality check procedure based on the Freesurfer Euler characteristic was run on all data and samples with a value higher than 5 were removed.”",
++      "location": "Berthet2025.pdf.md:43-44"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "Medium",
++      "reason": "The normative models were trained on 95% of 40,435 participants and validated on an independent 5% (2,548) hold-out set stratified by site; adaptation used held-out cross-sectional controls for the Oslo scanners.",
++      "supporting_text": "“the reference normative models were first trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites). We then adapted the model to the 3 unseen Oslo scanners… using held-out cross-sectional data from CTRL from these 3 scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Aside from the internal hold-out split and adaptation with local controls, no independent external healthy dataset was used to test the normative model; external validation is not reported.",
++      "supporting_text": "No application of the model to an independent external healthy dataset beyond the internal 5% validation and local adaptation is described.",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They used hierarchical Bayesian regression normative models per ROI with age as covariate and sex/scanner as batch effects, employing transfer learning to adapt to new scanners.",
++      "supporting_text": "“we used the Hierarchical Bayesian regression (HBR) approach for normative modeling… We estimated a normative model for each region of interest… using HBR with age as a covariate, and sex and scanner id as batch effects… We then adapted the model to the 3 unseen Oslo scanners, by transferring the (hyper) parameters as informed priors.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Low",
++      "reason": "They mention a 95%/5% train–validation split but do not report quantitative performance metrics (e.g., error, variance explained) for the reference cohort.",
++      "supporting_text": "“trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites).”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Low",
++      "reason": "Partitioning is described (95% training, 5% validation with 2,548 participants), but demographic characteristics for each partition are not provided.",
++      "supporting_text": "“reference normative models were first trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites).”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Key software and model details are given (FreeSurfer v5.3, Destrieux atlas, hierarchical Bayesian regression with specified covariates and transfer learning), but code/model availability, software library versions beyond FreeSurfer, and data access are not provided.",
++      "supporting_text": "“preprocessed through Freesurfer (version 5.3)… Destrieux atlas… we used the Hierarchical Bayesian regression (HBR)… using HBR with age as a covariate, and sex and scanner id as batch effects… adapted the model to the 3 unseen Oslo scanners.”",
++      "location": "Berthet2025.pdf.md:43-47"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical participants were first-episode schizophrenia spectrum patients recruited from Oslo hospitals with SCID-IV diagnoses, language/IQ/head trauma criteria, and exclusion of severe substance or mental illness history; healthy controls had psychiatric/substance exclusions. MRI QC excluded poor scans, and final sample sizes per wave are provided.",
++      "supporting_text": "“patients with a first-episode schizophrenia spectrum diagnosis… recruited… diagnosis… using the Structured Clinical Interview for DSM-IV Axis I Disorders… Healthy CTRL… Exclusion criteria for healthy CTRL included a history of drug or alcohol abuse or dependency, psychosis, bipolar disorder, or major depressive disorder” / “understood and spoke a Scandinavian language, had no history of severe head trauma, and had an IQ above 70… excluded… severe mental illness or… severe substance or alcohol abuse.” / “samples with a value higher than 5 were removed.” / “N 218…79…67…23”",
++      "location": "Berthet2025.pdf.md:31-43,85-90; media-1.pdf.md:45-49"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses of PANSS scores modeled time since inclusion, age at baseline, and sex; no clinical covariates beyond basic demographics (e.g., medication status, illness duration) were incorporated.",
++      "supporting_text": "“we used an LME model to assess the change in PANSS subscales over time, while controlling for age at baseline and sex.”",
++      "location": "Berthet2025.pdf.md:63-67"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical participants were drawn from the TOP study at the University of Oslo/Oslo University Hospital between October 2004 and October 2012, with recruitment sites listed.",
++      "supporting_text": "“All participants were recruited to a specific first-episode sub-study of the TOP study at the University of Oslo and Oslo University Hospital from October 27, 2004, to October 17, 2012… recruited from… inpatient and outpatient services at Oslo University Hospital and 3 additional hospitals in the larger Oslo area.”",
++      "location": "Berthet2025.pdf.md:31-33"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Sample sizes and demographics by timepoint are given in Table 1, and medication use proportions across visits are summarized.",
++      "supporting_text": "“N 218…79…197…67…77…23” / “Age, mean [SD]… Sex ratio (female)” / “patients primarily used second-generation antipsychotics (62% at baseline, 48% at 1 year, and 17% at 10 years) or did not use any antipsychotics (38%, 50%, and 83%).”",
++      "location": "Berthet2025.pdf.md:85-93,79; media-1.pdf.md:75-77"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Diagnoses were established with SCID-IV, and clinical symptoms were measured with the Positive and Negative Syndrome Scale (PANSS) at each timepoint.",
++      "supporting_text": "“Psychiatric diagnosis at baseline was established using the Structured Clinical Interview for DSM-IV Axis I Disorders (SCID-I)… Positive and Negative Syndrome Scale (PANSS) scores were acquired at each timepoint.”",
++      "location": "Berthet2025.pdf.md:31-33"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They defined extreme deviations as |z|>2 and interpreted negative deviations as greater symptom severity in specific regions, reporting associations with PANSS domains and attenuation over time.",
++      "supporting_text": "“We defined the threshold for extreme deviation values as | z | > 2.0.” / “Anterior cingulate gyrus was associated with PANSS total and PANSS general… insula… medial orbital sulcus… associated with PANSS negative. Negative associations indicate more negative deviation scores with higher symptom severity.” / “differences evident in the deviations at the first timepoint attenuate at later timepoints.”",
++      "location": "Berthet2025.pdf.md:45-47,121-139"
+     }
+   }
+ }
+
+
+thinking
+**Summarizing final changes**
+
+The JSON response is now ensured valid with string-encoded line 1. No further planning needed; the task is complete without tests. I'll summarize the changes and mention the file path in the final message.
+codex
+Filled the QA assessment per QA_Guide_v9 and populated `Berthet2025_by_codex_20260107094231_for_QA_v9.json` with extracted answers, supporting evidence, and locations from `Berthet2025.pdf.md` and `media-1.pdf.md`.
+
+File updated: `Berthet2025_by_codex_20260107094231_for_QA_v9.json`.
+
+You may want to spot-check the assumed journal/year entry if a definitive citation becomes available.
+file update:
+diff --git a/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json b/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..faca29fd0d75060a1fe28801c7739a5b181b69b4
+--- a/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json
++++ b/10_DECheck/share_package/data/Berthet2025/materials/optimized/Berthet2025_by_codex_20260107094231_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Berthet2025",
++    "si2_reference_file_names": "Berthet2025.pdf.md; media-1.pdf.md",
++    "si3_author_journal_year": "Berthet et al., Schizophrenia Bulletin, 2025",
++    "si4_title": "A 10-Year Longitudinal Study of Brain Cortical Thickness in People with FirstEpisode Psychosis Using Normative Models",
++    "si5_doi": "10.1101/2023.01.17.523348"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction explicitly state the aim to characterize longitudinal cortical changes in first-episode psychosis and relate normative-model deviations to symptoms over 10 years, describing why normative modeling is applied to track clinical trajectories.",
++      "supporting_text": "“we aimed to characterize the temporal evolution of cortical correlates of psychosis and their associations with symptoms… Normative models… were applied… Then, we assessed the association between CT deviations and symptom scales”",
++      "location": "Berthet2025.pdf.md:13-27"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Eligibility for healthy controls (language, IQ>70, no severe head trauma or major psychiatric/substance history) and patient diagnoses are described, and MRI quality control excluded Euler >5. Final sample sizes for controls at each wave are reported. However, detailed exclusion counts and criteria for the large public reference datasets used to train the normative model are not provided.",
++      "supporting_text": "“Healthy CTRL from the same geographic catchment area were invited… Exclusion criteria for healthy CTRL included a history of drug or alcohol abuse or dependency, psychosis, bipolar disorder, or major depressive disorder, or having a first-degree relative diagnosed with a psychotic or bipolar disorder.” / “Patients… had no history of severe head trauma, and had an IQ above 70.” / “samples with a value higher than 5 were removed.” / “N 218…197…77”",
++      "location": "Berthet2025.pdf.md:33-43,85-90; media-1.pdf.md:45-49"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Normative models included age as a covariate and modeled sex and scanner ID as batch effects within hierarchical Bayesian regression to address site/scanner variation.",
++      "supporting_text": "“using HBR with age as a covariate, and sex and scanner id as batch effects, to predict CT… This accommodated multisite pooling using transfer learning and comparisons across scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The reference normative models were trained on pooled data from mostly publicly available datasets spanning 77 sites with 40,435 participants, and then adapted to three Oslo scanners using held-out local controls.",
++      "supporting_text": "“Using pooled data from a collection of mostly publicly available datasets from 77 sites, and 40 435 participants… We then adapted the model to the 3 unseen Oslo scanners… using held-out cross-sectional data from CTRL from these 3 scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Three MRI scanners (1.5T Siemens Sonata, 3T GE Signa HDxT, 3T GE 750 Discovery) are described with coil types and key acquisition parameters (sequence, TR, TE, flip angle) and scanner distribution across timepoints.",
++      "supporting_text": "“Three scanners at Oslo University Hospital were used… 1.5 Tesla Siemens MANETOM Sonata… MPRAGE… TR = 2.730 ms, TE = 3.93 ms, FA = 7°… 3 Tesla GE Signa HDxT… FSPGR… TR = 7.8 ms, TE = 3.18 ms, FA = 12°… 3 Tesla GE 750 Discovery… BRAVO… TR = 8.16 ms, TE = 3.18 ms, FA = 12°.”",
++      "location": "Berthet2025.pdf.md:37-41"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing used FreeSurfer v5.3 with Destrieux atlas parcellation, and automatic quality control based on the Euler characteristic removed scans with Euler >5.",
++      "supporting_text": "“T1-weighted structural MRI scans were preprocessed through Freesurfer (version 5.3), and CT measures were parcellated using the Destrieux atlas… An automatic quality check procedure based on the Freesurfer Euler characteristic was run on all data and samples with a value higher than 5 were removed.”",
++      "location": "Berthet2025.pdf.md:43-44"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "Medium",
++      "reason": "The normative models were trained on 95% of 40,435 participants and validated on an independent 5% (2,548) hold-out set stratified by site; adaptation used held-out cross-sectional controls for the Oslo scanners.",
++      "supporting_text": "“the reference normative models were first trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites). We then adapted the model to the 3 unseen Oslo scanners… using held-out cross-sectional data from CTRL from these 3 scanners.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Aside from the internal hold-out split and adaptation with local controls, no independent external healthy dataset was used to test the normative model; external validation is not reported.",
++      "supporting_text": "No application of the model to an independent external healthy dataset beyond the internal 5% validation and local adaptation is described.",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They used hierarchical Bayesian regression normative models per ROI with age as covariate and sex/scanner as batch effects, employing transfer learning to adapt to new scanners.",
++      "supporting_text": "“we used the Hierarchical Bayesian regression (HBR) approach for normative modeling… We estimated a normative model for each region of interest… using HBR with age as a covariate, and sex and scanner id as batch effects… We then adapted the model to the 3 unseen Oslo scanners, by transferring the (hyper) parameters as informed priors.”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Low",
++      "reason": "They mention a 95%/5% train–validation split but do not report quantitative performance metrics (e.g., error, variance explained) for the reference cohort.",
++      "supporting_text": "“trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites).”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Low",
++      "reason": "Partitioning is described (95% training, 5% validation with 2,548 participants), but demographic characteristics for each partition are not provided.",
++      "supporting_text": "“reference normative models were first trained on (95%) healthy individuals and validated on an independent set of 2548 CTRL and patients (5%, stratified by sites).”",
++      "location": "Berthet2025.pdf.md:45-47"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Key software and model details are given (FreeSurfer v5.3, Destrieux atlas, hierarchical Bayesian regression with specified covariates and transfer learning), but code/model availability, software library versions beyond FreeSurfer, and data access are not provided.",
++      "supporting_text": "“preprocessed through Freesurfer (version 5.3)… Destrieux atlas… we used the Hierarchical Bayesian regression (HBR)… using HBR with age as a covariate, and sex and scanner id as batch effects… adapted the model to the 3 unseen Oslo scanners.”",
++      "location": "Berthet2025.pdf.md:43-47"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical participants were first-episode schizophrenia spectrum patients recruited from Oslo hospitals with SCID-IV diagnoses, language/IQ/head trauma criteria, and exclusion of severe substance or mental illness history; healthy controls had psychiatric/substance exclusions. MRI QC excluded poor scans, and final sample sizes per wave are provided.",
++      "supporting_text": "“patients with a first-episode schizophrenia spectrum diagnosis… recruited… diagnosis… using the Structured Clinical Interview for DSM-IV Axis I Disorders… Healthy CTRL… Exclusion criteria for healthy CTRL included a history of drug or alcohol abuse or dependency, psychosis, bipolar disorder, or major depressive disorder” / “understood and spoke a Scandinavian language, had no history of severe head trauma, and had an IQ above 70… excluded… severe mental illness or… severe substance or alcohol abuse.” / “samples with a value higher than 5 were removed.” / “N 218…79…67…23”",
++      "location": "Berthet2025.pdf.md:31-43,85-90; media-1.pdf.md:45-49"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses of PANSS scores modeled time since inclusion, age at baseline, and sex; no clinical covariates beyond basic demographics (e.g., medication status, illness duration) were incorporated.",
++      "supporting_text": "“we used an LME model to assess the change in PANSS subscales over time, while controlling for age at baseline and sex.”",
++      "location": "Berthet2025.pdf.md:63-67"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical participants were drawn from the TOP study at the University of Oslo/Oslo University Hospital between October 2004 and October 2012, with recruitment sites listed.",
++      "supporting_text": "“All participants were recruited to a specific first-episode sub-study of the TOP study at the University of Oslo and Oslo University Hospital from October 27, 2004, to October 17, 2012… recruited from… inpatient and outpatient services at Oslo University Hospital and 3 additional hospitals in the larger Oslo area.”",
++      "location": "Berthet2025.pdf.md:31-33"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Sample sizes and demographics by timepoint are given in Table 1, and medication use proportions across visits are summarized.",
++      "supporting_text": "“N 218…79…197…67…77…23” / “Age, mean [SD]… Sex ratio (female)” / “patients primarily used second-generation antipsychotics (62% at baseline, 48% at 1 year, and 17% at 10 years) or did not use any antipsychotics (38%, 50%, and 83%).”",
++      "location": "Berthet2025.pdf.md:85-93,79; media-1.pdf.md:75-77"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Diagnoses were established with SCID-IV, and clinical symptoms were measured with the Positive and Negative Syndrome Scale (PANSS) at each timepoint.",
++      "supporting_text": "“Psychiatric diagnosis at baseline was established using the Structured Clinical Interview for DSM-IV Axis I Disorders (SCID-I)… Positive and Negative Syndrome Scale (PANSS) scores were acquired at each timepoint.”",
++      "location": "Berthet2025.pdf.md:31-33"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "They defined extreme deviations as |z|>2 and interpreted negative deviations as greater symptom severity in specific regions, reporting associations with PANSS domains and attenuation over time.",
++      "supporting_text": "“We defined the threshold for extreme deviation values as | z | > 2.0.” / “Anterior cingulate gyrus was associated with PANSS total and PANSS general… insula… medial orbital sulcus… associated with PANSS negative. Negative associations indicate more negative deviation scores with higher symptom severity.” / “differences evident in the deviations at the first timepoint attenuate at later timepoints.”",
++      "location": "Berthet2025.pdf.md:45-47,121-139"
+     }
+   }
+ }
+
+tokens used
+80,734
+Filled the QA assessment per QA_Guide_v9 and populated `Berthet2025_by_codex_20260107094231_for_QA_v9.json` with extracted answers, supporting evidence, and locations from `Berthet2025.pdf.md` and `media-1.pdf.md`.
+
+File updated: `Berthet2025_by_codex_20260107094231_for_QA_v9.json`.
+
+You may want to spot-check the assumed journal/year entry if a definitive citation becomes available.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
