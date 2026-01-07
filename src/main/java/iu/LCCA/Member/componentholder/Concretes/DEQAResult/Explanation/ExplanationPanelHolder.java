@@ -14,13 +14,14 @@ import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public class ExplanationPanelHolder extends AbstCHolderMember {
 
     /**
      * 表示するガイドファイルのパス一覧
      */
-    String[] GUIDES = {"./settings/Guides/DE_Guide_v10_1.md", "./settings/Guides/QA_Guide_v7_2.md"};
+    private final String[] guideFilePaths;
 
     JPanel basePanel = new JPanel(new BorderLayout());
     JTabbedPane tabbedPane = new JTabbedPane();
@@ -33,12 +34,14 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
     public ExplanationPanelHolder(String cholder_name, String short_name) {
         super(cholder_name, short_name);
 
-        // GUIDES配列の要素数に応じてJTextAreaを作成
-        explanationTextAreas = new JTextArea[GUIDES.length];
+        this.guideFilePaths = buildGuideFilePathsFromConfig();
 
-        // GUIDESをループしてタブを生成
-        for (int i = 0; i < GUIDES.length; i++) {
-            String guideFilePath = GUIDES[i];
+        // ガイドファイルの数に応じてJTextAreaを作成
+        explanationTextAreas = new JTextArea[guideFilePaths.length];
+
+        // ガイドファイルをループしてタブを生成
+        for (int i = 0; i < guideFilePaths.length; i++) {
+            String guideFilePath = guideFilePaths[i];
             Path guidePath = Paths.get(guideFilePath);
 
             // JTextAreaを作成
@@ -69,9 +72,9 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
     public void postInitialize() {
 
         /* ** 説明文を書き込む ** */
-        // GUIDES配列をループしてガイドファイルの内容を読み込む
-        for (int i = 0; i < GUIDES.length; i++) {
-            String guideFilePath = GUIDES[i];
+        // ガイドファイルをループして内容を読み込む
+        for (int i = 0; i < guideFilePaths.length; i++) {
+            String guideFilePath = guideFilePaths[i];
             Path guidePath = Paths.get(guideFilePath);
 
             try {
@@ -115,6 +118,15 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
 
     }
 
+    private String[] buildGuideFilePathsFromConfig() {
+        // Preserve declaration order while removing duplicates
+        LinkedHashSet<String> uniquePaths = new LinkedHashSet<>();
+        for (SubTabsHolderConfig config : SubTabsHolderConfig.values()) {
+            uniquePaths.add(config.getGuideFilePath());
+        }
+        return uniquePaths.toArray(new String[0]);
+    }
+
     /**
      * sub_tabs_holder_name からガイドファイルを特定し、該当セクションの説明を抽出する
      *
@@ -145,6 +157,7 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
         // Json 内の subSectionName                              | Guide MDD 内の 見出し
         // "rci1_dataset_name"                         | "#### RCI-1. Dataset Name"
         // "cr1_clear_definition_of_target_population" | "#### CR-1. Clear Definition of Target Population"
+        // "nm2_1_modeling_method"                     | "#### NM2-1. Modeling Method"
         //
 
         // 次の同レベル見出し、または より上位の階層 直前までを抽出するように対応
@@ -207,17 +220,41 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
     }
 
     private String buildHeadingKey(String subSectionName) {
-        // subSectionName: 先頭の英字ブロック + 数字 から見出しキーを構築
+        // subSectionName: 先頭トークン([a-z]+ + 数字) と必要に応じて次の数字を使って見出しキーを構築
         // 例) rci1_dataset_name -> #### RCI-1.
+        //     nm2_1_modeling_method -> #### NM2-1.
         //     cr7_handling_of_confounding_variables -> #### CR-7.
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile("^([a-z]+)(\\d+)_.*");
-        java.util.regex.Matcher m = p.matcher(subSectionName.toLowerCase());
-        if (!m.matches()) {
+        if (subSectionName == null || subSectionName.isEmpty()) {
             return null;
         }
-        String letters = m.group(1).toUpperCase();
-        String number = m.group(2);
-        return "#### " + letters + "-" + number + ".";
+
+        String[] tokens = subSectionName.toLowerCase().split("_");
+        if (tokens.length == 0) {
+            return null;
+        }
+
+        java.util.regex.Matcher firstTokenMatcher = java.util.regex.Pattern
+                .compile("^([a-z]+)(\\d+)$")
+                .matcher(tokens[0]);
+        if (!firstTokenMatcher.matches()) {
+            return null;
+        }
+
+        String letters = firstTokenMatcher.group(1).toUpperCase();
+        String primaryNumber = firstTokenMatcher.group(2);
+        String secondaryNumber = null;
+
+        if (tokens.length > 1 && tokens[1].matches("\\d+")) {
+            secondaryNumber = tokens[1];
+        }
+
+        StringBuilder headingKey = new StringBuilder("#### ").append(letters);
+        if (secondaryNumber != null) {
+            headingKey.append(primaryNumber).append("-").append(secondaryNumber).append(".");
+        } else {
+            headingKey.append("-").append(primaryNumber).append(".");
+        }
+        return headingKey.toString();
     }
 
     /**
