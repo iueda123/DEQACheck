@@ -60,3 +60,20 @@ fuser -k 8080/tcp
   * src/main/frontend/index.html ではない。
   * build/libs/DEQACheckAll-0.0.1-SNAPSHOT.jar 内の META-INF/resources/ に index.html が置かれる。
  
+--------
+
+## DS920上へ配備するときのポイント
+
+```bash
+# バックグラウンド実行
+java -jar DEQACheck-VaadinApp-v********.jar &
+
+# プロセスID（PID）を調べて停止
+ps aux | grep DEQACheck-VaadinApp-v*********..jar
+
+# 停止
+kill 12345
+
+# 強制終了
+kill -9 12345
+```
