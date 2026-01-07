@@ -75,7 +75,7 @@ public class JsonManager {
      * @param path_key スラッシュ区切りのパス
      * @return 値（文字列）、見つからない場合はnull
      */
-    public String getValue(String path_key) {
+    public String getValueAsString(String path_key) {
         //System.out.println("path_key: " + path_key);
         // エスケープされたスラッシュを一時的にプレースホルダーに置き換える
         String placeholder = "\u0000ESCAPED_SLASH\u0000";
@@ -113,6 +113,20 @@ public class JsonManager {
 
         if (current.isJsonPrimitive()) {
             return current.getAsString();
+        } else if (current.isJsonArray()) {
+            // 配列の場合は要素をセミコロン区切りで返す
+            StringBuilder joined = new StringBuilder();
+            current.getAsJsonArray().forEach(elem -> {
+                if (joined.length() > 0) {
+                    joined.append("; ");
+                }
+                if (elem.isJsonPrimitive()) {
+                    joined.append(elem.getAsString());
+                } else {
+                    joined.append(elem.toString());
+                }
+            });
+            return joined.toString();
         }
 
         System.err.println("Value is not a primitive type (found JsonObject or JsonArray) for path: " + path_key);
@@ -164,7 +178,7 @@ public class JsonManager {
 
         current.addProperty(lastKey, value);
 
-        if( this.getValue(path_key).equals(value) ){
+        if( this.getValueAsString(path_key).equals(value) ){
             return true;
         }else{
             System.err.println("Setting a new value was failed." + "[" + path_key + "]");
@@ -253,7 +267,7 @@ public class JsonManager {
 
         /** 読み込みテスト */
         JsonManager jm2 = new JsonManager(new File("/tmp/test.json"));
-        System.out.println("key1 = " + jm2.getValue("test/key1"));
-        System.out.println("key2 = " + jm2.getValue("test/key2"));
+        System.out.println("key1 = " + jm2.getValueAsString("test/key1"));
+        System.out.println("key2 = " + jm2.getValueAsString("test/key2"));
     }
 }

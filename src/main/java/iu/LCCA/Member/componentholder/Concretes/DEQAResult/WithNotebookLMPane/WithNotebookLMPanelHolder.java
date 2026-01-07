@@ -206,7 +206,7 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
 
     private void load_QandA_from_JsonFile() {
 
-        tfield_NotebookLM_Url.setText(jsonManager.getValue("notebook-lm-url"));
+        tfield_NotebookLM_Url.setText(jsonManager.getValueAsString("notebook-lm-url"));
         tfield_NotebookLM_Url.updateDefaultValue();
         tfield_NotebookLM_Url.resetBackgroundColor();
 
@@ -216,8 +216,8 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
         JsonObject qAndAArray = jsonManager.getJsonObject().getAsJsonObject("q_and_a_array");
         if (qAndAArray != null) {
             for (String id : qAndAArray.keySet()) {
-                String question_str = jsonManager.getValue("q_and_a_array/" + id + "/q");
-                String answer_str = jsonManager.getValue("q_and_a_array/" + id + "/a");
+                String question_str = jsonManager.getValueAsString("q_and_a_array/" + id + "/q");
+                String answer_str = jsonManager.getValueAsString("q_and_a_array/" + id + "/a");
                 list_of_A_QandA_Panel.add(new A_QandA_Panel(id, question_str, answer_str, this));
             }
         }

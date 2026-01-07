@@ -18,6 +18,8 @@ import java.util.Arrays;
 
 public class QACR_SubTabsHolder extends AbstCHolderMember implements SubTabsHolderItrfc {
 
+    static final String LOCATION_OF_JSON = "QA/json/";
+
     static String sectionName = "clinical_research_part";
 
     static String subSection_1_Name = "cr1_clear_definition_of_target_population";
@@ -72,8 +74,7 @@ public class QACR_SubTabsHolder extends AbstCHolderMember implements SubTabsHold
         mngrOfSubTabBasePane_7.registerSubTabsHolder(this);
 
         // ./json/ フォルダの確認
-        Path jsonFolderPathString = Paths.get("./QA/json");
-        jsonFolderPathString = Paths.get("./" + authorYear + "/").resolve(jsonFolderPathString);
+        Path jsonFolderPathString = Paths.get("./" + authorYear + "/").resolve(LOCATION_OF_JSON);
         File jsonDir = jsonFolderPathString.toFile();
 
         // jsonディレクトリが存在しない、またはディレクトリではない場合

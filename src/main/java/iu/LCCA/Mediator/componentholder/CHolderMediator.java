@@ -6,6 +6,7 @@ import iu.LCCA.Mediator.action.ActionMediator;
 import iu.LCCA.Member.MemberIntrfc;
 import iu.LCCA.Member.componentholder.Abstract.AbstCHolderMember;
 import iu.LCCA.Member.componentholder.Abstract.AbstCHolderMemberFactory;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v12.NM2.DE_NM2_SubTabsHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.WithNotebookLMPane.WithNotebookLMPanelHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.MainWindow.MainWindowHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.StatusPanel.StatusPanelHolderFactory;
@@ -18,9 +19,9 @@ import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DENM.DEN
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DECAA.DECAA_SubTabsHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v10.DEGN.DEGN_SubTabsHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Explanation.ExplanationPanelHolderFactory;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACM.QACM_SubTabsHolderFactory;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QANM.QANM_SubTabsHolderFactory;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACR.QACR_SubTabsHolderFactory;
+//import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACM.QACM_SubTabsHolderFactory;
+//import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QANM.QANM_SubTabsHolderFactory;
+//import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACR.QACR_SubTabsHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.Sample.CheckboxPanel.CheckboxPanelHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.Sample.TextField.TextFieldPanelHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.SummaryPane.SummaryPaneHolderFactory;
@@ -195,6 +196,18 @@ public class CHolderMediator implements MediatorIntrfc {
 
         //------------------------------------------
 
+        /* NM2 Part */
+        chMemberFactory =
+                MemberFactoryLoader.loadFactory(
+                        DE_NM2_SubTabsHolderFactory.class.getName(), AbstCHolderMemberFactory.class);
+        AbstCHolderMember subTabsHoldFactory_DENM2 =
+                chMemberFactory.createCHolder("sub_tabs_holder_DENM2", "sub_tabs_holder_DENM2", authorYears[0]);
+        subTabsHoldFactory_DENM2.setCHolderMediator(this);
+        subTabsHoldFactory_DENM2.initialize();
+        registerMemberToMap(subTabsHoldFactory_DENM2);
+
+        //------------------------------------------
+
         /* Explanation Text Field */
         chMemberFactory =
                 MemberFactoryLoader.loadFactory(
@@ -209,6 +222,7 @@ public class CHolderMediator implements MediatorIntrfc {
         //------------------------------------------
 
         /* 7. Common Part of QA */
+        /*
         chMemberFactory =
                 MemberFactoryLoader.loadFactory(
                         QACM_SubTabsHolderFactory.class.getName(),
@@ -218,22 +232,27 @@ public class CHolderMediator implements MediatorIntrfc {
         subTabsHoldFactory_QACM.setCHolderMediator(this);
         subTabsHoldFactory_QACM.initialize();
         registerMemberToMap(subTabsHoldFactory_QACM);
+         */
 
         /* 8. Normative Modeling Part of QA */
+        /*
         chMemberFactory = MemberFactoryLoader.loadFactory(QANM_SubTabsHolderFactory.class.getName(), AbstCHolderMemberFactory.class);
         AbstCHolderMember subTabsHoldFactory_QANM =
                 chMemberFactory.createCHolder("sub_tabs_holder_QANM", "sub_tabs_holder_QANM", authorYears[0]);
         subTabsHoldFactory_QANM.setCHolderMediator(this);
         subTabsHoldFactory_QANM.initialize();
         registerMemberToMap(subTabsHoldFactory_QANM);
+         */
 
         /* 9. Clinical Research Part of QA */
+        /*
         chMemberFactory = MemberFactoryLoader.loadFactory(QACR_SubTabsHolderFactory.class.getName(), AbstCHolderMemberFactory.class);
         AbstCHolderMember subTabsHoldFactory_QACR =
                 chMemberFactory.createCHolder("sub_tabs_holder_QACR", "sub_tabs_holder_QACR", authorYears[0]);
         subTabsHoldFactory_QACR.setCHolderMediator(this);
         subTabsHoldFactory_QACR.initialize();
         registerMemberToMap(subTabsHoldFactory_QACR);
+         */
 
         //------------------------------------------
 

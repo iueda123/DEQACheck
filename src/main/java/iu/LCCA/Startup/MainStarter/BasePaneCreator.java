@@ -38,23 +38,38 @@ public class BasePaneCreator {
     //tabbedPane.add("1. SI", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_SI")).getBaseComponent());
     //tabbedPane.setToolTipTextAt(0, "Study Identification");
 
+    int index = 0;
+
     tabbedPane.add("1. DE-SI", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DESI")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(0, "Study Identification");
+    tabbedPane.setToolTipTextAt(index, "Study Identification");
+    index++;
 
     tabbedPane.add("2. DE-SC", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DESC")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(1, "Study Characteristics");
+    tabbedPane.setToolTipTextAt(index, "Study Characteristics");
+    index++;
 
     tabbedPane.add("3. DE-RCI", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DERCI")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(2, "Reference Cohort and Imaging");
+    tabbedPane.setToolTipTextAt(index, "Reference Cohort and Imaging");
+    index++;
 
     tabbedPane.add("4. DE-NM", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DENM")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(3, "Normative Modeling");
+    tabbedPane.setToolTipTextAt(index, "Normative Modeling");
+    index++;
 
     tabbedPane.add("5. DE-CAA", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DECAA")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(4, "Clinical Application and Analysis");
+    tabbedPane.setToolTipTextAt(index, "Clinical Application and Analysis");
+    index++;
 
     tabbedPane.add("6. DE-GN", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DEGN")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(5, "General Notes");
+    tabbedPane.setToolTipTextAt(index, "General Notes");
+    index++;
+
+    //-----------------------
+
+    tabbedPane.add("7. DE-NM2", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DENM2")).getBaseComponent());
+    tabbedPane.setToolTipTextAt(index, "Normative Modeling 2");
+    index++;
+
 
     //-----------------------
 
@@ -81,10 +96,12 @@ public class BasePaneCreator {
 
     //-----------------------
     tabbedPane.add("98. NLM", (cHolderMediator.getInstanceOfAMember("with_notebook_lm_pane_holder")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(6, "NotebookLM");
+    tabbedPane.setToolTipTextAt(index, "NotebookLM");
+    index++;
 
     tabbedPane.add("99. SMRRY", (cHolderMediator.getInstanceOfAMember("summary_pane_holder")).getBaseComponent());
-    tabbedPane.setToolTipTextAt(7, "Summary Pane");
+    tabbedPane.setToolTipTextAt(index, "Summary Pane");
+    index++;
 
     //-----------------------
 

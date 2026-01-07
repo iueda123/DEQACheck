@@ -23,10 +23,10 @@ public class SummaryPaneHolder extends AbstCHolderMember {
             "sub_tabs_holder_DERCI",
             "sub_tabs_holder_DENM",
             "sub_tabs_holder_DECAA",
-            "sub_tabs_holder_DEGN",
-            "sub_tabs_holder_QACM",
-            "sub_tabs_holder_QANM",
-            "sub_tabs_holder_QACR"
+            "sub_tabs_holder_DEGN"//,
+            //"sub_tabs_holder_QACM",
+            //"sub_tabs_holder_QANM",
+            //"sub_tabs_holder_QACR"
     };
 
     JPanel basePane = new JPanel();

@@ -22,6 +22,37 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
     private Path guideFilePath_of_DE = Paths.get("./settings/Guides/DE_Guide_v10_1.md");
     private Path guideFilePath_of_QA = Paths.get("./settings/Guides/QA_Guide_v7_2.md");
 
+    /**
+     * sub_tabs_holder_name と対応するガイドファイルのペア定義
+     */
+    enum SubTabsHolderConfig {
+        DESI("sub_tabs_holder_DESI", "./settings/Guides/DE_Guide_v10_1.md"),
+        DESC("sub_tabs_holder_DESC", "./settings/Guides/DE_Guide_v10_1.md"),
+        DERCI("sub_tabs_holder_DERCI", "./settings/Guides/DE_Guide_v10_1.md"),
+        DENM("sub_tabs_holder_DENM", "./settings/Guides/DE_Guide_v10_1.md"),
+        DECAA("sub_tabs_holder_DECAA", "./settings/Guides/DE_Guide_v10_1.md"),
+        DEGN("sub_tabs_holder_DEGN", "./settings/Guides/DE_Guide_v10_1.md");
+        //QACM("sub_tabs_holder_QACM", "./settings/Guides/QA_Guide_v7_2.md"),
+        //QANM("sub_tabs_holder_QANM", "./settings/Guides/QA_Guide_v7_2.md"),
+        //QACR("sub_tabs_holder_QACR", "./settings/Guides/QA_Guide_v7_2.md");
+
+        private final String holderName;
+        private final String guideFilePath;
+
+        SubTabsHolderConfig(String holderName, String guideFilePath) {
+            this.holderName = holderName;
+            this.guideFilePath = guideFilePath;
+        }
+
+        public String getHolderName() {
+            return holderName;
+        }
+
+        public String getGuideFilePath() {
+            return guideFilePath;
+        }
+    }
+
     JPanel basePanel = new JPanel(new BorderLayout());
     JTabbedPane tabbedPane = new JTabbedPane();
     JTextArea explanationTextArea_for_DE = new JTextArea("DE EXPLANATION");
@@ -100,15 +131,13 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
 
 
         /* **** Add the explanation to theNotePane of each sub panel **** */
-        String[] sub_tabs_holder_names = {
-                "sub_tabs_holder_DESI", "sub_tabs_holder_DESC", "sub_tabs_holder_DERCI",
-                "sub_tabs_holder_DENM", "sub_tabs_holder_DECAA", "sub_tabs_holder_DEGN",
-                "sub_tabs_holder_QACM", "sub_tabs_holder_QANM", "sub_tabs_holder_QACR"};
-        for (String sub_tabs_holder_name : sub_tabs_holder_names) {
+
+        for (SubTabsHolderConfig config : SubTabsHolderConfig.values()) {
+            String sub_tabs_holder_name = config.getHolderName();
             //QACR_SubTabsHolder subTabsHolder_QACR = (QACR_SubTabsHolder) this.cholderMediator.getInstanceOfAMember(sub_tabs_holder_name);
-            SubTabsHolderItrfc subTabsHolder_QACR = (SubTabsHolderItrfc) this.cholderMediator.getInstanceOfAMember(sub_tabs_holder_name);
-            if (subTabsHolder_QACR != null) {
-                ArrayList<ManagerOfSubTabBasePane> managersOfSubTabBasePane = subTabsHolder_QACR.getArrayList_of_ManagerOfSubTabBasePane();
+            SubTabsHolderItrfc subTabsHolder = (SubTabsHolderItrfc) this.cholderMediator.getInstanceOfAMember(sub_tabs_holder_name);
+            if (subTabsHolder != null) {
+                ArrayList<ManagerOfSubTabBasePane> managersOfSubTabBasePane = subTabsHolder.getArrayList_of_ManagerOfSubTabBasePane();
                 for (ManagerOfSubTabBasePane managerOfSubTabBasePane : managersOfSubTabBasePane) {
                     String sectionType = managerOfSubTabBasePane.getSectionType();
                     String subSectionName = managerOfSubTabBasePane.getSubSectionName();
@@ -140,6 +169,8 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
         }
         return subsetOfExplanation;
     }
+
+
 
     private String extractSectionFromGuide(Path guideFilePath, String subSectionName) {
         // 方針: 先頭の英字 + 数字から見出しキー "#### <UPPER>-<num>." を生成して、次の同レベル見出し(####)直前までを抽出

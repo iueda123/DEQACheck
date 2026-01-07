@@ -53,9 +53,9 @@ public class LoadNotePaneTextsAction extends AbstActionMember {
         loadNotePaneTexts("DECAA", "./settings/" + authorYear + "/NotePane/" + "clinical_application_and_analysis_of_de" + ".prop");
         loadNotePaneTexts("DEGN", "./settings/" + authorYear + "/NotePane/" + "general_notes_of_de" + ".prop");
 
-        loadNotePaneTexts("QACM", "./settings/" + authorYear + "/NotePane/" + "common_part_of_qa" + ".prop");
-        loadNotePaneTexts("QANM", "./settings/" + authorYear + "/NotePane/" + "normative_modeling_part_of_qa" + ".prop");
-        loadNotePaneTexts("QACR", "./settings/" + authorYear + "/NotePane/" + "clinical_research_part_of_qa" + ".prop");
+        //loadNotePaneTexts("QACM", "./settings/" + authorYear + "/NotePane/" + "common_part_of_qa" + ".prop");
+        //loadNotePaneTexts("QANM", "./settings/" + authorYear + "/NotePane/" + "normative_modeling_part_of_qa" + ".prop");
+        //loadNotePaneTexts("QACR", "./settings/" + authorYear + "/NotePane/" + "clinical_research_part_of_qa" + ".prop");
         //loadNotePaneTexts("QASI", "./settings/" + authorYear + "/NotePane/" + "study_identification_of_qa" + ".prop");
         //loadNotePaneTexts("QA1_v6", "./settings/" + authorYear + "/NotePane/" + "quality_assessment_1_v6" + ".prop");
         //loadNotePaneTexts("QA2_v6", "./settings/" + authorYear + "/NotePane/" + "quality_assessment_2_v6" + ".prop");
@@ -94,18 +94,18 @@ public class LoadNotePaneTextsAction extends AbstActionMember {
                 member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_DEGN");
                 subTabsHolder = (DEGN_SubTabsHolder) member;
                 break;
-           case "QACM":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QACM");
-                subTabsHolder = (QACM_SubTabsHolder) member;
-                break;
-           case "QANM":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QANM");
-                subTabsHolder = (QANM_SubTabsHolder) member;
-                break;
-           case "QACR":
-                member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QACR");
-                subTabsHolder = (QACR_SubTabsHolder) member;
-                break;
+            //case "QACM":
+            //     member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QACM");
+            //     subTabsHolder = (QACM_SubTabsHolder) member;
+            //     break;
+            //case "QANM":
+            //     member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QANM");
+            //     subTabsHolder = (QANM_SubTabsHolder) member;
+            //     break;
+            //case "QACR":
+            //     member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QACR");
+            //     subTabsHolder = (QACR_SubTabsHolder) member;
+            //     break;
             //case "QASI":
             //    member = this.cholderMediator.getInstanceOfAMember("sub_tabs_holder_QASI");
             //    subTabsHolder = (QASI_SubTabsHolder) member;

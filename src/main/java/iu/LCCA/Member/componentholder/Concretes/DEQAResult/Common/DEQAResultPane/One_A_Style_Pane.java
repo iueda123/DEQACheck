@@ -138,7 +138,7 @@ public class One_A_Style_Pane extends One_DEQAResult_Pane_Abs {
     @Override
     public void actionAfterSuccessfullyOpeningJson(JsonManagerWithConflictSafe jsonManagerWithConflictSafe) {
 
-        String answer = jsonManagerWithConflictSafe.getValue(sectionName + "/" + subSectionName + "/answer");
+        String answer = jsonManagerWithConflictSafe.getValueAsString(sectionName + "/" + subSectionName + "/answer");
         if (answer != null) tArea_Answer.setText(answer);
 
         // update jsonNameLabel
@@ -167,7 +167,7 @@ public class One_A_Style_Pane extends One_DEQAResult_Pane_Abs {
 
     @Override
     public void actionAfterSuccessfullyReloadingJson(JsonManagerWithConflictSafe jsonManagerWithConflictSafe) {
-        String answer = jsonManagerWithConflictSafe.getValue(sectionName + "/" + subSectionName);
+        String answer = jsonManagerWithConflictSafe.getValueAsString(sectionName + "/" + subSectionName);
         //System.out.println("answer: " + answer);
         if (answer != null) tArea_Answer.setText(answer);
         resetBackgroundColorOfTAreasTFields();

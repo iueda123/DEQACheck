@@ -255,11 +255,11 @@ public class One_ADCSL_Style_Pane extends One_DEQAResult_Pane_Abs {
 
     @Override
     public void actionAfterSuccessfullyOpeningJson(JsonManagerWithConflictSafe jsonManagerWithConflictSafe) {
-        String answer = jsonManagerWithConflictSafe.getValue(sectionName + "/" + subSectionName + "/answer");
-        String detail = jsonManagerWithConflictSafe.getValue(sectionName + "/" + subSectionName + "/detail");
-        String confidenceRating = jsonManagerWithConflictSafe.getValue(sectionName + "/" + subSectionName + "/confidence_rating");
-        String supportingText = jsonManagerWithConflictSafe.getValue(sectionName + "/" + subSectionName + "/supporting_text");
-        String pageLine = jsonManagerWithConflictSafe.getValue(sectionName + "/" + subSectionName + "/location");
+        String answer = jsonManagerWithConflictSafe.getValueAsString(sectionName + "/" + subSectionName + "/answer");
+        String detail = jsonManagerWithConflictSafe.getValueAsString(sectionName + "/" + subSectionName + "/detail");
+        String confidenceRating = jsonManagerWithConflictSafe.getValueAsString(sectionName + "/" + subSectionName + "/confidence_rating");
+        String supportingText = jsonManagerWithConflictSafe.getValueAsString(sectionName + "/" + subSectionName + "/supporting_text");
+        String pageLine = jsonManagerWithConflictSafe.getValueAsString(sectionName + "/" + subSectionName + "/location");
 
         // 各フィールドに値を設定
         if (answer != null) tArea_Answer.setText(answer);
