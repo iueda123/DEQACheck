@@ -33,12 +33,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
+
 import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("DE Result Overview")
@@ -46,6 +50,142 @@ import jakarta.annotation.security.RolesAllowed;
 @StyleSheet("./styles/summary-table.css")
 @RolesAllowed("ADMIN")
 public class SummaryView2 extends VerticalLayout {
+
+    private enum ColumnBlock {
+        NO,
+        AUTHOR_YEAR,
+        V10_SI_STUDY_ID,
+        V10_SI_REFERENCE_FILES,
+        V10_SI_AUTHOR_JOURNAL_YEAR,
+        V10_SI_TITLE,
+        V10_SI_DOI,
+        V10_SC_STUDY_OBJECTIVE,
+        V10_SC_STUDY_DESIGN,
+        V10_SC_STUDY_DESIGN_OTHER,
+        V10_RCI_DATASET_NAME,
+        V10_RCI_HC_N,
+        V10_RCI_HC_AGE,
+        V10_RCI_HC_SEX,
+        V10_RCI_IMAGING_MODALITY,
+        V10_RCI_ANALYSIS_LEVEL,
+        V10_RCI_PREPROCESSING_PIPELINE,
+        V10_RCI_QUALITY_CHECKING,
+        V10_RCI_SITE_EFFECT_HANDLING,
+        V10_NM_MODEL_ORIGIN,
+        V10_NM_MODELING_METHOD,
+        V10_NM_SOFTWARE_TOOL,
+        V10_NM_RESPONSE_VARIABLE,
+        V10_NM_PREDICTOR_VARIABLES,
+        V10_NM_PREDICTOR_EFFECTS,
+        V10_NM_VLDTN_HANDLE_NS,
+        V10_NM_VLDTN_SAME_DOMAIN_NONINDEP,
+        V10_NM_VLDTN_SAME_DOMAIN_INDEP,
+        V10_NM_VLDTN_DIFF_DOMAIN,
+        V10_CAA_CLINICAL_DATASET,
+        V10_CAA_DISEASES_STUDIED,
+        V10_CAA_CLINICAL_GROUPS_N,
+        V10_CAA_CLINICAL_GROUPS_AGE,
+        V10_CAA_CLINICAL_GROUPS_SEX,
+        V10_CAA_DEVIATION_METRIC,
+        V10_CAA_ASSOCIATION_ANALYSIS,
+        V10_CAA_KEY_FINDINGS_BRIEF,
+        V10_CAA_KEY_FINDINGS_DETAILED,
+        V10_CAA_KEY_LIMITATIONS,
+        V10_CAA_APPLICATION_NOTES,
+        V10_GN,
+        //V12_HUMAN_LIST,
+        V12_SI_STUDY_ID,
+        V12_SI_REFERENCE_FILES,
+        V12_SI_AUTHOR_JOURNAL_YEAR,
+        V12_SI_TITLE,
+        V12_NM2_MODELING_METHOD,
+        V12_NM2_RESPONSE_VARIABLE
+    }
+
+    // 並び替え用の列順（この配列を並べ替えることでヘッダと行の順序が変わる）
+    private static final ColumnBlock[] COLUMN_ORDER = new ColumnBlock[]{
+            ColumnBlock.NO,
+            ColumnBlock.AUTHOR_YEAR,
+            //ColumnBlock.V10_SI_STUDY_ID,
+            //ColumnBlock.V10_SI_TITLE,
+            //ColumnBlock.V10_SI_DOI,
+            //ColumnBlock.V10_SC_STUDY_DESIGN,
+            //ColumnBlock.V10_SC_STUDY_DESIGN_OTHER,
+
+            ColumnBlock.V10_RCI_DATASET_NAME,
+            ColumnBlock.V10_RCI_HC_N,
+            ColumnBlock.V10_RCI_HC_AGE,
+            ColumnBlock.V10_RCI_HC_SEX,
+            ColumnBlock.V10_RCI_IMAGING_MODALITY,
+            ColumnBlock.V10_RCI_ANALYSIS_LEVEL,
+            ColumnBlock.V10_RCI_PREPROCESSING_PIPELINE,
+            ColumnBlock.V10_RCI_QUALITY_CHECKING,
+
+            ColumnBlock.V10_NM_MODEL_ORIGIN,
+            ColumnBlock.V10_NM_MODELING_METHOD,
+            ColumnBlock.V12_NM2_MODELING_METHOD,
+            ColumnBlock.V10_NM_RESPONSE_VARIABLE,
+            ColumnBlock.V12_NM2_RESPONSE_VARIABLE,
+            ColumnBlock.V10_NM_PREDICTOR_VARIABLES,
+            ColumnBlock.V10_NM_PREDICTOR_EFFECTS,
+            ColumnBlock.V10_NM_SOFTWARE_TOOL,
+            ColumnBlock.V10_RCI_SITE_EFFECT_HANDLING,
+
+            ColumnBlock.V10_NM_VLDTN_HANDLE_NS,
+            ColumnBlock.V10_NM_VLDTN_SAME_DOMAIN_NONINDEP,
+            ColumnBlock.V10_NM_VLDTN_DIFF_DOMAIN,
+            ColumnBlock.V10_NM_VLDTN_SAME_DOMAIN_INDEP,
+
+            ColumnBlock.V10_CAA_CLINICAL_DATASET,
+            ColumnBlock.V10_CAA_DISEASES_STUDIED,
+            ColumnBlock.V10_CAA_CLINICAL_GROUPS_N,
+            ColumnBlock.V10_CAA_CLINICAL_GROUPS_AGE,
+            ColumnBlock.V10_CAA_CLINICAL_GROUPS_SEX,
+            ColumnBlock.V10_CAA_DEVIATION_METRIC,
+            ColumnBlock.V10_CAA_ASSOCIATION_ANALYSIS,
+            //ColumnBlock.V10_CAA_KEY_LIMITATIONS,
+            //ColumnBlock.V10_CAA_APPLICATION_NOTES,
+
+            //ColumnBlock.V12_SI_STUDY_ID,
+            //ColumnBlock.V12_SI_AUTHOR_JOURNAL_YEAR,
+            ColumnBlock.V12_SI_TITLE,
+            ColumnBlock.V10_SC_STUDY_OBJECTIVE,
+            ColumnBlock.V10_CAA_KEY_FINDINGS_BRIEF,
+            //ColumnBlock.V10_CAA_KEY_FINDINGS_DETAILED,
+            //ColumnBlock.V10_GN,
+            //ColumnBlock.V12_SI_REFERENCE_FILES,
+            ColumnBlock.V10_SI_AUTHOR_JOURNAL_YEAR
+
+
+    };
+
+    // 0-based index order設定（空なら従来のデフォルト順）。例: SI の index=3 が SI4、index=4 が SI5。
+    private static final List<Integer> ORDER_V10_SI = List.of();
+    private static final List<Integer> ORDER_V10_SC = List.of();
+    private static final List<Integer> ORDER_V10_RCI = List.of();
+    private static final List<Integer> ORDER_V10_NM = List.of();
+    private static final List<Integer> ORDER_V10_CAA = List.of(); // index7 は Findings 用なので既定では除外
+    private static final List<Integer> ORDER_V10_GN = List.of();
+    private static final List<Integer> ORDER_V12_SI = List.of();
+    private static final List<Integer> ORDER_V12_NM2 = List.of();
+
+    private enum SectionType {
+        NO, AUTHOR_YEAR, V12_HUMAN_LIST,
+        V10_SI, V10_SC, V10_RCI, V10_NM, V10_CAA, V10_GN,
+        V12_SI, V12_NM2
+    }
+
+    private static class BlockIndex {
+        final SectionType section;
+        final int index; // 0-based, -1 if not indexed
+        final boolean isV12;
+
+        BlockIndex(SectionType section, int index, boolean isV12) {
+            this.section = section;
+            this.index = index;
+            this.isV12 = isV12;
+        }
+    }
 
     final static String DATA_FOLDER_NAME = "share_package/data";
     final static String JAR_WORKING_DIR = "share_package";
@@ -64,12 +204,155 @@ public class SummaryView2 extends VerticalLayout {
     private Anchor downloadAnchor;
     private Map<String, List<RowObject>> rowsByAuthorYearForV12;
     private int v12SizeSI;
-    private int v12SizeSC;
-    private int v12SizeRCI;
     private int v12SizeNM;
-    private int v12SizeCAA;
-    private int v12SizeGN;
-    private boolean v12HasFindings;
+    private Map<String, V12Aggregated> v12AggregateCache = new HashMap<>();
+
+    private List<Integer> resolveOrder(List<Integer> customOrder, int size, int defaultStart, IntPredicate allowed) {
+        LinkedHashSet<Integer> order = new LinkedHashSet<>();
+        if (customOrder != null && !customOrder.isEmpty()) {
+            for (Integer idx : customOrder) {
+                if (idx == null) continue;
+                if (idx < 0 || idx >= size) continue;
+                if (allowed != null && !allowed.test(idx)) continue;
+                order.add(idx);
+            }
+        } else {
+            for (int idx = defaultStart; idx < size; idx++) {
+                if (allowed == null || allowed.test(idx)) {
+                    order.add(idx);
+                }
+            }
+        }
+        return new ArrayList<>(order);
+    }
+
+    private List<Integer> getV10SiOrder(int size) {
+        return resolveOrder(ORDER_V10_SI, size, 3, idx -> idx != 3 && idx != 4);
+    }
+
+    private List<Integer> getV10ScOrder(int size) {
+        return resolveOrder(ORDER_V10_SC, size, 3, null);
+    }
+
+    private List<Integer> getV10RciOrder(int size) {
+        return resolveOrder(ORDER_V10_RCI, size, 0, null);
+    }
+
+    private List<Integer> getV10NmOrder(int size) {
+        return resolveOrder(ORDER_V10_NM, size, 0, null);
+    }
+
+    private List<Integer> getV10CaaOrder(int size) {
+        return resolveOrder(ORDER_V10_CAA, size, 0, idx -> idx != 7);
+    }
+
+    private List<Integer> getV10GnOrder(int size) {
+        return resolveOrder(ORDER_V10_GN, size, 0, null);
+    }
+
+    private List<Integer> getV12SiOrder() {
+        return resolveOrder(ORDER_V12_SI, v12SizeSI, 0, null);
+    }
+
+    private List<Integer> getV12Nm2Order() {
+        return resolveOrder(ORDER_V12_NM2, v12SizeNM, 0, null);
+    }
+
+    private BlockIndex parseIndexedBlock(ColumnBlock block) {
+        switch (block) {
+            case V10_SI_STUDY_ID:
+                return new BlockIndex(SectionType.V10_SI, 0, false);
+            case V10_SI_REFERENCE_FILES:
+                return new BlockIndex(SectionType.V10_SI, 1, false);
+            case V10_SI_AUTHOR_JOURNAL_YEAR:
+                return new BlockIndex(SectionType.V10_SI, 2, false);
+            case V10_SI_TITLE:
+                return new BlockIndex(SectionType.V10_SI, 3, false);
+            case V10_SI_DOI:
+                return new BlockIndex(SectionType.V10_SI, 4, false);
+            case V10_SC_STUDY_OBJECTIVE:
+                return new BlockIndex(SectionType.V10_SC, 0, false);
+            case V10_SC_STUDY_DESIGN:
+                return new BlockIndex(SectionType.V10_SC, 1, false);
+            case V10_SC_STUDY_DESIGN_OTHER:
+                return new BlockIndex(SectionType.V10_SC, 2, false);
+            case V10_RCI_DATASET_NAME:
+                return new BlockIndex(SectionType.V10_RCI, 0, false);
+            case V10_RCI_HC_N:
+                return new BlockIndex(SectionType.V10_RCI, 1, false);
+            case V10_RCI_HC_AGE:
+                return new BlockIndex(SectionType.V10_RCI, 2, false);
+            case V10_RCI_HC_SEX:
+                return new BlockIndex(SectionType.V10_RCI, 3, false);
+            case V10_RCI_IMAGING_MODALITY:
+                return new BlockIndex(SectionType.V10_RCI, 4, false);
+            case V10_RCI_ANALYSIS_LEVEL:
+                return new BlockIndex(SectionType.V10_RCI, 5, false);
+            case V10_RCI_PREPROCESSING_PIPELINE:
+                return new BlockIndex(SectionType.V10_RCI, 6, false);
+            case V10_RCI_QUALITY_CHECKING:
+                return new BlockIndex(SectionType.V10_RCI, 7, false);
+            case V10_RCI_SITE_EFFECT_HANDLING:
+                return new BlockIndex(SectionType.V10_RCI, 8, false);
+            case V10_NM_MODEL_ORIGIN:
+                return new BlockIndex(SectionType.V10_NM, 0, false);
+            case V10_NM_MODELING_METHOD:
+                return new BlockIndex(SectionType.V10_NM, 1, false);
+            case V10_NM_SOFTWARE_TOOL:
+                return new BlockIndex(SectionType.V10_NM, 2, false);
+            case V10_NM_RESPONSE_VARIABLE:
+                return new BlockIndex(SectionType.V10_NM, 3, false);
+            case V10_NM_PREDICTOR_VARIABLES:
+                return new BlockIndex(SectionType.V10_NM, 4, false);
+            case V10_NM_PREDICTOR_EFFECTS:
+                return new BlockIndex(SectionType.V10_NM, 5, false);
+            case V10_NM_VLDTN_HANDLE_NS:
+                return new BlockIndex(SectionType.V10_NM, 6, false);
+            case V10_NM_VLDTN_SAME_DOMAIN_NONINDEP:
+                return new BlockIndex(SectionType.V10_NM, 7, false);
+            case V10_NM_VLDTN_SAME_DOMAIN_INDEP:
+                return new BlockIndex(SectionType.V10_NM, 8, false);
+            case V10_NM_VLDTN_DIFF_DOMAIN:
+                return new BlockIndex(SectionType.V10_NM, 9, false);
+            case V10_CAA_CLINICAL_DATASET:
+                return new BlockIndex(SectionType.V10_CAA, 0, false);
+            case V10_CAA_DISEASES_STUDIED:
+                return new BlockIndex(SectionType.V10_CAA, 1, false);
+            case V10_CAA_CLINICAL_GROUPS_N:
+                return new BlockIndex(SectionType.V10_CAA, 2, false);
+            case V10_CAA_CLINICAL_GROUPS_AGE:
+                return new BlockIndex(SectionType.V10_CAA, 3, false);
+            case V10_CAA_CLINICAL_GROUPS_SEX:
+                return new BlockIndex(SectionType.V10_CAA, 4, false);
+            case V10_CAA_DEVIATION_METRIC:
+                return new BlockIndex(SectionType.V10_CAA, 5, false);
+            case V10_CAA_ASSOCIATION_ANALYSIS:
+                return new BlockIndex(SectionType.V10_CAA, 6, false);
+            case V10_CAA_KEY_FINDINGS_BRIEF:
+                return new BlockIndex(SectionType.V10_CAA, 7, false);
+            case V10_CAA_KEY_FINDINGS_DETAILED:
+                return new BlockIndex(SectionType.V10_CAA, 8, false);
+            case V10_CAA_KEY_LIMITATIONS:
+                return new BlockIndex(SectionType.V10_CAA, 9, false);
+            case V10_CAA_APPLICATION_NOTES:
+                return new BlockIndex(SectionType.V10_CAA, 10, false);
+            case V12_SI_STUDY_ID:
+                return new BlockIndex(SectionType.V12_SI, 0, true);
+            case V12_SI_REFERENCE_FILES:
+                return new BlockIndex(SectionType.V12_SI, 1, true);
+            case V12_SI_AUTHOR_JOURNAL_YEAR:
+                return new BlockIndex(SectionType.V12_SI, 2, true);
+            case V12_SI_TITLE:
+                return new BlockIndex(SectionType.V12_SI, 3, true);
+            case V12_NM2_MODELING_METHOD:
+                return new BlockIndex(SectionType.V12_NM2, 0, true);
+            case V12_NM2_RESPONSE_VARIABLE:
+                return new BlockIndex(SectionType.V12_NM2, 1, true);
+            default:
+                return null;
+        }
+    }
+
 
     public SummaryView2() {
         // layout settings
@@ -242,11 +525,13 @@ public class SummaryView2 extends VerticalLayout {
     private String getStudyName(RowObject row) {
         return (row.valueList_SI.size() >= 3) ? row.valueList_SI.get(2) : "";
     }
+
     private String getDoi(RowObject row) {
         if (row.valueList_SI == null || row.valueList_SI.size() <= 4) return "";
         String doi = row.valueList_SI.get(4);
         return doi == null ? "" : doi;
     }
+
     private boolean hasFindingsColumn() {
         return rowsForV10 != null && !rowsForV10.isEmpty() && rowsForV10.get(0).valueList_CAA.size() >= 8;
     }
@@ -283,15 +568,12 @@ public class SummaryView2 extends VerticalLayout {
         }
         return 0; // Nが見つからない場合は0
     }
+
     private void computeV12LayoutMetrics(List<RowObject> v12Rows) {
         v12SizeSI = maxSectionSize(v12Rows, r -> r.valueList_SI);
-        v12SizeSC = maxSectionSize(v12Rows, r -> r.valueList_SC);
-        v12SizeRCI = maxSectionSize(v12Rows, r -> r.valueList_RCI);
         v12SizeNM = maxSectionSize(v12Rows, r -> r.valueList_NM);
-        v12SizeCAA = maxSectionSize(v12Rows, r -> r.valueList_CAA);
-        v12SizeGN = maxSectionSize(v12Rows, r -> r.valueList_GN);
-        v12HasFindings = v12SizeCAA >= 8;
     }
+
     private int maxSectionSize(List<RowObject> list, Function<RowObject, List<String>> getter) {
         if (list == null || list.isEmpty()) return 0;
         return list.stream()
@@ -301,6 +583,7 @@ public class SummaryView2 extends VerticalLayout {
                 .max()
                 .orElse(0);
     }
+
     private boolean hasV12Data() {
         return rowsByAuthorYearForV12 != null && !rowsByAuthorYearForV12.isEmpty();
     }
@@ -320,71 +603,11 @@ public class SummaryView2 extends VerticalLayout {
         Element thead = new Element("thead");
         Element trHead = new Element("tr");
 
-        // 先頭列: 通し番号
-        appendHeaderCell(trHead, "No");
-        // 先頭列: AuthorYear（クリックでJARランチャー）
-        appendHeaderCell(trHead, "AuthorYear");
-        appendHeaderCell(trHead, "DE_v12(human)");
-
-        // Study Name (SI3) は表の末尾側に配置するため、ここでは追加しない
-
-        int subSectionSize = rowsForV10.get(0).valueList_SI.size();
-        // SI1, SI2 はスキップ。SI3 は Study Name、SI4 は列としては表示せず（ツールチップ表示）。
-        // SI5 は後段の DOI 列で表示するため、ここでは SI6 以降を追加
-        for (int i = 4; i <= subSectionSize; i++) {
-            if (i == 4 || i == 5) continue; // SI4=Title と SI5 は表示しない
-            appendHeaderCell(trHead, "SI" + i);
-        }
-        subSectionSize = rowsForV10.get(0).valueList_SC.size();
-        // SC1-3 は削除
-        for (int i = 4; i <= subSectionSize; i++) {
-            appendHeaderCell(trHead, "SC" + i);
-        }
-        subSectionSize = rowsForV10.get(0).valueList_RCI.size();
-        // RCI の見出しを個別に設定
-        if (subSectionSize >= 1) appendHeaderCellWithStyle(trHead, "Dataset", "width:16ch;");
-        if (subSectionSize >= 2) appendHeaderCellWithStyle(trHead, "N", "text-align: center;");
-        if (subSectionSize >= 3) appendHeaderCell(trHead, "RC Age");
-        if (subSectionSize >= 4) appendHeaderCell(trHead, "Sex");
-        if (subSectionSize >= 5) appendHeaderCell(trHead, "Modality");
-        for (int i = 6; i <= subSectionSize; i++) {
-            appendHeaderCell(trHead, "RCI" + i);
-        }
-        subSectionSize = rowsForV10.get(0).valueList_NM.size();
-        for (int i = 1; i <= subSectionSize; i++) {
-            if (i == 1) {
-                appendHeaderCell(trHead, "Origin");
-            } else {
-                appendHeaderCell(trHead, "NM" + i);
-            }
-        }
-        subSectionSize = rowsForV10.get(0).valueList_CAA.size();
         boolean hasFindings = hasFindingsColumn();
-        for (int i = 1; i <= subSectionSize; i++) {
-            if (i == 2) {
-                appendHeaderCell(trHead, "Disease");
-            } else if (i == 8) {
-                // Findings は末尾の列群に配置するため、ここでは追加しない
-                continue;
-            } else {
-                appendHeaderCell(trHead, "CAA" + i);
-            }
-        }
-        subSectionSize = rowsForV10.get(0).valueList_GN.size();
-        for (int i = 1; i <= subSectionSize; i++) {
-            appendHeaderCell(trHead, "GN" + i);
-        }
 
-        // 末尾に Study Name / Findings / DOI を配置
-        appendHeaderCell(trHead, "Study Name");
-        if (hasFindings) {
-            appendHeaderCell(trHead, "Findings");
-        } else {
-            // Findings データが無い場合でも列を用意するなら以下を有効化
-            // appendHeaderCell(trHead, "Findings");
+        for (ColumnBlock block : COLUMN_ORDER) {
+            appendHeadersForBlock(block, trHead, hasFindings);
         }
-        appendHeaderCell(trHead, "DOI");
-        appendV12HeaderCells(trHead);
 
         // 最終列にランチャーは置かない（先頭列に移動）
         thead.appendChild(trHead);
@@ -399,91 +622,10 @@ public class SummaryView2 extends VerticalLayout {
             if (even) {
                 tr.setAttribute("style", "background: var(--lumo-contrast-5pct);");
             }
-            // 通し番号
-            appendCenteredCell(tr, String.valueOf(r + 1));
-            // 先頭列: AuthorYear（クリックでJARランチャー）
-            appendLauncherCell(tr, row.authorYear, row.authorYear);
-            appendPreWrappedCell(tr, getV12Info(row.authorYear), false);
-
-            // Study Name (SI3) は最後から2列目に配置するため、ここでは追加しない
-            String studyName = getStudyName(row);
-            String si4 = (row.valueList_SI.size() > 3) ? row.valueList_SI.get(3) : ""; // index 3 -> SI4
-            String doi = getDoi(row); // SI5
-
-            // SI4 は Title（列）を廃止したため表示しない。SI5 は DOI として最後の列に表示し、ここでは SI6 以降をチェックボックスで表示
-            subSectionSize = row.valueList_SI.size();
-            for (int i = 3; i < subSectionSize; i++) { // i=3 -> SI4
-                if (i == 3 || i == 4) continue; // SI4=Title と SI5 はスキップ
-                appendCheckBoxCell(tr, row.valueList_SI.get(i));
+            V12Aggregated v12Agg = getV12Aggregated(row.authorYear);
+            for (ColumnBlock block : COLUMN_ORDER) {
+                appendCellsForBlock(block, tr, row, hasFindings, v12Agg, r);
             }
-            subSectionSize = row.valueList_SC.size();
-            // SC1-3 は削除
-            for (int i = 3; i < subSectionSize; i++) { // i=3 -> SC4
-                appendCheckBoxCell(tr, row.valueList_SC.get(i));
-            }
-            subSectionSize = row.valueList_RCI.size();
-            for (int i = 0; i < subSectionSize; i++) {
-                // RCI1: Dataset → 文字列
-                // RCI2: N → 文字列
-                // RCI3: RC Age → 擬似ボックスプロット
-                // RCI4: 性比 → 円グラフ
-                // RCI5: Modality → 文字列
-                // それ以降は従来通りチェックボックス
-                if (i == 0) {
-                    appendDatasetCell(tr, row.valueList_RCI.get(i));
-                } else if (i == 1) {
-                    // N 列は正規化により複数行や Model/Phase 情報が入ることがあるため、改行表示に対応
-                    appendPreWrappedCell(tr, row.valueList_RCI.get(i), false);
-                } else if (i == 2) {
-                    appendAgeBoxPlotCell(tr, row.valueList_RCI.get(i));
-                } else if (i == 3) {
-                    appendSexPieCell(tr, row.valueList_RCI.get(i));
-                } else if (i == 4) {
-                    appendModalityCell(tr, row.valueList_RCI.get(i));
-                } else {
-                    appendCheckBoxCell(tr, row.valueList_RCI.get(i));
-                }
-            }
-            // NM: NM1（index 0）は文字列、それ以外はチェックボックス
-            subSectionSize = row.valueList_NM.size();
-            for (int i = 0; i < subSectionSize; i++) {
-                if (i == 0) {
-                    appendNormalCell(tr, row.valueList_NM.get(i));
-                } else {
-                    appendCheckBoxCell(tr, row.valueList_NM.get(i));
-                }
-            }
-            // CAA: CAA2（index 1）は文字列、CAA8（index 7）は末尾列群に回す、その他はチェックボックス
-            subSectionSize = row.valueList_CAA.size();
-            String findingsValue = null;
-            for (int i = 0; i < subSectionSize; i++) {
-                if (i == 7) { // CAA8 -> Findings
-                    findingsValue = row.valueList_CAA.get(i);
-                    continue;
-                }
-                if (i == 1) {
-                    appendNormalCell(tr, row.valueList_CAA.get(i));
-                } else {
-                    appendCheckBoxCell(tr, row.valueList_CAA.get(i));
-                }
-            }
-            subSectionSize = row.valueList_GN.size();
-            for (int i = 0; i < subSectionSize; i++) {
-                appendCheckBoxCell(tr, row.valueList_GN.get(i));
-            }
-
-            // 末尾: Study Name (SI3) → Findings → DOI。Title(SI4) はツールチップで表示
-            appendStudyNameLauncherCell(tr, studyName, row.authorYear, si4);
-            // Findings（CAA8）
-            if (hasFindings) {
-                if (findingsValue != null) {
-                    appendNormalCell(tr, findingsValue);
-                } else {
-                    appendNormalCell(tr, "");
-                }
-            }
-            appendNormalCell(tr, doi);
-            appendV12Cells(tr, row.authorYear);
 
             // 末尾列へのランチャー配置は廃止（先頭列に集約）
             tbody.appendChild(tr);
@@ -501,6 +643,7 @@ public class SummaryView2 extends VerticalLayout {
         th.setText(text == null ? "" : text);
         tr.appendChild(th);
     }
+
     private void appendHeaderCellWithStyle(Element tr, String text, String extraCss) {
         Element th = new Element("th");
         String base = "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);";
@@ -508,59 +651,223 @@ public class SummaryView2 extends VerticalLayout {
         th.setText(text == null ? "" : text);
         tr.appendChild(th);
     }
+
+    private String getSiHeaderLabel(int idx, boolean isV12) {
+        return (isV12 ? "v12-SI" : "SI") + (idx + 1);
+    }
+
+    private String getV12SiDisplayLabel(int idx) {
+        switch (idx) {
+            case 0:
+                return "v12 Study ID (SI1)";
+            case 1:
+                return "v12 Reference Files (SI2)";
+            case 2:
+                return "v12 Author/Journal/Year (SI3)";
+            case 3:
+                return "v12 Title (SI4)";
+            default:
+                return getSiHeaderLabel(idx, true);
+        }
+    }
+
+    private String getScHeaderLabel(int idx, boolean isV12) {
+        return (isV12 ? "v12-SC" : "SC") + (idx + 1);
+    }
+
+    private void appendRciHeaderCell(Element trHead, int idx, boolean isV12) {
+        String prefix = isV12 ? "v12 " : "";
+        if (idx == 0) {
+            appendHeaderCellWithStyle(trHead, prefix + "Dataset", "width:16ch;");
+        } else if (idx == 1) {
+            appendHeaderCellWithStyle(trHead, prefix + "N", "text-align: center;");
+        } else if (idx == 2) {
+            appendHeaderCell(trHead, prefix + "RC Age");
+        } else if (idx == 3) {
+            appendHeaderCell(trHead, prefix + "Sex");
+        } else if (idx == 4) {
+            appendHeaderCell(trHead, prefix + "Modality");
+        } else {
+            String label = (isV12 ? "v12-RCI" : "RCI") + (idx + 1);
+            appendHeaderCell(trHead, label);
+        }
+    }
+
+    private String getRciHeaderLabel(int idx, boolean isV12) {
+        String prefix = isV12 ? "v12 " : "";
+        if (idx == 0) return prefix + "Dataset";
+        if (idx == 1) return prefix + "N";
+        if (idx == 2) return prefix + "RC Age";
+        if (idx == 3) return prefix + "Sex";
+        if (idx == 4) return prefix + "Modality";
+        return (isV12 ? "v12-RCI" : "RCI") + (idx + 1);
+    }
+
+    private String getNmHeaderLabel(int idx, boolean isV12) {
+        if (isV12) {
+            if (idx == 0) return "v12 Modeling Method";
+            if (idx == 1) return "v12\nResponse Variable";
+            return "v12-NM" + (idx + 1);
+        } else {
+            if (idx == 0) return "Origin";
+            return "NM" + (idx + 1);
+        }
+    }
+
+    private String getCaaHeaderLabel(int idx, boolean isV12) {
+        if (idx == 1) {
+            return isV12 ? "v12 Disease" : "Disease";
+        }
+        if (isV12) {
+            return "v12-CAA" + (idx + 1);
+        }
+        return "CAA" + (idx + 1);
+    }
+
+    private String getGnHeaderLabel(int idx, boolean isV12) {
+        return (isV12 ? "v12-GN" : "GN") + (idx + 1);
+    }
+
+    private String getV10SiDisplayLabel(int idx) {
+        switch (idx) {
+            case 0:
+                return "Study ID (SI1)";
+            case 1:
+                return "Reference Files (SI2)";
+            case 2:
+                return "Author/Journal/Year (SI3)";
+            case 3:
+                return "Title (SI4)";
+            case 4:
+                return "DOI (SI5)";
+            default:
+                return getSiHeaderLabel(idx, false);
+        }
+    }
+
+    private String getV10ScDisplayLabel(int idx) {
+        if (idx == 0) return "Study Objective (SC1)";
+        if (idx == 1) return "Study Design (SC2)";
+        if (idx == 2) return "Study Design Other (SC3)";
+        return getScHeaderLabel(idx, false);
+    }
+
+    private String getV10NmDisplayLabel(int idx) {
+        switch (idx) {
+            case 0:
+                return "Model Origin (NM1)";
+            case 1:
+                return "Modeling Method (NM2)";
+            case 2:
+                return "Software/Tool (NM3)";
+            case 3:
+                return "Response Variable (NM4)";
+            case 4:
+                return "Predictor Variables (NM5)";
+            case 5:
+                return "Predictor Effects (NM6)";
+            case 6:
+                return "Validation Handle Ns (NM7)";
+            case 7:
+                return "Validation Same Domain Nonindep (NM8)";
+            case 8:
+                return "Validation Same Domain Indep (NM9)";
+            case 9:
+                return "Validation Diff Domain (NM10)";
+            default:
+                return getNmHeaderLabel(idx, false);
+        }
+    }
+
+    private String getV10CaaDisplayLabel(int idx) {
+        switch (idx) {
+            case 0:
+                return "Clinical Dataset (CAA1)";
+            case 1:
+                return "Diseases Studied (CAA2)";
+            case 2:
+                return "Clinical Groups N (CAA3)";
+            case 3:
+                return "Clinical Groups Age (CAA4)";
+            case 4:
+                return "Clinical Groups Sex (CAA5)";
+            case 5:
+                return "Deviation Metric (CAA6)";
+            case 6:
+                return "Association Analysis (CAA7)";
+            case 7:
+                return "Key Findings Brief (CAA8)";
+            case 8:
+                return "Key Findings Detailed (CAA9)";
+            case 9:
+                return "Key Limitations (CAA10)";
+            case 10:
+                return "Application Notes (CAA11)";
+            default:
+                return getCaaHeaderLabel(idx, false);
+        }
+    }
+
+    private boolean appendIndexedHeader(ColumnBlock block, Element trHead) {
+        BlockIndex info = parseIndexedBlock(block);
+        if (info == null || info.index < 0) return false;
+        switch (info.section) {
+            case V10_SI:
+                appendHeaderCell(trHead, getV10SiDisplayLabel(info.index));
+                return true;
+            case V10_SC:
+                appendHeaderCell(trHead, getV10ScDisplayLabel(info.index));
+                return true;
+            case V10_RCI:
+                appendRciHeaderCell(trHead, info.index, false);
+                return true;
+            case V10_NM:
+                appendHeaderCell(trHead, getV10NmDisplayLabel(info.index));
+                return true;
+            case V10_CAA:
+                appendHeaderCell(trHead, getV10CaaDisplayLabel(info.index));
+                return true;
+            case V12_SI:
+                appendHeaderCell(trHead, getV12SiDisplayLabel(info.index));
+                return true;
+            case V12_NM2:
+                appendHeaderCell(trHead, getNmHeaderLabel(info.index, true));
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void appendHeadersForBlock(ColumnBlock block, Element trHead, boolean hasFindings) {
+        if (appendIndexedHeader(block, trHead)) return;
+
+        switch (block) {
+            case NO:
+                appendHeaderCell(trHead, "No");
+                break;
+            case AUTHOR_YEAR:
+                appendHeaderCell(trHead, "AuthorYear");
+                break;
+            case V10_GN: {
+                List<Integer> order = getV10GnOrder(rowsForV10.get(0).valueList_GN.size());
+                for (int idx : order) {
+                    appendHeaderCell(trHead, getGnHeaderLabel(idx, false));
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
     private void appendV12HeaderCells(Element trHead) {
         if (!hasV12Data()) return;
 
-        if (v12SizeSI > 0) {
-            for (int i = 4; i <= v12SizeSI; i++) {
-                if (i == 4 || i == 5) continue; // SI4, SI5 はスキップ
-                appendHeaderCell(trHead, "v12-SI" + i);
-            }
+        for (int idx : getV12SiOrder()) {
+            appendHeaderCell(trHead, getSiHeaderLabel(idx, true));
         }
-        if (v12SizeSC > 0) {
-            for (int i = 4; i <= v12SizeSC; i++) {
-                appendHeaderCell(trHead, "v12-SC" + i);
-            }
-        }
-        if (v12SizeRCI >= 1) appendHeaderCellWithStyle(trHead, "v12 Dataset", "width:16ch;");
-        if (v12SizeRCI >= 2) appendHeaderCellWithStyle(trHead, "v12 N", "text-align: center;");
-        if (v12SizeRCI >= 3) appendHeaderCell(trHead, "v12 RC Age");
-        if (v12SizeRCI >= 4) appendHeaderCell(trHead, "v12 Sex");
-        if (v12SizeRCI >= 5) appendHeaderCell(trHead, "v12 Modality");
-        for (int i = 6; i <= v12SizeRCI; i++) {
-            appendHeaderCell(trHead, "v12-RCI" + i);
-        }
-
-        if (v12SizeNM > 0) {
-            for (int i = 1; i <= v12SizeNM; i++) {
-                if (i == 1) {
-                    appendHeaderCell(trHead, "v12 Modeling Method");
-                } else if (i == 2) {
-                    appendHeaderCell(trHead, "v12\nResponse Variable");
-                } else {
-                    appendHeaderCell(trHead, "v12-NM" + i);
-                }
-            }
-        }
-        if (v12SizeCAA > 0) {
-            for (int i = 1; i <= v12SizeCAA; i++) {
-                if (i == 2) {
-                    appendHeaderCell(trHead, "v12 Disease");
-                } else if (i == 8) {
-                    continue; // Findings は末尾に回す
-                } else {
-                    appendHeaderCell(trHead, "v12-CAA" + i);
-                }
-            }
-        }
-        if (v12SizeGN > 0) {
-            for (int i = 1; i <= v12SizeGN; i++) {
-                appendHeaderCell(trHead, "v12-GN" + i);
-            }
-        }
-
-        if (v12HasFindings) {
-            appendHeaderCell(trHead, "v12 Findings");
+        for (int idx : getV12Nm2Order()) {
+            appendHeaderCell(trHead, getNmHeaderLabel(idx, true));
         }
     }
 
@@ -571,6 +878,7 @@ public class SummaryView2 extends VerticalLayout {
         td.setText(text == null ? "" : text);
         tr.appendChild(td);
     }
+
     private void appendDatasetCell(Element tr, String text) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); width:16ch; max-width:16ch; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;");
@@ -636,6 +944,7 @@ public class SummaryView2 extends VerticalLayout {
         }
         return String.join("; ", cats);
     }
+
     private String classifyModalityCategory(String t) {
         String src = t.trim();
         String lower = src.toLowerCase(Locale.ROOT);
@@ -749,189 +1058,124 @@ public class SummaryView2 extends VerticalLayout {
 
     private List<String> buildTsvHeader(boolean hasFindings) {
         List<String> header = new ArrayList<>();
-        header.add("No");
-        header.add("AuthorYear");
-        header.add("DE_v12(human)");
-
-        int subSectionSize = rowsForV10.get(0).valueList_SI.size();
-        for (int i = 4; i <= subSectionSize; i++) {
-            if (i == 4 || i == 5) continue; // SI4, SI5 はスキップ
-            header.add("SI" + i);
+        for (ColumnBlock block : COLUMN_ORDER) {
+            appendTsvHeadersForBlock(block, header, hasFindings);
         }
-        subSectionSize = rowsForV10.get(0).valueList_SC.size();
-        for (int i = 4; i <= subSectionSize; i++) {
-            header.add("SC" + i);
-        }
-        subSectionSize = rowsForV10.get(0).valueList_RCI.size();
-        if (subSectionSize >= 1) header.add("Dataset");
-        if (subSectionSize >= 2) header.add("N");
-        if (subSectionSize >= 3) header.add("RC Age");
-        if (subSectionSize >= 4) header.add("Sex");
-        if (subSectionSize >= 5) header.add("Modality");
-        for (int i = 6; i <= subSectionSize; i++) {
-            header.add("RCI" + i);
-        }
-        subSectionSize = rowsForV10.get(0).valueList_NM.size();
-        for (int i = 1; i <= subSectionSize; i++) {
-            if (i == 1) {
-                header.add("Origin");
-            } else {
-                header.add("NM" + i);
-            }
-        }
-        subSectionSize = rowsForV10.get(0).valueList_CAA.size();
-        for (int i = 1; i <= subSectionSize; i++) {
-            if (i == 2) {
-                header.add("Disease");
-            } else if (i == 8) {
-                continue; // Findings は末尾で
-            } else {
-                header.add("CAA" + i);
-            }
-        }
-        subSectionSize = rowsForV10.get(0).valueList_GN.size();
-        for (int i = 1; i <= subSectionSize; i++) {
-            header.add("GN" + i);
-        }
-        header.add("Study Name");
-        if (hasFindings) header.add("Findings");
-        header.add("DOI");
-        appendV12TsvHeader(header);
         return header;
-    }
-
-    private void appendV12TsvHeader(List<String> header) {
-        if (!hasV12Data()) return;
-
-        for (int i = 4; i <= v12SizeSI; i++) {
-            if (i == 4 || i == 5) continue;
-            header.add("v12-SI" + i);
-        }
-        for (int i = 4; i <= v12SizeSC; i++) {
-            header.add("v12-SC" + i);
-        }
-        if (v12SizeRCI >= 1) header.add("v12 Dataset");
-        if (v12SizeRCI >= 2) header.add("v12 N");
-        if (v12SizeRCI >= 3) header.add("v12 RC Age");
-        if (v12SizeRCI >= 4) header.add("v12 Sex");
-        if (v12SizeRCI >= 5) header.add("v12 Modality");
-        for (int i = 6; i <= v12SizeRCI; i++) {
-            header.add("v12-RCI" + i);
-        }
-
-        for (int i = 1; i <= v12SizeNM; i++) {
-            if (i == 1) {
-                header.add("v12 Modeling Method");
-            } else if (i == 2) {
-                header.add("v12\nResponse Variable");
-            } else {
-                header.add("v12-NM" + i);
-            }
-        }
-        for (int i = 1; i <= v12SizeCAA; i++) {
-            if (i == 2) {
-                header.add("v12 Disease");
-            } else if (i == 8) {
-                continue;
-            } else {
-                header.add("v12-CAA" + i);
-            }
-        }
-        for (int i = 1; i <= v12SizeGN; i++) {
-            header.add("v12-GN" + i);
-        }
-        if (v12HasFindings) header.add("v12 Findings");
     }
 
     private List<String> buildTsvRow(RowObject row, boolean hasFindings, int displayIndex) {
         List<String> cols = new ArrayList<>();
-        cols.add(String.valueOf(displayIndex));
-        cols.add(row.authorYear == null ? "" : row.authorYear);
-        cols.add(getV12Info(row.authorYear));
-
-        int subSectionSize = row.valueList_SI.size();
-        for (int i = 3; i < subSectionSize; i++) { // i=3 -> SI4
-            if (i == 3 || i == 4) continue; // skip SI4, SI5
-            cols.add(nullToEmpty(row.valueList_SI.get(i)));
+        V12Aggregated v12Agg = getV12Aggregated(row.authorYear);
+        for (ColumnBlock block : COLUMN_ORDER) {
+            appendTsvForBlock(block, cols, row, hasFindings, v12Agg, displayIndex);
         }
-        subSectionSize = row.valueList_SC.size();
-        for (int i = 3; i < subSectionSize; i++) { // i=3 -> SC4
-            cols.add(nullToEmpty(row.valueList_SC.get(i)));
-        }
-        subSectionSize = row.valueList_RCI.size();
-        for (int i = 0; i < subSectionSize; i++) {
-            if (i == 4) {
-                cols.add(getDisplayedModality(row.valueList_RCI.get(i)));
-            } else {
-                cols.add(nullToEmpty(row.valueList_RCI.get(i)));
-            }
-        }
-        subSectionSize = row.valueList_NM.size();
-        for (int i = 0; i < subSectionSize; i++) {
-            cols.add(nullToEmpty(row.valueList_NM.get(i)));
-        }
-        subSectionSize = row.valueList_CAA.size();
-        String findingsValue = "";
-        for (int i = 0; i < subSectionSize; i++) {
-            if (i == 7) {
-                findingsValue = nullToEmpty(row.valueList_CAA.get(i));
-                continue;
-            }
-            cols.add(nullToEmpty(row.valueList_CAA.get(i)));
-        }
-        subSectionSize = row.valueList_GN.size();
-        for (int i = 0; i < subSectionSize; i++) {
-            cols.add(nullToEmpty(row.valueList_GN.get(i)));
-        }
-        cols.add(getStudyName(row));
-        if (hasFindings) cols.add(findingsValue);
-        cols.add(getDoi(row));
-        appendV12TsvRow(row.authorYear, cols);
         return cols;
     }
 
-    private void appendV12TsvRow(String authorYear, List<String> cols) {
-        if (!hasV12Data()) return;
+    private boolean appendIndexedTsvHeaders(ColumnBlock block, List<String> header) {
+        BlockIndex info = parseIndexedBlock(block);
+        if (info == null || info.index < 0) return false;
+        switch (info.section) {
+            case V10_SI:
+                header.add(getV10SiDisplayLabel(info.index));
+                return true;
+            case V10_SC:
+                header.add(getV10ScDisplayLabel(info.index));
+                return true;
+            case V10_RCI:
+                header.add(getRciHeaderLabel(info.index, false));
+                return true;
+            case V10_NM:
+                header.add(getV10NmDisplayLabel(info.index));
+                return true;
+            case V10_CAA:
+                header.add(getV10CaaDisplayLabel(info.index));
+                return true;
+            case V12_SI:
+                header.add(getV12SiDisplayLabel(info.index));
+                return true;
+            case V12_NM2:
+                header.add(getNmHeaderLabel(info.index, true));
+                return true;
+            default:
+                return false;
+        }
+    }
 
-        List<RowObject> v12Rows = rowsByAuthorYearForV12.get(authorYear);
-        List<String> si = aggregateV12Section(v12Rows, r -> r.valueList_SI, v12SizeSI);
-        List<String> sc = aggregateV12Section(v12Rows, r -> r.valueList_SC, v12SizeSC);
-        List<String> rci = aggregateV12Section(v12Rows, r -> r.valueList_RCI, v12SizeRCI);
-        List<String> nm = aggregateV12Section(v12Rows, r -> r.valueList_NM, v12SizeNM);
-        List<String> caa = aggregateV12Section(v12Rows, r -> r.valueList_CAA, v12SizeCAA);
-        List<String> gn = aggregateV12Section(v12Rows, r -> r.valueList_GN, v12SizeGN);
+    private boolean appendIndexedTsv(ColumnBlock block, List<String> cols, RowObject row, V12Aggregated v12Agg) {
+        BlockIndex info = parseIndexedBlock(block);
+        if (info == null || info.index < 0) return false;
+        switch (info.section) {
+            case V10_SI:
+                cols.add(row.valueList_SI.size() > info.index ? nullToEmpty(row.valueList_SI.get(info.index)) : "");
+                return true;
+            case V10_SC:
+                cols.add(row.valueList_SC.size() > info.index ? nullToEmpty(row.valueList_SC.get(info.index)) : "");
+                return true;
+            case V10_RCI: {
+                String val = row.valueList_RCI.size() > info.index ? row.valueList_RCI.get(info.index) : "";
+                if (info.index == 4) cols.add(getDisplayedModality(val));
+                else cols.add(nullToEmpty(val));
+                return true;
+            }
+            case V10_NM:
+                cols.add(row.valueList_NM.size() > info.index ? nullToEmpty(row.valueList_NM.get(info.index)) : "");
+                return true;
+            case V10_CAA:
+                cols.add(row.valueList_CAA.size() > info.index ? nullToEmpty(row.valueList_CAA.get(info.index)) : "");
+                return true;
+            case V12_SI:
+                cols.add(getListValue(v12Agg == null ? null : v12Agg.si, info.index));
+                return true;
+            case V12_NM2:
+                cols.add(getListValue(v12Agg == null ? null : v12Agg.nm, info.index));
+                return true;
+            default:
+                return false;
+        }
+    }
 
-        for (int i = 3; i < v12SizeSI; i++) { // i=3 -> SI4
-            if (i == 3 || i == 4) continue;
-            cols.add(getListValue(si, i));
-        }
-        for (int i = 3; i < v12SizeSC; i++) { // i=3 -> SC4
-            cols.add(getListValue(sc, i));
-        }
-        for (int i = 0; i < v12SizeRCI; i++) {
-            String val = getListValue(rci, i);
-            if (i == 4) {
-                cols.add(getDisplayedModality(val));
-            } else {
-                cols.add(val);
+    private void appendTsvHeadersForBlock(ColumnBlock block, List<String> header, boolean hasFindings) {
+        if (appendIndexedTsvHeaders(block, header)) return;
+        switch (block) {
+            case NO:
+                header.add("No");
+                break;
+            case AUTHOR_YEAR:
+                header.add("AuthorYear");
+                break;
+            case V10_GN: {
+                List<Integer> order = getV10GnOrder(rowsForV10.get(0).valueList_GN.size());
+                for (int idx : order) {
+                    header.add(getGnHeaderLabel(idx, false));
+                }
+                break;
             }
+            default:
+                break;
         }
-        for (int i = 0; i < v12SizeNM; i++) {
-            cols.add(getListValue(nm, i));
-        }
-        String findingsValue = "";
-        for (int i = 0; i < v12SizeCAA; i++) {
-            String val = getListValue(caa, i);
-            if (i == 7) {
-                findingsValue = val;
-                continue;
+    }
+
+    private void appendTsvForBlock(ColumnBlock block, List<String> cols, RowObject row, boolean hasFindings, V12Aggregated v12Agg, int displayIndex) {
+        if (appendIndexedTsv(block, cols, row, v12Agg)) return;
+        switch (block) {
+            case NO:
+                cols.add(String.valueOf(displayIndex));
+                break;
+            case AUTHOR_YEAR:
+                cols.add(row.authorYear == null ? "" : row.authorYear);
+                break;
+            case V10_GN: {
+                List<Integer> order = getV10GnOrder(row.valueList_GN.size());
+                for (int idx : order) {
+                    cols.add(nullToEmpty(row.valueList_GN.get(idx)));
+                }
+                break;
             }
-            cols.add(val);
+            default:
+                break;
         }
-        for (int i = 0; i < v12SizeGN; i++) {
-            cols.add(getListValue(gn, i));
-        }
-        if (v12HasFindings) cols.add(findingsValue);
     }
 
     private String sanitizeForTsv(String s) {
@@ -954,78 +1198,18 @@ public class SummaryView2 extends VerticalLayout {
                 .collect(Collectors.joining("\n"));
     }
 
-    private void appendV12Cells(Element tr, String authorYear) {
-        if (!hasV12Data()) return;
-
+    private V12Aggregated getV12Aggregated(String authorYear) {
+        if (!hasV12Data()) return null;
+        if (authorYear == null) return null;
+        if (v12AggregateCache.containsKey(authorYear)) {
+            return v12AggregateCache.get(authorYear);
+        }
         List<RowObject> v12Rows = rowsByAuthorYearForV12.get(authorYear);
-        List<String> si = aggregateV12Section(v12Rows, r -> r.valueList_SI, v12SizeSI);
-        List<String> sc = aggregateV12Section(v12Rows, r -> r.valueList_SC, v12SizeSC);
-        List<String> rci = aggregateV12Section(v12Rows, r -> r.valueList_RCI, v12SizeRCI);
-        List<String> nm = aggregateV12Section(v12Rows, r -> r.valueList_NM, v12SizeNM);
-        List<String> caa = aggregateV12Section(v12Rows, r -> r.valueList_CAA, v12SizeCAA);
-        List<String> gn = aggregateV12Section(v12Rows, r -> r.valueList_GN, v12SizeGN);
-
-        String studyName = getListValue(si, 2);
-        String doi = getListValue(si, 4);
-
-        for (int i = 3; i < v12SizeSI; i++) { // i=3 -> SI4
-            if (i == 3 || i == 4) continue; // SI4, SI5 はスキップ
-            appendCheckBoxCell(tr, getListValue(si, i));
-        }
-        for (int i = 3; i < v12SizeSC; i++) { // i=3 -> SC4
-            appendCheckBoxCell(tr, getListValue(sc, i));
-        }
-
-        for (int i = 0; i < v12SizeRCI; i++) {
-            String val = getListValue(rci, i);
-            if (i == 0) {
-                appendDatasetCell(tr, val);
-            } else if (i == 1) {
-                appendPreWrappedCell(tr, val, false);
-            } else if (i == 2) {
-                appendAgeBoxPlotCell(tr, val);
-            } else if (i == 3) {
-                appendSexPieCell(tr, val);
-            } else if (i == 4) {
-                appendModalityCell(tr, val);
-            } else {
-                appendCheckBoxCell(tr, val);
-            }
-        }
-
-        for (int i = 0; i < v12SizeNM; i++) {
-            String val = getListValue(nm, i);
-            if (i == 0) {
-                appendNormalCell(tr, val);
-            } else if (i == 1) {
-                appendPreWrappedCell(tr, val, false);
-            } else {
-                appendCheckBoxCell(tr, val);
-            }
-        }
-
-        String findingsValue = "";
-        for (int i = 0; i < v12SizeCAA; i++) {
-            String val = getListValue(caa, i);
-            if (i == 7) {
-                findingsValue = val;
-                continue;
-            }
-            if (i == 1) {
-                appendNormalCell(tr, val);
-            } else {
-                appendCheckBoxCell(tr, val);
-            }
-        }
-
-        for (int i = 0; i < v12SizeGN; i++) {
-            appendCheckBoxCell(tr, getListValue(gn, i));
-        }
-
-        // v12 Study Name / Findings / DOI
-        if (v12HasFindings) {
-            appendNormalCell(tr, findingsValue);
-        }
+        V12Aggregated agg = new V12Aggregated();
+        agg.si = aggregateV12Section(v12Rows, r -> r.valueList_SI, v12SizeSI);
+        agg.nm = aggregateV12Section(v12Rows, r -> r.valueList_NM, v12SizeNM);
+        v12AggregateCache.put(authorYear, agg);
+        return agg;
     }
 
     private List<String> aggregateV12Section(List<RowObject> v12Rows, Function<RowObject, List<String>> getter, int size) {
@@ -1057,11 +1241,101 @@ public class SummaryView2 extends VerticalLayout {
         return val == null ? "" : val;
     }
 
+    private boolean appendIndexedCells(ColumnBlock block, Element tr, RowObject row, boolean hasFindings, V12Aggregated v12Agg) {
+        BlockIndex info = parseIndexedBlock(block);
+        if (info == null || info.index < 0) return false;
+
+        switch (info.section) {
+            case V10_SI:
+                if (info.index == 2) {
+                    String studyName = getStudyName(row);
+                    String si4 = (row.valueList_SI.size() > 3) ? row.valueList_SI.get(3) : "";
+                    appendStudyNameLauncherCell(tr, studyName, row.authorYear, si4);
+                } else if (info.index == 4) {
+                    String doi = row.valueList_SI.size() > info.index ? row.valueList_SI.get(info.index) : "";
+                    appendNormalCell(tr, doi);
+                } else {
+                    if (row.valueList_SI.size() > info.index) appendCheckBoxCell(tr, row.valueList_SI.get(info.index));
+                    else appendCheckBoxCell(tr, "");
+                }
+                return true;
+            case V10_SC:
+                if (row.valueList_SC.size() > info.index) appendCheckBoxCell(tr, row.valueList_SC.get(info.index));
+                else appendCheckBoxCell(tr, "");
+                return true;
+            case V10_RCI:
+                String rciVal = row.valueList_RCI.size() > info.index ? row.valueList_RCI.get(info.index) : "";
+                if (info.index == 0) appendDatasetCell(tr, rciVal);
+                else if (info.index == 1) appendPreWrappedCell(tr, rciVal, false);
+                else if (info.index == 2) appendAgeBoxPlotCell(tr, rciVal);
+                else if (info.index == 3) appendSexPieCell(tr, rciVal);
+                else if (info.index == 4) appendModalityCell(tr, rciVal);
+                else appendCheckBoxCell(tr, rciVal);
+                return true;
+            case V10_NM:
+                String nmVal = row.valueList_NM.size() > info.index ? row.valueList_NM.get(info.index) : "";
+                if (info.index == 0) appendNormalCell(tr, nmVal);
+                else appendCheckBoxCell(tr, nmVal);
+                return true;
+            case V10_CAA:
+                String caaVal = row.valueList_CAA.size() > info.index ? row.valueList_CAA.get(info.index) : "";
+                if (info.index == 1) appendNormalCell(tr, caaVal);
+                else appendCheckBoxCell(tr, caaVal);
+                return true;
+            case V12_SI:
+                if (hasV12Data() && v12Agg != null) {
+                    appendCheckBoxCell(tr, getListValue(v12Agg.si, info.index));
+                } else {
+                    appendCheckBoxCell(tr, "");
+                }
+                return true;
+            case V12_NM2:
+                if (hasV12Data() && v12Agg != null) {
+                    String val = getListValue(v12Agg.nm, info.index);
+                    if (info.index == 0) appendNormalCell(tr, val);
+                    else if (info.index == 1) appendPreWrappedCell(tr, val, false);
+                    else appendCheckBoxCell(tr, val);
+                } else {
+                    appendCheckBoxCell(tr, "");
+                }
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void appendCellsForBlock(ColumnBlock block, Element tr, RowObject row, boolean hasFindings, V12Aggregated v12Agg, int rowIndex) {
+        if (appendIndexedCells(block, tr, row, hasFindings, v12Agg)) return;
+        switch (block) {
+            case NO:
+                appendCenteredCell(tr, String.valueOf(rowIndex + 1));
+                break;
+            case AUTHOR_YEAR:
+                appendLauncherCell(tr, row.authorYear, row.authorYear);
+                break;
+            case V10_GN: {
+                List<Integer> order = getV10GnOrder(row.valueList_GN.size());
+                for (int idx : order) {
+                    appendCheckBoxCell(tr, row.valueList_GN.get(idx));
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    private static class V12Aggregated {
+        List<String> si;
+        List<String> nm;
+    }
+
     // 改行表示に対応したセル（white-space: pre-wrap）
     private void appendPreWrappedCell(Element tr, String text, boolean center) {
         Element td = new Element("td");
         String style = "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-wrap;";
-        if (center) style += " text-align: center;"; else style += " text-align: left;";
+        if (center) style += " text-align: center;";
+        else style += " text-align: left;";
         td.setAttribute("style", style);
         td.setText(text == null ? "" : text);
         tr.appendChild(td);

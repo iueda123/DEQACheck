@@ -75,8 +75,12 @@ public class RowObject {
     }
 
     private ArrayList<String> collect_NM_Answers(Path jsonFilePath) {
-        // normative_modeling_part 内の nm1_... を収集（値直下 or answer）
-        return collectBySectionAndPrefix(jsonFilePath, "normative_modeling_part", "nm");
+        // v10: normative_modeling_part / nm1_...
+        ArrayList<String> nm = collectBySectionAndPrefix(jsonFilePath, "normative_modeling_part", "nm");
+        if (!nm.isEmpty()) return nm;
+
+        // v12: normative_modeling_2nd_part / nm2_...
+        return collectBySectionAndPrefix(jsonFilePath, "normative_modeling_2nd_part", "nm2");
     }
 
     private ArrayList<String> collect_RCI_Answers(Path jsonFilePath) {

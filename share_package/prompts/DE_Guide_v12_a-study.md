@@ -114,26 +114,31 @@
 #### NM2-1. Modeling Method
 * Extraction Criteria:
 Specify the statistical/machine learning algorithm(s) used for normative modeling.
-以下のキーワードから該当するものを選んで回答してください（複数回答可）。
-  - GLM-family: GLM, OLSR
-  - Additive models: GAM, GAMM, GAMLSS, LOESS, LMS
-  - Polynomial: POLY (linear/quadratic/cubic; model selection)
-  - Quantile: QUANTREG (percentile-based NM)
-  - Fractional polynomial: MFPR
-  - Gaussian process: GPR
-  - Bayesian linear: BLR, WBLR
-  - Hierarchical Bayesian: HBR, HBLM, HBGPM
-  - Mixed-effects: MEM, LMM (voxel/ROI)
-  - Nearest neighbor: N3, NNA (density-based), EXP-WEIBULL (NN→likelihood)
-  - Kernel regression: KERNEL-NW (Nadaraya–Watson)
-  - Moving average: MOV-AVG
-  - Tolerance intervals: TOL-INT (nonparametric)
-  - Z-score baseline: ZSCORE (mean/SD only)
-  - Autoencoder family: AE (plain/denoising/semi-supervised), AAE, VAE, ConVAE, VQ-VAE, mmVAE, mmSIVAE
-  - Deep generative: GPT (if used), FUNCOIN
-  - Similarity-based: PBSI
-  - Vector factorization: NMF (if present), PCA (if appears)
-  - Unknown/unspecified: PCN-UNSPEC (PCNtoolkit/nispat/nomis unspecified), UNKNOWN/NR (Yes/NR/missing)
+以下の Keyword から該当するものを選んで回答してください（複数回答可）。
+
+| Keyword | このキーワードに該当する条件や例 |
+|---------|-------------------------------|
+| GLM-family | GLM, OLSR |
+| Additive models | GAM, GAMM, GAMLSS, LOESS, LMS |
+| Polynomial | POLY (linear/quadratic/cubic; model selection) |
+| Quantile | QUANTREG (percentile-based NM) |
+| Fractional polynomial | MFPR |
+| Gaussian process | GPR |
+| Bayesian linear | BLR, WBLR |
+| Hierarchical Bayesian | HBR, HBLM, HBGPM |
+| Mixed-effects | MEM, LMM (voxel/ROI) |
+| Nearest neighbor | N3, NNA (density-based), EXP-WEIBULL (NN→likelihood) |
+| Kernel regression | KERNEL-NW (Nadaraya–Watson) |
+| Moving average | MOV-AVG |
+| Tolerance intervals | TOL-INT (nonparametric) |
+| Z-score baseline | ZSCORE (mean/SD only) |
+| Autoencoder family | AE (plain/denoising/semi-supervised), AAE, VAE, ConVAE, VQ-VAE, mmVAE, mmSIVAE |
+| Deep generative | GPT (if used), FUNCOIN |
+| Similarity-based | PBSI |
+| Vector factorization | NMF (if present), PCA (if appears) |
+| Unknown/unspecified | PCN-UNSPEC (PCNtoolkit/nispat/nomis unspecified), UNKNOWN/NR (Yes/NR/missing) |
+
+
 * Extraction Result Style: ADCSL_Style
 * "answer" example:
 
@@ -146,25 +151,33 @@ Specify the statistical/machine learning algorithm(s) used for normative modelin
 
 #### NM2-2. Response Variable
 * Extraction Criteria: Specify the imaging-derived variable(s) being modeled.
-以下のキーワードから該当するものを選んで回答してください（複数回答可）。
-  - Core morphometry: CT, CV, SA, SV, GMV, WMV, GBV, TIV/ICV, WMH, CSF.
-  - ALFF family: ALFF (raw low-frequency power), fALFF (low-frequency power / total power).
-  - Diffusion scalars: FA, MD, RD, AD, GFA, FAt, FW.
-  - DTI tract profile: DTI-bundle-profile (along-tract shape + FA/MD/RD/AD).
-  - Connectivity: FC, rs-FC, dyn-FC (aFCS/fFCS/FC-variability), FC-gradient, FCS, DC, GCOR, LCOR.
-  - Motion: FD.
-  - PET/SPECT: BPND, Ki_cer, SUVR-amyloid (e.g., AV45), SUVR-tau (e.g., FTP).
-  - Task fMRI: TASK-GLM (contrast z/t-map).
-  - Deformation: DBM/TBM (Jacobian determinants), VQ-typicality (VQ-VAE typicality score).
-  - Folding/Similarity: MSI (morphometric similarity index), PBSI-SW (sulcal width similarity), GI/CURV (gyrification/curvature metrics).
-  - Laterality: LI (laterality indices for CT/GMV/WMV/FC/others).
-  - MEG/EEG power: PSD (band power).
-  - MEG/EEG connectivity: AEC/PEC (frequency-specific FC).
-  - Ophthalmic: RETINA (macular/RNFL/GC-IPL thickness).
-  - Region-specific volumes: CER-Lobule (cerebellar lobules), THAL-Nuclei (thalamic nuclei), HIPPO (hippocampus), CC-morpho (corpus callosum volume/area/length/perimeter), SV-regional (generic subcortical volumes by atlas/ROI).
-  - IDP sets: IDP-set (bulk feature sets, e.g., 2000+ IDPs).
-  - Model components: NMF (component weights).
-  - Unknown: UNKNOWN/NR (missing or non-informative answers such as “Yes”).
+以下の Keyword から該当するものを選んで回答してください（複数回答可）。
+
+| Keyword                 | このキーワードに該当する条件や例                                                                                                                                                                                      | 
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CT                      | cortical thickness                                                                                                                                                                                    |
+| CV                      | cortical volume                                                                                                                                                                                       |
+| SA                      | surface area                                                                                                                                                                                          |
+| GI                      | gyrification index                                                                                                                                                                                    |
+| Core morphometry        | CT, CV, SA, SV, GMV, WMV, GBV, TIV/ICV, WMH, CSF                                                                                                                                                      |
+| ALFF family             | ALFF (raw low-frequency power), fALFF (low-frequency power / total power)                                                                                                                             |
+| Diffusion scalars       | FA, MD, RD, AD, GFA, FAt, FW                                                                                                                                                                          |
+| DTI tract profile       | MD, RD, AD, DTI-bundle-profile (along-tract shape + FA/MD/RD/AD)                                                                                                                                      |
+| Connectivity            | FC, rs-FC, dyn-FC (aFCS/fFCS/FC-variability), FC-gradient, FCS, DC, GCOR, LCOR                                                                                                                        |
+| Motion                  | FD                                                                                                                                                                                                    |
+| PET/SPECT               | BPND, Ki_cer, SUVR-amyloid (e.g., AV45), SUVR-tau (e.g., FTP)                                                                                                                                         |
+| Task fMRI               | TASK-GLM (contrast z/t-map)                                                                                                                                                                           |
+| Deformation             | DBM/TBM (Jacobian determinants), VQ-typicality (VQ-VAE typicality score)                                                                                                                              |
+| Folding/Similarity      | MSI (morphometric similarity index), PBSI-SW (sulcal width similarity), GI/CURV (gyrification/curvature metrics)                                                                                      |
+| Laterality              | LI (laterality indices for CT/GMV/WMV/FC/others)                                                                                                                                                      |
+| MEG/EEG power           | PSD (band power)                                                                                                                                                                                      |
+| MEG/EEG connectivity    | AEC/PEC (frequency-specific FC)                                                                                                                                                                       |
+| Ophthalmic              | RETINA (macular/RNFL/GC-IPL thickness)                                                                                                                                                                |
+| Region-specific volumes | CER-Lobule (cerebellar lobules), THAL-Nuclei (thalamic nuclei), HIPPO (hippocampus), CC-morpho (corpus callosum volume/area/length/perimeter), SV-regional (generic subcortical volumes by atlas/ROI) |
+| IDP sets                | IDP-set (bulk feature sets, e.g., 2000+ IDPs)                                                                                                                                                         |
+| Model components        | NMF (component weights)                                                                                                                                                                               |
+| Unknown                 | UNKNOWN/NR (missing or non-informative answers)                                                                                                                                                       |
+
 * Extraction Result Style: ADCSL_Style
 * "answer" 例:
 
