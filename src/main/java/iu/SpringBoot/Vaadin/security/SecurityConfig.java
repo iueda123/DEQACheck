@@ -1,6 +1,7 @@
 package iu.SpringBoot.Vaadin.security;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
+import iu.SpringBoot.Vaadin.security.DebugAutoLoginFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -23,6 +25,9 @@ public class SecurityConfig extends VaadinWebSecurity {
 
     @Value("${app.security.admin.password:password}")
     private String adminPassword;
+
+    @Value("${app.security.skip-login:false}")
+    private boolean skipLogin;
 
     // Guest user credentials
     @Value("${app.security.guest.username:guest}")
@@ -93,6 +98,9 @@ public class SecurityConfig extends VaadinWebSecurity {
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/images/**", "/icons/**", "/styles/**").permitAll()
         );
+
+        // Debug mode: auto-authenticate as admin when enabled
+        http.addFilterBefore(debugAutoLoginFilter(userDetailsService()), UsernamePasswordAuthenticationFilter.class);
 
         super.configure(http);
 
@@ -178,5 +186,10 @@ public class SecurityConfig extends VaadinWebSecurity {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DebugAutoLoginFilter debugAutoLoginFilter(UserDetailsService userDetailsService) {
+        return new DebugAutoLoginFilter(skipLogin, userDetailsService, adminUsername);
     }
 }

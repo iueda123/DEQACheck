@@ -103,7 +103,7 @@ public class SummaryView2 extends VerticalLayout {
         }
 
         // デモ用データ（行データ構築は外部クラスへ切り出し）
-        rows = SummaryRowsBuilder.constructRowObjectList(
+        rows = SummaryRowsBuilder_for_DE_v10.constructRowObjectList(
                 pathListOfAuthorYearDir,
                 msg -> add(new Paragraph(msg))
         );
