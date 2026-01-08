@@ -1,5 +1,18 @@
-  * 
-  * 
+  * NM系再調査
+    * Modeling Method
+      * Keywords-for-Modeling-Method.mdの見直し
+    * Response Variable
+      * Keywords-for-Response-Variable.mdの見直し
+    * Explanatory Variables調査
+      * sex
+      * age, age^2
+    * Site effect handling調査
+    * DE_Guide_v12_a-study.md の見直し
+  * Reference Cohort系再調査
+    * DE_Guide_v11_*.md を使う
+    * Image Processing系調査
+  * Clinical Cohort系調査
+  
   * [x] RCAIパネルのsite_effect_handling_detail の初期化に失敗している。
   * [x] Answerエリアが１行未満になることがある Zeng2024において
   * [ ] リロード機能
