@@ -31,9 +31,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -45,7 +49,7 @@ public class SummaryView2 extends VerticalLayout {
 
     final static String DATA_FOLDER_NAME = "share_package/data";
     final static String JAR_WORKING_DIR = "share_package";
-    final static String DEQACheckJar = "share_package/jar/DEQACheck-v20260101-all.jar";
+    final static String DEQACheckJar = "share_package/jar/DEQACheck-v20260107-all.jar";
     final static String TEMPLATE_FOR_HUMAN_DE = "share_package/templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json";
 
     // ソートオプション
@@ -53,10 +57,19 @@ public class SummaryView2 extends VerticalLayout {
     private static final String SORT_BY_N = "N (サンプルサイズ) 順";
     private static final String SORT_BY_ALPHABET = "アルファベット順 (Study Name)";
     // インスタンス変数
-    private List<RowObject> rows;
+    private List<RowObject> rowsForV10;
+    private List<RowObject> rowsForV12;
     private Div scrollWrapper;
     private boolean useNormalizedModality = true; // Modality(RCI5)の表示を正規化するか
     private Anchor downloadAnchor;
+    private Map<String, List<RowObject>> rowsByAuthorYearForV12;
+    private int v12SizeSI;
+    private int v12SizeSC;
+    private int v12SizeRCI;
+    private int v12SizeNM;
+    private int v12SizeCAA;
+    private int v12SizeGN;
+    private boolean v12HasFindings;
 
     public SummaryView2() {
         // layout settings
@@ -103,15 +116,22 @@ public class SummaryView2 extends VerticalLayout {
         }
 
         // デモ用データ（行データ構築は外部クラスへ切り出し）
-        rows = SummaryRowsBuilder_for_DE_v10.constructRowObjectList(
+        rowsForV10 = SummaryRowsBuilder_for_DE_v10.constructRowObjectList(
                 pathListOfAuthorYearDir,
                 msg -> add(new Paragraph(msg))
         );
-
-        if (rows.isEmpty()) {
+        if (rowsForV10.isEmpty()) {
             add(new Paragraph("Human系JSONファイルが見つかりません。"));
             return;
         }
+
+        rowsForV12 = SummaryRowsBuilder_for_DE_v12.constructRowObjectList(
+                pathListOfAuthorYearDir,
+                msg -> add(new Paragraph(msg))
+        );
+        rowsByAuthorYearForV12 = rowsForV12.stream().collect(Collectors.groupingBy(r -> r.authorYear));
+        computeV12LayoutMetrics(rowsForV12);
+
 
         // リロードボタンとソートUIを横並びに配置
         HorizontalLayout controlLayout = new HorizontalLayout();
@@ -174,6 +194,9 @@ public class SummaryView2 extends VerticalLayout {
 
         add(new Paragraph("チェックの入ったチェックボックス（☑）は _DE_AuthorXXXX_by_Human_.json のAnswer欄に何らかの入力がなされていることを意味します。マウスポインタを重ねるとその値が参照できます。（なお、チェックを入れたり消したりしてもjsonファイルには何ら影響は及ぼしません。）なお、RCI3 列は年齢の擬似ボックスプロット、RCI4 列は性比の円グラフ（F=ピンク, M=青, NR=灰）を表示します。"));
 
+        // 戻るリンク
+        add(new RouterLink("メインページへ戻る", MainView.class));
+
         // Gridは使わず、Vaadinの要素APIとコンポーネントでtableを構築
         scrollWrapper = new Div();
         scrollWrapper.getStyle().set("max-height", "70vh");
@@ -192,7 +215,7 @@ public class SummaryView2 extends VerticalLayout {
 
     // ソート処理
     private void sortRows(String sortOption) {
-        if (rows == null || rows.isEmpty()) return;
+        if (rowsForV10 == null || rowsForV10.isEmpty()) return;
 
         Comparator<RowObject> comparator;
         switch (sortOption) {
@@ -212,7 +235,7 @@ public class SummaryView2 extends VerticalLayout {
                 );
                 break;
         }
-        rows.sort(comparator);
+        rowsForV10.sort(comparator);
     }
 
     // Study Nameを取得
@@ -225,7 +248,7 @@ public class SummaryView2 extends VerticalLayout {
         return doi == null ? "" : doi;
     }
     private boolean hasFindingsColumn() {
-        return rows != null && !rows.isEmpty() && rows.get(0).valueList_CAA.size() >= 8;
+        return rowsForV10 != null && !rowsForV10.isEmpty() && rowsForV10.get(0).valueList_CAA.size() >= 8;
     }
 
     // Study Name から年数を抽出（例: "Bayer2022" → 2022）
@@ -260,6 +283,27 @@ public class SummaryView2 extends VerticalLayout {
         }
         return 0; // Nが見つからない場合は0
     }
+    private void computeV12LayoutMetrics(List<RowObject> v12Rows) {
+        v12SizeSI = maxSectionSize(v12Rows, r -> r.valueList_SI);
+        v12SizeSC = maxSectionSize(v12Rows, r -> r.valueList_SC);
+        v12SizeRCI = maxSectionSize(v12Rows, r -> r.valueList_RCI);
+        v12SizeNM = maxSectionSize(v12Rows, r -> r.valueList_NM);
+        v12SizeCAA = maxSectionSize(v12Rows, r -> r.valueList_CAA);
+        v12SizeGN = maxSectionSize(v12Rows, r -> r.valueList_GN);
+        v12HasFindings = v12SizeCAA >= 8;
+    }
+    private int maxSectionSize(List<RowObject> list, Function<RowObject, List<String>> getter) {
+        if (list == null || list.isEmpty()) return 0;
+        return list.stream()
+                .map(getter)
+                .filter(Objects::nonNull)
+                .mapToInt(List::size)
+                .max()
+                .orElse(0);
+    }
+    private boolean hasV12Data() {
+        return rowsByAuthorYearForV12 != null && !rowsByAuthorYearForV12.isEmpty();
+    }
 
     // テーブルを再構築
     private void rebuildTable() {
@@ -280,22 +324,23 @@ public class SummaryView2 extends VerticalLayout {
         appendHeaderCell(trHead, "No");
         // 先頭列: AuthorYear（クリックでJARランチャー）
         appendHeaderCell(trHead, "AuthorYear");
+        appendHeaderCell(trHead, "DE_v12(human)");
 
         // Study Name (SI3) は表の末尾側に配置するため、ここでは追加しない
 
-        int subSectionSize = rows.get(0).valueList_SI.size();
+        int subSectionSize = rowsForV10.get(0).valueList_SI.size();
         // SI1, SI2 はスキップ。SI3 は Study Name、SI4 は列としては表示せず（ツールチップ表示）。
         // SI5 は後段の DOI 列で表示するため、ここでは SI6 以降を追加
         for (int i = 4; i <= subSectionSize; i++) {
             if (i == 4 || i == 5) continue; // SI4=Title と SI5 は表示しない
             appendHeaderCell(trHead, "SI" + i);
         }
-        subSectionSize = rows.get(0).valueList_SC.size();
+        subSectionSize = rowsForV10.get(0).valueList_SC.size();
         // SC1-3 は削除
         for (int i = 4; i <= subSectionSize; i++) {
             appendHeaderCell(trHead, "SC" + i);
         }
-        subSectionSize = rows.get(0).valueList_RCI.size();
+        subSectionSize = rowsForV10.get(0).valueList_RCI.size();
         // RCI の見出しを個別に設定
         if (subSectionSize >= 1) appendHeaderCellWithStyle(trHead, "Dataset", "width:16ch;");
         if (subSectionSize >= 2) appendHeaderCellWithStyle(trHead, "N", "text-align: center;");
@@ -305,7 +350,7 @@ public class SummaryView2 extends VerticalLayout {
         for (int i = 6; i <= subSectionSize; i++) {
             appendHeaderCell(trHead, "RCI" + i);
         }
-        subSectionSize = rows.get(0).valueList_NM.size();
+        subSectionSize = rowsForV10.get(0).valueList_NM.size();
         for (int i = 1; i <= subSectionSize; i++) {
             if (i == 1) {
                 appendHeaderCell(trHead, "Origin");
@@ -313,7 +358,7 @@ public class SummaryView2 extends VerticalLayout {
                 appendHeaderCell(trHead, "NM" + i);
             }
         }
-        subSectionSize = rows.get(0).valueList_CAA.size();
+        subSectionSize = rowsForV10.get(0).valueList_CAA.size();
         boolean hasFindings = hasFindingsColumn();
         for (int i = 1; i <= subSectionSize; i++) {
             if (i == 2) {
@@ -325,7 +370,7 @@ public class SummaryView2 extends VerticalLayout {
                 appendHeaderCell(trHead, "CAA" + i);
             }
         }
-        subSectionSize = rows.get(0).valueList_GN.size();
+        subSectionSize = rowsForV10.get(0).valueList_GN.size();
         for (int i = 1; i <= subSectionSize; i++) {
             appendHeaderCell(trHead, "GN" + i);
         }
@@ -339,6 +384,7 @@ public class SummaryView2 extends VerticalLayout {
             // appendHeaderCell(trHead, "Findings");
         }
         appendHeaderCell(trHead, "DOI");
+        appendV12HeaderCells(trHead);
 
         // 最終列にランチャーは置かない（先頭列に移動）
         thead.appendChild(trHead);
@@ -347,8 +393,8 @@ public class SummaryView2 extends VerticalLayout {
         // tbody
         Element tbody = new Element("tbody");
         boolean even = false;
-        for (int r = 0; r < rows.size(); r++) {
-            RowObject row = rows.get(r);
+        for (int r = 0; r < rowsForV10.size(); r++) {
+            RowObject row = rowsForV10.get(r);
             Element tr = new Element("tr");
             if (even) {
                 tr.setAttribute("style", "background: var(--lumo-contrast-5pct);");
@@ -357,6 +403,7 @@ public class SummaryView2 extends VerticalLayout {
             appendCenteredCell(tr, String.valueOf(r + 1));
             // 先頭列: AuthorYear（クリックでJARランチャー）
             appendLauncherCell(tr, row.authorYear, row.authorYear);
+            appendPreWrappedCell(tr, getV12Info(row.authorYear), false);
 
             // Study Name (SI3) は最後から2列目に配置するため、ここでは追加しない
             String studyName = getStudyName(row);
@@ -436,6 +483,7 @@ public class SummaryView2 extends VerticalLayout {
                 }
             }
             appendNormalCell(tr, doi);
+            appendV12Cells(tr, row.authorYear);
 
             // 末尾列へのランチャー配置は廃止（先頭列に集約）
             tbody.appendChild(tr);
@@ -459,6 +507,61 @@ public class SummaryView2 extends VerticalLayout {
         th.setAttribute("style", base + (extraCss != null ? (" " + extraCss) : ""));
         th.setText(text == null ? "" : text);
         tr.appendChild(th);
+    }
+    private void appendV12HeaderCells(Element trHead) {
+        if (!hasV12Data()) return;
+
+        if (v12SizeSI > 0) {
+            for (int i = 4; i <= v12SizeSI; i++) {
+                if (i == 4 || i == 5) continue; // SI4, SI5 はスキップ
+                appendHeaderCell(trHead, "v12-SI" + i);
+            }
+        }
+        if (v12SizeSC > 0) {
+            for (int i = 4; i <= v12SizeSC; i++) {
+                appendHeaderCell(trHead, "v12-SC" + i);
+            }
+        }
+        if (v12SizeRCI >= 1) appendHeaderCellWithStyle(trHead, "v12 Dataset", "width:16ch;");
+        if (v12SizeRCI >= 2) appendHeaderCellWithStyle(trHead, "v12 N", "text-align: center;");
+        if (v12SizeRCI >= 3) appendHeaderCell(trHead, "v12 RC Age");
+        if (v12SizeRCI >= 4) appendHeaderCell(trHead, "v12 Sex");
+        if (v12SizeRCI >= 5) appendHeaderCell(trHead, "v12 Modality");
+        for (int i = 6; i <= v12SizeRCI; i++) {
+            appendHeaderCell(trHead, "v12-RCI" + i);
+        }
+
+        if (v12SizeNM > 0) {
+            for (int i = 1; i <= v12SizeNM; i++) {
+                if (i == 1) {
+                    appendHeaderCell(trHead, "v12 Modeling Method");
+                } else if (i == 2) {
+                    appendHeaderCell(trHead, "v12\nResponse Variable");
+                } else {
+                    appendHeaderCell(trHead, "v12-NM" + i);
+                }
+            }
+        }
+        if (v12SizeCAA > 0) {
+            for (int i = 1; i <= v12SizeCAA; i++) {
+                if (i == 2) {
+                    appendHeaderCell(trHead, "v12 Disease");
+                } else if (i == 8) {
+                    continue; // Findings は末尾に回す
+                } else {
+                    appendHeaderCell(trHead, "v12-CAA" + i);
+                }
+            }
+        }
+        if (v12SizeGN > 0) {
+            for (int i = 1; i <= v12SizeGN; i++) {
+                appendHeaderCell(trHead, "v12-GN" + i);
+            }
+        }
+
+        if (v12HasFindings) {
+            appendHeaderCell(trHead, "v12 Findings");
+        }
     }
 
     // 通常セル（Element API）
@@ -629,15 +732,15 @@ public class SummaryView2 extends VerticalLayout {
 
     // TSV 生成
     private String buildTsv() {
-        if (rows == null || rows.isEmpty()) return "";
+        if (rowsForV10 == null || rowsForV10.isEmpty()) return "";
         boolean hasFindings = hasFindingsColumn();
 
         List<String> header = buildTsvHeader(hasFindings);
         StringBuilder sb = new StringBuilder();
         sb.append(String.join("\t", header)).append("\n");
 
-        for (int i = 0; i < rows.size(); i++) {
-            RowObject row = rows.get(i);
+        for (int i = 0; i < rowsForV10.size(); i++) {
+            RowObject row = rowsForV10.get(i);
             List<String> cols = buildTsvRow(row, hasFindings, i + 1);
             sb.append(cols.stream().map(this::sanitizeForTsv).collect(Collectors.joining("\t"))).append("\n");
         }
@@ -648,17 +751,18 @@ public class SummaryView2 extends VerticalLayout {
         List<String> header = new ArrayList<>();
         header.add("No");
         header.add("AuthorYear");
+        header.add("DE_v12(human)");
 
-        int subSectionSize = rows.get(0).valueList_SI.size();
+        int subSectionSize = rowsForV10.get(0).valueList_SI.size();
         for (int i = 4; i <= subSectionSize; i++) {
             if (i == 4 || i == 5) continue; // SI4, SI5 はスキップ
             header.add("SI" + i);
         }
-        subSectionSize = rows.get(0).valueList_SC.size();
+        subSectionSize = rowsForV10.get(0).valueList_SC.size();
         for (int i = 4; i <= subSectionSize; i++) {
             header.add("SC" + i);
         }
-        subSectionSize = rows.get(0).valueList_RCI.size();
+        subSectionSize = rowsForV10.get(0).valueList_RCI.size();
         if (subSectionSize >= 1) header.add("Dataset");
         if (subSectionSize >= 2) header.add("N");
         if (subSectionSize >= 3) header.add("RC Age");
@@ -667,7 +771,7 @@ public class SummaryView2 extends VerticalLayout {
         for (int i = 6; i <= subSectionSize; i++) {
             header.add("RCI" + i);
         }
-        subSectionSize = rows.get(0).valueList_NM.size();
+        subSectionSize = rowsForV10.get(0).valueList_NM.size();
         for (int i = 1; i <= subSectionSize; i++) {
             if (i == 1) {
                 header.add("Origin");
@@ -675,7 +779,7 @@ public class SummaryView2 extends VerticalLayout {
                 header.add("NM" + i);
             }
         }
-        subSectionSize = rows.get(0).valueList_CAA.size();
+        subSectionSize = rowsForV10.get(0).valueList_CAA.size();
         for (int i = 1; i <= subSectionSize; i++) {
             if (i == 2) {
                 header.add("Disease");
@@ -685,20 +789,65 @@ public class SummaryView2 extends VerticalLayout {
                 header.add("CAA" + i);
             }
         }
-        subSectionSize = rows.get(0).valueList_GN.size();
+        subSectionSize = rowsForV10.get(0).valueList_GN.size();
         for (int i = 1; i <= subSectionSize; i++) {
             header.add("GN" + i);
         }
         header.add("Study Name");
         if (hasFindings) header.add("Findings");
         header.add("DOI");
+        appendV12TsvHeader(header);
         return header;
+    }
+
+    private void appendV12TsvHeader(List<String> header) {
+        if (!hasV12Data()) return;
+
+        for (int i = 4; i <= v12SizeSI; i++) {
+            if (i == 4 || i == 5) continue;
+            header.add("v12-SI" + i);
+        }
+        for (int i = 4; i <= v12SizeSC; i++) {
+            header.add("v12-SC" + i);
+        }
+        if (v12SizeRCI >= 1) header.add("v12 Dataset");
+        if (v12SizeRCI >= 2) header.add("v12 N");
+        if (v12SizeRCI >= 3) header.add("v12 RC Age");
+        if (v12SizeRCI >= 4) header.add("v12 Sex");
+        if (v12SizeRCI >= 5) header.add("v12 Modality");
+        for (int i = 6; i <= v12SizeRCI; i++) {
+            header.add("v12-RCI" + i);
+        }
+
+        for (int i = 1; i <= v12SizeNM; i++) {
+            if (i == 1) {
+                header.add("v12 Modeling Method");
+            } else if (i == 2) {
+                header.add("v12\nResponse Variable");
+            } else {
+                header.add("v12-NM" + i);
+            }
+        }
+        for (int i = 1; i <= v12SizeCAA; i++) {
+            if (i == 2) {
+                header.add("v12 Disease");
+            } else if (i == 8) {
+                continue;
+            } else {
+                header.add("v12-CAA" + i);
+            }
+        }
+        for (int i = 1; i <= v12SizeGN; i++) {
+            header.add("v12-GN" + i);
+        }
+        if (v12HasFindings) header.add("v12 Findings");
     }
 
     private List<String> buildTsvRow(RowObject row, boolean hasFindings, int displayIndex) {
         List<String> cols = new ArrayList<>();
         cols.add(String.valueOf(displayIndex));
         cols.add(row.authorYear == null ? "" : row.authorYear);
+        cols.add(getV12Info(row.authorYear));
 
         int subSectionSize = row.valueList_SI.size();
         for (int i = 3; i < subSectionSize; i++) { // i=3 -> SI4
@@ -737,7 +886,52 @@ public class SummaryView2 extends VerticalLayout {
         cols.add(getStudyName(row));
         if (hasFindings) cols.add(findingsValue);
         cols.add(getDoi(row));
+        appendV12TsvRow(row.authorYear, cols);
         return cols;
+    }
+
+    private void appendV12TsvRow(String authorYear, List<String> cols) {
+        if (!hasV12Data()) return;
+
+        List<RowObject> v12Rows = rowsByAuthorYearForV12.get(authorYear);
+        List<String> si = aggregateV12Section(v12Rows, r -> r.valueList_SI, v12SizeSI);
+        List<String> sc = aggregateV12Section(v12Rows, r -> r.valueList_SC, v12SizeSC);
+        List<String> rci = aggregateV12Section(v12Rows, r -> r.valueList_RCI, v12SizeRCI);
+        List<String> nm = aggregateV12Section(v12Rows, r -> r.valueList_NM, v12SizeNM);
+        List<String> caa = aggregateV12Section(v12Rows, r -> r.valueList_CAA, v12SizeCAA);
+        List<String> gn = aggregateV12Section(v12Rows, r -> r.valueList_GN, v12SizeGN);
+
+        for (int i = 3; i < v12SizeSI; i++) { // i=3 -> SI4
+            if (i == 3 || i == 4) continue;
+            cols.add(getListValue(si, i));
+        }
+        for (int i = 3; i < v12SizeSC; i++) { // i=3 -> SC4
+            cols.add(getListValue(sc, i));
+        }
+        for (int i = 0; i < v12SizeRCI; i++) {
+            String val = getListValue(rci, i);
+            if (i == 4) {
+                cols.add(getDisplayedModality(val));
+            } else {
+                cols.add(val);
+            }
+        }
+        for (int i = 0; i < v12SizeNM; i++) {
+            cols.add(getListValue(nm, i));
+        }
+        String findingsValue = "";
+        for (int i = 0; i < v12SizeCAA; i++) {
+            String val = getListValue(caa, i);
+            if (i == 7) {
+                findingsValue = val;
+                continue;
+            }
+            cols.add(val);
+        }
+        for (int i = 0; i < v12SizeGN; i++) {
+            cols.add(getListValue(gn, i));
+        }
+        if (v12HasFindings) cols.add(findingsValue);
     }
 
     private String sanitizeForTsv(String s) {
@@ -747,6 +941,120 @@ public class SummaryView2 extends VerticalLayout {
 
     private String nullToEmpty(String s) {
         return s == null ? "" : s;
+    }
+
+    private String getV12Info(String authorYear) {
+        if (authorYear == null || rowsByAuthorYearForV12 == null) return "";
+        List<RowObject> list = rowsByAuthorYearForV12.get(authorYear);
+        if (list == null || list.isEmpty()) return "";
+        return list.stream()
+                .map(r -> r.jsonFileName == null ? "" : r.jsonFileName)
+                .filter(v -> v != null && !v.isEmpty())
+                .distinct()
+                .collect(Collectors.joining("\n"));
+    }
+
+    private void appendV12Cells(Element tr, String authorYear) {
+        if (!hasV12Data()) return;
+
+        List<RowObject> v12Rows = rowsByAuthorYearForV12.get(authorYear);
+        List<String> si = aggregateV12Section(v12Rows, r -> r.valueList_SI, v12SizeSI);
+        List<String> sc = aggregateV12Section(v12Rows, r -> r.valueList_SC, v12SizeSC);
+        List<String> rci = aggregateV12Section(v12Rows, r -> r.valueList_RCI, v12SizeRCI);
+        List<String> nm = aggregateV12Section(v12Rows, r -> r.valueList_NM, v12SizeNM);
+        List<String> caa = aggregateV12Section(v12Rows, r -> r.valueList_CAA, v12SizeCAA);
+        List<String> gn = aggregateV12Section(v12Rows, r -> r.valueList_GN, v12SizeGN);
+
+        String studyName = getListValue(si, 2);
+        String doi = getListValue(si, 4);
+
+        for (int i = 3; i < v12SizeSI; i++) { // i=3 -> SI4
+            if (i == 3 || i == 4) continue; // SI4, SI5 はスキップ
+            appendCheckBoxCell(tr, getListValue(si, i));
+        }
+        for (int i = 3; i < v12SizeSC; i++) { // i=3 -> SC4
+            appendCheckBoxCell(tr, getListValue(sc, i));
+        }
+
+        for (int i = 0; i < v12SizeRCI; i++) {
+            String val = getListValue(rci, i);
+            if (i == 0) {
+                appendDatasetCell(tr, val);
+            } else if (i == 1) {
+                appendPreWrappedCell(tr, val, false);
+            } else if (i == 2) {
+                appendAgeBoxPlotCell(tr, val);
+            } else if (i == 3) {
+                appendSexPieCell(tr, val);
+            } else if (i == 4) {
+                appendModalityCell(tr, val);
+            } else {
+                appendCheckBoxCell(tr, val);
+            }
+        }
+
+        for (int i = 0; i < v12SizeNM; i++) {
+            String val = getListValue(nm, i);
+            if (i == 0) {
+                appendNormalCell(tr, val);
+            } else if (i == 1) {
+                appendPreWrappedCell(tr, val, false);
+            } else {
+                appendCheckBoxCell(tr, val);
+            }
+        }
+
+        String findingsValue = "";
+        for (int i = 0; i < v12SizeCAA; i++) {
+            String val = getListValue(caa, i);
+            if (i == 7) {
+                findingsValue = val;
+                continue;
+            }
+            if (i == 1) {
+                appendNormalCell(tr, val);
+            } else {
+                appendCheckBoxCell(tr, val);
+            }
+        }
+
+        for (int i = 0; i < v12SizeGN; i++) {
+            appendCheckBoxCell(tr, getListValue(gn, i));
+        }
+
+        // v12 Study Name / Findings / DOI
+        if (v12HasFindings) {
+            appendNormalCell(tr, findingsValue);
+        }
+    }
+
+    private List<String> aggregateV12Section(List<RowObject> v12Rows, Function<RowObject, List<String>> getter, int size) {
+        if (size <= 0) return Collections.emptyList();
+        List<String> result = new ArrayList<>(Collections.nCopies(size, ""));
+        if (v12Rows == null || v12Rows.isEmpty()) return result;
+
+        for (int idx = 0; idx < size; idx++) {
+            List<String> collected = new ArrayList<>();
+            for (RowObject r : v12Rows) {
+                List<String> section = getter.apply(r);
+                if (section != null && section.size() > idx) {
+                    String val = section.get(idx);
+                    if (val != null && !val.isEmpty()) {
+                        collected.add(val);
+                    }
+                }
+            }
+            if (!collected.isEmpty()) {
+                result.set(idx, String.join("\n", collected));
+            }
+        }
+        return result;
+    }
+
+    private String getListValue(List<String> list, int idx) {
+        if (list == null || idx < 0 || idx >= list.size()) return "";
+        String val = list.get(idx);
+        return val == null ? "" : val;
     }
 
     // 改行表示に対応したセル（white-space: pre-wrap）

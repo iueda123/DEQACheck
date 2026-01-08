@@ -428,7 +428,7 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
         String currentWorkingDirectoryPathStr = System.getProperty("user.dir");
 
         // authorYearFolder 下にある authorYear+".pdf" という名前の（例えば、Bedford2025.pdf）PDFを検索して、最初に見つかったものを開こうとする
-        Path authorYearFolderPath = Paths.get(currentWorkingDirectoryPathStr, authorYear);
+        Path authorYearFolderPath = Paths.get(currentWorkingDirectoryPathStr, ROOT_OF_AUTHOR_YEAR_FOLDER, authorYear);
         try {
             if (!authorYearFolderPath.toFile().exists()) {
                 JOptionPane.showMessageDialog(
@@ -496,7 +496,7 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
     public void openMaterialsFolder() {
         String currentWorkingDirectoryPathStr = System.getProperty("user.dir");
 
-        Path materialsPath = Paths.get(currentWorkingDirectoryPathStr, authorYear, "/materials/");
+        Path materialsPath = Paths.get(currentWorkingDirectoryPathStr,ROOT_OF_AUTHOR_YEAR_FOLDER , authorYear, "/materials/");
 
         try {
             if (Desktop.isDesktopSupported()) {
