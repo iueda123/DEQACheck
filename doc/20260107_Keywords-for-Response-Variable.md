@@ -180,47 +180,6 @@ Sun2023, Liu2024, Sun2025, Lin2024, Huo2024, Jing2023
 
 ----
 
-## Ancillary Consideration: Deformation-Derived Morphometry (DDM) に該当する文献
-
-DDMというというキーワードで、
-"Normative Modeling Studies with Deformation-Derived Morphometry (DBM/TBM or Modulated VBM)",
-"Studies Using Deformation-Based or Modulated VBM Features"
-Normative Modeling時の response variableとして
-非線形正規化の変形場やJacobianを用いてボクセル単位の局所体積変化を定量化する形態計測値を用いている
-研究を整理したいと考えている。
-
-例えば以下の研究がDDMに該当する。
-
-- CardenasDeLaParra2019 - 16p11.2重複/欠失を対象に、全脳のlog-Jacobian TBM(Tensor-Based Morphometry)
-  マップ（voxel-wise）とグローバル体積をモデル化。非線形正規化の変形場（Jacobian行列）から体積変化をボクセル単位で評価する形態計測手法です。変形テンソル（Jacobian）を直接使う点が特徴で、VBMのようなセグメンテーションを経ずに変形量から局
-  所体積差を定量化。
-- Wolfers2018 / Wolfers2021 - SCZ/BP/ASDなどでVBM由来のグレー/ホワイトマターのvoxel-wise量をNormative Modeling。
-  具体的には、T1を共通テンプレートへ非線形正規化し、その変形Jacobianで体積補正（モジュレーション）したGM/WM確率マップを
-  ボクセル単位で扱い、Warped Bayesian Linear Regressionで年齢・性別などを共変量にした予測分布を学習し、
-  個人ごとの逸脱Zを算出する、という形で変形場由来の局所体積指標を利用。
-  変形場のJacobianは体積補正（modulation）にのみ使い、特徴量はGM/WMのモジュレーテッドVBMボクセル値（組織体積）。
-  Jacobian決定量そのものを予測するDBM(Deformation-Based Morphometry)/TBM(Tensor-Based Morphometry)ではない。
-- Fraza2023 - BrainCharts拡張データでT1→MNIのvoxel-wise Jacobian determinantsを直接モデル化（DBM/TBM的にJacobian決定量そのものを予測）。
-- Shan2022 - ASDを対象に、VBM灰白質ボリュームをNMF(Non-negative Matrix Factorization)で低次元因子に分解し、各因子重みをNormative
-  Modeling（因子はVBM変形指標由来の空間パターン）。
-- Kim2023/2024 - 小脳に特化し、JacobianモジュレーテッドVBMのvoxel-wise値（約14万voxel）と葉別体積を年齢・性別でNormative
-  Modelingし、臨床群の逸脱Zを評価。
-- Segal2025 - 白質VBM（JacobianモジュレーテッドWMVのvoxel-wiseマップ）をWarped BLMでNormative Modelingし、白質全域の逸脱Zマップを作成。
-- Han2024A - CAT12で得た灰白質のモジュレーテッドVBMボクセル値と246領域ZスコアをNormative
-  Modelingし、個人の灰白質逸脱をボクセル/領域の両粒度で評価。
-
-ここに並ぶ研究は
-
-- Cardenas/FrazaがJacobian決定量そのもの（DBM/TBM）
-- Wolfers/Kim/Segal/HanがJacobianでモジュレーションしたVBM（組織体積）
-- ShanがVBM体積をNMF因子化した派生特徴
-
-したがって、
-「deformation由来の形態指標をNormative Modelingした研究」というニュアンスが伝わる名前で括りを設けるのが適切で
-これら研究のResponse variableの分類については「Deformation-Derived Morphometry」とするのが適切であろう。
-
-----
-
 ## Ancillary Consideration: VQ-VAE typicality score に分類されうる研究
 
 - Mendes2024 - VQ-VAE(Vector-Quantized Variational Autoencoder)でVBM前処理したsMRIを離散コード（~
@@ -255,16 +214,102 @@ Normative Modeling時の response variableとして
 
 -------
 
+
 ## Ancillary Consideration: IDP-set に分類されうる研究
 
-- Fraza2023（UKB CNV解析）: UK Biobank 44,456人から得た2,084のIDP（構造・機能・拡散のまとめ指標）をFUNPACKで前処理し、PCNtoolkitのBLR（年齢・性別・サイト共変量）で各IDPのnormative
-  モデルを作成。CNVキャリアの逸脱z（|z|>2）総数をモダリティ別に比較するスクリーニングとしてIDPセットを用いた後、Jacobian voxelwise解析へ展開。share_package/data/Fraza2023/materials/optimized/Fraza2023.pdf.md
+- Fraza2023（UKB CNV解析）: UK Biobank
+  44,456人から得た2,084のIDP（構造・機能・拡散のまとめ指標）をFUNPACKで前処理し、PCNtoolkitのBLR（年齢・性別・サイト共変量）で各IDPのnormative
+  モデルを作成。CNVキャリアの逸脱z（|z|>2）総数をモダリティ別に比較するスクリーニングとしてIDPセットを用いた後、Jacobian
+  voxelwise解析へ展開。share_package/data/Fraza2023/materials/optimized/Fraza2023.pdf.md
 
 -------
 
+## Ancillary Consideration: Deformation-Derived Morphometry (DDM) に該当する文献
+
+DDMというというキーワードで、
+"Normative Modeling Studies with Deformation-Derived Morphometry (DBM/TBM or Modulated VBM)",
+"Studies Using Deformation-Based or Modulated VBM Features"
+Normative Modeling時の response variableとして
+非線形正規化の変形場やJacobianを用いてボクセル単位の局所体積変化を定量化する形態計測値を用いている
+研究を整理したいと考えている。
+
+例えば以下の研究がDDMに該当する。
+
+- CardenasDeLaParra2019 - 16p11.2重複/欠失を対象に、全脳のlog-Jacobian TBM(Tensor-Based Morphometry)
+  マップ（voxel-wise）とグローバル体積をモデル化。非線形正規化の変形場（Jacobian行列）から体積変化をボクセル単位で評価する形態計測手法です。変形テンソル（Jacobian）を直接使う点が特徴で、VBMのようなセグメンテーションを経ずに変形量から局
+  所体積差を定量化。
+- Wolfers2018 / Wolfers2021 - SCZ/BP/ASDなどでVBM由来のグレー/ホワイトマターのvoxel-wise量をNormative Modeling。
+  具体的には、T1を共通テンプレートへ非線形正規化し、その変形Jacobianで体積補正（モジュレーション）したGM/WM確率マップを
+  ボクセル単位で扱い、Warped Bayesian Linear Regressionで年齢・性別などを共変量にした予測分布を学習し、
+  個人ごとの逸脱Zを算出する、という形で変形場由来の局所体積指標を利用。
+  変形場のJacobianは体積補正（modulation）にのみ使い、特徴量はGM/WMのモジュレーテッドVBMボクセル値（組織体積）。
+  Jacobian決定量そのものを予測するDBM(Deformation-Based Morphometry)/TBM(Tensor-Based Morphometry)ではない。
+- Fraza2023 - BrainCharts拡張データでT1→MNIのvoxel-wise Jacobian determinantsを直接モデル化（DBM/TBM的にJacobian決定量そのものを予測）。
+- Shan2022 - ASDを対象に、VBM灰白質ボリュームをNMF(Non-negative Matrix Factorization)で低次元因子に分解し、各因子重みをNormative
+  Modeling（因子はVBM変形指標由来の空間パターン）。
+- Kim2023/2024 - 小脳に特化し、JacobianモジュレーテッドVBMのvoxel-wise値（約14万voxel）と葉別体積を年齢・性別でNormative
+  Modelingし、臨床群の逸脱Zを評価。
+- Segal2025 - 白質VBM（JacobianモジュレーテッドWMVのvoxel-wiseマップ）をWarped BLMでNormative Modelingし、白質全域の逸脱Zマップを作成。
+- Han2024A - CAT12で得た灰白質のモジュレーテッドVBMボクセル値と246領域ZスコアをNormative
+  Modelingし、個人の灰白質逸脱をボクセル/領域の両粒度で評価。
+
+ToDo: Shan2022は異質ではないか？Jacobianは関係ないのではないか？
+
+ここに並ぶ研究は
+
+- Cardenas/FrazaがJacobian決定量そのもの（DBM/TBM）
+- Wolfers/Kim/Segal/HanがJacobianでモジュレーションしたVBM（組織体積）
+- ShanがVBM体積をNMF因子化した派生特徴
+
+したがって、
+「deformation由来の形態指標をNormative Modelingした研究」というニュアンスが伝わる名前で括りを設けるのが適切で
+これら研究のResponse variableの分類については「Deformation-Derived Morphometry」とするのが適切であろう。
+
+-------------------
+
 ## Ancillary Consideration: NMF に分類されうる研究
 
+- Shan2022（ASD・構造MRI）: ABIDE II TDのVBM灰白質ボリュームをNMFで6因子に分解し、因子重みをAge/Gender共変量のGPRでnormative
+  モデル化。ABIDE I ASDの因子重みWスコアの逸脱と臨床サブタイプを解析。share_package/data/Shan2022/materials/optimized/Shan2022.pdf.md
+- Han2024B（MDD・resting fMRI）:
+  HCで学習したGPRによりALFFの個別Zスコアを得た後、NMFで差分要因（positive/negative各2因子）に分解し、因子重みを臨床特徴・サブタイプ同定に利用。share_package/data/Han2024B/materials/optimized/Han2024B.pdf.md
+- Han2023（OCD・構造MRI）: CAT12 VBMで得たvoxel-wise GMVをage/sex共変量GPRでNormative
+  Zスコア化し、正負に分けてNMFで4潜在因子（positive/negative各2）に分解。因子重み（変形由来GMV逸脱パターンの潜在要約）を症状・発症年齢・病期・サブタイプ同定に関連付け。share_package/data/Han2023/materials/optimized/Han2023.pdf.md
 
+-------
+
+## Ancillary Consideration: DBM に分類されうる研究
+
+Jacobianそのものを予測するDBM/TBM
+
+- CardenasDeLaParra2019（16p11.2 CNV・TBM）: NIHPD基準でlog-Jacobian determinantsのvoxel-wise TBMマップをGPRでnormative Zスコア化。share_package/data/CardenasDeLaParra2019/materials/optimized/CardenasDeLaParra2019.pdf.md
+- Fraza2023（UKB Jacobianモデル）: Cam-CAN/HCP/OASIS/PNC/UKBの19,620人から得たT1→MNIのJacobian determinants（voxel-wise）をWarped BLRでnormativeモデル化し、CNVキャリアの逸脱Zを解析。share_package/data/Fraza2023/materials/optimized/Fraza2023.pdf.md
+- Holz2023（DBD・multi-modal）: 構造画像のvoxel-wise非線形Jacobian determinantsをGPRベースのnormativeモデルに投入し、感情課題fMRIの逸脱とともにLICAで統合。share_package/data/Holz2023/materials/optimized/Holz2023.pdf.md
+
+Jacobianそのものを予測するDBM/TBMではなく、
+JacobianでモジュレーションしたVBMやその派生特徴（NMF因子など）をnormative modelingしているためDDMではあるがDBMには入れない研究: 
+Wolfers2018, Wolfers2021, Shan2022, Kim2023, Kim2024, Segal2025, Han2024A など。
+
+
+## Ancillary Consideration: 再調査 DBM に分類されうる研究
+
+DBMを包括概念とし、変形場Jacobian決定量そのもの（DBM/TBM）、JacobianでモジュレーションしたVBMボクセル値、そこから得た低次元因子（NMFなど）をresponse variableにしたNormative Modeling研究をすべてここにまとめる。
+
+- 直接Jacobian（DBM/TBM）
+  - CardenasDeLaParra2019（16p11.2 CNV・TBM）: NIHPD基準でlog-Jacobian determinantsのvoxel-wise TBMマップをGPRでnormative Zスコア化。share_package/data/CardenasDeLaParra2019/materials/optimized/CardenasDeLaParra2019.pdf.md
+  - Fraza2023（UKB Jacobianモデル）: Cam-CAN/HCP/OASIS/PNC/UKBの19,620人から得たT1→MNIのJacobian determinants（voxel-wise）をWarped BLRでnormativeモデル化し、CNVキャリアの逸脱Zを解析。share_package/data/Fraza2023/materials/optimized/Fraza2023.pdf.md
+  - Holz2023（DBD・multi-modal）: 構造画像のvoxel-wise非線形Jacobian determinantsをGPRベースのnormativeモデルに投入し、感情課題fMRIの逸脱とともにLICAで統合。share_package/data/Holz2023/materials/optimized/Holz2023.pdf.md
+- JacobianモジュレーテッドVBM（GM/WM体積）
+  - Wolfers2018 / Wolfers2021: 非線形正規化後にJacobianで体積補正したGM/WM確率マップのvoxel-wise値をWarped BLRでnormative modelingし、SCZ/BP/ASDで逸脱Zを評価。
+  - Kim2023 / Kim2024: 小脳のJacobianモジュレーテッドVBM（約14万voxel）と葉別体積を年齢・性別でnormative modelingし、臨床群の逸脱Zを評価。
+  - Segal2025: 白質JacobianモジュレーテッドWMVのvoxel-wiseマップをWarped BLMでnormative modelingし、全白質域の逸脱Zマップを作成。
+  - Han2024A: CAT12由来の灰白質JacobianモジュレーテッドVBMボクセル値と246領域Zスコアをnormative modelingし、ボクセル/領域粒度で逸脱を評価。
+- Jacobian由来特徴の低次元因子（NMFなど）
+  - Shan2022（ASD・構造MRI）: VBM灰白質ボリュームをNMFで6因子に分解し、因子重みをAge/Gender共変量のGPRでnormative modeling。share_package/data/Shan2022/materials/optimized/Shan2022.pdf.md
+  - Han2023（OCD・構造MRI）: VBM GMVのnormative Zスコアを正負に分けてNMFし、4因子重みを症状・発症年齢と関連付け。share_package/data/Han2023/materials/optimized/Han2023.pdf.md
+  - Han2024B（MDD・resting fMRI）: ALFF ZスコアをNMFで因子化し臨床サブタイプに利用（変形ベースではないが旧NMF分類の参考として統合）。share_package/data/Han2024B/materials/optimized/Han2024B.pdf.md
+
+やはりShan2022、Han2023、Han2024Bは異質ではないか？
 
 -------
 
