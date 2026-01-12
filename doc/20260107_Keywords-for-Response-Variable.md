@@ -229,9 +229,10 @@ Sun2023, Liu2024, Sun2025, Lin2024, Huo2024, Jing2023
 
 DDMというというキーワードで、
 Normative Modeling時に
-非線形正規化の変形場（Jacobian行列）を用いたボクセル単位の局所体積変化を定量化する形態計測値を
+非線形正規化の変形場（Jacobian行列）を用いたボクセル単位の局所体積変化を定量化する形態計測値をresponse variableをとしている研究
+およびその類似研究をを整理したいと考えている。
+
 典型脳確率分布学習器由来値
-response variableをとしている研究を整理したいと考えている。
 
 例えば以下の研究がDDMに該当する（Normative Modeling Studies with Deformation-Derived Morphometry）。
 
@@ -243,6 +244,8 @@ VBMの「モジュレーション」は、非線形正規化の変形場で得�
 これら研究のResponse variableの分類については「Deformation-Derived Morphometry」とするのはどうだろうか。
 
 JacobianモジュレーテッドVBM（GM/WM体積） JacobianでモジュレーションしたVBMやその派生特徴（NMF因子など）をnormative modelingしているためDDMではあるがDBMには入れない研究:
+
+- Jacobian由来特徴の低次元因子（NMFなど）
 
 ### Jacobianそのものを予測するDBM/TBM
 - CardenasDeLaParra2019 - 16p11.2重複/欠失を対象に、全脳のlog-Jacobian TBM(Tensor-Based Morphometry)
@@ -260,44 +263,47 @@ JacobianモジュレーテッドVBM（GM/WM体積） Jacobianでモジュレー�
   
 ### JacobianでモジュレーションしたVBM（組織体積）
 - Wolfers2018 / Wolfers2021 - SCZ/BP/ASDなどでVBM由来のグレー/ホワイトマターのvoxel-wise量をNormative Modeling。
-  具体的には、T1を共通テンプレートへ非線形正規化し、その変形Jacobianで体積補正（モジュレーション）したGM/WM確率マップを
-  ボクセル単位で扱い、Warped Bayesian Linear Regressionで年齢・性別などを共変量にした予測分布を学習し、
+  具体的には、T1を共通テンプレートへ非線形正規化し、その変形Jacobianで体積補正（モジュレーション）したGM/WM確率マップを ボクセル単位で扱い、
+  Warped Bayesian Linear Regressionで年齢・性別などを共変量にした予測分布を学習し、
   個人ごとの逸脱Zを算出する、という形で変形場由来の局所体積指標を利用。
   変形場のJacobianは体積補正（modulation）にのみ使い、特徴量はGM/WMのモジュレーテッドVBMボクセル値（組織体積）。
   Jacobian決定量そのものを予測するDBM(Deformation-Based Morphometry)/TBM(Tensor-Based Morphometry)ではない。
   非線形正規化後にJacobianで体積補正したGM/WM確率マップのvoxel-wise値をWarped BLRでnormative modelingし、SCZ/BP/ASDで逸脱Zを評価。
 - Fraza2023 - BrainCharts拡張データでT1→MNIのvoxel-wise Jacobian determinantsを直接モデル化（DBM/TBM的にJacobian決定量そのものを予測）。
-- Shan2022 - ASDを対象に、VBM灰白質ボリュームをNMF(Non-negative Matrix Factorization)で低次元因子に分解し、各因子重みをNormative
-  Modeling（因子はVBM変形指標由来の空間パターン）。
-  入力特徴はVBMのモジュレーテッドGMV（非線形正規化時のJacobianで体積補正された体積）に由来するのみである。
-  つまり非線形正規化の変形場（Jacobian決定量）を直接モデル化・予測するDBM/TBMではなく、JacobianはVBMの体積補正にのみ間接利用され、学習自体はその補正済み体積を要約したNMF因子重みに対して行っています。
-  VBM体積をNMF因子化した派生特徴をnorumative modeling（Jacobian行列はVBMの体積補正に間接利用されるのみ）
-- Kim2023/2024 - 小脳に特化し、JacobianモジュレーテッドVBMのvoxel-wise値（約14万voxel）と葉別体積を年齢・性別でNormative
-  Modelingし、臨床群の逸脱Zを評価。
+- Shan2022（ASD・構造MRI）:
+  ASDを対象に、VBM灰白質ボリュームをNMF(Non-negative Matrix Factorization)で低次元因子に分解し、
+  各因子重みをNormative Modeling（因子はVBM変形指標由来の空間パターン）。
+  つまり非線形正規化の変形場（Jacobian決定量）を直接モデル化・予測するDBM/TBMではなく、JacobianはVBMの体積補正にのみ間接利用され、学習自体はその補正済み体積を要約したNMF因子重みに対して行っている。
+  VBM体積をNMF因子化した派生特徴をnorumative modeling。Jacobian行列はVBMの体積補正に間接利用されるのみ）。
+  VBM灰白質ボリュームをNMFで6因子に分解し、因子重みをAge/Gender共変量のGPRでnormative modeling。
+  ABIDE II TDのVBM灰白質ボリュームをNMFで6因子に分解し、因子重みをAge/Gender共変量のGPRでnormative モデル化。
+  ABIDE I ASDの因子重みWスコアの逸脱と臨床サブタイプを解析。
+  share_package/data/Shan2022/materials/optimized/Shan2022.pdf.md
+- Kim2023/2024 - 小脳に特化し、JacobianモジュレーテッドVBMのvoxel-wise値（約14万voxel）と葉別体積を年齢・性別でNormative Modelingし、臨床群の逸脱Zを評価。
   小脳のJacobianモジュレーテッドVBM（約14万voxel）と葉別体積を年齢・性別でnormative modelingし、臨床群の逸脱Zを評価。
 - Segal2025 - 白質VBM（JacobianモジュレーテッドWMVのvoxel-wiseマップ）をWarped BLMでNormative Modelingし、白質全域の逸脱Zマップを作成。
   白質JacobianモジュレーテッドWMVのvoxel-wiseマップをWarped BLMでnormative modelingし、全白質域の逸脱Zマップを作成。
-- Han2024A - CAT12で得た灰白質のモジュレーテッドVBMボクセル値と246領域ZスコアをNormative
-  Modelingし、個人の灰白質逸脱をボクセル/領域の両粒度で評価。
-  CAT12由来の灰白質JacobianモジュレーテッドVBMボクセル値と246領域Zスコアをnormative modelingし、ボクセル/領域粒度で逸脱を評価。
+- Han2024A - CAT12で得た灰白質のモジュレーテッドVBMボクセル値と246領域ZスコアをNormative Modelingし、個人の灰白質逸脱をボクセル/領域の両粒度で評価。
 
 ## Ancillary Consideration: DBM に分類されうる研究
-- Jacobian由来特徴の低次元因子（NMFなど）
-  - Shan2022（ASD・構造MRI）: 
-    VBM灰白質ボリュームをNMFで6因子に分解し、因子重みをAge/Gender共変量のGPRでnormative modeling。
-    share_package/data/Shan2022/materials/optimized/Shan2022.pdf.md
-    ABIDE II TDのVBM灰白質ボリュームをNMFで6因子に分解し、因子重みをAge/Gender共変量のGPRでnormative モデル化。
-    ABIDE I ASDの因子重みWスコアの逸脱と臨床サブタイプを解析。
-    share_package/data/Shan2022/materials/optimized/Shan2022.pdf.md
-  - Han2023（OCD・構造MRI）: 
+ - Han2023（OCD・構造MRI）: 
     VBM GMVのnormative Zスコアを正負に分けてNMFし、4因子重みを症状・発症年齢と関連付け。
     CAT12 VBMで得たvoxel-wise GMVをage/sex共変量GPRでNormative Zスコア化し、正負に分けてNMFで4潜在因子（positive/negative各2）に分解。
     因子重み（変形由来GMV逸脱パターンの潜在要約）を症状・発症年齢・病期・サブタイプ同定に関連付け。
     share_package/data/Han2023/materials/optimized/Han2023.pdf.md
   - Han2024B（MDD・resting fMRI）: 
-    ALFF ZスコアをNMFで因子化し臨床サブタイプに利用（変形ベースではないが旧NMF分類の参考として統合）。
+    ALFF ZスコアをNMFで因子化し臨床サブタイプに利用（変形ベースではない）。
     HCで学習したGPRによりALFFの個別Zスコアを得た後、NMFで差分要因（positive/negative各2因子）に分解し、因子重みを臨床特徴・サブタイプ同定に利用。
     share_package/data/Han2024B/materials/optimized/Han2024B.pdf.md
+
+NMFとは:
+Non-negative Matrix Factorization（非負値行列因子分解）の略で、非負のデータ行列Vを基底行列Wと係数行列Hに分解し、
+各因子（列）で空間パターンと被験者ごとの重みを同時に推定する次元圧縮手法。
+VBMやfMRIでボクセル（特徴）×被験者の行列を因子化し、低次元の解釈しやすい脳パターンと個人の寄与度を得る際に用いられる。
+NMFとJacobian行列と独立の概念である。Jacobian行列は非線形正規化の変形場から得る局所体積スケールの指標で、形態計測（VBM/DBM/TBM）で使う。
+NMFは非負値行列因子分解という次元圧縮・パターン抽出の数理手法で、入力データに依存する。
+関係するとすれば、Jacobian由来のボクセルマップやモジュレーテッドVBMを行列にしてNMFにかけるといった分析パイプライン上での利用に限られ、概念的には別である。
+
 
 
 
