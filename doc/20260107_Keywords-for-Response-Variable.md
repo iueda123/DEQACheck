@@ -1,6 +1,8 @@
-# Keywords for Response Variable
+# Keywords for Normalization: Response Variable
 
-## 再検討の流れ
+Version: 202601014
+
+## 再検討の記録
 
 122のNormative Modeling (NM) 研究における Response variableについて、
 高松案として、以下の16個のキーワードで表現することが提案された。
@@ -630,7 +632,9 @@ Normative Modeling時に
 
 * 変形場Jacobian決定量そのもの（DBM/TBM）をresponse variableにしたNormative Modeling研究
 * そこから得た低次元因子（NMFなど）をresponse variableにしたNormative Modeling研究
-  一方で以下のような研究はこの括りの外としたい。
+
+一方で以下のような研究はこの括りの外としたい。
+
 * JacobianでモジュレーションしたVBMボクセル値(Jacobian modulated VBM（GM/WM体積）)をresponse variableにしたNormative
   Modeling研究
 * そこから得た低次元因子（NMFなど）をresponse variableにしたNormative Modeling研究

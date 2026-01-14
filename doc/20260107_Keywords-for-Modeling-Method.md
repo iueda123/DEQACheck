@@ -1,4 +1,6 @@
-# Keywords for Response Variable
+# Keywords for Normalization: Modeling Method
+
+Version: 202601014
 
 ## 再検討の記録
 
@@ -17,7 +19,6 @@
 - GPR: Gaussian Process Regression
 - GPT: Generative Pre-trained Transformer
 - HBR: Hierarchical Bayesian Regression
-- LMS: Lambda-Mu-Sigma method
 - LOESS: Locally Estimated Scatterplot Smoothing
 - MEM: Mixed-Effects Model
 - MFPR: Multivariate Fractional Polynomial Regression
@@ -47,15 +48,10 @@
 - 未カバー主なカテゴリ:
     - POLY: Polynomial regression（linear/quadratic/cubic; モデル選択含む）、二次多項式.
     - QUANTREG: Quantile regression（percentileモデリング; 5th/50th/95th など）.
-    - TOL-INT: Tolerance interval (nonparametric)（両側許容区間）.
-    - ZSCORE: Simple Z-score基準（平均・分散でz化のみ、詳細手法なし）.
-    - MOV-AVG: Moving average（移動平均で平均・分散推定）.
-    - KERNEL-NW: Kernel regression（Nadaraya–Watson）.
     - AE: Autoencoder系（plain AE / denoising AE / semi-supervised AE）※既存VAE系とは別に素のAEが必要.
     - PCN-UNSPEC: PCNtoolkit/nispat/nomis等でアルゴリズム未特定（Not reported/NR）を示すタグ.
     - LMM: Linear Mixed Models（LMM）、voxel-wise LME など mixed-effects 系の総称タグ.
     - HBLM/HBGPM: Hierarchical Bayesian Linear/Gaussian Process Model（HBLM/HBGPM）など HBR 派生の明示.
-    - NNA/EXP-WEIBULL: Nearest Neighbor algorithm（density estimation）＋ Exponentiated Weibull likelihood変換.
 - 補足: “Yes”“NR”“algorithm not specified” などは UNKNOWN/NR フラグが必要。欠損は3件（nm2_modeling_method/answer が空）。
 
 
@@ -64,7 +60,7 @@
 - Functional regression（MFPR）
 - Linear regression/GLM（Linear regression, OLSR/OLS, GLM, polynomial regression）
 - Additive/mixed-effects regression（GAM, GAMM, Linear MEM）
-- Distributional/quantile regression（GAMLSS, LMS, quantile regression, quantile linear/polynomial regression, tolerance intervals）
+- Distributional/quantile regression（GAMLSS, quantile regression, quantile linear/polynomial regression）
 - Nonparametric smoothing（LOESS, moving average curves, Nadaraya–Watson kernel regression）
 - Gaussian process regression（GPR）
 - Bayesian linear regression（BLR, B-spline BLR）
@@ -93,25 +89,16 @@
 | Deep Learning       | mmVAE          | multimodal variational autoencoder                        | マルチモーダルVAE             | 画像+臨床のmmVAE                |
 | Deep Learning       | VAE            | variational autoencoder                                   | 変分自己符号化器               | β-VAE                      |
 | Deep Learning       | VQ-VAE         | vector-quantized variational autoencoder                  | ベクトル量子化VAE             | VQ-VAE-2                   |
-| Dimensionality Red  | NMF            | nonnegative matrix factorization                          | 非負値行列因子分解              | コンポーネント荷重のNMF              |
-| Dimensionality Red  | PCA            | principal component analysis                              | 主成分分析                  | PCA得点を回帰                   |
 | Domain-Specific     | FUNCOIN        | functional connectivity integrative normative modelling   | FC統合ノーマティブモデル          | FUNCOINでFC分布推定             |
 | Domain-Specific     | PBSI           | person-based similarity index                             | 個人別類似性に基づくスコア          | PBSIで個別偏差を計算               |
 | Mixed-Effects       | LMM            | linear mixed model                                        | 線形混合効果モデル              | 体積を従属変数としたLMM              |
 | Mixed-Effects       | MEM            | mixed-effects model                                       | 混合効果モデルの総称             | ランダム切片のみのLME               |
-| Nearest Neighbor    | EXP-WEIBULL    | exponentiated weibull likelihood                          | NN推定後のWeibull尤度変換      | kNN後にEW分布で外れ値評価            |
 | Nearest Neighbor    | N3             | nearest neighbor normativity                              | 最近傍を用いたノーマティブ推定        | k=50のN3                    |
-| Nearest Neighbor    | NNA            | nearest neighbor (density-based)                          | 密度推定型の最近傍法             | kNNで局所密度を推定                |
 | Nonparametric Reg   | GAM            | generalized additive model                                | スムーズ項を含む非線形回帰          | thin-plate splineのGAM      |
 | Nonparametric Reg   | GAMLSS         | generalized additive models for location, scale and shape | 分布の位置・尺度・形状を同時モデリング    | μ/σ/ν/τをスプラインで推定           |
 | Nonparametric Reg   | GAMM           | generalized additive mixed model                          | ランダム効果を含むGAM           | サイトをランダム効果にしたGAMM          |
-| Nonparametric Reg   | KERNEL-NW      | kernel regression (nadaraya-watson)                       | NW推定によるカーネル回帰          | ガウスカーネルのNW回帰               |
-| Nonparametric Reg   | LMS            | lambda-mu-sigma method                                    | LMS法によるパーセンタイル曲線推定     | WHO成長曲線のLMS                |
 | Nonparametric Reg   | LOESS          | locally estimated scatterplot smoothing                   | ローカル回帰スムージング           | span=0.75のLOESS            |
-| Nonparametric Reg   | MOV-AVG        | moving average                                            | 移動平均で平均・分散を推定          | 5歳幅の移動平均                   |
 | Nonparametric Reg   | QUANTREG       | quantile regression                                       | 分位点回帰でパーセンタイルを推定       | 5th/50th/95th quantile     |
-| Nonparametric Reg   | TOL-INT        | tolerance interval (nonparametric)                        | 非パラ許容区間推定              | 両側95%許容区間                  |
-| Nonparametric Reg   | ZSCORE         | z-score baseline                                          | 平均と分散のみでz化             | μ/σを使った単純zスコア              |
 | Parametric Reg      | GLM            | generalized linear model                                  | 一般化線形モデルによる回帰          | GLM with Gaussian identity |
 | Parametric Reg      | MFPR           | multivariate fractional polynomial regression             | 多変量分数多項式回帰             | FP2で年齢効果をモデル               |
 | Parametric Reg      | OLSR           | ordinary least squares regression                         | 線形回帰の最小二乗推定            | ROIごとの線形回帰                 |
@@ -180,31 +167,6 @@
 **代表的な研究:**
 - Feng2024, Feng2025, Kumar2024, Kumar2025, Mendes2024, OliveiraSaraiva2023, Pinaya2019, Pinaya2021, Sampaio2025, Tong2024, Vieira2025（11研究）
 
-### Dimensionality Red
-
-次元削減手法を用いてデータの低次元表現を獲得し、その上でノーマティブモデルを構築する手法群。
-
-**特徴:**
-- 高次元データを少数の主要な成分に圧縮
-- 計算効率の向上と過学習の抑制
-- 解釈可能な成分の抽出が可能な場合がある
-- ノイズ除去効果が期待できる
-
-**カテゴリ内の手法:**
-- **PCA (Principal Component Analysis)**: 主成分分析。データの分散を最大化する直交軸を抽出。線形変換で次元削減。
-- **NMF (Nonnegative Matrix Factorization)**: 非負値行列因子分解。非負制約により、部分的な成分（パーツ）の組み合わせとして解釈可能。
-
-**Normative Modelingにおける利点:**
-- 高次元データ（ROI単位の脳体積など）の効率的な処理
-- 主成分や因子得点をノーマティブモデルの入力として利用
-- データのノイズ成分を除去し、安定した推定が可能
-- 成分の解釈により、異常の背景にある因子を理解しやすい
-
-**代表的な研究と具体例:**
-- PCA/NMFを前処理として用いる研究は多数存在するが、主要なモデリング手法としての明示的な使用は限定的  
-  例: Shan2022 ではVBM灰白質ボクセル値をNMFで6因子に分解し、因子重みをGPRベースのnormativeモデルに投入して逸脱Zを算出。
-- Wolfers2020 系ではVBMの主成分（PCAスコア）をノーマティブモデリングの入力に用い、個人のPCスコア偏差を評価。
-
 ### Domain-Specific
 
 特定のドメインや応用領域に特化して設計されたノーマティブモデリング手法。
@@ -266,8 +228,6 @@
 
 **カテゴリ内の手法:**
 - **N3 (Nearest Neighbor Normativity)**: 最近傍法を用いたノーマティブ推定。各点に対してk個の近傍を用い、局所的な平均・分散を推定。
-- **NNA (Nearest Neighbor Algorithm - density-based)**: 密度推定型の最近傍法。近傍の密度を推定し、外れ値スコアを算出。
-- **EXP-WEIBULL (Exponentiated Weibull Likelihood)**: 最近傍推定後にWeibull分布の尤度変換を適用。外れ値評価を確率的に定式化。
 
 **Normative Modelingにおける利点:**
 - 複雑な非線形分布や多峰性分布に対応可能
@@ -276,8 +236,9 @@
 - 稀な亜集団や特異なパターンにも柔軟に対応
 
 **代表的な研究と具体例:**
-- N3およびNearest Neighbor法を主要手法として用いた研究は限定的で、他手法との併用が多い  
-  例: 一部のADNI系解析で、非線形正規化後のJacobianマップやVBM特徴に対し、同年齢近傍の被験者k人から局所平均・分散を推定し、個人のZスコアを計算（N3的な最近傍ノーマティブ）。その後、外れ値検出のためにWeibull尤度（EXP-WEIBULL）へ変換して異常度を評価する流れが報告されている。
+- **Leenings2024**: Structural MRIの脳形態（加齢・疾患）に対し、Nearest Neighbor Normativity (N³) を主要手法として導入し、個別の正常性参照を近傍サンプルで構築。
+- N3を主要手法として用いた研究は限定的で、他手法との併用が多い  
+  例: ADNI系解析で、非線形正規化後のJacobianマップやVBM特徴に対し、同年齢近傍の被験者k人から局所平均・分散を推定し、個人のZスコアを計算するN3的な最近傍ノーマティブが報告されている。
 
 ### Nonparametric Reg
 
@@ -294,16 +255,11 @@
 - **GAMLSS (Generalized Additive Models for Location, Scale and Shape)**: GAMを拡張し、分布の位置・尺度・形状パラメータを同時にモデル化。
 - **GAMM (Generalized Additive Mixed Model)**: GAMにランダム効果を追加。階層データやサイト効果を考慮。
 - **LOESS (Locally Estimated Scatterplot Smoothing)**: 局所加重回帰。各点周辺のデータに重みをつけて局所的に回帰。
-- **LMS (Lambda-Mu-Sigma method)**: 分布のゆがみ（λ）、位置（μ）、尺度（σ）をモデル化。成長曲線やパーセンタイル推定に利用。
-- **KERNEL-NW (Kernel Regression - Nadaraya-Watson)**: カーネル関数による重み付けで局所回帰。
-- **MOV-AVG (Moving Average)**: 移動平均により平均・分散を推定。シンプルだが効果的な平滑化手法。
 - **QUANTREG (Quantile Regression)**: 分位点回帰。条件付き中央値や任意のパーセンタイルを直接推定。
-- **TOL-INT (Tolerance Interval - Nonparametric)**: ノンパラメトリックな許容区間推定。分布仮定なしで正常範囲を設定。
-- **ZSCORE (Z-score Baseline)**: 平均と標準偏差でz得点化。最も単純な正規化手法。
 
 **Normative Modelingにおける利点:**
 - 年齢効果など複雑な非線形トレンドを柔軟にモデル化
-- 分布の歪みや裾の重さを考慮した偏差評価（GAMLSS, LMS, QUANTREG）
+- 分布の歪みや裾の重さを考慮した偏差評価（GAMLSS, QUANTREG）
 - 多様な分布形状に対応し、正規性の仮定に依存しない
 - パーセンタイル曲線や成長曲線の推定に適している
 
@@ -316,9 +272,6 @@
   例: Jiang2024 は局所多項式平滑（LOESS）で年齢効果を推定し、局所的に標準化した逸脱スコアを計算。
 - **Quantile Regression**: DiBiase2022, Lin2024, Lv2021, Zheng2024（4研究）  
   例: Lin2024 はfMRI接続強度の年齢依存パーセンタイル（5,50,95%）をquantile regressionで推定し、被験者の位置づけを評価。
-- **LMS, KERNEL-NW, MOV-AVG, TOL-INT, ZSCORE**: 個別の主要手法としての明示的な記載は限定的  
-  例: LMS（Lambda-Mu-Sigma）は小児成長曲線での分布推定手法として知られるが、今回の122研究では主要手法としての明記は確認できず。
-  KERNEL-NW（Nadaraya-Watson）やMOV-AVG（移動平均）も補助的平滑手段として言及の可能性はあるものの、主解析手法としての記載は見られなかった。
 
 ### Parametric Reg
 
