@@ -53,7 +53,7 @@
 
 ## Keywords for Normalization
 
-以上のような検討を経て、以下のテーブルのようなキーワードを用いた整理方法を考えている。
+以上のような検討を経て、以下のようなCategoryキーワードを用いた整理方法を考えている。
 テーブルの下には各Minor Categoryにどの文献が該当するかの簡易調査結果がまとめてある。
 
 | Major Category | Minor Category   | Full Spelling                                             | Description                                | Example                   | 
