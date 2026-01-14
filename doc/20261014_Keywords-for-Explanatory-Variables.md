@@ -171,3 +171,114 @@ age以外の変数でスプライン平滑化を行っている研究がない�
 
 ## Category Keywords for Explanatory Variables 改定案
 
+これまでの検討事項を踏まえ、Age 項は次数軸で整理し、s(age) は廃止した最新版の Category Table を示す。
+
+| Major Category                | Minor Category                            | Full Spelling / Description                                      |
+|-------------------------------|-------------------------------------------|------------------------------------------------------------------|
+| Age-related                   | Age                                       | linear age term                                                  |
+| Age-related                   | Age²                                      | quadratic age term                                               |
+| Age-related                   | Age higher-order                          | higher-order age terms (degree ≥3)                               |
+| Age-related                   | Age non-int                               | non-integer age terms (fractional/negative powers)               |
+| Age-related                   | PMA/PN weeks                              | post-menstrual age / postnatal weeks at scan                     |
+| Demographics                  | Sex                                       |                                                                  |
+| Demographics                  | Race                                      |                                                                  |
+| Demographics                  | Ethnic background                         |                                                                  |
+| Demographics                  | Education                                 |                                                                  |
+| Clinical / Group              | Dx/Clinical group                         | clinical diagnosis or group indicator                            |
+| Interactions                  | Age×sex / Sex×age                         |                                                                  |
+| Site/Scanner                  | Site                                      |                                                                  |
+| Site/Scanner                  | Scanner                                   |                                                                  |
+| Site/Scanner                  | Scanner vendor                            |                                                                  |
+| Site/Scanner                  | Magnetic field strength                   |                                                                  |
+| Acquisition / Protocol        | Scanning protocol                         |                                                                  |
+| Acquisition / Protocol        | Acq/task params                           | e.g., TR/TE/task parameters                                      |
+| Acquisition / Protocol        | Task/acq counts                           | counts of blocks/stimuli/volumes                                 |
+| Pipeline / Software           | FreeSurfer version                        |                                                                  |
+| Pipeline / Software           | Preproc pipeline/software                 | pipeline or software version as fixed effect                     |
+| Study / Cohort structure      | Cohort/Study indicator                    | cohort/study labels as effect                                    |
+| Study / Cohort structure      | Family/Subject RE                         | family ID or subject ID random effect                            |
+| Global brain measures         | ICV                                       | intracranial volume                                              |
+| Global brain measures         | TIV                                       | total intracranial volume                                        |
+| Global brain measures         | Total brain volume                        |                                                                  |
+| Global brain measures         | Mean CT                                   | mean cortical thickness                                          |
+| Global brain measures         | Mean SA                                   | mean surface area                                                |
+| Image/Data quality            | Euler number                              |                                                                  |
+| Image/Data quality            | Image quality                             |                                                                  |
+| Image/Data quality            | Mean FD                                   | mean framewise displacement                                      |
+| Image/Data quality            | Mean relative motion                      |                                                                  |
+| Image/Data quality            | Head motion                               |                                                                  |
+| Task                          | Task performance                          |                                                                  |
+| Other                         | Hemisphere                                |                                                                  |
+| Other                         | BMI                                       | body mass index                                                  |
+| Other                         | FIQ                                       | full-scale intelligence quotient                                 |
+| Other                         | None                                      |                                                                  |
+| Other                         | Others (not specified)                    | others not specified / 選択不可                                  |
+
+-----
+
+## 文献対応状況（簡易調査）
+
+`share_package/data/*/DE/json/DE_*_by_codex_*.json` にある 129 件の `nm5_predictor_variables/answer` を
+正規表現で自動マッピングした結果。ヒューリスティックな自動判定のため過不足の可能性あり（目視確認の起点として利用）。
+
+### Age-related
+- Age: 114研究（例: Bayer2022, Bethlehem2021, Wolfers2020, Haukvik2025, Young2024）
+- Age²: 4研究（CardenasDeLaParra2019, DeMeo2019, DiBiase2022, Zhang2023）
+- Age higher-order: 2研究（Coupe2022, Ge2024）
+- Age non-int: 5研究（CardenasDeLaParra2019, DeMeo2019, DiBiase2022, Ge2024, Zhang2023）
+- PMA/PN weeks: 1研究（FukamiGartner2023）
+
+### Demographics
+- Sex: 98研究（例: Bayer2022, Bethlehem2021, DiBiase2022, Wolfers2021, Young2024）
+- Race: 2研究（Cirstian2024, Huang2024）
+- Ethnic background: 1研究（Georgiadis2024）
+- Education: 2研究（Wu2023, Wu2024）
+
+### Clinical / Group
+- Dx/Clinical group: 2研究（Janssen2021, Joo2024）
+
+### Interactions
+- Age×sex / Sex×age: 3研究（DeMeo2019, DiBiase2022, Kobbersmed2025）
+
+### Site/Scanner
+- Site: 43研究（例: Bayer2022, Floris2021, Floris2024, Haukvik2025, Wolfers2018）
+- Scanner: 13研究（Bedford2025, Berthet2025, Echave2024, GarciaSanMartin2025, Haukvik2025, Janssen2021, Janssen2024, Kia2022, Kim2024, Little2024, RehakBuckova2025, Verdi2023, Worker2023）
+- Scanner vendor: 17研究（Bethlehem2020, Bethlehem2021, Coupe2022, DeMeo2019, DiBiase2022, Echave2024, FukamiGartner2023, Ge2024, Georgiadis2024, Italinna2023, Jalbrzikowski2019, Kobbersmed2025, Verdi2023, VillalonReina2024, Wolfers2018, Wolfers2020, Zhang2023）
+- Magnetic field strength: 1研究（DeMeo2019）
+
+### Acquisition / Protocol
+- Scanning protocol: 4研究（Jalbrzikowski2019, Leiberg2023, Little2024, VillalonReina2024）
+- Acq/task params: 7研究（Bedford2025, GarciaSanMartin2025, Jalbrzikowski2019, Little2024, RehakBuckova2025, Verdi2023, Worker2023）
+- Task/acq counts: 3研究（Meijer2024, Savage2024, Vieira2025）
+
+### Pipeline / Software
+- FreeSurfer version: 1研究（Zabihi2019）
+- Preproc pipeline/software: 1研究（Bethlehem2021）
+
+### Study / Cohort structure
+- Cohort/Study indicator: 2研究（Bethlehem2021, Hua2025）
+- Family/Subject RE: 3研究（DeMeo2019, Huang2024, Janssen2021）
+
+### Global brain measures
+- ICV: 16研究（Ge2024, Gimbel2025, Haas2024, Hua2025, Huang2024, Janahi2022, Jia2025, Laidi2022, Martin2025, Meijer2024, Savage2024, Shao2024, Sampaio2025, Verdi2024, Wolfers2020, Zhang2023）
+- TIV: 7研究（Huang2024, Jia2025, Sampaio2025, Shao2024, Wu2023, Zhang2022, Zhang2023）
+- Total brain volume: 1研究（Janssen2021）
+- Mean CT: 3研究（Ge2024, Lamsma2024, Yang2025）
+- Mean SA: 3研究（Ge2024, Lamsma2024, Yang2025）
+
+### Image/Data quality
+- Euler number: 7研究（Echave2024, Janssen2024, Ma2024, Meijer2024, Rutherford2023, Zabihi2019, Zabihi2020）
+- Image quality: 3研究（Echave2024, Georgiadis2024, Martin2025）
+- Mean FD: 4研究（Ilioska2024, Jalbrzikowski2019, Lee2025, Rutherford2023）
+- Mean relative motion: 1研究（Chan2025A）
+- Head motion: 3研究（Chan2025A, Jalbrzikowski2019, Lee2025）
+
+### Task
+- Task performance: 7研究（FukamiGartner2023, Ge2024, Italinna2023, Lamsma2024, Meijer2024, Xiao2024, Yang2025）
+
+### Other
+- Hemisphere: 該当なし（codex回答ベース）
+- BMI: 該当なし（codex回答ベース）
+- FIQ: 4研究（Laidi2022, Meijer2024, Zabihi2019, Zabihi2020）
+- None: 4研究（Feng2024, Mendes2024, OliveiraSaraiva2023, Tong2024）
+- Others (not specified): 20研究（Bethlehem2021, Chien2022, DeMeo2019, Elad2021, Fang2025, Feng2025, Ge2024, Georgiadis2024, Haas2024, Huo2024, Italinna2023, Kia2022, Kobbersmed2025, Lamsma2024, Ma2024, Parkes2021, Rutherford2023, Verdi2023, Wolfers2021, Yang2025）
