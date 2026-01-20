@@ -444,7 +444,7 @@ function askAiAgent(){
         techo "gemini \\"
         techo "    \"$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
         techo "    --approval-mode auto_edit \\"
-        techo "    --allowed-tools \"ShellTool(git status,rm,mv,mkdir,cat)\""
+        techo "    --allowed-tools \"run_shell_command\""
         techo "===================================="
         techo ""
 
@@ -456,7 +456,7 @@ function askAiAgent(){
 
             gemini "$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
                 --approval-mode auto_edit \
-                --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)" \
+                --allowed-tools "run_shell_command" \
                 2>&1 | tee -a ${_log_file_name}
 
             techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
@@ -535,7 +535,7 @@ if [[ ${DryRun} == true ]]; then
     echo ""
 fi
 
-for _author_year in ${AuthorYearArray[@]}; do
+for _author_year in "${AuthorYearArray[@]}"; do
 
   echo ""
   echo "============================================"

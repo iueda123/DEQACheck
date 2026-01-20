@@ -103,7 +103,7 @@ When an item requires ADCSL_Style, provide the following structured information:
 
 ### NM2. Normative Modeling 2nd Part
 
-#### NM2-1. Modeling Method
+#### NM2-1. Modeling Methods
 
 * Extraction Criteria: Specify the statistical/machine learning algorithm(s) used for normative modeling. 
 * 以下の Major Category, Minor Category から該当するものを選んで回答してください（複数回答可）。
@@ -212,12 +212,12 @@ When an item requires ADCSL_Style, provide the following structured information:
 "answer": [
   {"major-category": "dMRI", "minor-category": "FA"},
   {"major-category": "dMRI", "minor-category": "MD"},
-  {"major-category": "fMRI", "minor-category", "rs-FS"} 
+  {"major-category": "fMRI", "minor-category": "rs-FS"} 
 ]
 ```
 -----
 
-#### NM2-2. Explanatory Variable
+#### NM2-2. Explanatory Variables
 
 * Extraction Criteria: List all variables used as explanatory variables (predictors) in the normative model. 
 * 以下の Major Category, Minor Category から該当するものを選んで回答してください（複数回答可）。

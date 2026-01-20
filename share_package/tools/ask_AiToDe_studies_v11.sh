@@ -252,7 +252,7 @@ function askAiAgentForStudies(){
         techo "gemini \\"
         techo "    \"${_prompt}\" \\"
         techo "    --approval-mode auto_edit \\"
-        techo "    --allowed-tools \"ShellTool(git status,rm,mv,mkdir,cat)\""
+        techo "    --allowed-tools \"run_shell_command\""
         techo "===================================="
         techo ""
 
@@ -264,7 +264,7 @@ function askAiAgentForStudies(){
 
             gemini "${_prompt}" \
                 --approval-mode auto_edit \
-                --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)" \
+                --allowed-tools "run_shell_command" \
                 2>&1 | tee -a "${_log_file_name}"
 
             techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"

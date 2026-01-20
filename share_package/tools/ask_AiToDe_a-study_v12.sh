@@ -265,134 +265,6 @@ elif [[ -n "${SingleStudy}" ]]; then
     AuthorYearArray+=("${SingleStudy}")
 else
     echo ""
-    #AuthorYearArray+=("Baldwin2022")
-    #AuthorYearArray+=("Bayer2022")
-    #AuthorYearArray+=("Bedford2025")
-    #AuthorYearArray+=("Berthet2025")
-    #AuthorYearArray+=("Bethlehem2020")
-    #AuthorYearArray+=("Bethlehem2021")
-    #AuthorYearArray+=("Bhome2024")
-    
-    #AuthorYearArray+=("CardenasDeLaParra2019") 
-    #AuthorYearArray+=("Chan2025A")
-    #AuthorYearArray+=("Chan2025B")
-    #AuthorYearArray+=("Chien2022")
-    #AuthorYearArray+=("Cirstian2024")
-    #AuthorYearArray+=("Coupe2022")
-    #AuthorYearArray+=("DeMeo2019")
-    #AuthorYearArray+=("DiBiase2022")
-    #AuthorYearArray+=("Ebadi2024")
-    #AuthorYearArray+=("Echave2024")
-    #AuthorYearArray+=("Elad2021")
-    #AuthorYearArray+=("Fang2024")
-    #AuthorYearArray+=("Fang2025")
-    #AuthorYearArray+=("Feng2024")
-    #AuthorYearArray+=("Feng2025")
-    #AuthorYearArray+=("Floris2021")
-    #AuthorYearArray+=("Floris2024")
-    #AuthorYearArray+=("Fraza2023")
-    #AuthorYearArray+=("FukamiGartner2023")
-    #AuthorYearArray+=("GarciaSanMartin2025")
-    #AuthorYearArray+=("Ge2024")
-    #AuthorYearArray+=("Geng2025")
-    #AuthorYearArray+=("Georgiadis2024")
-    #AuthorYearArray+=("Giacomel2025")
-    #AuthorYearArray+=("Gimbel2025")
-    #AuthorYearArray+=("Gordaliza2024")
-    #AuthorYearArray+=("Haas2024")
-    #AuthorYearArray+=("Han2023")
-    #AuthorYearArray+=("Han2024A")
-    #AuthorYearArray+=("Han2024B")
-    #AuthorYearArray+=("Haukvik2025")
-    #AuthorYearArray+=("Holz2023")
-    #AuthorYearArray+=("Hua2025")
-    #AuthorYearArray+=("Huang2024")
-    #AuthorYearArray+=("Huo2024")
-    #AuthorYearArray+=("Ilioska2024")
-
-    #AuthorYearArray+=("DeMeo2019")
-    #AuthorYearArray+=("Feng2024")
-    #AuthorYearArray+=("Italinna2023")
-    #AuthorYearArray+=("Jalbrzikowski2019")
-    #AuthorYearArray+=("Janahi2022")
-    #AuthorYearArray+=("Janssen2021")
-    #AuthorYearArray+=("Janssen2024")
-    #AuthorYearArray+=("Ji2023")
-    #AuthorYearArray+=("Jia2024")
-    #AuthorYearArray+=("Jia2025")
-    #AuthorYearArray+=("Jiang2024")
-    #AuthorYearArray+=("Jing2023")
-    #AuthorYearArray+=("Joo2024")
-    #AuthorYearArray+=("Kasper2024")
-    #AuthorYearArray+=("Kia2022")
-    #AuthorYearArray+=("Kim2023")
-    #AuthorYearArray+=("Kim2024")
-    #AuthorYearArray+=("Kobbersmed2025")
-    #AuthorYearArray+=("Kumar2024")
-    #AuthorYearArray+=("Kumar2025")
-
-    #AuthorYearArray+=("Laidi2022")
-    #AuthorYearArray+=("Lamsma2024")
-    #AuthorYearArray+=("Lawn2024")
-    #AuthorYearArray+=("Lee2025")
-    #AuthorYearArray+=("Leenings2024")
-    #AuthorYearArray+=("Leiberg2023")
-    #AuthorYearArray+=("Lin2023")
-    #AuthorYearArray+=("Lin2024")
-    #AuthorYearArray+=("Little2024")
-    #AuthorYearArray+=("Little2025")
-    #AuthorYearArray+=("Liu2024")
-    #AuthorYearArray+=("Looden2022")
-    #AuthorYearArray+=("Loreto2024")
-    #AuthorYearArray+=("Lv2021")
-    #AuthorYearArray+=("Ma2024")
-    #AuthorYearArray+=("Mansour2025")
-    #AuthorYearArray+=("Mao2025")
-    #AuthorYearArray+=("Martin2025")
-    #AuthorYearArray+=("Meijer2024")
-    #AuthorYearArray+=("Mendes2024")
-    #AuthorYearArray+=("Narai2024")
-    #AuthorYearArray+=("OliveiraSaraiva2023")
-    #AuthorYearArray+=("Parkes2021")
-    #AuthorYearArray+=("Pinaya2019")
-    #AuthorYearArray+=("Pinaya2021")
-    #AuthorYearArray+=("RehakBuckova2025")
-    #AuthorYearArray+=("Remiszewski2022")
-    #AuthorYearArray+=("Romascano2024")
-    #AuthorYearArray+=("Rutherford2022")
-    #AuthorYearArray+=("Rutherford2023")
-    #AuthorYearArray+=("Sampaio2025")
-    #AuthorYearArray+=("Savage2024")
-    #AuthorYearArray+=("Segal2023")
-    #AuthorYearArray+=("Segal2025")
-    #AuthorYearArray+=("Shan2022")
-    #AuthorYearArray+=("Shao2024")
-    #AuthorYearArray+=("Sun2023")
-    #AuthorYearArray+=("Sun2025")
-    #AuthorYearArray+=("Tabbal2025")
-    #AuthorYearArray+=("Thukral2024")
-    #AuthorYearArray+=("Tong2024")
-    #AuthorYearArray+=("Verdi2023")
-    #AuthorYearArray+=("Verdi2024")
-    #AuthorYearArray+=("Vieira2025")
-    #AuthorYearArray+=("VillalonReina2024")
-    #AuthorYearArray+=("Wang2023")
-    #AuthorYearArray+=("Wen2025")
-    #AuthorYearArray+=("Wolfers2018")
-    #AuthorYearArray+=("Wolfers2020")
-    #AuthorYearArray+=("Wolfers2021")
-    #AuthorYearArray+=("Worker2023")
-    #AuthorYearArray+=("Wu2023")
-    #AuthorYearArray+=("Wu2024")
-    #AuthorYearArray+=("Xiao2024")
-    #AuthorYearArray+=("Yang2025")
-    #AuthorYearArray+=("Young2024")
-    #AuthorYearArray+=("Yu2024")
-    #AuthorYearArray+=("Zabihi2019")
-    #AuthorYearArray+=("Zabihi2020")
-    #AuthorYearArray+=("Zhang2022")
-    #AuthorYearArray+=("Zhang2023")
-    #AuthorYearArray+=("Zheng2024")
 fi
 
 # Note: 
@@ -436,7 +308,7 @@ function askAiAgent(){
         techo "gemini \\"
         techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
         techo "    --approval-mode auto_edit \\"
-        techo "    --allowed-tools \"ShellTool(git status,rm,mv,mkdir,cat)\""
+        techo "    --allowed-tools \"run_shell_command\""
         techo "===================================="
         techo ""
 
@@ -448,7 +320,7 @@ function askAiAgent(){
 
             gemini "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
                 --approval-mode auto_edit \
-                --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)" \
+                --allowed-tools "run_shell_command" \
                 2>&1 | tee -a ${_log_file_name}
 
             techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
@@ -527,7 +399,7 @@ if [[ ${DryRun} == true ]]; then
     echo ""
 fi
 
-for _author_year in ${AuthorYearArray[@]}; do
+for _author_year in "${AuthorYearArray[@]}"; do
 
   echo ""
   echo "============================================"
