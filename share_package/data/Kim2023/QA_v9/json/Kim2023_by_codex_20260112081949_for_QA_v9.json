@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Kim2023",
+    "si2_reference_file_names": "Kim2023.pdf.md; 44220_2024_297_MOESM1_ESM.pdf.md",
+    "si3_author_journal_year": "Kim et al., Nature Mental Health, 2024",
+    "si4_title": "Mapping cerebellar anatomical heterogeneity in mental and neurological illnesses",
+    "si5_doi": "10.1038/s44220-024-00297-z"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Objectives are clearly stated: to map normative development/aging of the cerebellum and apply normative models to independent clinical samples to examine heterogeneity and associations with cognition. The purpose of normative modeling is explicitly described (quantify individual deviations relative to population norms and study clinical heterogeneity). Both listed criteria are satisfied.",
+      "supporting_text": "\"we mapped the normative development and aging of the cerebellum across the lifespan using brain scans of >54,000 participants.\" ... \"Applying the normative models in independent samples revealed substantial heterogeneity within five clinical illnesses... Finally, extreme deviations were associated with cognitive scores.\"",
+      "location": "Kim2023.pdf.md: lines 21-31"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "This study builds a new normative model. Eligibility/data completeness and QC standards are described (ENIGMA Cerebellum QC, ACAPULCO QC, manual inspection ~5%). Exclusion rules are specified (outliers in ≥2 regions; sites with <5 participants; withdrawn; missing demographics or T1). Final sample sizes for reference cohort are provided overall and by partition (Table 1; TR=27,117; TE=26,985).",
+      "supporting_text": "\"Participants who had withdrawn from the studies or had missing demographic information and T1-weighted MRI data were excluded from the analyses.\" ... \"We executed quality control by running the ENIGMA Cerebellum Volumetric Pipeline QC Scripts... We excluded participants if their scans denoted outliers in at least 2 regions and if each scanning-site had fewer than 5 participants... This division resulted in 27,117 individuals in TR and 26,985 individuals in TE.\"",
+      "location": "Kim2023.pdf.md: lines 143-143; 44220_2024_297_MOESM1_ESM.pdf.md: line 184"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age and sex are included as covariates. Multi-site effects are addressed by controlling/correcting for scanning site and treating site as a fixed effect in the model.",
+      "supporting_text": "\"All normative models included age and sex as covariates, while controlling for scanning-site-related variability.\" ... \"predicting ... on the basis of sex and age, while correcting for scanning site... To account for scanner effects, we treated the scanning site as a fixed effect.\"",
+      "location": "Kim2023.pdf.md: lines 37, 163"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Data sources for the reference cohort are clearly listed, including named public datasets and number of scanning sites.",
+      "supporting_text": "\"The cohort of individuals without diagnoses was obtained from 132 scanning sites, including various studies such as ABIDE, ADHD200, AOMIC ID1000, Beijing Enhanced, CAMCAN, CoRR, DLBS, DS000119, DS000202, DS000222, Fcon1000, HBN, HCP, MPI Lemon, NKI-Rockland, OASIS-3, PING, SALD, SLIM, and UK Biobank... ADNI...\"",
+      "location": "Kim2023.pdf.md: lines 137-141"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "The guide specifies answering NA for SECONDARY data (existing datasets). This study aggregates existing datasets rather than conducting primary image acquisition.",
+      "supporting_text": "\"The cohort of individuals without diagnoses was obtained from 132 scanning sites, including various studies such as ABIDE... UK Biobank... ADNI...\"",
+      "location": "Kim2023.pdf.md: lines 137-141"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software and pipelines are described: FreeSurfer 5.3, FSL (reorient, flirt), N4 bias correction, ANTs registration to ICBM 2009c, ACAPULCO v0.2.1 for lobular parcellation with QC and outlier removal, and SUIT v3.4 for voxel-level segmentation with Jacobian modulation.",
+      "supporting_text": "\"The T1-weighted images were skull stripped using the FreeSurfer 5.3 auto-recon pipeline... fslreorient2std... flirt... default 1 mm FSL template...\"; \"we utilized the ACAPULCO version 0.2.1... automated quality control... removed the extreme outliers...\"; \"we utilized the SUIT version 3.4... gray matter maps were normalized... modulated by the Jacobian...\"",
+      "location": "Kim2023.pdf.md: lines 151-157"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Internal validation via partitioning the reference cohort into training and test sets stratified by site, sex, and age; minimum per-site sample; clinical groups only in test set for evaluation.",
+      "supporting_text": "\"We split our sample of individuals without diagnosis into training and test sets on the basis of scanning site, sex, and age... evenly split the control participants from each scanning site... A minimum of five participants from the same scanning site was required.\"",
+      "location": "Kim2023.pdf.md: lines 161-161"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The study reports a held-out test set of healthy individuals (internal validation) and applies models to independent clinical samples. It does not explicitly apply the normative model to an independent external dataset of healthy individuals beyond the internal test partition assembled from the same multi-dataset pool.",
+      "supporting_text": "\"We split our sample... into training and test sets...\"; Figures and text describe application to clinical test samples, not to a separate external healthy dataset.",
+      "location": "Kim2023.pdf.md: lines 161-167; 69-71"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The statistical approach is described: Bayesian linear regression with likelihood warping ('sinarcsinsh'), implemented with PCNtoolkit v0.24 in Python 3.8, with site modeled as a fixed effect.",
+      "supporting_text": "\"We used the PCNtoolkit package (version 0.24) in Python 3.8... We employed a Bayesian linear regression with likelihood warping... using the 'sinarcsinsh' transformation... To account for scanner effects, we treated the scanning site as a fixed effect.\"",
+      "location": "Kim2023.pdf.md: lines 163-163"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Model performance is quantitatively assessed and reported using explained variance and additional metrics (kurtosis, skew, mean squared logarithmic loss) computed on the held-out test set.",
+      "supporting_text": "\"we report the performance of these models, in terms of explained variance... Additional evaluation metrics such as kurtosis, skew, and mean squared logarithmic loss...\"; \"These evaluation metrics were computed in the test set that did not include any clinical groups.\"",
+      "location": "Kim2023.pdf.md: lines 37, 167"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sample sizes for training and test partitions are explicitly reported in Table 1, including number of sites, age (mean, s.d.), and sex ratio; Fig. 1a shows age distributions by site for training, test, and clinical sets.",
+      "supporting_text": "Table 1 rows: \"Training set | 27,117 | 132 | 54.36 (20.31) | 53:47\"; \"Testing set | 26,985 | 132 | 54.52 (20.19) | 53:47\". Also, \"Data sample. The age density distribution for each scanning site in the training, test, and clinical sets.\"",
+      "location": "Kim2023.pdf.md: lines 45-50, 69"
+    },
+    "nm11_reproducibility": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Software/library versions are provided (Python 3.8, PCNtoolkit v0.24, FreeSurfer 5.3, SUIT v3.4, ACAPULCO v0.2.1, FSL template v6.0). Availability of code and trained models is stated (PCNportal for models; GitHub and tool websites for code).",
+      "supporting_text": "\"PCNtoolkit package (version 0.24) in Python 3.8... FreeSurfer 5.3... FSL ... template (version 6.0)... SUIT version 3.4... ACAPULCO version 0.2.1...\"; \"The models from this work are available via PCNportal...\"; \"All code used in this work is publicly available at FreeSurfer... FSL... ACAPULCO... SUIT... PCNtoolkit... Additional codes are available via Github...\"",
+      "location": "Kim2023.pdf.md: lines 151-163, 185, 189"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical datasets are specified (ABIDE, ADNI, AIBL, DEMGEN, TOP). Inclusion criterion stated (clinical groups with >100 participants). QC and exclusion standards are described (same pipelines; outlier/site thresholds). Final clinical sample size provided in Table 1 (N=1,757 in test set).",
+      "supporting_text": "\"As for the clinical datasets, we combined data from ABIDE, ADNI, AIBL, DEMGEN, and TOP... clinical groups with more than 100 participants were included...\"; \"We executed quality control... excluded participants if... outliers in at least 2 regions and if each scanning-site had fewer than 5 participants.\"; Table 1 row: \"Clinical | Testing set | 1,757 | 53 | 29.40 (20.84) | 30:70\"",
+      "location": "Kim2023.pdf.md: lines 147-147, 45-50; 44220_2024_297_MOESM1_ESM.pdf.md: line 184"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Analyses consider clinical covariates beyond demographics, including symptom severity (ADOS for ASD; PANSS for SZ) and medication exposure (total antipsychotic medication load).",
+      "supporting_text": "\"The ASD scores examined... ADOS... and IQ...\"; \"Positive and Negative Syndrome Scale (PANSS) examines the severity of patients with SZ...\"; \"The total antipsychotic medication load is computed by converting the patients' daily dosages into standardized measures...\"",
+      "location": "44220_2024_297_MOESM1_ESM.pdf.md: lines 294-349, 199"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical data sources are listed and referenced.",
+      "supporting_text": "\"we combined data from ABIDE, ADNI, AIBL, DEMGEN, and TOP.\"",
+      "location": "Kim2023.pdf.md: lines 147-147"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Sample size and basic demographics (age, sex) for the clinical test set are provided (Table 1). Some clinical characteristics are described in supplementary analyses (e.g., ethnicity distributions; PANSS severity; medication load considered), but comprehensive clinical characteristics across all clinical cohorts (e.g., illness duration) are not fully detailed in the main text.",
+      "supporting_text": "Table 1 row: \"Clinical | Testing set | 1,757 | 53 | 29.40 (20.84) | 30:70\"; \"Using the local TOP sample, we repeated... ethnicity... SZ: 240 individuals... BD: 232 individuals...\"",
+      "location": "Kim2023.pdf.md: lines 45-50; 44220_2024_297_MOESM1_ESM.pdf.md: lines 220-224"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical measures and assessment instruments are specified for ASD (ADOS; multiple IQ tests) and SZ (PANSS); procedures are described as part of correlation analyses.",
+      "supporting_text": "\"Autism Diagnostic Observation Schedule (ADOS)... full-scale IQ (FIQ), verbal IQ (VIQ) and performance IQ (PIQ)... intelligence tests included...\"; \"Positive and Negative Syndrome Scale (PANSS) examines the severity of patients with SZ...\"",
+      "location": "44220_2024_297_MOESM1_ESM.pdf.md: lines 296-348"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The meaning and thresholds for deviation scores are defined (z-score with extreme deviations at |z|>1.96; positive vs negative interpretations). Clinical implications are discussed via group patterns and associations with cognition and symptoms.",
+      "supporting_text": "\"To determine participants with extreme deviations, we set a threshold at z > |1.96|... deviations with z scores greater than 1.96 were identified as extreme positive deviations... vice versa for extreme negative deviations.\"; \"Applying the normative models in independent samples revealed substantial heterogeneity... Finally, extreme deviations were associated with cognitive scores.\"",
+      "location": "Kim2023.pdf.md: lines 167, 21-31"
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "OliveiraSaraiva2023",
+    "si2_reference_file_names": "OliveiraSaraiva2023.pdf.md; OliveiraSaraiva2023_artifacts/",
+    "si3_author_journal_year": "Oliveira-Saraiva and Ferreira, Frontiers in Psychiatry, 2023",
+    "si4_title": "Normative model detects abnormal functional connectivity in psychiatric disorders",
+    "si5_doi": "10.3389/fpsyt.2023.1068397"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The paper states clear objectives and the purpose of applying normative modeling. They aim to investigate whether a normative model based on functional connectivity can discriminate psychiatric disorders and address heterogeneity. The abstract and introduction explicitly describe proposing a normative model using autoencoders and its intended diagnostic relevance.",
+      "supporting_text": "\"We trained our autoencoder on resting-state fMRI... The model was then tested on schizophrenia (SCZ), bipolar disorder (BD), and attention-deficit hyperactivity disorder (ADHD) patients to estimate how each patient deviated from the norm...\"; \"In this study, we aim to investigate if normative models based on functional connectivity are able to discriminate against different psychiatric disorders... Therefore, we propose a normative model based on autoencoders...\"",
+      "location": "OliveiraSaraiva2023.pdf.md, Methods (lines ~43–48); Introduction (lines ~92–100)"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "This study builds a new normative model on healthy individuals. Eligibility and data quality criteria are described: they restricted inclusion to age 18–50, TR=2s, eyes open; applied motion/exclusion thresholds (framewise displacement >3 mm, translation >3 mm, angular deviation >3°) and removed subjects accordingly; final healthy sample counts per set are reported (H-Train n=366, H-Test-U n=39, H-Test-C n=70), and reasons for exclusion include motion and missing images.",
+      "supporting_text": "\"We established an age range between 18 and 50 years old, a repetition time (TR) of 2 s, and we only included subjects who underwent the MRI scanner with their eyes open.\"; \"data in which the maximum framewise displacement exceeded 3 mm, motion in translation exceeded 3 mm, or angular deviation exceeded 3° were excluded... Following these criteria, 32 subjects were removed... it was not possible to finish data preprocessing for several subjects due to the lack of a rs-fMRI image or T1-weighted image.\"; \"H-Train represents the 366 healthy subjects... H-Test-U is the set of 39 healthy subjects... H-Test-C ... 70 healthy subjects...\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.1 Data description (lines ~83–88); 2.2 Data processing (lines ~113–121); Table 2 caption (lines ~160–168)"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Age and sex were not modeled as covariates in the autoencoder (explicitly acknowledged). Some sources of variability were mitigated by selection constraints (age range, TR, eyes open) but no explicit covariate adjustment or site harmonization (e.g., ComBat, hierarchical modeling) is described.",
+      "supporting_text": "\"Fourthly, we started with a simple autoencoder that received no information about sex/age.\"; \"We established an age range between 18 and 50 years old, a repetition time (TR) of 2 s, and we only included subjects who underwent the MRI scanner with their eyes open.\"",
+      "location": "OliveiraSaraiva2023.pdf.md, Limitations (lines ~333–336); 2.1 Data description (lines ~83–88)"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Data sources for the healthy reference cohort are specified, naming the public datasets used (CoRR and UCLA).",
+      "supporting_text": "\"The brain rs-fMRI images used in this project were obtained from three public neuroimaging databases... CoRR... UCLA... COBRE...\"; \"H-Train represents the 366 healthy subjects from CORR and UCLA datasets that were used to train the model.\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.1 Data description (lines ~81–87); Table 2 caption (lines ~160–166)"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary data from existing public datasets were used; per guide, acquisition protocol details are not required (answer NA for SECONDARY data).",
+      "supporting_text": "",
+      "location": ""
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing is described with software and steps: ANTs brain extraction; FSL MELODIC for initial steps (discard first volumes, motion correction via MCFLIRT, smoothing, high-pass filtering, ICA); FIX for denoising; registration (BBR to T1, non-linear to MNI); dual regression using a 14-network template; QC thresholds are specified.",
+      "supporting_text": "\"brain extraction of the T1-weighted images ... using the Advanced Normalization Tools (ANTs).\"; \"pre-processing of rs-fMRI images was handled within the FMRIB Software Library (FSL)... discard the first four volumes... motion correction using the MCFLIRT tool... spatial smoothing... highpass filter... single-session spatial independent component analysis (ICA)...\"; \"FMRIB's ICA-based Xnoiseifier (FIX) was applied to automatically detect and remove non-brain signal components...\"; \"registration to the individual T1-weighted structural image through the boundary-based registration (BBR)... then to the MNI152 standard space...\"; \"dual regression was applied. We used the fourteen FBNs from Shirer et al. as a template...\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.2 Data processing (lines ~100–124)"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They used ten-fold cross-validation on the training data to validate and optimize the model, ensuring evaluation on samples not used for fitting in each iteration.",
+      "supporting_text": "\"Ten fold cross-validation was applied to validate the optimized model while studying its generalization. The model was trained and tested ten times, using a different fold as the validation set in each time.\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.4.2 Model training (lines ~143–149)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They applied the trained normative model to an independent external dataset (COBRE), including a healthy cohort (H-Test-C) not used for model development.",
+      "supporting_text": "\"In the end, the normative model was tested on an independent dataset, COBRE.\"; \"H-Test-C and SCZ-Test-C are the independent test sets consisting of 70 healthy subjects, and 49 SCZ patients from the COBRE dataset, respectively.\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.4.4 Schizophrenia case study (lines ~191–196); Table 2 caption (lines ~166–173)"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The statistical approach is a deep autoencoder; they specify architecture (hidden layers 91-46-1346-91), activation (leaky ReLU), regularization (L2), dropout (0.5), loss (MSE), initialization (He), training epochs (1000), optimizer (Adam with parameters), and implementation software (Keras Python library).",
+      "supporting_text": "\"Autoencoder was the selected architecture... implemented using the Keras Python library.\"; \"The model that better balanced both normalized metrics was selected for training. It consisted of three hidden layers (91-46-1346-91)... L2 regularization... dropout 0.5... mean squared error ... He initialization... trained for 1,000 epochs, using Adam optimization (β1 = 0.9, β2 = 0.999, ε = 1e-7, learning rate 0.0005).\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.4.2 Model training (lines ~143–149); Model details (lines ~168–176)"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They report quantitative performance metrics: subject-level reconstruction error (MSEs) distributions and statistical significance via Mann–Whitney tests showing healthy vs patient group differences; cross-validation metrics used for model selection are also described.",
+      "supporting_text": "\"The MSEs were calculated for each subject, and boxplots were generated...\"; \"Considering a p = 0.05, it is noticeable that the differences between the groups of patients and the healthy subjects are statistically significant.\"; \"The mean of the median MSEs values of the training set for the 10 folds of cross-validation... were calculated for optimizing the model.\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 3.1 Results (lines ~206–224); Table 3 (lines ~214–223); Model selection (lines ~168–172)"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They report sample sizes and demographics (female %, age range/mean) for each data partition/set, including training and test cohorts, in Table 2.",
+      "supporting_text": "\"TABLE 2 Datasets for the normative model. | Set group | Dataset | Number | Females (%) | Age range | Age mean | ... H-Train ... H-Test-U ... H-Test-C ...\"",
+      "location": "OliveiraSaraiva2023.pdf.md, Table 2 (lines ~151–168)"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "They specify key software used (Keras for modeling, FSL/ANTs for preprocessing) and provide data access links. However, software/library versions and code/trained model availability are not specified.",
+      "supporting_text": "\"implemented using the Keras Python library\"; \"FMRIB Software Library (FSL)... Advanced Normalization Tools (ANTs)\"; \"Publicly available datasets were analyzed... links provided to CoRR, COBRE, UCLA LA5c.\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.4.2 (lines ~143–146); 2.2 (lines ~100–113); Data availability statement (lines ~341–347)"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Secondary clinical data from UCLA and COBRE were used. Original datasets are cited; image quality and data completeness standards (motion thresholds; missing images) are specified; final sample sizes and exclusions are reported, fulfilling the criteria for SECONDARY data.",
+      "supporting_text": "\"The UCLA... dataset was selected to train and test the normative model since it contains healthy individuals and ADHD, BD, and SCZ patients. The COBRE public dataset... was also chosen...\"; \"data in which the maximum framewise displacement exceeded 3 mm... were excluded... 32 subjects were removed... not possible to finish data preprocessing for several subjects due to the lack of a rs-fMRI image or T1-weighted image.\"; \"SCZ-Test-U, BD-Test-U, and ADHD-Test-U are the sets of psychiatric patients consisting of 47 SCZ patients, 45 BD patients, and 39 ADHD patients from the UCLA dataset, respectively... SCZ-Test-C ... 49 SCZ patients from COBRE...\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.1 Data description (lines ~81–87); 2.2 Data processing (lines ~113–121); Table 2 caption (lines ~160–168)"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "Analyses did not include clinical covariates such as medication status, illness duration, or symptom severity. Authors explicitly note that treatment, disease severity, and disease course could impact findings and were not controlled.",
+      "supporting_text": "\"we should consider that treatment (medication doses), disease severity, and disease course (stage or duration of onset) impact on the current findings, and a control of such factors could improve this study.\"",
+      "location": "OliveiraSaraiva2023.pdf.md, Limitations (lines ~333–336)"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort data sources are specified, naming UCLA LA5c and COBRE as sources for patient data, with citations and data availability links.",
+      "supporting_text": "\"UCLA... public dataset (37) was selected to train and test the normative model since it contains healthy individuals and ADHD, BD, and SCZ patients. The COBRE public dataset... was also chosen...\"; \"Publicly available datasets were analyzed... links ... UCLA... COBRE...\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.1 Data description (lines ~81–87); Data availability (lines ~341–347)"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "They report sample sizes and demographics (female %, age range/mean) for each clinical group in Table 2. However, clinical characteristics such as medication status, symptom severity, and illness duration are not described.",
+      "supporting_text": "\"TABLE 2 Datasets for the normative model. | ... SCZ-Test-U ... BD-Test-U ... ADHD-Test-U ... Females (%) ... Age range ... Age mean ...\"",
+      "location": "OliveiraSaraiva2023.pdf.md, Table 2 (lines ~151–168)"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not describe specific clinical assessment measures (e.g., diagnostic instruments, rating scales) used for the clinical cohorts; only general DSM-5 context is discussed, and dataset sources are cited without detailing measures.",
+      "supporting_text": "",
+      "location": ""
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They define deviation scores as reconstruction error (MSEs) and absolute differences between reconstructed and input connectivity features. They specify a thresholding approach (top 20% of differences) to binarize abnormal connections for graph analysis. Clinical implications are discussed: disorder-specific abnormal connectivity patterns are identified; heterogeneity at the individual level suggests precision medicine utility.",
+      "supporting_text": "\"The absolute difference between the output vector and the input vector was calculated... reshaped into a 14×14... and binarized using the threshold that is defined in the results section.\"; \"For defining the threshold, we ... considered the 20% higher values of the merged vector... retained ... pairs of FBNs that were worse reconstructed... probably functionally abnormal.\"; \"The results demonstrate that the proposed model could identify functional connectivity patterns that characterize different psychiatric disorders... However, the group-level differences did not withstand individual-level analysis... These findings suggest that a precision-based medical approach... may be more beneficial...\"",
+      "location": "OliveiraSaraiva2023.pdf.md, 2.4.3/3.2.1 (lines ~176–184; ~230–239); Abstract/Discussion (lines ~45–49)"
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Pinaya2019",
+    "si2_reference_file_names": "Pinaya2019.pdf.md",
+    "si3_author_journal_year": "Pinaya et al., Human Brain Mapping, 2018",
+    "si4_title": "Using deep autoencoders to identify abnormal brain structural patterns in neuropsychiatric disorders: A large-scale multi-sample study",
+    "si5_doi": "NR"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract clearly states the study's aim to build a normative model using a deep autoencoder trained on healthy controls and to estimate total and regional neuroanatomical deviations in patients with schizophrenia and autism spectrum disorder. This directly articulates the research questions and the purpose of applying normative modeling (to quantify deviations and characterize disease-related patterns).",
+      "supporting_text": "\"We used an artificial neural network known as 'deep autoencoder' to create a normative model using structural magnetic resonance imaging data from 1,113 healthy people. We then used this model to estimate total and regional neuroanatomical deviation in individual patients with schizophrenia and autism spectrum disorder...\"",
+      "location": "Pinaya2019.pdf.md: Abstract (line 31)"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The study builds a new normative model using healthy controls from the HCP dataset. It specifies the data source and final sample size (1,113 HC) and restricts clinical datasets to the same age range (22–37) for comparability. However, explicit inclusion/exclusion criteria for the HCP reference cohort, image quality/completeness standards, and reasons for exclusion are not described within the article; detailed acquisition info is deferred to supporting information of the datasets.",
+      "supporting_text": "\"The data used in this study were obtained from three public data sets: Human Connectome Project (HCP)...\"; \"we used sMRI data from 1,113 healthy controls taken from the '1200 Subjects Data Release'...\"; \"From these two clinical data sets, we identified and selected those subjects within the same age range of the HCP data set (from 22 to 37 years old).\"",
+      "location": "Pinaya2019.pdf.md: Methods 2.1 Data description (line 63); 2.2 Subjects (lines 67–71)"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Age and sex are considered via a semi-supervised branch predicting these variables during training and by restricting clinical cohorts to match the HCP age range. However, there is no description of handling multi-site effects (e.g., site covariate, harmonization) despite using multi-sample data.",
+      "supporting_text": "\"During the training, the deep autoencoder learns to reconstruct the input data and to predict the observed variables y, in this case, the subject's age and sex.\"; \"we identified and selected those subjects within the same age range of the HCP data set (from 22 to 37 years old).\"",
+      "location": "Pinaya2019.pdf.md: Fig.1 caption context (line 81); Methods 2.2 Subjects (line 71)"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The reference cohort data source is clearly specified as the Human Connectome Project (HCP) S1200 release with repository links provided.",
+      "supporting_text": "\"The data used in this study were obtained from three public data sets: Human Connectome Project (HCP)...\"; \"we used sMRI data from 1,113 healthy controls taken from the '1200 Subjects Data Release (S1200 Release, March 2017)'...\"",
+      "location": "Pinaya2019.pdf.md: Methods 2.1 Data description (line 63); 2.2 Subjects (line 67)"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Per guidance, for SECONDARY data (existing datasets) the image acquisition protocol item is not applicable. The study uses existing datasets (HCP for model training; NUSDAST and ABIDE for application).",
+      "supporting_text": "\"The data used in this study were obtained from three public data sets...\"",
+      "location": "Pinaya2019.pdf.md: Methods 2.1 Data description (line 63)"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software (FreeSurfer v5.3.0) and steps (recon-all, Desikan–Killiany parcellation, whole-brain segmentation; extraction of cortical thickness and volumes) are described. Quality control procedures are not described.",
+      "supporting_text": "\"These data ... have already been extracted using the Freesurfer pipeline version 5.3.0... For the NUSDAST and ABIDE data sets, we used the same FreeSurfer pipeline (version 5.3.0) ... using the 'recon-all' command ... parcellated according to the Desikan–Killiany atlas ... whole brain segmentation procedure.\"",
+      "location": "Pinaya2019.pdf.md: Methods 2.3 MRI processing (lines 75–75)"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study performs K-fold cross-validation on the HCP reference cohort to select the autoencoder configuration and reports validation performance metrics.",
+      "supporting_text": "\"We executed a cross-validation process on the HCP data to determine the best number of neurons ... mean reconstruction error of 0.40 ± 0.01 ... age prediction MAE ... sex prediction balanced accuracy ...\"",
+      "location": "Pinaya2019.pdf.md: Results 3.1 (line 147)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The trained normative model is applied to independent external datasets (NUSDAST and ABIDE), including their healthy control groups, demonstrating generalization beyond the training data.",
+      "supporting_text": "\"we applied the trained model to the others data sets ... mean deviation metric of 0.97 ± 0.23 for the HC group ... (NUSDAST) ... 1.09 ± 0.30 for the HC group ... (ABIDE).\"",
+      "location": "Pinaya2019.pdf.md: Results 3.2 (lines 159–160)"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The statistical approach is described in detail: deep autoencoder architecture (layers, activations, regularization), denoising scheme, optimizer and schedule, and implementation libraries/versions (TensorFlow 1.4, Keras 2.1).",
+      "supporting_text": "\"This autoencoder had three hidden layers (h1, z, and h2) ... SELUs ... L2 regularization (1×10^-3) ... denoising autoencoder ... Adam ... learning rate decay ... mini-batch size 64.\"; \"We conducted the experiments in Python using the Tensorflow v.1.4 ... and Keras v.2.1 ...\"",
+      "location": "Pinaya2019.pdf.md: Methods 2.4 (lines 79–90); line 141"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Quantitative performance metrics for the reference cohort are reported from cross-validation on HCP (mean reconstruction error, age MAE, sex balanced accuracy) and learning curves indicating convergence without overfitting.",
+      "supporting_text": "\"... mean reconstruction error of 0.40 ± 0.01 ... age prediction with a mean absolute error of 3.05 ± 0.28 years and a sex prediction with a mean balanced accuracy of 86.25% ± 1.69% ... learning curve ... sufficient for model convergence without falling into overfitting.\"",
+      "location": "Pinaya2019.pdf.md: Results 3.1 (line 147)"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "While 10-fold cross-validation is reported on the HCP reference cohort, the study does not describe the sample sizes or demographic characteristics for each partition (e.g., training/validation/test folds).",
+      "supporting_text": "\"We executed a cross-validation process on the HCP data ...\" (no fold-wise sample size or demographics reported).",
+      "location": "Pinaya2019.pdf.md: Results 3.1 (line 147); no per-partition characteristics found elsewhere"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Software and library versions are provided (TensorFlow v1.4, Keras v2.1; FreeSurfer v5.3.0). Data sources are specified (HCP, NUSDAST, ABIDE). Availability of code or trained models is not stated.",
+      "supporting_text": "\"We conducted the experiments in Python using the Tensorflow v.1.4 ... and Keras v.2.1 ...\"; \"... using the Freesurfer pipeline version 5.3.0 ...\"; \"The data used in this study were obtained from three public data sets ...\"",
+      "location": "Pinaya2019.pdf.md: Methods (lines 141; 75; 63)"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Clinical cohorts are secondary datasets (NUSDAST and ABIDE) with sources and sample sizes specified. Additional eligibility applied here is the age range matching HCP (22–37). Image quality/completeness standards and reasons for exclusion are not described in the article.",
+      "supporting_text": "\"... NUSDAST ... and the ABIDE data set ... composed of HC subjects and ASD patients ... From these two clinical data sets, we identified and selected those subjects within the same age range of the HCP data set (from 22 to 37 years old). This resulted in 40 ... HC and 35 ... SCZ ... and 105 ... HC and 83 ... ASD ... included in the present investigation.\"",
+      "location": "Pinaya2019.pdf.md: Methods 2.2 Subjects (lines 71–71)"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Analyses compare deviation metrics between patients and controls; beyond age/sex, there is no mention of clinical covariates such as medication status, illness duration, or symptom severity in deviation analyses.",
+      "supporting_text": "\"TABLE 1 Demographic information ...\" (age and sex only reported for clinical datasets); \"the deviation metric was significantly higher for the SCZ groups ... Likewise, the ASD group presented a higher mean deviation metric ...\"",
+      "location": "Pinaya2019.pdf.md: Results 3.2 and Table 1 (lines 179–191, 161)"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The clinical cohort data sources are explicitly identified (NUSDAST via SchizoConnect, ABIDE via NITRC, with URLs).",
+      "supporting_text": "\"Northwestern University Schizophrenia Data and Software Tool (NUSDAST) ... SchizoConnect ... The ABIDE data set was acquired from the NITRC image repository ...\"",
+      "location": "Pinaya2019.pdf.md: Methods 2.1 Data description (line 63)"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Sample sizes and demographic characteristics (age, sex) are reported for the clinical cohorts. Clinical characteristics (e.g., medication status, symptom severity, illness duration) are not described.",
+      "supporting_text": "\"TABLE 1 Demographic information ... NUSDAST HC (n=40), SCZ (n=35); ABIDE HC (n=105), ASD (n=83) ... Age ... Sex ...\"",
+      "location": "Pinaya2019.pdf.md: Table 1 (lines 179–191)"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The article does not specify clinical assessment measures or diagnostic criteria versions used to define SCZ or ASD in the included datasets; it relies on secondary datasets without detailing assessment procedures in this report.",
+      "supporting_text": "No explicit description of clinical assessment measures found; datasets named only.",
+      "location": "Pinaya2019.pdf.md: Methods 2.1–2.2 (lines 63–71); no assessment details provided"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The meaning and direction of deviation scores are explained (higher reconstruction error indicates higher neuroanatomical deviation; healthy controls show smaller errors). Clinical implications are discussed (distinct patterns for SCZ vs ASD; relationships to literature). Quantitative thresholds for defining categories (e.g., |Z|>1.96) are not provided.",
+      "supporting_text": "\"the model performed better (i.e., it yielded a smaller reconstruction error corresponding to a smaller deviation metric) when applied to ... healthy controls than ... patients\"; \"each patient group presented a higher mean reconstruction error, indicating higher levels of neuroanatomical deviations, than the HC group ...\"; \"the autoencoder revealed different patterns of neuroanatomical deviations for SCZ and ASD ...\"",
+      "location": "Pinaya2019.pdf.md: Discussion (lines 217–219) and Results 3.2 (lines 159–161)"
+    }
+  }
+}

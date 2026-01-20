@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Romascano2024",
+    "si2_reference_file_names": "Romascano2024.pdf.md; 1-s2.0-S2213158224000639-mmc1.docx.md",
+    "si3_author_journal_year": "Romascano et al., NeuroImage: Clinical, 2024",
+    "si4_title": "Cortical thickness and grey-matter volume anomaly detection in individual MRI scans: Comparison of two methods",
+    "si5_doi": "10.1016/j.nicl.2024.103624"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study clearly states its objectives: to compare anomaly detection performance of ScanOMetrics when driven by FreeSurfer vs DL+DiReCT outputs on OASIS3, and to assess suitability for clinical decision support. This satisfies both criteria: explicit research questions/hypotheses and a stated purpose of applying normative modeling in a clinical evaluation context.",
+      "supporting_text": "\"Here we have compared the performance of 'ScanOMetrics' ... depending on whether it is operated on the output of FreeSurfer or ... DL+DiReCT. ... This difference in computation time might be relevant when considering application ... as diagnostic decision support\"; \"The purpose of this work was to explore the performance of our normative modeling approach ('ScanOMetrics') ... in the context of clinical evaluation.\"",
+      "location": "Romascano2024.pdf.md: 32; 70-72"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They define the reference cohort as OASIS3 healthy controls (CDR=0) and exclude \"converter\" subjects (those with mixed CDR=0 and CDR≥0.5 scans). They further apply image/data quality screening: LOOCV-based anomaly screening at a 5% abnormal-metrics threshold (q=0.01 per metric), IQR-based outlier removal during model fitting, and visual inspection evidence of artifacts. Final sample size is reported: 1,828 HC scans remained after removing 99 outlier HC scans from the initial 1,927 non-converting HC scans; reasons include artifacts/potential pathology and statistical outlier criteria.",
+      "supporting_text": "\"Those scans were excluded from building our normative model ... based on 1'927 scans from 696 non-converting subjects\"; \"To clean our normative models ... remove [anomalous scans] from the normative datasets ... scans with more than 5% abnormal regions ...\"; \"The 99 HC scans with large number of anomalies (5.15%) were removed ... from the 1'828 remaining HC scans\"; Supplement: \"Outliers correspond to scans with more than 5% abnormal regions\" and notes on motion/susceptibility artifacts.",
+      "location": "Romascano2024.pdf.md: 80-83, 149, 259; 1-s2.0-S2213158224000639-mmc1.docx.md: 17, 21, 48-52"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age is explicitly modeled via low-order polynomials. Other covariates (sex, scanner, scanning protocol) are handled by matched subgroup selection prior to statistics, addressing multi-scanner/protocol effects.",
+      "supporting_text": "\"Covariates other than age (i.e. sex, scanner and scanning protocol) were accounted for by selecting matched subgroups before computing statistics.\" Also notes that scanner/protocol differences influence SBA estimates and require control.",
+      "location": "Romascano2024.pdf.md: 123-126; 66-68"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The data source is clearly described as the public OASIS3 dataset, with citation, access URL, and scanner/field strength details.",
+      "supporting_text": "\"The OASIS3 dataset ... is publicly available at www.oasis-brains.org ... All scans were acquired at two field strengths using Siemens MRI scanners ...\"",
+      "location": "Romascano2024.pdf.md: 80-81"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary data are used (OASIS3). Per the guide, for SECONDARY data (existing datasets) this item is not applicable.",
+      "supporting_text": "Uses secondary dataset OASIS3 rather than primary acquisition.",
+      "location": "Romascano2024.pdf.md: 80-81"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software and steps are described: FreeSurfer v6.0.0 and DL+DiReCT with default parameters; Desikan-Killiany atlas metrics exported; brain-size normalization (ICV scaling) detailed; outlier/quality control procedures outlined and applied.",
+      "supporting_text": "\"FreeSurfer ... version 6.0.0 and DL+DiReCT ... using default parameters. Results were exported in tabular form using the Desikan-Killiany atlas\"; \"All volumes were scaled to the mean ICV ... Mean and standard deviation of the CTh were ... scaled according to ICV^(1/3)\"; \"To clean our normative models ... remove [anomalous scans] ...\"",
+      "location": "Romascano2024.pdf.md: 86, 101-107, 108-115, 149"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They use leave-one-out cross-validation (LOOCV) on the HC reference cohort to assess internal validation, including repetition after cleaning.",
+      "supporting_text": "\"The LOOCV analysis was ... used to identify anomalous scans ... [and] repeated after cleaning of the normative dataset\"; Fig. caption: \"all HC scans against this subject's LOOCV model\"; Supplement: \"results of the LOOCV in cleaned non-converting HCs\".",
+      "location": "Romascano2024.pdf.md: 149, 219; 1-s2.0-S2213158224000639-mmc1.docx.md: 5"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The study builds new normative models from OASIS3 but does not apply them to an independent external healthy dataset; analyses are confined to OASIS3.",
+      "supporting_text": "\"To achieve full reproducibility of our results, we focussed the analysis on OASIS3 ...\" with no mention of external healthy validation.",
+      "location": "Romascano2024.pdf.md: 70-72, 80-83"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They describe the modeling: uniform age resampling, low-order polynomial fits with degree selection via nested F-tests and degree cap, outlier removal via IQR rules, uncertainty estimation from rescans, and conversion of z-scores to p-values to derive signed log10(P) anomaly scores. Software availability for ScanOMetrics is specified.",
+      "supporting_text": "\"each ... metric ... resampled ... 10-bin-histograms of the participant age ...\"; \"low order polynomials ... degrees ... increased ... until reduction of residual variance became insignificant (nested F tests) ... maximum degree ...\"; \"Before each of these fits, outliers were removed ... 1.5 inter quartile ranges ...\"; \"Metric variability ... measurement uncertainty derived from repeated scans ...\"; \"z-score ... converted to p-value ...\"; \"The Python3 implementation of ScanOMetrics is available at ...\"",
+      "location": "Romascano2024.pdf.md: 114-140; 76"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "They report quantitative calibration-like metrics for the reference cohort via LOOCV: proportion of HC scans flagged as anomalous before and after cleaning (5.15% to 1.48%) and a binomial test vs the 1% expectation at q=0.01. Although standard fit metrics (e.g., explained variance) are not reported, these quantitative indicators assess model behavior on held-out HC scans.",
+      "supporting_text": "\"The 99 HC scans with large number of anomalies (5.15%) were removed ... 1'828 remaining HC scans ... [in the cleaned models] ... decreased to 27 (1.48% of HC scans, pbinom = 0.045 for fraction 1%).\"",
+      "location": "Romascano2024.pdf.md: 259"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "They use LOOCV (a partitioning strategy) rather than fixed train/validation/test splits. Overall HC sample sizes and demographics are provided (Table 1). However, characteristics for each partition/fold are not described explicitly beyond the implicit LOOCV size (n-1 training, 1 test).",
+      "supporting_text": "\"Demographic characteristics of the used OASIS3 subgroups\" (Table 1); \"LOOCV analysis ... used ... and repeated after cleaning\".",
+      "location": "Romascano2024.pdf.md: 90-101, 149"
+    },
+    "nm11_reproducibility": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Software/tools and versions are specified (FreeSurfer v6.0.0; DL+DiReCT; ScanOMetrics Python3), along with open-source code links. Supplementary materials describe saving/loading pretrained normative model files (e.g., Polynomial_dldirect_cleanOASIS3), indicating availability and versioning of models.",
+      "supporting_text": "\"The Python3 implementation of ScanOMetrics is available at ...\"; \"FreeSurfer ... version 6.0.0 and DL+DiReCT ...\"; Supplement: \"ScanOMetrics is distributed with a selection of pre-trained normative models ... 'Polynomial_dldirect_cleanOASIS3' and 'Polynomial_freesurfer_cleanOASIS3'\".",
+      "location": "Romascano2024.pdf.md: 76, 101-102; 1-s2.0-S2213158224000639-mmc1.docx.md: 62-63"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Clinical cohort is from the secondary OASIS3 dataset. Eligibility is described via CDR-based categorization (patients with established AD: CDR≥1), and final sample size is reported. However, explicit image quality/data completeness standards for the clinical cohort are not detailed beyond general discussion of artifacts.",
+      "supporting_text": "\"The OASIS3 dataset ... contains ... patients with Alzheimer’s disease (AD) and healthy controls (HC)\"; \"The AD dataset consisted of 209 scans with CDR ≥ 1.0\"; Discussion of motion artifacts in rescans (example), but no explicit clinical-cohort QC criteria.",
+      "location": "Romascano2024.pdf.md: 80-81, 157, 223-231"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "They analyze deviation patterns stratified by clinical dementia rating (CDR) levels (0.5, 1, ≥2), a clinical severity measure. Other clinical covariates (e.g., medication, illness duration) are not modeled.",
+      "supporting_text": "\"Percentage of CTh anomalies ... stratified by cognitive impairment levels at scan time (CDR = 0.5 ... CDR = 1 ... CDR ≥ 2)\"; \"an apparent worsening of atrophy ... revealed ... by the CTh anomaly maps, see Fig. 2\".",
+      "location": "Romascano2024.pdf.md: 161-171"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort data source is specified as OASIS3 with citation and scanning details.",
+      "supporting_text": "\"The OASIS3 dataset ... is publicly available ... contains ... scans ... field strengths and scanner types ...\"",
+      "location": "Romascano2024.pdf.md: 80-81"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "They report clinical cohort sample sizes and demographics (age and sex) in Table 1 for CDR≥1. Clinical characteristics beyond CDR (e.g., medication status) are not detailed.",
+      "supporting_text": "Table 1 provides participants, scans, and age (mean±SD, range) for CDR ≥ 1; female counts are also given.",
+      "location": "Romascano2024.pdf.md: 90-101"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "CDR is specified and used to stratify analyses. The assessment procedure details are not described here (standard for OASIS3).",
+      "supporting_text": "\"clinical dementia rating (CDR)\" referenced multiple times; stratification by CDR levels in Fig. 2.",
+      "location": "Romascano2024.pdf.md: 161-171"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They define deviation scores as signed log10(P): positive for larger-than-expected values and negative for smaller-than-expected, with a quantitative abnormality threshold (q=0.01). They interpret clinical significance by linking deviation patterns to known AD atrophy regions and stratifying by CDR, and discuss implications (e.g., entorhinal thinning, hippocampal volume reductions).",
+      "supporting_text": "\"log10(P), signed positive/negative for larger/smaller than expected fit residues, were used as the central objects ... To detect a statistical anomaly, a significance threshold was set to q = 0.01\"; \"the bilateral entorhinal gyrus was identified as one of the earliest visible and most prominent deviations in patients with AD ...\"; \"Progression of the atrophy pattern with clinical dementia rating (CDR) was clearly observable\".",
+      "location": "Romascano2024.pdf.md: 136-144, 159-162, 171"
+    }
+  }
+}

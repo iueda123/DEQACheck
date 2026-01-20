@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Gordaliza2024",
+    "si2_reference_file_names": "Gordaliza2024.pdf.md",
+    "si3_author_journal_year": "Gordaliza et al., MICCAI 2024 Workshops (LNCS 15401), 2025",
+    "si4_title": "Towards Longitudinal Characterization of Multiple Sclerosis Atrophy Employing SynthSeg Framework and Normative Modeling",
+    "si5_doi": "10.1007/978-3-031-84525-3_4"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study clearly states research objectives and the purpose of applying normative modeling. Criterion 1 (Research hypotheses/questions): The study aims to investigate deviations in subcortical volumes in MS patients using normative modeling. Criterion 2 (Purpose of normative modeling): The purpose is described as understanding MS progression, disease characterization, and contributing to data-driven disease progression modeling. Both criteria are satisfied.",
+      "supporting_text": "\"This study harnesses cutting-edge neuroimaging and deep learning techniques to investigate deviations in subcortical volumes in MS patients.\" | \"By comparing subcortical volumes of 326 MS patients to a normative model from 37,407 healthy individuals, we identify significant deviations that enhance our understanding of MS progression. This study highlights the potential of integrating DL with normative modeling to refine MS progression characterization, automate informative MRI contrasts, and contribute to data-driven DPM in neurodegenerative diseases.\" | \"we present a pilot study investigating deviations in brain morphometry with three key innovations\"",
+      "location": "Abstract (page 1); Introduction (Section 1, end)"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "This study uses an EXISTING normative model (CentileBrain). The CentileBrain model was trained on 37,407 healthy individuals from 81 datasets, but this was done in a previous publication. According to the assessment criteria for studies using an EXISTING normative model, since no transfer learning or recalibration with a local reference sample is performed, and the study only applies the pre-existing model to MS patients, the item is not applicable. The study cites the original publication describing the reference cohort [18].",
+      "supporting_text": "\"utilizes the CentileBrain normative model, based on 37,407 healthy individuals\" | \"Recently, the CentileBrain [18] model trained with 37,407 healthy individuals (53.3% females, age range 3-90) from 81 datasets has been released.\"",
+      "location": "Introduction (Section 1); Methods - Normative Modeling subsection (Section 2.2)"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Criterion 1 (Covariates such as age and sex): The study considers age and sex as covariates - the CentileBrain model generates sex-specific normative models and the Z-score calculations use age and sex. Criterion 2 (Site effect handling): The study describes using ComBat-GAM harmonization to address site effects from multi-site data, which accounts for age and sex in addition to mitigating site effects. Both criteria are fully satisfied.",
+      "supporting_text": "\"The CentileBrain model [18] employs patient-specific age and sex covariates to estimate the subcortical volume of a healthy subject of such age and sex\" | \"To address this, we used ComBat-GAM harmonization [16], an advanced technique that combines the ComBat method with Generalized Additive Models (GAMs). ComBat-GAM effectively harmonizes neuroimaging data by accounting for age and sex, in addition to mitigating site effects, making it suitable for studies involving large, heterogeneous datasets.\" | \"generating sex-specific normative models for the volume estimation of subcortical regions\"",
+      "location": "Methods - Subcortical Volumes Site Harmonization (Section 2.2); Methods - Normative Modeling (Section 2.2)"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "This study uses an EXISTING normative model (CentileBrain). According to the assessment criteria for studies using an EXISTING normative model, the data source should be specified. The study does cite the original publication [18] and mentions the reference cohort characteristics (37,407 healthy individuals from 81 datasets). However, since the study is using a pre-trained model and not building a new one, the criterion focuses on whether the source is provided, which it is. The item is technically satisfied for EXISTING model use, but since NM-3 under EXISTING model only requires citation/reference (which is provided), this could be considered as meeting the requirement. Given the structure of the question, this is evaluated as NA since the study does not build a new model but uses an existing one, and the existing model's source is properly cited.",
+      "supporting_text": "\"utilizes the CentileBrain normative model, based on 37,407 healthy individuals [18]\" | \"Recently, the CentileBrain [18] model trained with 37,407 healthy individuals (53.3% females, age range 3-90) from 81 datasets has been released.\"",
+      "location": "Introduction (Section 1); Methods - Normative Modeling (Section 2.2)"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "The study uses SECONDARY data (existing datasets) for both the normative model (CentileBrain - pre-existing) and the MS patient cohort (from public and in-house datasets). According to the assessment criteria, for SECONDARY data (existing datasets), the answer should be 'NA'. The study does provide some information about imaging (FLAIR, T1w, field strengths 1.5T-3T) but this is for the clinical MS cohort data, not primary data collection. The normative model data comes from the previously published CentileBrain study.",
+      "supporting_text": "\"three in-house datasets (Lausanne University Hospital (CHUV), Louvain Neuroinflammation Imaging Lab (NIL), and Imaging Axonal Damage & Repair in Multiple Sclerosis (INsIDER) [20]) and two public datasets (MICCAIMSSEG2016 challenge [8] and OpenMSLong [30])\" | \"Imaging protocols varied across datasets, with magnetic field strengths ranging from 1.5T to 3T.\"",
+      "location": "Materials (Section 2.1)"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Criterion 1 (Preprocessing software specified): The study uses SynthSeg+ and SynthSeg-WMH for segmentation, which is specified. Criterion 2 (Preprocessing steps/pipeline mentioned): The segmentation process is described - using deep learning algorithms for automatic segmentation of subcortical structures, and ComBat-GAM for harmonization. Criterion 3 (Quality control procedures): No explicit quality control procedures are described for the preprocessing. The study relies on the robustness of the DL models but does not describe specific QC steps. Two of three criteria are satisfied (software and pipeline), but QC procedures are not described.",
+      "supporting_text": "\"We perform the segmentation of all subcortical regions using both T1w images and FLAIR sequences, as well as the DL algorithms SynthSeg+ [7] and SynthSeg-WMH [29]\" | \"SynthSeg+ is a more robust version of the previously released SynthSeg [6], which accounts for image quality beyond resolution and contrast agnosticism.\" | \"By applying ComBat-GAM, we ensure that the subcortical volume estimates, yicras, derived from our segmentation methods are comparable across different sites\"",
+      "location": "Methods - Subcortical Volumes Segmentation (Section 2.2); Methods - Subcortical Volumes Site Harmonization (Section 2.2)"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "This study uses an EXISTING normative model (CentileBrain). According to the assessment criteria, for studies using an EXISTING normative model, the answer should be 'NA'. The study does not build a new normative model; it applies the pre-trained CentileBrain model to MS patient data.",
+      "supporting_text": "\"utilizes the CentileBrain normative model, based on 37,407 healthy individuals [18]\"",
+      "location": "Introduction (Section 1)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "This study uses an EXISTING normative model (CentileBrain). According to the assessment criteria, for studies using an EXISTING normative model, the answer should be 'NA'. The study does not build a new normative model that would require external validation on independent healthy individuals.",
+      "supporting_text": "\"utilizes the CentileBrain normative model, based on 37,407 healthy individuals [18]\"",
+      "location": "Introduction (Section 1)"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "This study uses an EXISTING normative model (CentileBrain). According to the assessment criteria, for studies using an EXISTING normative model, the answer should be 'NA'. The study does mention that CentileBrain employs Multivariate Factorial Polynomial Regression (MFPR), but this information is about the pre-existing model, not a new model built in this study.",
+      "supporting_text": "\"The CentileBrain employs Multivariate Factorial Polynomial Regression (MFPR) [38] algorithm which performs robustly on healthy subjects\"",
+      "location": "Methods - Normative Modeling (Section 2.2)"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "This study uses an EXISTING normative model (CentileBrain). According to the assessment criteria, for studies using an EXISTING normative model, the answer should be 'NA'. The study reports RMSE values comparing MS patient volumes to normative predictions, but this is not model performance assessment for the reference cohort - it is deviation assessment for the clinical cohort.",
+      "supporting_text": "\"RMSE between the real volumes (yicras) and the estimated healthy volumes (^yirs) was calculated across all patients for each region\" | \"This RMSEcras provides an estimation of the average deviation of the MS cohort from the normative model predictions\"",
+      "location": "Methods - Evaluation (Section 2.2)"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "This study uses an EXISTING normative model (CentileBrain) and does not perform data partitioning for model building. According to the assessment criteria, for studies using an EXISTING normative model, or if no data partitioning is performed, the answer should be 'NA'.",
+      "supporting_text": "\"the CentileBrain normative model, based on 37,407 healthy individuals [18]\"",
+      "location": "Introduction (Section 1)"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "For studies using an EXISTING normative model, the criterion is: The source of the normative model is provided (e.g., citation, repository URL, version). The study does cite the CentileBrain model [18] and mentions the segmentation tools (SynthSeg+, SynthSeg-WMH) with citations. However, software versions are not specified, and there is no mention of code/data availability or repository URLs. The source citation is provided, but version information and availability statements are missing.",
+      "supporting_text": "\"utilizes the CentileBrain normative model, based on 37,407 healthy individuals [18]\" | \"SynthSeg+ [7] and SynthSeg-WMH [29]\" | \"Ge, R., et al.: Normative modelling of brain morphometry across the lifespan with CentileBrain: algorithm benchmarking and model optimisation. Lancet Digital Health 6(3), e211-e221 (Mar 2024)\"",
+      "location": "Introduction (Section 1); Methods (Section 2.2); References"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "For SECONDARY data (existing datasets), the criteria are: (1) Original publication cited and additional eligibility criteria described - the study cites original publications for the public datasets but does not describe specific eligibility criteria for MS patients; (2) Image quality/data completeness standards - not explicitly described; (3) Final sample size and exclusion reasons - sample size is reported (326 MS patients, 460 scans) but exclusion reasons are not provided. The study mentions 'heterogeneous dataset' but lacks detail on patient selection criteria beyond citing source datasets. One of three criteria is partially satisfied (sample size reported, citations provided), but image quality standards and exclusion reasons are missing.",
+      "supporting_text": "\"We analyzed a heterogeneous dataset comprising 326 MS patients from five sources: three in-house datasets (Lausanne University Hospital (CHUV), Louvain Neuroinflammation Imaging Lab (NIL), and Imaging Axonal Damage & Repair in Multiple Sclerosis (INsIDER) [20]) and two public datasets (MICCAIMSSEG2016 challenge [8] and OpenMSLong [30]).\" | \"resulting in a total of 460 3D-FLAIR and T1w MRI scans\"",
+      "location": "Materials (Section 2.1); Table 1"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The criterion asks whether clinical covariates beyond basic demographics (e.g., medication status, illness duration, symptom severity, comorbidities) are considered in analyses of deviation scores. The study considers only age and sex in the normative modeling and deviation analysis. No clinical covariates such as medication status, EDSS scores, illness duration, MS subtype, or symptom severity are used in the deviation score analyses. While the study mentions EDSS in the introduction as a limitation of traditional approaches, EDSS or other clinical measures are not incorporated into their deviation analyses.",
+      "supporting_text": "\"The CentileBrain model [18] employs patient-specific age and sex covariates to estimate the subcortical volume\" | \"ComBat-GAM effectively harmonizes neuroimaging data by accounting for age and sex\" | No mention of clinical covariates in deviation score analyses",
+      "location": "Methods (Section 2.2)"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "For both PRIMARY and SECONDARY data, the data source should be specified. The study clearly specifies the data sources: three in-house datasets (CHUV, NIL, INsIDER) and two public datasets (MICCAI-MSSEG2016, OpenMSLong). Original publications are cited for the public datasets. The criterion is fully satisfied.",
+      "supporting_text": "\"We analyzed a heterogeneous dataset comprising 326 MS patients from five sources: three in-house datasets (Lausanne University Hospital (CHUV), Louvain Neuroinflammation Imaging Lab (NIL), and Imaging Axonal Damage & Repair in Multiple Sclerosis (INsIDER) [20]) and two public datasets (MICCAIMSSEG2016 challenge [8] and OpenMSLong [30]).\"",
+      "location": "Materials (Section 2.1)"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Criterion 1 (Sample sizes reported): Yes, sample sizes are reported for each dataset (N=53, 20, 41, 47, 165 respectively, total 326). Criterion 2 (Demographic characteristics): Yes, age (average, min-max) and sex (number of females) are provided in Table 1. Criterion 3 (Clinical characteristics): No, clinical characteristics such as medication status, symptom severity (EDSS), illness duration, or MS subtype are not reported. Two of three criteria are satisfied.",
+      "supporting_text": "Table 1 shows: Dataset, N (Female), Age Avg. (Min.-Max.), Long. (N), Sequence, Voxel Size for each of the 5 datasets. For example: \"MSSEG2016: 53 (38), 45.15 (24-66)\" | \"INsIDER: 165 (98), 46.44 (18.27-76.51)\"",
+      "location": "Materials (Section 2.1); Table 1"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "Criterion 1 (Clinical measures specified): No specific clinical assessment measures (e.g., symptom rating scales, diagnostic criteria with version) are described for the MS patient cohort. While EDSS is mentioned in the introduction as a limitation of traditional approaches, it is not used or reported for the study cohort. Criterion 2 (Assessment procedures described): No assessment procedures are described. Neither criterion is satisfied. The study focuses on imaging-derived measures rather than clinical assessments.",
+      "supporting_text": "\"Traditionally, MS is clinically characterized by the pseudo-quantitative Expanded Disability Status Scale (EDSS)\" - mentioned only as background/limitation, not used in this study | No clinical assessment measures reported for the cohort",
+      "location": "Introduction (Section 1) - EDSS mentioned as context only"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Criterion 1 (Meaning and direction of deviation scores explained): Partially - the Z-score formula is provided but the interpretation of positive/negative values is not explicitly stated. Criterion 2 (Quantitative thresholds reported): Yes - the study uses |Z| > 1.96 as the threshold for extreme deviations (95% CI). Criterion 3 (Clinical implications discussed): Partially - the study discusses deviation patterns related to MS progression and atrophy but does not explicitly link to symptoms or diagnosis. The interpretation is somewhat limited. Two of three criteria are partially or fully satisfied.",
+      "supporting_text": "\"For each patient and each region, we computed a Z-score to quantify the individual deviation from the normative value: Z-scoreicras = (yicras - ^yirs) / sqrt(sigma^2_rs + sigma^2_icras)\" | \"Red dashed lines at +/- 1.96 identify the 95% confidence interval. |Z-score| > 1.96 are considered extreme deviants.\" | \"We observed a consistent trend across sexes, showing an increasing deviation with age in the thalamus of both hemispheres\" | \"our preliminary study suggests potential subcortical volume deviations in MS patients\"",
+      "location": "Methods - Evaluation (Section 2.2); Results (Section 3); Figure 5 caption; Conclusions (Section 4)"
+    }
+  }
+}

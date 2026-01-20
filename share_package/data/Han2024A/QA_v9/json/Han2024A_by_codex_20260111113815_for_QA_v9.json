@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Han2024A",
+    "si2_reference_file_names": "Han2024A.pdf.md; S0033291723003161sup001.docx.md",
+    "si3_author_journal_year": "Han et al., Psychological Medicine, 2024",
+    "si4_title": "Gray matter atrophy is constrained by normal structural brain network architecture in depression",
+    "si5_doi": "10.1017/S0033291723003161"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Objectives are clearly stated: to investigate whether individual-level gray matter atrophy patterns in depression are constrained by normal connectome architecture, identify disease epicenters, test propagation via connectivity, and explore subgroups. This directly addresses research questions and the purpose of applying normative modeling for individualized analysis and disease understanding.",
+      "supporting_text": "\"we aimed to investigate the association between gray matter atrophy and normal connectome architecture at individual level in depression.\" ... \"For each patient, individualized regional atrophy was assessed using normative model...\" ... \"we investigated whether the association ... could help to uncover homogeneous subgroups in depression.\"",
+      "location": "Han2024A.pdf.md (Abstract; Methods; Clustering analysis)"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Eligibility criteria for healthy controls are described (community recruitment; no serious medical/neuropsychiatric illness; no family history in first-degree relatives; Han Chinese; right-handed; additional exclusions: recent drugs, substance abuse, neurological history, systemic illness, MRI contraindications). Image quality standards are partly specified: motion thresholds for fMRI, IQR recorded for structural images. Final sample sizes are reported, but detailed counts/reasons for exclusions beyond motion are not provided.",
+      "supporting_text": "\"Healthy controls (HCs) were recruited from the community... None of them presented a history of serious medical or neuropsychiatric illness or a family history... Patients and HCs were all Han Chinese and right handedness. For all participants... additional exclusion criteria included: (1) taking drugs... (2) substance abuse; (3) a history of brain tumor... (5) contraindications for MRI...\" ... \"Subjects were excluded if the translational and rotational displacement exceeded 3.0 mm or 3.0°. None of the participants were removed for this criterion.\" ... \"The Image Quality Rating (IQR) ... was recorded to assess images quality.\"",
+      "location": "Han2024A.pdf.md (Participants; Data preprocessing; VBM analysis)"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age and sex are explicitly modeled as covariates in the Gaussian process regression trained on healthy controls to predict regional GMV. Multi-site harmonization is not needed because analyses are performed within each dataset/site separately.",
+      "supporting_text": "\"we trained a Gaussian process regression model to predict regional GMV from age and sex in HCs and then applied the trained model to infer regional GMV of patients.\"",
+      "location": "Han2024A.pdf.md (Determination of individualized gray matter atrophy pattern)"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study builds new normative models from two primary datasets. Data sources are specified with recruitment sites and ethics approvals for both discovery (First Affiliated Hospital of Zhengzhou University) and replication (Clinical Hospital of Chengdu Brain Science Institute, UESTC) datasets.",
+      "supporting_text": "\"The discovery dataset included 105 never-treated first-episode patients ... and matched 130 healthy controls (HCs) recruited from ... the First Affiliated Hospital of Zhengzhou University... The replication dataset included 106 patients ... and matched 126 HCs... approved by the research ethical committee...\"",
+      "location": "Han2024A.pdf.md (Participants)"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Imaging modality and acquisition parameters are fully specified for both datasets, including scanner model (3T GE Discovery MR750), sequences (T1-weighted; EPI for fMRI), and parameters (TR/TE, inversion time, flip angle, voxel size, matrix, slices, thickness, volumes).",
+      "supporting_text": "\"The functional and T1-weighted anatomical images were acquired on 3-Tsela GE Discovery MR750 scanner ... T1-weighted ... TR = 8164 ms, TI = 900 ms, TE = 3.18 ms, flip angle = 7°, voxel size = 1×1×1 mm³ ... Functional ... EPI ... TR/TE = 2000/40 ms ...\"; \"The structural and functional images were acquired on a 3-Tesla GE Discovery MR750 ... T1 ... TR/TE = 5.92/1.956 ms ... Functional ... TR/TE = 2000/30 ms ...\"",
+      "location": "Han2024A.pdf.md (Scan acquisition: Discovery dataset; Replication dataset)"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software and steps are described: VBM with CAT12 including segmentation, normalization, modulation, smoothing, and IQR recording; fMRI preprocessing with SPM12 and DPABI (volume removal, slice timing, realignment, normalization, smoothing, detrending, band-pass filtering, nuisance regression, despiking), motion thresholds, and FD calculation.",
+      "supporting_text": "\"GMV was measured with VBM ... using ... CAT12 ... segmented ... normalized ... smoothed ... IQR ... recorded to assess images quality.\" ... \"Functional images were preprocessed using SPM12 ... and DPABI ... removing the first 10 volumes, slice timing and realignment ... normalized to the standard EPI template ... smoothed ... detrended ... Band-pass filtered ... Nuisance covariates ... were regressed out ... outliers ... detected ... mean frame-wise displacement (FD) was calculated.\"",
+      "location": "Han2024A.pdf.md (VBM analysis; Data preprocessing)"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "No data partitioning (e.g., held-out test set or cross-validation) for the normative model on the healthy reference cohort is described. The Gaussian process model is trained on HCs and applied to patients without reporting internal validation on held-out HCs.",
+      "supporting_text": "No explicit mention of cross-validation, hold-out testing, or similar internal validation for the GPR normative model on HCs.",
+      "location": "Han2024A.pdf.md (Determination of individualized gray matter atrophy pattern)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Although the study uses a separate replication dataset, the normative model for each dataset is built from that dataset’s HCs. There is no application of a reference cohort model to an independent external healthy dataset not used for model development.",
+      "supporting_text": "\"All results reported in the main text were based on the discovery dataset and reproduced on the replication dataset.\" (Replication uses its own dataset rather than applying a pre-trained HC model to external HCs.)",
+      "location": "Han2024A.pdf.md (Participants)"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The statistical model is specified as Gaussian process regression predicting regional GMV from age and sex, and Z-scores are computed using predictive uncertainty. However, key model settings (e.g., kernel type, hyperparameter priors) and software/library used for GPR are not specified.",
+      "supporting_text": "\"we trained a Gaussian process regression model to predict regional GMV from age and sex in HCs ... For each brain region, the Z-score was obtained ... normalized by the uncertainty of prediction.\"",
+      "location": "Han2024A.pdf.md (Determination of individualized gray matter atrophy pattern)"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "No quantitative performance metrics (e.g., R², correlation, error, PI coverage) are reported for the normative model fit/calibration on the reference cohort. Reported R² values pertain to epicenter models explaining atrophy patterns, not normative model performance.",
+      "supporting_text": "\"The performance (the explained variance, R²) of these four models was as follow: structural single-epicenter ... structural multi-epicenter ... functional ...\" (These are not normative model metrics on HCs.)",
+      "location": "Han2024A.pdf.md (Results)"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Not applicable because no data partitioning (training/validation/test) is described for building the normative model.",
+      "supporting_text": "No partitions (training/validation/test) reported for the HC normative modeling.",
+      "location": "Han2024A.pdf.md (Methods)"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Some software/tools are named (SPM12, DPABI, AFNI 3dDespike, CAT12) but versions are not fully specified (beyond SPM12 label), and no code/trained model availability is stated.",
+      "supporting_text": "\"Functional images were preprocessed using SPM12 ... and DPABI ... outliers ... as implemented in 3dDespike ...\"; \"This procedure was done using ... CAT12 ...\" (No code or version details beyond tool names; no data/model availability statements).",
+      "location": "Han2024A.pdf.md (Data preprocessing; VBM analysis)"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Patient eligibility and diagnostic criteria are specified (DSM-IV/SCID-P; clinician evaluation), and image quality standards/motion criteria are provided. Final sample sizes are reported. However, detailed counts and reasons for excluded clinical subjects beyond the motion criterion are not reported.",
+      "supporting_text": "\"patients were diagnosed according to DSM-IV ... by one chief physician and one well-trained psychiatrist\"; \"interviewed by two experienced psychiatrists using SCID-P ... The 24-Item Hamilton Depression Scale was used\"; \"Subjects were excluded if the translational and rotational displacement exceeded 3.0 mm or 3.0°. None ... were removed for this criterion.\"; \"The clinical demographics were presented in Table 1.\"",
+      "location": "Han2024A.pdf.md (Participants; Data preprocessing; Results Table 1)"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Some clinical/demographic covariates are analyzed in subgroup comparisons and sensitivity analyses (e.g., illness duration, age of onset, symptom severity; educational level; IQR). However, comprehensive modeling of deviation scores adjusting for clinical covariates (e.g., medication status) is not described.",
+      "supporting_text": "\"We investigated whether demographic characteristics (including illness duration, age of onset, and symptom severity) differed among uncovered subgroups.\" ... \"we also investigated whether [IQR and educational level] affected the performance of models (R²) ...\"",
+      "location": "Han2024A.pdf.md (Clustering analysis; External validation and sensitivity analysis)"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort data sources are clearly described with institutions and procedures for both datasets.",
+      "supporting_text": "\"The discovery dataset ... recruited from ... the First Affiliated Hospital of Zhengzhou University ... The replication dataset ... recruited from the Clinical Hospital of Chengdu Brain Science Institute, University of Electronic Science and Technology of China.\"",
+      "location": "Han2024A.pdf.md (Participants)"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sample sizes and demographic/clinical characteristics are reported, including age, sex, education, HAMD scores, illness duration, and age of onset, with group comparisons in Table 1.",
+      "supporting_text": "\"Table 1. Demographic and clinical characteristics\" ... includes Male %, Age, Educational level, HAMD, Illness duration, Year of onset, IQR for both datasets with p-values.",
+      "location": "Han2024A.pdf.md (Results, Table 1)"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Diagnostic and assessment measures are specified (DSM-IV/SCID-P) and symptom severity scales (HAMD-17 in discovery; HAMD-24 in replication), with clinician-administered procedures noted.",
+      "supporting_text": "\"patients were diagnosed according to DSM-IV ...\"; \"interviewed ... using the Structured Clinical Interview for DSM-IV-TR-Patient Edition (SCID-P) ... The 24-Item Hamilton Depression Scale was used ...\"; \"The clinical states and severity of symptoms were evaluated using the 17-items Hamilton Depression scale (HAMD).\"",
+      "location": "Han2024A.pdf.md (Participants)"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The meaning/direction of deviation (Z) scores is explicitly stated (positive Z indicates atrophy). Clinical implications are explored via subgroup discovery and associations with demographic/clinical variables. However, explicit quantitative thresholds to define categories (e.g., |Z| > 1.96) are not provided.",
+      "supporting_text": "\"The positive Z-scores indicated gray matter atrophy in patients with depression compared with HCs\" ... \"we investigated whether the association ... could help to uncover homogeneous subgroups ...\"",
+      "location": "Han2024A.pdf.md (Determination of individualized gray matter atrophy pattern; Clustering analysis)"
+    }
+  }
+}

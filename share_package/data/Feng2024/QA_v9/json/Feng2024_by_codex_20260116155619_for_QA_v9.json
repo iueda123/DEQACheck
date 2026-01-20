@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Feng2024",
+    "si2_reference_file_names": "Feng2024.pdf.md",
+    "si3_author_journal_year": "Feng et al., bioRxiv, 2024",
+    "si4_title": "Deep Normative Tractometry for Identifying Joint White Matter Macro- and Micro-structural Abnormalities in Alzheimer's Disease",
+    "si5_doi": "10.1101/2024.02.05.578943"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract and introduction clearly state the study's objectives (introduce and evaluate Deep Normative Tractometry, assess generalizability via transfer learning, and compare against BUAN) and describe the purpose of applying normative modeling (to delineate along-tract macro- and micro-structural abnormalities and enhance detection in neurodegenerative conditions). Both criteria are satisfied.",
+      "supporting_text": "\"This study introduces the Deep Normative Tractometry (DNT) framework... By training on data from healthy controls, DNT learns the normative distribution... we assess DNT's generalizability using transfer learning on data from an independent cohort acquired in India. Our findings demonstrate DNT's capacity to detect widespread diffusivity abnormalities... aligning closely with results from the Bundle Analytics (BUAN) tractometry pipeline.\"",
+      "location": "Abstract; Introduction"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "A new normative model is built using healthy controls. The study reports final sample sizes and the subset used for fine-tuning (50 CN) but does not provide explicit inclusion/exclusion eligibility criteria for the healthy reference cohort or reasons for exclusion. Image quality standards beyond algorithmic preprocessing steps are not specified as QC criteria.",
+      "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants... The dataset consists of ... 123 cognitively normal participants (CN)... Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model...\"",
+      "location": "Section II. DATA; Section III.B DNT"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age and sex are considered. Multi-site/scanner effects are addressed by modeling scanner as a random effect in BUAN analyses and regressing out scanner effects in DNT anomaly scores.",
+      "supporting_text": "\"...we computed group statistics using a linear mixed model (LMM), where diagnosis, age, and sex were modeled as fixed effects, and subject and scanner were modeled as random effects.\"; \"We then corrected for age, sex, and scanner effect using linear regression.\"",
+      "location": "Section III.A BUAN; Section III.B DNT"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Data sources are specified: the NIMHANS cohort (India) for fine-tuning/inference and the public TractoInferno multi-site dataset for generative pretraining.",
+      "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data... from two scanners from the NIMHANS... cohort...\"; \"The pre-training dataset was composed of 198 single-shell dMRI volumes from the publicly available TractoInferno training dataset, acquired on 3T scanners from 6 sites.\"",
+      "location": "Section II. DATA"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "The NIMHANS scans are secondary data from an existing cohort; per guidance, image acquisition details are marked not applicable for secondary data, even though protocol parameters are described in the paper.",
+      "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data... from two scanners from the NIMHANS... cohort...\"",
+      "location": "Section II. DATA"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software/algorithms and steps are described (denoising, Gibbs ringing removal, distortion/eddy/bias-field correction, tensor fitting, RUMBA-SD for FODs, tracking, and DIPY RecoBundles for segmentation). However, explicit QC procedures are not described.",
+      "supporting_text": "\"Preprocessing steps for all DWI volumes included: denoising using local principal component analysis, Gibbs ringing removal, correction of susceptibility-induced distortion, eddy currents and bias field inhomogeneity. Diffusion tensors were fitted... Fiber orientations were reconstructed using RUMBA-SD... Particle filtering tracking... DIPY's auto-calibrated RecoBundles was used to segment thirty WM bundles...\"",
+      "location": "Section II. DATA"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "A partition is used: 50 CN subjects are used for fine-tuning, and the remaining CN are held out for inference along with MCI/AD. However, no explicit internal validation scheme (e.g., K-fold CV) or evaluation on held-out healthy data is reported beyond application for anomaly scoring.",
+      "supporting_text": "\"Fifty CN subjects from the NIMHANS dataset... were then used to fine-tune the model... At inference time, bundle profiles from the remaining CN, MCI, and AD subjects were passed through the model...\"",
+      "location": "Section III.B DNT"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "No external validation of the trained normative model on an independent healthy dataset is reported. Generative pretraining uses TractoInferno, but the normative model is fine-tuned and evaluated within the NIMHANS cohort.",
+      "supporting_text": "No explicit external validation of the normative model is described.",
+      "location": "Not stated"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The statistical approach is described: a ConvVAE-based normative model with architecture details (encoder/decoder layers, latent dimension), training steps, and batch size. Key settings are provided. However, the specific software/library used to implement the model is not stated.",
+      "supporting_text": "\"...each streamline... was used as input to the ConvVAE model... The model had an asymmetric architecture, with a 4-layer encoder, a 3-layer decoder, and a latent dimension of 64... The model... was pretrained for 29,000 steps... batch size of 512... fine-tune... for 5000 steps.\"",
+      "location": "Section III.B DNT"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "No quantitative performance metrics (e.g., explained variance, prediction error, calibration/coverage) for the normative model on the reference cohort are reported.",
+      "supporting_text": "No model performance metrics on healthy reference data are provided.",
+      "location": "Not stated"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "A partition is described (50 CN for fine-tuning vs. remaining CN for inference), but detailed demographics per partition are not provided. Overall cohort and scanner-wise demographics are reported.",
+      "supporting_text": "\"Fifty CN subjects... were then used to fine-tune the model...\"; Table: \"NIMHANS dataset description, by scanner... Total 302 | 123/89/90 (CN/MCI/AD) | 67.26 ± 7.86 | 177/125 (M/F).\"",
+      "location": "Section II. DATA; Section III.B DNT"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Some software and algorithms are cited (e.g., DIPY RecoBundles, RUMBA-SD, tracking methods), but software/library versions are not specified and no code, trained models, or data availability statements are provided within the paper text.",
+      "supporting_text": "\"...DIPY's auto-calibrated RecoBundles...\"; \"Fiber orientations were reconstructed using RUMBA-SD...\"",
+      "location": "Section II. DATA"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Secondary cohort data are used (NIMHANS). The study reports final sample sizes by diagnosis and scanner but does not detail patient eligibility/diagnostic criteria, image quality standards, or reasons for exclusion within this paper.",
+      "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"; Table describing scanner-wise counts.",
+      "location": "Section II. DATA"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "Analyses consider only basic demographics (age, sex) and scanner effects. No clinical covariates such as medication status, illness duration, or symptom severity are modeled in deviation analyses.",
+      "supporting_text": "\"...where diagnosis, age, and sex were modeled as fixed effects, and subject and scanner were modeled as random effects.\"; \"We then corrected for age, sex, and scanner effect using linear regression.\"",
+      "location": "Section III.A BUAN; Section III.B DNT"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The clinical cohort data source is specified as the NIMHANS cohort, with scanner details, and supporting references are provided.",
+      "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data... from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
+      "location": "Section II. DATA"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Sample sizes, age (mean ± SD), and sex counts are reported overall and by scanner. Specific clinical characteristics (e.g., symptom severity, medication) are not described.",
+      "supporting_text": "Table: \"NIMHANS dataset description, by scanner... Philips Ingenia: 32/44/34; Siemens Skyra: 91/45/56; Total: 123/89/90; Age 67.26 ± 7.86; Sex 177/125 (M/F).\"",
+      "location": "Section II. DATA (Table)"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The paper does not describe clinical assessment measures or procedures (e.g., diagnostic instruments or rating scales) used to define MCI and AD in this cohort.",
+      "supporting_text": "No clinical assessment measures are specified in the text.",
+      "location": "Not stated"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The meaning and direction of deviation scores are described (anomaly scores computed as segment-wise MAE, assumed higher in MCI/AD). Group-level clinical implications are discussed by comparing deviation patterns with BUAN, but quantitative thresholds for categories (e.g., extreme/atypical individuals) are not provided.",
+      "supporting_text": "\"The anomaly scores are computed using the Mean Absolute Error (MAE) for each segment... We then corrected for age, sex, and scanner... With the assumption that the anomaly score is higher in the MCI and AD group...\"; \"DNT reveals MD abnormality patterns similar to BUAN along the length of the tracts...\"",
+      "location": "Section III.B DNT; Section IV. RESULTS"
+    }
+  }
+}

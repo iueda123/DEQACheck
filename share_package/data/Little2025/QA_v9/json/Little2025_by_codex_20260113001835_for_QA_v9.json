@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Little2025",
+    "si2_reference_file_names": "Little2025.pdf.md; imag_a_00438-supp.pdf.md",
+    "si3_author_journal_year": "Little et al., Imaging Neuroscience, 2025",
+    "si4_title": "Brain morphology normative modelling platform for abnormality and centile estimation: Brain MoNoCle",
+    "si5_doi": "10.1162/imag_a_00438"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract and introduction explicitly state the goal to present an open-source web platform with pre-trained normative models and to validate it in clinical datasets. This clearly describes research objectives and the purpose of applying normative modeling (accessibility, individual abnormalities, clinical utility).",
+      "supporting_text": "\"We present such a platform for brain morphology analysis as an open-source web application ... Using a diverse sample of 3,276 healthy controls across 21 sites, we pre-trained normative models ... We validated the models with a small sample of individuals with bipolar disorder ... Using a cohort of people with temporal lobe epilepsy, we showed that individual-level abnormalities were in line with seizure lateralisation.\"",
+      "location": "Little2025.pdf.md: Abstract (~lines 23–27)"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "NEW model built from multiple public and in-house datasets. They cite sources and report the final sample size. They describe dataset-level QC via original publications and their own outlier detection (statistical and visual) and state that outliers were excluded with listwise deletion. However, explicit inclusion/exclusion criteria for healthy controls and detailed image quality standards are not comprehensively specified in this paper, nor are per-dataset exclusion reasons enumerated.",
+      "supporting_text": "\"We collated 3T T1-weighted MRI scans from 3,276 healthy individuals from several large public and in-house datasets, detailed in Supplementary Materials S1.\" ... \"Some of the public datasets included quality control steps as part of the study design, which are reported in the original study publications. We detected outliers ... flagged outliers defined by residuals more than five median absolute deviations ... We excluded participants who were flagged as an outlier in any of these models; we performed listwise deletion ...\"",
+      "location": "Little2025.pdf.md: Methods (~line 47); Little2025.pdf.md: Pre-processing/QC (~lines 67–73); imag_a_00438-supp.pdf.md: S1 Normative data table"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age and sex are modeled; multi-site effects are addressed by including site as a random effect and by harmonising mean and variance. The modeling framework (GAMLSS) allows covariate effects on multiple distribution moments.",
+      "supporting_text": "\"We use gamlss ... to simultaneously model the parameters ... as response variables of ... sex, age, and scanning site. The mean (µ) depends on sex (fixed effect), site (random effect), and a smooth function of age; the standard deviation (σ) depends on sex (fixed), site (random), and a smooth function of age ...\"; \"our model harmonises scanning site effects for mean and variance\"",
+      "location": "imag_a_00438-supp.pdf.md: S2 Statistical modelling (~lines 36–44); Little2025.pdf.md: Discussion 4.4 (~methodological advance)"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Data sources for the normative reference cohort are listed with dataset names, sample sizes, age ranges, sex counts, locations, and FreeSurfer versions in Supplementary Materials S1; the main text also cites the contributing studies.",
+      "supporting_text": "\"Table S1.1: Descriptive statistics of each study dataset included in the normative model. ... ADHD1000, BLISS, CamCAN, HCP, NKI, OASIS3, ... Total 3,276.\"; \"We collated 3T T1-weighted MRI scans from 3,276 healthy individuals from several large public and in-house datasets, detailed in Supplementary Materials S1.\"",
+      "location": "imag_a_00438-supp.pdf.md: S1 Normative data (Table S1.1); Little2025.pdf.md: Methods (~line 47)"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary data were used for the normative cohort (multiple existing datasets). Per guide, for SECONDARY data, answer NA for image acquisition protocol.",
+      "supporting_text": "\"We collated ... from several large public and in-house datasets, detailed in Supplementary Materials S1. Scanning protocols differed across, and sometimes within datasets, which we corrected statistically in a later step.\"",
+      "location": "Little2025.pdf.md: Methods (~line 47)"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They describe preprocessing with FreeSurfer recon-all, localGI processing, and generation of cortical metrics, and note QC procedures. Software is specified and steps summarized.",
+      "supporting_text": "\"T1-weighted MRI scans were pre-processed in FreeSurfer ... using the standard recon-all pipeline ... We also ran the localGI pipeline ... The aparcstats2table command was used to generate measures ...\"",
+      "location": "Little2025.pdf.md: Section 2.2 Pre-processing (~lines 51–57)"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The supplement reports model stability analyses using subsamples with a held-out test set of subjects, reporting correlations and MAE on held-out data.",
+      "supporting_text": "\"... models trained on sampled subsets of at least 2000 subjects have a high correlation (>99.5%) with the model trained on the full dataset in terms of test set residuals ... the mean absolute error of predictions on the test set converges ... 200 subjects randomly sampled across sites were held out ...\"",
+      "location": "imag_a_00438-supp.pdf.md: S3 Model stability (~lines 137–141)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "They apply the normative model to an independent external dataset of healthy controls (IDEAS HC, n=99) and compare z-scores to those from another app (CentileBrain), demonstrating agreement. This constitutes external application to healthy individuals not used for model development.",
+      "supporting_text": "\"We ran data for healthy controls from the IDEAS dataset (n=99) ... We correlated the z-scores produced by CentileBrain and Brain MoNoCle ... results ... show good agreement ...\"",
+      "location": "imag_a_00438-supp.pdf.md: S5 Comparison (lines ~163–171); Little2025.pdf.md: ~lines 140–144"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The statistical framework is detailed: GAMLSS with sinh–arcsinh distribution; smooth terms for age; sex as fixed effect; site as random effect for mean and variance; and software/library specified.",
+      "supporting_text": "\"We use gamlss ... flexible sinh-arcsinh (shash) distribution ... The mean (µ) depends on sex (fixed), site (random), and a smooth function of age ... The standard deviation (σ) depends on sex (fixed), site (random), and a smooth function of age ...\"; \"our model harmonises scanning site effects for mean and variance\"",
+      "location": "imag_a_00438-supp.pdf.md: S2 (~lines 36–44); Little2025.pdf.md: 4.4 Methodological advance"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Model performance is quantitatively assessed via R^2 across measures and hemispheres; text also reports R^2 values (e.g., K achieving R^2 = 0.8).",
+      "supporting_text": "\"Model fit statistics R^2 for each metric and hemisphere.\"; \"K shows the best model fit (R^2 = 0.8 ...), superior to all other metrics with R^2 around or below 0.6.\"",
+      "location": "Little2025.pdf.md: Fig. 5 caption/section (~lines 165–176) and Section 4.5"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "They report the number of held-out subjects (n=200) and describe training on various subsample sizes, but do not provide demographic characteristics for each partition.",
+      "supporting_text": "\"200 subjects randomly sampled across sites were held out to assess model similarity and fit across samples. 10 samples were repeated at each sample size.\"",
+      "location": "imag_a_00438-supp.pdf.md: S3 Model stability (~lines 137–141)"
+    },
+    "nm11_reproducibility": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "Software/library (gamlss) and version are specified; the platform is available as an open-source web application; related tools (CorticalFoldingAnalysisTools) are linked. Access to trained models is via the web app. Not all environment versions are enumerated, hence Medium.",
+      "supporting_text": "\"open-source web application https://cnnplab.shinyapps.io/BrainMoNoCle/\"; \"We use gamlss ... (https://www.rdocumentation.org/packages/gamlss/versions/5.4-12)\"; \"the toolbox ... (https://github.com/cnnp-lab/CorticalFoldingAnalysisTools)\"",
+      "location": "Little2025.pdf.md: Abstract (~line 23); imag_a_00438-supp.pdf.md: S2 (~line 36); Little2025.pdf.md: Methods (~line 63)"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "SECONDARY datasets (IDEAS and BLISS) are used. They cite the original publications and ethics approvals and report final sample sizes and subgroups. However, detailed eligibility/diagnostic criteria and image quality standards are deferred to the original studies and not fully described here; exclusion reasons are not enumerated in this paper.",
+      "supporting_text": "\"A sample of 133 adults with mesial TLE ... and 99 healthy controls were acquired from the recent IDEAS dataset release ... We also included a sample of 56 adults with bipolar disorder and 26 healthy controls from the BLISS study ... The study was granted ... ethical opinion ...\"",
+      "location": "Little2025.pdf.md: ~lines 71–73"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Analyses focus on group-level abnormalities in BD and lateralisation in TLE using deviation scores. No explicit modeling or adjustment for clinical covariates (e.g., medication, illness duration, symptom severity, comorbidities) is described in the analyses presented.",
+      "supporting_text": "\"We first investigated the group-level differences in ... bipolar disorder ... comparing case-control vs. normative model ...\"; \"we used seizure lateralisation from the IDEAS dataset ... extracted the z-score difference between left and right hemispheres ...\"",
+      "location": "Little2025.pdf.md: Sections 3.2 and 3.4 (~lines 123–136; 144–157)"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical data sources are specified, including dataset/study names and citations.",
+      "supporting_text": "\"... acquired from the recent IDEAS dataset release (Taylor et al., 2024) ... from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS) (Little et al., 2024; Smith et al., 2018).\"",
+      "location": "Little2025.pdf.md: ~lines 71–73"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Sample sizes and subgroup counts (e.g., right/left mTLE) are reported. Demographic characteristics (age, sex) and detailed clinical characteristics are not fully described for the clinical cohorts within this paper.",
+      "supporting_text": "\"A sample of 133 adults with mesial TLE (n=74 right ...; n=59 left ...) and 99 healthy controls ... We also included a sample of 56 adults with bipolar disorder and 26 healthy controls ...\"",
+      "location": "Little2025.pdf.md: ~lines 71–73"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not describe specific clinical assessment measures (e.g., diagnostic instruments, rating scales, assessment procedures) used for BD or TLE cohorts; such details are likely in the cited dataset publications.",
+      "supporting_text": "No explicit clinical assessment instruments or procedures are described for BD or TLE within the Methods/Results sections of this paper.",
+      "location": "Little2025.pdf.md: Methods/Results (no direct mention after targeted search)"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They define and interpret deviation scores (z-scores), including hemisphere-wise differences and directionality (sign indicating lateralisation). They also use quantitative thresholds (outside 2 SD) and discuss clinical implications by comparing to clinical laterality.",
+      "supporting_text": "\"For each subject, we extracted the z-score difference between left and right hemispheres ... Controls, as expected, had a distribution around zero ... most (78.2%) patients had a z-score difference greater/smaller than zero, indicating lateralisation in agreement with clinical metadata ... 36.1% of patients were outside of 2 standard deviations of the control ...\"",
+      "location": "Little2025.pdf.md: Section 3.4 (~lines 144–159)"
+    }
+  }
+}

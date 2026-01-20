@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Kumar2025",
+    "si2_reference_file_names": "Kumar2025.pdf.md",
+    "si3_author_journal_year": "Kumar et al., Alzheimer's & Dementia, 2025",
+    "si4_title": "Analyzing heterogeneity in Alzheimer disease using multimodal normative modeling on imaging-based ATN biomarkers",
+    "si5_doi": "NR"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study clearly states objectives and the purpose of applying normative modeling. It aims to identify individual neuroanatomical and neuropathological variation using a deep learning-based normative model, quantify heterogeneity, derive a disease severity index (DSI), and relate it to dementia severity, cognition, and progression. This satisfies: (1) explicit research questions/objectives; (2) explicit purpose of normative modeling for precision characterization and potential clinical utility.",
+      "supporting_text": "Our main objectives can be summarized as follows: (i) assess the extent of neuroanatomical and neuropathological variability ... (iii) estimate a disease severity index (DSI) ... (iv) examine whether the DSI is related to severity of dementia, impaired cognition, and risk of disease progression.",
+      "location": "Kumar2025.pdf.md: 58"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "NEW model built. Eligibility is described: reference cohort are amyloid-negative, cognitively unimpaired (CDR=0) individuals with T1 MRI, amyloid-PET, and tau-PET within 1 year, using first visit with all modalities. Data sources (ADNI/ADRC) are cited. Final sample sizes are reported. However, explicit image quality standards and reasons for exclusion are not described.",
+      "supporting_text": "Participants were required to have T1-weighted MRI, as well as amyloid and tau PET imaging, completed within 1 year... two groups ... a reference control group of amyloid-negative CU (CDR = 0) ... A total of 434 amyloid-negative CU participants were included (ADNI-CU)...; To avoid harmonization issues due to multiple tracers, we only included data collected using FBP.",
+      "location": "Kumar2025.pdf.md: 64-66, 92"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Covariates age and sex are explicitly modeled by conditioning the mmVAE on these variables to remove their effects. However, handling of site/scanner effects is not described.",
+      "supporting_text": "mmVAE was conditioned on the age and sex of participants to remove the effect of covariates.",
+      "location": "Kumar2025.pdf.md: 124-125"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The data sources for the reference cohort are clearly specified as ADNI and Knight ADRC, with links to acquisition and processing protocols and a Data Availability section describing access.",
+      "supporting_text": "We constructed a discovery dataset consisting of individuals from ADNI and a replication dataset ... Knight ADRC ... Details regarding PET acquisition for ADNI are available online ... Data ... obtained from the ADNI database (adni.loni.usc.edu). Knight ADRC data can be obtained by submitting a data request...",
+      "location": "Kumar2025.pdf.md: 64, 92, 487-493"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary data from existing datasets (ADNI, Knight ADRC) were used; per guide, image acquisition protocol is not applicable for SECONDARY data.",
+      "supporting_text": "We constructed a discovery dataset consisting of individuals from ADNI and a replication dataset ... Knight ADRC.",
+      "location": "Kumar2025.pdf.md: 64"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software and pipelines are specified (FreeSurfer for MRI; ADNI PET pipeline and PUP for ADRC PET). Key steps and reference regions for SUVR normalization are described. Formal QC procedures are not described.",
+      "supporting_text": "T1-weighted sequences ... preprocessed using FreeSurfer versions 6 and 5.3 ...; ADNI PET images ... registered to the nearest T1-weighted image ... Knight ADRC ... processed using the PET Unified Pipeline ... Regional SUVR values ... normalized relative to ... reference region.",
+      "location": "Kumar2025.pdf.md: 78, 100-103"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "A partitioning strategy is described for the reference cohort (ADNI-CU) into training, holdout validation, and test sets. The holdout is used for standardization and the test set as baseline controls. However, explicit testing of the normative model’s performance on unseen healthy data is not reported.",
+      "supporting_text": "The ADNI-CU group was further divided into a training set ... a holdout validation set ... and a test set ... The validation set was used to standardize deviations ... The test sets served as a baseline control group ...",
+      "location": "Kumar2025.pdf.md: 68"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "External replication is performed on Knight ADRC, but with transfer learning (fine-tuning) on ADRC-CU before applying to ADRC-ADS, and ADRC-CU-holdout is used for normalization. This is not a pure external application without adaptation.",
+      "supporting_text": "For replication in the Knight ADRC dataset, mmVAE pretrained on ADNI-CU-train underwent fine-tuning on ADRC-CU-tl through transfer learning ... a similar process was applied using ADRC-CU-holdout to normalize deviations in ADRC-ADS.",
+      "location": "Kumar2025.pdf.md: 124-125, 132"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The statistical approach is described as a multimodal variational autoencoder (mmVAE) with modality-specific encoders/decoders and conditioning on age/sex. Key architecture and hyperparameters are deferred to supplements; implementation libraries are not specified in the main text. Python version is reported for analyses.",
+      "supporting_text": "This framework is based on a multimodal variational autoencoder (mmVAE) ... Details of the mmVAE architecture are provided in Supplementary Methods ... mmVAE was conditioned on the age and sex ... All analyses were performed using Python 3.7.",
+      "location": "Kumar2025.pdf.md: 122-125, 186-188"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "No quantitative model fit or calibration metrics (e.g., explained variance, reconstruction error distributions, prediction error, or coverage) are reported for the reference cohort. Splits are described for standardization and baseline comparisons but not used to report model performance metrics.",
+      "supporting_text": "The validation set was used to standardize deviations ... The test sets served as a baseline control group ...",
+      "location": "Kumar2025.pdf.md: 68"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Sample sizes for each partition (train/holdout/test) are reported for ADNI-CU and ADRC-CU. Demographic characteristics for reference cohorts are referenced as being in Table S1, not detailed in the main text.",
+      "supporting_text": "The ADNI-CU group was further divided into a training set ... holdout ... test set ...; Sample characteristics for the ADNI-CU and ADRC-CU datasets are provided in Table S1.",
+      "location": "Kumar2025.pdf.md: 68, 196"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Software version (Python 3.7) is specified; visualization package (ggseg) is named. Code availability is stated as to be released upon acceptance. Data availability and access conditions for ADNI and ADRC are provided. Specific library versions and trained model availability are not provided.",
+      "supporting_text": "All analyses were performed using Python 3.7 ... Code for the project will be made publicly available upon acceptance. ... ADNI data ... publicly available ... Knight ADRC data can be obtained by submitting a data request ...",
+      "location": "Kumar2025.pdf.md: 186-188, 487-493"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "SECONDARY data. Patient eligibility is described as amyloid-positive across the ADS with imaging within 1 year and first visit with all modalities. Amyloid positivity thresholds are defined. Image quality standards and reasons for exclusion are not reported. Final sample sizes are provided.",
+      "supporting_text": "Participants were required to have T1-weighted MRI, as well as amyloid and tau PET imaging, completed within 1 year ... a target disease group of amyloid positive individuals across the ADS ... ADNI individuals with meta-ROI SUVR uptake greater than 1.11 cutoff were labeled as amyloid positive ... Knight ADRC ... meta-ROI SUVR greater than the 1.24 cutoff were considered amyloid positive.",
+      "location": "Kumar2025.pdf.md: 64-66, 106-109"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "Analyses adjust for age and sex only. No clinical covariates beyond basic demographics (e.g., medication status, illness duration, symptom severity, comorbidities) are modeled in deviation-related analyses.",
+      "supporting_text": "The associations were estimated using linear regression, adjusted for age and sex. ... survival analysis, adjusting for age and sex.",
+      "location": "Kumar2025.pdf.md: 162, 168"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort data sources are the same (ADNI and Knight ADRC) and are clearly identified with acquisition details and access links.",
+      "supporting_text": "ADNI ... PET acquisition ... available online ... Knight ADRC ... DATA AVAILABILITY STATEMENT ... data request form.",
+      "location": "Kumar2025.pdf.md: 92, 487-493"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort characteristics are described with sample sizes, demographics (sex, age), and clinical measures (CDR, MMSE) in Table 1 and accompanying text.",
+      "supporting_text": "TABLE 1 Descriptive statistics for the ADNI-ADS and ADRC-ADS datasets. ... Sex, male:female ... Age ... CDR ... MMSE ... Sample characteristics for the ADNI-ADS and ADRC-ADS cohorts are shown ...",
+      "location": "Kumar2025.pdf.md: 172-178, 194-196"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Clinical measures are specified (CDR and neuropsychological composites for memory, executive function, language). Assessment procedures (e.g., structured interview vs. clinician-rated specifics) are not detailed.",
+      "supporting_text": "Participants were assessed for dementia using the CDR Scale. Cognitive performance was quantified by computing neuropsychological composites for memory, executive functioning, and language.",
+      "location": "Kumar2025.pdf.md: 114-116"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The meaning/direction and thresholds of deviation scores are explicitly defined (Z-score thresholds: MRI below -1.96 for atrophy; PET above 1.96 for increased burden). Quantitative thresholds for defining abnormality are provided, and clinical implications are explored through associations with dementia severity, cognition, and progression.",
+      "supporting_text": "For MRI ... Z-scores below -1.96 ... labeled as abnormal ... Similarly ... amyloid-FBP and tau-FTP ... above 1.96 ... We examined the association between increasing DSI and progressive dementia stages ... associations between DSI and neuropsychological composites ... survival analysis ... progression.",
+      "location": "Kumar2025.pdf.md: 138, 158-168"
+    }
+  }
+}

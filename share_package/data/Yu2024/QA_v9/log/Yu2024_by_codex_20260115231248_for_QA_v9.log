@@ -1,0 +1,1889 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "QA_Guide_v9.md に従って作業をしてください。作業結果は Yu2024_by_codex_20260115231248_for_QA_v9.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+[2026-01-15T14:12:51] OpenAI Codex v0.25.0 (research preview)
+--------
+workdir: /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+model: gpt-5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: auto
+--------
+[2026-01-15T14:12:51] User instructions:
+QA_Guide_v9.md に従って作業をしてください。作業結果は Yu2024_by_codex_20260115231248_for_QA_v9.json へ書き込んでください。
+
+[2026-01-15T14:12:54] thinking
+
+**Reviewing QA Guide Instructions**
+
+I need to read the QA_Guide_v9.md file located in the current or parent directory. My environment is set up in a Dropbox path, and I have limited access rights. I’ll use shell commands to list the files and open the guide. It's essential that I follow the developer instructions carefully, especially about including a preamble before any tool calls. However, it seems the update_plan tool isn't actually available, only the functions.shell is. So, I’ll have to proceed accordingly.
+[2026-01-15T14:12:57] codex
+
+I’m going to scan the folder for the guide and required inputs, then open QA_Guide_v9.md to follow its steps.
+[2026-01-15T14:12:57] exec bash -lc 'ls -la' in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:12:58] bash -lc 'ls -la' succeeded in 505ms:
+total 64
+drwx------@ 10 yocha  staff    320 15 Jan 23:12 .
+drwx------@  4 yocha  staff    128 15 Nov 19:54 ..
+-rw-r--r--@  1 yocha  staff    110 15 Jan 23:12 .lock_QA_v9_processing
+drwx------@  2 yocha  staff     64 24 Oct 14:50 HBM-45-e70020-s001_artifacts
+-rw-------@  1 yocha  staff   9426 24 Oct 14:50 HBM-45-e70020-s001.docx.md
+-rw-------@  1 yocha  staff  16845 15 Jan 23:12 QA_Guide_v9.md
+drwx------@ 17 yocha  staff    544 24 Oct 13:50 Yu2024_artifacts
+-rw-------@  1 yocha  staff   3391 15 Jan 23:12 Yu2024_by_codex_20260115231248_for_QA_v9.json
+-rw-r--r--@  1 yocha  staff   1774 15 Jan 23:12 Yu2024_by_codex_20260115231248_for_QA_v9.log
+-rw-------@  1 yocha  staff  59602 24 Oct 13:49 Yu2024.pdf.md
+[2026-01-15T14:12:58] tokens used: 1033
+
+[2026-01-15T14:12:59] thinking
+
+**Assessing JSON and guide**
+
+I see that the JSON file already exists, and it appears to have logs and other information. The user is asking me to perform tasks based on the guide they've provided in Japanese, which translates to "please perform tasks." Since the JSON is either prepopulated or partially filled, I'll need to read both the guide and the JSON content. Let’s take a look at QA_Guide_v9.md to understand the required tasks.
+[2026-01-15T14:13:02] exec bash -lc "sed -n '1,200p' QA_Guide_v9.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:02] bash -lc "sed -n '1,200p' QA_Guide_v9.md" succeeded in 460ms:
+# Quality Assessment Guidance for Normative Modeling in Neuroimaging: A Systematic Review
+
+Also known as (AKA): The NORMA (Normative Modeling Assessment) Checklist: Reporting Standards for Normative Modeling in Neuroimaging
+
+Version based on `Quality_Assessment_Checklist_20251222.pdf`.
+
+-------------------
+
+## Prompt Overview
+You are a professional reviewer skilled at assessing the quality of research articles on normative modeling in neuroimaging. This assessment is conducted as part of a systematic review on methodological considerations and applications of neuroimaging for psychiatric and neurological disorders.
+
+-------------------
+
+## Our Systematic Review Objectives
+
+This systematic review will evaluate normative modeling studies that use neuroimaging and neurophysiological tests (e.g., MRI, PET, EEG, MEG). The review addresses three questions:
+
+  1. **Modality**: Which measurement techniques have been applied in normative modeling, and how often is each modality used? For common modalities like MRI, what specific sequences (e.g., T-weighted) are most frequently utilized?
+  2. **Methodology**: How are normative modeling studies designed and validated across modalities? We will extract information on sample size, covariates, image preprocessing, statistical models, harmonization procedures, and validation strategies.
+  3. **Clinical scope**: Which psychiatric or neurological conditions have been investigated with normative modeling, and what individual-level deviation patterns or clinical utilities have been reported?
+[2026-01-15T14:13:02] tokens used: 1540
+[2026-01-15T14:13:04] exec bash -lc "sed -n '200,400p' QA_Guide_v9.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:04] bash -lc "sed -n '200,400p' QA_Guide_v9.md" succeeded in 456ms:
+        * [ ] The normative model is applied to an independent external dataset of healthy individuals that was not used for model development
+
+    * For studies using an EXISTING normative model, **answer "NA"**.
+
+* Assessment Result Style: ACRSL_Style
+
+
+#### NM-8. Normative Modeling Approach
+
+Is the statistical approach used for normative modeling described?
+
+* Assessment Criteria:
+    * For studies building a NEW normative model, check the following:
+        * [ ] The type of statistical model is specified (e.g., linear regression, Gaussian process regression, hierarchical Bayesian model)
+        * [ ] Key model settings are described (e.g., smoothing parameters, priors, kernel type)
+        * [ ] Software and libraries used for implementation are specified
+
+    * For studies using an EXISTING normative model, **answer "NA"**.
+  
+* Assessment Result Style: ACRSL_Style
+[2026-01-15T14:13:04] tokens used: 3453
+[2026-01-15T14:13:06] exec bash -lc "sed -n '400,800p' QA_Guide_v9.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:07] bash -lc "sed -n '400,800p' QA_Guide_v9.md" succeeded in 454ms:
+
+[2026-01-15T14:13:07] tokens used: 2324
+
+[2026-01-15T14:13:08] thinking
+
+**Opening files for processing**
+
+I need to process some papers in the current directory, which include a file named Yu2024.pdf.md and an artifacts folder. There’s also a JSON file that likely has some content already filled in, so it seems that I should open that JSON to see what's there. Once I access it, I can determine what additional information or modifications are needed for my task.
+[2026-01-15T14:13:11] exec bash -lc "sed -n '1,200p' Yu2024_by_codex_20260115231248_for_QA_v9.json" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:11] bash -lc "sed -n '1,200p' Yu2024_by_codex_20260115231248_for_QA_v9.json" succeeded in 460ms:
+{
+  "study_identification_part": {
+    "si1_study_id": "",
+    "si2_reference_file_names": "",
+    "si3_author_journal_year": "",
+    "si4_title": "",
+    "si5_doi": ""
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "",
+      "confidence_rating": "",
+      "reason": "",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "",
+[2026-01-15T14:13:11] tokens used: 223
+[2026-01-15T14:13:13] exec bash -lc "sed -n '1,200p' Yu2024.pdf.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:14] bash -lc "sed -n '1,200p' Yu2024.pdf.md" succeeded in 927ms:
+## R E S E A R C H ARTICLE
+
+## Behavioral and brain morphological changes before and after hemispherotomy
+
+Hao Yu 1 | Yijun Chen 2 | Ziyu Bao 2 | Junhao Luo 2 | Qingzhu Liu 1 | Peipei Qin 2 | Changtong Wang 2 | Jingli Qu 2 | Wei Wang 2 | Lixin Cai 1 | Gaolang Gong 2,3,4
+
+1 Pediatric Epilepsy Center, Peking University First Hospital, Beijing, China
+
+2 State Key Laboratory of Cognitive Neuroscience and Learning &amp; IDG/McGovern Institute for Brain Research, Beijing Normal University, Beijing, China
+
+3 Beijing Key Laboratory of Brain Imaging and Connectomics, Beijing Normal University, Beijing, China
+
+4 Chinese Institute for Brain Research, Beijing, China
+
+## Correspondence
+
+Gaolang Gong, State Key Laboratory of Cognitive Neuroscience and Learning &amp; IDG/McGovern Institute for Brain Research, Beijing Normal University, Beijing, China. Email: gaolang.gong@bnu.edu.cn
+
+Lixin Cai, Pediatric Epilepsy Center, Peking University First Hospital, Beijing 100034, China.
+
+[2026-01-15T14:13:14] tokens used: 1298
+
+[2026-01-15T14:13:17] thinking
+
+**Finding paper details**
+
+I see the file is a markdown of the paper, and my goal is to extract specific details like the title, authors, journal, and DOI. The title is provided, but I still need to find the author, journal, and year. The journal is probably Human Brain Mapping since it mentions being published by Wiley Periodicals LLC. However, the explicit journal line isn't present in the snippet. I should look for the DOI and the journal name later in the document.
+[2026-01-15T14:13:19] exec bash -lc 'rg -n "DOI|doi|Human Brain Mapping|Wiley|Journal|2024|https://doi|doi.org" Yu2024.pdf.md' in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:20] bash -lc 'rg -n "DOI|doi|Human Brain Mapping|Wiley|Journal|2024|https://doi|doi.org" Yu2024.pdf.md' succeeded in 456ms:
+47:This is an open access article under the terms of the Creative Commons Attribution-NonCommercial-NoDerivs License, which permits use and distribution in any medium, provided the original work is properly cited, the use is non-commercial and no modifications or adaptations are made. ©2024 The Author(s). Human Brain Mapping published by Wiley Periodicals LLC.
+49:![Image](./Yu2024_artifacts/image_000000_75c4b551ecb2af1111bd0f55a2d25f029408547473ca6ecfb862204841292320.png)
+90:![Image](./Yu2024_artifacts/image_000001_d241488203484d0b4df52e33350ded4cde4e904e072424751ff860b16644dddc.png)
+98:![Image](./Yu2024_artifacts/image_000002_e00292cff656322128c496eceea914f5422ab968882d3ca7524ad5c54b258996.png)
+100:![Image](./Yu2024_artifacts/image_000003_ece2decd64c93c605d583aabfb1f7267d4ee22a4e6a870da44a0d0dcbaa70332.png)
+112:Network (Alexander et al., 2017), the Human Connectome ProjectDevelopment (Harms et al., 2018), the Infant Brain Imaging Study (Lewis et al., 2017), the Multicenter Database on Perinatal Factors in Child Brain-Mind Development (Wang et al., 2024), the Pediatric Imaging, Neurocognition, and Genetics (Jernigan et al., 2016), and the Pixar Dataset (Richardson et al., 2018; see supplementary materials for more details). Given the age range of the hemispherotomy patients (0.6 -11.6 years old), we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval (in total 2343 children). For children with multiple T1-weighted images, only the image of the highest quality was used. This ensured independency of all included images. Among these images, 228 were excluded due to poor image quality or image processing failure. VBM processing was then applied to the remaining 2115 children using the same symmetric T1 template, which yielded a GMV image for each child.
+144:![Image](./Yu2024_artifacts/image_000004_5388aacd9fcafa2b68fa71f7556100f7c0cbbb8ffd3056365fdbac072a22dd90.png)
+164:![Image](./Yu2024_artifacts/image_000005_629886020b00994c3d138b011ea4c87dd0ac1fb6cc2f11e8f1d447e927b30f92.png)
+182:![Image](./Yu2024_artifacts/image_000006_6420aa8730581c81944d323585a0011a03f7645ed5bec183ca4c4619f696cd6e.png)
+184:![Image](./Yu2024_artifacts/image_000007_fbecaa684eb4afd2b3ff8b37ddc44efe9ddbd4f26ac9e62827e84ce9eb3b117e.png)
+188:![Image](./Yu2024_artifacts/image_000008_41bc737feeb93243b783b841e91bb25fa4ea364f248f2d9cb2208d804e2c67bd.png)
+190:![Image](./Yu2024_artifacts/image_000009_c45e21df61a617b994ae834f2901c07c962924f7efe1484b6569abad8daabfd3.png)
+223:![Image](./Yu2024_artifacts/image_000010_30b110c1e6fd2a6005cf36fe9dc5ff0840a3882cf3db4e46ed1d4cf9420920e7.png)
+225:![Image](./Yu2024_artifacts/image_000011_1951a76a4500927bc5ff8a55e1979183140052deac08982345f17116ed399c1d.png)
+233:![Image](./Yu2024_artifacts/image_000012_23fbc17b646071ff9d7acad447eee8e1dcbdf64d08b1ee5e9e7a98830412d7ae.png)
+265:Psychiatry , 38 (1), 13 -21. https://doi.org/10.1016/0006-3223(94) 00257-4
+267:- Alexander, L. M., Escalera, J., Ai, L., Andreotti, C., Febre, K., Mangone, A., Vega-Potler, N., Langer, N., Alexander, A., Kovacs, M., Litke, S., O'Hagan, B., Andersen, J., Bronstein, B., Bui, A., Bushey, M., Butler, H., Castagna, V., Camacho, N., … Milham, M. P. (2017). An open resource for transdiagnostic research in pediatric mental health and learning disorders. Scientific Data , 4 (1), 170181. https://doi.org/10.1038/sdata. 2017.181
+269:Ashburner, J., &amp; Ridgway, G. R. (2013). Symmetric diffeomorphic modeling of longitudinal structural MRI. Frontiers in Neuroscience , 6 , 197. https://doi.org/10.3389/fnins.2012.00197
+271:- Boshuisen, K., Van Schooneveld, M. M. J., Leijten, F. S. S., De Kort, G. A. P., Van Rijen, P. C., Gosselaar, P. H., Van Nieuwenhuizen, O., &amp; Braun, K. P. (2010). Contralateral MRI abnormalities affect seizure and cognitive outcome after hemispherectomy. Neurology , 75 (18), 1623 -1630. https://doi.org/10.1212/WNL.0b013e3181fb4400
+273:Chan, A. Y., Urgun, K., Tran, D. K., Kyong, T., Hsu, F. P. K., &amp; Vadera, S. (2019). Cerebral peduncle volume and motor function following adult hemispherectomy. World Neurosurgery , 126 , 156 -159. https://doi.org/ 10.1016/j.wneu.2019.03.034
+[2026-01-15T14:13:20] tokens used: 9649
+
+[2026-01-15T14:13:22] thinking
+
+**Evaluating normative modeling**
+
+It looks like the paper I've got involves an OCR-converted document, but I can’t see the DOI. The key takeaway seems to be about a normative model used for computing age-adjusted GMV, built using data from 2115 healthy kids. It appears they've created a new model that factors in age and sex by using a reference cohort. Since the reference cohort comes from multiple open datasets, this is considered secondary data, which affects the answers regarding image acquisition. I need to extract details with quotes for clarity.
+**Extracting dataset details**
+
+I’m thinking that the location field probably wants something like “Yu2024.pdf.md: lines 112-119.” I need to take note of line numbers to gather key details about the datasets, sample sizes, and quality control for NM-1 selection criteria. Line 112 indicates T1-weighted images from healthy children aged 0.3 to 13 years, totaling 2343 subjects. Only the highest quality images were included, and 228 were excluded due to poor quality. It also mentions various data sources that I can quote.
+**Analyzing covariates**
+
+I see that the paper discusses deriving age-adjusted GMV voxel-wise using normative modeling with an age-matched reference cohort. It likely includes both age and sex as covariates. The text indicates that GMV was determined voxel by voxel in unaffected brain regions, specifically referencing a cohort of 2115 healthy children. It also mentions "age- and sex-matched healthy children" later on, so I should look for references to "sex" in the text to gather more context.
+[2026-01-15T14:13:31] codex
+**Extracting dataset details**
+
+I’m thinking that the location field probably wants something like “Yu2024.pdf.md: lines 112-119.” I need to take note of line numbers to gather key details about the datasets, sample sizes, and quality control for NM-1 selection criteria. Line 112 indicates T1-weighted images from healthy children aged 0.3 to 13 years, totaling 2343 subjects. Only the highest quality images were included, and 228 were excluded due to poor quality. It also mentions various data sources that I can quote.
+[2026-01-15T14:13:31] codex
+**Analyzing covariates**
+
+I see that the paper discusses deriving age-adjusted GMV voxel-wise using normative modeling with an age-matched reference cohort. It likely includes both age and sex as covariates. The text indicates that GMV was determined voxel by voxel in unaffected brain regions, specifically referencing a cohort of 2115 healthy children. It also mentions "age- and sex-matched healthy children" later on, so I should look for references to "sex" in the text to gather more context.
+[2026-01-15T14:13:31] exec bash -lc 'rg -n "sex|age-adjusted|normative modeling|reference cohort|2115|VBM|Gaussian|ComBat|site|harmoni|cross-validation|k-fold|leave-one|train|test|partition|software|FreeSurfer|SPM|FSL|CAT12|VBM|SPM12|preprocess|quality" Yu2024.pdf.md' in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:32] bash -lc 'rg -n "sex|age-adjusted|normative modeling|reference cohort|2115|VBM|Gaussian|ComBat|site|harmoni|cross-validation|k-fold|leave-one|train|test|partition|software|FreeSurfer|SPM|FSL|CAT12|VBM|SPM12|preprocess|quality" Yu2024.pdf.md' succeeded in 458ms:
+33:Hemispherotomy is an effective surgery for treating refractory epilepsy from diffuse unihemispheric lesions. To date, postsurgery neuroplastic changes supporting behavioral recovery after left or right hemispherotomy remain unclear. In the present study, we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores in two large groups of pediatric patients with left and right hemispherotomy (29 left and 28 right). To control for the dramatic developmental effect during this stage, ageadjusted GMV within unaffected brain regions was derived voxel by voxel using a normative modeling approach with an age-matched reference cohort of 2115 healthy children. Widespread GMV increases in the contralateral cerebrum and ipsilateral cerebellum and GMV decreases in the contralateral cerebellum were consistently observed in both patient groups, but only the left hemispherotomy patients showed GMV decreases in the contralateral cingulate gyrus. Intriguingly, the GMV decrease in the contralateral cerebellum was significantly correlated with improvement in behavioral scores in the right but not the left hemispherotomy patients. Importantly, the preoperative voxelwise GMV features can be used to significantly predict postoperative behavioral scores in both patient groups. These findings indicate an important role of the contralateral cerebellum in the behavioral recovery following right hemispherotomy and highlight the predictive potential of preoperative imaging features in postoperative behavioral performance.
+63:Pediatric patients with refractory epilepsy undergoing peri-insular hemispherotomy were recruited in our present study. Peri-insularhemispherotomy is a surgical variant of functional hemispherotomy in which the affected hemisphere is completely disconnected while resecting a minimal amount of cortical structures to avoid long-term complications (Marras et al., 2010). The patient inclusion criteria were as follows: (1) underwent peri-insular hemispherotomy between 2016 and 2021 at the Pediatric Epilepsy Center, Peking University First Hospital; (2) were at least half a year old when the surgery was performed; (3) had available preand postoperative MRI images; and (4) no other brain surgery except hemispherotomy. Initially, 74 patients met these criteria, but the image processing procedures failed for 17 of them due to the poor quality of either pre- or postoperative MRI images (e.g., severe head motion, bad intensity contrast, abnormalities and severe distortion of the unaffected regions). Finally, 29 pediatric patients with left hemispherotomy and 28 pediatric patients with right hemispherotomy were included in our analyses. Demographic and clinical information is listed in Table 1. The study was approved by the local institutional review board. Written informed consent was obtained from the legal guardians of the patients.
+67:High-quality MRI was acquired before and after the surgery using a Philips Achieva 3T scanner at the Peking University First Hospital. All T1-weighted (T1w) scans used the same MPRAGE sequence with the following parameters: axial acquisition; time of repetition = 8 ms; time of echo = 3.7 ms; flip angle = 8 /C14 ; acquisition matrix = 220 /C2 220, slice thickness = 1 mm; voxel size = 0.86 /C2 0.86 /C2 1.0 mm.
+88:FIGURE 1 Schematic of MRI image processing. (a) T1-weighted (T1w) and gray matter volume (GMV) images of left and right hemispherotomy patients. The cerebral hemisphere was manually masked out (indicated by red) in the T1w native space and excluded in the GMV-based voxel-based morphometry (VBM) analyses in the MNI space. Pre: Preoperative; Post: Postoperative. (b) Normative model of GMV, for one voxel example, as estimated by the Gaussian process regression in 2115 healthy children. The selected voxel is indicated by yellow in the left panel. Each circle in the middle panel represents one healthy child. On the right panel, the mean of the normative model is represented by a solid blue line, while the ±1 standard deviation is indicated by dotted light blue lines. The light blue shaded area represents the 95% confidence interval. The preoperative and postoperative GMV values of each patient are indicated by two connected gray dots.
+102:T1-weighted images (Figure 1a). We then carried out voxel-based morphometry (VBM) analyses using SPM12. To ensure unbiased comparisons between the two hemispheres, a symmetric T1 template in MNI space was constructed using 2115 healthy children (see below for the details of these children) (Kurth et al., 2015). Longitudinal VBM processing included the following. (1) For each patient, an average image across the longitudinal images was generated using the Serial Longitudinal Registration toolbox (Ashburner &amp; Ridgway, 2013). (2) The average images were bias-corrected and segmented into GM, WM, and cerebrospinal fluid probability maps. These tissuesegmented images were then registered to the symmetric template, resulting in participant-specific GM probability maps in MNI space. (3) The GM probability maps were then modulated with twofold Jacobian determinants: from the native space of each time point to the participant-average space and from the participant-average space to the MNI space. For each patient, this resulted in a raw GMV map in MNI space for each time point, in which each voxel's value represents its corresponding raw GMV in the native space. (4) Finally, all raw GMV images were smoothed with an 8-mm FWHM Gaussian kernel. During these procedures, all cerebral hemispheres that underwent surgery were masked out. The resultant images of each step were carefully checked by visual inspection.
+108:To control for the confounding effect of normal development on the changes in raw GMV in pediatric patients, we applied normative modeling to transform the raw GMV of each individual image to its age-adjusted value, that is, its derivation from the developmental norm (Figure 1b). Recently, normative modeling has been increasingly used for individual-specific inferences in heterogeneous clinical groups (e.g., Alzheimer's disease (Verdi et al., 2023), attention-deficit/ hyperactivity disorder (Wolfers et al., 2019), schizophrenia (Wolfers et al., 2018)). This approach provides a statistical framework to investigate individual deviations from normative ranges with reference to the healthy cohort. Specifically, it first applies a large healthy cohort to estimate the normative range of variation for a brain phenotype, such as GMV, given individuals' age, sex, or other variables of interest. Next, fitting the normative model to the data yields an individualized deviation value that quantifies the extent to which each person deviates from population norms.
+112:Network (Alexander et al., 2017), the Human Connectome ProjectDevelopment (Harms et al., 2018), the Infant Brain Imaging Study (Lewis et al., 2017), the Multicenter Database on Perinatal Factors in Child Brain-Mind Development (Wang et al., 2024), the Pediatric Imaging, Neurocognition, and Genetics (Jernigan et al., 2016), and the Pixar Dataset (Richardson et al., 2018; see supplementary materials for more details). Given the age range of the hemispherotomy patients (0.6 -11.6 years old), we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval (in total 2343 children). For children with multiple T1-weighted images, only the image of the highest quality was used. This ensured independency of all included images. Among these images, 228 were excluded due to poor image quality or image processing failure. VBM processing was then applied to the remaining 2115 children using the same symmetric T1 template, which yielded a GMV image for each child.
+114:The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26). The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively. Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied to predict each patient's GMV, yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm. The individual-specific deviation would ensure the comparability of GMV before and after the surgery as well as between pediatric patients by removing the age and sex effects on raw GMV values. The age-adjusted GMV value (i.e., Z score) was then used in subsequent analysis.
+124:For each group, to determine the pre- and postoperative changes in behavioral scores, we applied the LMEM and evaluated the β 1 term. The onset of epilepsy, age at surgery, sex, and etiology were included as covariates. To evaluate whether and how GMV changes, we performed a voxelwise LMEM analysis within the GM mask of the unaffected regions, with the onset of epilepsy, age at surgery, and etiology as covariates. Multiple comparisons were corrected using the
+134:To evaluate whether preoperative GMV can be used to predict postoperative outcomes, we applied three machine learning regression algorithms: support vector regression (SVR), least absolute shrinkage and selection operator (LASSO), and ridge regression (RR). The presurgery GMV values within the GM mask of the unaffected regions were inputted as predicting features. For each algorithm, nested leave-oneout-cross-validation (LOOCV) was applied, with an outer LOOCV loop estimating the generalizability of the model and an inner LOOCV loop determining the optimal parameter if any. Specifically, N-1 patients were used as the training set for each outer LOOCV loop, where N was the total number of patients, and the only remaining patient was the testing sample. This procedure was repeated N times, with each patient being the testing sample once. Within each loop of the outer LOOCV, the inner LOOCVs were applied to determine the optimal parameter for the outer LOOCV fold to construct a prediction model, which was then used to predict the score of the testing sample.
+136:To evaluate the performance of each model/algorithm, the Pearson correlation ( r ) and normalized root mean square error (NRMSE) were calculated. A permutation test (1000 times) was applied to determine whether the r and NRMSE were significantly better than expected by chance. To evaluate whether prediction performance differed significantly between the two patient groups, we compared the two groups in the squared residuals between the actual and predicted scores using the Wilcoxon signed-rank test (Salvalaggio et al., 2020).
+142:As shown in Table 1, there was no significant difference in age, sex, onset or etiology of epilepsy between the left and right hemispherotomy groups. According to neuroimaging and histopathology results, the classification of etiology followed the categorization method applied by children with refractory epilepsy in the Chinese Pediatric
+146:Epileptic Center (Ji et al., 2019). Seizure outcome was assessed using the Engel scale (Engel Jr., 1993), and 90% of left and 100% of right hemispherotomy patients reached Engel 1 at the follow-up of 3 months (Chi-square test, p = .21).
+150:For each patient, an overall behavioral score was obtained using the Griffiths III. Neither the preoperative nor postoperative behavioral scores significantly differed between the two groups (two-sample t tests, p &gt; .05). For both groups, the LMEM showed a significant increase in the postoperative score compared with the preoperative score (left hemispherotomy: t = 2.10, p = .04; right hemispherotomy: t = 3.97, p &lt; .001).
+154:The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively. In most patients in the two groups, both preoperative and postoperative age-adjusted GMV values were negative across the vast majority of the unaffected regions, suggesting an overall shrinking pattern and underdevelopment of GM compared with the healthy children (Figure 2). Specifically, 79 and 59% of left hemispherotomy patients had more than 80% voxels showing a negative value before and after the surgery, respectively. In the right hemispherotomy group, 71 and 54% of patients had more than 80% of voxels showing a negative value before and after the surgery, respectively.
+158:To identify local age-adjusted GMV changes before and after the surgery, we applied a voxelwise LMEM search within the GM mask of the unaffected regions. For the two groups, the resultant T maps of age-adjusted GMV change largely mirrored each other (after flipping one map, r = .86), suggesting overall similar spatial patterns of ipsilateral and contralateral GMV changes between the two groups (Figure 3).
+160:After correcting for multiple comparisons, we observed four clusters showing significant age-adjusted GMV changes for the left hemispherotomy group and three significant clusters for the right hemispherotomy group (Figure 3). In both groups, the largest cluster covered almost the entire contralateral cerebrum and exhibited significantly increased GMV (left hemispherotomy: t = 6.92, p &lt; .001; right hemispherotomy: t = 7.44, p &lt; .001). At the individual level, all left and 96.4% of right hemispherotomy patients showed an increase in age-adjusted GMV in this cluster. Given the normative increasing
+162:FIGURE 2 Overall GM shrinkage both before and after surgery for the two patient groups. The color denotes the percentage of the patients with a negative value of age-adjusted GMV. A negative age-adjusted GMV value indicates a trend of GM shrinkage relative to the age-matched norm. As shown, the majority of patients within each group showed a negative value across most of the GM mask of unaffected regions, both before and after hemispherotomy.
+166:pattern of raw GMV during this developmental stage, the observed increase in age-adjusted GMV should be accompanied by increased raw GMV. The additional LMEM analysis to the total raw GMV value within the cluster confirmed such an increase after the surgery (left hemispherotomy: t = 7.21, p &lt; .001; right hemispherotomy: t = 7.69, p &lt; .001). The observed increase in both age-adjusted and raw GMV indicates a greater GM growth/development of the patients during the scanning interval compared with the ageand sex-matched healthy children.
+168:The second largest cluster was located around the entire ipsilateral cerebellum and exhibited significantly increased age-adjusted GMV(left hemispherotomy: t = 6.95, p &lt; .001; right hemispherotomy: t = 8.53, p &lt; .001). At the individual level, all left and right hemispherotomy patients had an increase in age-adjusted GMV in this cluster. Similarly, the additional LMEM analysis of the total raw GMV value of the cluster showed an increase in raw GMV after the surgery (left hemispherotomy: t = 8.59, p &lt; .001; right hemispherotomy: t = 9.16, p &lt; .001), suggesting greater GM growth/development.
+[2026-01-15T14:13:32] tokens used: 12062
+[2026-01-15T14:13:33] exec bash -lc "sed -n '100,160p' Yu2024.pdf.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:34] bash -lc "sed -n '100,160p' Yu2024.pdf.md" succeeded in 456ms:
+![Image](./Yu2024_artifacts/image_000003_ece2decd64c93c605d583aabfb1f7267d4ee22a4e6a870da44a0d0dcbaa70332.png)
+
+T1-weighted images (Figure 1a). We then carried out voxel-based morphometry (VBM) analyses using SPM12. To ensure unbiased comparisons between the two hemispheres, a symmetric T1 template in MNI space was constructed using 2115 healthy children (see below for the details of these children) (Kurth et al., 2015). Longitudinal VBM processing included the following. (1) For each patient, an average image across the longitudinal images was generated using the Serial Longitudinal Registration toolbox (Ashburner &amp; Ridgway, 2013). (2) The average images were bias-corrected and segmented into GM, WM, and cerebrospinal fluid probability maps. These tissuesegmented images were then registered to the symmetric template, resulting in participant-specific GM probability maps in MNI space. (3) The GM probability maps were then modulated with twofold Jacobian determinants: from the native space of each time point to the participant-average space and from the participant-average space to the MNI space. For each patient, this resulted in a raw GMV map in MNI space for each time point, in which each voxel's value represents its corresponding raw GMV in the native space. (4) Finally, all raw GMV images were smoothed with an 8-mm FWHM Gaussian kernel. During these procedures, all cerebral hemispheres that underwent surgery were masked out. The resultant images of each step were carefully checked by visual inspection.
+
+Notably, distinguishing between GM and WM boundaries on T1w images of babies is difficult (Boshuisen et al., 2010). We carefully examined the T1 images of our patients, particularly at younger ages, and excluded those with poor contrast.
+
+## 2.5 | Age-adjusted GMV from a normative model
+
+To control for the confounding effect of normal development on the changes in raw GMV in pediatric patients, we applied normative modeling to transform the raw GMV of each individual image to its age-adjusted value, that is, its derivation from the developmental norm (Figure 1b). Recently, normative modeling has been increasingly used for individual-specific inferences in heterogeneous clinical groups (e.g., Alzheimer's disease (Verdi et al., 2023), attention-deficit/ hyperactivity disorder (Wolfers et al., 2019), schizophrenia (Wolfers et al., 2018)). This approach provides a statistical framework to investigate individual deviations from normative ranges with reference to the healthy cohort. Specifically, it first applies a large healthy cohort to estimate the normative range of variation for a brain phenotype, such as GMV, given individuals' age, sex, or other variables of interest. Next, fitting the normative model to the data yields an individualized deviation value that quantifies the extent to which each person deviates from population norms.
+
+Here, the healthy subjects used for normative model estimation were from 11 MRI datasets, including the Autism Brain Imaging Data Exchange (Di Martino et al., 2014; Di Martino et al., 2017), the UNC/UMN Baby Connectome Project (Howell et al., 2019), the Calgary Preschool MRI Dataset (Reynolds et al., 2020), the Children School Functions and Brain Development Project (Lei et al., 2022), the Chinese Color Nest Project (Liu et al., 2021), the Healthy Brain
+
+Network (Alexander et al., 2017), the Human Connectome ProjectDevelopment (Harms et al., 2018), the Infant Brain Imaging Study (Lewis et al., 2017), the Multicenter Database on Perinatal Factors in Child Brain-Mind Development (Wang et al., 2024), the Pediatric Imaging, Neurocognition, and Genetics (Jernigan et al., 2016), and the Pixar Dataset (Richardson et al., 2018; see supplementary materials for more details). Given the age range of the hemispherotomy patients (0.6 -11.6 years old), we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval (in total 2343 children). For children with multiple T1-weighted images, only the image of the highest quality was used. This ensured independency of all included images. Among these images, 228 were excluded due to poor image quality or image processing failure. VBM processing was then applied to the remaining 2115 children using the same symmetric T1 template, which yielded a GMV image for each child.
+
+The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26). The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively. Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied to predict each patient's GMV, yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm. The individual-specific deviation would ensure the comparability of GMV before and after the surgery as well as between pediatric patients by removing the age and sex effects on raw GMV values. The age-adjusted GMV value (i.e., Z score) was then used in subsequent analysis.
+
+## 2.6 | Identifying changes in each patient group
+
+We used a linear mixed-effects model (LMEM) to handle the hierarchical nature of the data. LMEM was applied to evaluate the pre- and postoperative changes in behavioral scores and voxelwise GMV. Specifically, the ' fitlme ' function in MATLAB was used. In the model, ' MRI to surgery ' (i.e., the days between surgery and the pre/postMRI scan) and other covariates were modeled as fixed effects, and ' individual identities ' were modeled as random effects. The intercept and slope were allowed to vary across individuals. The LMEMs were formulated as follows:
+
+[2026-01-15T14:13:34] tokens used: 13278
+
+[2026-01-15T14:13:37] thinking
+
+**Evaluating modeling details**
+
+I'm diving into the details of the normative modeling approach they're using, like GPR and the software specifics, such as Python 3.8.13 and PCNtoolkit 0.26. They're including variables like age and sex while keeping reference and patient data separate. It's concerning that there’s no mention of holdout or cross-validation for internal validation, so I think "No" is the answer for NM-6. As for NM-7, they didn't validate with an independent healthy dataset, so that's also a "No." For NM-9, I wonder if they reported any fit metrics for the reference cohort?
+[2026-01-15T14:13:41] exec bash -lc 'rg -n "explained variance|variance|correlation|R2|R-squared|prediction error|coverage|calibration|fit|model performance|NRMSE|metric|RMSE|MAE|validation|cross|fold|leave|train|test|hold-out|partition" Yu2024.pdf.md' in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:41] bash -lc 'rg -n "explained variance|variance|correlation|R2|R-squared|prediction error|coverage|calibration|fit|model performance|NRMSE|metric|RMSE|MAE|validation|cross|fold|leave|train|test|hold-out|partition" Yu2024.pdf.md' succeeded in 466ms:
+71:The Griffiths Scales of Child Development (3rd edition, Griffiths III), a widely used tool for measuring the developmental rate of infants and young children, was applied to assess the patient's behavioral abilities (Luiz et al., 2006). The tool includes five domains: foundations of learning, language and communication, eye-hand coordination, personal -social -emotional ability, and gross motor function. The evaluation was usually performed on the same day as the MRI. Among the included patients, only 19 left and 19 right hemispherotomy patients underwent this evaluation both before and after the surgery. Notably, the scores of the five domains are highly correlated with each other (mean r = .9); therefore, we performed a factorial analysis on the preoperative scores, yielding one main factor that accounts for 92.4% of the total variance. We used this
+102:T1-weighted images (Figure 1a). We then carried out voxel-based morphometry (VBM) analyses using SPM12. To ensure unbiased comparisons between the two hemispheres, a symmetric T1 template in MNI space was constructed using 2115 healthy children (see below for the details of these children) (Kurth et al., 2015). Longitudinal VBM processing included the following. (1) For each patient, an average image across the longitudinal images was generated using the Serial Longitudinal Registration toolbox (Ashburner &amp; Ridgway, 2013). (2) The average images were bias-corrected and segmented into GM, WM, and cerebrospinal fluid probability maps. These tissuesegmented images were then registered to the symmetric template, resulting in participant-specific GM probability maps in MNI space. (3) The GM probability maps were then modulated with twofold Jacobian determinants: from the native space of each time point to the participant-average space and from the participant-average space to the MNI space. For each patient, this resulted in a raw GMV map in MNI space for each time point, in which each voxel's value represents its corresponding raw GMV in the native space. (4) Finally, all raw GMV images were smoothed with an 8-mm FWHM Gaussian kernel. During these procedures, all cerebral hemispheres that underwent surgery were masked out. The resultant images of each step were carefully checked by visual inspection.
+108:To control for the confounding effect of normal development on the changes in raw GMV in pediatric patients, we applied normative modeling to transform the raw GMV of each individual image to its age-adjusted value, that is, its derivation from the developmental norm (Figure 1b). Recently, normative modeling has been increasingly used for individual-specific inferences in heterogeneous clinical groups (e.g., Alzheimer's disease (Verdi et al., 2023), attention-deficit/ hyperactivity disorder (Wolfers et al., 2019), schizophrenia (Wolfers et al., 2018)). This approach provides a statistical framework to investigate individual deviations from normative ranges with reference to the healthy cohort. Specifically, it first applies a large healthy cohort to estimate the normative range of variation for a brain phenotype, such as GMV, given individuals' age, sex, or other variables of interest. Next, fitting the normative model to the data yields an individualized deviation value that quantifies the extent to which each person deviates from population norms.
+112:Network (Alexander et al., 2017), the Human Connectome ProjectDevelopment (Harms et al., 2018), the Infant Brain Imaging Study (Lewis et al., 2017), the Multicenter Database on Perinatal Factors in Child Brain-Mind Development (Wang et al., 2024), the Pediatric Imaging, Neurocognition, and Genetics (Jernigan et al., 2016), and the Pixar Dataset (Richardson et al., 2018; see supplementary materials for more details). Given the age range of the hemispherotomy patients (0.6 -11.6 years old), we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval (in total 2343 children). For children with multiple T1-weighted images, only the image of the highest quality was used. This ensured independency of all included images. Among these images, 228 were excluded due to poor image quality or image processing failure. VBM processing was then applied to the remaining 2115 children using the same symmetric T1 template, which yielded a GMV image for each child.
+114:The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26). The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively. Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied to predict each patient's GMV, yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm. The individual-specific deviation would ensure the comparability of GMV before and after the surgery as well as between pediatric patients by removing the age and sex effects on raw GMV values. The age-adjusted GMV value (i.e., Z score) was then used in subsequent analysis.
+118:We used a linear mixed-effects model (LMEM) to handle the hierarchical nature of the data. LMEM was applied to evaluate the pre- and postoperative changes in behavioral scores and voxelwise GMV. Specifically, the ' fitlme ' function in MATLAB was used. In the model, ' MRI to surgery ' (i.e., the days between surgery and the pre/postMRI scan) and other covariates were modeled as fixed effects, and ' individual identities ' were modeled as random effects. The intercept and slope were allowed to vary across individuals. The LMEMs were formulated as follows:
+130:For all identified clusters above, we evaluated whether the GMV change related to the change in the overall behavioral score in each patient group using the Pearson correlation.
+134:To evaluate whether preoperative GMV can be used to predict postoperative outcomes, we applied three machine learning regression algorithms: support vector regression (SVR), least absolute shrinkage and selection operator (LASSO), and ridge regression (RR). The presurgery GMV values within the GM mask of the unaffected regions were inputted as predicting features. For each algorithm, nested leave-oneout-cross-validation (LOOCV) was applied, with an outer LOOCV loop estimating the generalizability of the model and an inner LOOCV loop determining the optimal parameter if any. Specifically, N-1 patients were used as the training set for each outer LOOCV loop, where N was the total number of patients, and the only remaining patient was the testing sample. This procedure was repeated N times, with each patient being the testing sample once. Within each loop of the outer LOOCV, the inner LOOCVs were applied to determine the optimal parameter for the outer LOOCV fold to construct a prediction model, which was then used to predict the score of the testing sample.
+136:To evaluate the performance of each model/algorithm, the Pearson correlation ( r ) and normalized root mean square error (NRMSE) were calculated. A permutation test (1000 times) was applied to determine whether the r and NRMSE were significantly better than expected by chance. To evaluate whether prediction performance differed significantly between the two patient groups, we compared the two groups in the squared residuals between the actual and predicted scores using the Wilcoxon signed-rank test (Salvalaggio et al., 2020).
+146:Epileptic Center (Ji et al., 2019). Seizure outcome was assessed using the Engel scale (Engel Jr., 1993), and 90% of left and 100% of right hemispherotomy patients reached Engel 1 at the follow-up of 3 months (Chi-square test, p = .21).
+150:For each patient, an overall behavioral score was obtained using the Griffiths III. Neither the preoperative nor postoperative behavioral scores significantly differed between the two groups (two-sample t tests, p &gt; .05). For both groups, the LMEM showed a significant increase in the postoperative score compared with the preoperative score (left hemispherotomy: t = 2.10, p = .04; right hemispherotomy: t = 3.97, p &lt; .001).
+154:The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively. In most patients in the two groups, both preoperative and postoperative age-adjusted GMV values were negative across the vast majority of the unaffected regions, suggesting an overall shrinking pattern and underdevelopment of GM compared with the healthy children (Figure 2). Specifically, 79 and 59% of left hemispherotomy patients had more than 80% voxels showing a negative value before and after the surgery, respectively. In the right hemispherotomy group, 71 and 54% of patients had more than 80% of voxels showing a negative value before and after the surgery, respectively.
+162:FIGURE 2 Overall GM shrinkage both before and after surgery for the two patient groups. The color denotes the percentage of the patients with a negative value of age-adjusted GMV. A negative age-adjusted GMV value indicates a trend of GM shrinkage relative to the age-matched norm. As shown, the majority of patients within each group showed a negative value across most of the GM mask of unaffected regions, both before and after hemispherotomy.
+176:For each patient group, we evaluated whether GMV changes in each cluster correlated with behavioral changes before and after the surgery. As shown in Figure 4, the change in age-adjusted GMV in the contralateral cerebellum was negatively correlated with the change in overall behavioral score in the right hemispherotomy patients ( r = /C0 .64, p = .007) but not in the left hemispherotomy patients ( r = /C0 .10, p = .73). Given the negative direction of the GMV change within the contralateral cerebellum and the positive direction of the change in behavioral score, such a correlation indicates that a greater GMV decrease was associated with greater behavioral improvement in right hemispherotomy patients.
+178:No significant correlation was observed between the ageadjusted GMV change in the other identified clusters above and behavioral recovery before and after the surgery. Particularly, given
+180:FIGURE 3 Change in age-adjusted GMV before and after surgery for the two patient groups. The results for the left and right hemispherotomy are shown in (a) and (b), respectively. The first row represents the T maps of the age-adjusted GMV change from the linear mixed model for the two groups. The identified significant clusters are denoted by arrows. Within the panel of each cluster, the fitted change in age-adjusted GMV is represented as a black thick line. The change in each patient is indicated by a gray line. MRI time (years) indicates the MRI to surgery time, the negative time represents the prescan to surgery time and the passive time represents the surgery to postscan time.
+194:| Algorithm | R ( p value)                | NRMSE ( p value)            | R ( p value)                 | NRMSE ( p value)             |
+199:Note : R : Pearson correlation coefficient between the actual postoperative behavioral score and its predicted value.
+201:Abbreviations: LASSO, least absolute shrinkage and selection operator; NRMSE, normalized root means square error; RR, ridge regression; SVR, support vector regression. a
+205:the extensive coverage of the largest cluster on the contralateral cerebrum, we performed a voxelwise analysis searching for such correlations within both groups and found no significant results.
+[2026-01-15T14:13:41] tokens used: 2864
+
+[2026-01-15T14:13:45] thinking
+
+**Evaluating model characteristics**
+
+I’m looking into the characteristics per partition for a model, but it’s noted they didn’t actually have partitions defined. So, if there’s no data partitioning, I should answer “NA.” For reproducibility, they did include software versions like Python 3.8.13 and PCNtoolkit 0.26, but I didn’t find any availability for the code or trained models. I should mention including that availability in future notes and maybe do a search for terms like "code" and "available."
+[2026-01-15T14:13:48] exec bash -lc 'rg -n "code|available|availability|PCNtoolkit|Python 3.8|0.26|GitHub|data availability|repository|model" Yu2024.pdf.md' in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:48] bash -lc 'rg -n "code|available|availability|PCNtoolkit|Python 3.8|0.26|GitHub|data availability|repository|model" Yu2024.pdf.md' succeeded in 456ms:
+33:Hemispherotomy is an effective surgery for treating refractory epilepsy from diffuse unihemispheric lesions. To date, postsurgery neuroplastic changes supporting behavioral recovery after left or right hemispherotomy remain unclear. In the present study, we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores in two large groups of pediatric patients with left and right hemispherotomy (29 left and 28 right). To control for the dramatic developmental effect during this stage, ageadjusted GMV within unaffected brain regions was derived voxel by voxel using a normative modeling approach with an age-matched reference cohort of 2115 healthy children. Widespread GMV increases in the contralateral cerebrum and ipsilateral cerebellum and GMV decreases in the contralateral cerebellum were consistently observed in both patient groups, but only the left hemispherotomy patients showed GMV decreases in the contralateral cingulate gyrus. Intriguingly, the GMV decrease in the contralateral cerebellum was significantly correlated with improvement in behavioral scores in the right but not the left hemispherotomy patients. Importantly, the preoperative voxelwise GMV features can be used to significantly predict postoperative behavioral scores in both patient groups. These findings indicate an important role of the contralateral cerebellum in the behavioral recovery following right hemispherotomy and highlight the predictive potential of preoperative imaging features in postoperative behavioral performance.
+63:Pediatric patients with refractory epilepsy undergoing peri-insular hemispherotomy were recruited in our present study. Peri-insularhemispherotomy is a surgical variant of functional hemispherotomy in which the affected hemisphere is completely disconnected while resecting a minimal amount of cortical structures to avoid long-term complications (Marras et al., 2010). The patient inclusion criteria were as follows: (1) underwent peri-insular hemispherotomy between 2016 and 2021 at the Pediatric Epilepsy Center, Peking University First Hospital; (2) were at least half a year old when the surgery was performed; (3) had available preand postoperative MRI images; and (4) no other brain surgery except hemispherotomy. Initially, 74 patients met these criteria, but the image processing procedures failed for 17 of them due to the poor quality of either pre- or postoperative MRI images (e.g., severe head motion, bad intensity contrast, abnormalities and severe distortion of the unaffected regions). Finally, 29 pediatric patients with left hemispherotomy and 28 pediatric patients with right hemispherotomy were included in our analyses. Demographic and clinical information is listed in Table 1. The study was approved by the local institutional review board. Written informed consent was obtained from the legal guardians of the patients.
+88:FIGURE 1 Schematic of MRI image processing. (a) T1-weighted (T1w) and gray matter volume (GMV) images of left and right hemispherotomy patients. The cerebral hemisphere was manually masked out (indicated by red) in the T1w native space and excluded in the GMV-based voxel-based morphometry (VBM) analyses in the MNI space. Pre: Preoperative; Post: Postoperative. (b) Normative model of GMV, for one voxel example, as estimated by the Gaussian process regression in 2115 healthy children. The selected voxel is indicated by yellow in the left panel. Each circle in the middle panel represents one healthy child. On the right panel, the mean of the normative model is represented by a solid blue line, while the ±1 standard deviation is indicated by dotted light blue lines. The light blue shaded area represents the 95% confidence interval. The preoperative and postoperative GMV values of each patient are indicated by two connected gray dots.
+106:## 2.5 | Age-adjusted GMV from a normative model
+108:To control for the confounding effect of normal development on the changes in raw GMV in pediatric patients, we applied normative modeling to transform the raw GMV of each individual image to its age-adjusted value, that is, its derivation from the developmental norm (Figure 1b). Recently, normative modeling has been increasingly used for individual-specific inferences in heterogeneous clinical groups (e.g., Alzheimer's disease (Verdi et al., 2023), attention-deficit/ hyperactivity disorder (Wolfers et al., 2019), schizophrenia (Wolfers et al., 2018)). This approach provides a statistical framework to investigate individual deviations from normative ranges with reference to the healthy cohort. Specifically, it first applies a large healthy cohort to estimate the normative range of variation for a brain phenotype, such as GMV, given individuals' age, sex, or other variables of interest. Next, fitting the normative model to the data yields an individualized deviation value that quantifies the extent to which each person deviates from population norms.
+110:Here, the healthy subjects used for normative model estimation were from 11 MRI datasets, including the Autism Brain Imaging Data Exchange (Di Martino et al., 2014; Di Martino et al., 2017), the UNC/UMN Baby Connectome Project (Howell et al., 2019), the Calgary Preschool MRI Dataset (Reynolds et al., 2020), the Children School Functions and Brain Development Project (Lei et al., 2022), the Chinese Color Nest Project (Liu et al., 2021), the Healthy Brain
+114:The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26). The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively. Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied to predict each patient's GMV, yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm. The individual-specific deviation would ensure the comparability of GMV before and after the surgery as well as between pediatric patients by removing the age and sex effects on raw GMV values. The age-adjusted GMV value (i.e., Z score) was then used in subsequent analysis.
+118:We used a linear mixed-effects model (LMEM) to handle the hierarchical nature of the data. LMEM was applied to evaluate the pre- and postoperative changes in behavioral scores and voxelwise GMV. Specifically, the ' fitlme ' function in MATLAB was used. In the model, ' MRI to surgery ' (i.e., the days between surgery and the pre/postMRI scan) and other covariates were modeled as fixed effects, and ' individual identities ' were modeled as random effects. The intercept and slope were allowed to vary across individuals. The LMEMs were formulated as follows:
+120:<!-- formula-not-decoded -->
+134:To evaluate whether preoperative GMV can be used to predict postoperative outcomes, we applied three machine learning regression algorithms: support vector regression (SVR), least absolute shrinkage and selection operator (LASSO), and ridge regression (RR). The presurgery GMV values within the GM mask of the unaffected regions were inputted as predicting features. For each algorithm, nested leave-oneout-cross-validation (LOOCV) was applied, with an outer LOOCV loop estimating the generalizability of the model and an inner LOOCV loop determining the optimal parameter if any. Specifically, N-1 patients were used as the training set for each outer LOOCV loop, where N was the total number of patients, and the only remaining patient was the testing sample. This procedure was repeated N times, with each patient being the testing sample once. Within each loop of the outer LOOCV, the inner LOOCVs were applied to determine the optimal parameter for the outer LOOCV fold to construct a prediction model, which was then used to predict the score of the testing sample.
+136:To evaluate the performance of each model/algorithm, the Pearson correlation ( r ) and normalized root mean square error (NRMSE) were calculated. A permutation test (1000 times) was applied to determine whether the r and NRMSE were significantly better than expected by chance. To evaluate whether prediction performance differed significantly between the two patient groups, we compared the two groups in the squared residuals between the actual and predicted scores using the Wilcoxon signed-rank test (Salvalaggio et al., 2020).
+180:FIGURE 3 Change in age-adjusted GMV before and after surgery for the two patient groups. The results for the left and right hemispherotomy are shown in (a) and (b), respectively. The first row represents the T maps of the age-adjusted GMV change from the linear mixed model for the two groups. The identified significant clusters are denoted by arrows. Within the panel of each cluster, the fitted change in age-adjusted GMV is represented as a black thick line. The change in each patient is indicated by a gray line. MRI time (years) indicates the MRI to surgery time, the negative time represents the prescan to surgery time and the passive time represents the surgery to postscan time.
+196:| SVR       | 0.45 (.012 a )              | 0.21 (.001 a )              | 0.46 (.021 a )               | 0.26 (.018 a )               |
+229:Several mechanisms may account for the observed GMV changes before and after the surgery: neurodevelopment, neurodegeneration, or neuroplasticity. With normative modeling, the neurodevelopmentinduced and hemispherotomy-induced increases in GMV can be well differentiated. The currently observed increase in both age-adjusted and raw GMV in the contralateral cerebrum and ipsilateral cerebellum indicate a greater GM growth/development of these regions than the sex- and age-matched healthy children, indicating a hemispherotomyinduced positive effect on GM development across the majority of the unaffected regions for these pediatric patients. This widespread greater GM development could be considered a part of neuroplastic changes induced by the hemispherotomy. Notably, hemispherotomy leads to a disconnection between the two hemispheres. In terms of the interhemispheric inhibition hypothesis (Van Der Knaap &amp; Van Der Ham, 2011), such a disconnection will result a loss of inhibition from the contralateral hemisphere, which may account for the widespread greater GM development in the intact hemisphere.
+237:Achieving the presurgery prediction of postsurgery functional or behavioral recovery is of great clinical importance. A few univariate preoperative MRI-based markers have been used to predict behavioral outcomes after hemispherotomy, including contralateral MRI abnormalities (Boshuisen et al., 2010; Hallbook et al., 2010), asymmetries in the brain stem or corticospinal tracts within the brain stem (Chan et al., 2019; Du et al., 2018; Küpper et al., 2016; Mullin et al., 2016; Nelles et al., 2015; Wakamoto et al., 2006; Wang et al., 2018), and sensorimotor fMRI results (Wang et al., 2018). In contrast to these univariate-based predictions, the present study proposed a multivariate machine learning-based framework, resulting in quite robust prediction performance. More importantly, the framework took preoperative GMV values across the unaffected regions as predicting features, and these features can be easily derived from routine structural MRI for hemispherotomy patients. Therefore, these proposed prediction models have excellent clinical applicability. However, it should be noted that the absolute sample size of patients is small, although the relative sample size for hemispherotomy patients was quite large for an investigation in hemispherotomy. Particularly, the number of training subjects for the machine learning algorithm is small, limiting the confidence in the validity and generalizability of the prediction. A larger dataset of pediatric hemispherotomy patients (e.g., from different hospitals or sources) are warranted to further validate our currently proposed machine learning-based prediction.
+255:The data that support the findings of this study are available from the corresponding author upon reasonable request.
+269:Ashburner, J., &amp; Ridgway, G. R. (2013). Symmetric diffeomorphic modeling of longitudinal structural MRI. Frontiers in Neuroscience , 6 , 197. https://doi.org/10.3389/fnins.2012.00197
+290:- Jernigan, T. L., Brown, T. T., Hagler, D. J., et al. (2016). The pediatric imaging, neurocognition, and genetics (PING) data repository. NeuroImage , 124 (Pt B), 1149 -1154. https://doi.org/10.1016/j.neuroimage.2015. 04.057
+317:- Pilato, F., Dileone, M., Capone, F., Profice, P., Caulo, M., Battaglia, D., Ranieri, F., Oliviero, A., Florio, L., Graziano, A., di Rocco, C., Massimi, L., &amp; di Lazzaro, V. (2009). Unaffected motor cortex remodeling after hemispherectomy in an epileptic cerebral palsy patient. A TMS and fMRI study. Epilepsy Research , 85 (2 -3), 243 -251. https:// doi.org/10.1016/j.eplepsyres.2009.03.016
+326:- Verdi, S., Kia, S. M., Yong, K. X. X., Tosun, D., Schott, J. M., Marquand, A. F., &amp; Cole, J. H. (2023). Revealing individual neuroanatomical heterogeneity in Alzheimer disease using neuroanatomical normative modeling. Neurology , 100 (24), e2442 -e2453. https://doi. org/10.1212/WNL.0000000000207298
+[2026-01-15T14:13:48] tokens used: 3073
+[2026-01-15T14:13:54] exec bash -lc 'rg -n "medication|duration|illness|seizure|age at onset|IQ|comorbid|covariate|adjusted|controlled|regression" Yu2024.pdf.md' in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:13:54] bash -lc 'rg -n "medication|duration|illness|seizure|age at onset|IQ|comorbid|covariate|adjusted|controlled|regression" Yu2024.pdf.md' succeeded in 460ms:
+33:Hemispherotomy is an effective surgery for treating refractory epilepsy from diffuse unihemispheric lesions. To date, postsurgery neuroplastic changes supporting behavioral recovery after left or right hemispherotomy remain unclear. In the present study, we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores in two large groups of pediatric patients with left and right hemispherotomy (29 left and 28 right). To control for the dramatic developmental effect during this stage, ageadjusted GMV within unaffected brain regions was derived voxel by voxel using a normative modeling approach with an age-matched reference cohort of 2115 healthy children. Widespread GMV increases in the contralateral cerebrum and ipsilateral cerebellum and GMV decreases in the contralateral cerebellum were consistently observed in both patient groups, but only the left hemispherotomy patients showed GMV decreases in the contralateral cingulate gyrus. Intriguingly, the GMV decrease in the contralateral cerebellum was significantly correlated with improvement in behavioral scores in the right but not the left hemispherotomy patients. Importantly, the preoperative voxelwise GMV features can be used to significantly predict postoperative behavioral scores in both patient groups. These findings indicate an important role of the contralateral cerebellum in the behavioral recovery following right hemispherotomy and highlight the predictive potential of preoperative imaging features in postoperative behavioral performance.
+41:Hemispherotomy can successfully stop seizures in carefully selected pediatric epilepsy patients by disconnecting and disabling the entire
+43:Abbreviations: GM, gray matter; GMV, gray matter volume; LASSO, least absolute shrinkage and selection operator; RR, ridge regression; SVR, support vector regression; WM, white matter.
+51:affected cerebral hemisphere (Jonas et al., 2004; Kossoff et al., 2003; Moosa, Gupta, et al., 2013; Moosa, Jehi, et al., 2013). Due to complications, such as hydrocephalus and superficial cerebral hemosiderosis, hemispherotomy has been more widely used for refractory epilepsy than anatomical hemispherectomy while achieving the same seizurefree rate (Yates et al., 2023). In addition to seizure freedom, many patients following such neurosurgery showed recovery to some degree in certain behavioral domains (Jonas et al., 2004; Kossoff et al., 2003; Moosa, Gupta, et al., 2013; Moosa, Jehi, et al., 2013), and such recovery should be largely underpinned by neuroplastic reorganization in the unaffected brain regions.
+88:FIGURE 1 Schematic of MRI image processing. (a) T1-weighted (T1w) and gray matter volume (GMV) images of left and right hemispherotomy patients. The cerebral hemisphere was manually masked out (indicated by red) in the T1w native space and excluded in the GMV-based voxel-based morphometry (VBM) analyses in the MNI space. Pre: Preoperative; Post: Postoperative. (b) Normative model of GMV, for one voxel example, as estimated by the Gaussian process regression in 2115 healthy children. The selected voxel is indicated by yellow in the left panel. Each circle in the middle panel represents one healthy child. On the right panel, the mean of the normative model is represented by a solid blue line, while the ±1 standard deviation is indicated by dotted light blue lines. The light blue shaded area represents the 95% confidence interval. The preoperative and postoperative GMV values of each patient are indicated by two connected gray dots.
+106:## 2.5 | Age-adjusted GMV from a normative model
+108:To control for the confounding effect of normal development on the changes in raw GMV in pediatric patients, we applied normative modeling to transform the raw GMV of each individual image to its age-adjusted value, that is, its derivation from the developmental norm (Figure 1b). Recently, normative modeling has been increasingly used for individual-specific inferences in heterogeneous clinical groups (e.g., Alzheimer's disease (Verdi et al., 2023), attention-deficit/ hyperactivity disorder (Wolfers et al., 2019), schizophrenia (Wolfers et al., 2018)). This approach provides a statistical framework to investigate individual deviations from normative ranges with reference to the healthy cohort. Specifically, it first applies a large healthy cohort to estimate the normative range of variation for a brain phenotype, such as GMV, given individuals' age, sex, or other variables of interest. Next, fitting the normative model to the data yields an individualized deviation value that quantifies the extent to which each person deviates from population norms.
+114:The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26). The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively. Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied to predict each patient's GMV, yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm. The individual-specific deviation would ensure the comparability of GMV before and after the surgery as well as between pediatric patients by removing the age and sex effects on raw GMV values. The age-adjusted GMV value (i.e., Z score) was then used in subsequent analysis.
+118:We used a linear mixed-effects model (LMEM) to handle the hierarchical nature of the data. LMEM was applied to evaluate the pre- and postoperative changes in behavioral scores and voxelwise GMV. Specifically, the ' fitlme ' function in MATLAB was used. In the model, ' MRI to surgery ' (i.e., the days between surgery and the pre/postMRI scan) and other covariates were modeled as fixed effects, and ' individual identities ' were modeled as random effects. The intercept and slope were allowed to vary across individuals. The LMEMs were formulated as follows:
+124:For each group, to determine the pre- and postoperative changes in behavioral scores, we applied the LMEM and evaluated the β 1 term. The onset of epilepsy, age at surgery, sex, and etiology were included as covariates. To evaluate whether and how GMV changes, we performed a voxelwise LMEM analysis within the GM mask of the unaffected regions, with the onset of epilepsy, age at surgery, and etiology as covariates. Multiple comparisons were corrected using the
+134:To evaluate whether preoperative GMV can be used to predict postoperative outcomes, we applied three machine learning regression algorithms: support vector regression (SVR), least absolute shrinkage and selection operator (LASSO), and ridge regression (RR). The presurgery GMV values within the GM mask of the unaffected regions were inputted as predicting features. For each algorithm, nested leave-oneout-cross-validation (LOOCV) was applied, with an outer LOOCV loop estimating the generalizability of the model and an inner LOOCV loop determining the optimal parameter if any. Specifically, N-1 patients were used as the training set for each outer LOOCV loop, where N was the total number of patients, and the only remaining patient was the testing sample. This procedure was repeated N times, with each patient being the testing sample once. Within each loop of the outer LOOCV, the inner LOOCVs were applied to determine the optimal parameter for the outer LOOCV fold to construct a prediction model, which was then used to predict the score of the testing sample.
+154:The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively. In most patients in the two groups, both preoperative and postoperative age-adjusted GMV values were negative across the vast majority of the unaffected regions, suggesting an overall shrinking pattern and underdevelopment of GM compared with the healthy children (Figure 2). Specifically, 79 and 59% of left hemispherotomy patients had more than 80% voxels showing a negative value before and after the surgery, respectively. In the right hemispherotomy group, 71 and 54% of patients had more than 80% of voxels showing a negative value before and after the surgery, respectively.
+158:To identify local age-adjusted GMV changes before and after the surgery, we applied a voxelwise LMEM search within the GM mask of the unaffected regions. For the two groups, the resultant T maps of age-adjusted GMV change largely mirrored each other (after flipping one map, r = .86), suggesting overall similar spatial patterns of ipsilateral and contralateral GMV changes between the two groups (Figure 3).
+160:After correcting for multiple comparisons, we observed four clusters showing significant age-adjusted GMV changes for the left hemispherotomy group and three significant clusters for the right hemispherotomy group (Figure 3). In both groups, the largest cluster covered almost the entire contralateral cerebrum and exhibited significantly increased GMV (left hemispherotomy: t = 6.92, p &lt; .001; right hemispherotomy: t = 7.44, p &lt; .001). At the individual level, all left and 96.4% of right hemispherotomy patients showed an increase in age-adjusted GMV in this cluster. Given the normative increasing
+162:FIGURE 2 Overall GM shrinkage both before and after surgery for the two patient groups. The color denotes the percentage of the patients with a negative value of age-adjusted GMV. A negative age-adjusted GMV value indicates a trend of GM shrinkage relative to the age-matched norm. As shown, the majority of patients within each group showed a negative value across most of the GM mask of unaffected regions, both before and after hemispherotomy.
+166:pattern of raw GMV during this developmental stage, the observed increase in age-adjusted GMV should be accompanied by increased raw GMV. The additional LMEM analysis to the total raw GMV value within the cluster confirmed such an increase after the surgery (left hemispherotomy: t = 7.21, p &lt; .001; right hemispherotomy: t = 7.69, p &lt; .001). The observed increase in both age-adjusted and raw GMV indicates a greater GM growth/development of the patients during the scanning interval compared with the ageand sex-matched healthy children.
+168:The second largest cluster was located around the entire ipsilateral cerebellum and exhibited significantly increased age-adjusted GMV(left hemispherotomy: t = 6.95, p &lt; .001; right hemispherotomy: t = 8.53, p &lt; .001). At the individual level, all left and right hemispherotomy patients had an increase in age-adjusted GMV in this cluster. Similarly, the additional LMEM analysis of the total raw GMV value of the cluster showed an increase in raw GMV after the surgery (left hemispherotomy: t = 8.59, p &lt; .001; right hemispherotomy: t = 9.16, p &lt; .001), suggesting greater GM growth/development.
+170:In contrast to the two clusters, the cluster in the contralateral cerebellum consistently showed significantly decreased age-adjusted GMV in both groups (left hemispherotomy: t = /C0 8.32, p &lt; .001; right hemispherotomy: t = /C0 7.73, p &lt; .001). At the individual level, 82.8% of the left and 96.4% of right hemispherotomy patients showed a decrease in age-adjusted GMV. With the normative increasing pattern of raw GMV during this developmental range, the observed decrease in age-adjusted GMV may be accompanied by increased, decreased, or unchanged raw GMV. The additional LMEM analysis of the total raw GMV value within the cluster showed a significant decrease in raw GMV in the left hemispherotomy patients ( t = /C0 6.93, p &lt; .001) and no significant change in raw GMV in the right hemispherotomy patients ( t = /C0 1.60, p = .11). The age-adjusted GMV increase together with no change or even a decrease in raw GMV indicates a lack or delay of normal GM growth/development or even GM shrinkage during the scanning interval compared with the age- and sexmatched healthy children.
+172:Finally, there was one significantly decreased age-adjusted GMV cluster around the contralateral cingulate gyrus in the left hemispherotomy group ( t = /C0 5.23, p &lt; .001) but not in the right hemispherotomy group. At the individual level, 79.3% of the left hemispherotomy patients showed a decrease in age-adjusted GMV. The additional LMEM analysis to the total raw GMV value of the cluster showed no significant change in raw GMV after the surgery ( t = /C0 0.33, p = .74), suggesting a lack of normal GM growth/development.
+176:For each patient group, we evaluated whether GMV changes in each cluster correlated with behavioral changes before and after the surgery. As shown in Figure 4, the change in age-adjusted GMV in the contralateral cerebellum was negatively correlated with the change in overall behavioral score in the right hemispherotomy patients ( r = /C0 .64, p = .007) but not in the left hemispherotomy patients ( r = /C0 .10, p = .73). Given the negative direction of the GMV change within the contralateral cerebellum and the positive direction of the change in behavioral score, such a correlation indicates that a greater GMV decrease was associated with greater behavioral improvement in right hemispherotomy patients.
+[2026-01-15T14:13:54] tokens used: 17938
+[2026-01-15T14:13:59] exec bash -lc "sed -n '1,120p' HBM-45-e70020-s001.docx.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:14:00] bash -lc "sed -n '1,120p' HBM-45-e70020-s001.docx.md" succeeded in 953ms:
+**Supplementary materials**
+
+**Table S1. Dataset resources of the included T1-weighte images for GMV normative modeling.**
+
+| Dataset   | Age range   | Subject number   | Subject number   | Subject number   | Subject number   | Subject number   | Site number   | Longitudinal data   | MRI scanner Field strength   |
+|-----------|-------------|------------------|------------------|------------------|------------------|------------------|---------------|---------------------|------------------------------|
+| Dataset   | Age range   | Patients         | Healthy          | Total            | Post included    | Post QC          | Site number   | Longitudinal data   | MRI scanner Field strength   |
+| ABIDE-Ⅰ   | 7-64        | 539              | 573              | 1112             | 205              | 168              | 17            | No                  | 3T                           |
+| ABIDE-Ⅱ   | 5-64        | 521              | 593              | 1114             | 365              | 332              | 19            | No                  | 3T                           |
+| BCP       | 0-7         | 0                | 345              | 345              | 339              | 257              | 6             | Yes                 | 3T                           |
+| CPMD      | 2-8         | 0                | 96               | 96               | 96               | 90               | 1             | No                  | 3T                           |
+| CBD       | 6-14        | 55               | 305              | 360              | 70               | 69               | 2             | Yes                 | 3T                           |
+| CCNP      | 6-18        | 0                | 201              | 201              | 116              | 116              | 1             | Yes                 | 3T                           |
+| HBN       | 5-21        | 0                | 3448             | 3448             | 88               | 76               | 3             | No                  | 1.5T/3T                      |
+| HCPD      | 5-21        | 0                | 652              | 652              | 252              | 252              | 4             | No                  | 3T                           |
+| IBIS      | 0-3         | 247              | 209              | 456              | 209              | 183              | 4             | Yes                 | 3T                           |
+| PeriCBD   | 3-10        | 45               | 110              | 155              | 55               | 43               | 2             | No                  | 1.5T/3T                      |
+| PING      | 3-20        | 0                | 1493             | 1493             | 426              | 415              | 10            | No                  | 3T                           |
+| Pixar     | 3-12        | 0                | 122              | 122              | 122              | 114              | 1             | No                  | 3T                           |
+
+[2026-01-15T14:14:00] tokens used: 3931
+[2026-01-15T14:14:11] exec bash -lc 'rg -n "lack or delay|age-adjusted GMV increase together|meaning|Z score|deviation|deviations|interpret|threshold|percentile" Yu2024.pdf.md' in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:14:11] bash -lc 'rg -n "lack or delay|age-adjusted GMV increase together|meaning|Z score|deviation|deviations|interpret|threshold|percentile" Yu2024.pdf.md' succeeded in 457ms:
+86:Note : M, male; F, female; D: developmental; A: acquired; P: progressive. Age of surgery, epilepsy onset, prescan to surgery, and surgery to postscan are presented as the mean ± standard deviation (minimum, maximum).
+88:FIGURE 1 Schematic of MRI image processing. (a) T1-weighted (T1w) and gray matter volume (GMV) images of left and right hemispherotomy patients. The cerebral hemisphere was manually masked out (indicated by red) in the T1w native space and excluded in the GMV-based voxel-based morphometry (VBM) analyses in the MNI space. Pre: Preoperative; Post: Postoperative. (b) Normative model of GMV, for one voxel example, as estimated by the Gaussian process regression in 2115 healthy children. The selected voxel is indicated by yellow in the left panel. Each circle in the middle panel represents one healthy child. On the right panel, the mean of the normative model is represented by a solid blue line, while the ±1 standard deviation is indicated by dotted light blue lines. The light blue shaded area represents the 95% confidence interval. The preoperative and postoperative GMV values of each patient are indicated by two connected gray dots.
+108:To control for the confounding effect of normal development on the changes in raw GMV in pediatric patients, we applied normative modeling to transform the raw GMV of each individual image to its age-adjusted value, that is, its derivation from the developmental norm (Figure 1b). Recently, normative modeling has been increasingly used for individual-specific inferences in heterogeneous clinical groups (e.g., Alzheimer's disease (Verdi et al., 2023), attention-deficit/ hyperactivity disorder (Wolfers et al., 2019), schizophrenia (Wolfers et al., 2018)). This approach provides a statistical framework to investigate individual deviations from normative ranges with reference to the healthy cohort. Specifically, it first applies a large healthy cohort to estimate the normative range of variation for a brain phenotype, such as GMV, given individuals' age, sex, or other variables of interest. Next, fitting the normative model to the data yields an individualized deviation value that quantifies the extent to which each person deviates from population norms.
+114:The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26). The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively. Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied to predict each patient's GMV, yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm. The individual-specific deviation would ensure the comparability of GMV before and after the surgery as well as between pediatric patients by removing the age and sex effects on raw GMV values. The age-adjusted GMV value (i.e., Z score) was then used in subsequent analysis.
+154:The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively. In most patients in the two groups, both preoperative and postoperative age-adjusted GMV values were negative across the vast majority of the unaffected regions, suggesting an overall shrinking pattern and underdevelopment of GM compared with the healthy children (Figure 2). Specifically, 79 and 59% of left hemispherotomy patients had more than 80% voxels showing a negative value before and after the surgery, respectively. In the right hemispherotomy group, 71 and 54% of patients had more than 80% of voxels showing a negative value before and after the surgery, respectively.
+170:In contrast to the two clusters, the cluster in the contralateral cerebellum consistently showed significantly decreased age-adjusted GMV in both groups (left hemispherotomy: t = /C0 8.32, p &lt; .001; right hemispherotomy: t = /C0 7.73, p &lt; .001). At the individual level, 82.8% of the left and 96.4% of right hemispherotomy patients showed a decrease in age-adjusted GMV. With the normative increasing pattern of raw GMV during this developmental range, the observed decrease in age-adjusted GMV may be accompanied by increased, decreased, or unchanged raw GMV. The additional LMEM analysis of the total raw GMV value within the cluster showed a significant decrease in raw GMV in the left hemispherotomy patients ( t = /C0 6.93, p &lt; .001) and no significant change in raw GMV in the right hemispherotomy patients ( t = /C0 1.60, p = .11). The age-adjusted GMV increase together with no change or even a decrease in raw GMV indicates a lack or delay of normal GM growth/development or even GM shrinkage during the scanning interval compared with the age- and sexmatched healthy children.
+221:FIGURE 5 Prediction of postoperative behavioral score using ridge regression (RR) with preoperative age-adjusted GMV features for both patient groups. (a) The correlation between the actual and predicted postoperative behavioral scores. (b) GMV feature weight maps for the two groups. The top and bottom rows indicate unthresholded and thresholded ( p &lt; .05 after FDR correction) maps, respectively. Color represents the estimated weight of the GMV feature.
+[2026-01-15T14:14:11] tokens used: 23180
+[2026-01-15T14:14:15] codex
+
+Next, I’ll populate the JSON with extracted answers and evidence from Yu2024.pdf.md and the supplement, following the guide’s formats.
+[2026-01-15T14:14:36] apply_patch auto_approved=true:
+M /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+@@ -2,7 +2,7 @@
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Yu2024",
++    "si2_reference_file_names": "Yu2024.pdf.md; HBM-45-e70020-s001.docx.md",
++    "si3_author_journal_year": "Yu et al., Human Brain Mapping, 2024",
++    "si4_title": "Behavioral and brain morphological changes before and after hemispherotomy",
++    "si5_doi": "NR"
+   },
+@@ -10,7 +10,7 @@
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction clearly state the study's aims: to investigate pre-to-post surgical changes in gray matter volume (GMV) and their relationships with behavioral scores in pediatric hemispherotomy patients, and to control developmental effects using a normative modeling approach. This addresses both the research questions and explicitly describes the purpose of applying normative modeling (adjusting for development to enable individual-level comparisons and prediction).",
++      "supporting_text": "\"we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores... To control for the dramatic developmental effect during this stage, age-adjusted GMV... was derived... using a normative modeling approach with an age-matched reference cohort of 2115 healthy children.\"",
++      "location": "Yu2024.pdf.md:33-40"
+     }
+@@ -19,77 +19,77 @@
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the newly built normative model, the paper specifies the eligibility (healthy children aged 0.3–13.0 years; max 100 per half-year bin; single highest-quality scan per subject), image quality and completeness standards (exclude poor-quality images or processing failures), and reports the final sample size (2115) with reasons for exclusion (n=228 due to poor quality or processing failure). It also cites original data sources.",
++      "supporting_text": "\"we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval... For children with multiple T1-weighted images, only the image of the highest quality was used... Among these images, 228 were excluded due to poor image quality or image processing failure... VBM processing was then applied to the remaining 2115 children...\"",
++      "location": "Yu2024.pdf.md:110-118; HBM-45-e70020-s001.docx.md:lines under 'The inclusion criteria of T1-weighted images'"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Age and sex are explicitly included as covariates in the voxelwise normative model. However, despite multi-dataset sourcing, there is no description of site-effect handling (e.g., site covariate, ComBat, or hierarchical modeling).",
++      "supporting_text": "\"Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied... yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm.\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Data sources of the healthy reference cohort are listed by name (11 MRI datasets) and references are provided, satisfying specification of source for an originally built model.",
++      "supporting_text": "\"the healthy subjects used for normative model estimation were from 11 MRI datasets, including the Autism Brain Imaging Data Exchange..., the UNC/UMN Baby Connectome Project..., ... the Pediatric Imaging, Neurocognition, and Genetics..., and the Pixar Dataset...\"",
++      "location": "Yu2024.pdf.md:110-114; HBM-45-e70020-s001.docx.md:1-80"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "This item applies only when the reference cohort was primarily collected in this study. The reference cohort comprises secondary data from existing datasets; per guide, answer NA.",
++      "supporting_text": "Reference cohort drawn from existing datasets (ABIDE, BCP, HCPD, IBIS, PING, etc.).",
++      "location": "Yu2024.pdf.md:110-114"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described: VBM using SPM12, creation of symmetric template, longitudinal registration, bias correction, tissue segmentation, spatial normalization, modulation, smoothing, masking of the operated hemisphere, and visual QC.",
++      "supporting_text": "\"We then carried out voxel-based morphometry (VBM) analyses using SPM12... Longitudinal VBM processing included... average image... bias-corrected and segmented... registered to the symmetric template... modulated... smoothed with an 8-mm FWHM Gaussian kernel... The resultant images of each step were carefully checked by visual inspection.\"",
++      "location": "Yu2024.pdf.md:100-107"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "For a newly built model, internal validation would involve partitioning within the healthy reference cohort (e.g., CV, hold-out). The methods describe training on all 2115 healthy children and testing on patients, but no cross-validation or hold-out within the healthy cohort is reported.",
++      "supporting_text": "\"The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively.\" (no mention of CV/hold-out within healthy cohort)",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No application of the normative model to an independent external healthy dataset is described. The model is trained on healthy children and applied to patients.",
++      "supporting_text": "No statement of external validation on independent healthy data; only application to patient cohort is described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is specified: voxelwise Gaussian process regression using PCNtoolkit, with software and versions (Python 3.8.13; PCNtoolkit 0.26), covariates (age, sex), and output (Z scores).",
++      "supporting_text": "\"The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26)... Age and sex were included as covariates... For each voxel, Gaussian process regression was applied... yielding a Z score...\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No quantitative metrics of model fit/calibration on the reference cohort (e.g., explained variance, prediction error, coverage) are reported.",
++      "supporting_text": "No performance metrics reported for the normative fit on the healthy cohort.",
++      "location": "Yu2024.pdf.md:methods sections around 106-160 (absent)"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning of the healthy reference cohort is performed; per guide, when no partitioning is used, answer NA.",
++      "supporting_text": "Training used the full healthy cohort without splits; no train/validation/test partitions within healthy data are described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions for normative modeling are provided (Python 3.8.13; PCNtoolkit 0.26). However, code/trained model availability and data access conditions beyond citations are not stated.",
++      "supporting_text": "\"...applied using Python 3.8.13 and PCNtoolkit (0.26).\" (no mention of code or model availability)",
++      "location": "Yu2024.pdf.md:114-115"
+     }
+@@ -98,42 +98,42 @@
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the primary clinical cohort, the study specifies patient eligibility/inclusion criteria, reports image quality screening with reasons for exclusion (processing failure due to poor quality), and provides final sample sizes.",
++      "supporting_text": "\"The patient inclusion criteria were as follows: (1) underwent peri-insular hemispherotomy between 2016 and 2021... (2) were at least half a year old... (3) had available pre- and postoperative MRI images; and (4) no other brain surgery... Initially, 74 patients met these criteria, but the image processing procedures failed for 17 of them due to the poor quality of either pre- or postoperative MRI images... Finally, 29... left and 28... right hemispherotomy patients were included.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relate imaging deviation scores to behavioral outcomes and prediction but do not report inclusion of clinical covariates beyond demographics (e.g., medication, illness duration, symptom severity) in these models.",
++      "supporting_text": "No description of adjusting for medication status, illness duration, or other clinical covariates in the deviation score analyses.",
++      "location": "Yu2024.pdf.md:results and methods sections (absent)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Primary clinical cohort data collection site and period are specified, and MRI acquisition protocol details (vendor, field strength, sequence parameters) are provided.",
++      "supporting_text": "\"Pediatric patients... were recruited... between 2016 and 2021 at the Pediatric Epilepsy Center, Peking University First Hospital.\" \n\"High-quality MRI was acquired before and after the surgery using a Philips Achieva 3T scanner... All T1-weighted scans used the same MPRAGE sequence with the following parameters...\"",
++      "location": "Yu2024.pdf.md:63-68"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Sample sizes are reported and the text states demographic and clinical information are provided in Table 1, but detailed demographics and clinical characteristics are not enumerated in the extracted text body.",
++      "supporting_text": "\"Finally, 29... left and 28... right hemispherotomy patients were included... Demographic and clinical information is listed in Table 1.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical assessment measure (Griffiths Scales of Child Development, 3rd ed.) is specified, domains are listed, and assessment timing is described.",
++      "supporting_text": "\"The Griffiths Scales of Child Development (3rd edition, Griffiths III)... includes five domains... The evaluation was usually performed on the same day as the MRI.\"",
++      "location": "Yu2024.pdf.md:71-74"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The meaning and direction of the deviation scores (age- and sex-adjusted GMV Z-scores) are explained, and clinical implications are discussed (associations with behavioral improvement and predictive potential). However, no quantitative thresholds for categorization (e.g., |Z| > 1.96) are provided.",
++      "supporting_text": "\"The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively.\" \n\"...a greater GMV decrease was associated with greater behavioral improvement in right hemispherotomy patients.\"",
++      "location": "Yu2024.pdf.md:154-156; 170-176"
+     }
+[2026-01-15T14:14:36] apply_patch(auto_approved=true) exited 0 in 27ms:
+Success. Updated the following files:
+M Yu2024_by_codex_20260115231248_for_QA_v9.json
+[2026-01-15T14:14:36] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..505523c74a83d31e1bcc7505fd4422302e564ed3
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Yu2024",
++    "si2_reference_file_names": "Yu2024.pdf.md; HBM-45-e70020-s001.docx.md",
++    "si3_author_journal_year": "Yu et al., Human Brain Mapping, 2024",
++    "si4_title": "Behavioral and brain morphological changes before and after hemispherotomy",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction clearly state the study's aims: to investigate pre-to-post surgical changes in gray matter volume (GMV) and their relationships with behavioral scores in pediatric hemispherotomy patients, and to control developmental effects using a normative modeling approach. This addresses both the research questions and explicitly describes the purpose of applying normative modeling (adjusting for development to enable individual-level comparisons and prediction).",
++      "supporting_text": "\"we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores... To control for the dramatic developmental effect during this stage, age-adjusted GMV... was derived... using a normative modeling approach with an age-matched reference cohort of 2115 healthy children.\"",
++      "location": "Yu2024.pdf.md:33-40"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the newly built normative model, the paper specifies the eligibility (healthy children aged 0.3–13.0 years; max 100 per half-year bin; single highest-quality scan per subject), image quality and completeness standards (exclude poor-quality images or processing failures), and reports the final sample size (2115) with reasons for exclusion (n=228 due to poor quality or processing failure). It also cites original data sources.",
++      "supporting_text": "\"we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval... For children with multiple T1-weighted images, only the image of the highest quality was used... Among these images, 228 were excluded due to poor image quality or image processing failure... VBM processing was then applied to the remaining 2115 children...\"",
++      "location": "Yu2024.pdf.md:110-118; HBM-45-e70020-s001.docx.md:lines under 'The inclusion criteria of T1-weighted images'"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Age and sex are explicitly included as covariates in the voxelwise normative model. However, despite multi-dataset sourcing, there is no description of site-effect handling (e.g., site covariate, ComBat, or hierarchical modeling).",
++      "supporting_text": "\"Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied... yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm.\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Data sources of the healthy reference cohort are listed by name (11 MRI datasets) and references are provided, satisfying specification of source for an originally built model.",
++      "supporting_text": "\"the healthy subjects used for normative model estimation were from 11 MRI datasets, including the Autism Brain Imaging Data Exchange..., the UNC/UMN Baby Connectome Project..., ... the Pediatric Imaging, Neurocognition, and Genetics..., and the Pixar Dataset...\"",
++      "location": "Yu2024.pdf.md:110-114; HBM-45-e70020-s001.docx.md:1-80"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "This item applies only when the reference cohort was primarily collected in this study. The reference cohort comprises secondary data from existing datasets; per guide, answer NA.",
++      "supporting_text": "Reference cohort drawn from existing datasets (ABIDE, BCP, HCPD, IBIS, PING, etc.).",
++      "location": "Yu2024.pdf.md:110-114"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described: VBM using SPM12, creation of symmetric template, longitudinal registration, bias correction, tissue segmentation, spatial normalization, modulation, smoothing, masking of the operated hemisphere, and visual QC.",
++      "supporting_text": "\"We then carried out voxel-based morphometry (VBM) analyses using SPM12... Longitudinal VBM processing included... average image... bias-corrected and segmented... registered to the symmetric template... modulated... smoothed with an 8-mm FWHM Gaussian kernel... The resultant images of each step were carefully checked by visual inspection.\"",
++      "location": "Yu2024.pdf.md:100-107"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "For a newly built model, internal validation would involve partitioning within the healthy reference cohort (e.g., CV, hold-out). The methods describe training on all 2115 healthy children and testing on patients, but no cross-validation or hold-out within the healthy cohort is reported.",
++      "supporting_text": "\"The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively.\" (no mention of CV/hold-out within healthy cohort)",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No application of the normative model to an independent external healthy dataset is described. The model is trained on healthy children and applied to patients.",
++      "supporting_text": "No statement of external validation on independent healthy data; only application to patient cohort is described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is specified: voxelwise Gaussian process regression using PCNtoolkit, with software and versions (Python 3.8.13; PCNtoolkit 0.26), covariates (age, sex), and output (Z scores).",
++      "supporting_text": "\"The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26)... Age and sex were included as covariates... For each voxel, Gaussian process regression was applied... yielding a Z score...\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No quantitative metrics of model fit/calibration on the reference cohort (e.g., explained variance, prediction error, coverage) are reported.",
++      "supporting_text": "No performance metrics reported for the normative fit on the healthy cohort.",
++      "location": "Yu2024.pdf.md:methods sections around 106-160 (absent)"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning of the healthy reference cohort is performed; per guide, when no partitioning is used, answer NA.",
++      "supporting_text": "Training used the full healthy cohort without splits; no train/validation/test partitions within healthy data are described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions for normative modeling are provided (Python 3.8.13; PCNtoolkit 0.26). However, code/trained model availability and data access conditions beyond citations are not stated.",
++      "supporting_text": "\"...applied using Python 3.8.13 and PCNtoolkit (0.26).\" (no mention of code or model availability)",
++      "location": "Yu2024.pdf.md:114-115"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the primary clinical cohort, the study specifies patient eligibility/inclusion criteria, reports image quality screening with reasons for exclusion (processing failure due to poor quality), and provides final sample sizes.",
++      "supporting_text": "\"The patient inclusion criteria were as follows: (1) underwent peri-insular hemispherotomy between 2016 and 2021... (2) were at least half a year old... (3) had available pre- and postoperative MRI images; and (4) no other brain surgery... Initially, 74 patients met these criteria, but the image processing procedures failed for 17 of them due to the poor quality of either pre- or postoperative MRI images... Finally, 29... left and 28... right hemispherotomy patients were included.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relate imaging deviation scores to behavioral outcomes and prediction but do not report inclusion of clinical covariates beyond demographics (e.g., medication, illness duration, symptom severity) in these models.",
++      "supporting_text": "No description of adjusting for medication status, illness duration, or other clinical covariates in the deviation score analyses.",
++      "location": "Yu2024.pdf.md:results and methods sections (absent)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Primary clinical cohort data collection site and period are specified, and MRI acquisition protocol details (vendor, field strength, sequence parameters) are provided.",
++      "supporting_text": "\"Pediatric patients... were recruited... between 2016 and 2021 at the Pediatric Epilepsy Center, Peking University First Hospital.\" \n\"High-quality MRI was acquired before and after the surgery using a Philips Achieva 3T scanner... All T1-weighted scans used the same MPRAGE sequence with the following parameters...\"",
++      "location": "Yu2024.pdf.md:63-68"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Sample sizes are reported and the text states demographic and clinical information are provided in Table 1, but detailed demographics and clinical characteristics are not enumerated in the extracted text body.",
++      "supporting_text": "\"Finally, 29... left and 28... right hemispherotomy patients were included... Demographic and clinical information is listed in Table 1.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical assessment measure (Griffiths Scales of Child Development, 3rd ed.) is specified, domains are listed, and assessment timing is described.",
++      "supporting_text": "\"The Griffiths Scales of Child Development (3rd edition, Griffiths III)... includes five domains... The evaluation was usually performed on the same day as the MRI.\"",
++      "location": "Yu2024.pdf.md:71-74"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The meaning and direction of the deviation scores (age- and sex-adjusted GMV Z-scores) are explained, and clinical implications are discussed (associations with behavioral improvement and predictive potential). However, no quantitative thresholds for categorization (e.g., |Z| > 1.96) are provided.",
++      "supporting_text": "\"The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively.\" \n\"...a greater GMV decrease was associated with greater behavioral improvement in right hemispherotomy patients.\"",
++      "location": "Yu2024.pdf.md:154-156; 170-176"
+     }
+   }
+ }
+
+[2026-01-15T14:14:36] tokens used: 14362
+[2026-01-15T14:14:36] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..505523c74a83d31e1bcc7505fd4422302e564ed3
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Yu2024",
++    "si2_reference_file_names": "Yu2024.pdf.md; HBM-45-e70020-s001.docx.md",
++    "si3_author_journal_year": "Yu et al., Human Brain Mapping, 2024",
++    "si4_title": "Behavioral and brain morphological changes before and after hemispherotomy",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction clearly state the study's aims: to investigate pre-to-post surgical changes in gray matter volume (GMV) and their relationships with behavioral scores in pediatric hemispherotomy patients, and to control developmental effects using a normative modeling approach. This addresses both the research questions and explicitly describes the purpose of applying normative modeling (adjusting for development to enable individual-level comparisons and prediction).",
++      "supporting_text": "\"we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores... To control for the dramatic developmental effect during this stage, age-adjusted GMV... was derived... using a normative modeling approach with an age-matched reference cohort of 2115 healthy children.\"",
++      "location": "Yu2024.pdf.md:33-40"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the newly built normative model, the paper specifies the eligibility (healthy children aged 0.3–13.0 years; max 100 per half-year bin; single highest-quality scan per subject), image quality and completeness standards (exclude poor-quality images or processing failures), and reports the final sample size (2115) with reasons for exclusion (n=228 due to poor quality or processing failure). It also cites original data sources.",
++      "supporting_text": "\"we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval... For children with multiple T1-weighted images, only the image of the highest quality was used... Among these images, 228 were excluded due to poor image quality or image processing failure... VBM processing was then applied to the remaining 2115 children...\"",
++      "location": "Yu2024.pdf.md:110-118; HBM-45-e70020-s001.docx.md:lines under 'The inclusion criteria of T1-weighted images'"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Age and sex are explicitly included as covariates in the voxelwise normative model. However, despite multi-dataset sourcing, there is no description of site-effect handling (e.g., site covariate, ComBat, or hierarchical modeling).",
++      "supporting_text": "\"Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied... yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm.\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Data sources of the healthy reference cohort are listed by name (11 MRI datasets) and references are provided, satisfying specification of source for an originally built model.",
++      "supporting_text": "\"the healthy subjects used for normative model estimation were from 11 MRI datasets, including the Autism Brain Imaging Data Exchange..., the UNC/UMN Baby Connectome Project..., ... the Pediatric Imaging, Neurocognition, and Genetics..., and the Pixar Dataset...\"",
++      "location": "Yu2024.pdf.md:110-114; HBM-45-e70020-s001.docx.md:1-80"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "This item applies only when the reference cohort was primarily collected in this study. The reference cohort comprises secondary data from existing datasets; per guide, answer NA.",
++      "supporting_text": "Reference cohort drawn from existing datasets (ABIDE, BCP, HCPD, IBIS, PING, etc.).",
++      "location": "Yu2024.pdf.md:110-114"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described: VBM using SPM12, creation of symmetric template, longitudinal registration, bias correction, tissue segmentation, spatial normalization, modulation, smoothing, masking of the operated hemisphere, and visual QC.",
++      "supporting_text": "\"We then carried out voxel-based morphometry (VBM) analyses using SPM12... Longitudinal VBM processing included... average image... bias-corrected and segmented... registered to the symmetric template... modulated... smoothed with an 8-mm FWHM Gaussian kernel... The resultant images of each step were carefully checked by visual inspection.\"",
++      "location": "Yu2024.pdf.md:100-107"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "For a newly built model, internal validation would involve partitioning within the healthy reference cohort (e.g., CV, hold-out). The methods describe training on all 2115 healthy children and testing on patients, but no cross-validation or hold-out within the healthy cohort is reported.",
++      "supporting_text": "\"The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively.\" (no mention of CV/hold-out within healthy cohort)",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No application of the normative model to an independent external healthy dataset is described. The model is trained on healthy children and applied to patients.",
++      "supporting_text": "No statement of external validation on independent healthy data; only application to patient cohort is described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is specified: voxelwise Gaussian process regression using PCNtoolkit, with software and versions (Python 3.8.13; PCNtoolkit 0.26), covariates (age, sex), and output (Z scores).",
++      "supporting_text": "\"The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26)... Age and sex were included as covariates... For each voxel, Gaussian process regression was applied... yielding a Z score...\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No quantitative metrics of model fit/calibration on the reference cohort (e.g., explained variance, prediction error, coverage) are reported.",
++      "supporting_text": "No performance metrics reported for the normative fit on the healthy cohort.",
++      "location": "Yu2024.pdf.md:methods sections around 106-160 (absent)"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning of the healthy reference cohort is performed; per guide, when no partitioning is used, answer NA.",
++      "supporting_text": "Training used the full healthy cohort without splits; no train/validation/test partitions within healthy data are described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions for normative modeling are provided (Python 3.8.13; PCNtoolkit 0.26). However, code/trained model availability and data access conditions beyond citations are not stated.",
++      "supporting_text": "\"...applied using Python 3.8.13 and PCNtoolkit (0.26).\" (no mention of code or model availability)",
++      "location": "Yu2024.pdf.md:114-115"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the primary clinical cohort, the study specifies patient eligibility/inclusion criteria, reports image quality screening with reasons for exclusion (processing failure due to poor quality), and provides final sample sizes.",
++      "supporting_text": "\"The patient inclusion criteria were as follows: (1) underwent peri-insular hemispherotomy between 2016 and 2021... (2) were at least half a year old... (3) had available pre- and postoperative MRI images; and (4) no other brain surgery... Initially, 74 patients met these criteria, but the image processing procedures failed for 17 of them due to the poor quality of either pre- or postoperative MRI images... Finally, 29... left and 28... right hemispherotomy patients were included.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relate imaging deviation scores to behavioral outcomes and prediction but do not report inclusion of clinical covariates beyond demographics (e.g., medication, illness duration, symptom severity) in these models.",
++      "supporting_text": "No description of adjusting for medication status, illness duration, or other clinical covariates in the deviation score analyses.",
++      "location": "Yu2024.pdf.md:results and methods sections (absent)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Primary clinical cohort data collection site and period are specified, and MRI acquisition protocol details (vendor, field strength, sequence parameters) are provided.",
++      "supporting_text": "\"Pediatric patients... were recruited... between 2016 and 2021 at the Pediatric Epilepsy Center, Peking University First Hospital.\" \n\"High-quality MRI was acquired before and after the surgery using a Philips Achieva 3T scanner... All T1-weighted scans used the same MPRAGE sequence with the following parameters...\"",
++      "location": "Yu2024.pdf.md:63-68"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Sample sizes are reported and the text states demographic and clinical information are provided in Table 1, but detailed demographics and clinical characteristics are not enumerated in the extracted text body.",
++      "supporting_text": "\"Finally, 29... left and 28... right hemispherotomy patients were included... Demographic and clinical information is listed in Table 1.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical assessment measure (Griffiths Scales of Child Development, 3rd ed.) is specified, domains are listed, and assessment timing is described.",
++      "supporting_text": "\"The Griffiths Scales of Child Development (3rd edition, Griffiths III)... includes five domains... The evaluation was usually performed on the same day as the MRI.\"",
++      "location": "Yu2024.pdf.md:71-74"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The meaning and direction of the deviation scores (age- and sex-adjusted GMV Z-scores) are explained, and clinical implications are discussed (associations with behavioral improvement and predictive potential). However, no quantitative thresholds for categorization (e.g., |Z| > 1.96) are provided.",
++      "supporting_text": "\"The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively.\" \n\"...a greater GMV decrease was associated with greater behavioral improvement in right hemispherotomy patients.\"",
++      "location": "Yu2024.pdf.md:154-156; 170-176"
+     }
+   }
+ }
+
+[2026-01-15T14:14:41] exec bash -lc "sed -n '1,260p' Yu2024_by_codex_20260115231248_for_QA_v9.json" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:14:42] bash -lc "sed -n '1,260p' Yu2024_by_codex_20260115231248_for_QA_v9.json" succeeded in 464ms:
+{
+  "study_identification_part": {
+    "si1_study_id": "Yu2024",
+    "si2_reference_file_names": "Yu2024.pdf.md; HBM-45-e70020-s001.docx.md",
+    "si3_author_journal_year": "Yu et al., Human Brain Mapping, 2024",
+    "si4_title": "Behavioral and brain morphological changes before and after hemispherotomy",
+    "si5_doi": "NR"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract and introduction clearly state the study's aims: to investigate pre-to-post surgical changes in gray matter volume (GMV) and their relationships with behavioral scores in pediatric hemispherotomy patients, and to control developmental effects using a normative modeling approach. This addresses both the research questions and explicitly describes the purpose of applying normative modeling (adjusting for development to enable individual-level comparisons and prediction).",
+      "supporting_text": "\"we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores... To control for the dramatic developmental effect during this stage, age-adjusted GMV... was derived... using a normative modeling approach with an age-matched reference cohort of 2115 healthy children.\"",
+      "location": "Yu2024.pdf.md:33-40"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Yes",
+[2026-01-15T14:14:42] tokens used: 22565
+[2026-01-15T14:14:42] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..505523c74a83d31e1bcc7505fd4422302e564ed3
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Yu2024",
++    "si2_reference_file_names": "Yu2024.pdf.md; HBM-45-e70020-s001.docx.md",
++    "si3_author_journal_year": "Yu et al., Human Brain Mapping, 2024",
++    "si4_title": "Behavioral and brain morphological changes before and after hemispherotomy",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction clearly state the study's aims: to investigate pre-to-post surgical changes in gray matter volume (GMV) and their relationships with behavioral scores in pediatric hemispherotomy patients, and to control developmental effects using a normative modeling approach. This addresses both the research questions and explicitly describes the purpose of applying normative modeling (adjusting for development to enable individual-level comparisons and prediction).",
++      "supporting_text": "\"we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores... To control for the dramatic developmental effect during this stage, age-adjusted GMV... was derived... using a normative modeling approach with an age-matched reference cohort of 2115 healthy children.\"",
++      "location": "Yu2024.pdf.md:33-40"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the newly built normative model, the paper specifies the eligibility (healthy children aged 0.3–13.0 years; max 100 per half-year bin; single highest-quality scan per subject), image quality and completeness standards (exclude poor-quality images or processing failures), and reports the final sample size (2115) with reasons for exclusion (n=228 due to poor quality or processing failure). It also cites original data sources.",
++      "supporting_text": "\"we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval... For children with multiple T1-weighted images, only the image of the highest quality was used... Among these images, 228 were excluded due to poor image quality or image processing failure... VBM processing was then applied to the remaining 2115 children...\"",
++      "location": "Yu2024.pdf.md:110-118; HBM-45-e70020-s001.docx.md:lines under 'The inclusion criteria of T1-weighted images'"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Age and sex are explicitly included as covariates in the voxelwise normative model. However, despite multi-dataset sourcing, there is no description of site-effect handling (e.g., site covariate, ComBat, or hierarchical modeling).",
++      "supporting_text": "\"Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied... yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm.\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Data sources of the healthy reference cohort are listed by name (11 MRI datasets) and references are provided, satisfying specification of source for an originally built model.",
++      "supporting_text": "\"the healthy subjects used for normative model estimation were from 11 MRI datasets, including the Autism Brain Imaging Data Exchange..., the UNC/UMN Baby Connectome Project..., ... the Pediatric Imaging, Neurocognition, and Genetics..., and the Pixar Dataset...\"",
++      "location": "Yu2024.pdf.md:110-114; HBM-45-e70020-s001.docx.md:1-80"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "This item applies only when the reference cohort was primarily collected in this study. The reference cohort comprises secondary data from existing datasets; per guide, answer NA.",
++      "supporting_text": "Reference cohort drawn from existing datasets (ABIDE, BCP, HCPD, IBIS, PING, etc.).",
++      "location": "Yu2024.pdf.md:110-114"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described: VBM using SPM12, creation of symmetric template, longitudinal registration, bias correction, tissue segmentation, spatial normalization, modulation, smoothing, masking of the operated hemisphere, and visual QC.",
++      "supporting_text": "\"We then carried out voxel-based morphometry (VBM) analyses using SPM12... Longitudinal VBM processing included... average image... bias-corrected and segmented... registered to the symmetric template... modulated... smoothed with an 8-mm FWHM Gaussian kernel... The resultant images of each step were carefully checked by visual inspection.\"",
++      "location": "Yu2024.pdf.md:100-107"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "For a newly built model, internal validation would involve partitioning within the healthy reference cohort (e.g., CV, hold-out). The methods describe training on all 2115 healthy children and testing on patients, but no cross-validation or hold-out within the healthy cohort is reported.",
++      "supporting_text": "\"The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively.\" (no mention of CV/hold-out within healthy cohort)",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No application of the normative model to an independent external healthy dataset is described. The model is trained on healthy children and applied to patients.",
++      "supporting_text": "No statement of external validation on independent healthy data; only application to patient cohort is described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is specified: voxelwise Gaussian process regression using PCNtoolkit, with software and versions (Python 3.8.13; PCNtoolkit 0.26), covariates (age, sex), and output (Z scores).",
++      "supporting_text": "\"The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26)... Age and sex were included as covariates... For each voxel, Gaussian process regression was applied... yielding a Z score...\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No quantitative metrics of model fit/calibration on the reference cohort (e.g., explained variance, prediction error, coverage) are reported.",
++      "supporting_text": "No performance metrics reported for the normative fit on the healthy cohort.",
++      "location": "Yu2024.pdf.md:methods sections around 106-160 (absent)"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning of the healthy reference cohort is performed; per guide, when no partitioning is used, answer NA.",
++      "supporting_text": "Training used the full healthy cohort without splits; no train/validation/test partitions within healthy data are described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions for normative modeling are provided (Python 3.8.13; PCNtoolkit 0.26). However, code/trained model availability and data access conditions beyond citations are not stated.",
++      "supporting_text": "\"...applied using Python 3.8.13 and PCNtoolkit (0.26).\" (no mention of code or model availability)",
++      "location": "Yu2024.pdf.md:114-115"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the primary clinical cohort, the study specifies patient eligibility/inclusion criteria, reports image quality screening with reasons for exclusion (processing failure due to poor quality), and provides final sample sizes.",
++      "supporting_text": "\"The patient inclusion criteria were as follows: (1) underwent peri-insular hemispherotomy between 2016 and 2021... (2) were at least half a year old... (3) had available pre- and postoperative MRI images; and (4) no other brain surgery... Initially, 74 patients met these criteria, but the image processing procedures failed for 17 of them due to the poor quality of either pre- or postoperative MRI images... Finally, 29... left and 28... right hemispherotomy patients were included.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relate imaging deviation scores to behavioral outcomes and prediction but do not report inclusion of clinical covariates beyond demographics (e.g., medication, illness duration, symptom severity) in these models.",
++      "supporting_text": "No description of adjusting for medication status, illness duration, or other clinical covariates in the deviation score analyses.",
++      "location": "Yu2024.pdf.md:results and methods sections (absent)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Primary clinical cohort data collection site and period are specified, and MRI acquisition protocol details (vendor, field strength, sequence parameters) are provided.",
++      "supporting_text": "\"Pediatric patients... were recruited... between 2016 and 2021 at the Pediatric Epilepsy Center, Peking University First Hospital.\" \n\"High-quality MRI was acquired before and after the surgery using a Philips Achieva 3T scanner... All T1-weighted scans used the same MPRAGE sequence with the following parameters...\"",
++      "location": "Yu2024.pdf.md:63-68"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Sample sizes are reported and the text states demographic and clinical information are provided in Table 1, but detailed demographics and clinical characteristics are not enumerated in the extracted text body.",
++      "supporting_text": "\"Finally, 29... left and 28... right hemispherotomy patients were included... Demographic and clinical information is listed in Table 1.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical assessment measure (Griffiths Scales of Child Development, 3rd ed.) is specified, domains are listed, and assessment timing is described.",
++      "supporting_text": "\"The Griffiths Scales of Child Development (3rd edition, Griffiths III)... includes five domains... The evaluation was usually performed on the same day as the MRI.\"",
++      "location": "Yu2024.pdf.md:71-74"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The meaning and direction of the deviation scores (age- and sex-adjusted GMV Z-scores) are explained, and clinical implications are discussed (associations with behavioral improvement and predictive potential). However, no quantitative thresholds for categorization (e.g., |Z| > 1.96) are provided.",
++      "supporting_text": "\"The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively.\" \n\"...a greater GMV decrease was associated with greater behavioral improvement in right hemispherotomy patients.\"",
++      "location": "Yu2024.pdf.md:154-156; 170-176"
+     }
+   }
+ }
+
+
+[2026-01-15T14:14:45] thinking
+
+**Validating output format**
+
+The output truncates in the terminal, but the patch seems to have worked. I need to check that the "location" for nm5 shows the full string "Yu2024.pdf.md:100-107," since it appears truncated. It probably does; the truncation is likely just a display issue. I want to ensure the JSON is valid. I can validate the syntax using jq, but if it's not available, I can use `python -m json.tool` to pretty-print. Local Python should be fine for this.
+[2026-01-15T14:14:48] exec bash -lc "python - << 'PY'
+import json,sys
+with open('Yu2024_by_codex_20260115231248_for_QA_v9.json') as f:
+    data=json.load(f)
+print('OK: keys=', list(data.keys()))
+PY" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized
+[2026-01-15T14:14:48] bash -lc "python - << 'PY'
+import json,sys
+with open('Yu2024_by_codex_20260115231248_for_QA_v9.json') as f:
+    data=json.load(f)
+print('OK: keys=', list(data.keys()))
+PY" succeeded in 467ms:
+OK: keys= ['study_identification_part', 'common_part', 'normative_modeling_part', 'clinical_research_part']
+[2026-01-15T14:14:48] tokens used: 21456
+[2026-01-15T14:14:48] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..505523c74a83d31e1bcc7505fd4422302e564ed3
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Yu2024",
++    "si2_reference_file_names": "Yu2024.pdf.md; HBM-45-e70020-s001.docx.md",
++    "si3_author_journal_year": "Yu et al., Human Brain Mapping, 2024",
++    "si4_title": "Behavioral and brain morphological changes before and after hemispherotomy",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction clearly state the study's aims: to investigate pre-to-post surgical changes in gray matter volume (GMV) and their relationships with behavioral scores in pediatric hemispherotomy patients, and to control developmental effects using a normative modeling approach. This addresses both the research questions and explicitly describes the purpose of applying normative modeling (adjusting for development to enable individual-level comparisons and prediction).",
++      "supporting_text": "\"we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores... To control for the dramatic developmental effect during this stage, age-adjusted GMV... was derived... using a normative modeling approach with an age-matched reference cohort of 2115 healthy children.\"",
++      "location": "Yu2024.pdf.md:33-40"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the newly built normative model, the paper specifies the eligibility (healthy children aged 0.3–13.0 years; max 100 per half-year bin; single highest-quality scan per subject), image quality and completeness standards (exclude poor-quality images or processing failures), and reports the final sample size (2115) with reasons for exclusion (n=228 due to poor quality or processing failure). It also cites original data sources.",
++      "supporting_text": "\"we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval... For children with multiple T1-weighted images, only the image of the highest quality was used... Among these images, 228 were excluded due to poor image quality or image processing failure... VBM processing was then applied to the remaining 2115 children...\"",
++      "location": "Yu2024.pdf.md:110-118; HBM-45-e70020-s001.docx.md:lines under 'The inclusion criteria of T1-weighted images'"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Age and sex are explicitly included as covariates in the voxelwise normative model. However, despite multi-dataset sourcing, there is no description of site-effect handling (e.g., site covariate, ComBat, or hierarchical modeling).",
++      "supporting_text": "\"Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied... yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm.\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Data sources of the healthy reference cohort are listed by name (11 MRI datasets) and references are provided, satisfying specification of source for an originally built model.",
++      "supporting_text": "\"the healthy subjects used for normative model estimation were from 11 MRI datasets, including the Autism Brain Imaging Data Exchange..., the UNC/UMN Baby Connectome Project..., ... the Pediatric Imaging, Neurocognition, and Genetics..., and the Pixar Dataset...\"",
++      "location": "Yu2024.pdf.md:110-114; HBM-45-e70020-s001.docx.md:1-80"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "This item applies only when the reference cohort was primarily collected in this study. The reference cohort comprises secondary data from existing datasets; per guide, answer NA.",
++      "supporting_text": "Reference cohort drawn from existing datasets (ABIDE, BCP, HCPD, IBIS, PING, etc.).",
++      "location": "Yu2024.pdf.md:110-114"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described: VBM using SPM12, creation of symmetric template, longitudinal registration, bias correction, tissue segmentation, spatial normalization, modulation, smoothing, masking of the operated hemisphere, and visual QC.",
++      "supporting_text": "\"We then carried out voxel-based morphometry (VBM) analyses using SPM12... Longitudinal VBM processing included... average image... bias-corrected and segmented... registered to the symmetric template... modulated... smoothed with an 8-mm FWHM Gaussian kernel... The resultant images of each step were carefully checked by visual inspection.\"",
++      "location": "Yu2024.pdf.md:100-107"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "For a newly built model, internal validation would involve partitioning within the healthy reference cohort (e.g., CV, hold-out). The methods describe training on all 2115 healthy children and testing on patients, but no cross-validation or hold-out within the healthy cohort is reported.",
++      "supporting_text": "\"The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively.\" (no mention of CV/hold-out within healthy cohort)",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No application of the normative model to an independent external healthy dataset is described. The model is trained on healthy children and applied to patients.",
++      "supporting_text": "No statement of external validation on independent healthy data; only application to patient cohort is described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is specified: voxelwise Gaussian process regression using PCNtoolkit, with software and versions (Python 3.8.13; PCNtoolkit 0.26), covariates (age, sex), and output (Z scores).",
++      "supporting_text": "\"The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26)... Age and sex were included as covariates... For each voxel, Gaussian process regression was applied... yielding a Z score...\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No quantitative metrics of model fit/calibration on the reference cohort (e.g., explained variance, prediction error, coverage) are reported.",
++      "supporting_text": "No performance metrics reported for the normative fit on the healthy cohort.",
++      "location": "Yu2024.pdf.md:methods sections around 106-160 (absent)"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning of the healthy reference cohort is performed; per guide, when no partitioning is used, answer NA.",
++      "supporting_text": "Training used the full healthy cohort without splits; no train/validation/test partitions within healthy data are described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions for normative modeling are provided (Python 3.8.13; PCNtoolkit 0.26). However, code/trained model availability and data access conditions beyond citations are not stated.",
++      "supporting_text": "\"...applied using Python 3.8.13 and PCNtoolkit (0.26).\" (no mention of code or model availability)",
++      "location": "Yu2024.pdf.md:114-115"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the primary clinical cohort, the study specifies patient eligibility/inclusion criteria, reports image quality screening with reasons for exclusion (processing failure due to poor quality), and provides final sample sizes.",
++      "supporting_text": "\"The patient inclusion criteria were as follows: (1) underwent peri-insular hemispherotomy between 2016 and 2021... (2) were at least half a year old... (3) had available pre- and postoperative MRI images; and (4) no other brain surgery... Initially, 74 patients met these criteria, but the image processing procedures failed for 17 of them due to the poor quality of either pre- or postoperative MRI images... Finally, 29... left and 28... right hemispherotomy patients were included.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relate imaging deviation scores to behavioral outcomes and prediction but do not report inclusion of clinical covariates beyond demographics (e.g., medication, illness duration, symptom severity) in these models.",
++      "supporting_text": "No description of adjusting for medication status, illness duration, or other clinical covariates in the deviation score analyses.",
++      "location": "Yu2024.pdf.md:results and methods sections (absent)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Primary clinical cohort data collection site and period are specified, and MRI acquisition protocol details (vendor, field strength, sequence parameters) are provided.",
++      "supporting_text": "\"Pediatric patients... were recruited... between 2016 and 2021 at the Pediatric Epilepsy Center, Peking University First Hospital.\" \n\"High-quality MRI was acquired before and after the surgery using a Philips Achieva 3T scanner... All T1-weighted scans used the same MPRAGE sequence with the following parameters...\"",
++      "location": "Yu2024.pdf.md:63-68"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Sample sizes are reported and the text states demographic and clinical information are provided in Table 1, but detailed demographics and clinical characteristics are not enumerated in the extracted text body.",
++      "supporting_text": "\"Finally, 29... left and 28... right hemispherotomy patients were included... Demographic and clinical information is listed in Table 1.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical assessment measure (Griffiths Scales of Child Development, 3rd ed.) is specified, domains are listed, and assessment timing is described.",
++      "supporting_text": "\"The Griffiths Scales of Child Development (3rd edition, Griffiths III)... includes five domains... The evaluation was usually performed on the same day as the MRI.\"",
++      "location": "Yu2024.pdf.md:71-74"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The meaning and direction of the deviation scores (age- and sex-adjusted GMV Z-scores) are explained, and clinical implications are discussed (associations with behavioral improvement and predictive potential). However, no quantitative thresholds for categorization (e.g., |Z| > 1.96) are provided.",
++      "supporting_text": "\"The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively.\" \n\"...a greater GMV decrease was associated with greater behavioral improvement in right hemispherotomy patients.\"",
++      "location": "Yu2024.pdf.md:154-156; 170-176"
+     }
+   }
+ }
+
+
+[2026-01-15T14:14:51] thinking
+
+**Summarizing completion status**
+
+I need to wrap things up with a concise final message that confirms we've completed the task while summarizing the choices made. The developer guidelines indicate we should use bullet points and headers, so I’ll include a short summary without showing the entire JSON. I should mention that the DOI wasn’t found, marking it as NR, and note any items that are partial or incomplete with reasons. I’ll invite further refinement if there are more sources available. Keeping it under ten lines is key!
+[2026-01-15T14:14:53] codex
+
+Filled the QA per QA_Guide_v9.md and saved results.
+
+What I did
+- Extracted required items from `Yu2024.pdf.md` and `HBM-45-e70020-s001.docx.md`.
+- Wrote structured A_Style and ACRSL_Style outputs to `Yu2024_by_codex_20260115231248_for_QA_v9.json`.
+
+Key notes
+- SI-5 DOI: NR (no 10.xxxx DOI found in provided files).
+- NM-2: Partial (age/sex modeled; no site-effect handling described).
+- NM-6/NM-7/NM-9: No (no internal CV; no external healthy validation; no reference-cohort performance metrics).
+- NM-10: NA (no partitions used in healthy cohort).
+- NM-11: Partial (software/versions given; code/model availability not stated).
+- CR-2: No (no clinical covariates beyond demographics in deviation analyses).
+- CR-4: Partial (sample sizes given; demographics/clinical details referenced in Table 1 but not enumerated in text).
+- CR-6: Partial (meaning/direction and implications covered; no thresholds).
+
+If you want, I can also generate a brief QA summary log or cross-check any additional files for missing DOI/details.
+[2026-01-15T14:14:53] tokens used: 483
+[2026-01-15T14:14:53] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..505523c74a83d31e1bcc7505fd4422302e564ed3
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Yu2024/materials/optimized/Yu2024_by_codex_20260115231248_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Yu2024",
++    "si2_reference_file_names": "Yu2024.pdf.md; HBM-45-e70020-s001.docx.md",
++    "si3_author_journal_year": "Yu et al., Human Brain Mapping, 2024",
++    "si4_title": "Behavioral and brain morphological changes before and after hemispherotomy",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract and introduction clearly state the study's aims: to investigate pre-to-post surgical changes in gray matter volume (GMV) and their relationships with behavioral scores in pediatric hemispherotomy patients, and to control developmental effects using a normative modeling approach. This addresses both the research questions and explicitly describes the purpose of applying normative modeling (adjusting for development to enable individual-level comparisons and prediction).",
++      "supporting_text": "\"we systematically investigated changes in gray matter volume (GMV) before and after surgery and further analyzed their relationships with behavioral scores... To control for the dramatic developmental effect during this stage, age-adjusted GMV... was derived... using a normative modeling approach with an age-matched reference cohort of 2115 healthy children.\"",
++      "location": "Yu2024.pdf.md:33-40"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the newly built normative model, the paper specifies the eligibility (healthy children aged 0.3–13.0 years; max 100 per half-year bin; single highest-quality scan per subject), image quality and completeness standards (exclude poor-quality images or processing failures), and reports the final sample size (2115) with reasons for exclusion (n=228 due to poor quality or processing failure). It also cites original data sources.",
++      "supporting_text": "\"we included T1-weighted images from all healthy children aged between 0.3 and 13.0 years across these datasets, with a maximum of 100 subjects for a half-year interval... For children with multiple T1-weighted images, only the image of the highest quality was used... Among these images, 228 were excluded due to poor image quality or image processing failure... VBM processing was then applied to the remaining 2115 children...\"",
++      "location": "Yu2024.pdf.md:110-118; HBM-45-e70020-s001.docx.md:lines under 'The inclusion criteria of T1-weighted images'"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Age and sex are explicitly included as covariates in the voxelwise normative model. However, despite multi-dataset sourcing, there is no description of site-effect handling (e.g., site covariate, ComBat, or hierarchical modeling).",
++      "supporting_text": "\"Age and sex were included as covariates in the model. For each voxel, Gaussian process regression was applied... yielding a Z score representing the patient's derivation from the age- and sex-matched healthy norm.\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Data sources of the healthy reference cohort are listed by name (11 MRI datasets) and references are provided, satisfying specification of source for an originally built model.",
++      "supporting_text": "\"the healthy subjects used for normative model estimation were from 11 MRI datasets, including the Autism Brain Imaging Data Exchange..., the UNC/UMN Baby Connectome Project..., ... the Pediatric Imaging, Neurocognition, and Genetics..., and the Pixar Dataset...\"",
++      "location": "Yu2024.pdf.md:110-114; HBM-45-e70020-s001.docx.md:1-80"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "This item applies only when the reference cohort was primarily collected in this study. The reference cohort comprises secondary data from existing datasets; per guide, answer NA.",
++      "supporting_text": "Reference cohort drawn from existing datasets (ABIDE, BCP, HCPD, IBIS, PING, etc.).",
++      "location": "Yu2024.pdf.md:110-114"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is described: VBM using SPM12, creation of symmetric template, longitudinal registration, bias correction, tissue segmentation, spatial normalization, modulation, smoothing, masking of the operated hemisphere, and visual QC.",
++      "supporting_text": "\"We then carried out voxel-based morphometry (VBM) analyses using SPM12... Longitudinal VBM processing included... average image... bias-corrected and segmented... registered to the symmetric template... modulated... smoothed with an 8-mm FWHM Gaussian kernel... The resultant images of each step were carefully checked by visual inspection.\"",
++      "location": "Yu2024.pdf.md:100-107"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "For a newly built model, internal validation would involve partitioning within the healthy reference cohort (e.g., CV, hold-out). The methods describe training on all 2115 healthy children and testing on patients, but no cross-validation or hold-out within the healthy cohort is reported.",
++      "supporting_text": "\"The GMV images of the 2115 healthy children and our pediatric hemispherotomy patients were used as the training and testing data, respectively.\" (no mention of CV/hold-out within healthy cohort)",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No application of the normative model to an independent external healthy dataset is described. The model is trained on healthy children and applied to patients.",
++      "supporting_text": "No statement of external validation on independent healthy data; only application to patient cohort is described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is specified: voxelwise Gaussian process regression using PCNtoolkit, with software and versions (Python 3.8.13; PCNtoolkit 0.26), covariates (age, sex), and output (Z scores).",
++      "supporting_text": "\"The voxelwise GMV normative modeling procedure was then applied using Python 3.8.13 and PCNtoolkit (0.26)... Age and sex were included as covariates... For each voxel, Gaussian process regression was applied... yielding a Z score...\"",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "High",
++      "reason": "No quantitative metrics of model fit/calibration on the reference cohort (e.g., explained variance, prediction error, coverage) are reported.",
++      "supporting_text": "No performance metrics reported for the normative fit on the healthy cohort.",
++      "location": "Yu2024.pdf.md:methods sections around 106-160 (absent)"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No data partitioning of the healthy reference cohort is performed; per guide, when no partitioning is used, answer NA.",
++      "supporting_text": "Training used the full healthy cohort without splits; no train/validation/test partitions within healthy data are described.",
++      "location": "Yu2024.pdf.md:114-116"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Software and library versions for normative modeling are provided (Python 3.8.13; PCNtoolkit 0.26). However, code/trained model availability and data access conditions beyond citations are not stated.",
++      "supporting_text": "\"...applied using Python 3.8.13 and PCNtoolkit (0.26).\" (no mention of code or model availability)",
++      "location": "Yu2024.pdf.md:114-115"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "For the primary clinical cohort, the study specifies patient eligibility/inclusion criteria, reports image quality screening with reasons for exclusion (processing failure due to poor quality), and provides final sample sizes.",
++      "supporting_text": "\"The patient inclusion criteria were as follows: (1) underwent peri-insular hemispherotomy between 2016 and 2021... (2) were at least half a year old... (3) had available pre- and postoperative MRI images; and (4) no other brain surgery... Initially, 74 patients met these criteria, but the image processing procedures failed for 17 of them due to the poor quality of either pre- or postoperative MRI images... Finally, 29... left and 28... right hemispherotomy patients were included.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses relate imaging deviation scores to behavioral outcomes and prediction but do not report inclusion of clinical covariates beyond demographics (e.g., medication, illness duration, symptom severity) in these models.",
++      "supporting_text": "No description of adjusting for medication status, illness duration, or other clinical covariates in the deviation score analyses.",
++      "location": "Yu2024.pdf.md:results and methods sections (absent)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Primary clinical cohort data collection site and period are specified, and MRI acquisition protocol details (vendor, field strength, sequence parameters) are provided.",
++      "supporting_text": "\"Pediatric patients... were recruited... between 2016 and 2021 at the Pediatric Epilepsy Center, Peking University First Hospital.\" \n\"High-quality MRI was acquired before and after the surgery using a Philips Achieva 3T scanner... All T1-weighted scans used the same MPRAGE sequence with the following parameters...\"",
++      "location": "Yu2024.pdf.md:63-68"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Sample sizes are reported and the text states demographic and clinical information are provided in Table 1, but detailed demographics and clinical characteristics are not enumerated in the extracted text body.",
++      "supporting_text": "\"Finally, 29... left and 28... right hemispherotomy patients were included... Demographic and clinical information is listed in Table 1.\"",
++      "location": "Yu2024.pdf.md:63-66"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The clinical assessment measure (Griffiths Scales of Child Development, 3rd ed.) is specified, domains are listed, and assessment timing is described.",
++      "supporting_text": "\"The Griffiths Scales of Child Development (3rd edition, Griffiths III)... includes five domains... The evaluation was usually performed on the same day as the MRI.\"",
++      "location": "Yu2024.pdf.md:71-74"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The meaning and direction of the deviation scores (age- and sex-adjusted GMV Z-scores) are explained, and clinical implications are discussed (associations with behavioral improvement and predictive potential). However, no quantitative thresholds for categorization (e.g., |Z| > 1.96) are provided.",
++      "supporting_text": "\"The age-adjusted GMV values (i.e., Z scores) represent the patient's deviation from the age- and sex-matched norm: negative and positive values indicate a trend of GM shrinkage and expansion, respectively.\" \n\"...a greater GMV decrease was associated with greater behavioral improvement in right hemispherotomy patients.\"",
++      "location": "Yu2024.pdf.md:154-156; 170-176"
+     }
+   }
+ }
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

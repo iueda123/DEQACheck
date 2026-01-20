@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Kia2022",
+    "si2_reference_file_names": "Kia2022.pdf.md; Kia2022_sup.pdf.md",
+    "si3_author_journal_year": "Kia et al., PLoS ONE, 2022",
+    "si4_title": "Closing the life-cycle of normative modeling using federated hierarchical Bayesian regression",
+    "si5_doi": "10.1371/journal.pone.0278776"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract clearly states the study's aims: to estimate a reference normative model at scale and to introduce a federated hierarchical Bayesian regression (HBR) framework that enables learning, updating, and adapting models on decentralized neuroimaging data. It also states the practical purpose of applying normative modeling for screening biological deviations in individuals with mental disorders.",
+      "supporting_text": "\"Here, we approach the problem of estimating a reference normative model across a massive population using a massive multi-center neuroimaging dataset. To this end, we introduce a federated probabilistic framework using hierarchical Bayesian regression (HBR) to complete the life-cycle of normative modeling.\" … \"The proposed method will facilitate applications of normative modeling as a medical tool for screening the biological deviations in individuals affected by complex illnesses such as mental disorders.\"",
+      "location": "Kia2022.pdf.md — Abstract"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "This is a NEW normative model built from multiple open datasets. The paper cites original datasets and notes that further details are in their papers (meets citation criterion). It specifies image quality standards using FreeSurfer Euler number threshold, exclusion of missing demographics, and reports the final sample size and exclusions. However, explicit inclusion/exclusion criteria for healthy reference participants (beyond dataset inclusion and QC) are not detailed per dataset.",
+      "supporting_text": "\"Table 1 lists the 16 neuroimaging datasets that are used in our experiments… Further details surrounding the other datasets can be found in the relevant papers listed in Table 1.\" … \"We have excluded participants with missing demographic (age/sex) information and those with poor quality imaging data… Subjects were excluded if their scan-site median-centered absolute Euler number was higher than 25… The final data consists of 37126 scans from 79 scanners…\"",
+      "location": "Kia2022.pdf.md — Experimental materials and setups (Datasets and preprocessing)"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age is used as a covariate in all experiments; sex is modeled as a group-effect; scanner/site effects are addressed via HBR by including scanner as a group-effect (partial pooling) and by comparison to fixed-effects and ComBat approaches.",
+      "supporting_text": "\"In all experimental configurations, we use only age as a covariate… We use sex as a group-effect in all estimated models. In the HBR case, the scanner is also included as a group-effect.\"",
+      "location": "Kia2022.pdf.md — Experiments"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Data sources for the reference cohort are explicitly listed and cited (ABCD, UKBB, HCP variants, IXI, NKI, OASIS3, OPN, PNC, etc.), with a table enumerating all datasets.",
+      "supporting_text": "\"Table 1 lists the 16 neuroimaging datasets that are used in our experiments.\" … \"The ABCD data are available at … The CamCAN data are available at … The HCP… IXI… OASIS3…\"",
+      "location": "Kia2022.pdf.md — Data Availability Statement; Experimental materials and setups"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary data were used from existing multi-site datasets; per guidance, acquisition protocol details are not required here (answer NA).",
+      "supporting_text": "\"Table 1 lists the 16 neuroimaging datasets… Further details … can be found in the relevant papers listed in Table 1.\"",
+      "location": "Kia2022.pdf.md — Experimental materials and setups"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software and outputs are described: cortical thickness estimated with FreeSurfer (v5.3 or v6.0) in the Destrieux atlas. Quality control is described using Euler number thresholds from FreeSurfer recon-all, including rationale and empirical threshold selection.",
+      "supporting_text": "\"In our analyses, we use cortical thickness measures estimated by Freesurfer version 5.3 or 6.0 over 148 cortical regions in the Destrieux atlas.\" … \"The Euler numbers are computed as a part of standard recon-all Freesurfer pipeline… Subjects were excluded if… Euler number was higher than 25…\"",
+      "location": "Kia2022.pdf.md — Experimental materials and setups (Datasets and preprocessing)"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "A clear partitioning scheme is used: in each run, 80% of healthy samples for training and 20% for evaluation, repeated ten times. This tests performance on held-out data in each iteration.",
+      "supporting_text": "\"In each experimental run, 80% of healthy samples are randomly selected to train the regression model. The remaining 20% are used for the evaluation… All experiments and evaluations are repeated ten times…\"",
+      "location": "Kia2022.pdf.md — Experiments (Multi-site data regression)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The NEW model is evaluated via internal splits and decentralized training vs centralized comparison; however, application to an independent external dataset of healthy individuals without adaptation is not reported. The adaptation experiment recalibrates on local healthy samples, which is not a pure external validation of the reference model.",
+      "supporting_text": "\"In the model adaptation setting… 50% of random healthy participants in clinical datasets… are used to recalibrate the parameters of the reference model.\"",
+      "location": "Kia2022.pdf.md — Experiments (Model adaptation)"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The statistical approach is well described: hierarchical Bayesian regression with group-effects (sex, scanner), modeling age using linear, cubic polynomial, and cubic B-splines; site-specific homoscedastic variance. However, specific implementation software/libraries for HBR are not specified in the main text; only the ComBat harmonization uses a cited Python implementation in the supplement.",
+      "supporting_text": "\"We use sex as a group-effect… In the HBR case, the scanner is also included as a group-effect.\" … \"We modeled the effect of age… linear… cubic polynomial… cubic B-spline… site-specific homoscedastic…\" … (Suppl.) \"The Python implementation [of ComBat] at https://github.com/Warvito/neurocombat_sklearn is employed.\"",
+      "location": "Kia2022.pdf.md — Experiments; Kia2022_sup.pdf.md — Data after ComBat harmonization"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Quantitative metrics are defined and reported for assessing model fit: Pearson correlation (RHO), standardized MSE (SMSE), and mean standardized log-loss (MSLL); results include performance distributions and comparisons between centralized and decentralized training (HBR-FULL vs HBR-EXTENDED).",
+      "supporting_text": "\"Three metrics are used to evaluate the quality of fits, i) Pearson's correlation coefficient (RHO)… ii) standardized mean squared error (SMSE), and iii) mean standardized log-loss (MSLL).\" … \"HBR-EXTENDED models show very similar RHO (R2 = 0.98), SMSE (R2 = 0.97), and MSLL (R2 = 0.95) compared to HBR-FULL…\"",
+      "location": "Kia2022.pdf.md — Experiments; Results (Fig 9 description)"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Partitioning proportions (80/20) and repetition are specified, but sample sizes per partition and demographic characteristics within each partition are not detailed.",
+      "supporting_text": "\"In each experimental run, 80% of healthy samples are randomly selected to train… The remaining 20% are used for the evaluation… All experiments… repeated ten times…\"",
+      "location": "Kia2022.pdf.md — Experiments"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Some software versions are reported (FreeSurfer v5.3/v6.0), and data sources with access conditions are listed. The supplement specifies the ComBat Python implementation. However, code or library versions for the HBR modeling and trained model availability are not provided.",
+      "supporting_text": "\"In our analyses, we use cortical thickness measures estimated by Freesurfer version 5.3 or 6.0…\" … \"The ABCD data are available at… [multiple dataset access statements]\" … (Suppl.) \"The Python implementation at https://github.com/Warvito/neurocombat_sklearn is employed.\"",
+      "location": "Kia2022.pdf.md — Experimental materials and setups; Data Availability Statement. Kia2022_sup.pdf.md — Data after ComBat harmonization"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Clinical datasets (e.g., CNP, HCPEP, OASIS3, TOP) are used. Ethical approval is stated for TOP. QC criteria (Euler number threshold) and exclusions are applied across the data, and final counts per dataset are reported in Table 1. However, detailed patient eligibility/diagnostic criteria and clinical image QC standards specific to each clinical dataset are not described beyond citing the original datasets.",
+      "supporting_text": "\"For the clinical data in the TOP dataset, approval was obtained…\" … \"We have excluded participants with missing demographic (age/sex) information and those with poor quality imaging data… Euler number… threshold…\" … \"Table 1. Demographics… No. Patients…\"",
+      "location": "Kia2022.pdf.md — Experimental materials and setups"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "Analyses of deviation scores include only age (covariate) and sex (group-effect). No clinical covariates (e.g., medication status, illness duration, symptom severity) are modeled in the analyses.",
+      "supporting_text": "\"In all experimental configurations, we use only age as a covariate… We use sex as a group-effect…\"",
+      "location": "Kia2022.pdf.md — Experiments"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohorts derive from named public datasets with citations (e.g., CNP, HCPEP, OASIS3, TOP), and dataset access statements are provided.",
+      "supporting_text": "\"Table 1 lists the 16 neuroimaging datasets…\" … \"OASIS3 dataset is available at… TOP data are subject to clinical data privacy…\"",
+      "location": "Kia2022.pdf.md — Data Availability Statement; Table 1"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Sample sizes per dataset and overall, age ranges, and sex distributions are reported in Table 1. Clinical characteristics such as medication status, symptom severity, or illness duration are not reported.",
+      "supporting_text": "\"Table 1. Demographics of multi-site experimental data… No. Patients… Age Range… Sex M/F…\"",
+      "location": "Kia2022.pdf.md — Table 1"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper names diagnostic groups and datasets but does not describe clinical assessment measures (e.g., rating scales, diagnostic criteria versions) or assessment procedures.",
+      "supporting_text": "Not reported in Kia2022.pdf.md or Kia2022_sup.pdf.md.",
+      "location": "Methods and Results sections reviewed; no clinical assessment measure descriptions found"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Deviation scores are defined (z-scores) and their interpretation is extended via the abnormal probability index (Pabn), with examples showing lower cortical thickness in patients relative to the normative range. Quantitative thresholds for categorical definitions (e.g., |Z| > 1.96) are not provided.",
+      "supporting_text": "\"Deviations of individuals from the normative range can be quantified as z-scores.\" … \"The area of the shaded region is computed as the abnormal probability index Pabn for a given z-score…\" … \"Patients show lower cortical thickness than the norm of the population\" (figure captions in dementia and schizophrenia examples).",
+      "location": "Kia2022.pdf.md — Introduction; Experimental materials (Fig 4 ref); Results (Fig 12–13 descriptions). Kia2022_sup.pdf.md — Calculating the abnormal probability index"
+    }
+  }
+}

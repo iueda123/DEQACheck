@@ -46,40 +46,32 @@
 
 - 一貫性と書式
     - 項目名は指定どおり厳守。新しいフィールドを作らない。
-    - ACRSL_Style では必ず5要素（answer, confidence_rating, reason, supporting_text, location）。
     - ADCSL_Style でも必ず5要素（answer, detail, confidence_rating, supporting_text, location）。
     - Supporting Text は簡潔な原文引用。言い換え禁止。
     - Location はファイル名と特定できる位置（セクション/行/ページ等）。
 
-- 抽出結果のスタイル
-    - データ抽出ガイドでは4つのスタイルを使います:
-    - **A_Style** = Answer のみ
-      - 抽出した答えだけを記載
-      - confidence_rating, reason, supporting_text, location は不要
-      - 単純項目や選択肢のみの項目に使用
-    - **ASL_Style** = Answer, Supporting text, Location
-      - 推論なしにエビデンスを添える:
-        - Answer: 抽出情報
-        - Supporting text: 出典の簡潔な引用
-        - Location: 出典の所在
-      - 明示的な文言があるカテゴリ的項目などに使用
-    - **ACRSL_Style** = Answer, Confidence rating, Reason, Supporting text, Location
-      - 詳細な抽出:
-        - Answer: 抽出情報
-        - Confidence rating: High / Medium / Low
-        - Reason: 判断のステップ
-        - Supporting text: 直接引用
-        - Location: 引用の所在
-      - 複雑で根拠が必要な項目に使用
-    - * **ADCSL_Style** = Answer, Detail, Confidence rating, Supporting text, Location
-      - カテゴリ回答＋簡潔な詳細が必要な項目に使用:
-        - Answer: 抽出情報
-        - Detail: 項目で求める構造化された詳細
-        - Confidence rating: High / Medium / Low
-        - Supporting text: 直接引用
-        - Location: 引用の所在
+------------
 
-詳細なフォーマット要件と例は後述「抽出結果のスタイル」を参照。
+## 抽出結果のスタイル
+
+### A_Style Format
+
+1. **Answer**: The extracted information according to the extraction criteria.
+
+### ADCSL_Style Format
+
+When an item requires ADCSL_Style, provide the following structured information:
+
+1. **Answer**: The extracted information according to the extraction criteria (typically a categorical or short textual answer).
+
+2. **Detail**: Concise, structured details required by the item.
+
+3. **Confidence Rating**: Rate your confidence as "High", "Medium", or "Low".
+
+4. **Supporting Text**: Direct quotes from the source materials that support the answer (concise).
+
+5. **Location**: Where the supporting text was found.
+    - Format: "FileName: Section / Subsection / Location"
 
 -------------------
 
@@ -112,188 +104,175 @@
 ### NM2. Normative Modeling 2nd Part
 
 #### NM2-1. Modeling Method
-* Extraction Criteria:
-Specify the statistical/machine learning algorithm(s) used for normative modeling.
-以下の Keyword から該当するものを選んで回答してください（複数回答可）。
 
-| Keyword | このキーワードに該当する条件や例 |
-|---------|-------------------------------|
-| GLM-family | GLM, OLSR |
-| Additive models | GAM, GAMM, GAMLSS, LOESS, LMS |
-| Polynomial | POLY (linear/quadratic/cubic; model selection) |
-| Quantile | QUANTREG (percentile-based NM) |
-| Fractional polynomial | MFPR |
-| Gaussian process | GPR |
-| Bayesian linear | BLR, WBLR |
-| Hierarchical Bayesian | HBR, HBLM, HBGPM |
-| Mixed-effects | MEM, LMM (voxel/ROI) |
-| Nearest neighbor | N3, NNA (density-based), EXP-WEIBULL (NN→likelihood) |
-| Kernel regression | KERNEL-NW (Nadaraya–Watson) |
-| Moving average | MOV-AVG |
-| Tolerance intervals | TOL-INT (nonparametric) |
-| Z-score baseline | ZSCORE (mean/SD only) |
-| Autoencoder family | AE (plain/denoising/semi-supervised), AAE, VAE, ConVAE, VQ-VAE, mmVAE, mmSIVAE |
-| Deep generative | GPT (if used), FUNCOIN |
-| Similarity-based | PBSI |
-| Vector factorization | NMF (if present), PCA (if appears) |
-| Unknown/unspecified | PCN-UNSPEC (PCNtoolkit/nispat/nomis unspecified), UNKNOWN/NR (Yes/NR/missing) |
+* Extraction Criteria: Specify the statistical/machine learning algorithm(s) used for normative modeling. 
+* 以下の Major Category, Minor Category から該当するものを選んで回答してください（複数回答可）。
 
+| Major Category      | Minor Category | Full Spelling                                             | Description            | Example                    |
+|---------------------|----------------|-----------------------------------------------------------|------------------------|----------------------------|
+| Bayesian Methods    | BLR            | bayesian linear regression                                | ベイズ線形回帰                | 正規-逆ガンマ事前のBLR              |
+| Bayesian Methods    | GPR            | gaussian process regression                               | ガウス過程によるノンパラ回帰         | RBFカーネルのGPR                |
+| Bayesian Methods    | HBR            | hierarchical bayesian regression                          | 階層ベイズ回帰                | サイト階層を持つHBR                |
+| Bayesian Methods    | HBGPM          | hierarchical bayesian gaussian process model              | 階層ベイズGPR               | 集団+サイトの階層GPR               |
+| Bayesian Methods    | HBLM           | hierarchical bayesian linear model                        | 階層ベイズ線形モデル             | マルチレベル線形モデル                |
+| Bayesian Methods    | WBLR           | warped bayesian linear regression                         | 変数ワープを含むBLR            | ワーピング付きBLR                 |
+| Deep Learning       | AAE            | adversarial autoencoder                                   | 逆学習を用いたAE              | AAEで潜在分布整形                 |
+| Deep Learning       | AE             | autoencoder                                               | 素の自己符号化器               | denoising AE               |
+| Deep Learning       | ConVAE         | convolutional variational autoencoder                     | 畳み込みVAE                | 3D-CNN VAE                 |
+| Deep Learning       | GPT            | generative pre-trained transformer                        | 事前学習生成トランスフォーマ         | GPTで合成被験者生成                |
+| Deep Learning       | mmSIVAE        | multimodal introspective VAE                              | 自己内省型マルチモーダルVAE        | MRI+遺伝のmmSIVAE             |
+| Deep Learning       | mmVAE          | multimodal variational autoencoder                        | マルチモーダルVAE             | 画像+臨床のmmVAE                |
+| Deep Learning       | VAE            | variational autoencoder                                   | 変分自己符号化器               | β-VAE                      |
+| Deep Learning       | VQ-VAE         | vector-quantized variational autoencoder                  | ベクトル量子化VAE             | VQ-VAE-2                   |
+| Domain-Specific     | FUNCOIN        | functional connectivity integrative normative modelling   | FC統合ノーマティブモデル          | FUNCOINでFC分布推定             |
+| Domain-Specific     | PBSI           | person-based similarity index                             | 個人別類似性に基づくスコア          | PBSIで個別偏差を計算               |
+| Mixed-Effects       | LMM            | linear mixed model                                        | 線形混合効果モデル              | 体積を従属変数としたLMM              |
+| Mixed-Effects       | MEM            | mixed-effects model                                       | 混合効果モデルの総称             | ランダム切片のみのLME               |
+| Nearest Neighbor    | N3             | nearest neighbor normativity                              | 最近傍を用いたノーマティブ推定        | k=50のN3                    |
+| Nonparametric Reg   | GAM            | generalized additive model                                | スムーズ項を含む非線形回帰          | thin-plate splineのGAM      |
+| Nonparametric Reg   | GAMLSS         | generalized additive models for location, scale and shape | 分布の位置・尺度・形状を同時モデリング    | μ/σ/ν/τをスプラインで推定           |
+| Nonparametric Reg   | GAMM           | generalized additive mixed model                          | ランダム効果を含むGAM           | サイトをランダム効果にしたGAMM          |
+| Nonparametric Reg   | LOESS          | locally estimated scatterplot smoothing                   | ローカル回帰スムージング           | span=0.75のLOESS            |
+| Nonparametric Reg   | QUANTREG       | quantile regression                                       | 分位点回帰でパーセンタイルを推定       | 5th/50th/95th quantile     |
+| Parametric Reg      | GLM            | generalized linear model                                  | 一般化線形モデルによる回帰          | GLM with Gaussian identity |
+| Parametric Reg      | MFPR           | multivariate fractional polynomial regression             | 多変量分数多項式回帰             | FP2で年齢効果をモデル               |
+| Parametric Reg      | OLSR           | ordinary least squares regression                         | 線形回帰の最小二乗推定            | ROIごとの線形回帰                 |
+| Parametric Reg      | POLY           | polynomial regression                                     | 線形/二次/三次など多項式回帰        | 二次項までの多項式モデル               |
+| Unspecified         | PCN-UNSPEC     | PCN toolkit unspecified                                   | PCN/nispat/nomisで手法未特定 | "PCNtoolkit pipeline"のみ    |
+| Unspecified         | UNKNOWN/NR     | unknown / not reported                                    | 情報欠損・非情報的回答            | "Yes", 空欄, NR              |
 
 * Extraction Result Style: ADCSL_Style
 * "answer" example:
 
 ```json
 "answer": [
-  "Similarity-based", 
-  "Autoencoder family"
+    {"major-category": "Bayesian Methods", "minor-category": "BLR"},
+    {"major-category": "Mixed-Effects", "minor-category": "LMM"}
 ]
 ```
 
 #### NM2-2. Response Variable
-* Extraction Criteria: Specify the imaging-derived variable(s) being modeled.
-以下の Keyword から該当するものを選んで回答してください（複数回答可）。
 
-| Keyword                 | このキーワードに該当する条件や例                                                                                                                                                                                      | 
-|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CT                      | cortical thickness                                                                                                                                                                                    |
-| CV                      | cortical volume                                                                                                                                                                                       |
-| SA                      | surface area                                                                                                                                                                                          |
-| GI                      | gyrification index                                                                                                                                                                                    |
-| Core morphometry        | CT, CV, SA, SV, GMV, WMV, GBV, TIV/ICV, WMH, CSF                                                                                                                                                      |
-| ALFF family             | ALFF (raw low-frequency power), fALFF (low-frequency power / total power)                                                                                                                             |
-| Diffusion scalars       | FA, MD, RD, AD, GFA, FAt, FW                                                                                                                                                                          |
-| DTI tract profile       | MD, RD, AD, DTI-bundle-profile (along-tract shape + FA/MD/RD/AD)                                                                                                                                      |
-| Connectivity            | FC, rs-FC, dyn-FC (aFCS/fFCS/FC-variability), FC-gradient, FCS, DC, GCOR, LCOR                                                                                                                        |
-| Motion                  | FD                                                                                                                                                                                                    |
-| PET/SPECT               | BPND, Ki_cer, SUVR-amyloid (e.g., AV45), SUVR-tau (e.g., FTP)                                                                                                                                         |
-| Task fMRI               | TASK-GLM (contrast z/t-map)                                                                                                                                                                           |
-| Deformation             | DBM/TBM (Jacobian determinants), VQ-typicality (VQ-VAE typicality score)                                                                                                                              |
-| Folding/Similarity      | MSI (morphometric similarity index), PBSI-SW (sulcal width similarity), GI/CURV (gyrification/curvature metrics)                                                                                      |
-| Laterality              | LI (laterality indices for CT/GMV/WMV/FC/others)                                                                                                                                                      |
-| MEG/EEG power           | PSD (band power)                                                                                                                                                                                      |
-| MEG/EEG connectivity    | AEC/PEC (frequency-specific FC)                                                                                                                                                                       |
-| Ophthalmic              | RETINA (macular/RNFL/GC-IPL thickness)                                                                                                                                                                |
-| Region-specific volumes | CER-Lobule (cerebellar lobules), THAL-Nuclei (thalamic nuclei), HIPPO (hippocampus), CC-morpho (corpus callosum volume/area/length/perimeter), SV-regional (generic subcortical volumes by atlas/ROI) |
-| IDP sets                | IDP-set (bulk feature sets, e.g., 2000+ IDPs)                                                                                                                                                         |
-| Model components        | NMF (component weights)                                                                                                                                                                               |
-| Unknown                 | UNKNOWN/NR (missing or non-informative answers)                                                                                                                                                       |
+* Extraction Criteria: Specify the imaging-derived variable(s) being modeled.
+* 以下の Major Category, Minor Category から該当するものを選んで回答してください（複数回答可）。
+
+| Major Category | Minor Category   | Full Spelling                                             | Description                                | Example                   | 
+|----------------|------------------|-----------------------------------------------------------|--------------------------------------------|---------------------------|
+| sMRI           | CT               | cortical thickness                                        | sMRI, 皮質厚の平均や頂点値                           | 左上側頭回の皮質厚                 |
+| sMRI           | CV               | cortical volume                                           | sMRI, 皮質領域の体積                              | 右前頭極の皮質体積                 |
+| sMRI           | SA               | surface area                                              | sMRI, 皮質面積（頂点/領域）                          | 左外側後頭葉の面積                 |
+| sMRI           | SV               | surface volume                                            | 表面ベースで算出した皮質体積                             | 全皮質の表面体積                  |
+| sMRI           | GMV              | gray matter volume                                        | 灰白質体積（領域/全脳）                               | 両側海馬の灰白質体積                |
+| sMRI           | WMV              | white matter volume                                       | 白質体積（領域/全脳）                                | 前頭葉白質体積                   |
+| sMRI           | GBV              | global brain volume                                       | 全脳の総体積                                     | 全脳容積（灰白質+白質）              |
+| sMRI           | TIV              | total intracranial volume                                 | 頭蓋内容積                                      | TIVでスケールした各IDP            |
+| sMRI           | CSF              | cerebrospinal fluid volume                                | 脳脊髄液量                                      | 側脳室体積                     |
+| sMRI           | SubV             | subcortical volume (regional)                             | 汎用ROIの皮質下体積                                | 扁桃体体積                     |
+| sMRI           | CerLV            | cerebellar lobule volume                                  | 小脳葉の体積                                     | Crus I体積                  |
+| sMRI           | CCMorph          | corpus callosum morphology                                | 脳梁の体積/面積/長さ/周長                             | 脳梁膨大部面積                   |
+| sMRI           | GI/CURV          | gyrification/curvature                                    | 脳回形成や曲率の指標                                 | 全皮質平均gyrification         |
+| sMRI           | WMH              | white matter hyperintensity                               | 白質高信号量                                     | Fazekasスコア、WMH総体積         |
+| sMRI           | DDM              | deformation-derived morphometry                           | 変形場のJacobianによる形態指標                        | VBMのJacobian平均            |
+| dMRI           | FA               | fractional anisotropy                                     | 拡散異方性のスカラー指標                               | 上縦束のFA                    |
+| dMRI           | GFA              | generalized fractional anisotropy                         | Q-ball等での一般化FA                             | 半球平均のGFA                  |
+| dMRI           | FAt              | tissue fractional anisotropy                              | 組織成分に限定したFA                                | CSF補正後FA                  |
+| dMRI           | MD               | mean diffusivity                                          | 平均拡散係数                                     | 後部内包のMD                   |
+| dMRI           | RD               | radial diffusivity                                        | 放射方向拡散係数                                   | 前放線冠のRD                   |
+| dMRI           | AD               | axial diffusivity                                         | 軸方向拡散係数                                    | 鉤状束のAD                    |
+| dMRI           | FW               | free water                                                | 自由水成分の割合                                   | 側頭葉白質のFW                  |
+| fMRI           | LLF-BOLD-metrics | Local low-frequency BOLD fluctuation metrics              | 周波数領域・局所指標                                 | ALFF, fALFF, mALFF, zALFF |
+| fMRI           | FC               | functional connectivity                                   | 時系列相関によるFC                                 | PCC–mPFCのFC               |
+| fMRI           | rs-FC            | resting-state functional connectivity                     | 安静時fMRIのFC                                 | DMN内FC                    |
+| fMRI           | dyn-FC           | dynamic functional connectivity                           | 時間変動するFC/変動度                               | スライディングウィンドウFC分散          |
+| fMRI           | FC-gradient      | functional connectivity gradient                          | FC行列の勾配座標                                  | 主勾配(Gradient 1)スコア        |
+| fMRI           | FC-strength      | functional connectivity strength                          | 接続強度の総和                                    | mPFCのFCS                  |
+| fMRI           | TASK-GLM         | task fMRI general linear model                            | 課題fMRIコントラストのz/tマップ                        | faces>shapesのzマップ         |
+| fMRI           | GCor             | global correlation                                        | 全ボクセル平均相関                                  | 全脳GCOR                    |
+| fMRI           | LCor             | local correlation                                         | 近傍との局所相関                                   | 角回のLCOR                   |
+| PET            | SUVR-amyloid     | standardized uptake value ratio (amyloid)                 | アミロイドPETのSUVR                              | AV45 SUVRCER              |
+| PET            | SUVR-tau         | standardized uptake value ratio (tau)                     | タウPETのSUVR                                 | FTP SUVRCBL               |
+| PET            | BPND             | binding potential (non-displaceable)                      | PET結合能指標                                   | \[11C\]DASBの線条体BPND       |
+| PET            | Ki_cer           | influx rate constant (cerebellar ref.)                    | 小脳基準の取り込み率                                 | [18F]FDOPA Ki_cer         |
+| MEG/EEG        | AEC/PEC          | amplitude/phase envelope correlation                      | MEG/EEGの周波数別FC                             | β帯域AEC                    |
+| MEG/EEG        | PSD              | power spectral density                                    | MEG/EEG帯域パワー                               | α帯域PSD                    |
+| Mathematical   | MSI              | morphometric similarity index                             | 形態類似度の指標                                   | MSI行列の平均                  |
+| Mathematical   | PBSI             | person-based similarity index                             | 溝幅類似度の個人指標                                 | Sulcal width PBSI         |
+| Mathematical   | IDP-set          | imaging derived phenotype set                             | 多数のIDPを束ねたセット                              | UKB 2,000+IDPセット          |
+| Mathematical   | VQ-VAE-TS        | vector-quantized variational autoencoder typicality score | VQ-VAEでの典型度スコア                             | 典型度z-score                |
+| Mathematical   | NMF              | non-negative matrix factorization                         | 成分負荷量/混合比                                  | NMFコンポーネント重み              |
+| Mathematical   | LI               | laterality index                                          | 左右差の指数                                     | 海馬体積のLI                   |
+| Mathematical   | NetMes           | network measures                                          | DC (degree centrality) などのネットワーク特徴量        | 視床のDC                     |
+| Others         | RETINA           | retinal thickness metrics                                 | 網膜/黄斑/視神経線維層計測                             | RNFL厚                     |
+| Unknown        | UNKNOWN          | unknown                                                   | 記述がなく不明。またはどのキーワードにも分類できない特徴量。             |                           | 
+* 
+* Extraction Result Style: ADCSL_Style
+* "answer" 例:
+
+```json
+"answer": [
+  {"major-category": "dMRI", "minor-category": "FA"},
+  {"major-category": "dMRI", "minor-category": "MD"},
+  {"major-category": "fMRI", "minor-category", "rs-FS"} 
+]
+```
+-----
+
+#### NM2-2. Explanatory Variable
+
+* Extraction Criteria: List all variables used as explanatory variables (predictors) in the normative model. 
+* 以下の Major Category, Minor Category から該当するものを選んで回答してください（複数回答可）。
+
+| Major Category                | Minor Category            | Full Spelling / Description                                      |
+|-------------------------------|---------------------------|------------------------------------------------------------------|
+| Age-related                   | Age                       | linear age term                                                  |
+| Age-related                   | Age^2                     | quadratic age term                                               |
+| Age-related                   | Age higher-order          | higher-order age terms (degree ≥3)                               |
+| Age-related                   | Age non-int               | non-integer age terms (fractional/negative powers)               |
+| Age-related                   | PMA/PN weeks              | post-menstrual age / postnatal weeks at scan                     |
+| Demographics                  | Sex                       |                                                                  |
+| Demographics                  | Race                      |                                                                  |
+| Demographics                  | Ethnic background         |                                                                  |
+| Demographics                  | Education                 |                                                                  |
+| Clinical / Group              | Dx/Clinical group         | clinical diagnosis or group indicator                            |
+| Interactions                  | Age×sex / Sex×age         |                                                                  |
+| Site/Scanner                  | Site                      |                                                                  |
+| Site/Scanner                  | Scanner                   |                                                                  |
+| Site/Scanner                  | Scanner vendor            |                                                                  |
+| Site/Scanner                  | Magnetic field strength   |                                                                  |
+| Acquisition / Protocol        | Scanning protocol         |                                                                  |
+| Acquisition / Protocol        | Acq/task params           | e.g., TR/TE/task parameters                                      |
+| Acquisition / Protocol        | Task/acq counts           | counts of blocks/stimuli/volumes                                 |
+| Pipeline / Software           | FreeSurfer version        |                                                                  |
+| Pipeline / Software           | Preproc pipeline/software | pipeline or software version as fixed effect                     |
+| Study / Cohort structure      | Cohort/Study indicator    | cohort/study labels as effect                                    |
+| Study / Cohort structure      | Family/Subject RE         | family ID or subject ID random effect                            |
+| Global brain measures         | ICV                       | intracranial volume                                              |
+| Global brain measures         | TIV                       | total intracranial volume                                        |
+| Global brain measures         | Total brain volume        |                                                                  |
+| Global brain measures         | Mean CT                   | mean cortical thickness                                          |
+| Global brain measures         | Mean SA                   | mean surface area                                                |
+| Image/Data quality            | Euler number              |                                                                  |
+| Image/Data quality            | Image quality             |                                                                  |
+| Image/Data quality            | Mean FD                   | mean framewise displacement                                      |
+| Image/Data quality            | Mean relative motion      |                                                                  |
+| Image/Data quality            | Head motion               |                                                                  |
+| Task                          | Task performance          |                                                                  |
+| Other                         | Hemisphere                |                                                                  |
+| Other                         | BMI                       | body mass index                                                  |
+| Other                         | FIQ                       | full-scale intelligence quotient                                 |
+| Other                         | None                      |                                                                  |
+| Other                         | Others (not specified)    | others not specified / 選択不可                                  |
 
 * Extraction Result Style: ADCSL_Style
 * "answer" 例:
 
 ```json
 "answer": [
-  "Core morphometry", Structural normative model repository (~58k subjects)",
-  "Functional normative model multi-site dataset (~40 sites, overall 21,594 HC across train/test)",
-  "HCP Young Adult",
-  "COBRE",
-  "UMich SchizGaze",
-  "OpenNeuro ds000243/ds002843/ds003798"
+  {"major-category": "Age-related", "minor-category": "Age"},
+  {"major-category": "Age-related", "minor-category": "Age^2"},
+  {"major-category": "Demographics", "minor-category": "Sex"},
+  {"major-category": "Site/Scanner", "minor-category": "Scanner vendor"}
 ]
-```
-
------------------------
-
-## 抽出結果のスタイル
-
-### ACRSL_Style Format
-
-When an item requires ACRSL_Style, provide the following structured information:
-
-1. **Answer**: The extracted information according to the extraction criteria.
-  - When information is not reported, state what is missing (e.g., "mean NR; sd NR" or "Unknown")
-  - When extraction criteria do not apply, answer "NA" (not applicable).
-
-2. **Confidence Rating**: Rate your confidence as "High", "Medium", or "Low".
-   - **High**: Clear and direct statements in the text; explicit numerical values or unambiguous descriptions.
-   - **Medium**: Indirect or limited evidence (e.g., in supplementary materials, tables, or referenced papers); requires inference or computation from provided data.
-   - **Low**: Ambiguous or insufficient description leading to uncertainty; conflicting information; or reliance on assumptions.
-
-3. **Reason**: Provide a step-by-step explanation of how you arrived at the answer and confidence rating. Explain what information was available, how you interpreted it, and any computations or inferences made. If you computed values (e.g., percentages, pooled SD), state the formula briefly.
-   - When extraction criteria do not apply, provide reason explaining why it does not apply.
-
-4. **Supporting Text**: Provide direct excerpts from the source materials that support your answer. Use quotation marks and ellipses (...) for omitted text.
-    - When extraction criteria do not apply, provide "-".
-
-5. **Location**: Specify where the supporting text was found using the document structure. Prefer the most specific locator available.
-   - Format: "FileName: Section / Subsection / Location"
-   - Example: "Bedford2025.pdf.md: Sample and Datasets, Paragraph 3"
-   - When extraction criteria do not apply, provide "-".
-
-#### Example: ACRSL_Style
-
-```json
-{
-  "rci2_hc_n": {
-    "answer": "569",
-    "confidence_rating": "High",
-    "reason": "The manuscript states they used 569 controls for development and performance testing of the models.",
-    "supporting_text": "For this study, we used 569 controls for development and performance testing of the models, out of which 470 were male.",
-    "location": "materials/Bayer2022.pdf.md:L125-L129"
-  }
-}
-```
-
-### ADCSL_Style Format
-
-When an item requires ADCSL_Style, provide the following structured information:
-
-1. **Answer**: The extracted information according to the extraction criteria (typically a categorical or short textual answer).
-
-2. **Detail**: Concise, structured details required by the item.
-
-3. **Confidence Rating**: Rate your confidence as "High", "Medium", or "Low".
-
-4. **Supporting Text**: Direct quotes from the source materials that support the answer (concise).
-
-5. **Location**: Where the supporting text was found.
-   - Format: "FileName: Section / Subsection / Location"
-
-#### Example: ADCSL_Style
-
-```json
-{
-  "rci10_site_effect_handling": {
-    "answer": "Model-based",
-    "detail": "Hierarchical Bayesian regression with site random effects; compared against ComBat; site and scanner as batch variables; preserved age and sex; out-of-sample evaluation of harmonization effectiveness",
-    "confidence_rating": "High",
-    "supporting_text": "\"We accounted for site/scanner using a hierarchical Bayesian model with random effects ... preserving age and sex ... we compared to ComBat and evaluated out-of-sample ...\"",
-    "location": "materials/Example2024.pdf.md: Methods / Harmonization, L180-L215"
-  }
-}
-```
-
-### ASL_Style Format
-
-When an item requires ASL_Style, provide the following structured information:
-
-1. **Answer**: The extracted information according to the extraction criteria.
-2. **Supporting Text**: Direct quotes from source materials that support the answer (keep concise).
-3. **Location**: Where the quote was found.
-   - Format: "FileName: Section / Subsection / Location"
-
-#### Example: ASL_Style
-
-```json
-{
-  "rci6_analysis_level": {
-    "answer": "ROI-level",
-    "supporting_text": "\"ROI-wise cortical thickness was computed...\"",
-    "location": "Paper2022.pdf.md: Methods / Imaging analysis, L120-L125"
-}
-}
-```
-
-### A_Style Format
-
-1. **Answer**: The extracted information according to the extraction criteria.
-
-#### Example: A_Style
-
-```json
-{
-  "rci8_quality_checking": "Yes"
-}
 ```
 
 -------------------------

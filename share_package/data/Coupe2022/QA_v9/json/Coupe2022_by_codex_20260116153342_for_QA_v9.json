@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Coupe2022",
+    "si2_reference_file_names": "Coupe2022.pdf.md",
+    "si3_author_journal_year": "Coupé et al., Human Brain Mapping, 2022",
+    "si4_title": "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models",
+    "si5_doi": "NR"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract states the objective to present an MRI-based method (HAVAs) using normative and AD lifespan models for AD detection and MCI prognosis, clearly articulating the study’s aims and the purpose of applying normative modeling.",
+      "supporting_text": "\"we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures... [a] Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models.\"",
+      "location": "Abstract (lines ~33–41)"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Eligibility is operationalized via CN status in multiple open datasets; image QC is described (automatic QC + visual review) and final sample sizes are reported. However, detailed inclusion/exclusion criteria per dataset and explicit counts of exclusions are not fully specified.",
+      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases... 2,655 CN subjects (CN) and 377 patients with AD.\"; \"we performed a QC procedure... automatic QC RegQCNet... a visual assessment... If the failure was confirmed... the subject was removed from training dataset.\"",
+      "location": "Materials and Method – 2.1.1 Training dataset (table and text); 2.2 Image processing (QC paragraph)"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Age is the central covariate through lifespan modeling; volumes are normalized by ICV and z-scored across CN lifespan. There is no explicit handling of sex or multi-site effects (e.g., site covariate or harmonization like ComBat).",
+      "supporting_text": "\"we normalized all the structure volumes using the intracranial cavity volume (ICV)... we performed z-score normalization... using all the CN subjects over the entire lifespan.\"; \"To create our lifespan models, we estimated normal and pathological trajectories... across the entire lifespan.\"",
+      "location": "2.3 Volume normalization; 2.4 Lifespan model estimation"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study specifies the open datasets used for the reference cohort with names and counts (C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI).",
+      "supporting_text": "Training dataset table lists: C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI (CN); OASIS and ADNI (AD).",
+      "location": "2.1.1 Training dataset (Table 1)"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary data from existing open datasets are used; per guidance, acquisition protocol details are not applicable here.",
+      "supporting_text": "\"training dataset... from seven open access databases\"",
+      "location": "2.1.1 Training dataset"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing is clearly described using AssemblyNet with specific steps: denoising, inhomogeneity correction (N4/N3), affine registration to MNI, automatic QC (RegQCNet), second bias correction, intensity standardization, followed by multi-network segmentation.",
+      "supporting_text": "\"All the considered images were processed using AssemblyNet... preprocessing pipeline... image denoising... inhomogeneity correction... affine registration to the MNI space, automatic quality control (QC)... a second inhomogeneity correction... final intensity standardization... After preprocessing, the brain was segmented... using 250 DL models.\"",
+      "location": "2.2 Image processing"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The work estimates trajectories on the training dataset and validates performance on external datasets. No internal partitioning (e.g., CV/hold-out) for the reference cohort modeling is described.",
+      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)...\"",
+      "location": "2.1.2 Testing dataset"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Models are applied to independent external datasets (AIBL, MIRIAD for AD vs CN; ADNI for sMCI/pMCI).",
+      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)... In addition, we used subjects with mild cognitive impairment (MCI) from ADNI...\"",
+      "location": "2.1.2 Testing dataset; Table 2"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The statistical approach is described: low-order polynomial regression (linear/quadratic/cubic), model selection via ANOVA/T-tests and BIC, 95% CIs, Euclidean distance for classification, and probability scoring. However, implementation software/libraries for the modeling are not specified.",
+      "supporting_text": "\"To estimate the volume trajectories, we considered several low order polynomial models... [linear/quadratic/cubic]... candidate only when... ANOVA... coefficients... T-statistic... select... Bayesian Information Criterion... estimate the confidence interval...\"; \"we... estimated the closest lifespan trajectory in terms of Euclidean distance... proposed new scores... ensure that when AD score is higher than 50%...\"",
+      "location": "2.4 Lifespan model estimation; 2.5 Classification using volume trajectories"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "Model fit and significance are reported for CN/AD trajectories (e.g., model form, p-values for coefficients, ANOVA). Classification metrics (AUC, BACC, SPE, SEN) are also reported for external validation.",
+      "supporting_text": "Table shows entries like: \"Hippocampus for CN – Quadratic – ... β0: p < .0001; β1: p < .0001; β2: p < .0001; p < .0001\"; Abstract: \"AUC ≥ 94%... AUC = 78%\"",
+      "location": "Results tables (near end of 2.x section); Abstract"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "No internal data partitioning (train/val/test) is described for building the normative model; external datasets are used for validation only, so per guidance this item is not applicable.",
+      "supporting_text": "\"To validate our model, we built a testing dataset...\" (no internal split reported)",
+      "location": "2.1.2 Testing dataset"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Software tools and repositories are cited (AssemblyNet, ClinicaDL) with URLs. Specific software/library versions and availability of code/trained models for the normative trajectories are not detailed.",
+      "supporting_text": "\"AssemblyNet software (https://github.com/volBrain/AssemblyNet)\"; \"ClinicaDL software (https://github.com/aramis-lab/clinicadl)\"",
+      "location": "2.2 Image processing; 2.1.2 Testing dataset"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Clinical cohorts (AD, MCI) are from secondary datasets (AIBL, MIRIAD, ADNI). Group definitions for AD/CN and pMCI/sMCI are based on ClinicaDL criteria; sample sizes are reported. Detailed diagnostic criteria and image QC/exclusion counts are not fully described.",
+      "supporting_text": "\"we built a testing dataset based on... AIBL and MIRIAD... used subjects with MCI from ADNI... we used the ClinicaDL software... to define the groups... Therefore, we used the same selection criteria.\"",
+      "location": "2.1.2 Testing dataset"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Analyses focus on classification using volume-based trajectories without modeling clinical covariates beyond demographics. No adjustments for medication, illness duration, or symptom severity are described.",
+      "supporting_text": "No explicit mention of clinical covariate adjustment in methods or results.",
+      "location": "Methods/Results (no relevant statements found)"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort sources are clearly named with dataset identities and groups (AIBL, MIRIAD, ADNI).",
+      "supporting_text": "Table 2 lists AIBL (CN, AD), MIRIAD (CN, AD), and ADNI (sMCI, pMCI).",
+      "location": "2.1.2 Testing dataset; Table 2"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Sample sizes, age, and sex distributions are reported for clinical groups. Clinical characteristics such as medication status or symptom severity are not provided.",
+      "supporting_text": "\"| Dataset | Group | N = 1,039 | Gender | Age in years |... AIBL AD... MIRIAD AD... ADNI sMCI/pMCI.\"",
+      "location": "2.1.2 Testing dataset; Table 2"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The manuscript does not specify clinical assessment instruments or procedures (e.g., rating scales, diagnostic criteria versions) used for defining AD/MCI beyond referencing ClinicaDL for cohort definition.",
+      "supporting_text": "\"we used the ClinicaDL software... to define the groups...\" (no details on clinical instruments)",
+      "location": "2.1.2 Testing dataset"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The meaning of the HAVAs score is described as reflecting probability of AD with a 50% decision threshold (based on distances to CN/AD trajectories). Quantitative z-score thresholds or broader clinical interpretation frameworks are not fully elaborated, though clinical suitability is mentioned.",
+      "supporting_text": "\"we proposed new scores... ensure that when AD score is higher than 50%... closest model is the AD model... sum of both scores equal to 1... Consequently, the proposed HAVAs... reflects the probability... to be a patient with AD (or a pMCI subject).\"; \"HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice...\"",
+      "location": "2.5 Classification using volume trajectories; Abstract"
+    }
+  }
+}

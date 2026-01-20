@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Italinna2023",
+    "si2_reference_file_names": "Italinna2023.pdf.md",
+    "si3_author_journal_year": "Itälinnä et al., PLoS Computational Biology, 2023",
+    "si4_title": "Using normative modeling and machine learning for detecting mild traumatic brain injury from magnetoencephalography data",
+    "si5_doi": "10.1371/journal.pcbi.1011613"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract explicitly states the objective to detect mild traumatic brain injury (mTBI) from resting-state MEG using a normative modeling approach to quantify individual deviations and then apply machine learning for classification. It also articulates the broader purpose (diagnostic support/clinical utility). All criteria met.",
+      "supporting_text": "\"Here, we used a multivariate machine-learning approach to detect mTBI from resting-state MEG measurements. To address the heterogeneity of the condition, we employed a normative modeling approach and modeled MEG signal features of individual mTBI patients as deviations with respect to the normal variation.\"",
+      "location": "Abstract"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "This study builds a new normative reference using an existing open dataset (Cam-CAN). They cite the original dataset publication, describe using resting-state eyes-closed MEG and anatomical MRI, specify exclusion for missing/incomplete MEG or T1, and report the final sample size with per-decade counts. However, explicit image quality standards (e.g., motion thresholds) are not detailed beyond completeness, so criteria are partially met.",
+      "supporting_text": "\"A large open neuroimaging dataset by the Cambridge Centre for Ageing and Neuroscience (Cam-CAN) [29] ... was used for creating the normative reference data... In this study, only the resting-state, eyes-closed MEG and anatomical MRI were used.\" \n\"Subjects with missing or incomplete resting-state MEG measurements or T1-weighted MRI images were excluded from the analyses, resulting in a set of 621 subjects. The number of subjects in each age group was 56, 92, 104, 93, 95, 102 and 79...\"",
+      "location": "Methods > Normative dataset"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Age is explicitly considered via constructing age-matched normative subsets in addition to the full-age model. Site effects are acknowledged post hoc (controls slightly lower deviations possibly due to different measurement sites), but no formal harmonization (e.g., ComBat, hierarchical models) or sex covariate handling is reported. Thus, some covariate handling is present but incomplete.",
+      "supporting_text": "\"Three different types of normative models were constructed: a full normative model ... age-matched models containing a subset of participants within the same age range as the patient/control...\" \n\"The deviation values for the control subjects are overall slightly lower compared to the normative dataset, which might be an effect of different measurement sites.\"",
+      "location": "Methods > Fig 1 caption; Results > Deviation scores"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The data source of the reference cohort is clearly specified as Cam-CAN with citation, description of modality and age range.",
+      "supporting_text": "\"A large open neuroimaging dataset by the Cambridge Centre for Ageing and Neuroscience (Cam-CAN) [29], containing MEG and MRI measurements of nearly 700 healthy participants aged 18 to 87, was used for creating the normative reference data.\"",
+      "location": "Methods > Normative dataset"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Per guidance: this study’s normative reference uses secondary data (Cam-CAN). For SECONDARY data (existing datasets), answer NA.",
+      "supporting_text": "",
+      "location": "Guidance condition; Methods > Normative dataset"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing steps and software are described: tSSS (MaxFilter), ICA artifact removal with FastICA in MNE-Python, automatic source modeling in MNE-Python, FreeSurfer reconstruction, BEM model, coregistration with FieldTrip/MNE, empty-room noise covariance, dSPM inverse, Fourier transform to 1–40 Hz PSDs, morphing to fsaverage. Manual inspection of ICA components is noted as QC.",
+      "supporting_text": "\"The temporal extension of the signal space separation (tSSS) [33] method implemented in the MaxFilter software package (MEGIN Oy) was used...\" \n\"Independent component analysis (ICA)... The FastICA algorithm available in MNE-Python software [35] was used...\" \n\"An automated source-modeling pipeline ... using the MNE-Python software [36]. Reconstruction ... was performed using the FreeSurfer software [37,38]... coregistration ... using MNE-Python and ... FieldTrip [40]...\" \n\"... compute the dSPM inverse solution ... applied to the ... Fourier transform ... 1-40 Hz ... A source-level PSD was obtained ... Finally, the ... PSDs were morphed to ... 'fsaverage'...\"",
+      "location": "Methods > Data preprocessing"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Although the classifier was evaluated with nested cross-validation on patient/control data, there is no partitioning-based internal validation of the normative reference cohort itself (i.e., testing normative estimates on held-out healthy data). The normative model comprises summary statistics (mean/SD) from the full selected Cam-CAN set.",
+      "supporting_text": "\"A nested cross-validation strategy was selected for evaluating model performance...\" (describes SVM validation on patient/control, not validation of the normative reference), and no hold-out validation of normative healthy data is described.",
+      "location": "Methods > Model training and validation"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "No application of the normative model to an independent external healthy dataset (separate from Cam-CAN) is reported.",
+      "supporting_text": "No statement of external validation of normative estimates on an independent healthy cohort is present; analyses focus on classification of the mTBI/control cohort.",
+      "location": "Whole article (absence of such analysis)"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The normative modeling is described as computing Z-score deviation maps using mean and standard deviation over the reference dataset. Key modeling choices and implementation are detailed, and the downstream classifier (SVM with RBF kernel) and its hyperparameters are specified.",
+      "supporting_text": "\"To obtain normative models, the mean μ and standard deviation σ of the power spectra were calculated across the subjects from the normative dataset... These statistics were then used for converting the power spectrum matrices ... into deviations maps of Z-scores...\" \n\"A support vector machine with a radial basis-function kernel was selected ... The hyperparameter values tested...\"",
+      "location": "Methods > Feature engineering; Model training and validation"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "No quantitative metric assessing the fit/calibration of the normative reference (e.g., prediction interval coverage on healthy hold-out) is reported. Reported metrics concern classifier performance (e.g., accuracy 79%), not normative model performance.",
+      "supporting_text": "Classifier performance is reported (e.g., \"accuracy of 79%\" in Abstract), but no metrics for normative model fit/calibration on healthy data are provided.",
+      "location": "Abstract; Results"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "The reference cohort (Cam-CAN) was not partitioned for model development/validation; normative statistics were computed on the selected set without partitioning, so this item is not applicable.",
+      "supporting_text": "",
+      "location": "Methods > Normative dataset"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "They specify key software/tools (MNE-Python, FreeSurfer, MaxFilter, FieldTrip) and provide a DOI link to code with a version tag. Data availability is described (Cam-CAN access link; clinical data restricted via ethics). Exact software/library version numbers are not comprehensively provided, and trained model artifacts are not explicitly shared, hence Partial.",
+      "supporting_text": "\"The code to reproduce the findings of this study is available at https://doi.org/10.5281/zenodo.8360527 (version 1.0).\" \n\"The Cam-CAN dataset used for the normative modeling ... is available at https://camcan-archive.mrccbu.cam.ac.uk/dataaccess/.\"",
+      "location": "Data Availability Statement"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Eligibility and diagnostic criteria for patients are described (ACRM criteria; GCS 14–15; exclusion of neuropsychological disorders, CNS-affecting medication, substance abuse, prior TBI). Final sample sizes are provided. Explicit image quality standards and detailed exclusion reasons are not fully specified; thus Partial.",
+      "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males)... The control group comprised 20 healthy subjects ... All patients and controls were without neuropsychological disorders, medication affecting the central nervous system, substance abuse or earlier history of TBI.\" \n\"The GCS scores varied between 14 and 15, thus fulfilling the criteria for mTBI... All patients fulfilled the criteria for mTBI according to the American Congress of Rehabilitation Medicine (ACRM) criteria...\"",
+      "location": "Methods > mTBI patients and healthy controls"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "Beyond demographics, analyses consider clinical covariates: RPQ symptom scores and timing relative to injury are examined for misclassified patients; MRI lesion status is tested against decision function values (Mann–Whitney U-test).",
+      "supporting_text": "\"... we report [timing of MEG relative to injury] and the RPQ score for each patient that was incorrectly classified. In addition, we used a Mann Whitney U-test to assess whether the decision function scores differed significantly between patients with and without visible trauma lesions in their MRIs.\"",
+      "location": "Methods > Correlation of patient demographics and classification"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The clinical cohort data source is specified and cited as an existing dataset originally measured by Kaltiainen and colleagues.",
+      "supporting_text": "\"We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls.\"",
+      "location": "Methods > Datasets"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sample sizes, demographics (age, sex), and clinical characteristics (GCS, RPQ; MRI lesion presence) are provided, including a table of patient demographics and scores.",
+      "supporting_text": "\"The patient group consisted of 25 ... (11 females, 14 males) with a mean age of 42 years (range 20-59 years). The control group comprised 20 ... (8 females, 12 males) with a mean age of 39 years (range 19-58 years). ... The GCS scores varied between 14 and 15... At their MEG measurement sessions, the patients filled in the Rivermead Post-Concussion Symptoms Questionnaire (RPQ)... The scores ... varied from 3 to 36 ...\"",
+      "location": "Methods > mTBI patients and healthy controls; Table 1"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical measures and procedures are described: GCS assessed shortly after injury; RPQ administered at MEG sessions.",
+      "supporting_text": "\"The patients' level of consciousness was assessed with the Glasgow Coma Scale (GCS) [30] shortly after the injury. ... At their MEG measurement sessions, the patients filled in the Rivermead Post-Concussion Symptoms Questionnaire (RPQ) [31]...\"",
+      "location": "Methods > mTBI patients and healthy controls"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The study defines deviation scores as Z-scores relative to normative data and shows group-average deviation maps; clinical implications are discussed (e.g., theta-band activity as an indicator). However, explicit quantitative thresholds for categories (e.g., |Z| > 1.96) are not specified and detailed directionality interpretation per region/frequency is not systematically provided.",
+      "supporting_text": "\"These statistics were then used for converting the power spectrum matrices ... into deviation maps of Z-scores over the entire cortex...\" \n\"Fig 2A shows the average deviation scores for the patient and control groups... The patient group shows higher average activation...\" \n\"... low-frequency activity in the theta frequency band (4-8 Hz) is a significant indicator of mTBI...\"",
+      "location": "Methods > Feature engineering; Results > Deviation scores; Abstract"
+    }
+  }
+}

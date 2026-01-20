@@ -1,0 +1,139 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Rutherford2023",
+    "si2_reference_file_names": "Rutherford2023.pdf.md; elife-85082-supp1-v2.xlsx.md; elife-85082-supp2-v2.xlsx.md; elife-85082-supp3-v2.xlsx.md; elife-85082-supp4-v2.xlsx.md",
+    "si3_author_journal_year": "Rutherford et al., eLife, 2023",
+    "si4_title": "Evidence for embracing normative modeling",
+    "si5_doi": "10.7554/eLife.85082"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract and introduction clearly state two objectives: (1) expand the repository to include new normative models (surface area and functional connectivity) and an updated transfer platform; (2) evaluate the value of normative modeling versus raw features across three benchmarking tasks (group difference testing, classification, regression). These directly articulate hypotheses/purpose regarding applying normative modeling to improve downstream analyses.",
+      "supporting_text": "\"we expand the normative model repository ... to include normative models ... and an updated online platform for transferring these models to new data sources. We showcase the value of these models with a head-to-head comparison ... Across all benchmarks, we show the advantage of using normative modeling features\"; \"we comprehensively evaluate ... including (1) mass univariate group difference testing ... (2) multivariate prediction - classification ... (3) multivariate prediction - regression ... We aim for these benchmarking results, along with our publicly available resources ...\"",
+      "location": "Rutherford2023.pdf.md: lines ~39-43, 61-63"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "This study both uses EXISTING structural normative models and builds NEW functional normative models. For the NEW functional models, eligibility is partially described: subjects with any known psychiatric diagnosis were excluded; repeated visits were removed; data sources and per-site demographics are provided in Supplementary file 1. However, explicit centralized image quality thresholds for the multi-site training reference cohort are not fully detailed (quality control is described for the benchmarking datasets), and detailed reasons for exclusion are not comprehensively enumerated for the training cohort. Final sample sizes are given approximately (N≈22,000) and per site in the supplement.",
+      "supporting_text": "\"Data from 40 sites were combined ... Many sites were pulled from publicly available datasets including ABCD, CAMCAN, ... UKBiobank. ... For datasets that include repeated visits ... only the first visit was included. ... Training and testing datasets (80/20) ...\"; \"The training dataset excluded subjects with any known psychiatric diagnosis.\"; Supplement table with per-site N, sex, and age for train/test partitions.",
+      "location": "Rutherford2023.pdf.md: ~460-462; elife-85082-supp1-v2.xlsx.md: full table"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The functional normative models include age, sex, mean framewise displacement (motion), and site as covariates; site effects are modeled with fixed effects. This directly addresses covariates and multi-site handling.",
+      "supporting_text": "\"Bayesian Linear Regression (BLR) ... from a vector of covariates (age, sex, mean_FD, site). ... Site variation was modeled using fixed effects.\"",
+      "location": "Rutherford2023.pdf.md: ~462-471"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "For NEW functional models, the data sources are specified, including major datasets (ABCD, CAMCAN, HCP, NKI-RS, OpenNeuro, PNC, UKBiobank) with per-site demographics in Supplementary file 1. For EXISTING structural models, a publicly shared repository trained on ~58,000 subjects is cited.",
+      "supporting_text": "\"Data from 40 sites were combined ... including ABCD, CAMCAN, CMI-HBN, HCP-..., NKI-RS, OpenNeuro, PNC, and UKBiobank.\"; \"For the structural data, we used a publicly shared repository of pre-trained normative models ... ~58,000 subjects ...\"",
+      "location": "Rutherford2023.pdf.md: ~460-466, 104-108; elife-85082-supp1-v2.xlsx.md"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary data from existing datasets are used; per guide, answer NA for acquisition protocol when not primary data collection."
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software and steps are described for both structural (FreeSurfer recon-all) and functional (fMRIPrep with standard steps and ICA-AROMA), including QC considerations (e.g., Euler number threshold for structural quality; low-motion requirement for functional in benchmarking datasets).",
+      "supporting_text": "\"Structural MRI data were preprocessed using the Freesurfer (version 6.0) recon-all pipeline ...\"; \"Resting-state data were preprocessed ... using fMRIPrep ... field-map correction ... slice time correction ... co-registration ... normalization ... spatial smoothing ... regression of nuisance confounders ... non-aggressive AROMA ...\"; \"High-quality ... structural ... Euler number ... rescaled Euler <10 ... functional ... at least 5 min of low motion data (framewise displacement <0.5 mm).\"",
+      "location": "Rutherford2023.pdf.md: ~94-103, ~80-88; 454-458"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "For NEW functional models, an internal 80/20 train/test split stratified by site was used to evaluate performance on held-out data not used for fitting in that iteration.",
+      "supporting_text": "\"Training and testing datasets (80/20) were created using scikit-learn's train_test_split function, stratifying on the site variable.\"",
+      "location": "Rutherford2023.pdf.md: ~460-462"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "External validation/transfer was performed on independent healthy datasets from OpenNeuro (ds000243, ds002843, ds003798) and on new sites (e.g., UMich, COBRE) not seen during training, demonstrating generalizability.",
+      "supporting_text": "\"To show generalizability ... we leveraged three datasets (ds000243, ds002843, ds003798) from OpenNeuro.org to create a multi-site transfer dataset.\"; \"UMich and COBRE datasets were not included in the training and can be considered as examples of transfer to new, unseen sites.\"",
+      "location": "Rutherford2023.pdf.md: ~460-466, ~112-120"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The modeling approach is specified as Bayesian Linear Regression with likelihood warping (SHASH/sinarcsinsh), including basis expansion for age (cubic splines), fixed effects for site, optimization method (Powell), and software versions (Python 3.8, PCNtoolkit v0.26).",
+      "supporting_text": "\"Normative modeling was run using python 3.8 and the PCNtoolkit package (version 0.26). Bayesian Linear Regression (BLR) with likelihood warping ... B-spline basis expansion ... 'sinarcsinsh' warping ... Site variation ... fixed effects ... optimize hyperparameters ('Powell').\"",
+      "location": "Rutherford2023.pdf.md: ~462-471"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Model performance metrics for the reference cohort are reported, including explained variance, mean standardized/log loss (MSLL), skew, and kurtosis of deviation scores.",
+      "supporting_text": "\"Model fit for each brain region was evaluated by calculating the explained variance ... the mean squared log-loss (MSLL) ... plus skew and kurtosis of the deviation scores ...\"",
+      "location": "Rutherford2023.pdf.md: ~474-475; ~108-116"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Characteristics (sample sizes, age, sex) for the training and testing partitions of the reference cohort are provided per site in Supplementary file 1.",
+      "supporting_text": "Supplementary table lists per-site Train/Test N, Sex (F/M)%, and Age (mean, s.d.) for the functional normative model partitions.",
+      "location": "elife-85082-supp1-v2.xlsx.md: full table"
+    },
+    "nm11_reproducibility": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Software and library versions are specified (Python 3.8; PCNtoolkit v0.26). The study references publicly shared repositories of pre-trained models and emphasizes availability of code, documentation, tutorials, protocols, and an online platform for applying models, indicating accessible resources for reproducibility.",
+      "supporting_text": "\"Normative modeling was run using python 3.8 and the PCNtoolkit package (version 0.26).\"; \"we used a publicly shared repository of pre-trained normative models ...\"; \"publicly available resources (code, documentation, tutorials, protocols, community forum, and website for running models without using any code)\"",
+      "location": "Rutherford2023.pdf.md: ~104-112, ~462-466, ~61-63"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Clinical cohorts (COBRE, UMich) are secondary datasets with cited original publications. Diagnostic criteria (SCID for DSM-5) and additional exclusion criteria are described; imaging quality standards and manual QC steps are specified; and final sample sizes are reported in Table 1. However, detailed reasons for exclusion with counts are not fully enumerated per cohort in this paper.",
+      "supporting_text": "\"For COBRE and UMich studies, clinical diagnosis of schizophrenia was confirmed using the Structured Clinical Interview used for DSM-5 disorders (SCID). All subjects were screened and excluded if they had: a history of neurological disorder, mental retardation, severe head trauma, or substance abuse/dependence within the last 6 (UMich) or 12 months (COBRE), were pregnant/nursing (UMich), or had any contraindications for MRI.\"; \"High-quality ... structural ... Euler number ... rescaled Euler <10 ... functional ... at least 5 min of low motion data (framewise displacement <0.5 mm). ... manually inspected for quality ...\"; \"COBRE | Classification & Group Difference | N=124 (train), 121 (test) ... UMich | N=89, 87 ...\"",
+      "location": "Rutherford2023.pdf.md: ~118-128, ~80-88; ~80-83 (table)"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Analyses involving the clinical cohorts focus on benchmarking classification and group difference using deviation scores or raw features. The paper does not describe incorporating clinical covariates beyond demographics (e.g., medication status, illness duration, symptom severity) into these analyses.",
+      "supporting_text": "No explicit mention of including medication status, illness duration, or symptom severity as covariates in analyses; the \"Demographic, cognition, and clinical diagnosis variables\" section lists age, sex, site and SCID diagnosis, but not additional clinical covariates.",
+      "location": "Rutherford2023.pdf.md: ~110-128 (variables and preprocessing description); no direct text indicating clinical covariates in analyses"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort data sources are specified with references: COBRE and University of Michigan SchizGaze (UMich), with citations and a table summarizing their roles in benchmarking.",
+      "supporting_text": "\"We leverage several datasets ... the Center for Biomedical Research Excellence (COBRE) ... and the University of Michigan SchizGaze (UMich) ... (Table 1).\"",
+      "location": "Rutherford2023.pdf.md: ~73-83"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Sample sizes and demographic characteristics (age, sex) are reported for the clinical cohorts. However, clinical characteristics such as medication status, symptom severity, and illness duration are not detailed in this paper.",
+      "supporting_text": "Table entries for COBRE and UMich report N, age (mean, s.d.), and sex (%). No additional clinical characteristics are described.",
+      "location": "Rutherford2023.pdf.md: ~80-83 (table)"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical diagnosis was confirmed using the Structured Clinical Interview for DSM-5 (SCID), which specifies both the measure and that it is a structured clinician-administered interview.",
+      "supporting_text": "\"clinical diagnosis of schizophrenia was confirmed using the Structured Clinical Interview used for DSM-5 disorders (SCID)\"",
+      "location": "Rutherford2023.pdf.md: ~118-121"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The meaning and direction of deviation scores are explained (positive = greater cortical thickness/volume; negative = less). The study uses deviation counts and maps to interpret clinical differences, but it does not define explicit quantitative thresholds for categories like \"extreme\" deviations within the clinical analyses.",
+      "supporting_text": "\"The outputs of normative modeling also include a Z-score, or deviation score ... where a positive deviation score corresponds to greater cortical thickness or subcortical volume than average, and a negative deviation score represents less ...\"; \"There are still individual differences observed that do not overlap with the group difference map ... significant differences in the count of negative deviations (SZ>HC) ...\"",
+      "location": "Rutherford2023.pdf.md: ~108-116; ~189-199"
+    }
+  }
+}

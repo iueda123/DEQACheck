@@ -1,0 +1,139 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Feng2025",
+    "si2_reference_file_names": "Feng2025.pdf.md; Feng2025_sup.pdf.md",
+    "si3_author_journal_year": "Feng et al., Alzheimer's & Dementia, 2024",
+    "si4_title": "Microstructural mapping of neural pathways in Alzheimer's disease using macrostructure-informed normative tractometry",
+    "si5_doi": "NR"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract and methods clearly state objectives: proposing the macrostructure-informed normative tractometry (MINT) framework to jointly model white-matter micro- and macrostructure, comparing MINT-derived metrics with univariate DTI metrics, and examining relationships with clinical measures. This satisfies both criteria (explicit research aims and purpose of applying normative modeling).",
+      "supporting_text": "METHODS: We propose a novel macrostructure-informed normative tractometry (MINT) framework to investigate how white matter (WM) microstructure and macrostructure are jointly altered in MCI and dementia. We compared MINT-derived metrics with univariate diffusion tensor imaging (DTI) metrics... We also examine how WM abnormalities relate to clinical measures of dementia severity.",
+      "location": "Feng2025.pdf.md: Abstract/Methods overview"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "NEW model: CN eligibility is described via diagnostic criteria (ADNI: clinical assessments incl. CDR/MMSE; NIMHANS: NIA-AA criteria with CDR thresholds). Image QA/quality standards are referenced (ADNI pipeline detailed elsewhere; NIMHANS QA in Parekh et al.). Final CN sample sizes are reported per protocol (Table 1). Reasons for exclusion and detailed completeness criteria are not fully specified; subject-level exclusions are not enumerated.",
+      "supporting_text": "For the ADNI cohort, diagnosis is determined based on clinical assessments, including CDR and MMSE. For the NIMHANS cohort, diagnosis was determined according to the NIA-AA criteria and CDR, where CDR = 0.5 is MCI and CDR = 1 denotes dementia. ... Detailed descriptions of the acquisitions and quality assurance can be found in Parekh et al. ... Table 1 Demographics for ADNI and NIMHANS... N (CN) per protocol listed.",
+      "location": "Feng2025.pdf.md: Table 1; cohort diagnostics paragraph; NIMHANS acquisition/QA paragraph"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age and sex are modeled as covariates in ComBat harmonization and in along-tract regression. Multi-site effects addressed via ComBat; merged analysis uses cohort as random effect. This directly satisfies covariate and site-effect handling.",
+      "supporting_text": "ComBat ... with age and sex modeled as covariates. ... Linear regression ... diagnosis (DX), age, and sex as independent variables ... In merged analysis cohort was modeled as a random effect, and age, sex, and DX as fixed effects.",
+      "location": "Feng2025.pdf.md: ComBat paragraph in 2.3.4/2.4; 2.4 statistical analysis"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sources are explicitly described: ADNI Phase 3 with seven protocols and NIMHANS, including acquisition details and references. This satisfies the requirement to specify data sources for the NEW model.",
+      "supporting_text": "We analyzed dMRI data from Phase 3 of ADNI... seven acquisition protocols (S31, S55, S127, P33, P36, GE36, GE54). ... For NIMHANS ... dMRI was acquired using a single-shot diffusion-weighted EPI sequence... Detailed descriptions of the acquisitions and quality assurance can be found in Parekh et al.",
+      "location": "Feng2025.pdf.md: 2.2 Data preprocessing (ADNI/NIMHANS)"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "SECONDARY data are used (existing ADNI and NIMHANS datasets); per guide, acquisition protocol reporting is not applicable."
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing is described with software and steps: denoising (local PCA in DiPy), Gibbs ringing removal (DiPy), susceptibility/eddy/motion correction (FSL topup/eddy_cuda), bias correction (MRtrix), Synb0 for Siemens scans, tensor fitting method, and subsequent tractography/reconstruction methods. ADNI pipeline is referenced as detailed elsewhere. QC/QA references are provided for NIMHANS.",
+      "supporting_text": "Preprocessing steps for all dMRI volumes in the NIMHANS cohort ... included denoising using local PCA (DiPy), Gibbs ringing removal (DiPy), susceptibility-induced distortion, eddy current, and motion correction using FSL's topup and eddy_cuda and bias field inhomogeneity correction using MRtrix's dwibiascorrect. ... Synb0-DisCo was used ... After processing dMRI, diffusion tensors were fitted ... Data from all [ADNI] protocols were preprocessed with the same pipeline detailed elsewhere.",
+      "location": "Feng2025.pdf.md: 2.2 Data preprocessing (NIMHANS details; ADNI reference)"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They implement a partitioning strategy for CN: 35%/15%/50% training/validation/testing splits. Fine-tuning on training CN; ComBat parameters fit on training CN and applied to test set. Test set includes CN and clinical subjects and was not used for model fitting in that iteration.",
+      "supporting_text": "Data from the CN participants were split into independent subsets of size 35%/15%/50% for training/validation/testing. ... The pretrained VAE model was fine-tuned ... on the subjects in the training set ... ComBat parameters were estimated on bundle profiles created from the training set ... then applied to bundle profiles from the test set.",
+      "location": "Feng2025.pdf.md: 2.3 (Training/ComBat split descriptions)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Although two cohorts (ADNI and NIMHANS) are used, models are fine-tuned separately per cohort and evaluated within-cohort. There is no description of applying a trained normative model to an independent external healthy dataset for validation beyond the within-cohort splits.",
+      "supporting_text": "We did not pool the training data in ADNI and NIMHANS together in this step, to simulate the scenario where sites cannot share raw data... The pretrained VAE model was fine-tuned ... in each cohort ...",
+      "location": "Feng2025.pdf.md: 2.3.2/2.3.3 training/fine-tuning description"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The approach is specified: a VAE with 1D depth-wise separable convolutions trained on streamline coordinates and DTI metrics (macro+micro), including architecture/parameter details. Implementation details and libraries are cited (Python ComBat implementation URL, Pingouin v0.5.4). BUAN used for profiling/statistics.",
+      "supporting_text": "MINT uses 1D convolutional layers in a VAE ... Both types of data are combined to train the VAE model. ... One-dimensional depth-wise separable convolution (SepConv) was used ... the VAE model consists of 464,408 parameters ... encoder ... decoder ... We used the Python implementation of ComBat (https://github.com/Jfortin1/neuroCombat). ... We used the partial correlation implementation from the Pingouin Python package version 0.5.4.",
+      "location": "Feng2025.pdf.md: Fig.2/2.3.2 architecture; ComBat paragraph; 2.5 Pingouin version"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not report quantitative fit/calibration metrics for the normative model on the reference cohort (e.g., explained variance, coverage, or prediction error). Reconstruction error is used as a deviation score, but specific performance metrics for the reference model are not provided.",
+      "supporting_text": "The model can produce a reconstruction ... and the deviation score derived from the reconstruction error is calculated ... We expected the reconstruction error to be higher for data with abnormalities. (No quantitative fit metrics reported.)",
+      "location": "Feng2025.pdf.md: 2.3 framework description"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Partitioning is described (35/15/50 splits of CN) with the number of CN in the test set per cohort. However, detailed sample sizes for train/validation per cohort and demographics by partition are not reported.",
+      "supporting_text": "CN participants were split into independent subsets of size 35%/15%/50% ... The test set contained ... 226 subjects from ADNI and 62 from NIMHANS (CN).",
+      "location": "Feng2025.pdf.md: 2.3 training/validation/testing split"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Multiple software/tools and one library version are stated (FSL, MRtrix, DiPy; Python ComBat; Pingouin v0.5.4). Code/model availability is not explicitly provided; versions for all tools are not fully specified. Source datasets (ADNI, NIMHANS) and ComBat implementation URL are given.",
+      "supporting_text": "We used the Python implementation of ComBat (https://github.com/Jfortin1/neuroCombat). ... Pingouin Python package version 0.5.4. ... preprocessing using FSL's topup and eddy_cuda ... MRtrix's dwibiascorrect ... DiPy.",
+      "location": "Feng2025.pdf.md: ComBat paragraph; 2.5 Pingouin version; 2.2 preprocessing"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "SECONDARY data: Diagnostic criteria are described (ADNI: CDR/MMSE; NIMHANS: NIA-AA with CDR thresholds). QA/quality references provided. Final sample sizes per diagnosis reported (Table 1). Reasons for exclusion and detailed imaging completeness criteria are not fully enumerated here.",
+      "supporting_text": "Diagnosis is determined based on clinical assessments, including CDR and MMSE (ADNI). ... diagnosis was determined according to the NIA-AA criteria and CDR (NIMHANS). ... Detailed descriptions of the acquisitions and quality assurance can be found in Parekh et al. ... Table 1 N (MCI), N (Dementia) by protocol.",
+      "location": "Feng2025.pdf.md: cohort diagnostics paragraph; Table 1; NIMHANS acquisition/QA paragraph"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Beyond demographics, analyses include associations with clinical assessment scores (CDRsb, ADAS13, MMSE; NNB-E tests). However, primary group-difference models adjust only for age and sex and do not incorporate other clinical covariates (e.g., medication, illness duration, comorbidities).",
+      "supporting_text": "We computed partial correlations between cognitive assessment scores and nine bundle profile features, removing the effect of age and sex. For the ADNI cohort, we used CDRsb, ADAS13, and MMSE; for the NIMHANS cohort, ... NNB-E: SMIR, SMDR, WLDR. ... A linear regression model ... diagnosis (DX), age, and sex as independent variables.",
+      "location": "Feng2025.pdf.md: 2.5 Associations with clinical metrics; 2.4 statistical model"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohorts come from ADNI and NIMHANS with acquisition details and references, satisfying data source specification for SECONDARY data.",
+      "supporting_text": "We analyzed dMRI data from Phase 3 of ADNI ... seven acquisition protocols ... For NIMHANS ... single-shot diffusion-weighted EPI ... acquisition parameters ... QA in Parekh et al.",
+      "location": "Feng2025.pdf.md: 2.2 Data preprocessing (ADNI/NIMHANS)"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Sample sizes and demographics (age, sex) per protocol and diagnosis are provided (Table 1). Limited clinical characteristics (e.g., medication status, illness duration) are not described; available cognitive scores are listed elsewhere.",
+      "supporting_text": "Table 1 Demographics ... N (MCI), N (Dementia), Age (Mean ± SD), Male (%). ... Clinical assessments used ... CDRsb, ADAS13, MMSE (ADNI) ... NNB-E tests (NIMHANS).",
+      "location": "Feng2025.pdf.md: Table 1; clinical measures paragraph"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Clinical measures are specified for each cohort (CDRsb, ADAS13, MMSE; NNB-E tests). The procedures (e.g., structured interview vs self-report) are not detailed within this document.",
+      "supporting_text": "Clinical assessments used in the study for the ADNI cohort included the Clinical Dementia Rating Sum of Boxes (CDRsb), the Alzheimer's Disease Assessment Scale (ADAS13), and Mini-Mental State Examination (MMSE). ... NNB-E measures used in this study included WLDR, SMIR, and SMDR.",
+      "location": "Feng2025.pdf.md: clinical measures paragraphs in 2.2/2.5"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The meaning/direction of deviation is explained: deviation score is derived from VAE reconstruction error and is expected to be higher with abnormalities; results show greater deviations in MCI/dementia. No explicit categorical thresholds (e.g., |Z|>1.96) are defined. Clinical implications are explored via associations with clinical scores.",
+      "supporting_text": "The model can produce a reconstruction ... the deviation score derived from the reconstruction error is calculated for every point ... We expected the reconstruction error to be higher for data with abnormalities. ... For all MAE metrics, these findings are consistent with our expectation that statistical deviation from the norm is greater in the MCI and dementia groups than in the CN group. ... We computed partial correlations between cognitive assessment scores and nine bundle profile features.",
+      "location": "Feng2025.pdf.md: 2.3 framework description; 3.1 text; 2.5 clinical associations"
+    }
+  }
+}

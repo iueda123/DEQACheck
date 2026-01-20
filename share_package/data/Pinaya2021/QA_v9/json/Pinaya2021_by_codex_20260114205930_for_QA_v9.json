@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Pinaya2021",
+    "si2_reference_file_names": "Pinaya2021.pdf.md; 41598_2021_95098_MOESM1_ESM.pdf.md",
+    "si3_author_journal_year": "Pinaya et al., NR, 2021",
+    "si4_title": "Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study",
+    "si5_doi": "NR"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The paper clearly states research aims and the purpose of using normative modeling: to assess deep autoencoder-based normative models trained on a large healthy cohort, quantify individual deviations, identify contributing brain regions, and compare performance with traditional classifiers. Hypotheses explicitly link deviation magnitude to disease severity and implicate medial temporal and ventricular regions.",
+      "supporting_text": "\"We first trained the autoencoder on an independent dataset (UK Biobank)... Then, we estimated how each patient deviated from this norm and established which brain regions were associated to this deviation. Finally, we compared the performance of our normative model against traditional classifiers.\" … \"We had two main hypotheses. First, we hypothesised that the normative models would be robust and sensitive enough to create deviation values that reflect the severity of the brain anatomical alterations due to the disease… Second, we hypothesised that the main brain regions driving the observed deviation would include the medial temporal cortex and the ventricular system.\"",
+      "location": "Pinaya2021.pdf.md: 9-17; 25-27"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Eligibility criteria for the UK Biobank healthy reference cohort are described (same scanner; age 47–73). An exclusion criterion is specified (prior hospitalization for neurological/psychiatric conditions, etc.). Final sample size is reported (11,034 HC). Image quality/data completeness standards are not explicitly described beyond citing UK Biobank resources, so criteria are not fully met.",
+      "supporting_text": "\"…an early release… comprising of 11,034 HC participants. The inclusion criteria… (a) subjects who had the data collected in the same MRI scanner (from Cheadle centre), (b) age between 47 and 73 years old. The only exclusion criterion was previous hospitalization associated with the diagnosis of mental and behavioural disorders, disease of the nervous system, cerebrovascular diseases…\"",
+      "location": "Pinaya2021.pdf.md: 31-38"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age and sex are explicitly incorporated via a conditioned adversarial autoencoder using one-hot encodings. Multi-site/site-effects handling is not applicable for the training cohort (single scanner constraint).",
+      "supporting_text": "\"In our analyses, we used a conditioned AAE… This type of autoencoder allows us to influence the model's reconstruction using the demographic variables, i.e. age and sex. To input these variables into the model, we transformed age and sex into one-hot encoding vectors… each subject has an age vector with 27 positions…\"",
+      "location": "Pinaya2021.pdf.md: 100-120"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The data source for the reference cohort is identified as the UK Biobank, with description and citations provided.",
+      "supporting_text": "\"Datasets. In our analysis, we used six datasets: the UK Biobank…\" … \"The UK Biobank… comprising of 11,034 HC participants…\"",
+      "location": "Pinaya2021.pdf.md: 29-36"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary use of existing datasets (UK Biobank) per item guidance; acquisition parameters for primary collection are not required here.",
+      "supporting_text": "NA",
+      "location": "NA"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Preprocessing software (FreeSurfer v6.0) and pipeline steps (recon-all; Desikan-Killiany parcellation; Aseg segmentation; 101 regional volumes) are described along with downstream normalization. However, explicit quality control procedures are not detailed.",
+      "supporting_text": "\"We used the FreeSurfer software (version 6.0)… 'recon-all'… parcellated according to the Desikan-Killiany atlas… Aseg atlas… totalling 101 subregions/structures\" … \"we performed… normalisation… subtracting the median… scaling… according to its interquartile range…\"",
+      "location": "Pinaya2021.pdf.md: 57-63; 87-94"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The study trains the normative model on UK Biobank HC without describing a hold-out, K-fold, or LOOCV scheme within the reference cohort. Performance analyses focus on external application to clinical datasets.",
+      "supporting_text": "\"In the present study, we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance…\"",
+      "location": "Pinaya2021.pdf.md: 55-58"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The trained normative model is applied to multiple independent datasets (ADNI, AIBL, ARWiBo, OASIS-1, MIRIAD), including healthy individuals, to derive deviation metrics and performance.",
+      "supporting_text": "\"In each iteration of the bootstrap method, we used the trained autoencoder to obtain the deviation metric of the subjects from the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets.\"",
+      "location": "Pinaya2021.pdf.md: 101-104"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The statistical approach is a conditioned adversarial autoencoder. Architecture, latent dimensionality, activations, optimizer, learning rate schedule, batch size, epochs, and implementation library are specified.",
+      "supporting_text": "\"we developed the normative model using the adversarial autoencoder (AAE)…\" … \"encoder with two hidden layers with 100 neurons, and a latent code… 20… decoder and discriminator had a similar structure… leaky ReLU…\" … \"trained… to minimise… reconstruction error using Adam optimizer for 200 epochs… batch size of 256… cyclical learning rate… base 0.0001… max 0.005…\" … \"Experiments. We conducted our experiments in Python 3 using the Tensorflow 2.0 library…\"",
+      "location": "Pinaya2021.pdf.md: 79-90; 91-99; 120-127"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "No quantitative fit or calibration metrics (e.g., explained variance, prediction error, coverage) are reported for the reference (UK Biobank) cohort. Reported metrics pertain to discrimination between HC and patient groups in external datasets.",
+      "supporting_text": "\"Normative model performance in discriminative tasks. We examined if the observed deviations could be used to predict if a person belonged to the patient or HC group… using ROC curves.\"",
+      "location": "Pinaya2021.pdf.md: 132-139"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "No data partitioning of the reference cohort is described; item applies only when partitions (e.g., train/validation/test) are defined.",
+      "supporting_text": "NA",
+      "location": "NA"
+    },
+    "nm11_reproducibility": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Software/library versions and availability of code and trained models are provided, with direct links. Data availability statements are also included.",
+      "supporting_text": "\"Experiments. We conducted our experiments in Python 3 using the Tensorflow 2.0 library… We have made publicly available the codes and trained models…\" … \"Data availability… UK Biobank… ADNI… AIBL… ARWIBO… OASIS-1… MIRIAD…\"",
+      "location": "Pinaya2021.pdf.md: 120-127; 200-214"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Secondary datasets (ADNI, AIBL, ARWiBo, OASIS-1, MIRIAD) are cited; additional eligibility criteria applied here (age 47–73) and final sample sizes are reported. Image quality/data completeness standards and detailed exclusion reasons for clinical cohorts are not explicitly described in this paper.",
+      "supporting_text": "\"…we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases… included only subjects with age between 47 and 73 years old. The final dataset comprised of 517 subjects, where 212 were HC, 159… 82… 64…\" … \"Here, we included the structural MRI of subjects between 47 and 73 years old… The final group was composed of 346 subjects, where 262 were HC, 46 were… and 38 were…\"",
+      "location": "Pinaya2021.pdf.md: 33-40; 42-47"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Analyses control/match for age and sex, but do not incorporate clinical covariates such as medication status, illness duration, or symptom severity into deviation analyses or classification.",
+      "supporting_text": "\"…we ensured that there were no significant statistical differences regarding age and sex in all five clinical datasets.\"",
+      "location": "Pinaya2021.pdf.md: 55-58"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort data sources are explicitly named and cited (ADNI, AIBL, ARWiBo, OASIS-1, MIRIAD).",
+      "supporting_text": "\"Datasets. In our analysis, we used… ADNI… AIBL… ARWiBo… OASIS-1… MIRIAD…\"",
+      "location": "Pinaya2021.pdf.md: 29-33"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Sample sizes and demographics (age, sex) are reported and tested for group differences. Clinical characteristics (e.g., symptom severity, illness duration, medication status) are not described.",
+      "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159… 82… 64…\" … \"We used ANOVA… and chi-square… to test for significant differences in age and sex…\"",
+      "location": "Pinaya2021.pdf.md: 33-40; 47-55"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Some clinical assessment detail is provided for MCI staging within ADNI (based on impairment level on a single episodic memory measure). Broader clinical assessment procedures or scales across datasets are not detailed.",
+      "supporting_text": "\"In the ADNI datasets, participants were assigned to these MCI stages based on different levels of impairment on a single episodic memory measure…\"",
+      "location": "Pinaya2021.pdf.md: 38-40"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "The study explains the meaning of deviation scores with respect to reconstruction error and demonstrates directionality/magnitude differences consistent with disease severity. However, no explicit quantitative thresholds (e.g., |Z| > 1.96) are defined for categorization.",
+      "supporting_text": "\"Since the model is trained on healthy controls data… it can reconstruct similar data relatively well… [patients]… expected to generate a high error…\" … \"Figure 2 shows the mean value of the observed deviation for each group… [AD > MCI > HC]…\"",
+      "location": "Pinaya2021.pdf.md: 74-84; 126-136"
+    }
+  }
+}

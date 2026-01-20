@@ -1,0 +1,1773 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "QA_Guide_v9.md に従って作業をしてください。作業結果は Coupe2022_by_codex_20260116153342_for_QA_v9.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+[2026-01-16T06:33:45] OpenAI Codex v0.25.0 (research preview)
+--------
+workdir: /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+model: gpt-5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: auto
+--------
+[2026-01-16T06:33:45] User instructions:
+QA_Guide_v9.md に従って作業をしてください。作業結果は Coupe2022_by_codex_20260116153342_for_QA_v9.json へ書き込んでください。
+[2026-01-16T06:33:51] codex
+
+I’m going to scan the folder for QA_Guide_v9.md and relevant data files, then follow the guide to produce the JSON.
+[2026-01-16T06:33:51] exec bash -lc 'ls -la' in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:33:51] bash -lc 'ls -la' succeeded in 619ms:
+total 64
+drwx------@  8 yocha  staff    256 16 Jan 15:33 .
+drwx------@  4 yocha  staff    128 15 Nov 19:54 ..
+-rw-r--r--@  1 yocha  staff    114 16 Jan 15:33 .lock_QA_v9_processing
+drwx------@ 16 yocha  staff    512 15 Nov 20:21 Coupe2022_artifacts
+-rw-------@  1 yocha  staff   3391 16 Jan 15:33 Coupe2022_by_codex_20260116153342_for_QA_v9.json
+-rw-r--r--@  1 yocha  staff   1235 16 Jan 15:33 Coupe2022_by_codex_20260116153342_for_QA_v9.log
+-rw-------@  1 yocha  staff  62079 24 Oct 14:18 Coupe2022.pdf.md
+-rw-------@  1 yocha  staff  16845 16 Jan 15:33 QA_Guide_v9.md
+[2026-01-16T06:33:51] tokens used: 1098
+
+[2026-01-16T06:33:55] thinking
+
+**Assessing QA tasks**
+
+I see that the target output JSON file exists and there's a lock file too, which indicates that the user wants us to follow the QA guide and write results into the JSON. The filename matches the current time, so that’s a good sign. I need to read the QA_Guide_v9.md to know the tasks. Since the file size is over 10KB, I’ll read in chunks to manage it safely. I might also need to process Coupe2022.pdf.md for additional instructions.
+[2026-01-16T06:33:58] exec bash -lc "sed -n '1,200p' QA_Guide_v9.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:33:58] bash -lc "sed -n '1,200p' QA_Guide_v9.md" succeeded in 467ms:
+# Quality Assessment Guidance for Normative Modeling in Neuroimaging: A Systematic Review
+
+Also known as (AKA): The NORMA (Normative Modeling Assessment) Checklist: Reporting Standards for Normative Modeling in Neuroimaging
+
+Version based on `Quality_Assessment_Checklist_20251222.pdf`.
+
+-------------------
+
+## Prompt Overview
+You are a professional reviewer skilled at assessing the quality of research articles on normative modeling in neuroimaging. This assessment is conducted as part of a systematic review on methodological considerations and applications of neuroimaging for psychiatric and neurological disorders.
+
+-------------------
+
+## Our Systematic Review Objectives
+
+This systematic review will evaluate normative modeling studies that use neuroimaging and neurophysiological tests (e.g., MRI, PET, EEG, MEG). The review addresses three questions:
+
+  1. **Modality**: Which measurement techniques have been applied in normative modeling, and how often is each modality used? For common modalities like MRI, what specific sequences (e.g., T-weighted) are most frequently utilized?
+  2. **Methodology**: How are normative modeling studies designed and validated across modalities? We will extract information on sample size, covariates, image preprocessing, statistical models, harmonization procedures, and validation strategies.
+  3. **Clinical scope**: Which psychiatric or neurological conditions have been investigated with normative modeling, and what individual-level deviation patterns or clinical utilities have been reported?
+[2026-01-16T06:33:58] tokens used: 1608
+[2026-01-16T06:33:59] exec bash -lc "sed -n '200,400p' QA_Guide_v9.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:00] bash -lc "sed -n '200,400p' QA_Guide_v9.md" succeeded in 464ms:
+        * [ ] The normative model is applied to an independent external dataset of healthy individuals that was not used for model development
+
+    * For studies using an EXISTING normative model, **answer "NA"**.
+
+* Assessment Result Style: ACRSL_Style
+
+
+#### NM-8. Normative Modeling Approach
+
+Is the statistical approach used for normative modeling described?
+
+* Assessment Criteria:
+    * For studies building a NEW normative model, check the following:
+        * [ ] The type of statistical model is specified (e.g., linear regression, Gaussian process regression, hierarchical Bayesian model)
+        * [ ] Key model settings are described (e.g., smoothing parameters, priors, kernel type)
+        * [ ] Software and libraries used for implementation are specified
+
+    * For studies using an EXISTING normative model, **answer "NA"**.
+  
+* Assessment Result Style: ACRSL_Style
+[2026-01-16T06:34:00] tokens used: 2010
+[2026-01-16T06:34:01] exec bash -lc "sed -n '400,800p' QA_Guide_v9.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:02] bash -lc "sed -n '400,800p' QA_Guide_v9.md" succeeded in 466ms:
+
+[2026-01-16T06:34:02] tokens used: 5745
+[2026-01-16T06:34:04] exec bash -lc "sed -n '1,200p' Coupe2022_by_codex_20260116153342_for_QA_v9.json" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:04] bash -lc "sed -n '1,200p' Coupe2022_by_codex_20260116153342_for_QA_v9.json" succeeded in 462ms:
+{
+  "study_identification_part": {
+    "si1_study_id": "",
+    "si2_reference_file_names": "",
+    "si3_author_journal_year": "",
+    "si4_title": "",
+    "si5_doi": ""
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "",
+      "confidence_rating": "",
+      "reason": "",
+      "supporting_text": "",
+      "location": ""
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "",
+[2026-01-16T06:34:04] tokens used: 5884
+
+[2026-01-16T06:34:07] thinking
+
+**Extracting paper details**
+
+It looks like I have an empty template JSON, so I need to pull information from the materials available. The Coupe2022.pdf.md file probably contains the article content in markdown format, and it’s 62KB, which is fairly sizable. I’ll need to extract specific fields like SI and ACRSL. To do that, I’ll search for key details like the title, DOI, author, journal, and year within that file, using regex for the DOI patterns of "10." or "doi".
+[2026-01-16T06:34:09] exec bash -lc 'rg -n "''^# |doi|DOI|journal|''^title:|''^authors:|'"\\b10\\.[0-9]{4,9}/\" Coupe2022.pdf.md | sed -n '1,120p'" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:10] bash -lc 'rg -n "''^# |doi|DOI|journal|''^title:|''^authors:|'"\\b10\\.[0-9]{4,9}/\" Coupe2022.pdf.md | sed -n '1,120p'" succeeded in 1.07s:
+395:- Ashburner, J., &amp; Friston, K. J. (2005). Unified segmentation. NeuroImage , 26 (3), 839 -851. https://doi.org/10.1016/j.neuroimage.2005.02.018
+396:- Bartos, A., Gregus, D., Ibrahim, I., &amp; Tint ě ra, J. (2019). Brain volumes and their ratios in Alzheimer's disease on magnetic resonance imaging segmented using Freesurfer 6.0. Psychiatry Research: Neuroimaging , 287 , 70 -74. https://doi.org/10.1016/j.pscychresns.2019.01.014
+397:- Bron, E. E., Klein, S., Papma, J. M., Jiskoot, L. C., Venkatraghavan, V., Linders, J., … van der Lugt, A. (2021). Cross-cohort generalizability of deep and conventional machine learning for MRI-based diagnosis and prediction of Alzheimer's disease. NeuroImage: Clinical , 31 , 102712. https://doi.org/10.1016/j.nicl.2021.102712
+398:- Cavedo, E., Tran, P., Thoprakarn, U., Martini, J., Movschin, A., Delmaire, C., … the Frontotemporal Lobar Degeneration Neuroimaging Initiative. (2020). Validation of an automatic tool for the measurement of brain atrophy and white matter hyperintensity in clinical routine: QyScore ® : Neuroimaging / optimal neuroimaging measures for early detection. Alzheimer's &amp; Dementia , 16 (S5), e040259. https://doi.org/10.1002/alz.040259
+399:- Coupé, P., Catheline, G., Lanuza, E., Manj /C19 on, J. V., &amp; for the Alzheimer's Disease Neuroimaging Initiative. (2017). Towards a unified analysis of brain maturation and aging across the entire lifespan: A MRI analysis: Towards a unified analysis of brain. Human Brain Mapping , 38 (11), 5501 -5518. https://doi.org/10.1002/hbm.23743
+400:- Coupé, P., Fonov, V. S., Bernard, C., Zandifar, A., Eskildsen, S. F., Helmer, C., … The Alzheimer's Disease Neuroimaging Initiative. (2015). Detection of Alzheimer's disease signature in MR images seven years before conversion to dementia: Toward an early individual prognosis. Human Brain Mapping , 36 (12), 4758 -4770. https://doi.org/10.1002/hbm.22926
+401:- Coupé, P., Manj /C19 on, J. V., Lanuza, E., &amp; Catheline, G. (2019). Lifespan changes of the human brain in Alzheimer's Disease. Scientific Reports , 9 (1), 3998. https://doi.org/10.1038/s41598-019-39809-8
+402:- Coupé, P., Mansencal, B., Clément, M., Giraud, R., Denis de Senneville, B., Ta, V.-T., … Manjon, J. V. (2020). AssemblyNet: A large ensemble of CNNs for 3D whole brain MRI segmentation. NeuroImage , 219 , 117026. https://doi.org/10.1016/j.neuroimage.2020.117026
+403:- Denis de Senneville, B., Manj /C19 on, J. V., &amp; Coupé, P. (2020). RegQCNET: Deep quality control for image-to-template brain MRI affine registration. Physics in Medicine &amp; Biology , 65 (22), 225022. https://doi.org/10. 1088/1361-6560/abb6be
+404:- Feng, Q., &amp; Ding, Z. (2020). MRI Radiomics classification and prediction in Alzheimer's Disease and mild cognitive impairment: A review. Current Alzheimer Research , 17 (3), 297 -309. https://doi.org/10.2174/15 67205017666200303105016
+405:- Frisoni, G. B., Fox, N. C., Jack, C. R., Scheltens, P., &amp; Thompson, P. M. (2010). The clinical use of structural MRI in Alzheimer disease. Nature Reviews Neurology , 6 (2), 67 -77. https://doi.org/10.1038/nrneurol. 2009.215
+406:- Hedderich, D. M., Spiro, J. E., Goldhardt, O., Kaesmacher, J., Wiestler, B., Yakushev, I., … Grimmer, T. (2018). Increasing diagnostic accuracy of mild cognitive impairment due to Alzheimer's Disease by user-independent, web-based whole-brain Volumetry. Journal of Alzheimer's Disease , 65 (4), 1459 -1467. https://doi.org/10.3233/JAD-180532
+407:- Jack, C. R., Bennett, D. A., Blennow, K., Carrillo, M. C., Feldman, H. H., Frisoni, G. B., … Dubois, B. (2016). A/T/N: An unbiased descriptive classification scheme for Alzheimer disease biomarkers. Neurology , 87 (5), 539 -547. https://doi.org/10.1212/WNL.0000000000002923
+408:- Jo, T., Nho, K., &amp; Saykin, A. J. (2019). Deep learning in Alzheimer's Disease: Diagnostic classification and prognostic prediction using Neuroimaging data. Frontiers in Aging Neuroscience , 11 , 220. https://doi.org/10. 3389/fnagi.2019.00220
+409:- Klein, A., &amp; Tourville, J. (2012). 101 labeled brain images and a consistent human cortical labeling protocol. Frontiers in Neuroscience , 6 , 171. https://doi.org/10.3389/fnins.2012.00171
+410:- Leandrou, S., Petroudi, S., Kyriacou, P. A., Reyes-Aldasoro, C. C., &amp; Pattichis, C. S. (2018). Quantitative MRI brain studies in mild cognitive impairment and Alzheimer's Disease: A methodological review. IEEE Reviews in Biomedical Engineering , 11 , 97 -111. https://doi.org/10. 1109/RBME.2018.2796598
+411:- Manj /C19 on, J. V., &amp; Coupé, P. (2016). volBrain: An online MRI brain Volumetry system. Frontiers in Neuroinformatics , 10 , 30. https://doi.org/10.3389/ fninf.2016.00030
+412:- Manj /C19 on, J. V., Coupé, P., Martí-Bonmatí, L., Collins, D. L., &amp; Robles, M. (2010). Adaptive non-local means denoising of MR images with spatially varying noise levels: Spatially adaptive nonlocal Denoising. Journal of Magnetic Resonance Imaging , 31 (1), 192 -203. https://doi.org/10. 1002/jmri.22003
+413:- Manj /C19 on, J. V., Eskildsen, S. F., Coupé, P., Romero, J. E., Collins, D. L., &amp; Robles, M. (2014). Nonlocal intracranial cavity extraction. International Journal of Biomedical Imaging , 2014 , 1 -11. https://doi.org/10.1155/ 2014/820205
+414:- Marquand, A. F., Kia, S. M., Zabihi, M., Wolfers, T., Buitelaar, J. K., &amp; Beckmann, C. F. (2019). Conceptualizing mental disorders as deviations from normative functioning. Molecular Psychiatry , 24 (10), 1415 -1424. https://doi.org/10.1038/s41380-019-0441-1
+[2026-01-16T06:34:10] tokens used: 1418
+[2026-01-16T06:34:12] exec bash -lc "sed -n '1,120p' Coupe2022.pdf.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:13] bash -lc "sed -n '1,120p' Coupe2022.pdf.md" succeeded in 467ms:
+## R E S E A R C H ARTICLE
+
+## Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models
+
+Pierrick Coupé 1 | José V. Manj /C19 on 2 | Boris Mansencal 1 | Thomas Tourdias 3,4 Gwenaëlle Catheline 5 | Vincent Planche 6
+
+1 CNRS, Univ. Bordeaux, Bordeaux INP, Talence, France
+
+2 ITACA, Universitat Politècnica de València, Valencia, Spain
+
+3 Inserm U1215 - Neurocentre Magendie, Bordeaux, France
+
+4 Service de neuroimagerie, CHU de Bordeaux, Bordeaux, France
+
+5 INCIA, EPHE, Université PSL, Univ Bordeaux, CNRS, Bordeaux, France
+
+6 Univ. Bordeaux, CNRS, UMR 5293, Institut des Maladies Neurodégénératives, and Centre Mémoire Ressources Recherches, Pôle de Neurosciences Cliniques, CHU de Bordeaux, Bordeaux, France
+
+## Correspondence
+
+[2026-01-16T06:34:13] tokens used: 6779
+
+[2026-01-16T06:34:15] thinking
+
+I'm working with the Coupe2022.pdf.md file, which includes the title and authors but lacks the journal and DOI information. However, it mentions that it's an open access article published by Wiley in "Human Brain Mapping," which indicates the journal is indeed Human Brain Mapping from 2022. I'll need to extract the DOI, potentially looking for “DOI:” or “https://doi.org” near the top of the document. My previous search for DOI references didn’t match this paper's DOI, so I should search for occurrences of "Human Brain Mapping" again.
+[2026-01-16T06:34:18] exec bash -lc "rg -n \"Human Brain Mapping|Wiley|DOI|doi|Alzheimer\" Coupe2022.pdf.md | sed -n '1,120p'" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:18] bash -lc "rg -n \"Human Brain Mapping|Wiley|DOI|doi|Alzheimer\" Coupe2022.pdf.md | sed -n '1,120p'" succeeded in 484ms:
+3:## Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models
+27:UK Alzheimer's Society, Grant/Award Number: RF116; GlaxoSmithKline, Grant/Award Number: 6GKC; Leon Levy Foundation; NIMH, Grant/Award Numbers: R03MH096321, K23MH087770; ABIDE; U.K. Engineering and Physical Sciences Research Council, Grant/ Award Number: GR/S21533/02; Canadian Institutes of Health Research, Grant/Award Number: MOP-34996; Human Brain Project, Grant/Award Number: PO1MHO52176-11; Alzheimer Drug Discovery Foundation; Alzheimer Association; National Health and Medical Research Council of Australia, Grant/ Award Number: 1011689; Science Industry Endowment Fund; Common-wealth Scientific Industrial Research Organization; OASIS Brains Datasets, Grant/Award Numbers: P50 AG05681, P01 AG03991, R01 AG021910,
+29:This is an open access article under the terms of the Creative Commons Attribution-NonCommercial-NoDerivs License, which permits use and distribution in any medium, provided the original work is properly cited, the use is non-commercial and no modifications or adaptations are made. ©2022 The Authors. Human Brain Mapping published by Wiley Periodicals LLC.
+33:In this article, we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures. After a full screening of the most discriminant structures between AD and normal aging based on MRI volumetric analysis of 3,032 subjects, we propose a novel Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models. During a validation on three external datasets on 1,039 subjects, our approach showed very accurate detection (AUC ≥ 94%) of patients with AD compared to control subjects and accurate discrimination (AUC = 78%) between progressive MCI and stable MCI (during a 3-year follow-up). Compared to normative modeling, classical machine learning methods and recent state-of-the-art deep learning methods, our method demonstrated better classification performance. Moreover, HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice or future pharmaceutical trials.
+45:Finding early and specific biomarkers of Alzheimer disease (AD) clinical syndrome is of major interest to accelerate the development of new therapies. Among the potential structural biomarkers proposed for AD, neurodegeneration estimated using magnetic resonance imaging (MRI) is still a good candidate (Frisoni, Fox, Jack, Scheltens, &amp; Thompson, 2010; Jack et al., 2016). From simple volume-based approaches to advanced deep learning strategies, the development of new biomarkers able to detect anatomical alterations caused by AD has been the subject of much attention over the past decades (Feng &amp; Ding, 2020; Leandrou, Petroudi, Kyriacou, Reyes-Aldasoro, &amp; Pattichis, 2018; Rathore, Habes, Iftikhar, Shacklett, &amp; Davatzikos, 2017).
+377:Moreover, this work is based on multiple samples. The authors wish to thank all investigators of these projects who collected these datasets and made them freely accessible. The C-MIND data used in the preparation of this article were obtained from the C-MIND Data Repository (accessed in February 2015) created by the C-MIND study of Normal Brain Development. This is a multisite, longitudinal study of typically developing children from ages newborn through young adulthood conducted by Cincinnati Children's Hospital Medical Center and UCLA and supported by the National Institute of Child Health and Human Development (Contract #s HHSN275200900018C). A listing of the participating sites and a complete listing of the study investigators can be found at https://research.cchmc.org/c-mind. The NDAR data used in the preparation of this manuscript were obtained from the NIH-supported National Database for Autism Research (NDAR). NDAR is a collaborative informatics system created by the National Institutes of Health to provide a national resource to support and accelerate research in autism. The NDAR dataset includes data from the NIH Pediatric MRI Data Repository created by the NIH MRI Study of Normal Brain Development. This is a multisite, longitudinal study of typically developing children from ages newborn through young adulthood conducted by the Brain Development Cooperative Group and supported by the National Institute of Child Health and Human Development, the National Institute on Drug Abuse, the National Institute of Mental Health, and the National Institute of Neurological Disorders and Stroke (Contract #s N01-HD02-3343, N01-MH90002, and N01-NS-9-2314, -2315, -2316, -2317, -2319, and -2320). A listing of the participating sites and a complete listing of the study investigators can be found at http://pediatricmri.nih.gov/nihpd/info/ participating\_centers.html. The ADNI data used in the preparation of this manuscript were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) (National Institutes of Health Grant U01 AG024904). The ADNI is funded by the National Institute on Aging and the National Institute of Biomedical Imaging and Bioengineering and through generous contributions from the following: Abbott, AstraZeneca AB, Bayer Schering Pharma AG, Bristol-Myers Squibb, Eisai Global Clinical Development, Elan Corporation, Genentech, GE Healthcare, GlaxoSmithKline, Innogenetics NV, Johnson &amp; Johnson, Eli Lilly and Co., Medpace, Inc., Merck and Co., Inc., Novartis AG, Pfizer Inc., F. Hoffmann-La Roche, Schering-Plough, Synarc Inc., as well as nonprofit partners, the Alzheimer's Association and Alzheimer's Drug Discovery Foundation, with participation from the U.S. Food and Drug Administration. Private sector contributions to the ADNI are facilitated by the Foundation for the National Institutes of Health (www.fnih.org). The grantee organization is the Northern California Institute for Research and Education, and the study was coordinated by the Alzheimer's Disease Cooperative Study at the University of California, San Diego. ADNI data are disseminated by the Laboratory for NeuroImaging at the University of California, Los Angeles. This research was also supported by NIH grants P30AG010129, K01 AG030514 and the Dana Foundation. The OASIS data used in the preparation of this manuscript were obtained from the OASIS project funded by grants P50 AG05681, P01 AG03991,
+379:R01 AG021910, P50 MH071616, U24 RR021382, R01 MH56584. See http://www.oasis-brains.org/ for more details. The AIBL data used in the preparation of this manuscript were obtained from the AIBL study of aging funded by the Common-wealth Scientific Industrial Research Organization (CSIRO; a publicly funded government research organization), Science Industry Endowment Fund, National Health and Medical Research Council of Australia (project grant 1011689), Alzheimer Association, Alzheimer Drug Discovery Foundation, and an anonymous foundation. See www.aibl.csiro.au for further details. The ICBM data used in the preparation of this manuscript were supported by Human Brain Project grant PO1MHO52176-11 (ICBM, P.I. Dr John Mazziotta) and Canadian Institutes of Health Research grant MOP-34996. The IXI data used in the preparation of this manuscript were supported by the U.K. Engineering and Physical Sciences Research Council (EPSRC) GR/S21533/02 -http://www. brain-development.org/. The ABIDE data used in the preparation of this manuscript were supported by ABIDE funding resources listed at http://fcon\_1000.projects.nitrc.org/indi/abide/. ABIDE primary support for the work by Adriana Di Martino was provided by the NIMH (K23MH087770) and the Leon Levy Foundation. Primary support for the work by Michael P. Milham and the INDI team was provided by gifts from Joseph P. Healy and the Stavros Niarchos Foundation to the Child Mind Institute, as well as by an NIMH award to MPM (R03MH096321). http://fcon\_1000.projects.nitrc.org/indi/abide/. Data used in the preparation of this article were obtained from the MIRIAD database. The MIRIAD investigators did not participate in analysis or writing of this report. The MIRIAD dataset is made available through the support of the UK Alzheimer's Society (Grant RF116). The original data collection was funded through an unrestricted educational grant from GlaxoSmithKline (Grant 6GKC). This manuscript reflects the views of the authors and may not reflect the opinions or views of the database providers.
+395:- Ashburner, J., &amp; Friston, K. J. (2005). Unified segmentation. NeuroImage , 26 (3), 839 -851. https://doi.org/10.1016/j.neuroimage.2005.02.018
+396:- Bartos, A., Gregus, D., Ibrahim, I., &amp; Tint ě ra, J. (2019). Brain volumes and their ratios in Alzheimer's disease on magnetic resonance imaging segmented using Freesurfer 6.0. Psychiatry Research: Neuroimaging , 287 , 70 -74. https://doi.org/10.1016/j.pscychresns.2019.01.014
+397:- Bron, E. E., Klein, S., Papma, J. M., Jiskoot, L. C., Venkatraghavan, V., Linders, J., … van der Lugt, A. (2021). Cross-cohort generalizability of deep and conventional machine learning for MRI-based diagnosis and prediction of Alzheimer's disease. NeuroImage: Clinical , 31 , 102712. https://doi.org/10.1016/j.nicl.2021.102712
+398:- Cavedo, E., Tran, P., Thoprakarn, U., Martini, J., Movschin, A., Delmaire, C., … the Frontotemporal Lobar Degeneration Neuroimaging Initiative. (2020). Validation of an automatic tool for the measurement of brain atrophy and white matter hyperintensity in clinical routine: QyScore ® : Neuroimaging / optimal neuroimaging measures for early detection. Alzheimer's &amp; Dementia , 16 (S5), e040259. https://doi.org/10.1002/alz.040259
+399:- Coupé, P., Catheline, G., Lanuza, E., Manj /C19 on, J. V., &amp; for the Alzheimer's Disease Neuroimaging Initiative. (2017). Towards a unified analysis of brain maturation and aging across the entire lifespan: A MRI analysis: Towards a unified analysis of brain. Human Brain Mapping , 38 (11), 5501 -5518. https://doi.org/10.1002/hbm.23743
+400:- Coupé, P., Fonov, V. S., Bernard, C., Zandifar, A., Eskildsen, S. F., Helmer, C., … The Alzheimer's Disease Neuroimaging Initiative. (2015). Detection of Alzheimer's disease signature in MR images seven years before conversion to dementia: Toward an early individual prognosis. Human Brain Mapping , 36 (12), 4758 -4770. https://doi.org/10.1002/hbm.22926
+401:- Coupé, P., Manj /C19 on, J. V., Lanuza, E., &amp; Catheline, G. (2019). Lifespan changes of the human brain in Alzheimer's Disease. Scientific Reports , 9 (1), 3998. https://doi.org/10.1038/s41598-019-39809-8
+402:- Coupé, P., Mansencal, B., Clément, M., Giraud, R., Denis de Senneville, B., Ta, V.-T., … Manjon, J. V. (2020). AssemblyNet: A large ensemble of CNNs for 3D whole brain MRI segmentation. NeuroImage , 219 , 117026. https://doi.org/10.1016/j.neuroimage.2020.117026
+403:- Denis de Senneville, B., Manj /C19 on, J. V., &amp; Coupé, P. (2020). RegQCNET: Deep quality control for image-to-template brain MRI affine registration. Physics in Medicine &amp; Biology , 65 (22), 225022. https://doi.org/10. 1088/1361-6560/abb6be
+404:- Feng, Q., &amp; Ding, Z. (2020). MRI Radiomics classification and prediction in Alzheimer's Disease and mild cognitive impairment: A review. Current Alzheimer Research , 17 (3), 297 -309. https://doi.org/10.2174/15 67205017666200303105016
+405:- Frisoni, G. B., Fox, N. C., Jack, C. R., Scheltens, P., &amp; Thompson, P. M. (2010). The clinical use of structural MRI in Alzheimer disease. Nature Reviews Neurology , 6 (2), 67 -77. https://doi.org/10.1038/nrneurol. 2009.215
+406:- Hedderich, D. M., Spiro, J. E., Goldhardt, O., Kaesmacher, J., Wiestler, B., Yakushev, I., … Grimmer, T. (2018). Increasing diagnostic accuracy of mild cognitive impairment due to Alzheimer's Disease by user-independent, web-based whole-brain Volumetry. Journal of Alzheimer's Disease , 65 (4), 1459 -1467. https://doi.org/10.3233/JAD-180532
+407:- Jack, C. R., Bennett, D. A., Blennow, K., Carrillo, M. C., Feldman, H. H., Frisoni, G. B., … Dubois, B. (2016). A/T/N: An unbiased descriptive classification scheme for Alzheimer disease biomarkers. Neurology , 87 (5), 539 -547. https://doi.org/10.1212/WNL.0000000000002923
+[2026-01-16T06:34:18] tokens used: 1599
+
+[2026-01-16T06:34:20] thinking
+
+**Gathering citation details**
+
+I’m thinking we need more metadata like the journal name, authors, and DOI. I noticed it includes the title and authors, but it's from the journal "Human Brain Mapping." The DOI might be found elsewhere in the header. I should look for something like "how to cite this article" to get a clearer picture of the citation format. Let’s make sure we have all the necessary details!
+[2026-01-16T06:34:23] exec bash -lc "rg -n \"How to cite|Cite this|https://doi\\.org/|DOI:\" Coupe2022.pdf.md | sed -n '1,200p'" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:23] bash -lc "rg -n \"How to cite|Cite this|https://doi\\.org/|DOI:\" Coupe2022.pdf.md | sed -n '1,200p'" succeeded in 494ms:
+395:- Ashburner, J., &amp; Friston, K. J. (2005). Unified segmentation. NeuroImage , 26 (3), 839 -851. https://doi.org/10.1016/j.neuroimage.2005.02.018
+396:- Bartos, A., Gregus, D., Ibrahim, I., &amp; Tint ě ra, J. (2019). Brain volumes and their ratios in Alzheimer's disease on magnetic resonance imaging segmented using Freesurfer 6.0. Psychiatry Research: Neuroimaging , 287 , 70 -74. https://doi.org/10.1016/j.pscychresns.2019.01.014
+397:- Bron, E. E., Klein, S., Papma, J. M., Jiskoot, L. C., Venkatraghavan, V., Linders, J., … van der Lugt, A. (2021). Cross-cohort generalizability of deep and conventional machine learning for MRI-based diagnosis and prediction of Alzheimer's disease. NeuroImage: Clinical , 31 , 102712. https://doi.org/10.1016/j.nicl.2021.102712
+398:- Cavedo, E., Tran, P., Thoprakarn, U., Martini, J., Movschin, A., Delmaire, C., … the Frontotemporal Lobar Degeneration Neuroimaging Initiative. (2020). Validation of an automatic tool for the measurement of brain atrophy and white matter hyperintensity in clinical routine: QyScore ® : Neuroimaging / optimal neuroimaging measures for early detection. Alzheimer's &amp; Dementia , 16 (S5), e040259. https://doi.org/10.1002/alz.040259
+399:- Coupé, P., Catheline, G., Lanuza, E., Manj /C19 on, J. V., &amp; for the Alzheimer's Disease Neuroimaging Initiative. (2017). Towards a unified analysis of brain maturation and aging across the entire lifespan: A MRI analysis: Towards a unified analysis of brain. Human Brain Mapping , 38 (11), 5501 -5518. https://doi.org/10.1002/hbm.23743
+400:- Coupé, P., Fonov, V. S., Bernard, C., Zandifar, A., Eskildsen, S. F., Helmer, C., … The Alzheimer's Disease Neuroimaging Initiative. (2015). Detection of Alzheimer's disease signature in MR images seven years before conversion to dementia: Toward an early individual prognosis. Human Brain Mapping , 36 (12), 4758 -4770. https://doi.org/10.1002/hbm.22926
+401:- Coupé, P., Manj /C19 on, J. V., Lanuza, E., &amp; Catheline, G. (2019). Lifespan changes of the human brain in Alzheimer's Disease. Scientific Reports , 9 (1), 3998. https://doi.org/10.1038/s41598-019-39809-8
+402:- Coupé, P., Mansencal, B., Clément, M., Giraud, R., Denis de Senneville, B., Ta, V.-T., … Manjon, J. V. (2020). AssemblyNet: A large ensemble of CNNs for 3D whole brain MRI segmentation. NeuroImage , 219 , 117026. https://doi.org/10.1016/j.neuroimage.2020.117026
+403:- Denis de Senneville, B., Manj /C19 on, J. V., &amp; Coupé, P. (2020). RegQCNET: Deep quality control for image-to-template brain MRI affine registration. Physics in Medicine &amp; Biology , 65 (22), 225022. https://doi.org/10. 1088/1361-6560/abb6be
+404:- Feng, Q., &amp; Ding, Z. (2020). MRI Radiomics classification and prediction in Alzheimer's Disease and mild cognitive impairment: A review. Current Alzheimer Research , 17 (3), 297 -309. https://doi.org/10.2174/15 67205017666200303105016
+405:- Frisoni, G. B., Fox, N. C., Jack, C. R., Scheltens, P., &amp; Thompson, P. M. (2010). The clinical use of structural MRI in Alzheimer disease. Nature Reviews Neurology , 6 (2), 67 -77. https://doi.org/10.1038/nrneurol. 2009.215
+406:- Hedderich, D. M., Spiro, J. E., Goldhardt, O., Kaesmacher, J., Wiestler, B., Yakushev, I., … Grimmer, T. (2018). Increasing diagnostic accuracy of mild cognitive impairment due to Alzheimer's Disease by user-independent, web-based whole-brain Volumetry. Journal of Alzheimer's Disease , 65 (4), 1459 -1467. https://doi.org/10.3233/JAD-180532
+407:- Jack, C. R., Bennett, D. A., Blennow, K., Carrillo, M. C., Feldman, H. H., Frisoni, G. B., … Dubois, B. (2016). A/T/N: An unbiased descriptive classification scheme for Alzheimer disease biomarkers. Neurology , 87 (5), 539 -547. https://doi.org/10.1212/WNL.0000000000002923
+408:- Jo, T., Nho, K., &amp; Saykin, A. J. (2019). Deep learning in Alzheimer's Disease: Diagnostic classification and prognostic prediction using Neuroimaging data. Frontiers in Aging Neuroscience , 11 , 220. https://doi.org/10. 3389/fnagi.2019.00220
+409:- Klein, A., &amp; Tourville, J. (2012). 101 labeled brain images and a consistent human cortical labeling protocol. Frontiers in Neuroscience , 6 , 171. https://doi.org/10.3389/fnins.2012.00171
+410:- Leandrou, S., Petroudi, S., Kyriacou, P. A., Reyes-Aldasoro, C. C., &amp; Pattichis, C. S. (2018). Quantitative MRI brain studies in mild cognitive impairment and Alzheimer's Disease: A methodological review. IEEE Reviews in Biomedical Engineering , 11 , 97 -111. https://doi.org/10. 1109/RBME.2018.2796598
+411:- Manj /C19 on, J. V., &amp; Coupé, P. (2016). volBrain: An online MRI brain Volumetry system. Frontiers in Neuroinformatics , 10 , 30. https://doi.org/10.3389/ fninf.2016.00030
+412:- Manj /C19 on, J. V., Coupé, P., Martí-Bonmatí, L., Collins, D. L., &amp; Robles, M. (2010). Adaptive non-local means denoising of MR images with spatially varying noise levels: Spatially adaptive nonlocal Denoising. Journal of Magnetic Resonance Imaging , 31 (1), 192 -203. https://doi.org/10. 1002/jmri.22003
+413:- Manj /C19 on, J. V., Eskildsen, S. F., Coupé, P., Romero, J. E., Collins, D. L., &amp; Robles, M. (2014). Nonlocal intracranial cavity extraction. International Journal of Biomedical Imaging , 2014 , 1 -11. https://doi.org/10.1155/ 2014/820205
+414:- Marquand, A. F., Kia, S. M., Zabihi, M., Wolfers, T., Buitelaar, J. K., &amp; Beckmann, C. F. (2019). Conceptualizing mental disorders as deviations from normative functioning. Molecular Psychiatry , 24 (10), 1415 -1424. https://doi.org/10.1038/s41380-019-0441-1
+[2026-01-16T06:34:23] tokens used: 1313
+[2026-01-16T06:34:25] exec bash -lc "sed -n '432,520p' Coupe2022.pdf.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:25] bash -lc "sed -n '432,520p' Coupe2022.pdf.md" succeeded in 465ms:
+How to cite this article: Coupé, P., Manj /C19 on, J. V., Mansencal,
+
+B., Tourdias, T., Catheline, G., &amp; Planche, V. (2022).
+
+[2026-01-16T06:34:25] tokens used: 3024
+
+[2026-01-16T06:34:28] thinking
+
+**Parsing research details**
+
+I suspect the markdown has issues with OCR artifacts, but I can still extract key information from it. I need to fill out many ACRSL items, specifically focusing on normative modeling aspects. The paper discusses the "Hippocampal-amygdalo-ventricular atrophy score (HAVAs)" and how it detects Alzheimer’s using normative and pathological lifespan models of volumes. I need to search for specific terms like "dataset," "validation," and "external dataset" to gather relevant information. It mentions validation on three external datasets, so I’ll look for references to that too.
+[2026-01-16T06:34:31] exec bash -lc "rg -n \"dataset|datasets|validation|external|ADNI|AIBL|OASIS|lifespan|normative model|reference cohort|control|CN|healthy|inclusion|exclusion|quality|motion|preprocessing|FreeSurfer|volBrain|AssemblyNet|N4ITK|bias|segmentation|MRI\" Coupe2022.pdf.md | sed -n '1,200p'" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:32] bash -lc "rg -n \"dataset|datasets|validation|external|ADNI|AIBL|OASIS|lifespan|normative model|reference cohort|control|CN|healthy|inclusion|exclusion|quality|motion|preprocessing|FreeSurfer|volBrain|AssemblyNet|N4ITK|bias|segmentation|MRI\" Coupe2022.pdf.md | sed -n '1,200p'" succeeded in 466ms:
+3:## Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models
+7:1 CNRS, Univ. Bordeaux, Bordeaux INP, Talence, France
+15:5 INCIA, EPHE, Université PSL, Univ Bordeaux, CNRS, Bordeaux, France
+17:6 Univ. Bordeaux, CNRS, UMR 5293, Institut des Maladies Neurodégénératives, and Centre Mémoire Ressources Recherches, Pôle de Neurosciences Cliniques, CHU de Bordeaux, Bordeaux, France
+21:Pierrick Coupé, CNRS, Univ. Bordeaux, Bordeaux INP, LABRI, UMR5800, F-33400 Talence, France.
+27:UK Alzheimer's Society, Grant/Award Number: RF116; GlaxoSmithKline, Grant/Award Number: 6GKC; Leon Levy Foundation; NIMH, Grant/Award Numbers: R03MH096321, K23MH087770; ABIDE; U.K. Engineering and Physical Sciences Research Council, Grant/ Award Number: GR/S21533/02; Canadian Institutes of Health Research, Grant/Award Number: MOP-34996; Human Brain Project, Grant/Award Number: PO1MHO52176-11; Alzheimer Drug Discovery Foundation; Alzheimer Association; National Health and Medical Research Council of Australia, Grant/ Award Number: 1011689; Science Industry Endowment Fund; Common-wealth Scientific Industrial Research Organization; OASIS Brains Datasets, Grant/Award Numbers: P50 AG05681, P01 AG03991, R01 AG021910,
+33:In this article, we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures. After a full screening of the most discriminant structures between AD and normal aging based on MRI volumetric analysis of 3,032 subjects, we propose a novel Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models. During a validation on three external datasets on 1,039 subjects, our approach showed very accurate detection (AUC ≥ 94%) of patients with AD compared to control subjects and accurate discrimination (AUC = 78%) between progressive MCI and stable MCI (during a 3-year follow-up). Compared to normative modeling, classical machine learning methods and recent state-of-the-art deep learning methods, our method demonstrated better classification performance. Moreover, HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice or future pharmaceutical trials.
+45:Finding early and specific biomarkers of Alzheimer disease (AD) clinical syndrome is of major interest to accelerate the development of new therapies. Among the potential structural biomarkers proposed for AD, neurodegeneration estimated using magnetic resonance imaging (MRI) is still a good candidate (Frisoni, Fox, Jack, Scheltens, &amp; Thompson, 2010; Jack et al., 2016). From simple volume-based approaches to advanced deep learning strategies, the development of new biomarkers able to detect anatomical alterations caused by AD has been the subject of much attention over the past decades (Feng &amp; Ding, 2020; Leandrou, Petroudi, Kyriacou, Reyes-Aldasoro, &amp; Pattichis, 2018; Rathore, Habes, Iftikhar, Shacklett, &amp; Davatzikos, 2017).
+47:Nowadays, two main strategies are used to detect neurodegeneration caused by AD using MRI: normative modeling for abnormality detection (Marquand et al., 2019; Wolfers et al., 2020) and classification-based approaches (Coupé et al., 2015; Wen et al., 2020).
+49:On the one hand, normative modeling based only on cognitively normal (CN) subjects can be used to detect abnormality and therefore to distinguish AD patients from CN subjects. As explained in Marquand et al. (2019), normative lifespan modeling is similar to growth charts used in pediatric medicine to detect abnormal child development in terms of height or weight related to the age's subject. Indeed, such charts can be used to detect outliers considered as pathological. For AD detection, volume or thickness of key structures as a function of age is usually used. The main advantages of normative modeling are to robustly capture the heterogeneity of normal anatomy and to provide an easily interpretable distance between an individual and the normative range. Normative modeling is the approach used in most of the available software for quantitative brain analysis (in open access such as volBrain [Manj /C19 on &amp; Coupé, 2016] or for commercial use as in Neuroquant [Ross et al., 2013], Qscore [Cavedo et al., 2020] or Qreport [Pemberton et al., 2021]). The added-value in terms of diagnosis accuracy has been shown for several pathologies including AD (Cavedo et al., 2020; Hedderich et al., 2018; Pemberton et al., 2021; Ross et al., 2013). Due to its simplicity and easy understanding, normative modeling is the closest strategy to clinical practice with several CE-marked and FDA-approved software packages.
+51:On the other hand, a classifier can be trained using features extracted from the two groups -one composed of CN subjects and another one composed of AD patients. The used features can be handcrafted as usually done in machine learning (ML) (Rathore et al., 2017) or automatically learned using deep learning (DL) (Jo, Nho, &amp; Saykin, 2019). At the end of the training, a decision boundary is available to discriminate features of CN subjects from features of AD patients. Such a strategy is supposed to be more accurate than normative modeling since patients are used in addition to CN subjects during training. Consequently, the developed method is pathology specific. Moreover, by using advanced methods such as DL, a specific signature of a given pathology can be automatically and efficiently learned. However, such approaches suffers from a lack of generalization usually related to overfitting on the training database (Bron et al., 2021; Wen et al., 2020). Moreover, with the advent of DL methods, interpretation of the results and explanation of the underlying decision-making process is far from being straightforward (Jo et al., 2019).
+53:In this article, we present an alternative framework combining advantages of both strategies: an easy interpretation and an accurate classification. To this end, we propose a novel method able to detect patients with AD using both normal and pathological lifespan models. First introduced in Coupé, Manj /C19 on, Lanuza, and Catheline (2019), lifespan modeling of AD provides an useful and easily interpretable tool to capture the heterogeneity of AD signature. Moreover, by using multiple models (i.e., an AD model in addition to a CN model), the decision boundary is pathology specific and thus produces a more accurate detection of AD patients compared to usual normative modeling. Finally, we also propose an innovative framework to extract the most discriminant structures between both groups based on a fully automatic multiscale brain segmentation pipeline. Applied to AD, this framework led us to propose a novel Hippocampal-AmygdaloVentricular Atrophy score (HAVAs) based on multiple lifespan models.
+59:## 2.1.1 | Training dataset
+61:Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases (Table 1). This dataset was composed of 2,655 CN subjects (CN) and 377 patients with AD. As
+67:| C-MIND    | CN      |         236 | F = 129/M = 107 | 8.44 (0.74 - 18.86)  |
+68:| NDAR      | CN      |         382 | F = 174/M = 208 | 12.39 (1.08 - 49.92) |
+69:| ABIDE     | CN      |         492 | F = 84/M = 408  | 17.53 (6.50 - 52.20) |
+70:| ICBM      | CN      |         294 | F = 142/M = 152 | 33.75 (18 - 80)      |
+71:| IXI       | CN      |         549 | F = 307/M = 242 | 48.76 (20.0 - 86.2)  |
+72:| OASIS     | CN      |         298 | F = 187/M = 111 | 45.34 (18 - 94)      |
+[2026-01-16T06:34:32] tokens used: 472
+
+[2026-01-16T06:34:34] thinking
+
+**Searching for methods sections**
+
+I'm focusing on finding suitable methods sections to gather data sources, covariates, and preprocessing pipelines. I should look for keywords like "Methods," "Materials," "Data," "Subjects," and "Participants." These terms will help narrow down my search to relevant studies or documents that provide that information. I'll keep this in mind when I'm browsing through literature or databases. This systematic approach will ensure I gather comprehensive and useful data.
+[2026-01-16T06:34:36] exec bash -lc "rg -n \"Methods|MATERIALS|Participants|subjects|Data|Preprocessing|Processing|Pipeline|Acquisition|protocol|scanner|field strength|Manufacturer|TR|TE|resolution|FreeSurfer|ANTs|SPM|FSL|fMRIPrep|volBrain|AssemblyNet\" Coupe2022.pdf.md | sed -n '1,200p'" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:37] bash -lc "rg -n \"Methods|MATERIALS|Participants|subjects|Data|Preprocessing|Processing|Pipeline|Acquisition|protocol|scanner|field strength|Manufacturer|TR|TE|resolution|FreeSurfer|ANTs|SPM|FSL|fMRIPrep|volBrain|AssemblyNet\" Coupe2022.pdf.md | sed -n '1,200p'" succeeded in 484ms:
+27:UK Alzheimer's Society, Grant/Award Number: RF116; GlaxoSmithKline, Grant/Award Number: 6GKC; Leon Levy Foundation; NIMH, Grant/Award Numbers: R03MH096321, K23MH087770; ABIDE; U.K. Engineering and Physical Sciences Research Council, Grant/ Award Number: GR/S21533/02; Canadian Institutes of Health Research, Grant/Award Number: MOP-34996; Human Brain Project, Grant/Award Number: PO1MHO52176-11; Alzheimer Drug Discovery Foundation; Alzheimer Association; National Health and Medical Research Council of Australia, Grant/ Award Number: 1011689; Science Industry Endowment Fund; Common-wealth Scientific Industrial Research Organization; OASIS Brains Datasets, Grant/Award Numbers: P50 AG05681, P01 AG03991, R01 AG021910,
+33:In this article, we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures. After a full screening of the most discriminant structures between AD and normal aging based on MRI volumetric analysis of 3,032 subjects, we propose a novel Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models. During a validation on three external datasets on 1,039 subjects, our approach showed very accurate detection (AUC ≥ 94%) of patients with AD compared to control subjects and accurate discrimination (AUC = 78%) between progressive MCI and stable MCI (during a 3-year follow-up). Compared to normative modeling, classical machine learning methods and recent state-of-the-art deep learning methods, our method demonstrated better classification performance. Moreover, HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice or future pharmaceutical trials.
+43:## 1 | I NTRODUCTION
+49:On the one hand, normative modeling based only on cognitively normal (CN) subjects can be used to detect abnormality and therefore to distinguish AD patients from CN subjects. As explained in Marquand et al. (2019), normative lifespan modeling is similar to growth charts used in pediatric medicine to detect abnormal child development in terms of height or weight related to the age's subject. Indeed, such charts can be used to detect outliers considered as pathological. For AD detection, volume or thickness of key structures as a function of age is usually used. The main advantages of normative modeling are to robustly capture the heterogeneity of normal anatomy and to provide an easily interpretable distance between an individual and the normative range. Normative modeling is the approach used in most of the available software for quantitative brain analysis (in open access such as volBrain [Manj /C19 on &amp; Coupé, 2016] or for commercial use as in Neuroquant [Ross et al., 2013], Qscore [Cavedo et al., 2020] or Qreport [Pemberton et al., 2021]). The added-value in terms of diagnosis accuracy has been shown for several pathologies including AD (Cavedo et al., 2020; Hedderich et al., 2018; Pemberton et al., 2021; Ross et al., 2013). Due to its simplicity and easy understanding, normative modeling is the closest strategy to clinical practice with several CE-marked and FDA-approved software packages.
+51:On the other hand, a classifier can be trained using features extracted from the two groups -one composed of CN subjects and another one composed of AD patients. The used features can be handcrafted as usually done in machine learning (ML) (Rathore et al., 2017) or automatically learned using deep learning (DL) (Jo, Nho, &amp; Saykin, 2019). At the end of the training, a decision boundary is available to discriminate features of CN subjects from features of AD patients. Such a strategy is supposed to be more accurate than normative modeling since patients are used in addition to CN subjects during training. Consequently, the developed method is pathology specific. Moreover, by using advanced methods such as DL, a specific signature of a given pathology can be automatically and efficiently learned. However, such approaches suffers from a lack of generalization usually related to overfitting on the training database (Bron et al., 2021; Wen et al., 2020). Moreover, with the advent of DL methods, interpretation of the results and explanation of the underlying decision-making process is far from being straightforward (Jo et al., 2019).
+55:## 2 | MATERIAL AND METHOD
+57:## 2.1 | Dataset description
+61:Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases (Table 1). This dataset was composed of 2,655 CN subjects (CN) and 377 patients with AD. As
+65:| Dataset   | Group   |   N = 3,032 | Gender          | Age in years         |
+77:Note : This table provides the name of the databases, the group, the number of considered subjects, the gender proportion, and the average age with the interval in brackets.
+81:| Dataset   | Group   |   N = 1,039 | Gender          | Age in years       |
+90:Note : This table provides the name of the databases, the group, the number of considered subjects, the gender proportion, and the average age with the interval in brackets.
+92:explained in the following, CN subjects younger than 55y ( N = 1874) were used to estimate both CN and AD lifespan trajectories.
+96:To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD) to perform AD versus CN diagnosis task. Therefore, we validated the generalization capacity of our method and its robustness to domain shift. In addition, we used subjects with mild cognitive impairment (MCI) from ADNI to estimate the capability of our models on prognosis task (Table 2). Consequently, we validated the generalization of our models to unseen related tasks. As in Wen et al. (2020), the MCI group was split into stable MCI (sMCI) over 3 years and progressive MCI (pMCI) who will convert to AD within 36 months following the baseline visit. Finally, we used the ClinicaDL software (https://github.com/aramis-lab/clinicadl) (Wen et al., 2020) to define the groups of AD and CN groups in AIBL, and the pMCI and sMCI groups in ADNI. Therefore, we used the same selection criteria.
+104:All the considered images were processed using AssemblyNet software (https://github.com/volBrain/AssemblyNet) (Coupé et al., 2020). Based on collective artificial intelligence, AssemblyNet is able to produce fine-grained segmentation of the whole brain in 15 min. The AssemblyNet preprocessing pipeline was based on several steps: image denoising (Manj /C19 on, Coupé, Martí-Bonmatí, Collins, &amp; Robles, 2010), inhomogeneity correction (Tustison et al., 2010), affine registration to the MNI space, automatic quality control (QC) (Denis de Senneville, Manj /C19 on, &amp; Coupé, 2020), a second inhomogeneity correction in the MNI space (Ashburner &amp; Friston, 2005) and a final intensity standardization step (Manj /C19 on &amp; Coupé, 2016).
+106:After preprocessing, the brain was segmented into several structures using 250 DL models (see Coupé et al., 2020 for details). All the segmentations were based on the Neuromorphometrics protocol which comprises 132 structures (Klein &amp; Tourville, 2012). In this protocol, the segmentation of the subcortical structures follows the ' general segmentation protocol ' as defined by the MGH Center for Morphometric Analysis (http://neuromorphometrics.com/Seg/). Moreover, the segmentation of the cortical structures follows the ' BrainCOLOR protocol ' (http:// neuromorphometrics.com/ParcellationProtocol\_2010-04-05.PDF) These structures are combined to create tissue segmentations (gray matter [GM], white matter [WM], and cerebrospinal fluid [CSF]), regional tissue segmentations (cortical GM, subcortical GM, ventricular CSF, and external CSF), and lobar segmentations (temporal, limbic, insular, parietal and frontal) -Figure 1.
+116:FIGURE 1 Illustrations of the AssemblyNet multiscale segmentations
+118:Finally, we performed a QC procedure to carefully select subjects included in our training dataset. For all the training subjects detected as failure by the automatic QC RegQCNet (Denis de Senneville et al., 2020), a visual assessment was performed by individually checking the input images and the segmentations produced by AssemblyNet using a 3D viewer. If the failure was confirmed by our expert, the subject was removed from training dataset.
+122:To compensate for the inter-subject variability, we normalized all the structure volumes using the intracranial cavity volume (ICV) (Manj /C19 on et al., 2014). Moreover, in order to be able to combine several structures with different sizes, we performed z-score normalization of all the normalized volumes (in percentage of ICV). To do that, we first estimated the mean and the SD for each structures using all the CN subjects over the entire lifespan. Then, for a given structures, we applied the same z-score normalization to all the subjects (i.e., CN, AD, and MCI). Therefore, by using z-score of normalized volumes in % of ICV, we compensated for both inter-subject and inter-structure variabilities. In the following, all the volumes are expressed as z-scores of normalized volumes.
+126:To create our lifespan models, we estimated normal and pathological trajectories of structure volumes across the entire lifespan. To this end, for each considered structure, models were estimated on two different groups to generate CN and AD trajectories. For CN trajectories, we used the N = 2,655 subjects from 9 months to 94y of the training dataset as done in Coupé et al. (2017). For the AD trajectories, we used N = 2,251 subjects. As done in Coupé et al. (2019), we mixed AD patients with young CN. More precisely, we used 377 AD patients (from 55y to 96y) and all the CN younger than 55y available in the
+[2026-01-16T06:34:37] tokens used: 22590
+[2026-01-16T06:34:39] exec bash -lc "sed -n '55,120p' Coupe2022.pdf.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:39] bash -lc "sed -n '55,120p' Coupe2022.pdf.md" succeeded in 464ms:
+## 2 | MATERIAL AND METHOD
+
+## 2.1 | Dataset description
+
+## 2.1.1 | Training dataset
+
+Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases (Table 1). This dataset was composed of 2,655 CN subjects (CN) and 377 patients with AD. As
+
+![Image](./Coupe2022_artifacts/image_000001_8e30135768c3a9868fff973a5a4cb78cdf98ec187244d880dc8f4380e303fa70.png)
+
+| Dataset   | Group   |   N = 3,032 | Gender          | Age in years         |
+|-----------|---------|-------------|-----------------|----------------------|
+| C-MIND    | CN      |         236 | F = 129/M = 107 | 8.44 (0.74 - 18.86)  |
+| NDAR      | CN      |         382 | F = 174/M = 208 | 12.39 (1.08 - 49.92) |
+| ABIDE     | CN      |         492 | F = 84/M = 408  | 17.53 (6.50 - 52.20) |
+| ICBM      | CN      |         294 | F = 142/M = 152 | 33.75 (18 - 80)      |
+| IXI       | CN      |         549 | F = 307/M = 242 | 48.76 (20.0 - 86.2)  |
+| OASIS     | CN      |         298 | F = 187/M = 111 | 45.34 (18 - 94)      |
+| ADNI      | CN      |         404 | F = 203/M = 201 | 74.81 (60 - 90)      |
+| OASIS     | AD      |          45 | F = 29/M = 16   | 77.04 (63 - 96)      |
+[2026-01-16T06:34:39] tokens used: 1464
+[2026-01-16T06:34:42] exec bash -lc "sed -n '120,260p' Coupe2022.pdf.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:42] bash -lc "sed -n '120,260p' Coupe2022.pdf.md" succeeded in 465ms:
+## 2.3 | Volume normalization
+
+To compensate for the inter-subject variability, we normalized all the structure volumes using the intracranial cavity volume (ICV) (Manj /C19 on et al., 2014). Moreover, in order to be able to combine several structures with different sizes, we performed z-score normalization of all the normalized volumes (in percentage of ICV). To do that, we first estimated the mean and the SD for each structures using all the CN subjects over the entire lifespan. Then, for a given structures, we applied the same z-score normalization to all the subjects (i.e., CN, AD, and MCI). Therefore, by using z-score of normalized volumes in % of ICV, we compensated for both inter-subject and inter-structure variabilities. In the following, all the volumes are expressed as z-scores of normalized volumes.
+
+## 2.4 | Lifespan model estimation
+
+To create our lifespan models, we estimated normal and pathological trajectories of structure volumes across the entire lifespan. To this end, for each considered structure, models were estimated on two different groups to generate CN and AD trajectories. For CN trajectories, we used the N = 2,655 subjects from 9 months to 94y of the training dataset as done in Coupé et al. (2017). For the AD trajectories, we used N = 2,251 subjects. As done in Coupé et al. (2019), we mixed AD patients with young CN. More precisely, we used 377 AD patients (from 55y to 96y) and all the CN younger than 55y available in the
+
+Cortical Lobes
+
+![Image](./Coupe2022_artifacts/image_000004_fe264233afe2f9fd01223919056ecb020ba74b45b063e07f6293f4275aeb0f0d.png)
+
+Structures
+
+![Image](./Coupe2022_artifacts/image_000005_894c39d581ff1e12673cecb1a2620ebf3b375421f4603952fc1606eb7efb9393.png)
+
+training dataset (i.e., 1874 subjects) assuming that neurodegeneration is a slow and progressive process.
+
+To estimate the volume trajectories, we considered several low order polynomial models:
+
+[2026-01-16T06:34:42] tokens used: 20969
+
+[2026-01-16T06:34:46] thinking
+
+**Organizing reference details**
+
+I have enough information to fill out the details for the SI fields. The Study ID could be "Coupe2022," which matches the filename Coupe2022.pdf.md. I’ll be cautious with the author’s name; I might use "Coupe" in ASCII form to avoid issues with accents. 
+
+For reference file names, I should list "Coupe2022.pdf.md" and check for any supplementary files. Also, I’ll include that the author, journal, and year format would safely be “Coupe et al., Human Brain Mapping, 2022.”
+**Gathering citation data**
+
+I’ll use "Coupé et al., Human Brain Mapping, 2022" as the author citation, which seems solid. 
+
+The title is directly taken from line 3: "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models." 
+
+Now, I need to find the DOI for this paper, as it wasn't included in the markdown. I’m planning to look for it in the "How to cite this article” section, especially in the lines following 432, where the journal citation might be available.
+[2026-01-16T06:34:52] codex
+**Gathering citation data**
+
+I’ll use "Coupé et al., Human Brain Mapping, 2022" as the author citation, which seems solid. 
+
+The title is directly taken from line 3: "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models." 
+
+Now, I need to find the DOI for this paper, as it wasn't included in the markdown. I’m planning to look for it in the "How to cite this article” section, especially in the lines following 432, where the journal citation might be available.
+[2026-01-16T06:34:53] exec bash -lc "sed -n '420,520p' Coupe2022.pdf.md" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:34:53] bash -lc "sed -n '420,520p' Coupe2022.pdf.md" succeeded in 461ms:
+- Qiu, A., Fennema-Notestine, C., Dale, A. M., &amp; Miller, M. I. (2009). Regional shape abnormalities in mild cognitive impairment and Alzheimer's disease. NeuroImage , 45 (3), 656 -661. https://doi.org/10.1016/j.neuroimage. 2009.01.013
+- Rathore, S., Habes, M., Iftikhar, M. A., Shacklett, A., &amp; Davatzikos, C. (2017). A review on neuroimaging-based classification studies and associated feature extraction methods for Alzheimer's disease and its prodromal stages. NeuroImage , 155 , 530 -548. https://doi.org/10. 1016/j.neuroimage.2017.03.057
+- Ross, D. E., Ochs, A. L., Seabaugh, J. M., Shrader, C. R., &amp; the Alzheimer's Disease Neuroimaging Initiative. (2013). Man versus machine: Comparison of radiologists' interpretations and NeuroQuant ® volumetric analyses of brain MRIs in patients with traumatic brain injury. The Journal of Neuropsychiatry and Clinical Neurosciences , 25 (1), 32 -39. https:// doi.org/10.1176/appi.neuropsych.11120377
+
+![Image](./Coupe2022_artifacts/image_000013_6ffc958f1f8ec8a0ef8c54959c7f7ea06313aed78448792e18cbd108e5ef9f84.png)
+
+- Schoemaker, D., Buss, C., Pietrantonio, S., Maunder, L., Freiesleben, S. D., Hartmann, J., … Pruessner, J. C. (2019). The hippocampal-to-ventricle ratio (HVR): Presentation of a manual segmentation protocol and preliminary evidence. NeuroImage , 203 , 116108. https://doi.org/10.1016/ j.neuroimage.2019.116108
+- Schwarz, G. (1978). Estimating the dimension of a model. The Annals of Statistics , 6 (2), 461 -464. https://doi.org/10.1214/aos/1176344136
+- Tustison, N. J., Avants, B. B., Cook, P. A., Zheng, Y., Egan, A., Yushkevich, P. A., &amp; Gee, J. C. (2010). N4ITK: Improved N3 bias correction. IEEE Transactions on Medical Imaging , 29 (6), 1310 -1320. https://doi.org/10.1109/TMI.2010.2046908
+- Wen, J., Thibeau-Sutre, E., Diaz-Melo, M., Samper-González, J., Routier, A., Bottani, S., … Colliot, O. (2020). Convolutional neural networks for classification of Alzheimer's disease: Overview and reproducible evaluation. Medical Image Analysis , 63 , 101694. https://doi.org/10.1016/j. media.2020.101694
+- Wolfers, T., Beckmann, C. F., Hoogman, M., Buitelaar, J. K., Franke, B., &amp; Marquand, A. F. (2020). Individual differences v . the average patient: Mapping the heterogeneity in ADHD using normative models. Psychological Medicine , 50 (2), 314 -323. https://doi.org/10.1017/ S0033291719000084
+
+How to cite this article: Coupé, P., Manj /C19 on, J. V., Mansencal,
+
+B., Tourdias, T., Catheline, G., &amp; Planche, V. (2022).
+
+[2026-01-16T06:34:53] tokens used: 4325
+
+[2026-01-16T06:34:57] thinking
+
+**Assessing research guidance**
+
+I realize the DOI might be missing. According to the guide, if it's absent, we can just set it to "NR." I think it's better to search for "Human Brain Mapping" for more details like volume and page. It seems we won’t need a full citation for now.
+
+Next, I want to fill out the ACRSL items. For the CM-1 Research Objectives, the aim is to present a method HAVAs based on normative and AD lifespan models. Confidence in this assessment feels high!
+**Evaluating eligibility criteria**
+
+I'm looking at the eligibility criteria, focusing on how they use CN from various datasets like ClinicaDL for group definitions in AIBL and ADNI. For their training dataset, group definitions come from multiple databases, but they don’t detail inclusion or exclusion specifically. They mention quality control and removal of failures. So, while the data source and QC are partially satisfied, the eligibility criteria aren’t fully described. I'm leaning toward marking this as "Partial" with medium confidence.
+**Gathering QC and dataset information**
+
+I need to provide quotes for the quality control description and dataset table. For NM-2, regarding handling covariates in the reference cohort, they use age as a key variable in normative trajectories and normalize volumes by ICV. However, they don’t explicitly address sex differences or adjust for site effects. Since they mix multi-site data without mentioning harmonization, I think it’s fair to mark that as "Partial."
+
+For NM-3, they specify seven open access databases, so I'll say "Yes" with high confidence. Lastly, NM-4 concerns data acquisition; since they use existing datasets, I'll indicate it's NA according to the guide.
+**Evaluating data preprocessing and validation**
+
+For NM-5, regarding data preprocessing, they used the AssemblyNet pipeline, which includes steps like denoising, bias correction, registration, QC, intensity standardization, and segmentation by DL models. Since they provide a clear description, I’m marking this as "Yes" and I'll include some quotes.
+
+Moving to NM-6, I notice they estimated models from training data and validated on external datasets but didn’t detail any internal cross-validation. It looks like they only used the training dataset for building models, so I’ll say "No" for internal validation. I’ll justify this by stating there was no cross-validation or holdout test on the reference cohort and provide quotes about the external dataset validation.
+
+Lastly, for NM-7, I would need to further evaluate if they applied the normative model to independent external datasets of healthy individuals.
+**Analyzing validation and clinical assessment**
+
+For NM-7, the external validation includes classifying AD vs CN using AIBL and MIRIAD, so I'll mark that as "Yes." I'll also provide quotes referencing Table 2 and the datasets used. 
+
+In NM-8, they describe the modeling approach, mentioning various types like linear or quadratic, but don’t specify the libraries used. I’ll classify this as "Partial" since the software isn’t fully detailed. 
+
+NM-9 checks model performance metrics; they report AUC and some R-squared values. While they provide relevant metrics, these refer specifically to trajectories, so I’ll classify this as "Yes" with medium/high confidence. 
+
+For NM-10, there aren't any partitions set apart from training vs testing, so I’ll mark this as "NA" based on the guidelines. 
+
+In NM-11, they mention software like AssemblyNet but don't specify versions or provide replicable code, so I'll classify this as "Partial." 
+
+Moving to the Clinical Research section, for CR-1 they seem to have clinical cohorts from AIBL and MIRIAD, indicating "Partial" due to insufficient detail on diagnostic criteria.
+
+In CR-2, since they don't consider medication or symptoms in their analyses, I’ll answer "No." 
+
+For CR-3, they successfully specify data sources, so that’ll be marked as "Yes" with high confidence.
+
+For CR-4, while they provide some demographics, they lack details on clinical characteristics, leading to "Partial." 
+
+CR-5 shows they didn’t specify clinical measures, so I’ll classify that as "No."
+
+CR-6 explains the HAVAs scores but might not define thresholds extensively. Therefore, I’ll mark this as "Partial."
+
+Next step: compiling this all into a JSON file and retrieving necessary quotes and line references to support my findings.
+**Summarizing the study objectives and data**
+
+I see that the study's purpose is described, and while the hypothesis may be implied, it seems the objectives are likely stated in the abstract. For NM-1, the eligibility criteria for the reference cohort are somewhat described; they name datasets and perform QC but lack detailed counts for exclusions. This leads me to classify it as "Partial."
+
+For NM-2, age is considered in modeling but not sex or site effects, also leading to "Partial." NM-3 confirms that data sources are specified, so I'll mark that as "Yes." 
+
+I’ll note NM-4 as "NA" due to secondary data use. For NM-5, preprocessing details and software are provided, marking it as "Yes." 
+
+However, NM-6 shows no mention of internal validation, so I’ll mark that as "No." NM-7 successfully identifies external datasets, confirming it as "Yes." 
+
+For NM-8, while type of model is presented, there's no software specification, so I’ll classify it as "Partial." 
+
+In NM-9, they report metrics and p-values, making it "Yes." 
+
+For NM-10, as no partitioning is in place, it will be marked "NA." In NM-11, software is indicated, though lacking versions, leading to "Partial."
+
+Switching to clinical research, CR-1 is marked "Partial" with secondary datasets used. CR-2 sees no clinical covariates considered, so I'll mark it "No." CR-3 confirms data sources, marked "Yes." CR-4 provides sample sizes but lacks clinical characteristics, so it's "Partial." 
+
+CR-5 indicates no clinical measures described, so that's a "No." Lastly, CR-6 discusses the meaning of deviation scores but could clarify thresholds further, thus resulting in "Partial." 
+
+Now, I need to compile this into a JSON patch for clarity and further updates.
+[2026-01-16T06:35:44] codex
+**Evaluating eligibility criteria**
+
+I'm looking at the eligibility criteria, focusing on how they use CN from various datasets like ClinicaDL for group definitions in AIBL and ADNI. For their training dataset, group definitions come from multiple databases, but they don’t detail inclusion or exclusion specifically. They mention quality control and removal of failures. So, while the data source and QC are partially satisfied, the eligibility criteria aren’t fully described. I'm leaning toward marking this as "Partial" with medium confidence.
+[2026-01-16T06:35:44] codex
+**Gathering QC and dataset information**
+
+I need to provide quotes for the quality control description and dataset table. For NM-2, regarding handling covariates in the reference cohort, they use age as a key variable in normative trajectories and normalize volumes by ICV. However, they don’t explicitly address sex differences or adjust for site effects. Since they mix multi-site data without mentioning harmonization, I think it’s fair to mark that as "Partial."
+
+For NM-3, they specify seven open access databases, so I'll say "Yes" with high confidence. Lastly, NM-4 concerns data acquisition; since they use existing datasets, I'll indicate it's NA according to the guide.
+[2026-01-16T06:35:44] codex
+**Evaluating data preprocessing and validation**
+
+For NM-5, regarding data preprocessing, they used the AssemblyNet pipeline, which includes steps like denoising, bias correction, registration, QC, intensity standardization, and segmentation by DL models. Since they provide a clear description, I’m marking this as "Yes" and I'll include some quotes.
+
+Moving to NM-6, I notice they estimated models from training data and validated on external datasets but didn’t detail any internal cross-validation. It looks like they only used the training dataset for building models, so I’ll say "No" for internal validation. I’ll justify this by stating there was no cross-validation or holdout test on the reference cohort and provide quotes about the external dataset validation.
+
+Lastly, for NM-7, I would need to further evaluate if they applied the normative model to independent external datasets of healthy individuals.
+[2026-01-16T06:35:44] codex
+**Analyzing validation and clinical assessment**
+
+For NM-7, the external validation includes classifying AD vs CN using AIBL and MIRIAD, so I'll mark that as "Yes." I'll also provide quotes referencing Table 2 and the datasets used. 
+
+In NM-8, they describe the modeling approach, mentioning various types like linear or quadratic, but don’t specify the libraries used. I’ll classify this as "Partial" since the software isn’t fully detailed. 
+
+NM-9 checks model performance metrics; they report AUC and some R-squared values. While they provide relevant metrics, these refer specifically to trajectories, so I’ll classify this as "Yes" with medium/high confidence. 
+
+For NM-10, there aren't any partitions set apart from training vs testing, so I’ll mark this as "NA" based on the guidelines. 
+
+In NM-11, they mention software like AssemblyNet but don't specify versions or provide replicable code, so I'll classify this as "Partial." 
+
+Moving to the Clinical Research section, for CR-1 they seem to have clinical cohorts from AIBL and MIRIAD, indicating "Partial" due to insufficient detail on diagnostic criteria.
+
+In CR-2, since they don't consider medication or symptoms in their analyses, I’ll answer "No." 
+
+For CR-3, they successfully specify data sources, so that’ll be marked as "Yes" with high confidence.
+
+For CR-4, while they provide some demographics, they lack details on clinical characteristics, leading to "Partial." 
+
+CR-5 shows they didn’t specify clinical measures, so I’ll classify that as "No."
+
+CR-6 explains the HAVAs scores but might not define thresholds extensively. Therefore, I’ll mark this as "Partial."
+
+Next step: compiling this all into a JSON file and retrieving necessary quotes and line references to support my findings.
+[2026-01-16T06:35:44] codex
+**Summarizing the study objectives and data**
+
+I see that the study's purpose is described, and while the hypothesis may be implied, it seems the objectives are likely stated in the abstract. For NM-1, the eligibility criteria for the reference cohort are somewhat described; they name datasets and perform QC but lack detailed counts for exclusions. This leads me to classify it as "Partial."
+
+For NM-2, age is considered in modeling but not sex or site effects, also leading to "Partial." NM-3 confirms that data sources are specified, so I'll mark that as "Yes." 
+
+I’ll note NM-4 as "NA" due to secondary data use. For NM-5, preprocessing details and software are provided, marking it as "Yes." 
+
+However, NM-6 shows no mention of internal validation, so I’ll mark that as "No." NM-7 successfully identifies external datasets, confirming it as "Yes." 
+
+For NM-8, while type of model is presented, there's no software specification, so I’ll classify it as "Partial." 
+
+In NM-9, they report metrics and p-values, making it "Yes." 
+
+For NM-10, as no partitioning is in place, it will be marked "NA." In NM-11, software is indicated, though lacking versions, leading to "Partial."
+
+Switching to clinical research, CR-1 is marked "Partial" with secondary datasets used. CR-2 sees no clinical covariates considered, so I'll mark it "No." CR-3 confirms data sources, marked "Yes." CR-4 provides sample sizes but lacks clinical characteristics, so it's "Partial." 
+
+CR-5 indicates no clinical measures described, so that's a "No." Lastly, CR-6 discusses the meaning of deviation scores but could clarify thresholds further, thus resulting in "Partial." 
+
+Now, I need to compile this into a JSON patch for clarity and further updates.
+[2026-01-16T06:35:44] codex
+
+Next, I’ll populate the JSON with extracted answers and evidence from Coupe2022.pdf.md.
+[2026-01-16T06:35:54] apply_patch auto_approved=true:
+M /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+@@ -2,7 +2,7 @@
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Coupe2022",
++    "si2_reference_file_names": "Coupe2022.pdf.md",
++    "si3_author_journal_year": "Coupé et al., Human Brain Mapping, 2022",
++    "si4_title": "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models",
++    "si5_doi": "NR"
+   },
+@@ -10,7 +10,7 @@
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract states the objective to present an MRI-based method (HAVAs) using normative and AD lifespan models for AD detection and MCI prognosis, clearly articulating the study’s aims and the purpose of applying normative modeling.",
++      "supporting_text": "\"we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures... [a] Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models.\"",
++      "location": "Abstract (lines ~33–41)"
+     }
+@@ -19,77 +19,77 @@
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Eligibility is operationalized via CN status in multiple open datasets; image QC is described (automatic QC + visual review) and final sample sizes are reported. However, detailed inclusion/exclusion criteria per dataset and explicit counts of exclusions are not fully specified.",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases... 2,655 CN subjects (CN) and 377 patients with AD.\"; \"we performed a QC procedure... automatic QC RegQCNet... a visual assessment... If the failure was confirmed... the subject was removed from training dataset.\"",
++      "location": "Materials and Method – 2.1.1 Training dataset (table and text); 2.2 Image processing (QC paragraph)"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Age is the central covariate through lifespan modeling; volumes are normalized by ICV and z-scored across CN lifespan. There is no explicit handling of sex or multi-site effects (e.g., site covariate or harmonization like ComBat).",
++      "supporting_text": "\"we normalized all the structure volumes using the intracranial cavity volume (ICV)... we performed z-score normalization... using all the CN subjects over the entire lifespan.\"; \"To create our lifespan models, we estimated normal and pathological trajectories... across the entire lifespan.\"",
++      "location": "2.3 Volume normalization; 2.4 Lifespan model estimation"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies the open datasets used for the reference cohort with names and counts (C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI).",
++      "supporting_text": "Training dataset table lists: C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI (CN); OASIS and ADNI (AD).",
++      "location": "2.1.1 Training dataset (Table 1)"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Secondary data from existing open datasets are used; per guidance, acquisition protocol details are not applicable here.",
++      "supporting_text": "\"training dataset... from seven open access databases\"",
++      "location": "2.1.1 Training dataset"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is clearly described using AssemblyNet with specific steps: denoising, inhomogeneity correction (N4/N3), affine registration to MNI, automatic QC (RegQCNet), second bias correction, intensity standardization, followed by multi-network segmentation.",
++      "supporting_text": "\"All the considered images were processed using AssemblyNet... preprocessing pipeline... image denoising... inhomogeneity correction... affine registration to the MNI space, automatic quality control (QC)... a second inhomogeneity correction... final intensity standardization... After preprocessing, the brain was segmented... using 250 DL models.\"",
++      "location": "2.2 Image processing"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The work estimates trajectories on the training dataset and validates performance on external datasets. No internal partitioning (e.g., CV/hold-out) for the reference cohort modeling is described.",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)...\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Models are applied to independent external datasets (AIBL, MIRIAD for AD vs CN; ADNI for sMCI/pMCI).",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)... In addition, we used subjects with mild cognitive impairment (MCI) from ADNI...\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is described: low-order polynomial regression (linear/quadratic/cubic), model selection via ANOVA/T-tests and BIC, 95% CIs, Euclidean distance for classification, and probability scoring. However, implementation software/libraries for the modeling are not specified.",
++      "supporting_text": "\"To estimate the volume trajectories, we considered several low order polynomial models... [linear/quadratic/cubic]... candidate only when... ANOVA... coefficients... T-statistic... select... Bayesian Information Criterion... estimate the confidence interval...\"; \"we... estimated the closest lifespan trajectory in terms of Euclidean distance... proposed new scores... ensure that when AD score is higher than 50%...\"",
++      "location": "2.4 Lifespan model estimation; 2.5 Classification using volume trajectories"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "Medium",
++      "reason": "Model fit and significance are reported for CN/AD trajectories (e.g., model form, p-values for coefficients, ANOVA). Classification metrics (AUC, BACC, SPE, SEN) are also reported for external validation.",
++      "supporting_text": "Table shows entries like: \"Hippocampus for CN – Quadratic – ... β0: p < .0001; β1: p < .0001; β2: p < .0001; p < .0001\"; Abstract: \"AUC ≥ 94%... AUC = 78%\"",
++      "location": "Results tables (near end of 2.x section); Abstract"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No internal data partitioning (train/val/test) is described for building the normative model; external datasets are used for validation only, so per guidance this item is not applicable.",
++      "supporting_text": "\"To validate our model, we built a testing dataset...\" (no internal split reported)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Software tools and repositories are cited (AssemblyNet, ClinicaDL) with URLs. Specific software/library versions and availability of code/trained models for the normative trajectories are not detailed.",
++      "supporting_text": "\"AssemblyNet software (https://github.com/volBrain/AssemblyNet)\"; \"ClinicaDL software (https://github.com/aramis-lab/clinicadl)\"",
++      "location": "2.2 Image processing; 2.1.2 Testing dataset"
+     }
+@@ -98,42 +98,42 @@
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Clinical cohorts (AD, MCI) are from secondary datasets (AIBL, MIRIAD, ADNI). Group definitions for AD/CN and pMCI/sMCI are based on ClinicaDL criteria; sample sizes are reported. Detailed diagnostic criteria and image QC/exclusion counts are not fully described.",
++      "supporting_text": "\"we built a testing dataset based on... AIBL and MIRIAD... used subjects with MCI from ADNI... we used the ClinicaDL software... to define the groups... Therefore, we used the same selection criteria.\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses focus on classification using volume-based trajectories without modeling clinical covariates beyond demographics. No adjustments for medication, illness duration, or symptom severity are described.",
++      "supporting_text": "No explicit mention of clinical covariate adjustment in methods or results.",
++      "location": "Methods/Results (no relevant statements found)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical cohort sources are clearly named with dataset identities and groups (AIBL, MIRIAD, ADNI).",
++      "supporting_text": "Table 2 lists AIBL (CN, AD), MIRIAD (CN, AD), and ADNI (sMCI, pMCI).",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Sample sizes, age, and sex distributions are reported for clinical groups. Clinical characteristics such as medication status or symptom severity are not provided.",
++      "supporting_text": "\"| Dataset | Group | N = 1,039 | Gender | Age in years |... AIBL AD... MIRIAD AD... ADNI sMCI/pMCI.\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The manuscript does not specify clinical assessment instruments or procedures (e.g., rating scales, diagnostic criteria versions) used for defining AD/MCI beyond referencing ClinicaDL for cohort definition.",
++      "supporting_text": "\"we used the ClinicaDL software... to define the groups...\" (no details on clinical instruments)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The meaning of the HAVAs score is described as reflecting probability of AD with a 50% decision threshold (based on distances to CN/AD trajectories). Quantitative z-score thresholds or broader clinical interpretation frameworks are not fully elaborated, though clinical suitability is mentioned.",
++      "supporting_text": "\"we proposed new scores... ensure that when AD score is higher than 50%... closest model is the AD model... sum of both scores equal to 1... Consequently, the proposed HAVAs... reflects the probability... to be a patient with AD (or a pMCI subject).\"; \"HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice...\"",
++      "location": "2.5 Classification using volume trajectories; Abstract"
+     }
+[2026-01-16T06:35:54] apply_patch(auto_approved=true) exited 0 in 33ms:
+Success. Updated the following files:
+M Coupe2022_by_codex_20260116153342_for_QA_v9.json
+[2026-01-16T06:35:54] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..8c87f6a03983b5a0233d24a1b237ff63d68ecef8
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Coupe2022",
++    "si2_reference_file_names": "Coupe2022.pdf.md",
++    "si3_author_journal_year": "Coupé et al., Human Brain Mapping, 2022",
++    "si4_title": "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract states the objective to present an MRI-based method (HAVAs) using normative and AD lifespan models for AD detection and MCI prognosis, clearly articulating the study’s aims and the purpose of applying normative modeling.",
++      "supporting_text": "\"we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures... [a] Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models.\"",
++      "location": "Abstract (lines ~33–41)"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Eligibility is operationalized via CN status in multiple open datasets; image QC is described (automatic QC + visual review) and final sample sizes are reported. However, detailed inclusion/exclusion criteria per dataset and explicit counts of exclusions are not fully specified.",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases... 2,655 CN subjects (CN) and 377 patients with AD.\"; \"we performed a QC procedure... automatic QC RegQCNet... a visual assessment... If the failure was confirmed... the subject was removed from training dataset.\"",
++      "location": "Materials and Method – 2.1.1 Training dataset (table and text); 2.2 Image processing (QC paragraph)"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Age is the central covariate through lifespan modeling; volumes are normalized by ICV and z-scored across CN lifespan. There is no explicit handling of sex or multi-site effects (e.g., site covariate or harmonization like ComBat).",
++      "supporting_text": "\"we normalized all the structure volumes using the intracranial cavity volume (ICV)... we performed z-score normalization... using all the CN subjects over the entire lifespan.\"; \"To create our lifespan models, we estimated normal and pathological trajectories... across the entire lifespan.\"",
++      "location": "2.3 Volume normalization; 2.4 Lifespan model estimation"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies the open datasets used for the reference cohort with names and counts (C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI).",
++      "supporting_text": "Training dataset table lists: C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI (CN); OASIS and ADNI (AD).",
++      "location": "2.1.1 Training dataset (Table 1)"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Secondary data from existing open datasets are used; per guidance, acquisition protocol details are not applicable here.",
++      "supporting_text": "\"training dataset... from seven open access databases\"",
++      "location": "2.1.1 Training dataset"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is clearly described using AssemblyNet with specific steps: denoising, inhomogeneity correction (N4/N3), affine registration to MNI, automatic QC (RegQCNet), second bias correction, intensity standardization, followed by multi-network segmentation.",
++      "supporting_text": "\"All the considered images were processed using AssemblyNet... preprocessing pipeline... image denoising... inhomogeneity correction... affine registration to the MNI space, automatic quality control (QC)... a second inhomogeneity correction... final intensity standardization... After preprocessing, the brain was segmented... using 250 DL models.\"",
++      "location": "2.2 Image processing"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The work estimates trajectories on the training dataset and validates performance on external datasets. No internal partitioning (e.g., CV/hold-out) for the reference cohort modeling is described.",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)...\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Models are applied to independent external datasets (AIBL, MIRIAD for AD vs CN; ADNI for sMCI/pMCI).",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)... In addition, we used subjects with mild cognitive impairment (MCI) from ADNI...\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is described: low-order polynomial regression (linear/quadratic/cubic), model selection via ANOVA/T-tests and BIC, 95% CIs, Euclidean distance for classification, and probability scoring. However, implementation software/libraries for the modeling are not specified.",
++      "supporting_text": "\"To estimate the volume trajectories, we considered several low order polynomial models... [linear/quadratic/cubic]... candidate only when... ANOVA... coefficients... T-statistic... select... Bayesian Information Criterion... estimate the confidence interval...\"; \"we... estimated the closest lifespan trajectory in terms of Euclidean distance... proposed new scores... ensure that when AD score is higher than 50%...\"",
++      "location": "2.4 Lifespan model estimation; 2.5 Classification using volume trajectories"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "Medium",
++      "reason": "Model fit and significance are reported for CN/AD trajectories (e.g., model form, p-values for coefficients, ANOVA). Classification metrics (AUC, BACC, SPE, SEN) are also reported for external validation.",
++      "supporting_text": "Table shows entries like: \"Hippocampus for CN – Quadratic – ... β0: p < .0001; β1: p < .0001; β2: p < .0001; p < .0001\"; Abstract: \"AUC ≥ 94%... AUC = 78%\"",
++      "location": "Results tables (near end of 2.x section); Abstract"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No internal data partitioning (train/val/test) is described for building the normative model; external datasets are used for validation only, so per guidance this item is not applicable.",
++      "supporting_text": "\"To validate our model, we built a testing dataset...\" (no internal split reported)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Software tools and repositories are cited (AssemblyNet, ClinicaDL) with URLs. Specific software/library versions and availability of code/trained models for the normative trajectories are not detailed.",
++      "supporting_text": "\"AssemblyNet software (https://github.com/volBrain/AssemblyNet)\"; \"ClinicaDL software (https://github.com/aramis-lab/clinicadl)\"",
++      "location": "2.2 Image processing; 2.1.2 Testing dataset"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Clinical cohorts (AD, MCI) are from secondary datasets (AIBL, MIRIAD, ADNI). Group definitions for AD/CN and pMCI/sMCI are based on ClinicaDL criteria; sample sizes are reported. Detailed diagnostic criteria and image QC/exclusion counts are not fully described.",
++      "supporting_text": "\"we built a testing dataset based on... AIBL and MIRIAD... used subjects with MCI from ADNI... we used the ClinicaDL software... to define the groups... Therefore, we used the same selection criteria.\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses focus on classification using volume-based trajectories without modeling clinical covariates beyond demographics. No adjustments for medication, illness duration, or symptom severity are described.",
++      "supporting_text": "No explicit mention of clinical covariate adjustment in methods or results.",
++      "location": "Methods/Results (no relevant statements found)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical cohort sources are clearly named with dataset identities and groups (AIBL, MIRIAD, ADNI).",
++      "supporting_text": "Table 2 lists AIBL (CN, AD), MIRIAD (CN, AD), and ADNI (sMCI, pMCI).",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Sample sizes, age, and sex distributions are reported for clinical groups. Clinical characteristics such as medication status or symptom severity are not provided.",
++      "supporting_text": "\"| Dataset | Group | N = 1,039 | Gender | Age in years |... AIBL AD... MIRIAD AD... ADNI sMCI/pMCI.\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The manuscript does not specify clinical assessment instruments or procedures (e.g., rating scales, diagnostic criteria versions) used for defining AD/MCI beyond referencing ClinicaDL for cohort definition.",
++      "supporting_text": "\"we used the ClinicaDL software... to define the groups...\" (no details on clinical instruments)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The meaning of the HAVAs score is described as reflecting probability of AD with a 50% decision threshold (based on distances to CN/AD trajectories). Quantitative z-score thresholds or broader clinical interpretation frameworks are not fully elaborated, though clinical suitability is mentioned.",
++      "supporting_text": "\"we proposed new scores... ensure that when AD score is higher than 50%... closest model is the AD model... sum of both scores equal to 1... Consequently, the proposed HAVAs... reflects the probability... to be a patient with AD (or a pMCI subject).\"; \"HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice...\"",
++      "location": "2.5 Classification using volume trajectories; Abstract"
+     }
+   }
+ }
+
+[2026-01-16T06:35:55] tokens used: 15481
+[2026-01-16T06:35:55] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..8c87f6a03983b5a0233d24a1b237ff63d68ecef8
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Coupe2022",
++    "si2_reference_file_names": "Coupe2022.pdf.md",
++    "si3_author_journal_year": "Coupé et al., Human Brain Mapping, 2022",
++    "si4_title": "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract states the objective to present an MRI-based method (HAVAs) using normative and AD lifespan models for AD detection and MCI prognosis, clearly articulating the study’s aims and the purpose of applying normative modeling.",
++      "supporting_text": "\"we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures... [a] Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models.\"",
++      "location": "Abstract (lines ~33–41)"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Eligibility is operationalized via CN status in multiple open datasets; image QC is described (automatic QC + visual review) and final sample sizes are reported. However, detailed inclusion/exclusion criteria per dataset and explicit counts of exclusions are not fully specified.",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases... 2,655 CN subjects (CN) and 377 patients with AD.\"; \"we performed a QC procedure... automatic QC RegQCNet... a visual assessment... If the failure was confirmed... the subject was removed from training dataset.\"",
++      "location": "Materials and Method – 2.1.1 Training dataset (table and text); 2.2 Image processing (QC paragraph)"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Age is the central covariate through lifespan modeling; volumes are normalized by ICV and z-scored across CN lifespan. There is no explicit handling of sex or multi-site effects (e.g., site covariate or harmonization like ComBat).",
++      "supporting_text": "\"we normalized all the structure volumes using the intracranial cavity volume (ICV)... we performed z-score normalization... using all the CN subjects over the entire lifespan.\"; \"To create our lifespan models, we estimated normal and pathological trajectories... across the entire lifespan.\"",
++      "location": "2.3 Volume normalization; 2.4 Lifespan model estimation"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies the open datasets used for the reference cohort with names and counts (C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI).",
++      "supporting_text": "Training dataset table lists: C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI (CN); OASIS and ADNI (AD).",
++      "location": "2.1.1 Training dataset (Table 1)"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Secondary data from existing open datasets are used; per guidance, acquisition protocol details are not applicable here.",
++      "supporting_text": "\"training dataset... from seven open access databases\"",
++      "location": "2.1.1 Training dataset"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is clearly described using AssemblyNet with specific steps: denoising, inhomogeneity correction (N4/N3), affine registration to MNI, automatic QC (RegQCNet), second bias correction, intensity standardization, followed by multi-network segmentation.",
++      "supporting_text": "\"All the considered images were processed using AssemblyNet... preprocessing pipeline... image denoising... inhomogeneity correction... affine registration to the MNI space, automatic quality control (QC)... a second inhomogeneity correction... final intensity standardization... After preprocessing, the brain was segmented... using 250 DL models.\"",
++      "location": "2.2 Image processing"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The work estimates trajectories on the training dataset and validates performance on external datasets. No internal partitioning (e.g., CV/hold-out) for the reference cohort modeling is described.",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)...\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Models are applied to independent external datasets (AIBL, MIRIAD for AD vs CN; ADNI for sMCI/pMCI).",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)... In addition, we used subjects with mild cognitive impairment (MCI) from ADNI...\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is described: low-order polynomial regression (linear/quadratic/cubic), model selection via ANOVA/T-tests and BIC, 95% CIs, Euclidean distance for classification, and probability scoring. However, implementation software/libraries for the modeling are not specified.",
++      "supporting_text": "\"To estimate the volume trajectories, we considered several low order polynomial models... [linear/quadratic/cubic]... candidate only when... ANOVA... coefficients... T-statistic... select... Bayesian Information Criterion... estimate the confidence interval...\"; \"we... estimated the closest lifespan trajectory in terms of Euclidean distance... proposed new scores... ensure that when AD score is higher than 50%...\"",
++      "location": "2.4 Lifespan model estimation; 2.5 Classification using volume trajectories"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "Medium",
++      "reason": "Model fit and significance are reported for CN/AD trajectories (e.g., model form, p-values for coefficients, ANOVA). Classification metrics (AUC, BACC, SPE, SEN) are also reported for external validation.",
++      "supporting_text": "Table shows entries like: \"Hippocampus for CN – Quadratic – ... β0: p < .0001; β1: p < .0001; β2: p < .0001; p < .0001\"; Abstract: \"AUC ≥ 94%... AUC = 78%\"",
++      "location": "Results tables (near end of 2.x section); Abstract"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No internal data partitioning (train/val/test) is described for building the normative model; external datasets are used for validation only, so per guidance this item is not applicable.",
++      "supporting_text": "\"To validate our model, we built a testing dataset...\" (no internal split reported)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Software tools and repositories are cited (AssemblyNet, ClinicaDL) with URLs. Specific software/library versions and availability of code/trained models for the normative trajectories are not detailed.",
++      "supporting_text": "\"AssemblyNet software (https://github.com/volBrain/AssemblyNet)\"; \"ClinicaDL software (https://github.com/aramis-lab/clinicadl)\"",
++      "location": "2.2 Image processing; 2.1.2 Testing dataset"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Clinical cohorts (AD, MCI) are from secondary datasets (AIBL, MIRIAD, ADNI). Group definitions for AD/CN and pMCI/sMCI are based on ClinicaDL criteria; sample sizes are reported. Detailed diagnostic criteria and image QC/exclusion counts are not fully described.",
++      "supporting_text": "\"we built a testing dataset based on... AIBL and MIRIAD... used subjects with MCI from ADNI... we used the ClinicaDL software... to define the groups... Therefore, we used the same selection criteria.\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses focus on classification using volume-based trajectories without modeling clinical covariates beyond demographics. No adjustments for medication, illness duration, or symptom severity are described.",
++      "supporting_text": "No explicit mention of clinical covariate adjustment in methods or results.",
++      "location": "Methods/Results (no relevant statements found)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical cohort sources are clearly named with dataset identities and groups (AIBL, MIRIAD, ADNI).",
++      "supporting_text": "Table 2 lists AIBL (CN, AD), MIRIAD (CN, AD), and ADNI (sMCI, pMCI).",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Sample sizes, age, and sex distributions are reported for clinical groups. Clinical characteristics such as medication status or symptom severity are not provided.",
++      "supporting_text": "\"| Dataset | Group | N = 1,039 | Gender | Age in years |... AIBL AD... MIRIAD AD... ADNI sMCI/pMCI.\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The manuscript does not specify clinical assessment instruments or procedures (e.g., rating scales, diagnostic criteria versions) used for defining AD/MCI beyond referencing ClinicaDL for cohort definition.",
++      "supporting_text": "\"we used the ClinicaDL software... to define the groups...\" (no details on clinical instruments)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The meaning of the HAVAs score is described as reflecting probability of AD with a 50% decision threshold (based on distances to CN/AD trajectories). Quantitative z-score thresholds or broader clinical interpretation frameworks are not fully elaborated, though clinical suitability is mentioned.",
++      "supporting_text": "\"we proposed new scores... ensure that when AD score is higher than 50%... closest model is the AD model... sum of both scores equal to 1... Consequently, the proposed HAVAs... reflects the probability... to be a patient with AD (or a pMCI subject).\"; \"HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice...\"",
++      "location": "2.5 Classification using volume trajectories; Abstract"
+     }
+   }
+ }
+
+
+[2026-01-16T06:35:57] thinking
+
+**Validating JSON format**
+
+I want to make sure the updated JSON is valid before finalizing it. My plan is to confirm its validity by running jq for pretty printing, but it might not be available in the sandbox. Instead, I can use Python’s built-in tool, `python -m json.tool`, to validate the JSON. I’m aware of some restrictions, but since workspace-write is allowed, I'll go ahead with that method!
+[2026-01-16T06:36:00] exec bash -lc "python - << 'PY'
+import json,sys
+p='Coupe2022_by_codex_20260116153342_for_QA_v9.json'
+with open(p) as f:
+    obj=json.load(f)
+print('OK', isinstance(obj, dict), len(obj))
+PY" in /Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized
+[2026-01-16T06:36:00] bash -lc "python - << 'PY'
+import json,sys
+p='Coupe2022_by_codex_20260116153342_for_QA_v9.json'
+with open(p) as f:
+    obj=json.load(f)
+print('OK', isinstance(obj, dict), len(obj))
+PY" succeeded in 475ms:
+OK True 4
+[2026-01-16T06:36:00] tokens used: 4430
+[2026-01-16T06:36:00] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..8c87f6a03983b5a0233d24a1b237ff63d68ecef8
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Coupe2022",
++    "si2_reference_file_names": "Coupe2022.pdf.md",
++    "si3_author_journal_year": "Coupé et al., Human Brain Mapping, 2022",
++    "si4_title": "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract states the objective to present an MRI-based method (HAVAs) using normative and AD lifespan models for AD detection and MCI prognosis, clearly articulating the study’s aims and the purpose of applying normative modeling.",
++      "supporting_text": "\"we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures... [a] Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models.\"",
++      "location": "Abstract (lines ~33–41)"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Eligibility is operationalized via CN status in multiple open datasets; image QC is described (automatic QC + visual review) and final sample sizes are reported. However, detailed inclusion/exclusion criteria per dataset and explicit counts of exclusions are not fully specified.",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases... 2,655 CN subjects (CN) and 377 patients with AD.\"; \"we performed a QC procedure... automatic QC RegQCNet... a visual assessment... If the failure was confirmed... the subject was removed from training dataset.\"",
++      "location": "Materials and Method – 2.1.1 Training dataset (table and text); 2.2 Image processing (QC paragraph)"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Age is the central covariate through lifespan modeling; volumes are normalized by ICV and z-scored across CN lifespan. There is no explicit handling of sex or multi-site effects (e.g., site covariate or harmonization like ComBat).",
++      "supporting_text": "\"we normalized all the structure volumes using the intracranial cavity volume (ICV)... we performed z-score normalization... using all the CN subjects over the entire lifespan.\"; \"To create our lifespan models, we estimated normal and pathological trajectories... across the entire lifespan.\"",
++      "location": "2.3 Volume normalization; 2.4 Lifespan model estimation"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies the open datasets used for the reference cohort with names and counts (C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI).",
++      "supporting_text": "Training dataset table lists: C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI (CN); OASIS and ADNI (AD).",
++      "location": "2.1.1 Training dataset (Table 1)"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Secondary data from existing open datasets are used; per guidance, acquisition protocol details are not applicable here.",
++      "supporting_text": "\"training dataset... from seven open access databases\"",
++      "location": "2.1.1 Training dataset"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is clearly described using AssemblyNet with specific steps: denoising, inhomogeneity correction (N4/N3), affine registration to MNI, automatic QC (RegQCNet), second bias correction, intensity standardization, followed by multi-network segmentation.",
++      "supporting_text": "\"All the considered images were processed using AssemblyNet... preprocessing pipeline... image denoising... inhomogeneity correction... affine registration to the MNI space, automatic quality control (QC)... a second inhomogeneity correction... final intensity standardization... After preprocessing, the brain was segmented... using 250 DL models.\"",
++      "location": "2.2 Image processing"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The work estimates trajectories on the training dataset and validates performance on external datasets. No internal partitioning (e.g., CV/hold-out) for the reference cohort modeling is described.",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)...\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Models are applied to independent external datasets (AIBL, MIRIAD for AD vs CN; ADNI for sMCI/pMCI).",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)... In addition, we used subjects with mild cognitive impairment (MCI) from ADNI...\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is described: low-order polynomial regression (linear/quadratic/cubic), model selection via ANOVA/T-tests and BIC, 95% CIs, Euclidean distance for classification, and probability scoring. However, implementation software/libraries for the modeling are not specified.",
++      "supporting_text": "\"To estimate the volume trajectories, we considered several low order polynomial models... [linear/quadratic/cubic]... candidate only when... ANOVA... coefficients... T-statistic... select... Bayesian Information Criterion... estimate the confidence interval...\"; \"we... estimated the closest lifespan trajectory in terms of Euclidean distance... proposed new scores... ensure that when AD score is higher than 50%...\"",
++      "location": "2.4 Lifespan model estimation; 2.5 Classification using volume trajectories"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "Medium",
++      "reason": "Model fit and significance are reported for CN/AD trajectories (e.g., model form, p-values for coefficients, ANOVA). Classification metrics (AUC, BACC, SPE, SEN) are also reported for external validation.",
++      "supporting_text": "Table shows entries like: \"Hippocampus for CN – Quadratic – ... β0: p < .0001; β1: p < .0001; β2: p < .0001; p < .0001\"; Abstract: \"AUC ≥ 94%... AUC = 78%\"",
++      "location": "Results tables (near end of 2.x section); Abstract"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No internal data partitioning (train/val/test) is described for building the normative model; external datasets are used for validation only, so per guidance this item is not applicable.",
++      "supporting_text": "\"To validate our model, we built a testing dataset...\" (no internal split reported)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Software tools and repositories are cited (AssemblyNet, ClinicaDL) with URLs. Specific software/library versions and availability of code/trained models for the normative trajectories are not detailed.",
++      "supporting_text": "\"AssemblyNet software (https://github.com/volBrain/AssemblyNet)\"; \"ClinicaDL software (https://github.com/aramis-lab/clinicadl)\"",
++      "location": "2.2 Image processing; 2.1.2 Testing dataset"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Clinical cohorts (AD, MCI) are from secondary datasets (AIBL, MIRIAD, ADNI). Group definitions for AD/CN and pMCI/sMCI are based on ClinicaDL criteria; sample sizes are reported. Detailed diagnostic criteria and image QC/exclusion counts are not fully described.",
++      "supporting_text": "\"we built a testing dataset based on... AIBL and MIRIAD... used subjects with MCI from ADNI... we used the ClinicaDL software... to define the groups... Therefore, we used the same selection criteria.\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses focus on classification using volume-based trajectories without modeling clinical covariates beyond demographics. No adjustments for medication, illness duration, or symptom severity are described.",
++      "supporting_text": "No explicit mention of clinical covariate adjustment in methods or results.",
++      "location": "Methods/Results (no relevant statements found)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical cohort sources are clearly named with dataset identities and groups (AIBL, MIRIAD, ADNI).",
++      "supporting_text": "Table 2 lists AIBL (CN, AD), MIRIAD (CN, AD), and ADNI (sMCI, pMCI).",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Sample sizes, age, and sex distributions are reported for clinical groups. Clinical characteristics such as medication status or symptom severity are not provided.",
++      "supporting_text": "\"| Dataset | Group | N = 1,039 | Gender | Age in years |... AIBL AD... MIRIAD AD... ADNI sMCI/pMCI.\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The manuscript does not specify clinical assessment instruments or procedures (e.g., rating scales, diagnostic criteria versions) used for defining AD/MCI beyond referencing ClinicaDL for cohort definition.",
++      "supporting_text": "\"we used the ClinicaDL software... to define the groups...\" (no details on clinical instruments)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The meaning of the HAVAs score is described as reflecting probability of AD with a 50% decision threshold (based on distances to CN/AD trajectories). Quantitative z-score thresholds or broader clinical interpretation frameworks are not fully elaborated, though clinical suitability is mentioned.",
++      "supporting_text": "\"we proposed new scores... ensure that when AD score is higher than 50%... closest model is the AD model... sum of both scores equal to 1... Consequently, the proposed HAVAs... reflects the probability... to be a patient with AD (or a pMCI subject).\"; \"HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice...\"",
++      "location": "2.5 Classification using volume trajectories; Abstract"
+     }
+   }
+ }
+
+
+[2026-01-16T06:36:05] thinking
+
+**Finalizing the process**
+
+I think I need to consider the lock file, but the instructions don’t mention altering it, so I’ll leave it as is. It’s important to provide a final message confirming that we’ve followed the guide and wrote the JSON. Also, I should note that the DOI was not present and set NR. If there are any next steps, I want to suggest them. A short bullet summary might be sufficient here, so let’s craft that.
+[2026-01-16T06:36:10] codex
+
+All set — I extracted per QA_Guide_v9.md and filled the results.
+
+What I did
+- Parsed Coupe2022.pdf.md and compiled answers per A_Style/ACRSL rules.
+- Wrote structured evidence (answers, confidence, reasons, quotes, locations).
+- Saved to Coupe2022_by_codex_20260116153342_for_QA_v9.json (validated JSON).
+
+Notes
+- SI-5 DOI: Not present in the provided markdown; set to “NR”.
+- NM-6: No internal split described; used external validation only → “No”.
+- NM-4, NM-10: Not applicable per guidance → “NA”.
+
+If you want, I can:
+- Revise any “Partial/No” items after you confirm additional sources.
+- Add exact line ranges for any quote or refine wording.
+[2026-01-16T06:36:13] tokens used: 8802
+[2026-01-16T06:36:13] turn diff:
+diff --git a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+index 90b97d05868bf62ae4f797e7294a165f727224ee..8c87f6a03983b5a0233d24a1b237ff63d68ecef8
+--- a//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
++++ b//Users/yocha/Library/CloudStorage/Dropbox/share_package/data/Coupe2022/materials/optimized/Coupe2022_by_codex_20260116153342_for_QA_v9.json
+@@ -1,141 +1,141 @@
+ {
+   "study_identification_part": {
+-    "si1_study_id": "",
+-    "si2_reference_file_names": "",
+-    "si3_author_journal_year": "",
+-    "si4_title": "",
+-    "si5_doi": ""
++    "si1_study_id": "Coupe2022",
++    "si2_reference_file_names": "Coupe2022.pdf.md",
++    "si3_author_journal_year": "Coupé et al., Human Brain Mapping, 2022",
++    "si4_title": "Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models",
++    "si5_doi": "NR"
+   },
+   "common_part": {
+     "cm1_research_objectives": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The abstract states the objective to present an MRI-based method (HAVAs) using normative and AD lifespan models for AD detection and MCI prognosis, clearly articulating the study’s aims and the purpose of applying normative modeling.",
++      "supporting_text": "\"we present an innovative MRI-based method for Alzheimer disease (AD) detection and mild cognitive impairment (MCI) prognostic, using lifespan trajectories of brain structures... [a] Hippocampal-Amygdalo-Ventricular Atrophy score (HAVAs) based on normative lifespan models and AD lifespan models.\"",
++      "location": "Abstract (lines ~33–41)"
+     }
+   },
+   "normative_modeling_part": {
+     "nm1_selection_criteria_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Eligibility is operationalized via CN status in multiple open datasets; image QC is described (automatic QC + visual review) and final sample sizes are reported. However, detailed inclusion/exclusion criteria per dataset and explicit counts of exclusions are not fully specified.",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases... 2,655 CN subjects (CN) and 377 patients with AD.\"; \"we performed a QC procedure... automatic QC RegQCNet... a visual assessment... If the failure was confirmed... the subject was removed from training dataset.\"",
++      "location": "Materials and Method – 2.1.1 Training dataset (table and text); 2.2 Image processing (QC paragraph)"
+     },
+     "nm2_handling_of_covariates_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Age is the central covariate through lifespan modeling; volumes are normalized by ICV and z-scored across CN lifespan. There is no explicit handling of sex or multi-site effects (e.g., site covariate or harmonization like ComBat).",
++      "supporting_text": "\"we normalized all the structure volumes using the intracranial cavity volume (ICV)... we performed z-score normalization... using all the CN subjects over the entire lifespan.\"; \"To create our lifespan models, we estimated normal and pathological trajectories... across the entire lifespan.\"",
++      "location": "2.3 Volume normalization; 2.4 Lifespan model estimation"
+     },
+     "nm3_data_sources_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "The study specifies the open datasets used for the reference cohort with names and counts (C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI).",
++      "supporting_text": "Training dataset table lists: C-MIND, NDAR, ABIDE, ICBM, IXI, OASIS, ADNI (CN); OASIS and ADNI (AD).",
++      "location": "2.1.1 Training dataset (Table 1)"
+     },
+     "nm4_image_acquisition_protocol": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "Secondary data from existing open datasets are used; per guidance, acquisition protocol details are not applicable here.",
++      "supporting_text": "\"training dataset... from seven open access databases\"",
++      "location": "2.1.1 Training dataset"
+     },
+     "nm5_data_preprocessing": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Preprocessing is clearly described using AssemblyNet with specific steps: denoising, inhomogeneity correction (N4/N3), affine registration to MNI, automatic QC (RegQCNet), second bias correction, intensity standardization, followed by multi-network segmentation.",
++      "supporting_text": "\"All the considered images were processed using AssemblyNet... preprocessing pipeline... image denoising... inhomogeneity correction... affine registration to the MNI space, automatic quality control (QC)... a second inhomogeneity correction... final intensity standardization... After preprocessing, the brain was segmented... using 250 DL models.\"",
++      "location": "2.2 Image processing"
+     },
+     "nm6_internal_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The work estimates trajectories on the training dataset and validates performance on external datasets. No internal partitioning (e.g., CV/hold-out) for the reference cohort modeling is described.",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)...\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm7_external_data_validation_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Models are applied to independent external datasets (AIBL, MIRIAD for AD vs CN; ADNI for sMCI/pMCI).",
++      "supporting_text": "\"To validate our model, we built a testing dataset based on two open access databases (AIBL and MIRIAD)... In addition, we used subjects with mild cognitive impairment (MCI) from ADNI...\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "nm8_normative_modeling_approach": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "The statistical approach is described: low-order polynomial regression (linear/quadratic/cubic), model selection via ANOVA/T-tests and BIC, 95% CIs, Euclidean distance for classification, and probability scoring. However, implementation software/libraries for the modeling are not specified.",
++      "supporting_text": "\"To estimate the volume trajectories, we considered several low order polynomial models... [linear/quadratic/cubic]... candidate only when... ANOVA... coefficients... T-statistic... select... Bayesian Information Criterion... estimate the confidence interval...\"; \"we... estimated the closest lifespan trajectory in terms of Euclidean distance... proposed new scores... ensure that when AD score is higher than 50%...\"",
++      "location": "2.4 Lifespan model estimation; 2.5 Classification using volume trajectories"
+     },
+     "nm9_model_performance_reference_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "Medium",
++      "reason": "Model fit and significance are reported for CN/AD trajectories (e.g., model form, p-values for coefficients, ANOVA). Classification metrics (AUC, BACC, SPE, SEN) are also reported for external validation.",
++      "supporting_text": "Table shows entries like: \"Hippocampus for CN – Quadratic – ... β0: p < .0001; β1: p < .0001; β2: p < .0001; p < .0001\"; Abstract: \"AUC ≥ 94%... AUC = 78%\"",
++      "location": "Results tables (near end of 2.x section); Abstract"
+     },
+     "nm10_characteristics_reference_cohort_each_partition": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "confidence_rating": "High",
++      "reason": "No internal data partitioning (train/val/test) is described for building the normative model; external datasets are used for validation only, so per guidance this item is not applicable.",
++      "supporting_text": "\"To validate our model, we built a testing dataset...\" (no internal split reported)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "nm11_reproducibility": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Software tools and repositories are cited (AssemblyNet, ClinicaDL) with URLs. Specific software/library versions and availability of code/trained models for the normative trajectories are not detailed.",
++      "supporting_text": "\"AssemblyNet software (https://github.com/volBrain/AssemblyNet)\"; \"ClinicaDL software (https://github.com/aramis-lab/clinicadl)\"",
++      "location": "2.2 Image processing; 2.1.2 Testing dataset"
+     }
+   },
+   "clinical_research_part": {
+     "cr1_selection_criteria_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "Clinical cohorts (AD, MCI) are from secondary datasets (AIBL, MIRIAD, ADNI). Group definitions for AD/CN and pMCI/sMCI are based on ClinicaDL criteria; sample sizes are reported. Detailed diagnostic criteria and image QC/exclusion counts are not fully described.",
++      "supporting_text": "\"we built a testing dataset based on... AIBL and MIRIAD... used subjects with MCI from ADNI... we used the ClinicaDL software... to define the groups... Therefore, we used the same selection criteria.\"",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr2_handling_of_clinical_covariates": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "Analyses focus on classification using volume-based trajectories without modeling clinical covariates beyond demographics. No adjustments for medication, illness duration, or symptom severity are described.",
++      "supporting_text": "No explicit mention of clinical covariate adjustment in methods or results.",
++      "location": "Methods/Results (no relevant statements found)"
+     },
+     "cr3_data_sources_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "confidence_rating": "High",
++      "reason": "Clinical cohort sources are clearly named with dataset identities and groups (AIBL, MIRIAD, ADNI).",
++      "supporting_text": "Table 2 lists AIBL (CN, AD), MIRIAD (CN, AD), and ADNI (sMCI, pMCI).",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr4_clinical_characteristics_clinical_cohort": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "High",
++      "reason": "Sample sizes, age, and sex distributions are reported for clinical groups. Clinical characteristics such as medication status or symptom severity are not provided.",
++      "supporting_text": "\"| Dataset | Group | N = 1,039 | Gender | Age in years |... AIBL AD... MIRIAD AD... ADNI sMCI/pMCI.\"",
++      "location": "2.1.2 Testing dataset; Table 2"
+     },
+     "cr5_clinical_assessment_measures": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "confidence_rating": "Medium",
++      "reason": "The manuscript does not specify clinical assessment instruments or procedures (e.g., rating scales, diagnostic criteria versions) used for defining AD/MCI beyond referencing ClinicaDL for cohort definition.",
++      "supporting_text": "\"we used the ClinicaDL software... to define the groups...\" (no details on clinical instruments)",
++      "location": "2.1.2 Testing dataset"
+     },
+     "cr6_interpretation_of_deviation_scores": {
+-      "answer": "",
+-      "confidence_rating": "",
+-      "reason": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Partial",
++      "confidence_rating": "Medium",
++      "reason": "The meaning of the HAVAs score is described as reflecting probability of AD with a 50% decision threshold (based on distances to CN/AD trajectories). Quantitative z-score thresholds or broader clinical interpretation frameworks are not fully elaborated, though clinical suitability is mentioned.",
++      "supporting_text": "\"we proposed new scores... ensure that when AD score is higher than 50%... closest model is the AD model... sum of both scores equal to 1... Consequently, the proposed HAVAs... reflects the probability... to be a patient with AD (or a pMCI subject).\"; \"HAVAs simplicity makes it fully understandable and thus well-suited for clinical practice...\"",
++      "location": "2.5 Classification using volume trajectories; Abstract"
+     }
+   }
+ }
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

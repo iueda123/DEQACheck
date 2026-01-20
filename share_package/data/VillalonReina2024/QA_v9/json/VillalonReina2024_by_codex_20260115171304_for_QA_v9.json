@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "VillalonReina2024",
+    "si2_reference_file_names": "VillalonReina2024.pdf.md; media-1.pdf.md",
+    "si3_author_journal_year": "Villalón-Reina et al., bioRxiv, 2024",
+    "si4_title": "Lifespan Normative Modeling of Brain Microstructure",
+    "si5_doi": "10.1101/2024.12.15.628527"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract clearly states the aim to present the first large-scale normative model of white matter microstructure across the lifespan and to demonstrate its clinical utility (diagnostic/individual-level deviation detection) in MCI, Alzheimer's disease, and 22q11.2 deletion syndrome, satisfying both hypothesis/purpose and normative modeling purpose criteria.",
+      "supporting_text": "Here we present the first large-scale normative model of brain WM microstructure based on 19 international diffusion MRI datasets covering almost the entire lifespan... We illustrate the utility of the method by applying it to detect and visualize profiles of WM microstructural deviations in ... mild cognitive impairment, Alzheimer's disease, and 22q11.2 deletion syndrome.",
+      "location": "VillalonReina2024.pdf.md: Abstract"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "For building a new model, the study uses controls from multiple datasets and details image quality procedures: manual QC for several datasets and algorithmic outlier removal (isolation forests) for others; it reports the final training N and mentions that counts reflect post-QC exclusions. It also clarifies that only control subjects from clinical datasets were used to define the reference model.",
+      "supporting_text": "All study participants had ... a usable dMRI scan. ADNI3, OASIS3, PPMI, CAMCAN and HBN were manually checked for head movement, FOV related artifacts and other dMRI acquisition artifacts and preprocessing errors... For all other datasets used for training, outliers were detected with an anomaly detection algorithm called isolation forests... a total of 54,583 subjects remained for training. For clinical samples (HBN, ADNI3, OASIS3 and PPMI), only the control subjects are shown (as they were the only ones used to define the normative model). Footnote: The N for each group reflects the participants after quality control and removal of outliers.",
+      "location": "VillalonReina2024.pdf.md: Section 3. Quality control; Figure 1 caption; Footnote near line ~105"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Age and sex are explicitly modeled (age via cubic B-splines; sex as grouping). Multi-site/batch effects are addressed by modeling dMRI protocol as batch in HBR with partial pooling; harmonization occurs at the Z-score level, aligning with accepted site-effect handling.",
+      "supporting_text": "We added age and sex as the covariates for the present study and we modeled the non-linear effect of age with a cubic b-spline basis set... we used the dMRI protocol as the batch effect when training the normative model with HBR... Normative modeling with HBR adjusts the Z-scores instead of the input data points.",
+      "location": "VillalonReina2024.pdf.md: Sections 5 (HBR) and 6 (Regression models)"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study specifies that it pools data from 19 international/public studies, names common datasets in text/captions/references, and the supplement enumerates 37 acquisition protocols across those studies (Table S1), satisfying data source specification.",
+      "supporting_text": "...based on 19 international diffusion MRI datasets covering almost the entire lifespan... We identified 37 dMRI acquisition protocols across the 19 datasets (see Table S1).",
+      "location": "VillalonReina2024.pdf.md: Abstract; Section 6; media-1.pdf.md: Table S1 caption"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Per guidance, for secondary data (existing datasets), this item is not applicable. This study builds a new model using existing public datasets rather than primary data collection.",
+      "supporting_text": "...based on 19 international diffusion MRI datasets... We identified 37 dMRI acquisition protocols across the 19 datasets (secondary data; summarized in Supplementary Table S1).",
+      "location": "VillalonReina2024.pdf.md: Abstract; media-1.pdf.md: Table S1"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing tools and steps are specified per dataset in the supplement (e.g., DiPy LPCA/MPPCA denoising, MRTRIX, TOPUP/Synb0, FSL-EDDY, registration), and QC procedures are described in the main text (manual checks and isolation forest outlier removal).",
+      "supporting_text": "ADNI3: DiPy LPCA/MPPCA; MRTRIX; T1 warp; FSL-EDDY; FSL. OASIS3: DiPy MPPCA; MRTRIX; TOPUP-SynB0; FSL-EDDY; FSL. NIMHANS: DiPy LPCA; DiPy; TOPUP-SynB0; FSL-EDDY; DiPy. UCLA: DiPy LPCA; DiPy; TOPUP; FSL-EDDY; DiPy. (See preprocessing table). Also: 'ADNI3, OASIS3, PPMI, CAMCAN and HBN were manually checked... For all other datasets ... isolation forests ... outlier subjects... removed.'",
+      "location": "media-1.pdf.md: Preprocessing table (~lines 500–520); VillalonReina2024.pdf.md: Section 3. Quality control"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The model uses repeated train/test data splits (10 iterations) and reports diagnostics on held-out tests, satisfying internal validation with partitioning.",
+      "supporting_text": "The trajectories represent the average of the simulated data across the 10 different train_test data splits... We ran these fit validation metrics ... for each ROI across all 10 experimental iterations.",
+      "location": "media-1.pdf.md: Figure S1–S4 captions; VillalonReina2024.pdf.md: model validation text (~line 271)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The trained reference model is adapted to two new independent datasets; 50% of healthy controls are used for recalibration, and the remaining 50% healthy controls plus patients are used for anomaly detection, demonstrating application to independent healthy data not used for model development.",
+      "supporting_text": "We adapted the large-scale trained reference model to healthy controls from two new independent datasets... For each dataset we used 50% of the healthy controls for recalibrating the model. Thereafter, the remaining 50% of healthy controls and the patients were used for anomaly detection...",
+      "location": "VillalonReina2024.pdf.md: Adaptation/validation section (~line 187)"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The approach is Hierarchical Bayesian Regression (HBR) with age modeled via cubic B-splines and batch effects for protocol and sex; implementation via PCNtoolkit (v29) in Python 3.9, with explicit description of harmonization at the Z-score level and HBR options in the supplement.",
+      "supporting_text": "The HBR NM framework is ... we modeled the non-linear effect of age with a cubic b-spline... we used the dMRI protocol as the batch effect... We ran the training and testing ... using the PCNtoolkit package (v29) and Python 3.9... Normative modeling with HBR adjusts the Z-scores instead of the input data points... In this paper we used the following options for the HBR algorithm...",
+      "location": "VillalonReina2024.pdf.md: Sections 5–6; media-1.pdf.md: 'HBR specific parameters' section (~lines 520–540)"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Quantitative performance metrics are reported for the reference cohort: SMSE and MSLL, plus calibration diagnostics (Shapiro-Wilk's W, skewness, kurtosis).",
+      "supporting_text": "To test model accuracy, we ran two diagnostic metrics... standardized mean squared error (SMSE)... mean standardized log loss (MSLL)... Additionally... we calculated Shapiro-Wilk's W, the kurtosis and the skewness of the estimated Z-scores...",
+      "location": "VillalonReina2024.pdf.md: Results text (~lines 120–140) and model validation (~line 271); media-1.pdf.md: Figures S5–S8"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Although 10 train/test splits are used and results are averaged across iterations, explicit sample sizes and demographic characteristics for each partition (training/validation/test) are not described in the provided materials.",
+      "supporting_text": "The trajectories represent the average ... across the 10 different train_test data splits... We ran these fit validation metrics ... across all 10 experimental iterations.",
+      "location": "media-1.pdf.md: Figure S1–S4 captions; VillalonReina2024.pdf.md: validation text (~line 271)"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Software/library versions are specified (PCNtoolkit v29; Python 3.9). The abstract states models are publicly available. However, explicit links to code repositories and trained model artifacts, and detailed access conditions for all datasets/models, are not fully provided in the extracted materials.",
+      "supporting_text": "We ran the training and testing ... using the PCNtoolkit package (v29) and Python 3.9 (Details in Supplementary Methods). The derived normative models are a new resource publicly available to the community...",
+      "location": "VillalonReina2024.pdf.md: Section 6 (~line 267); Abstract (~line 19)"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Clinical cohorts are secondary datasets (ADNI3, OASIS3, NIMHANS, UCLA 22qDel). The study cites sources and notes age-matched healthy controls; general QC and outlier removal are described elsewhere. However, specific diagnostic criteria and detailed exclusion reasons for clinical samples are not explicitly detailed in the provided text.",
+      "supporting_text": "The NIMHANS elderly cohort has MCI and dementia participants and age-matched healthy controls; and the UCLA neurogenetic dataset has 22qDel participants and age-matched healthy controls... For each dataset we used 50% of the healthy controls for recalibrating the model...",
+      "location": "VillalonReina2024.pdf.md: Adaptation section (~line 187); References cite ADNI3/OASIS3/PPMI"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Analyses involving clinical cohorts focus on deviation scores, extreme deviation counts, and AUCs. No explicit consideration of clinical covariates (e.g., medication status, illness duration, symptom severity) was identified in the provided materials.",
+      "supporting_text": "Extreme deviations ... for MCI/dementia ... tables of Z < -2 / Z > 2 and AUCs are reported; no clinical covariates are described in these analyses.",
+      "location": "media-1.pdf.md: Tables S2–S4 and AUC summaries (~lines 184–275, 300–389, 414–)"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The clinical data sources are specified: ADNI3 and OASIS3 for dementia/MCI, and separate NIMHANS and UCLA 22qDel cohorts for model adaptation experiments; corresponding references are cited.",
+      "supporting_text": "...ADNI3 and OASIS3... The NIMHANS elderly cohort ... and the UCLA neurogenetic dataset has 22qDel participants ...",
+      "location": "VillalonReina2024.pdf.md: Adaptation section (~line 187); References to ADNI3/OASIS3"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The provided materials do not report explicit sample sizes, demographic breakdowns, or clinical characteristics (e.g., symptom severity, medication) for the clinical cohorts used in the anomaly detection/adaptation experiments.",
+      "supporting_text": "No explicit clinical cohort characteristics beyond cohort names and 'age-matched healthy controls' were found in the extracted text.",
+      "location": "VillalonReina2024.pdf.md: Adaptation section (~line 187)"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Clinical measures or diagnostic instruments (e.g., specific DSM/ICD criteria or rating scales) are not described in the provided materials for the anomaly detection analyses.",
+      "supporting_text": "Analyses describe deviation-based detection (Z-score extremes, AUC) but do not specify clinical assessment instruments.",
+      "location": "media-1.pdf.md: Deviation/AUC tables (S2–S4)"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The direction and meaning of deviations are described (e.g., negative deviations for FA; positive for diffusivities in dementia). Quantitative thresholds are provided via Z-score cutoffs (Z < -2, Z > 2) in supplementary tables; clinical implications are explored via proportion of extremes and AUCs across patient groups.",
+      "supporting_text": "...for dementia, all four DTI metrics showed regions with significant extreme deviations; negative deviations for FA and positive deviations for diffusivities... | columns labeled 'Z < -2' and 'Z > 2' in deviation tables; AUC summaries provided.",
+      "location": "VillalonReina2024.pdf.md: Results text (~line 120–140); media-1.pdf.md: Tables with 'Z < -2'/'Z > 2' and AUCs (~lines 186–275, 300–389, 414–)"
+    }
+  }
+}

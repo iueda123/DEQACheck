@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Feng2025",
+    "si2_reference_file_names": "Feng2025.pdf.md; Feng2025_sup.pdf.md",
+    "si3_author_journal_year": "Feng et al., Alzheimer's & Dementia, 2024",
+    "si4_title": "Microstructural mapping of neural pathways in Alzheimer's disease using macrostructure-informed normative tractometry",
+    "si5_doi": "NR"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study explicitly states its objective to propose the MINT framework to investigate white matter microstructure and macrostructure alterations in MCI and dementia, and to compare these metrics with traditional DTI metrics.",
+      "supporting_text": "We propose a novel macrostructure-informed normative tractometry (MINT) framework to investigate how white matter (WM) microstructure and macrostructure are jointly altered in mild cognitive impairment (MCI) and dementia. We compared MINT-derived metrics with univariate diffusion tensor imaging (DTI) metrics to examine how fiber geometry may impact the interpretation of microstructure.",
+      "location": "Abstract, Methods"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study describes the reference cohorts (ADNI and NIMHANS controls) and the pretraining dataset (TractoInferno). It cites the original publications for ADNI and TractoInferno. It specifies exclusion criteria (bundles with <96 streamlines) and mentions quality control procedures.",
+      "supporting_text": "The subset of the ADNIcohort that was scanned with dMRI consisted of 447 cognitively normal(CN)participants... The NIMHANS cohort consisted of dMRI data from 123 CN participants... Bundles with fewer than 96 streamlines were removed.",
+      "location": "Methods 2.1 Participant demographics, 2.2.4 Bundle segmentation"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study uses ComBat harmonization to address site/protocol effects and includes age and sex as covariates in the harmonization model.",
+      "supporting_text": "Covariates can also be specified in ComBat to preserve the known biological variability across subjects (eg, age and sex). In this study, ComBat was run for each of the 30 bundles and nine features... with age and sex modeled as covariates.",
+      "location": "Methods 2.3.3 Bundle profiling"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The data sources for the reference cohorts (ADNI, NIMHANS) and the pretraining dataset (TractoInferno) are clearly specified.",
+      "supporting_text": "One of the two datasets analyzed in this article was obtained from the ADNI database... an independent sample of 302 Indian-ancestry participants... at the National Institute of Mental Health and Neuro Sciences (NIMHANS)... TractoInferno training dataset.",
+      "location": "Methods 2.1, 2.2.1, 2.2.2, 2.2.3"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The imaging protocols (scanner, TR, TE, b-values, directions) are described for NIMHANS and ADNI (referenced to Table 1 and external sources).",
+      "supporting_text": "NIMHANS... Philips 3T Ingenia scanner... TR = 7441 ms, time to echo [TE] = 85ms... Siemens 3T Skyra scanner... TR = 8400 ms... ADNI... seven acquisition protocols... detailed in Table 1",
+      "location": "Methods 2.2.1, 2.2.2"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The preprocessing steps (denoising, Gibbs ringing removal, distortion correction) and software (DiPy, FSL, MRtrix3) are described.",
+      "supporting_text": "Preprocessing steps for all dMRI volumes in the NIMHANS cohort... included denoising using local principal component analysis (PCA)... Gibbs ringing removal... susceptibility-induced distortion... using FSL's topup... and bias field inhomogeneity correction... using MRtrix's dwibiascorrect.",
+      "location": "Methods 2.2.2"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study uses a data partitioning strategy where the model is fine-tuned on a training set and applied to a separate test set of controls (and patients).",
+      "supporting_text": "For both the ADNI and NIMHANS datasets, data from the CN participants were split into independent subsets of size 35%/15%/50% for training/validation/testing.",
+      "location": "Methods 2.3.2 Data preparation and training"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "While the study uses two cohorts (ADNI and NIMHANS), the normative model is fine-tuned specifically on the training set of each cohort before being applied to that cohort's test set. There is no application of a model developed solely on one cohort to a completely independent external cohort without fine-tuning.",
+      "supporting_text": "The pretrained VAE model was fine-tuned on 30 bundles from the subjects in the training set, in each cohort... We did not pool the training data in ADNI and NIMHANS together... to simulate the scenario where sites cannot share raw data, but can still share bundle profiles computed from their own fine-tuned model.",
+      "location": "Methods 2.3.2 Data preparation and training"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The statistical model (Variational Autoencoder with 1D convolutional layers) is described in detail. Code availability is also mentioned.",
+      "supporting_text": "In our macrostructure-informed normative tractometry (MINT) framework, a key component is the VAE model... MINT, we use 1D convolutional layers... Code and the pretrained model are available at https://github.com/wendyfyx/MINT.",
+      "location": "Methods 2.3.1 Macrostructure modeling, Endnotes"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The study uses reconstruction error (MAE) as the deviation score for analysis. It does not explicitly report a quantitative metric of model fit or calibration (e.g., explained variance, r-squared) specifically for the reference cohort to demonstrate that the model successfully learned the normative distribution, other than using the error itself as the measure of interest.",
+      "supporting_text": "The reconstruction error describes how well a new sample fits the distribution of the training data and can serve as a normative baseline... We expected the reconstruction error to be higher for data with abnormalities.",
+      "location": "Methods 2.3.1 Macrostructure modeling"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The study reports the split percentages (35%/15%/50%) and the total demographics for the control groups in Table 1, but it does not explicitly describe the demographic characteristics (e.g., mean age, sex distribution) specifically for the training, validation, and test partitions separately.",
+      "supporting_text": "Data from the CN participants were split into independent subsets of size 35%/15%/50% for training/validation/testing.",
+      "location": "Methods 2.3.2 Data preparation and training"
+    },
+    "nm11_reproducibility": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Code and pretrained models are made available. Software libraries are specified.",
+      "supporting_text": "Code and the pretrained model are available at https://github.com/wendyfyx/MINT... DIPY, FURY, and pytorch-lightning contributors...",
+      "location": "Endnotes, Acknowledgments"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Diagnostic criteria (CDR, MMSE, NIA-AA) and sample sizes are reported for the clinical cohorts (MCI, Dementia).",
+      "supporting_text": "For the ADNI cohort, diagnosis is determined based on clinical assessments, including CDR and MMSE. For the NIMHANS cohort, diagnosis was determined according to the National Institute on Aging and Alzheimer's Association (NIA-AA) criteria and CDR...",
+      "location": "Methods 2.1, 2.2.2"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The analyses control for age and sex, but there is no mention of controlling for clinical covariates such as medication status, illness duration, or comorbidities in the statistical models.",
+      "supporting_text": "A linear regression model was fitted... with harmonized diffusion metrics modeled as the dependent variable, and diagnosis (DX), age, and sex as independent variables (MAE ~ Age + Sex + DX).",
+      "location": "Methods 2.4 Statistical analysis of diagnostic group differences"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The data sources for the clinical cohorts (ADNI, NIMHANS) are clearly identified.",
+      "supporting_text": "730 participants from the Alzheimer's Disease Neuroimaging Initiative (ADNI)... and an independent sample of 302 Indian-ancestry participants... at the National Institute of Mental Health and Neuro Sciences (NIMHANS)...",
+      "location": "Methods 2.1 Participant demographics"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Sample sizes, demographics (age, sex), and clinical scores (CDRsb, ADAS13, MMSE) are reported.",
+      "supporting_text": "Table 1 Demographics... Clinical assessments used in the study for the ADNI cohort included the Clinical Dementia Rating Sum of Boxes (CDRsb, 0.97 \u00b1 1.9), the Alzheimer's Disease Assessment Scale (ADAS13, 16.28 \u00b1 8.26)...",
+      "location": "Methods 2.1, 2.2.1, Table 1"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The specific clinical measures used (CDRsb, ADAS13, MMSE, NNBE) are described.",
+      "supporting_text": "Clinical assessments... included the Clinical Dementia Rating Sum of Boxes (CDRsb)... Alzheimer's Disease Assessment Scale (ADAS13)... The NIMHANS Neuropsychological Battery for the Elderly (NNBE)...",
+      "location": "Methods 2.2.1, 2.2.2"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study interprets the deviation scores (MAE) as indicating abnormalities (higher error = greater deviation). It discusses the direction of deviations and their clinical implications, including a 'paradoxical pattern' of FA.",
+      "supporting_text": "We expected the reconstruction error to be higher for data with abnormalities... Higher MAE-Shape... higher MAE-FA... are found in dementia and MCI compared to CN... This paradoxical pattern of FA was previously reported...",
+      "location": "Methods 2.3.1, Results 3.1, Discussion 4.2"
+    }
+  }
+}

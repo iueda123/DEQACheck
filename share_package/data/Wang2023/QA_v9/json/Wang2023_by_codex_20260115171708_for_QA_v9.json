@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Wang2023",
+    "si2_reference_file_names": "Wang2023.pdf.md; Supplementary.pdf.md",
+    "si3_author_journal_year": "Wang et al., bioRxiv, 2023",
+    "si4_title": "Distinct Neurodevelopmental Patterns and Intermediate Integration-Based Predictive Modeling in Autism Spectral Disorder",
+    "si5_doi": "10.1101/2023.06.26.546426"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract states clear objectives: (1) characterize distinct developmental patterns (trajectories) of cortical morphology in ASD vs TD; (2) identify neural biomarkers relevant for ASD diagnostics; and (3) propose and evaluate a deep-learning workflow (LMFGCN) for ASD prediction. It also frames normative trajectory analysis to understand atypical development. These directly satisfy the criteria that research questions/objectives and the purpose of applying modeling are provided.",
+      "supporting_text": "\"In this study, we characterize the distinct developmental patterns of cortical morphology in individuals with ASD, investigate the important neural biomarkers for ASD diagnostics, and propose a deep-learning workflow ... for ASD prediction.\"",
+      "location": "Wang2023.pdf.md: L21-L24"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The reference (TD) cohort comes from open datasets (ABIDE-I/II) and a local KQJH cohort. The study cites ABIDE and provides the URL, describes image quality standards and completeness via MRIQC metrics (CNR, EFC), and reports final sample sizes after QA with reasons for exclusion per dataset. These satisfy: citing open datasets, specifying image quality standards, and reporting final N and exclusion reasons.",
+      "supporting_text": "\"All T1-weighted scans were chosen from 1112 ABIDE-I ... 1114 ABIDE-II ... and 323 KQJH participants ... A detailed introduction of the participants and scan parameters ... is available at [ABIDE URL].\" \n\"The quality control was assessed ... we use ... MRIQC ... to compute image quality metrics ...\" \n\"In ABIDE-I ... 116 had abnormally low CNR ... 122 ... high subject motion ... excluded ... final sample size of N = 874 ... ABIDE-II ... final sample size of N = 871 ... KQJH ... final sample size of N = 216.\"",
+      "location": "Supplementary.pdf.md: L7-L9; L11-L17; L13-L21"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Covariates include age (modeled via smooth functions), sex, and site. The modeling section explicitly describes comparing models that add sex and site intercepts as fixed effects and adjusting sex and site as random effects for distributional parameters in the GAMLSS framework.",
+      "supporting_text": "\"GAMLSS models were fitted ... We next compare several models ... add sex and site intercepts for μ and σ as a fixed effect (M1b) ... add age smooth effect for ν and τ (M1c) ... add sex and site intercepts for ν and τ (M1d) ... adjust sex and site for μ and σ as random effects (M1e).\"",
+      "location": "Wang2023.pdf.md: L61-L67"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Data sources are clearly described: ABIDE-I, ABIDE-II (open datasets, cited) and a locally collected KQJH dataset.",
+      "supporting_text": "\"All T1-weighted scans were chosen from 1112 ABIDE-I participants ... 1114 ABIDE-II participants ... and 323 KQJH participants ... A detailed introduction ... is available at [ABIDE URL].\"",
+      "location": "Supplementary.pdf.md: L7-L9"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Primary data (KQJH) acquisition protocol is specified including modality (T1-weighted), scanner manufacturer/field strength, sequence type, and key parameters (TR/TE/TI, flip angle, FOV, resolution). Secondary ABIDE datasets are referenced to site documentation.",
+      "supporting_text": "\"KQJH dataset was acquired ... on 3 T scanners (Siemens Skyra) using a MPRAGE sequence. Acquisition parameters: TR/TE/TI = 2020/2.11/900 ms; flip angle: 8°; FOV = 224 × 224 mm^2; and 1 × 1 × 1 mm^3 isotropic voxel.\"",
+      "location": "Supplementary.pdf.md: L7-L13"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing is thoroughly described. For ages 0–2, Infant FreeSurfer is used; ages 3–6, FreeSurfer 7.1.1 with ANTs 2.0 and age-specific templates; ages >6, FreeSurfer 7.1.1 pipeline steps (bias correction, skull stripping, surface recon, DK atlas) are detailed. QC via MRIQC is also described.",
+      "supporting_text": "\"The T1-weighted images ... 0-2 years ... Infant FreeSurfer ... Automatic processing steps include intensity normalization, skull stripping ...\" \n\"3-6 years ... FreeSurfer (version 7.1.117) and ANTs (version 2.0) ... then ... FreeSurfer 'recon-all' pipeline ...\" \n\"Cortical reconstruction and volumetric segmentation for all participants were performed with the FreeSurfer software, version 7.1.117 ... intensity inhomogeneity correction, bias field correction, and skull-stripping ... Desikan-Killiany atlas ...\"",
+      "location": "Supplementary.pdf.md: L25-L36; L29-L35; L33-L36"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "For the trajectory models, the data were split into 70% training and 30% testing. Models were selected by AIC/BIC on training data and validated on the testing set, which satisfies using partitions where models are evaluated on samples not used for fitting.",
+      "supporting_text": "\"First, all data was split into 70% train dataset and 30% test dataset ... The best model was selected by AIC and BIC ... then validate the models in the testing set.\"",
+      "location": "Wang2023.pdf.md: L61-L67"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Although multiple datasets (ABIDE-I, ABIDE-II, KQJH) were included, the paper does not report applying a fitted normative model to a separate, independent healthy dataset not used in model development. The described validation is an internal 70/30 split.",
+      "supporting_text": "\"First, all data was split into 70% train dataset and 30% test dataset ... then validate the models in the testing set.\"",
+      "location": "Wang2023.pdf.md: L61-L67"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The approach uses GAMLSS to model full distributions (μ, σ, ν, τ) with age smooth terms and sex/site effects; the SHASH distribution is specified. Model selection by AIC/BIC and performance evaluation via the mlr package are described.",
+      "supporting_text": "\"Generalized additive models for location, scale and shape (GAMLSS) ... So, for a four-parameter distribution ...\" \n\"GAMLSS models were fitted ... SHASH ... compare several models ... add sex and site intercepts ... adjust sex and site ... random effects ... The best model was selected by AIC and BIC ... used the mlr package to evaluate the performance of 5 models.\"",
+      "location": "Wang2023.pdf.md: L55-L67"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "They report quantitative fit/selection metrics (AIC, BIC) and state that models were validated on a testing set using the mlr package. However, standard calibration/fit metrics such as explained variance, prediction error, or interval coverage are not explicitly reported for the reference cohort.",
+      "supporting_text": "\"The best model was selected by AIC and BIC for all solutions ... validate the models in the testing set. Finally, we used the mlr package to evaluate the performance of 5 models.\" \n\"Corresponding AIC and BIC for each model in the training set are presented in Table S1-6.\"",
+      "location": "Wang2023.pdf.md: L67; L161"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "Partial",
+      "confidence_rating": "Low",
+      "reason": "They state a 70/30 train-test split but do not report sample sizes or demographics for each partition. Overall cohort demographics are provided elsewhere, but partition-specific characteristics are not described.",
+      "supporting_text": "\"First, all data was split into 70% train dataset and 30% test dataset.\"",
+      "location": "Wang2023.pdf.md: L61-L63"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "They provide data sources (ABIDE) and a code repository for the trajectory (GAMLSS) and classification (LMFGCN) components. Some software versions are specified for preprocessing (FreeSurfer, ANTs). However, explicit versions for modeling libraries (e.g., R/GAMLSS) are not provided, and trained models are not released.",
+      "supporting_text": "\"The datasets ... are available in the Autism Brain Imaging Data Exchange ... All code of GAMSS and LMFGCN can be found at https://github.com/ASD-trajectory-and-classification.\" \n\"FreeSurfer (version 7.1.117) and ANTs (version 2.0).\"",
+      "location": "Wang2023.pdf.md: L199-L199; Supplementary.pdf.md: L29-L33"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Clinical cohort eligibility is implicitly defined by ASD cases in ABIDE-I/II and KQJH. Image quality standards and reasons for exclusion are detailed (CNR and EFC thresholds with final Ns). However, diagnostic criteria (e.g., DSM/ICD) and inclusion/exclusion specifics are not described within this paper.",
+      "supporting_text": "\"All T1-weighted scans were chosen from ... ABIDE-I ... ABIDE-II ... and ... KQJH participants.\" \n\"out of the ... inaccurately segmented scans ... abnormally low CNR ... high subject motion ... excluded ... resulting in a final sample size of ...\"",
+      "location": "Supplementary.pdf.md: L7-L9; L13-L21"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Beyond basic demographics (age, sex) and site, the study does not report incorporating clinical covariates such as medication status, illness duration, symptom severity, or comorbidities in analyses of deviation or trajectory outcomes.",
+      "supporting_text": "No explicit mention of clinical covariates (medication, symptoms) in modeling sections; demographics and site are discussed.",
+      "location": "Wang2023.pdf.md: L61-L67; Table 1 context L200-L230"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Clinical data sources are specified as ABIDE-I, ABIDE-II, and the local KQJH dataset, with ABIDE referenced.",
+      "supporting_text": "\"All T1-weighted scans were chosen from 1112 ABIDE-I ... 1114 ABIDE-II ... and 323 KQJH participants ...\"",
+      "location": "Supplementary.pdf.md: L7-L9"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Sample sizes and demographics (age, sex) are reported for ASD and TD by dataset and overall. Clinical characteristics (e.g., medication, symptom severity) are not reported.",
+      "supporting_text": "\"Table 1. Demographics of participants included after QA.\" and corresponding age/sex counts for ASD vs TD across KQJH, ABIDE-I, ABIDE-II.",
+      "location": "Wang2023.pdf.md: L209-L226"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The paper does not describe clinical assessment measures (e.g., DSM version, structured interviews, symptom scales).",
+      "supporting_text": "No clinical assessment instruments or procedures are described; only demographics and imaging-based analyses are presented.",
+      "location": "Wang2023.pdf.md: Table 1 context L206-L230; methods sections"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "While percentile curves (5th, 50th, 95th) are plotted to visualize age-dependent changes for ASD and TD, the paper does not define or interpret individual-level deviation scores (e.g., Z-scores), thresholds, or clinical categorization based on deviations.",
+      "supporting_text": "\"The 5th, 50th, and 95th percentage curves were utilized ... to visualize the age-dependent changes for both ASD and TD groups.\"",
+      "location": "Wang2023.pdf.md: L251-L254"
+    }
+  }
+}

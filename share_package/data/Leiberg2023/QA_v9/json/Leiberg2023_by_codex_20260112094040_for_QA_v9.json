@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Leiberg2023",
+    "si2_reference_file_names": "Leiberg2023.pdf.md; 1-s2.0-S0010945223001351-mmc1.pdf.md",
+    "si3_author_journal_year": "Leiberg et al., Cortex, 2023",
+    "si4_title": "Effects of anterior temporal lobe resection on cortical morphology",
+    "si5_doi": "10.1016/j.cortex.2023.04.018"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract and introduction clearly state the study goal: to examine effects of anterior temporal lobe resection (ATLR) on cortical morphology using both traditional and independent morphological measures, leveraging a normative model to account for healthy ageing and protocol effects. This satisfies both criteria: research questions/purpose are stated and the rationale for using a normative model is described (to debias and account for ageing).",
+      "supporting_text": "\"Here, we examine the effects of this surgery on brain morphology measured in recently-proposed independent variables. ... A normative model trained on data from 924 healthy controls was used to debias the data and account for healthy ageing effects occurring during scans.\"",
+      "location": "Leiberg2023.pdf.md – Abstract"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "This study builds a new normative model from healthy controls. The data sources are described (site-specific NHNN controls plus NKI dataset) and the original NKI publication is cited. Image quality standards are mentioned for controls (exclusion due to inadequate image quality and motion artifacts), and the final control sample size with counts excluded is reported (924 used; 96 NKI excluded). While detailed inclusion/exclusion beyond \"healthy\" are not elaborated for NHNN controls, the core criteria are satisfied.",
+      "supporting_text": "\"We also used MR images of cross‑sectional cohorts of 924 healthy controls... The remaining 833 controls are subjects from the Nathan Kline Institute (NKI) data set (Nooner et al., 2012). 96 other subjects of the NKI data set were rejected prior to the analysis due to inadequate image quality and motion artifacts.\"",
+      "location": "Leiberg2023.pdf.md – Methods, Participants/Imaging"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Covariates age and sex are modeled with smooth terms and scanning protocol is included as a random effect in GAMMs used to build the normative model across patches. This addresses covariate handling and site/protocol effects.",
+      "supporting_text": "\"We performed a correction ... based on a normative model of the controls using generalised additive mixed models (GAMM)... This correction accounts for differences due to age, sex, and scanning protocol. ... scanning protocol as a random effect.\"",
+      "location": "Leiberg2023.pdf.md – Methods 2.5 Age, sex and scanning protocol correction"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Data sources for the reference cohort are clearly described: 91 site‑specific NHNN controls with two scanning protocols, plus 833 controls from the NKI dataset; the NKI paper is cited.",
+      "supporting_text": "\"91 [controls] ... 22 were taken with scanning protocol 1 and 69 with scanning protocol 2 at the NHNN. The remaining 833 controls are subjects from the Nathan Kline Institute (NKI) data set (Nooner et al., 2012).\"",
+      "location": "Leiberg2023.pdf.md – Methods, Participants/Imaging"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "The reference cohort includes both site‑specific (primary) and NKI (secondary) data. For NHNN scans, modality and field strength (3T T1‑weighted) and voxel resolutions are stated, with detailed parameters available in cited sources; equipment manufacturer is not specified here. For purely secondary NKI data, acquisition details are not repeated (consistent with secondary use). Thus some, but not all, acquisition details are present for primary components.",
+      "supporting_text": "\"We used 3T T1‑weighted structural MRIs... MRI scans were taken under two different scanning protocols: 52 subjects ... 0.94×0.94×1.1 mm ... and the remaining 49 with 1×1×1 mm (for detailed acquisition parameters see Nowell et al. (2016) and Vos et al. (2020)).\"",
+      "location": "Leiberg2023.pdf.md – Methods, Participants/Imaging"
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing is explicitly described: FreeSurfer 6.0 recon‑all with manual edits and LGI stream to obtain smooth pial surfaces; subsequent surface‑based pipeline to compute local measures; QC steps include visual checks, imputation for missing vertices, exclusion of regions with entirely missing values, and double processing of controls with/without temporal lobes.",
+      "supporting_text": "\"MRI scans were preprocessed with the FreeSurfer (Fischl, 2012) 6.0 recon‑all pipeline... We manually corrected ... The local gyrification index processing stream ... was then used to acquire the smooth pial surface. ... Where possible, we imputed data on vertices ... but had to exclude the insula and the regions around the corpus callosum... We also ... processed all controls twice, once with the temporal lobes and once without.\"",
+      "location": "Leiberg2023.pdf.md – Methods 2.2/2.3"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not report any hold‑out sets, cross‑validation, or other internal validation strategy for assessing the normative model performance on controls. The GAMMs are trained to correct measures but no partitioning/testing on unseen controls is described.",
+      "supporting_text": "No explicit description of train/test splits, K‑fold CV, or LOOCV for the normative model is provided.",
+      "location": "Leiberg2023.pdf.md – Methods 2.5 (no data partitioning described)"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The normative model is used to debias patient and control measures; there is no application to an independent external healthy dataset solely for external validation of the normative model.",
+      "supporting_text": "No external validation cohort of healthy individuals beyond the training sources is described.",
+      "location": "Leiberg2023.pdf.md – Methods/Results (no external validation section)"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The statistical approach is clearly specified: patch‑wise generalized additive mixed models (GAMMs) using R mgcv, with smooth terms for age and sex and random effects for scanning protocol; later conversion to independent morphological measures (K, I, S). This covers model type, key settings (smooths, REML), and software.",
+      "supporting_text": "\"... normative model of the controls using generalised additive mixed models (GAMM) ... using the R package mgcv ... restricted maximum likelihood as the method for smoothing parameter estimation. ... We transformed the data ... to the independent morphological measures K, I, and S.\"",
+      "location": "Leiberg2023.pdf.md – Methods 2.5–2.6"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "No quantitative performance metrics (e.g., explained variance, prediction error, calibration/coverage) are reported for the normative model on the reference cohort.",
+      "supporting_text": "No performance metrics for normative model fit/calibration are presented.",
+      "location": "Leiberg2023.pdf.md – Methods/Results (absent)"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "No data partitioning strategy (train/validation/test or CV folds) is used for the normative model; per the item guidance, if no partitioning is performed, this item is not applicable.",
+      "supporting_text": "No partitions (training/validation/test) are described for the reference cohort.",
+      "location": "Leiberg2023.pdf.md – Methods 2.5 (no partitioning described)"
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Software and tools are named (FreeSurfer 6.0, R mgcv, Matlab SurfStat), but versions for mgcv/SurfStat/Matlab are not specified; code and trained models are not reported as available. Data availability is mixed: NKI is public via its own procedures; NHNN site‑specific controls and patient data are not stated as open.",
+      "supporting_text": "\"MRI scans were preprocessed with the FreeSurfer ... 6.0 recon‑all ... We did this with the R package mgcv ... We used the Matlab toolbox SurfStat ...\"",
+      "location": "Leiberg2023.pdf.md – Methods 2.2/2.5/2.7"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Eligibility is described at a high level (TLE patients with pre‑ and postoperative 3T T1 MRI between 2010–2018 at NHNN/Chalfont; one preoperative and one 2–13 month postoperative scan). Final sample size is reported. However, detailed diagnostic criteria, patient exclusion reasons, and explicit image quality thresholds for patients are not provided.",
+      "supporting_text": "\"We used 3T T1‑weighted ... 101 individuals with TLE who underwent ATLR ... We included individuals ... that received a preoperative and postoperative T1‑weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy. ... one follow‑up scan 2–13 months ...\"",
+      "location": "Leiberg2023.pdf.md – Methods, Participants"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "They analyze associations of morphological changes with multiple clinical covariates, including age at surgery, duration since first seizure, resection volume, side of resection, time to postoperative scan, and seizure outcome.",
+      "supporting_text": "\"We tested for effects of the covariates: age at surgery, duration since first seizure, resection volume, side of resection, time between surgery and postoperative scan, and seizure outcome (ILAE 1 & 2 vs 3+).\"",
+      "location": "Leiberg2023.pdf.md – Methods 2.8 Covariate effects"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The clinical cohort data sources are specified: NHNN and Chalfont Centre for Epilepsy, with the collection period 2010–2018 and two explicit scanning protocols.",
+      "supporting_text": "\"... between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy. ... MRI scans were taken under two different scanning protocols ...\"",
+      "location": "Leiberg2023.pdf.md – Methods, Participants"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The paper reports clinical cohort sizes, sex distribution, postoperative interval, TLE duration, and seizure outcome counts by side; demographics are summarized in Table 1.",
+      "supporting_text": "Table 1: \"Subjects (n), Sex (M/F), Median postoperative interval (months), Median TLE duration (years), Seizure outcome group 3+ (n)\" with values for Left TLE (n=55) and Right TLE (n=46).",
+      "location": "Leiberg2023.pdf.md – Methods, Table 1 Demographics"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "Yes",
+      "confidence_rating": "Medium",
+      "reason": "They specify seizure outcome as a clinical measure using the ILAE classification 12 months post‑surgery; assessment procedure (timepoint and scale) is described. Other clinical instruments are not detailed, but the core measure is documented.",
+      "supporting_text": "\"Surgery outcomes were recorded 12 months after surgery according to the ILAE classification of seizure outcome (Wieser et al., 2001).\"",
+      "location": "Leiberg2023.pdf.md – Methods, Participants"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "No",
+      "confidence_rating": "High",
+      "reason": "The study applies a normative model to debias morphological measures but does not define or interpret individual deviation (e.g., z‑) scores or thresholds, nor discuss their clinical significance.",
+      "supporting_text": "No reporting of deviation score definitions, thresholds, or clinical interpretation is present.",
+      "location": "Leiberg2023.pdf.md – Results/Discussion (absent)"
+    }
+  }
+}

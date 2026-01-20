@@ -1,0 +1,141 @@
+{
+  "study_identification_part": {
+    "si1_study_id": "Janahi2022",
+    "si2_reference_file_names": "Janahi2022.pdf.md; media-1.pdf.md",
+    "si3_author_journal_year": "Janahi et al., eLife, 2022",
+    "si4_title": "Nomograms of human hippocampal volume shifted by polygenic scores",
+    "si5_doi": "10.7554/eLife.78232"
+  },
+  "common_part": {
+    "cm1_research_objectives": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The abstract explicitly states the study aims: to examine the impact of genetic adjustment (via polygenic scores) on hippocampal volume (HV) nomograms and assess translational utility for detecting dementia patients. It also frames the purpose of applying normative modeling (constructing nomograms to identify outliers and evaluate clinical utility). Both criteria are clearly satisfied.",
+      "supporting_text": "\"Here, we examine the impact of genetic adjustment on HV nomograms and the translational ability to detect dementia patients. Using imaging data from 35,686 healthy subjects ... we built HV nomograms using Gaussian process regression (GPR).\"",
+      "location": "Janahi2022.pdf.md:41"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_selection_criteria_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "For the NEW normative model built on UK Biobank (UKB), the paper specifies eligibility criteria (exclude neurological/psychiatric disorders, head trauma, substance abuse, cardiovascular disorders), restrict ancestry (British), stratify by sex, and remove HV outliers. It reports final sample size and explicit exclusion counts. However, explicit image quality/completeness standards for UKB (e.g., motion, missingness) are not described; only outlier removal is mentioned. Therefore, criteria are incompletely met.",
+      "supporting_text": "\"Subjects were excluded based on history of neurological or psychiatric disorders, head trauma, substance abuse, or cardiovascular disorders. Furthermore, ... only subjects with 'British' ethnic backgrounds were considered. ... HV outliers were excluded using mean absolute deviation with a threshold of 5.0. ... Finally, ICV and scan date were linearly regressed out of the HVs.\" \n\"In the UKB sample, 453 subjects were excluded for various conditions, 3497 for genetic ancestry, and 28 subjects were outliers: leaving a total of 35,686 subjects.\"",
+      "location": "Janahi2022.pdf.md:218;71"
+    },
+    "nm2_handling_of_covariates_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Core covariates are handled: sex is used by stratification; age is the modeling variable for nomograms; ICV is derived and regressed out alongside scan date. For genetic analyses, models account for age, age^2, sex, ICV, and genetic PCs. UKB is single-site, so site effects are not applicable to training.",
+      "supporting_text": "\"The dataset was then stratified by self-reported sex. ... Subjects' intracranial volume (ICV) ... Finally, ICV and scan date were linearly regressed out of the HVs.\" \n\"Model fit is then checked by regressing HV against these PGSs while accounting for age, age^2, sex, ICV, and 10 genetic principal components.\"",
+      "location": "Janahi2022.pdf.md:218;242"
+    },
+    "nm3_data_sources_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The reference cohort source is clearly described: UK Biobank with application number, age range, and citations for imaging and genetic protocols.",
+      "supporting_text": "\"Data from a total of 39,664 subjects ... were obtained from the UKB (application number 65299) ... Imaging and genetic protocols are described in Bycroft et al., 2018, and Miller et al., 2016, respectively.\"",
+      "location": "Janahi2022.pdf.md:218"
+    },
+    "nm4_image_acquisition_protocol": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "Secondary data (existing UK Biobank dataset) are used for the reference cohort; per guide, image acquisition protocol can be marked not applicable.",
+      "supporting_text": "",
+      "location": ""
+    },
+    "nm5_data_preprocessing": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "Preprocessing/software and steps are described: HV estimated with FreeSurfer at initial imaging; ICV derived; sex stratification; outlier removal by MAD threshold; linear regression to remove ICV and scan date effects.",
+      "supporting_text": "\"... we used HV estimated with FreeSurfer ... at the initial imaging visit. ... HV outliers were excluded using mean absolute deviation with a threshold of 5.0. ... ICV ... Finally, ICV and scan date were linearly regressed out of the HVs.\"",
+      "location": "Janahi2022.pdf.md:218"
+    },
+    "nm6_internal_data_validation_reference_cohort": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "No explicit internal partitioning (hold-out, K-fold, or LOOCV) for model validation within UKB is described. The workflow trains on UKB and evaluates on ADNI as an external dataset.",
+      "supporting_text": "\"The UKB dataset was used to train the models and the ADNI dataset was used to test them.\"",
+      "location": "Janahi2022.pdf.md:234"
+    },
+    "nm7_external_data_validation_reference_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The trained UKB-based normative models are applied to an independent ADNI dataset. Model fit for healthy ADNI subjects is explicitly referenced and extensive external evaluation is reported.",
+      "supporting_text": "\"Figure supplement 2. Model fit of healthy Alzheimer's Disease Neuroimaging Initiative (ADNI) subjects.\" \n\"The UKB dataset was used to train the models and the ADNI dataset was used to test them.\"",
+      "location": "Janahi2022.pdf.md:95;234-235;109-148"
+    },
+    "nm8_normative_modeling_approach": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The statistical approach is specified as Gaussian process regression with a squared exponential kernel; key hyperparameters and training details are described; the laGP R library used is stated.",
+      "supporting_text": "\"Our proposed approach uses GPR ... The GPR models were trained with the laGP (Gramacy, 2016) R library ... We applied the ... squared exponential covariance kernel function.\"",
+      "location": "Janahi2022.pdf.md:228-234"
+    },
+    "nm9_model_performance_reference_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "Medium",
+      "reason": "Quantitative assessment related to model/normogram accuracy is provided (e.g., SWA nomogram deviation of ~0.4% of average HV, and GPR achieving comparable accuracy with only ~5% of data). However, standard fit/calibration metrics for the reference cohort (e.g., R^2 between predicted and observed HV) are not reported for the GPR model trained on UKB.",
+      "supporting_text": "\"GPR nomograms achieved the same level of accuracy with only 5% (900 samples) of the dataset (Figure 2-figure supplement 3).\" \n\"... using around 17% (3000 samples) of training samples generated nomograms that were on average only 0.4% of average HV (19 mm^3) different to those generated by the full training set.\"",
+      "location": "Janahi2022.pdf.md:196;160-168"
+    },
+    "nm10_characteristics_reference_cohort_each_partition": {
+      "answer": "NA",
+      "confidence_rating": "High",
+      "reason": "No internal data partitioning was performed for the NEW normative model; per guide, when there is no partitioning, this item is not applicable.",
+      "supporting_text": "",
+      "location": ""
+    },
+    "nm11_reproducibility": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Software/libraries are named and a public code repository is provided; data access is described. However, exact versions for key software used to generate UKB HV (FreeSurfer version) and laGP library version are not specified in the main text for the reference cohort.",
+      "supporting_text": "\"The scripts and code used in this study have been made publicly available ... https://github.com/Mo-Janahi/NOMOGRAMS ... All underlying data ... available by application from the UKB ...\" \n\"The GPR models were trained with the laGP (Gramacy, 2016) R library ...\"",
+      "location": "Janahi2022.pdf.md:252-258;228"
+    }
+  },
+  "clinical_research_part": {
+    "cr1_selection_criteria_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "SECONDARY data from ADNI are used; original protocols are cited. Additional eligibility criteria are described (ancestry restriction, HV quality scores), and final sample size and exclusion reasons are reported.",
+      "supporting_text": "\"A total of 1001 ADNI subjects ... were included ... Subjects were excluded based on HV quality scores and based on genetic ancestry ... Finally, we used NeuroCombat ... to adjust across ADNI sites ...\" \n\"... 26 subjects were excluded for genetic ancestry, and 314 based on HV quality scores: leaving 818 subjects.\"",
+      "location": "Janahi2022.pdf.md:220;71"
+    },
+    "cr2_handling_of_clinical_covariates": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Analyses with the clinical cohort primarily report HV percentiles by diagnosis and include models adjusted for demographics (sex, age). There is no description of incorporating clinical covariates beyond basic demographics (e.g., medication status, illness duration, symptom severity).",
+      "supporting_text": "\"We tested whether the PGS-adjusted nomograms improved the separation between stable and progressor patients using Cox proportional hazards models while accounting for sex and age.\"",
+      "location": "Janahi2022.pdf.md:250"
+    },
+    "cr3_data_sources_clinical_cohort": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The ADNI clinical dataset is clearly identified with URL and citations to imaging/genetic protocols.",
+      "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ... Imaging and genetic protocols are described by Saykin et al., 2010, and by Jack et al., 2008, respectively.\"",
+      "location": "Janahi2022.pdf.md:220"
+    },
+    "cr4_clinical_characteristics_clinical_cohort": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Sample sizes and basic demographics are reported (n, sex count, age range) and final included numbers are provided. However, detailed clinical characteristics (e.g., medication status, symptom severity, illness duration) are not described.",
+      "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\" \n\"... leaving 818 subjects.\"",
+      "location": "Janahi2022.pdf.md:220;71"
+    },
+    "cr5_clinical_assessment_measures": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "Specific clinical assessment measures (e.g., rating scales, structured interviews) are not detailed. The text only broadly states ADNI’s goals and diagnostic groupings without listing instruments or procedures used in this analysis.",
+      "supporting_text": "\"The primary goal of ADNI has been to test whether serial MRI, positron emission tomography, other biological markers, and clinical and neuropsychological assessment can be combined ...\"",
+      "location": "Janahi2022.pdf.md:220"
+    },
+    "cr6_interpretation_of_deviation_scores": {
+      "answer": "Partial",
+      "confidence_rating": "High",
+      "reason": "Deviation scores are interpreted as percentiles on nomograms with clear directionality described (e.g., CN center near 50th percentile; AD mostly below 2.5th percentile). Clinical implications are discussed regarding group separation and potential utility. However, no explicit quantitative Z thresholds or categorical cut-offs are reported.",
+      "supporting_text": "\"Using the non-adjusted nomogram, CN participants had a median bilateral HV percentile of 61% ... MCI 25% ... and AD 1% ... AD participants lay mostly below the 2.5% quantile ... Genetic adjustment centred the CN samples closer to the 50th percentile.\"",
+      "location": "Janahi2022.pdf.md:111-112;196-198"
+    }
+  }
+}
