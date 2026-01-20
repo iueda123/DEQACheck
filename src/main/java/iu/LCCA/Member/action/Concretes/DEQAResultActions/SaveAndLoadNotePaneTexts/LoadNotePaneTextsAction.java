@@ -39,14 +39,6 @@ public class LoadNotePaneTextsAction extends AbstActionMember {
         for (NotePaneSection section : NotePaneSection.deSections()) {
             loadNotePaneTexts(section);
         }
-
-        //loadNotePaneTexts("QACM", "./data/" + authorYear + "/NotePane/" + "common_part_of_qa" + ".prop");
-        //loadNotePaneTexts("QANM", "./data/" + authorYear + "/NotePane/" + "normative_modeling_part_of_qa" + ".prop");
-        //loadNotePaneTexts("QACR", "./data/" + authorYear + "/NotePane/" + "clinical_research_part_of_qa" + ".prop");
-        //loadNotePaneTexts("QASI", "./data/" + authorYear + "/NotePane/" + "study_identification_of_qa" + ".prop");
-        //loadNotePaneTexts("QA1_v6", "./data/" + authorYear + "/NotePane/" + "quality_assessment_1_v6" + ".prop");
-        //loadNotePaneTexts("QA2_v6", "./data/" + authorYear + "/NotePane/" + "quality_assessment_2_v6" + ".prop");
-        //loadNotePaneTexts("QAAC", "./data/" + authorYear + "/NotePane/" + "additional_comments" + ".prop");
     }
 
     /**

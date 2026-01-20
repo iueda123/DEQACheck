@@ -6,7 +6,8 @@ import iu.LCCA.Mediator.action.ActionMediator;
 import iu.LCCA.Member.MemberIntrfc;
 import iu.LCCA.Member.componentholder.Abstract.AbstCHolderMember;
 import iu.LCCA.Member.componentholder.Abstract.AbstCHolderMemberFactory;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v12.NM2.DE_NM2_SubTabsHolderFactory;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v11.DEDC.DE_DC_SubTabsHolderFactory;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v12.DENM2.DE_NM2_SubTabsHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.DEQAResult.WithNotebookLMPane.WithNotebookLMPanelHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.MainWindow.MainWindowHolderFactory;
 import iu.LCCA.Member.componentholder.Concretes.StatusPanel.StatusPanelHolderFactory;
@@ -193,6 +194,17 @@ public class CHolderMediator implements MediatorIntrfc {
         subTabsHoldFactory_DEGN.setCHolderMediator(this);
         subTabsHoldFactory_DEGN.initialize();
         registerMemberToMap(subTabsHoldFactory_DEGN);
+
+        //------------------------------------------
+        /* DC Part */
+        chMemberFactory =
+                MemberFactoryLoader.loadFactory(
+                        DE_DC_SubTabsHolderFactory.class.getName(), AbstCHolderMemberFactory.class);
+        AbstCHolderMember subTabsHoldFactory_DEDC =
+                chMemberFactory.createCHolder("sub_tabs_holder_DEDC", "sub_tabs_holder_DEDC", authorYears[0]);
+        subTabsHoldFactory_DEDC.setCHolderMediator(this);
+        subTabsHoldFactory_DEDC.initialize();
+        registerMemberToMap(subTabsHoldFactory_DEDC);
 
         //------------------------------------------
 

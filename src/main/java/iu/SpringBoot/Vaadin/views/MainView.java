@@ -16,6 +16,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.component.html.Anchor;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView3;
 import iu.SpringBoot.Vaadin.DEQACheckAll.MaterialDownloader.MaterialDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.PromptDownloader.PromptDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAReportCreationPage.QAReportCreationPage;
@@ -110,6 +111,9 @@ public class MainView extends VerticalLayout {
             RouterLink link3 = new RouterLink("Summary View 2", SummaryView2.class);
             add(link3);
 
+            RouterLink link10 = new RouterLink("Summary View 3 (DE v11 & v12)", SummaryView3.class);
+            add(link10);
+
             Anchor spreadsheetLink = new Anchor(
                 "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
                 "Google Spreadsheet - table1_NM_2025.11.17"
@@ -154,4 +158,3 @@ public class MainView extends VerticalLayout {
         );
     }
 }
-

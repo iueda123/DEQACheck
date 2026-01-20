@@ -40,16 +40,6 @@ public class LoadPaneOrderAction extends AbstActionMember {
         for (PaneOrderSection section : PaneOrderSection.deSections()) {
             loadPaneOrder(section);
         }
-
-        //loadPaneOrder("QACM", "./data/" + authorYear + "/PaneOrder/" + "common_part_of_qa" + ".prop");
-        //loadPaneOrder("QANM", "./data/" + authorYear + "/PaneOrder/" + "normative_modeling_part_of_qa" + ".prop");
-        //loadPaneOrder("QACR", "./data/" + authorYear + "/PaneOrder/" + "clinical_research_part_of_qa" + ".prop");
-
-        //loadPaneOrder("QASI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_qa" + ".prop");
-        //loadPaneOrder("QA1_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_1_v6" + ".prop");
-        //loadPaneOrder("QA2_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_2_v6" + ".prop");
-        //loadPaneOrder("QAAC", "./data/" + authorYear + "/PaneOrder/" + "additional_comments" + ".prop");
-
     }
 
     /**

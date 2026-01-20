@@ -66,7 +66,11 @@ public class BasePaneCreator {
 
     //-----------------------
 
-    tabbedPane.add("7. DE-NM2", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DENM2")).getBaseComponent());
+    tabbedPane.add("7. DE-DC", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DEDC")).getBaseComponent());
+    tabbedPane.setToolTipTextAt(index, "Dataset Characteristics");
+    index++;
+
+    tabbedPane.add("8. DE-NM2", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DENM2")).getBaseComponent());
     tabbedPane.setToolTipTextAt(index, "Normative Modeling 2");
     index++;
 

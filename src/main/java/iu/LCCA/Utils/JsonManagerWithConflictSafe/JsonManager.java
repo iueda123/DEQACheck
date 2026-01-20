@@ -114,19 +114,11 @@ public class JsonManager {
         if (current.isJsonPrimitive()) {
             return current.getAsString();
         } else if (current.isJsonArray()) {
-            // 配列の場合は要素をセミコロン区切りで返す
-            StringBuilder joined = new StringBuilder();
-            current.getAsJsonArray().forEach(elem -> {
-                if (joined.length() > 0) {
-                    joined.append("; ");
-                }
-                if (elem.isJsonPrimitive()) {
-                    joined.append(elem.getAsString());
-                } else {
-                    joined.append(elem.toString());
-                }
-            });
-            return joined.toString();
+            // 配列はJSON文字列として返す
+            return gson.toJson(current);
+        } else if (current.isJsonObject()) {
+            // オブジェクトはJSON文字列として返す
+            return gson.toJson(current);
         }
 
         System.err.println("Value is not a primitive type (found JsonObject or JsonArray) for path: " + path_key);

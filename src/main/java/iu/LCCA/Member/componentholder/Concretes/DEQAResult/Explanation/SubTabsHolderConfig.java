@@ -10,7 +10,8 @@ public enum SubTabsHolderConfig {
     DENM("sub_tabs_holder_DENM", "./prompts/DE_Guide_v10_1.md"),
     DECAA("sub_tabs_holder_DECAA", "./prompts/DE_Guide_v10_1.md"),
     DEGN("sub_tabs_holder_DEGN", "./prompts/DE_Guide_v10_1.md"),
-    DENM2("sub_tabs_holder_DENM2", "./prompts/DE_Guide_v12_a-study.md");
+    DEDC("sub_tabs_holder_DEDC", "./prompts/DE_Guide_v11.md"),
+    DENM2("sub_tabs_holder_DENM2", "./prompts/DE_Guide_v12.md");
     //QACM("sub_tabs_holder_QACM", "./settings/Guides/QA_Guide_v7_2.md"),
     //QANM("sub_tabs_holder_QANM", "./settings/Guides/QA_Guide_v7_2.md"),
     //QACR("sub_tabs_holder_QACR", "./settings/Guides/QA_Guide_v7_2.md");

@@ -42,10 +42,6 @@ public class SavePaneOrderAction extends AbstActionMember {
             savePaneOrder(section);
         }
 
-        //savePaneOrder("QASI", "./data/" + authorYear + "/PaneOrder/" + "study_identification_of_qa" + ".prop");
-        //savePaneOrder("QA1_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_1_v6" + ".prop");
-        //savePaneOrder("QA2_v6", "./data/" + authorYear + "/PaneOrder/" + "quality_assessment_2_v6" + ".prop");
-        //savePaneOrder("QAAC", "./data/" + authorYear + "/PaneOrder/" + "additional_comments" + ".prop");
     }
 
     private void savePaneOrder(PaneOrderSection section) {

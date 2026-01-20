@@ -217,7 +217,7 @@ When an item requires ADCSL_Style, provide the following structured information:
 ```
 -----
 
-#### NM2-2. Explanatory Variables
+#### NM2-3. Explanatory Variables
 
 * Extraction Criteria: List all variables used as explanatory variables (predictors) in the normative model. 
 * 以下の Major Category, Minor Category から該当するものを選んで回答してください（複数回答可）。

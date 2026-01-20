@@ -1,6 +1,6 @@
 # Keywords for Normalization: Dataset Name
 
-Version: 20260116
+Version: 20260120
 
 ## 高松案の確認
 
@@ -131,7 +131,6 @@ Author Yearはすべて Pre-trained Normative Model を用いている研究に�
 
 1. **公式略称を基本形とする**（例: `ABCD`, `ADNI`, `UK Biobank`）。
 2. **バージョン/サブコホートはハイフンで接続**（例: `ABIDE-I`, `ADNI-3`, `HCP-A`）。
-3. **派生データ種別は括弧で明示**（例: `UK Biobank (IDPs)`）。
 4. **スペース/ハイフンの揺れを統一**（例: `Cam-CAN`, `ENIGMA-CHR-P`）。
 5. **MULTI-DATASET (UNSPECIFIED OR N>=10)**: 複数データセットの使用は明示されているが詳細不明、または 10 以上のデータセットを用いている場合。
 6. **MULTI-SITE (N>=2)**: 「XX sites」「XX scan sites」「複数スキャナ/施設」を明示しており、サイト数ベースでの統合が主題の場合。
@@ -140,7 +139,7 @@ Author Yearはすべて Pre-trained Normative Model を用いている研究に�
 
 ### 正規化キーワード一覧
 
-| Major Category Keyword   | Minor Category                       | Minor Category Full Spelling                                                           | Alias / variant examples                                                                                         | 該当論文                                                                                                                                                                                                                                                                                                                                              | Notes                                                     |
+| Major Category Keyword   | Minor Category                       | Minor Category Full Spelling                                                           | Alias / variant examples                                                                                         | 該当論文（簡易調査結果）                                                                                                                                                                                                                                                                                                                                      | Notes                                                     |
 |--------------------------|--------------------------------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | ABCCT                    | ABCCT                                | Autism Biomarker Consortium for Clinical Trials Dataset                                |                                                                                                                  | Ebadi2024                                                                                                                                                                                                                                                                                                                                         |                                                           |
 | ABCD                     | ABCD                                 | Adolescent Brain Cognitive Development Study                                           |                                                                                                                  | Bethlehem2021, GarciaSanMartin2025, Ge2024, Kia2022, Loreto2024, Mendes2024, Rutherford2022, Rutherford2023, Verdi2023, Verdi2024, VillalonReina2024, Worker2023                                                                                                                                                                                  |                                                           |
@@ -280,9 +279,14 @@ SNUH, UCISZ, UMCU, UNINA, Zürich」の２０のデータセットが含まれ�
 
 ---------
 
-## どこまでの粒度でキーワードを付与するか："ABIDE-I" と "ABIDE-II" の違い
+## どこまでの粒度でキーワードを付与するか
+
+### "ABIDE-I" と "ABIDE-II"
 
 ABIDE-I は最初の公開データリリースで、ABIDE-II はその拡張版（参加サイト数・被験者数の増加、より幅広い年齢層や追加の臨床情報を含む）として位置付けられる。
 一般に ABIDE-II は ABIDE-I の後続・補完データであり、別リリースとして区別される。
 
+### HCP系
+
+それぞれに特色があり区別すべきと考える。
 

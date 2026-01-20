@@ -1,0 +1,250 @@
+package iu.LCCA.Member.componentholder.Concretes.DEQAResult.DEResult_v11.DEDC;
+
+import iu.LCCA.Mediator.action.ActionMediator;
+import iu.LCCA.Mediator.componentholder.CHolderMediator;
+import iu.LCCA.Member.componentholder.Abstract.AbstCHolderMember;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.ConfirmBeforeSwitchSelectionModel;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.DEQAResultPane.One_ADCSL_Style_Pane;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.DEQAResultPane.One_DEQAResult_Pane_Abs;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.ManagerOfSubTabBasePane;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.SubTabBehaviorUtils;
+import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.SubTabsHolderItrfc;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class DE_DC_SubTabsHolder extends AbstCHolderMember implements SubTabsHolderItrfc {
+
+    static final String LOCATION_OF_JSON = "DE_v11/json/";
+
+    // DE_v12_by_Someone_Author20XX_YYYYmmddHHMMSS.json の構造に合わせて定義する。
+
+    static String sectionName = "dataset_characteristics_part";
+
+    static String subSection_1_Name = "dc1_datasets_using_in_this_study";
+    static String subSection_2_Name = "dc2_purpose_of_each_dataset";
+    static String subSection_3_Name = "dc3_number_of_healthy_control_of_each_normative_nodel";
+    static String subSection_4_Name = "dc4_age_info_of_each_normative_nodel";
+    static String subSection_5_Name = "dc5_sex_info_of_each_normative_nodel";
+
+    static String subSection_1_TabName = "DC Datasets";
+    static String subSection_2_TabName = "DC Purpose of Dataset";
+    static String subSection_3_TabName = "DC HC Number of NM";
+    static String subSection_4_TabName = "DC Age Info of NM";
+    static String subSection_5_TabName = "DC Sex Info of NM";
+
+
+    JPanel panel = new JPanel(new BorderLayout());
+    JTabbedPane baseTabbedPane = new JTabbedPane();
+
+    // Reference Cohort and Imaging
+    ManagerOfSubTabBasePane mngrOfSubTabBasePane_1 = new ManagerOfSubTabBasePane("DE", subSection_1_TabName, sectionName, subSection_1_Name, baseTabbedPane);
+    ManagerOfSubTabBasePane mngrOfSubTabBasePane_2 = new ManagerOfSubTabBasePane("DE", subSection_2_TabName, sectionName, subSection_2_Name, baseTabbedPane);
+    ManagerOfSubTabBasePane mngrOfSubTabBasePane_3 = new ManagerOfSubTabBasePane("DE", subSection_3_TabName, sectionName, subSection_3_Name, baseTabbedPane);
+    ManagerOfSubTabBasePane mngrOfSubTabBasePane_4 = new ManagerOfSubTabBasePane("DE", subSection_4_TabName, sectionName, subSection_4_Name, baseTabbedPane);
+    ManagerOfSubTabBasePane mngrOfSubTabBasePane_5 = new ManagerOfSubTabBasePane("DE", subSection_5_TabName, sectionName, subSection_5_Name, baseTabbedPane);
+
+    ArrayList<ManagerOfSubTabBasePane> arrayList_of_ManagerOfSubTabBasePane = new ArrayList<>();
+    private final String authorYear;
+
+    public DE_DC_SubTabsHolder(String cholder_name, String short_name, String authorYear) {
+        super(cholder_name, short_name);
+
+        this.authorYear = authorYear;
+
+        arrayList_of_ManagerOfSubTabBasePane.add(mngrOfSubTabBasePane_1);
+        mngrOfSubTabBasePane_1.registerSubTabsHolder(this);
+        arrayList_of_ManagerOfSubTabBasePane.add(mngrOfSubTabBasePane_2);
+        mngrOfSubTabBasePane_2.registerSubTabsHolder(this);
+        arrayList_of_ManagerOfSubTabBasePane.add(mngrOfSubTabBasePane_3);
+        mngrOfSubTabBasePane_3.registerSubTabsHolder(this);
+        arrayList_of_ManagerOfSubTabBasePane.add(mngrOfSubTabBasePane_4);
+        mngrOfSubTabBasePane_4.registerSubTabsHolder(this);
+        arrayList_of_ManagerOfSubTabBasePane.add(mngrOfSubTabBasePane_5);
+        mngrOfSubTabBasePane_5.registerSubTabsHolder(this);
+
+        // ./json/ フォルダの確認
+        Path jsonFolderPathString = Paths.get("./data/" + authorYear + "/").resolve(LOCATION_OF_JSON);
+        File jsonDir = jsonFolderPathString.toFile();
+
+        // jsonディレクトリが存在しない、またはディレクトリではない場合
+        if (!jsonDir.exists() || !jsonDir.isDirectory()) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "json/フォルダが見つかりません。\n" + jsonFolderPathString + "/フォルダを作成し、JSONファイルを格納してください。",
+                    "エラー",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            //System.exit(1);
+        }
+        // ./json下のすべてのJSONファイルを取得
+        File[] jsonFiles = jsonDir.listFiles((dir, name) -> name.endsWith(".json"));
+        // jsonFiles に格納されているもののうち、ファイル名に "human" が含まれるものを先頭に持ってくる
+        if (jsonFiles != null) {
+            Arrays.sort(jsonFiles, (f1, f2) -> {
+                boolean f1ContainsHuman = f1.getName().toLowerCase().contains("human");
+                boolean f2ContainsHuman = f2.getName().toLowerCase().contains("human");
+                return Boolean.compare(f2ContainsHuman, f1ContainsHuman);
+            });
+        }
+
+        if (jsonFiles != null) {
+            for (File jsonFile : jsonFiles) {
+                String jsonFileName = jsonFile.getName();
+                mngrOfSubTabBasePane_1.addToTheDePaneArray(new One_ADCSL_Style_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_1_Name));
+                mngrOfSubTabBasePane_2.addToTheDePaneArray(new One_ADCSL_Style_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_2_Name));
+                mngrOfSubTabBasePane_3.addToTheDePaneArray(new One_ADCSL_Style_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_3_Name));
+                mngrOfSubTabBasePane_4.addToTheDePaneArray(new One_ADCSL_Style_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_4_Name));
+                mngrOfSubTabBasePane_5.addToTheDePaneArray(new One_ADCSL_Style_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_5_Name));
+            }
+        }
+
+        //個々のサブタブの中身の準備と配備
+        for (ManagerOfSubTabBasePane managerOfSubTabBasePaneNM : arrayList_of_ManagerOfSubTabBasePane) {
+            baseTabbedPane.add(managerOfSubTabBasePaneNM.getTabName(), managerOfSubTabBasePaneNM.constructBasePaneOfSubTab());
+        }
+
+        // タブ切替前に保存の確認（キャンセルで切替阻止）
+        baseTabbedPane.setModel(new ConfirmBeforeSwitchSelectionModel(panel, arrayList_of_ManagerOfSubTabBasePane));
+
+        panel.add(baseTabbedPane, BorderLayout.CENTER);
+    }
+
+    @Override
+    public void postInitialize() {
+        //System.out.println("postInitialize() @ CAAA_SubTabsHolder.java");
+        if (actionMediator != null) {
+
+            /* 値を流し込む */
+            SubTabBehaviorUtils.loadAllJsonPanels(arrayList_of_ManagerOfSubTabBasePane);
+
+        } else {
+            System.err.println("actionMediator is null in postInitialize() @ " + this.getClass());
+        }
+    }
+
+    @Override
+    public JComponent getBaseComponent() {
+        return this.panel;
+    }
+
+
+    @Override
+    public void setCHolderMediator(CHolderMediator cHolderMediator) {
+        this.cholderMediator = cHolderMediator;
+    }
+
+    @Override
+    public void setActionMediator(ActionMediator actionMediator) {
+        this.actionMediator = actionMediator;
+    }
+
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void doWorkAsMember() {
+    }
+
+
+    /**
+     * すべての paneArray の要素の中から、
+     * jsonName, sectionName, subSectionName が一致するものを返す。
+     */
+    public One_DEQAResult_Pane_Abs getResultPane(String jsonName, String sectionName, String subSectionName) {
+        //System.out.println("Start searching the DEResultPane with following: ");
+        //System.out.println("  JSON Name: " + jsonName);
+        //System.out.println("  Section Name: " + sectionName);
+        //System.out.println("  Subsection Name: " + subSectionName);
+
+        //System.out.println(mngrOfSubTabBasePane_MODEL_ORIGIN.getDePaneArray().size());
+
+        for (One_DEQAResult_Pane_Abs pane : mngrOfSubTabBasePane_1.getDeqaPaneArray()) {
+            //System.out.println("Candidate Info: ");
+            //System.out.println("  JSON Name: " + pane.getJsonName());
+            //System.out.println("  Section Name: " + pane.getSectionName());
+            //System.out.println("  Subsection Name: " + pane.getSubSectionName());
+            if (pane.getJsonName().equals(jsonName) &&
+                    pane.getSectionName().equals(sectionName) &&
+                    pane.getSubSectionName().equals(subSectionName)) {
+                return pane;
+            }
+        }
+
+        for (One_DEQAResult_Pane_Abs pane : mngrOfSubTabBasePane_2.getDeqaPaneArray()) {
+            //System.out.println("Candidate Info: ");
+            //System.out.println("  JSON Name: " + pane.getJsonName());
+            //System.out.println("  Section Name: " + pane.getSectionName());
+            //System.out.println("  Subsection Name: " + pane.getSubSectionName());
+            if (pane.getJsonName().equals(jsonName) &&
+                    pane.getSectionName().equals(sectionName) &&
+                    pane.getSubSectionName().equals(subSectionName)) {
+                return pane;
+            }
+        }
+
+        for (One_DEQAResult_Pane_Abs pane : mngrOfSubTabBasePane_3.getDeqaPaneArray()) {
+            //System.out.println("Candidate Info: ");
+            //System.out.println("  JSON Name: " + pane.getJsonName());
+            //System.out.println("  Section Name: " + pane.getSectionName());
+            //System.out.println("  Subsection Name: " + pane.getSubSectionName());
+            if (pane.getJsonName().equals(jsonName) &&
+                    pane.getSectionName().equals(sectionName) &&
+                    pane.getSubSectionName().equals(subSectionName)) {
+                return pane;
+            }
+        }
+
+        for (One_DEQAResult_Pane_Abs pane : mngrOfSubTabBasePane_4.getDeqaPaneArray()) {
+            //System.out.println("Candidate Info: ");
+            //System.out.println("  JSON Name: " + pane.getJsonName());
+            //System.out.println("  Section Name: " + pane.getSectionName());
+            //System.out.println("  Subsection Name: " + pane.getSubSectionName());
+            if (pane.getJsonName().equals(jsonName) &&
+                    pane.getSectionName().equals(sectionName) &&
+                    pane.getSubSectionName().equals(subSectionName)) {
+                return pane;
+            }
+        }
+
+        for (One_DEQAResult_Pane_Abs pane : mngrOfSubTabBasePane_5.getDeqaPaneArray()) {
+            //System.out.println("Candidate Info: ");
+            //System.out.println("  JSON Name: " + pane.getJsonName());
+            //System.out.println("  Section Name: " + pane.getSectionName());
+            //System.out.println("  Subsection Name: " + pane.getSubSectionName());
+            if (pane.getJsonName().equals(jsonName) &&
+                    pane.getSectionName().equals(sectionName) &&
+                    pane.getSubSectionName().equals(subSectionName)) {
+                return pane;
+            }
+        }
+
+        return null;
+
+    }
+
+    public ArrayList<ManagerOfSubTabBasePane> getArrayList_of_ManagerOfSubTabBasePane() {
+        return arrayList_of_ManagerOfSubTabBasePane;
+    }
+
+    @Override
+    public One_DEQAResult_Pane_Abs getTheFirstJsonPanel() {
+        return null;
+    }
+
+    @Override
+    public String getAuthorYear() {
+        return this.authorYear;
+    }
+
+    public String getSectionName() {
+        return sectionName;
+    }
+
+}
