@@ -1,5 +1,6 @@
 package iu.SpringBoot.Vaadin.views;
 
+import iu.SpringBoot.Vaadin.DEQACheckAll.DEOverviePage.DEFileTable;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DEOverviePage.DEOverviewPage;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -104,6 +105,9 @@ public class MainView extends VerticalLayout {
 
             RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
             add(link1);
+
+            RouterLink link11 = new RouterLink("DE File Table (v11/v12)", DEFileTable.class);
+            add(link11);
 
             RouterLink link2 = new RouterLink("Summary View", SummaryView.class);
             add(link2);
