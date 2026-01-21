@@ -176,97 +176,20 @@ public class ActionMediator implements ActionListener, MediatorIntrfc {
         runABashScriptAction.initialize();
         registerMemberToMap(runABashScriptAction);
 
-        /* **** Initialization **** */
 
-        actionMemberFactory = MemberFactoryLoader.loadFactory(
-                Initialize_All_TabPanes_ActionFactory.class.getName(),
-                AbstActionMemberFactory.class);
-        AbstActionMember ititialize_All_TabPanes_Action =
-                actionMemberFactory.createAction("initialize_all_tabpanes", "Init All");
-        ititialize_All_TabPanes_Action.setActionMediator(this);
-        ititialize_All_TabPanes_Action.initialize();
-        registerMemberToMap(ititialize_All_TabPanes_Action);
-
-
-        // Save & Load DEResultPane Order
-
-        actionMemberFactory = MemberFactoryLoader.loadFactory(
-                SavePaneOrderActionFactory.class.getName(),
-                AbstActionMemberFactory.class);
-        AbstActionMember savePaneOrderAction =
-                actionMemberFactory.createAction("save_pane_order", "save pane order", args[0]);
-        savePaneOrderAction.setActionMediator(this);
-        savePaneOrderAction.initialize();
-        registerMemberToMap(savePaneOrderAction);
-
-        actionMemberFactory = MemberFactoryLoader.loadFactory(
-                LoadPaneOrderActionFactory.class.getName(),
-                AbstActionMemberFactory.class);
-        AbstActionMember loadPaneOrderAction =
-                actionMemberFactory.createAction("load_pane_order", "load pane order", args[0]);
-        loadPaneOrderAction.setActionMediator(this);
-        loadPaneOrderAction.initialize();
-        registerMemberToMap(loadPaneOrderAction);
+        /* **** DEQACheck **** */
+        for (ActionSpec spec : ActionSpec.values()) {
+            actionMemberFactory =
+                    MemberFactoryLoader.loadFactory(
+                            spec.factoryClass.getName(),
+                            AbstActionMemberFactory.class);
+            AbstActionMember action = actionMemberFactory.createAction(spec.memberName, spec.description, args);
+            action.setActionMediator(this);
+            action.initialize();
+            registerMemberToMap(action);
+        }
 
 
-        // Save & Load NotePane Texts
-
-        actionMemberFactory = MemberFactoryLoader.loadFactory(
-                SaveNotePaneTextsActionFactory.class.getName(),
-                AbstActionMemberFactory.class);
-        AbstActionMember saveNotePaneAction =
-                actionMemberFactory.createAction("save_note_pane", "save note pane texts", args[0]);
-        saveNotePaneAction.setActionMediator(this);
-        saveNotePaneAction.initialize();
-        registerMemberToMap(saveNotePaneAction);
-
-
-        actionMemberFactory = MemberFactoryLoader.loadFactory(
-                LoadNotePaneTextsActionFactory.class.getName(),
-                AbstActionMemberFactory.class);
-        AbstActionMember loadNotePaneAction =
-                actionMemberFactory.createAction("load_note_pane", "load note pane texts", args[0]);
-        loadNotePaneAction.setActionMediator(this);
-        loadNotePaneAction.initialize();
-        registerMemberToMap(loadNotePaneAction);
-
-
-        /* **** Special Action **** */
-        actionMemberFactory = MemberFactoryLoader.loadFactory(
-                CheckConfidenceRatingOfDESectionsActionFactory.class.getName(),
-                AbstActionMemberFactory.class);
-        AbstActionMember summarizeConfidenceRatingAction =
-                actionMemberFactory.createAction("check_confidence_rating_of_de_sections", "check confidence rating of de", args[0]);
-        summarizeConfidenceRatingAction.setActionMediator(this);
-        summarizeConfidenceRatingAction.initialize();
-        registerMemberToMap(summarizeConfidenceRatingAction);
-
-
-
-        /* **** Processing **** */
-
-        /*
-        actionMemberFactory =
-                MemberFactoryLoader.loadFactory(
-                        "iu.LCAC.Member.action.Concretes.DEQAResultActions.ConvertJson.ConvertJson2MarkdownActionFactory",
-                        AbstActionMemberFactory.class);
-        AbstActionMember convertJson2MarkdownAction =
-                actionMemberFactory.createAction("convert_json_2_markdown", "Convert JSON 2 Markdown");
-        convertJson2MarkdownAction.setActionMediator(this);
-        convertJson2MarkdownAction.initialize();
-        registerMemberToMap(convertJson2MarkdownAction);
-        */
-        /*
-        actionMemberFactory =
-                MemberFactoryLoader.loadFactory(
-                        "iu.LCAC.Member.action.Concretes.DEQAResultActions.ConvertJson.ConvertJson2TsvActionFactory",
-                        AbstActionMemberFactory.class);
-        AbstActionMember convertJson2TsvAction =
-                actionMemberFactory.createAction("convert_json_2_tsv", "Convert JSON 2 TSV");
-        convertJson2TsvAction.setActionMediator(this);
-        convertJson2TsvAction.initialize();
-        registerMemberToMap(convertJson2TsvAction);
-        */
     }
 
     private void registerMemberToMap(AbstActionMember action) {

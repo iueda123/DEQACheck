@@ -29,6 +29,8 @@ import java.util.stream.Stream;
 
 public class WithNotebookLMPanelHolder extends AbstCHolderMember implements JsonManagerCallback {
 
+    public static final String staticMemberName = "with_notebook_lm_pane_holder";
+
     static final String ROOT_OF_AUTHOR_YEAR_FOLDER = "./data";
 
     private String authorYear = "";

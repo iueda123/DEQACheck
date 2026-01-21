@@ -14,6 +14,8 @@ import java.awt.event.KeyEvent;
 
 public class SaveNotePaneTextsAction extends AbstActionMember {
 
+    public static final String staticMemberName = "save_note_pane";
+
     String authorYear = "Someone20XX";
 
     public SaveNotePaneTextsAction(String action_name, String short_name, String authorYear) {

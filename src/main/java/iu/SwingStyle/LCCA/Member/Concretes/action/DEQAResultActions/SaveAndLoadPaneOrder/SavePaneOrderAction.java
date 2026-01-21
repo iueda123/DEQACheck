@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class SavePaneOrderAction extends AbstActionMember {
 
+    public static final String staticMemberName = "save_pane_order";
+
     String authorYear = "Someone20XX";
 
     public SavePaneOrderAction(String action_name, String short_name, String authorYear) {

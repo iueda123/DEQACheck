@@ -95,6 +95,7 @@ public class SuperBorderLayoutPanel extends JPanel {
             westCenterSplit.setLeftComponent(emptyWest);
             westCenterSplit.setDividerSize(0);
             westCenterSplit.setDividerLocation(0);
+            SwingUtilities.invokeLater(() -> westCenterSplit.setDividerLocation(0));
         }
 
         // East visibility (remember width when hiding)
@@ -105,7 +106,8 @@ public class SuperBorderLayoutPanel extends JPanel {
         } else {
             fullHorizontalSplit.setRightComponent(emptyEast);
             fullHorizontalSplit.setDividerSize(0);
-            fullHorizontalSplit.setDividerLocation(fullHorizontalSplit.getMaximumDividerLocation());
+            fullHorizontalSplit.setDividerLocation(Integer.MAX_VALUE);
+            SwingUtilities.invokeLater(() -> fullHorizontalSplit.setDividerLocation(Integer.MAX_VALUE));
         }
 
         // North visibility
@@ -117,6 +119,7 @@ public class SuperBorderLayoutPanel extends JPanel {
             northCenterSplit.setTopComponent(emptyNorth);
             northCenterSplit.setDividerSize(0);
             northCenterSplit.setDividerLocation(0);
+            SwingUtilities.invokeLater(() -> northCenterSplit.setDividerLocation(0));
         }
 
         // South visibility
@@ -127,7 +130,8 @@ public class SuperBorderLayoutPanel extends JPanel {
         } else {
             mainVerticalSplit.setBottomComponent(emptySouth);
             mainVerticalSplit.setDividerSize(0);
-            mainVerticalSplit.setDividerLocation(mainVerticalSplit.getMaximumDividerLocation());
+            mainVerticalSplit.setDividerLocation(Integer.MAX_VALUE);
+            SwingUtilities.invokeLater(() -> mainVerticalSplit.setDividerLocation(Integer.MAX_VALUE));
         }
 
         revalidate();
@@ -138,6 +142,7 @@ public class SuperBorderLayoutPanel extends JPanel {
         JPanel placeholder = new JPanel();
         placeholder.setPreferredSize(new Dimension(0, 0));
         placeholder.setMinimumSize(new Dimension(0, 0));
+        placeholder.setMaximumSize(new Dimension(0, 0));
         return placeholder;
     }
 
@@ -383,6 +388,13 @@ public class SuperBorderLayoutPanel extends JPanel {
         }
     }
 
+    /*
+    public void setWestWidth(int w) {
+        westDividerLocation = w;
+        updateLayout();
+    }
+    */
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Create main frame
@@ -499,6 +511,7 @@ public class SuperBorderLayoutPanel extends JPanel {
             frame.setVisible(true);
         });
     }
+
 
 
 }

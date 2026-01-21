@@ -14,6 +14,8 @@ import java.awt.event.KeyEvent;
 
 public class LoadNotePaneTextsAction extends AbstActionMember {
 
+    public static final String staticMemberName = "load_note_pane";
+
     String authorYear = "Someone20XX";
 
     public LoadNotePaneTextsAction(String action_name, String short_name, String authorYear) {

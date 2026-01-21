@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 public class Initialize_All_TabPanes_Action extends AbstActionMember {
 
+    public static String staticMemberName = "initialize_all_tabpanes";
+
     public Initialize_All_TabPanes_Action(String action_name, String short_name) {
         super(action_name, short_name);
     }

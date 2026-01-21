@@ -19,6 +19,8 @@ import java.util.TreeMap;
 
 public class SummaryPaneHolder extends AbstCHolderMember {
 
+    public static final String staticMemberName = "summary_pane_holder";
+
     String[] subTabsHolderNames = {
             "sub_tabs_holder_DESI",
             "sub_tabs_holder_DESC",

@@ -21,6 +21,8 @@ import java.util.Arrays;
 
 public class DE_NM2_SubTabsHolder extends AbstCHolderMember implements SubTabsHolderItrfc {
 
+    public static final String staticMemberName = "sub_tabs_holder_DENM2";
+
     static final String LOCATION_OF_JSON = "DE_v12/json/";
 
     // DE_v12_by_Someone_Author20XX_YYYYmmddHHMMSS.json の構造に合わせて定義する。

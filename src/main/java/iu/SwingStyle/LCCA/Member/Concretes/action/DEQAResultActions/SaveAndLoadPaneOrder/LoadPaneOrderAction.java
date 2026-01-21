@@ -16,6 +16,8 @@ import java.util.*;
 
 public class LoadPaneOrderAction extends AbstActionMember {
 
+    public static final String staticMemberName = "load_pane_order";
+
     String authorYear = "Someone20XX";
 
     public LoadPaneOrderAction(String action_name, String short_name, String authorYear) {

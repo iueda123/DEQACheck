@@ -18,6 +18,8 @@ import java.util.LinkedHashSet;
 
 public class ExplanationPanelHolder extends AbstCHolderMember {
 
+    public static final String staticMemberName = "explanation_panel_holder";
+
     /**
      * 表示するガイドファイルのパス一覧
      */

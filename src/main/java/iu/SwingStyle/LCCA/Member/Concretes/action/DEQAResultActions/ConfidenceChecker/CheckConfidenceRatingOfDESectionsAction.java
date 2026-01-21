@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class CheckConfidenceRatingOfDESectionsAction extends AbstActionMember {
 
+    public static final String staticMemberName = "check_confidence_rating_of_de_sections";
+
     String[] subTabsHolderNames = {
             "sub_tabs_holder_DESI",
             "sub_tabs_holder_DESC",

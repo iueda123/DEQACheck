@@ -20,6 +20,8 @@ import java.util.Arrays;
 
 public class DESC_SubTabsHolder extends AbstCHolderMember implements SubTabsHolderItrfc {
 
+    public static final String staticMemberName = "sub_tabs_holder_DESC";
+
     static final String LOCATION_OF_JSON = "DE/json/";
 
     static String sectionName = "study_characteristics_part";

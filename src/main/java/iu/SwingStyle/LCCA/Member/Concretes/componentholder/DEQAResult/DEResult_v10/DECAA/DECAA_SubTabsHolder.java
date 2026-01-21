@@ -23,6 +23,8 @@ import java.util.Arrays;
 
 public class DECAA_SubTabsHolder extends AbstCHolderMember implements SubTabsHolderItrfc {
 
+    public static final String staticMemberName = "sub_tabs_holder_DECAA";
+
     static final String LOCATION_OF_JSON = "DE/json/";
 
 
