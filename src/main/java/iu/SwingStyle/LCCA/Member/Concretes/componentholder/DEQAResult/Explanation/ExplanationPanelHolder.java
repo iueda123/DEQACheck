@@ -4,6 +4,7 @@ import iu.SwingStyle.LCCA.Mediator.action.ActionMediator;
 import iu.SwingStyle.LCCA.Mediator.componentholder.CHolderMediator;
 import iu.SwingStyle.LCCA.Member.Abstracts.componentholder.AbstCHolderMember;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.ManagerOfSubTabBasePane;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.SubTabsHolderConfig;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.SubTabsHolderItrfc;
 
 import javax.swing.*;
@@ -100,7 +101,6 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
 
 
         /* **** Add the explanation to theNotePane of each sub panel **** */
-
         for (SubTabsHolderConfig config : SubTabsHolderConfig.values()) {
             String sub_tabs_holder_name = config.getHolderName();
             SubTabsHolderItrfc subTabsHolder = (SubTabsHolderItrfc) this.cholderMediator.getInstanceOfAMember(sub_tabs_holder_name);
@@ -108,7 +108,9 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
                 ArrayList<ManagerOfSubTabBasePane> managersOfSubTabBasePane = subTabsHolder.getArrayList_of_ManagerOfSubTabBasePane();
                 for (ManagerOfSubTabBasePane managerOfSubTabBasePane : managersOfSubTabBasePane) {
                     String subSectionName = managerOfSubTabBasePane.getSubSectionName();
+
                     // sub_tabs_holder_name からガイドファイルを特定して説明を抽出
+
                     String subsetExplanation = getSubsetOfExplanation(sub_tabs_holder_name, subSectionName);
                     managerOfSubTabBasePane.addExplanationToNotePane(subsetExplanation);
                 }
@@ -222,10 +224,12 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
     }
 
     private String buildHeadingKey(String subSectionName) {
-        // subSectionName: 先頭トークン([a-z]+ + 数字) と必要に応じて次の数字を使って見出しキーを構築
-        // 例) rci1_dataset_name -> #### RCI-1.
-        //     nm2_1_modeling_method -> #### NM2-1.
-        //     cr7_handling_of_confounding_variables -> #### CR-7.
+        // subSectionName: 見出しキーを構築
+        // 対応形式:
+        //   形式1: rci1_dataset_name        -> #### RCI-1.
+        //   形式2: nm2_1_modeling_method    -> #### NM2-1.
+        //   形式3: dc_1_datasets_using...   -> #### DC-1.
+        //   形式4: nm_2_1_modeling_methods  -> #### NM2-1.
         if (subSectionName == null || subSectionName.isEmpty()) {
             return null;
         }
@@ -235,25 +239,43 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
             return null;
         }
 
-        java.util.regex.Matcher firstTokenMatcher = java.util.regex.Pattern
+        String letters = null;
+        String primaryNumber = null;
+        String secondaryNumber = null;
+
+        // 形式1/2: tokens[0] が "rci1" や "nm2" のように文字+数字が結合している場合
+        java.util.regex.Matcher combinedMatcher = java.util.regex.Pattern
                 .compile("^([a-z]+)(\\d+)$")
                 .matcher(tokens[0]);
-        if (!firstTokenMatcher.matches()) {
+
+        if (combinedMatcher.matches()) {
+            letters = combinedMatcher.group(1).toUpperCase();
+            primaryNumber = combinedMatcher.group(2);
+
+            // 次のトークンが数字なら secondaryNumber として使用 (nm2_1_... 形式)
+            if (tokens.length > 1 && tokens[1].matches("\\d+")) {
+                secondaryNumber = tokens[1];
+            }
+        } else if (tokens[0].matches("^[a-z]+$") && tokens.length > 1 && tokens[1].matches("\\d+")) {
+            // 形式3/4: tokens[0] が文字のみ、tokens[1] が数字 (dc_1_... や nm_2_1_... 形式)
+            letters = tokens[0].toUpperCase();
+            primaryNumber = tokens[1];
+
+            // 次のトークンが数字なら secondaryNumber として使用 (nm_2_1_... 形式)
+            if (tokens.length > 2 && tokens[2].matches("\\d+")) {
+                secondaryNumber = tokens[2];
+            }
+        } else {
             return null;
         }
 
-        String letters = firstTokenMatcher.group(1).toUpperCase();
-        String primaryNumber = firstTokenMatcher.group(2);
-        String secondaryNumber = null;
-
-        if (tokens.length > 1 && tokens[1].matches("\\d+")) {
-            secondaryNumber = tokens[1];
-        }
-
+        // 見出しキーを構築
         StringBuilder headingKey = new StringBuilder("#### ").append(letters);
         if (secondaryNumber != null) {
+            // nm2_1_... や nm_2_1_... → "#### NM2-1."
             headingKey.append(primaryNumber).append("-").append(secondaryNumber).append(".");
         } else {
+            // rci1_... や dc_1_... → "#### RCI-1." や "#### DC-1."
             headingKey.append("-").append(primaryNumber).append(".");
         }
         return headingKey.toString();

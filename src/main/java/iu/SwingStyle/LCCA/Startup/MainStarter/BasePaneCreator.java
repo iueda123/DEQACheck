@@ -1,6 +1,9 @@
 package iu.SwingStyle.LCCA.Startup.MainStarter;
 
 import iu.SwingStyle.LCCA.Mediator.componentholder.CHolderMediator;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DEDC.DEDC_v11_SubTabsHolder;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DESI.DESI_v11_SubTabsHolder;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v12.DENM2.DENM_v12_SubTabsHolder;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.MainWindow.MainWindowHolder;
 import iu.SwingStyle.LCCA.Utils.CollapsiblePanel;
 import iu.SwingStyle.LCCA.Utils.VerticalTextTabbedPane;
@@ -65,12 +68,15 @@ public class BasePaneCreator {
     index++;
 
     //-----------------------
+    tabbedPane.add("7. DE-SI", (cHolderMediator.getInstanceOfAMember(DESI_v11_SubTabsHolder.staticMemberName)).getBaseComponent());
+    tabbedPane.setToolTipTextAt(index, "Study Identification");
+    index++;
 
-    tabbedPane.add("7. DE-DC", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DEDC")).getBaseComponent());
+    tabbedPane.add("8. DE-DC", (cHolderMediator.getInstanceOfAMember(DEDC_v11_SubTabsHolder.staticMemberName)).getBaseComponent());
     tabbedPane.setToolTipTextAt(index, "Dataset Characteristics");
     index++;
 
-    tabbedPane.add("8. DE-NM2", (cHolderMediator.getInstanceOfAMember("sub_tabs_holder_DENM2")).getBaseComponent());
+    tabbedPane.add("9. DE-NM2", (cHolderMediator.getInstanceOfAMember(DENM_v12_SubTabsHolder.staticMemberName)).getBaseComponent());
     tabbedPane.setToolTipTextAt(index, "Normative Modeling 2");
     index++;
 

@@ -6,26 +6,15 @@ import iu.SwingStyle.LCCA.Mediator.action.ActionMediator;
 import iu.SwingStyle.LCCA.Member.MemberIntrfc;
 import iu.SwingStyle.LCCA.Member.Abstracts.componentholder.AbstCHolderMember;
 import iu.SwingStyle.LCCA.Member.Abstracts.componentholder.AbstCHolderMemberFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DEDC.DE_DC_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v12.DENM2.DE_NM2_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.WithNotebookLMPane.WithNotebookLMPanelHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.MainWindow.MainWindowHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.StatusPanel.StatusPanelHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.Sample.ButtonPanel.ButtonPanelHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.Sample.RunBashPanel.RunBashPanelHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DESI.DESI_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DESC.DESC_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DERCI.DERCI_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DENM.DENM_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DECAA.DECAA_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DEGN.DEGN_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Explanation.ExplanationPanelHolderFactory;
 //import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACM.QACM_SubTabsHolderFactory;
 //import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QANM.QANM_SubTabsHolderFactory;
 //import iu.LCCA.Member.componentholder.Concretes.DEQAResult.QAResult_v7.QACR.QACR_SubTabsHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.Sample.CheckboxPanel.CheckboxPanelHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.Sample.TextField.TextFieldPanelHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.SummaryPane.SummaryPaneHolderFactory;
 
 import java.util.*;
 

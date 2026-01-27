@@ -197,7 +197,7 @@ fi
     #TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v9.json
     #TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10.json
     #TemplateFile=${this_script_parent}/../templates/DE_Author20XX_by_Someone_YYYYmmddHHMMSS_for_v10_1.json
-    TemplateFile=${this_script_parent}/../templates/DE_v12_by_Someone_Author20XX_YYYYmmddHHMMSS.json
+    TemplateFile=${this_script_parent}/../templates/DE_v12_Author20XX_by_Someone_YYYYmmddHHMMSS.json
 
 
 # ファイル存在確認

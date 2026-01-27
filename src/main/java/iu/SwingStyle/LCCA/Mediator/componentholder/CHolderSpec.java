@@ -13,10 +13,12 @@ import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DESI.DESI_SubTabsHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DEGN.DEGN_SubTabsHolder;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v10.DEGN.DEGN_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DEDC.DE_DC_SubTabsHolder;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DEDC.DE_DC_SubTabsHolderFactory;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v12.DENM2.DE_NM2_SubTabsHolder;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v12.DENM2.DE_NM2_SubTabsHolderFactory;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DEDC.DEDC_v11_SubTabsHolder;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DEDC.DEDC_v11_SubTabsHolderFactory;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DESI.DESI_v11_SubTabsHolder;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v11.DESI.DESI_v11_SubTabsHolderFactory;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v12.DENM2.DENM_v12_SubTabsHolder;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.DEResult_v12.DENM2.DENM_v12_SubTabsHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Explanation.ExplanationPanelHolder;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Explanation.ExplanationPanelHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.SummaryPane.SummaryPaneHolder;
@@ -49,14 +51,18 @@ public enum CHolderSpec {
             DEGN_SubTabsHolderFactory.class,
             DEGN_SubTabsHolder.staticMemberName,
             "sub_tabs_holder_DEGN"),
-    SUB_TABS_HOLDER_DEDC(
-            DE_DC_SubTabsHolderFactory.class,
-            DE_DC_SubTabsHolder.staticMemberName,
-            "sub_tabs_holder_DEDC"),
-    SUB_TABS_HOLDER_DENM2(
-            DE_NM2_SubTabsHolderFactory.class,
-            DE_NM2_SubTabsHolder.staticMemberName,
-            "sub_tabs_holder_DENM2"),
+    SUB_TABS_HOLDER_DE_SI(
+            DESI_v11_SubTabsHolderFactory.class,
+            DESI_v11_SubTabsHolder.staticMemberName,
+            "sub_tabs_holder_DE_SI"),
+    SUB_TABS_HOLDER_DE_DC(
+            DEDC_v11_SubTabsHolderFactory.class,
+            DEDC_v11_SubTabsHolder.staticMemberName,
+            "sub_tabs_holder_DE_DC"),
+    SUB_TABS_HOLDER_DE_NM2(
+            DENM_v12_SubTabsHolderFactory.class,
+            DENM_v12_SubTabsHolder.staticMemberName,
+            "sub_tabs_holder_DE_NM2"),
     EXPLANATION_PANEL_HOLDER(
             ExplanationPanelHolderFactory.class,
             ExplanationPanelHolder.staticMemberName,

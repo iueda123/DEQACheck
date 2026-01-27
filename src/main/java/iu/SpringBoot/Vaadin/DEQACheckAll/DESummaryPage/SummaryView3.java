@@ -6,9 +6,11 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -16,6 +18,7 @@ import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import iu.SpringBoot.Vaadin.DEQACheckAll.Utils.ExternalJarLauncher;
 import iu.SpringBoot.Vaadin.views.MainView;
 
 import java.io.IOException;
@@ -39,6 +42,8 @@ import jakarta.annotation.security.RolesAllowed;
 public class SummaryView3 extends VerticalLayout {
 
     private static final String DATA_FOLDER_NAME = "share_package/data";
+    private static final String JAR_WORKING_DIR = "share_package";
+    private static final String DEQACheckJar = "share_package/jar/DEQACheck-v20260107-all.jar";
     private static final Pattern SOURCE_PATTERN = Pattern.compile("_by_([^_]+)_", Pattern.CASE_INSENSITIVE);
     private static final Pattern VERSION_PATTERN = Pattern.compile("de_v(\\d+)_", Pattern.CASE_INSENSITIVE);
     private static final String[][] SI_KEYS = {
@@ -642,7 +647,7 @@ public class SummaryView3 extends VerticalLayout {
             if (even) {
                 tr.setAttribute("style", "background: var(--lumo-contrast-5pct);");
             }
-            appendCell(tr, getValue(row.siValues, 0), getValue(row.rawSiValues, 0));
+            appendLauncherCell(tr, getValue(row.siValues, 0), row.authorYear);
             appendCell(tr, getValue(row.siValues, 1), getValue(row.rawSiValues, 1));
             appendCell(tr, getValue(row.siValues, 2), getValue(row.rawSiValues, 2));
             appendCell(tr, getValue(row.dcValues, 0), getValue(row.rawDcValues, 0));
@@ -689,6 +694,34 @@ public class SummaryView3 extends VerticalLayout {
             td.setAttribute("title", rawJson);
         }
         td.setText(text == null ? "" : text);
+        tr.appendChild(td);
+    }
+
+    private void appendLauncherCell(Element tr, String text, String authorYear) {
+        Element td = new Element("td");
+        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
+
+        Button launcher = new Button(text == null ? "" : text);
+        launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
+        launcher.addClickListener(e -> {
+            Dialog d = new Dialog();
+            d.add(new Paragraph("DECheck.jarを起動しますか？"));
+            Button yes = new Button("Yes", ev -> {
+                d.close();
+
+                boolean ok = ExternalJarLauncher.launch(DEQACheckJar, JAR_WORKING_DIR, authorYear);
+                if (ok) {
+                    Notification.show("起動要求を送信しました");
+                } else {
+                    Notification.show("起動に失敗しました（ログを確認してください）");
+                }
+            });
+            Button no = new Button("No", ev -> d.close());
+            d.getFooter().add(no, yes);
+            d.open();
+        });
+
+        td.appendChild(launcher.getElement());
         tr.appendChild(td);
     }
 

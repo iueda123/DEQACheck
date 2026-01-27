@@ -3,7 +3,6 @@ package iu.SwingStyle.LCCA.Member.Concretes.action.DEQAResultActions.ConfidenceC
 import iu.SwingStyle.LCCA.Mediator.action.ActionMediator;
 import iu.SwingStyle.LCCA.Mediator.componentholder.CHolderMediator;
 import iu.SwingStyle.LCCA.Member.Abstracts.action.AbstActionMember;
-import iu.LCCA.Member.componentholder.Concretes.DEQAResult.Common.DEQAResultPane.*;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.DEQAResultPane.One_ACRSL_Style_Pane;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.DEQAResultPane.One_ADCSL_Style_Pane;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.DEQAResultPane.One_DEQAResult_Pane_Abs;
