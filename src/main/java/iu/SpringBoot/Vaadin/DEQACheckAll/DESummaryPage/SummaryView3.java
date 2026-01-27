@@ -149,7 +149,7 @@ public class SummaryView3 extends VerticalLayout {
 
         sourceFilter = new ComboBox<>("Source Filter");
         sourceFilter.setItems("all", "human", "gemini", "claude", "codex");
-        sourceFilter.setValue("all");
+        sourceFilter.setValue("human");
         sourceFilter.addValueChangeListener(e -> {
             applySourceFilter();
             rebuildTable();
@@ -174,6 +174,7 @@ public class SummaryView3 extends VerticalLayout {
         scrollWrapper.getStyle().set("overflow", "auto");
         scrollWrapper.getStyle().set("border", "1px solid var(--lumo-contrast-20pct)");
 
+        applySourceFilter();
         rebuildTable();
         add(scrollWrapper);
 
@@ -302,6 +303,22 @@ public class SummaryView3 extends VerticalLayout {
         }
     }
 
+    private JsonNode parseStringifiedJson(JsonNode node) {
+        if (node == null || !node.isTextual()) return node;
+        String text = node.asText();
+        if (text == null || text.isBlank()) return node;
+        String trimmed = text.trim();
+        if ((trimmed.startsWith("[") && trimmed.endsWith("]"))
+                || (trimmed.startsWith("{") && trimmed.endsWith("}"))) {
+            try {
+                return mapper.readTree(text);
+            } catch (IOException e) {
+                return node;
+            }
+        }
+        return node;
+    }
+
     private String extractValue(JsonNode root, String[] keys, String sectionKey) {
         JsonNode node = null;
         for (String key : keys) {
@@ -321,7 +338,7 @@ public class SummaryView3 extends VerticalLayout {
             return "";
         }
         if (node.isObject() && node.has("answer")) {
-            node = node.get("answer");
+            node = parseStringifiedJson(node.get("answer"));
         }
         if (node == null || node.isNull()) return "";
         if (node.isTextual()) return node.asText();
@@ -364,7 +381,7 @@ public class SummaryView3 extends VerticalLayout {
         }
         if (node == null || node.isNull()) return "";
         if (node.isObject() && node.has("answer")) {
-            node = node.get("answer");
+            node = parseStringifiedJson(node.get("answer"));
         }
         if (node == null || node.isNull()) return "";
         if (node.isArray()) {
@@ -400,7 +417,7 @@ public class SummaryView3 extends VerticalLayout {
         }
         if (node == null || node.isNull()) return "";
         if (node.isObject() && node.has("answer")) {
-            node = node.get("answer");
+            node = parseStringifiedJson(node.get("answer"));
         }
         if (node == null || node.isNull()) return "";
         if (node.isArray()) {
@@ -449,7 +466,7 @@ public class SummaryView3 extends VerticalLayout {
         }
         if (node == null || node.isNull()) return "";
         if (node.isObject() && node.has("answer")) {
-            node = node.get("answer");
+            node = parseStringifiedJson(node.get("answer"));
         }
         if (node == null || node.isNull()) return "";
         if (node.isArray()) {
@@ -490,7 +507,7 @@ public class SummaryView3 extends VerticalLayout {
         }
         if (node == null || node.isNull()) return "";
         if (node.isObject() && node.has("answer")) {
-            node = node.get("answer");
+            node = parseStringifiedJson(node.get("answer"));
         }
         if (node == null || node.isNull()) return "";
         if (node.isObject()) {
@@ -693,15 +710,21 @@ public class SummaryView3 extends VerticalLayout {
         if (rawJson != null && !rawJson.isBlank()) {
             td.setAttribute("title", rawJson);
         }
-        td.setText(text == null ? "" : text);
+        String displayText = normalizeNewlines(text);
+        td.setText(displayText);
         tr.appendChild(td);
+    }
+
+    private String normalizeNewlines(String text) {
+        if (text == null) return "";
+        return text.replace("\r\n", " ").replace("\r", " ").replace("\n", " ");
     }
 
     private void appendLauncherCell(Element tr, String text, String authorYear) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
 
-        Button launcher = new Button(text == null ? "" : text);
+        Button launcher = new Button(normalizeNewlines(text));
         launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
         launcher.addClickListener(e -> {
             Dialog d = new Dialog();

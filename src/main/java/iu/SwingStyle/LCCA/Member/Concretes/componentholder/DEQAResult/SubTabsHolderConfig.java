@@ -20,8 +20,8 @@ public enum SubTabsHolderConfig {
     DENM_v10(DENM_SubTabsHolder.staticMemberName, "./prompts/DE_Guide_v10_1.md"),
     DECAA_v10(DECAA_SubTabsHolder.staticMemberName, "./prompts/DE_Guide_v10_1.md"),
     DEGN_v10(DEGN_SubTabsHolder.staticMemberName, "./prompts/DE_Guide_v10_1.md"),
-    DESI_v11(DESI_v11_SubTabsHolder.staticMemberName, "./prompts/DE_Guide_v12.md"),
-    DEDC_v11(DEDC_v11_SubTabsHolder.staticMemberName, "./prompts/DE_Guide_v12.md"),
+    DESI_v11(DESI_v11_SubTabsHolder.staticMemberName, "./prompts/DE_Guide_v11.md"),
+    DEDC_v11(DEDC_v11_SubTabsHolder.staticMemberName, "./prompts/DE_Guide_v11.md"),
     DENM_v12(DENM_v12_SubTabsHolder.staticMemberName, "./prompts/DE_Guide_v12.md");
 
     private final String holderName;
