@@ -40,7 +40,7 @@ public class MenuBarCreator {
         JMenuItem menu_item1_1 = actionMediator.getInstanceOfAMember("change_color_of_west").getMenuItem();
         //main_menu_1.add(menu_item1_1);
 
-        JMenuItem menu_item1_2 =   actionMediator.getInstanceOfAMember("change_color_of_center").getMenuItem();
+        JMenuItem menu_item1_2 = actionMediator.getInstanceOfAMember("change_color_of_center").getMenuItem();
         //main_menu_1.add(menu_item1_2);
 
         //JMenuItem menu_item1_3 = actionMediator.getInstanceOfAMember("change_color_of_east").getMenuItem();

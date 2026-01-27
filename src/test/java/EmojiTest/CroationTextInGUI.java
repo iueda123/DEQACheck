@@ -17,10 +17,10 @@ public class CroationTextInGUI {
     }
 
     public void initUI() {
-        if (ui!=null) return;
+        if (ui != null) return;
 
-        ui = new JPanel(new BorderLayout(4,4));
-        ui.setBorder(new EmptyBorder(4,4,4,4));
+        ui = new JPanel(new BorderLayout(4, 4));
+        ui.setBorder(new EmptyBorder(4, 4, 4, 4));
 
         String[] fontFamilies = GraphicsEnvironment.
                 getLocalGraphicsEnvironment().
@@ -28,7 +28,7 @@ public class CroationTextInGUI {
         Vector<String> croatFreindlyFonts = new Vector<String>();
         for (String name : fontFamilies) {
             Font font = new Font(name, Font.PLAIN, 20);
-            if (font.canDisplayUpTo(text)<0) {
+            if (font.canDisplayUpTo(text) < 0) {
                 croatFreindlyFonts.add(name);
             }
         }

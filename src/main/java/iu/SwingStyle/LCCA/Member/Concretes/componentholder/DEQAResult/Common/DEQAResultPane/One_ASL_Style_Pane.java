@@ -235,15 +235,15 @@ public class One_ASL_Style_Pane extends One_DEQAResult_Pane_Abs {
 
     @Override
     public boolean isUpdated() {
-            if (tArea_Answer.isUpdated()) {
-                return true;
-            } else if (tArea_SupportingText.isUpdated()) {
-                return true;
-            } else if (tArea_Location.isUpdated()) {
-                return true;
-            } else {
-                return false;
-            }
+        if (tArea_Answer.isUpdated()) {
+            return true;
+        } else if (tArea_SupportingText.isUpdated()) {
+            return true;
+        } else if (tArea_Location.isUpdated()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

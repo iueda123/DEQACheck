@@ -96,7 +96,7 @@ public class SecurityConfig extends VaadinWebSecurity {
     protected void configure(HttpSecurity http) throws Exception {
         // Allow access to static resources
         http.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/images/**", "/icons/**", "/styles/**").permitAll()
+                .requestMatchers("/images/**", "/icons/**", "/styles/**").permitAll()
         );
 
         // Debug mode: auto-authenticate as admin when enabled
@@ -112,73 +112,73 @@ public class SecurityConfig extends VaadinWebSecurity {
     public UserDetailsService userDetailsService() {
         // Admin user - full access (ADMIN, USER, GUEST roles)
         UserDetails adminUser = User.builder()
-            .username(adminUsername)
-            .password(passwordEncoder().encode(adminPassword))
-            .roles("ADMIN", "USER", "GUEST")
-            .build();
+                .username(adminUsername)
+                .password(passwordEncoder().encode(adminPassword))
+                .roles("ADMIN", "USER", "GUEST")
+                .build();
 
         // Guest user - limited access (GUEST role only)
         UserDetails guestUser = User.builder()
-            .username(guestUsername)
-            .password(passwordEncoder().encode(guestPassword))
-            .roles("GUEST")
-            .build();
+                .username(guestUsername)
+                .password(passwordEncoder().encode(guestPassword))
+                .roles("GUEST")
+                .build();
 
         // Ueda user - same access as guest (GUEST role only)
         UserDetails uedaUser = User.builder()
-            .username(uedaUsername)
-            .password(passwordEncoder().encode(uedaPassword))
-            .roles("GUEST")
-            .build();
+                .username(uedaUsername)
+                .password(passwordEncoder().encode(uedaPassword))
+                .roles("GUEST")
+                .build();
 
         // Takamatsu user - same access as guest (GUEST role only)
         UserDetails takamatsuUser = User.builder()
-            .username(takamatsuUsername)
-            .password(passwordEncoder().encode(takamatsuPassword))
-            .roles("GUEST")
-            .build();
+                .username(takamatsuUsername)
+                .password(passwordEncoder().encode(takamatsuPassword))
+                .roles("GUEST")
+                .build();
 
         // Saito user - same access as guest (GUEST role only)
         UserDetails saitoUser = User.builder()
-            .username(saitoUsername)
-            .password(passwordEncoder().encode(saitoPassword))
-            .roles("GUEST")
-            .build();
+                .username(saitoUsername)
+                .password(passwordEncoder().encode(saitoPassword))
+                .roles("GUEST")
+                .build();
 
         // Takahashi user - same access as guest (GUEST role only)
         UserDetails takahashiUser = User.builder()
-            .username(takahashiUsername)
-            .password(passwordEncoder().encode(takahashiPassword))
-            .roles("GUEST")
-            .build();
+                .username(takahashiUsername)
+                .password(passwordEncoder().encode(takahashiPassword))
+                .roles("GUEST")
+                .build();
 
         // Shibukawa user - same access as guest (GUEST role only)
         UserDetails shibukwaUser = User.builder()
-            .username(shibukwaUsername)
-            .password(passwordEncoder().encode(shibukwaPassword))
-            .roles("GUEST")
-            .build();
+                .username(shibukwaUsername)
+                .password(passwordEncoder().encode(shibukwaPassword))
+                .roles("GUEST")
+                .build();
 
         // Tamura user - same access as guest (GUEST role only)
         UserDetails tamuraUser = User.builder()
-            .username(tamuraUsername)
-            .password(passwordEncoder().encode(tamuraPassword))
-            .roles("GUEST")
-            .build();
+                .username(tamuraUsername)
+                .password(passwordEncoder().encode(tamuraPassword))
+                .roles("GUEST")
+                .build();
 
         // Etani user - same access as guest (GUEST role only)
         UserDetails etaniUser = User.builder()
-            .username(etaniUsername)
-            .password(passwordEncoder().encode(etaniPassword))
-            .roles("GUEST")
-            .build();
+                .username(etaniUsername)
+                .password(passwordEncoder().encode(etaniPassword))
+                .roles("GUEST")
+                .build();
 
         // Local user - admin access for local server (ADMIN, USER, GUEST roles)
         UserDetails localUser = User.builder()
-            .username(localUsername)
-            .password(passwordEncoder().encode(localPassword))
-            .roles("ADMIN", "USER", "GUEST")
-            .build();
+                .username(localUsername)
+                .password(passwordEncoder().encode(localPassword))
+                .roles("ADMIN", "USER", "GUEST")
+                .build();
 
         return new InMemoryUserDetailsManager(adminUser, guestUser, uedaUser, takamatsuUser, saitoUser, takahashiUser, shibukwaUser, tamuraUser, etaniUser, localUser);
     }

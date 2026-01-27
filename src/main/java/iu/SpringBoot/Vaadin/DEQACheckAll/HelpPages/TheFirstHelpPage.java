@@ -35,7 +35,7 @@ public class TheFirstHelpPage extends VerticalLayout {
         add(new RouterLink("< Back to Main", MainView.class));
 
         Paragraph intro = new Paragraph(
-            "このページでは、DEQACheckAll アプリケーションの各機能について説明します。"
+                "このページでは、DEQACheckAll アプリケーションの各機能について説明します。"
         );
         intro.getStyle().set("margin-bottom", "20px");
         add(intro);
@@ -249,12 +249,12 @@ public class TheFirstHelpPage extends VerticalLayout {
 
         Span badge = new Span(shortText);
         badge.getStyle()
-            .set("background-color", bgColor)
-            .set("color", "white")
-            .set("padding", "2px 8px")
-            .set("border-radius", "4px")
-            .set("font-size", "12px")
-            .set("font-weight", "bold");
+                .set("background-color", bgColor)
+                .set("color", "white")
+                .set("padding", "2px 8px")
+                .set("border-radius", "4px")
+                .set("font-size", "12px")
+                .set("font-weight", "bold");
 
         Span label = new Span("= " + fullText);
         label.getStyle().set("font-size", "13px");

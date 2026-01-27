@@ -15,9 +15,9 @@ public class ExternalJarLauncher {
     /**
      * 外部JARファイルを起動する
      *
-     * @param jarPath JARファイルのパス
+     * @param jarPath          JARファイルのパス
      * @param workingDirectory 作業ディレクトリ
-     * @param authorYear AuthorYear引数
+     * @param authorYear       AuthorYear引数
      * @return 起動成功時はtrue、失敗時はfalse
      */
     public static boolean launch(String jarPath, String workingDirectory, String authorYear) {

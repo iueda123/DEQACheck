@@ -135,7 +135,7 @@ public class ExplanationPanelHolder extends AbstCHolderMember {
      * sub_tabs_holder_name からガイドファイルを特定し、該当セクションの説明を抽出する
      *
      * @param sub_tabs_holder_name 例: "sub_tabs_holder_DESI"
-     * @param subSectionName 例: "si1_first_author", "rci2_dataset_name"
+     * @param subSectionName       例: "si1_first_author", "rci2_dataset_name"
      * @return 抽出された説明文
      */
     private String getSubsetOfExplanation(String sub_tabs_holder_name, String subSectionName) {

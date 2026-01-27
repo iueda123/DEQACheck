@@ -4,7 +4,7 @@ import iu.SwingStyle.LCCA.Mediator.action.ActionMediator;
 import iu.SwingStyle.LCCA.Mediator.componentholder.CHolderMediator;
 import iu.SwingStyle.LCCA.Member.Abstracts.componentholder.AbstCHolderMember;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.ConfirmBeforeSwitchSelectionModel;
-import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.DEQAResultPane.One_ADCSL_Style_Pane;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.DEQAResultPane.One_ADCSL_Style2_Pane;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.DEQAResultPane.One_DEQAResult_Pane_Abs;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.ManagerOfSubTabBasePane;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.SubTabBehaviorUtils;
@@ -88,9 +88,9 @@ public class DENM_v12_SubTabsHolder extends AbstCHolderMember implements SubTabs
         if (jsonFiles != null) {
             for (File jsonFile : jsonFiles) {
                 String jsonFileName = jsonFile.getName();
-                mngrOfSubTabBasePane_1.addToTheDePaneArray(new One_ADCSL_Style_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_1_Name));
-                mngrOfSubTabBasePane_2.addToTheDePaneArray(new One_ADCSL_Style_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_2_Name));
-                mngrOfSubTabBasePane_3.addToTheDePaneArray(new One_ADCSL_Style_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_3_Name));
+                mngrOfSubTabBasePane_1.addToTheDePaneArray(new One_ADCSL_Style2_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_1_Name));
+                mngrOfSubTabBasePane_2.addToTheDePaneArray(new One_ADCSL_Style2_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_2_Name));
+                mngrOfSubTabBasePane_3.addToTheDePaneArray(new One_ADCSL_Style2_Pane(jsonFolderPathString.toString(), jsonFileName, sectionName, subSection_3_Name));
             }
         }
 

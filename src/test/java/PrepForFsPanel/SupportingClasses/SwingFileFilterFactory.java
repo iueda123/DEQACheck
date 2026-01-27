@@ -46,6 +46,7 @@ public class SwingFileFilterFactory extends FileFilterFactory_A {
 
     /**
      * Swing用ファイルフィルタを生成する。フォルダだけ取得する。
+     *
      * @return
      */
     public static FileFilter createFilterForDirectory() {
@@ -76,9 +77,10 @@ public class SwingFileFilterFactory extends FileFilterFactory_A {
 
     /**
      * Swing用ファイルフィルタを生成する。画像ファイル(gif, jpg)だけ取得する。
+     *
      * @return
      */
-    public static FileFilter createFilterForImages(){
+    public static FileFilter createFilterForImages() {
         return new FileFilter() {
 
             String[] extensions = {"gif", "jpg"};

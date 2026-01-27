@@ -278,7 +278,6 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
     }
 
 
-
     public void add_One_QandA_Panel(String ID) {
 
         int the_index_for_new_panel = list_of_A_QandA_Panel.size();
@@ -498,7 +497,7 @@ public class WithNotebookLMPanelHolder extends AbstCHolderMember implements Json
     public void openMaterialsFolder() {
         String currentWorkingDirectoryPathStr = System.getProperty("user.dir");
 
-        Path materialsPath = Paths.get(currentWorkingDirectoryPathStr,ROOT_OF_AUTHOR_YEAR_FOLDER , authorYear, "/materials/");
+        Path materialsPath = Paths.get(currentWorkingDirectoryPathStr, ROOT_OF_AUTHOR_YEAR_FOLDER, authorYear, "/materials/");
 
         try {
             if (Desktop.isDesktopSupported()) {

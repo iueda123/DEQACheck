@@ -82,7 +82,7 @@ public final class CollapsiblePanel extends JPanel {
             showHideNorthLabel = createArrowLabel("▲");
         }
         JPanel northBasePane = new JPanel(north_layout);
-        if(northComponent != null) {
+        if (northComponent != null) {
             northBasePane.add(northComponent);
         }
         animator_for_north.addActionListener(e -> northBasePane.revalidate());
@@ -112,7 +112,7 @@ public final class CollapsiblePanel extends JPanel {
             showHideSouthLabel = createArrowLabel("▼");
         }
         JPanel southBasePane = new JPanel(south_layout);
-        if(southComponent != null) {
+        if (southComponent != null) {
             southBasePane.add(southComponent);
         }
         animator_for_south.addActionListener(e -> southBasePane.revalidate());
@@ -142,7 +142,7 @@ public final class CollapsiblePanel extends JPanel {
             showHideEastLabel = createArrowLabel("▶");
         }
         JPanel eastBasePane = new JPanel(east_layout);
-        if(eastComponent != null) {
+        if (eastComponent != null) {
             eastBasePane.add(eastComponent);
         }
         animator_for_east.addActionListener(e -> eastBasePane.revalidate());
@@ -172,7 +172,7 @@ public final class CollapsiblePanel extends JPanel {
             showHideWestLabel = createArrowLabel("◀");
         }
         JPanel westBasePane = new JPanel(west_layout);
-        if(westComponent != null) {
+        if (westComponent != null) {
             westBasePane.add(westComponent);
         }
         animator_for_west.addActionListener(e -> westBasePane.revalidate());
@@ -199,8 +199,6 @@ public final class CollapsiblePanel extends JPanel {
 
         add(outerBasePanel);
     }
-
-
 
 
     class InnerBasePane extends JPanel {

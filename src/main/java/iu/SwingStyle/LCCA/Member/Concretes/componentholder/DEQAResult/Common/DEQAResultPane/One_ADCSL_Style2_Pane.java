@@ -57,67 +57,100 @@ public class One_ADCSL_Style2_Pane extends One_DEQAResult_Pane_Abs {
         /* *** NORTH AREA *** */
         Box baseOfNorth = Box.createVerticalBox();
 
-        /* ** The 1st Box of North ** */
-        Box the1stBaseOfNorth = Box.createHorizontalBox();
-        the1stBaseOfNorth.add(Box.createHorizontalGlue());
-        the1stBaseOfNorth.add(jsonNameLabel);
-        the1stBaseOfNorth.add(Box.createHorizontalGlue());
-        the1stBaseOfNorth.add(loadButton);
-        the1stBaseOfNorth.add(saveButton);
-        the1stBaseOfNorth.add(openJsonFileButton);
-        the1stBaseOfNorth.add(openJsonFolderButton);
-        the1stBaseOfNorth.add(copyToTheHumanPanelButton);
-        the1stBaseOfNorth.add(new PanelMoverPane());
-        the1stBaseOfNorth.setPreferredSize(new Dimension(800, 34));
-        baseOfNorth.add(the1stBaseOfNorth);
 
-        /* ** The 2nd Box of North ** */
-        Box the2ndBaseOfNorth = Box.createHorizontalBox();
+        // +---------------------+
+        // |     box_A           |
+        // +-------------+-------+
+        // |             |       |
+        // |   box_B     | box_D |
+        // |             |       |
+        // +---------------------+
+        // |   box_C             |
+        // +---------------------+
+        // |   box_E             |
+        // +---------------------+
+
+        /* ** The Box A ** */
+        Box box_A = Box.createHorizontalBox();
+        box_A.add(Box.createHorizontalGlue());
+        box_A.add(jsonNameLabel);
+        box_A.add(Box.createHorizontalGlue());
+        box_A.add(loadButton);
+        box_A.add(saveButton);
+        box_A.add(openJsonFileButton);
+        box_A.add(openJsonFolderButton);
+        box_A.add(copyToTheHumanPanelButton);
+        box_A.add(new PanelMoverPane());
+        box_A.setPreferredSize(new Dimension(800, 34));
+        baseOfNorth.add(box_A);
+
+        /* ** The Box B ** */
+        Box box_B = Box.createHorizontalBox();
         JScrollPane scrollPane_Answer = new JScrollPane(tArea_Answer);
         scrollPane_Answer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane_Answer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane_Answer.setPreferredSize(new Dimension(750, 100));
-        the2ndBaseOfNorth.add(scrollPane_Answer);
-        tFiled_ConfidenceRating.setPreferredSize(new Dimension(50, 100));
-        the2ndBaseOfNorth.add(tFiled_ConfidenceRating);
-        baseOfNorth.add(the2ndBaseOfNorth);
+        box_B.add(scrollPane_Answer);
 
-        /* ** The 3rd Box of North ** */
-        Box the3rdBaseOfNorth = Box.createHorizontalBox();
-
+        /* ** The Box D ** */
+        JPanel box_D = new JPanel(new GridLayout(2, 1));
         JScrollPane scrollPane_Detail = new JScrollPane(tArea_Detail);
         scrollPane_Detail.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane_Detail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
         JScrollPane scrollPane_SupportingText = new JScrollPane(tArea_SupportingText);
         scrollPane_SupportingText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane_SupportingText.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        box_D.add(scrollPane_Detail);
+        box_D.add(scrollPane_SupportingText);
 
+        /* ** The Box B + D Row (2:1 width ratio) ** */
+        JPanel box_BD = new JPanel(new GridBagLayout());
+        GridBagConstraints bdConstraints = new GridBagConstraints();
+
+        // GridBagConstraints の行位置を固定。gridy = 0 にして、box_B と box_D を同じ行に置く前提を明示し、
+        // 将来行を追加しても崩れないようにしています。box_B と box_D を横並びにするために必要。
+        bdConstraints.gridy = 0;
+
+        bdConstraints.fill = GridBagConstraints.BOTH;
+
+        //縦方向の伸び率を指定。weighty = 1.0 にして fill = BOTH と組み合わせることで、親の高さに追従して縦にも伸びるようにしている。
+        // これが無いと、行の高さが内容サイズに固定されて、余白の扱いが不安定になります。
+        bdConstraints.weighty = 1.0;
+
+        bdConstraints.gridx = 0;
+        bdConstraints.weightx = 2.0;
+        box_BD.add(box_B, bdConstraints);
+
+        bdConstraints.gridx = 1;
+        bdConstraints.weightx = 1.0;
+        box_BD.add(box_D, bdConstraints);
+
+        /* ** The Box C ** */
+        JPanel box_C = new JPanel(new BorderLayout());
+        Dimension confidenceSize = new Dimension(50, 50);
+        tFiled_ConfidenceRating.setPreferredSize(confidenceSize);
+        tFiled_ConfidenceRating.setMinimumSize(confidenceSize);
+        tFiled_ConfidenceRating.setMaximumSize(new Dimension(50, Integer.MAX_VALUE));
+        box_C.add(tFiled_ConfidenceRating, BorderLayout.WEST);
         JScrollPane scrollPane_PageLine = new JScrollPane(tArea_Location);
         scrollPane_PageLine.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane_PageLine.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane_PageLine.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        box_C.add(scrollPane_PageLine, BorderLayout.CENTER);
 
-        the3rdBaseOfNorth.add(scrollPane_Detail);
-        the3rdBaseOfNorth.add(scrollPane_SupportingText);
-        the3rdBaseOfNorth.add(scrollPane_PageLine);
-
-        the3rdBaseOfNorth.setPreferredSize(new Dimension(800, 200));
-        baseOfNorth.add(the3rdBaseOfNorth);
-
-        /* ** Finalization of North ** */
-        add(baseOfNorth, BorderLayout.NORTH);
-
-        /* *** SOUTH AREA *** */
-        Box southBox = Box.createHorizontalBox();
+        /* *** The Box E *** */
+        Box box_E = Box.createHorizontalBox();
 
         /* ** The Left of South ** */
-        southBox.add(new JLabel(" "));
+        box_E.add(new JLabel(" "));
 
         /* ** The Right of South ** */
         //southBox.add(new JLabel(" "));
 
-        /* ** Finalization of South ** */
-        add(southBox, BorderLayout.SOUTH);
+        /* ** Finalization of North ** */
+        baseOfNorth.add(box_BD);
+        baseOfNorth.add(box_C);
+        baseOfNorth.add(box_E);
+        add(baseOfNorth, BorderLayout.CENTER);
 
         /* *** Finalization of All *** */
         //setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.white, Color.black));
@@ -232,19 +265,19 @@ public class One_ADCSL_Style2_Pane extends One_DEQAResult_Pane_Abs {
         //System.out.println( "Is the tArea_Detail in " + this.getClass() + " updated?: " + tArea_Detail.isUpdated());
         //System.out.println( "Is the tArea_SupportingText in " + this.getClass() + " updated?: " + tArea_SupportingText.isUpdated());
         //System.out.println( "Is the tArea_Location in " + this.getClass() + " updated?: " + tArea_Location.isUpdated());
-            if (tArea_Answer.isUpdated()) {
-                return true;
-            } else if (tFiled_ConfidenceRating.isUpdated()) {
-                return true;
-            } else if (tArea_Detail.isUpdated()) {
-                return true;
-            } else if (tArea_SupportingText.isUpdated()) {
-                return true;
-            } else if (tArea_Location.isUpdated()) {
-                return true;
-            } else {
-                return false;
-            }
+        if (tArea_Answer.isUpdated()) {
+            return true;
+        } else if (tFiled_ConfidenceRating.isUpdated()) {
+            return true;
+        } else if (tArea_Detail.isUpdated()) {
+            return true;
+        } else if (tArea_SupportingText.isUpdated()) {
+            return true;
+        } else if (tArea_Location.isUpdated()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

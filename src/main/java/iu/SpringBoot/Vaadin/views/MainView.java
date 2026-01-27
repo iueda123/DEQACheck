@@ -58,8 +58,8 @@ public class MainView extends VerticalLayout {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Span userLabel = new Span("User: " + username);
         userLabel.getStyle()
-            .set("font-size", "14px")
-            .set("color", "#666");
+                .set("font-size", "14px")
+                .set("color", "#666");
 
         Button logoutButton = new Button("Logout", e -> logout());
         logoutButton.addThemeVariants(ButtonVariant.LUMO_SMALL, ButtonVariant.LUMO_TERTIARY);
@@ -119,8 +119,8 @@ public class MainView extends VerticalLayout {
             add(link10);
 
             Anchor spreadsheetLink = new Anchor(
-                "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
-                "Google Spreadsheet - table1_NM_2025.11.17"
+                    "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
+                    "Google Spreadsheet - table1_NM_2025.11.17"
             );
             spreadsheetLink.setTarget("_blank");
             add(spreadsheetLink);
@@ -129,17 +129,17 @@ public class MainView extends VerticalLayout {
         // Help link - fixed at bottom right
         RouterLink helpLink = new RouterLink("Help", TheFirstHelpPage.class);
         helpLink.getStyle()
-            .set("position", "fixed")
-            .set("bottom", "20px")
-            .set("right", "20px")
-            .set("background-color", "#1976d2")
-            .set("color", "white")
-            .set("padding", "10px 20px")
-            .set("border-radius", "20px")
-            .set("text-decoration", "none")
-            .set("font-weight", "bold")
-            .set("box-shadow", "0 2px 5px rgba(0,0,0,0.3)")
-            .set("z-index", "1000");
+                .set("position", "fixed")
+                .set("bottom", "20px")
+                .set("right", "20px")
+                .set("background-color", "#1976d2")
+                .set("color", "white")
+                .set("padding", "10px 20px")
+                .set("border-radius", "20px")
+                .set("text-decoration", "none")
+                .set("font-weight", "bold")
+                .set("box-shadow", "0 2px 5px rgba(0,0,0,0.3)")
+                .set("z-index", "1000");
         add(helpLink);
 
     }
@@ -148,17 +148,17 @@ public class MainView extends VerticalLayout {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) return false;
         return auth.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .anyMatch(role -> role.equals("ROLE_ADMIN"));
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(role -> role.equals("ROLE_ADMIN"));
     }
 
     private void logout() {
         UI.getCurrent().getPage().setLocation("/login");
         SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
         logoutHandler.logout(
-            VaadinServletRequest.getCurrent().getHttpServletRequest(),
-            null,
-            null
+                VaadinServletRequest.getCurrent().getHttpServletRequest(),
+                null,
+                null
         );
     }
 }

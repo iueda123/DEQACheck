@@ -146,6 +146,7 @@ When an item requires ADCSL_Style, provide the following structured information:
 | Nonparametric Reg | GAMM           | generalized additive mixed model                          | ランダム効果を含むGAM           | サイトをランダム効果にしたGAMM          |
 | Nonparametric Reg | LOESS          | locally estimated scatterplot smoothing                   | ローカル回帰スムージング           | span=0.75のLOESS            |
 | Nonparametric Reg | QUANTREG       | quantile regression                                       | 分位点回帰でパーセンタイルを推定       | 5th/50th/95th quantile     |
+| Nonparametric Reg | MAA            | moving average approach                                   | 移動平均による時系列の平滑化         | 移動平均でベースライン抽出              |
 | Parametric Reg    | GLM            | generalized linear model                                  | 一般化線形モデルによる回帰          | GLM with Gaussian identity |
 | Parametric Reg    | MFPR           | multivariate fractional polynomial regression             | 多変量分数多項式回帰             | FP2で年齢効果をモデル               |
 | Parametric Reg    | OLSR           | ordinary least squares regression                         | 線形回帰の最小二乗推定            | ROIごとの線形回帰                 |
@@ -239,46 +240,49 @@ When an item requires ADCSL_Style, provide the following structured information:
 * Extraction Criteria: List all variables used as explanatory variables (predictors) in the normative model.
 * 以下の Major Category, Minor Category から該当するものを選んで回答してください（複数回答可）。
 
-| Major Category           | Minor Category            | Full Spelling / Description                        |
-|--------------------------|---------------------------|----------------------------------------------------|
-| Age-related              | Age                       | linear age term                                    |
-| Age-related              | Age^2                     | quadratic age term                                 |
-| Age-related              | Age higher-order          | higher-order age terms (degree ≥3)                 |
-| Age-related              | Age non-int               | non-integer age terms (fractional/negative powers) |
-| Age-related              | PMA/PN weeks              | post-menstrual age / postnatal weeks at scan       |
-| Demographics             | Sex                       |                                                    |
-| Demographics             | Race                      |                                                    |
-| Demographics             | Ethnic background         |                                                    |
-| Demographics             | Education                 |                                                    |
-| Clinical / Group         | Dx/Clinical group         | clinical diagnosis or group indicator              |
-| Interactions             | Age×sex / Sex×age         |                                                    |
-| Site/Scanner             | Site                      |                                                    |
-| Site/Scanner             | Scanner                   |                                                    |
-| Site/Scanner             | Scanner vendor            |                                                    |
-| Site/Scanner             | Magnetic field strength   |                                                    |
-| Acquisition / Protocol   | Scanning protocol         |                                                    |
-| Acquisition / Protocol   | Acq/task params           | e.g., TR/TE/task parameters                        |
-| Acquisition / Protocol   | Task/acq counts           | counts of blocks/stimuli/volumes                   |
-| Pipeline / Software      | FreeSurfer version        |                                                    |
-| Pipeline / Software      | Preproc pipeline/software | pipeline or software version as fixed effect       |
-| Study / Cohort structure | Cohort/Study indicator    | cohort/study labels as effect                      |
-| Study / Cohort structure | Family/Subject RE         | family ID or subject ID random effect              |
-| Global brain measures    | ICV                       | intracranial volume                                |
-| Global brain measures    | TIV                       | total intracranial volume                          |
-| Global brain measures    | Total brain volume        |                                                    |
-| Global brain measures    | Mean CT                   | mean cortical thickness                            |
-| Global brain measures    | Mean SA                   | mean surface area                                  |
-| Image/Data quality       | Euler number              |                                                    |
-| Image/Data quality       | Image quality             |                                                    |
-| Image/Data quality       | Mean FD                   | mean framewise displacement                        |
-| Image/Data quality       | Mean relative motion      |                                                    |
-| Image/Data quality       | Head motion               |                                                    |
-| Task                     | Task performance          |                                                    |
-| Other                    | Hemisphere                |                                                    |
-| Other                    | BMI                       | body mass index                                    |
-| Other                    | FIQ                       | full-scale intelligence quotient                   |
-| Other                    | None                      |                                                    |
-| Other                    | Others (not specified)    | others not specified / 選択不可                        |
+| Major Category         | Minor Category            | Full Spelling / Description                        |
+|------------------------|---------------------------|----------------------------------------------------|
+| Age-related            | Age                       | linear age term                                    |
+| Age-related            | Age²                      | quadratic age term                                 |
+| Age-related            | Age higher-order          | higher-order age terms (degree ≥3)                 |
+| Age-related            | Age non-int               | non-integer age terms (fractional/negative powers) |
+| Age-related            | PMA/PN weeks              | post-menstrual age / postnatal weeks at scan       |
+| Demographics           | Sex                       |                                                    |
+| Demographics           | Race                      |                                                    |
+| Demographics           | Ethnic background         |                                                    |
+| Demographics           | Education                 |                                                    |
+| Clinical/Group         | Dx/Clinical group         | clinical diagnosis or group indicator              |
+| Interactions           | Age×Sex                   |                                                    |
+| Site/Scanner           | Site                      |                                                    |
+| Site/Scanner           | Scanner                   |                                                    |
+| Site/Scanner           | Scanner vendor            |                                                    |
+| Site/Scanner           | Magnetic field strength   |                                                    |
+| Acquisition/Protocol   | Scanning protocol         |                                                    |
+| Acquisition/Protocol   | Acq/task params           | e.g., TR/TE/task parameters                        |
+| Acquisition/Protocol   | Task/acq counts           | counts of blocks/stimuli/volumes                   |
+| Pipeline/Software      | FreeSurfer version        |                                                    |
+| Pipeline/Software      | Preproc pipeline/software | pipeline or software version as fixed effect       |
+| Study/Cohort structure | Cohort/Study indicator    | cohort/study labels as effect                      |
+| Study/Cohort structure | Family/Subject RE         | family ID or subject ID random effect              |
+| Global brain measures  | ICV/TIV                   | Intracranial Volume, Total Intracranial Volume     |
+| Global brain measures  | TBV                       | Total Brain Volume                                 |                                                    |
+| Global brain measures  | TCV                       | Total Cortical Volume                              |
+| Global brain measures  | TGV                       | Total Gray Matter Volume                           |
+| Global brain measures  | Mean CT                   | mean cortical thickness                            |
+| Global brain measures  | Mean SA                   | mean surface area                                  |
+| Global brain measures  | Total SA                  | total surface area                                 |
+| Image/Data quality     | Euler number              |                                                    |
+| Image/Data quality     | Image quality             |                                                    |
+| Image/Data quality     | Mean FD                   | mean framewise displacement                        |
+| Image/Data quality     | Mean relative motion      |                                                    |
+| Image/Data quality     | Head motion               |                                                    |
+| Task                   | Task performance          |                                                    |
+| Other                  | Hemisphere                |                                                    |
+| Other                  | BMI                       | body mass index                                    |
+| Other                  | FIQ                       | full-scale intelligence quotient                   |
+| Other                  | Others                    | Average FA, Average MD, and etc.                   |
+| Other                  | Not specified             | not specified                                      |
+| Other                  | None                      |                                                    
 
 * Extraction Result Style: ADCSL_Style
 * "answer" 例:

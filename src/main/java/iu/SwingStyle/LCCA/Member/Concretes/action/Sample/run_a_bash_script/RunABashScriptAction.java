@@ -39,10 +39,10 @@ public class RunABashScriptAction extends AbstActionMember {
 
         String[] strings_passed_from_action_event = getActionCommandAndArgs(action_event, false);
         String cmd_and_args_in_a_line = strings_passed_from_action_event[0];
-        for (int i =1; i < strings_passed_from_action_event.length; i++) {
+        for (int i = 1; i < strings_passed_from_action_event.length; i++) {
             cmd_and_args_in_a_line = cmd_and_args_in_a_line + " " + strings_passed_from_action_event[i];
         }
-        System.out.println("cmd_and_args_in_a_line: "  + cmd_and_args_in_a_line);
+        System.out.println("cmd_and_args_in_a_line: " + cmd_and_args_in_a_line);
 
         // Load Properties
         propManager = createPropertyManager(SettingPropertyFilePath);
@@ -88,7 +88,7 @@ public class RunABashScriptAction extends AbstActionMember {
 
     private void onRun(String[] args) {
 
-        for (int i =0; i < args.length; i++) {
+        for (int i = 0; i < args.length; i++) {
             System.out.println(" * arg[" + i + "]: " + args[i]);
         }
         System.out.println("");

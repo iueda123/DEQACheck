@@ -3,7 +3,6 @@ import json
 import re
 from pathlib import Path
 
-
 BASE = Path('share_package/data')
 
 
@@ -185,4 +184,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

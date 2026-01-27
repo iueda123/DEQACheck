@@ -22,10 +22,10 @@ app.security.guest.password=guest2025
 
 ### ユーザーアカウント
 
-| ユーザー | Account | Password | ロール | アクセス権限 |
-|----------|---------|----------|--------|-------------|
-| 管理者 | `admin` | `deqacheck2025` | USER, GUEST | 全ページ |
-| ゲスト | `guest` | `guest2025` | GUEST | Main, QASummary のみ |
+| ユーザー | Account | Password        | ロール         | アクセス権限             |
+|------|---------|-----------------|-------------|--------------------|
+| 管理者  | `admin` | `deqacheck2025` | USER, GUEST | 全ページ               |
+| ゲスト  | `guest` | `guest2025`     | GUEST       | Main, QASummary のみ |
 
 **注意:** 本番環境では必ずこれらの値を変更してください。
 
@@ -34,14 +34,14 @@ app.security.guest.password=guest2025
 `VaadinWebSecurity` を継承した設定により、以下のすべてのVaadinページが自動的に保護されます。
 ロールに基づいてアクセス制御が行われます：
 
-| ルート | ページ | アノテーション | Admin | Guest |
-|--------|--------|---------------|:-----:|:-----:|
-| `/` | MainView | `@RolesAllowed({"USER", "GUEST"})` | ○ | ○ |
-| `/qa-summary` | QASummaryPage | `@RolesAllowed({"USER", "GUEST"})` | ○ | ○ |
-| `/de-result-overview` | DEOverviewPage | `@RolesAllowed("USER")` | ○ | × |
-| `/summary-view` | SummaryView | `@RolesAllowed("USER")` | ○ | × |
-| `/summary-view-2` | SummaryView2 | `@RolesAllowed("USER")` | ○ | × |
-| `/login` | LoginView | `@AnonymousAllowed` | - | - |
+| ルート                   | ページ            | アノテーション                            | Admin | Guest |
+|-----------------------|----------------|------------------------------------|:-----:|:-----:|
+| `/`                   | MainView       | `@RolesAllowed({"USER", "GUEST"})` |   ○   |   ○   |
+| `/qa-summary`         | QASummaryPage  | `@RolesAllowed({"USER", "GUEST"})` |   ○   |   ○   |
+| `/de-result-overview` | DEOverviewPage | `@RolesAllowed("USER")`            |   ○   |   ×   |
+| `/summary-view`       | SummaryView    | `@RolesAllowed("USER")`            |   ○   |   ×   |
+| `/summary-view-2`     | SummaryView2   | `@RolesAllowed("USER")`            |   ○   |   ×   |
+| `/login`              | LoginView      | `@AnonymousAllowed`                |   -   |   -   |
 
 ## 静的リソース
 
@@ -132,11 +132,11 @@ public class SecurityConfig extends VaadinWebSecurity {
 
 各ページのアクセス制御は以下のアノテーションで変更できます：
 
-| アノテーション | 説明 |
-|---------------|------|
-| `@AnonymousAllowed` | 認証なしでアクセス可能 |
-| `@PermitAll` | 認証済みユーザー全員がアクセス可能（デフォルト） |
-| `@RolesAllowed("ADMIN")` | 特定のロールのみアクセス可能 |
+| アノテーション                  | 説明                       |
+|--------------------------|--------------------------|
+| `@AnonymousAllowed`      | 認証なしでアクセス可能              |
+| `@PermitAll`             | 認証済みユーザー全員がアクセス可能（デフォルト） |
+| `@RolesAllowed("ADMIN")` | 特定のロールのみアクセス可能           |
 
 ### 使用例
 

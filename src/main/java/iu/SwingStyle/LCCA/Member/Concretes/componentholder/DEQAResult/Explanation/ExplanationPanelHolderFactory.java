@@ -5,13 +5,13 @@ import iu.SwingStyle.LCCA.Member.Abstracts.componentholder.AbstCHolderMemberFact
 
 public class ExplanationPanelHolderFactory extends AbstCHolderMemberFactory {
 
-  private ExplanationPanelHolder textFieldPanelHolder;
+    private ExplanationPanelHolder textFieldPanelHolder;
 
-  @Override
-  protected AbstCHolderMember createInstance(String cholder_name, String short_name, String... args) {
-    if (this.textFieldPanelHolder == null) {
-      this.textFieldPanelHolder = new ExplanationPanelHolder(cholder_name, short_name);
+    @Override
+    protected AbstCHolderMember createInstance(String cholder_name, String short_name, String... args) {
+        if (this.textFieldPanelHolder == null) {
+            this.textFieldPanelHolder = new ExplanationPanelHolder(cholder_name, short_name);
+        }
+        return textFieldPanelHolder;
     }
-    return textFieldPanelHolder;
-  }
 }

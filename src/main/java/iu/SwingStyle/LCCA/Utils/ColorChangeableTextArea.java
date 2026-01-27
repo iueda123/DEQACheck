@@ -20,7 +20,7 @@ public class ColorChangeableTextArea extends JTextArea {
         setupTextArea();
     }
 
-    private void setupTextArea(){
+    private void setupTextArea() {
 
         defaultValue = this.getText();
 
@@ -54,7 +54,7 @@ public class ColorChangeableTextArea extends JTextArea {
                 }
             }
 
-            private void checkUpdate(){
+            private void checkUpdate() {
                 //System.out.print("checkUpdate!: " + ColorChangeableTextArea.this.getText());
                 //System.out.print(" ⇔ " + ColorChangeableTextArea.this.defaultValue);
                 if (ColorChangeableTextArea.this.getText().equals(ColorChangeableTextArea.this.defaultValue)) {
@@ -74,13 +74,13 @@ public class ColorChangeableTextArea extends JTextArea {
         ColorChangeableTextArea.this.updated = false;
     }
 
-    public void resetBackgroundColor(){
+    public void resetBackgroundColor() {
         // UIManager から L&F 標準の背景色を取得
         Color defaultBg = UIManager.getColor("TextArea.background");
         this.setBackground(defaultBg);
     }
 
-    public boolean isUpdated(){
+    public boolean isUpdated() {
         return updated;
     }
 

@@ -568,11 +568,11 @@ public class FileDrop {
         }   // end if: supports DnD
         else return false;
     }   // end remove
-    
-    
 
-    
-/* ********  I N N E R   I N T E R F A C E   L I S T E N E R  ******** */
+
+
+
+    /* ********  I N N E R   I N T E R F A C E   L I S T E N E R  ******** */
 
 
     /**
@@ -602,9 +602,9 @@ public class FileDrop {
 
 
     }   // end inner-interface Listener
-    
-    
-/* ********  I N N E R   C L A S S  ******** */
+
+
+    /* ********  I N N E R   C L A S S  ******** */
 
 
     /**
@@ -649,10 +649,10 @@ public class FileDrop {
         }   // end getFiles
 
     }   // end inner class Event
-    
-    
-    
-/* ********  I N N E R   C L A S S  ******** */
+
+
+
+    /* ********  I N N E R   C L A S S  ******** */
 
 
     /**
@@ -788,7 +788,7 @@ public class FileDrop {
         }   // end getCustomDataFlavor
 
 
-    /* ********  T R A N S F E R A B L E   M E T H O D S  ******** */
+        /* ********  T R A N S F E R A B L E   M E T H O D S  ******** */
 
 
         /**
@@ -864,7 +864,7 @@ public class FileDrop {
         }   // end isDataFlavorSupported
 
 
-    /* ********  I N N E R   I N T E R F A C E   F E T C H E R  ******** */
+        /* ********  I N N E R   I N T E R F A C E   F E T C H E R  ******** */
 
         /**
          * Instead of passing your data directly to the {@link TransferableObject}

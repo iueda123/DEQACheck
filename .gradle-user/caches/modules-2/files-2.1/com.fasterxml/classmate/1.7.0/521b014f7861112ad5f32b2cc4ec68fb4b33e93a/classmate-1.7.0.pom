@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.fasterxml</groupId>
@@ -17,7 +18,7 @@
         <connection>scm:git:git@github.com:FasterXML/java-classmate.git</connection>
         <developerConnection>scm:git:git@github.com:FasterXML/java-classmate.git</developerConnection>
         <url>https://github.com/FasterXML/java-classmate</url>
-	<tag>classmate-1.7.0</tag>
+        <tag>classmate-1.7.0</tag>
     </scm>
     <developers>
         <developer>
@@ -36,10 +37,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.jdk>1.8</version.jdk>
 
-	<osgi.export>com.fasterxml.classmate;version=${project.version},
-com.fasterxml.classmate.*;version=${project.version}
-</osgi.export>
-	<osgi.private>com.fasterxml.classmate.util.*</osgi.private>
+        <osgi.export>com.fasterxml.classmate;version=${project.version},
+            com.fasterxml.classmate.*;version=${project.version}
+        </osgi.export>
+        <osgi.private>com.fasterxml.classmate.util.*</osgi.private>
     </properties>
 
     <!-- Licensing -->
@@ -68,24 +69,24 @@ com.fasterxml.classmate.*;version=${project.version}
     <build>
         <plugins>
 
-          <!-- 19-Oct-2019, tatu: Copied from
+            <!-- 19-Oct-2019, tatu: Copied from
 
-           https://github.com/stephenc/git-timestamp-maven-plugin/blob/master/pom.xml#L327-L337
+             https://github.com/stephenc/git-timestamp-maven-plugin/blob/master/pom.xml#L327-L337
 
-               to simplify releases. I hope.
-            -->
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.13</version>
-            <extensions>true</extensions>
-            <configuration>
-              <serverId>sonatype-nexus-staging</serverId>
-              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-              <!-- 19-Oct-2019, tatu: from output -->
-              <stagingProfileId>b34f19b9cc6224</stagingProfileId>
-            </configuration>
-          </plugin>
+                 to simplify releases. I hope.
+              -->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.13</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-staging</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <!-- 19-Oct-2019, tatu: from output -->
+                    <stagingProfileId>b34f19b9cc6224</stagingProfileId>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -97,15 +98,15 @@ com.fasterxml.classmate.*;version=${project.version}
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                 <artifactId>maven-javadoc-plugin</artifactId>
-                 <configuration>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
                     <source>${version.jdk}</source>
                     <encoding>UTF-8</encoding>
                     <links>
-	 	      <link>https://docs.oracle.com/javase/8/docs/api/</link>
+                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
                     </links>
-                 </configuration>
-                 <executions>
+                </configuration>
+                <executions>
                     <execution>
                         <id>attach-javadocs</id>
                         <phase>verify</phase>
@@ -113,61 +114,61 @@ com.fasterxml.classmate.*;version=${project.version}
                             <goal>jar</goal>
                         </goals>
                     </execution>
-                 </executions>
+                </executions>
             </plugin>
-	    <!--  22-Mar-2019, tatu: Add rudimentary JDK9+ module info. To build with JDK 8
-		  will have to use `moduleInfoFile` which is not optimal but anything else
-		  requires JDK 9+.
-              -->
-	    <plugin>
-              <groupId>org.moditect</groupId>
-              <artifactId>moditect-maven-plugin</artifactId>
-              <executions>
-		<execution>
-		  <id>add-module-infos</id>
-		  <phase>package</phase>
-		  <goals>
-		    <goal>add-module-info</goal>
-		  </goals>
-		  <configuration>
-		    <overwriteExistingFiles>true</overwriteExistingFiles>
-		    <module>
-                      <moduleInfoFile>src/moditect/module-info.java</moduleInfoFile>
-		    </module>
-		  </configuration>
-		</execution>
-              </executions>
-	    </plugin>
+            <!--  22-Mar-2019, tatu: Add rudimentary JDK9+ module info. To build with JDK 8
+              will have to use `moduleInfoFile` which is not optimal but anything else
+              requires JDK 9+.
+                  -->
+            <plugin>
+                <groupId>org.moditect</groupId>
+                <artifactId>moditect-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-module-infos</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>add-module-info</goal>
+                        </goals>
+                        <configuration>
+                            <overwriteExistingFiles>true</overwriteExistingFiles>
+                            <module>
+                                <moduleInfoFile>src/moditect/module-info.java</moduleInfoFile>
+                            </module>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <!-- 11-Oct-2023, tatu: Try to produce Code coverage: -->
             <plugin>
-              <groupId>org.jacoco</groupId>
-              <artifactId>jacoco-maven-plugin</artifactId>
-              <executions>
-               <execution>
-                 <goals>
-                   <goal>prepare-agent</goal>
-                 </goals>
-               </execution>
-               <!-- attached to Maven test phase -->
-               <execution>
-                 <id>report</id>
-                 <phase>test</phase>
-                 <goals>
-                   <goal>report</goal>
-                 </goals>
-               </execution>
-             </executions>
-           </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <configuration>
-            <excludes>
-              <exclude>**/failing/*.java</exclude>
-            </excludes>
-          </configuration>
-        </plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- attached to Maven test phase -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/failing/*.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>

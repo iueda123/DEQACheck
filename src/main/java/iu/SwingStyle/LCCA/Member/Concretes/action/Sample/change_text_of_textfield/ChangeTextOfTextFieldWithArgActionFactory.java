@@ -5,13 +5,13 @@ import iu.SwingStyle.LCCA.Member.Abstracts.action.AbstActionMemberFactory;
 
 public class ChangeTextOfTextFieldWithArgActionFactory extends AbstActionMemberFactory {
 
-  private AbstActionMember action;
+    private AbstActionMember action;
 
-  @Override
-  protected AbstActionMember createInstance(String action_name, String short_name, String... args) {
-    if (action == null) {
-      action = new ChangeTextOfTextFieldWithArgAction(action_name, short_name);
+    @Override
+    protected AbstActionMember createInstance(String action_name, String short_name, String... args) {
+        if (action == null) {
+            action = new ChangeTextOfTextFieldWithArgAction(action_name, short_name);
+        }
+        return action;
     }
-    return action;
-  }
 }

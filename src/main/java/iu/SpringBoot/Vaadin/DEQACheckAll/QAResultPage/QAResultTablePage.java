@@ -38,7 +38,7 @@ import java.util.zip.ZipOutputStream;
  * AuthorYear と PromptName を選択すると、
  * すべての Reviewer の QA 結果を一覧テーブルで表示するページ。
  * 行: QA項目、列: Reviewer
- *
+ * <p>
  * ダウンロード機能:
  * - JSONファイル一式をZIPで提供: <AuthorYear>_<PromptName>_JSONS.zip
  * - サマリーテーブルをTSVで提供: <AuthorYear>_<PromptName>_Summary.tsv
@@ -54,30 +54,30 @@ public class QAResultTablePage extends VerticalLayout {
 
     // QA_v9 の項目リスト
     private static final String[] QA_V9_ITEMS = {
-        "cm1_research_objectives",
-        "nm1_selection_criteria_reference_cohort",
-        "nm2_handling_of_covariates_reference_cohort",
-        "nm3_data_sources_reference_cohort",
-        "nm4_image_acquisition_protocol",
-        "nm5_data_preprocessing",
-        "nm6_internal_data_validation_reference_cohort",
-        "nm7_external_data_validation_reference_cohort",
-        "nm8_normative_modeling_approach",
-        "nm9_model_performance_reference_cohort",
-        "nm10_characteristics_reference_cohort_each_partition",
-        "nm11_reproducibility",
-        "cr1_selection_criteria_clinical_cohort",
-        "cr2_handling_of_clinical_covariates",
-        "cr3_data_sources_clinical_cohort",
-        "cr4_clinical_characteristics_clinical_cohort",
-        "cr5_clinical_assessment_measures",
-        "cr6_interpretation_of_deviation_scores"
+            "cm1_research_objectives",
+            "nm1_selection_criteria_reference_cohort",
+            "nm2_handling_of_covariates_reference_cohort",
+            "nm3_data_sources_reference_cohort",
+            "nm4_image_acquisition_protocol",
+            "nm5_data_preprocessing",
+            "nm6_internal_data_validation_reference_cohort",
+            "nm7_external_data_validation_reference_cohort",
+            "nm8_normative_modeling_approach",
+            "nm9_model_performance_reference_cohort",
+            "nm10_characteristics_reference_cohort_each_partition",
+            "nm11_reproducibility",
+            "cr1_selection_criteria_clinical_cohort",
+            "cr2_handling_of_clinical_covariates",
+            "cr3_data_sources_clinical_cohort",
+            "cr4_clinical_characteristics_clinical_cohort",
+            "cr5_clinical_assessment_measures",
+            "cr6_interpretation_of_deviation_scores"
     };
 
     // 項目の短縮名
     private static final String[] QA_V9_SHORT_NAMES = {
-        "CM1", "NM1", "NM2", "NM3", "NM4", "NM5", "NM6", "NM7", "NM8", "NM9", "NM10", "NM11",
-        "CR1", "CR2", "CR3", "CR4", "CR5", "CR6"
+            "CM1", "NM1", "NM2", "NM3", "NM4", "NM5", "NM6", "NM7", "NM8", "NM9", "NM10", "NM11",
+            "CR1", "CR2", "CR3", "CR4", "CR5", "CR6"
     };
 
     private ComboBox<String> authorYearCombo;
@@ -107,14 +107,14 @@ public class QAResultTablePage extends VerticalLayout {
         resultContainer = new Div();
         resultContainer.setWidthFull();
         resultContainer.getStyle()
-            .set("overflow-y", "auto")
-            .set("overflow-x", "auto")
-            .set("margin-top", "20px")
-            .set("padding", "10px")
-            .set("border", "1px solid #e0e0e0")
-            .set("border-radius", "5px")
-            .set("background-color", "#fafafa")
-            .set("flex-grow", "1");
+                .set("overflow-y", "auto")
+                .set("overflow-x", "auto")
+                .set("margin-top", "20px")
+                .set("padding", "10px")
+                .set("border", "1px solid #e0e0e0")
+                .set("border-radius", "5px")
+                .set("background-color", "#fafafa")
+                .set("flex-grow", "1");
         add(resultContainer);
 
         setFlexGrow(1, resultContainer);
@@ -151,13 +151,13 @@ public class QAResultTablePage extends VerticalLayout {
         // Download links container
         downloadLinksContainer = new Div();
         downloadLinksContainer.getStyle()
-            .set("display", "flex")
-            .set("gap", "15px")
-            .set("align-items", "center")
-            .set("flex-wrap", "wrap");
+                .set("display", "flex")
+                .set("gap", "15px")
+                .set("align-items", "center")
+                .set("flex-wrap", "wrap");
 
         HorizontalLayout dropdownLayout = new HorizontalLayout(
-            authorYearCombo, promptNameCombo, reloadButton, downloadButton
+                authorYearCombo, promptNameCombo, reloadButton, downloadButton
         );
         dropdownLayout.setAlignItems(Alignment.END);
         add(dropdownLayout);
@@ -171,11 +171,11 @@ public class QAResultTablePage extends VerticalLayout {
         if (Files.exists(dataDir) && Files.isDirectory(dataDir)) {
             try (Stream<Path> stream = Files.list(dataDir)) {
                 result = stream
-                    .filter(Files::isDirectory)
-                    .map(p -> p.getFileName().toString())
-                    .filter(name -> !name.isEmpty() && Character.isUpperCase(name.charAt(0)))
-                    .sorted()
-                    .collect(Collectors.toList());
+                        .filter(Files::isDirectory)
+                        .map(p -> p.getFileName().toString())
+                        .filter(name -> !name.isEmpty() && Character.isUpperCase(name.charAt(0)))
+                        .sorted()
+                        .collect(Collectors.toList());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -193,11 +193,11 @@ public class QAResultTablePage extends VerticalLayout {
         if (Files.exists(authorDir) && Files.isDirectory(authorDir)) {
             try (Stream<Path> stream = Files.list(authorDir)) {
                 promptNames = stream
-                    .filter(Files::isDirectory)
-                    .map(p -> p.getFileName().toString())
-                    .filter(name -> name.startsWith("QA"))
-                    .sorted()
-                    .collect(Collectors.toList());
+                        .filter(Files::isDirectory)
+                        .map(p -> p.getFileName().toString())
+                        .filter(name -> name.startsWith("QA"))
+                        .sorted()
+                        .collect(Collectors.toList());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -228,9 +228,9 @@ public class QAResultTablePage extends VerticalLayout {
         if (authorYear == null || promptName == null) {
             Div placeholder = new Div("AuthorYear と PromptName を選択してください。");
             placeholder.getStyle()
-                .set("color", "#666")
-                .set("font-style", "italic")
-                .set("padding", "20px");
+                    .set("color", "#666")
+                    .set("font-style", "italic")
+                    .set("padding", "20px");
             resultContainer.add(placeholder);
             return;
         }
@@ -265,10 +265,10 @@ public class QAResultTablePage extends VerticalLayout {
 
         try (Stream<Path> stream = Files.list(jsonDir)) {
             List<Path> files = stream
-                .filter(Files::isRegularFile)
-                .filter(p -> p.getFileName().toString().endsWith(".json"))
-                .sorted(Comparator.comparing(p -> p.getFileName().toString()))
-                .collect(Collectors.toList());
+                    .filter(Files::isRegularFile)
+                    .filter(p -> p.getFileName().toString().endsWith(".json"))
+                    .sorted(Comparator.comparing(p -> p.getFileName().toString()))
+                    .collect(Collectors.toList());
 
             for (Path jsonFile : files) {
                 String fileName = jsonFile.getFileName().toString();
@@ -363,11 +363,11 @@ public class QAResultTablePage extends VerticalLayout {
             Anchor zipAnchor = new Anchor(zipResource, zipFileName);
             zipAnchor.getElement().setAttribute("download", true);
             zipAnchor.getStyle()
-                .set("color", "#1976d2")
-                .set("text-decoration", "none")
-                .set("padding", "4px 8px")
-                .set("background-color", "#e3f2fd")
-                .set("border-radius", "4px");
+                    .set("color", "#1976d2")
+                    .set("text-decoration", "none")
+                    .set("padding", "4px 8px")
+                    .set("background-color", "#e3f2fd")
+                    .set("border-radius", "4px");
             downloadLinksContainer.add(zipAnchor);
 
             // TSV download link
@@ -376,11 +376,11 @@ public class QAResultTablePage extends VerticalLayout {
             Anchor tsvAnchor = new Anchor(tsvResource, tsvFileName);
             tsvAnchor.getElement().setAttribute("download", true);
             tsvAnchor.getStyle()
-                .set("color", "#1976d2")
-                .set("text-decoration", "none")
-                .set("padding", "4px 8px")
-                .set("background-color", "#e3f2fd")
-                .set("border-radius", "4px");
+                    .set("color", "#1976d2")
+                    .set("text-decoration", "none")
+                    .set("padding", "4px 8px")
+                    .set("background-color", "#e3f2fd")
+                    .set("border-radius", "4px");
             downloadLinksContainer.add(tsvAnchor);
 
             Notification.show("ダウンロードファイルを生成しました。", 3000, Notification.Position.BOTTOM_START);
@@ -456,19 +456,27 @@ public class QAResultTablePage extends VerticalLayout {
             for (String itemKey : QA_V9_ITEMS) {
                 String answer = data.answers.getOrDefault(itemKey, "").toLowerCase();
                 switch (answer) {
-                    case "yes": yesCount++; break;
-                    case "no": noCount++; break;
-                    case "partial": partialCount++; break;
-                    case "na": naCount++; break;
+                    case "yes":
+                        yesCount++;
+                        break;
+                    case "no":
+                        noCount++;
+                        break;
+                    case "partial":
+                        partialCount++;
+                        break;
+                    case "na":
+                        naCount++;
+                        break;
                 }
             }
 
             sb.append(data.reviewerName)
-              .append("\t").append(yesCount)
-              .append("\t").append(noCount)
-              .append("\t").append(partialCount)
-              .append("\t").append(naCount)
-              .append("\n");
+                    .append("\t").append(yesCount)
+                    .append("\t").append(noCount)
+                    .append("\t").append(partialCount)
+                    .append("\t").append(naCount)
+                    .append("\n");
         }
 
         return sb.toString().getBytes(StandardCharsets.UTF_8);
@@ -481,16 +489,16 @@ public class QAResultTablePage extends VerticalLayout {
         // タイトル
         Div titleDiv = new Div("AuthorYear: " + authorYear);
         titleDiv.getStyle()
-            .set("font-weight", "bold")
-            .set("font-size", "16px")
-            .set("margin-bottom", "10px");
+                .set("font-weight", "bold")
+                .set("font-size", "16px")
+                .set("margin-bottom", "10px");
         container.add(titleDiv);
 
         Element table = new Element("table");
         table.getStyle()
-            .set("border-collapse", "collapse")
-            .set("font-size", "12px")
-            .set("background-color", "white");
+                .set("border-collapse", "collapse")
+                .set("font-size", "12px")
+                .set("background-color", "white");
 
         // ヘッダー行
         Element thead = new Element("thead");
@@ -500,14 +508,14 @@ public class QAResultTablePage extends VerticalLayout {
         Element thItem = new Element("th");
         thItem.setText("Item");
         thItem.getStyle()
-            .set("border", "1px solid #ddd")
-            .set("padding", "8px")
-            .set("background-color", "#1565c0")
-            .set("color", "white")
-            .set("position", "sticky")
-            .set("left", "0")
-            .set("z-index", "2")
-            .set("min-width", "80px");
+                .set("border", "1px solid #ddd")
+                .set("padding", "8px")
+                .set("background-color", "#1565c0")
+                .set("color", "white")
+                .set("position", "sticky")
+                .set("left", "0")
+                .set("z-index", "2")
+                .set("min-width", "80px");
         headerRow.appendChild(thItem);
 
         // 各Reviewerの列ヘッダー
@@ -516,13 +524,13 @@ public class QAResultTablePage extends VerticalLayout {
             th.setText(data.reviewerName);
             th.setAttribute("title", data.fileName);
             th.getStyle()
-                .set("border", "1px solid #ddd")
-                .set("padding", "6px")
-                .set("background-color", "#1565c0")
-                .set("color", "white")
-                .set("min-width", "60px")
-                .set("text-align", "center")
-                .set("cursor", "help");
+                    .set("border", "1px solid #ddd")
+                    .set("padding", "6px")
+                    .set("background-color", "#1565c0")
+                    .set("color", "white")
+                    .set("min-width", "60px")
+                    .set("text-align", "center")
+                    .set("cursor", "help");
             headerRow.appendChild(th);
         }
 
@@ -545,14 +553,14 @@ public class QAResultTablePage extends VerticalLayout {
             tdItem.setText(shortName);
             tdItem.setAttribute("title", itemKey);
             tdItem.getStyle()
-                .set("border", "1px solid #ddd")
-                .set("padding", "6px")
-                .set("background-color", rowBgColor)
-                .set("font-weight", "bold")
-                .set("position", "sticky")
-                .set("left", "0")
-                .set("z-index", "1")
-                .set("cursor", "help");
+                    .set("border", "1px solid #ddd")
+                    .set("padding", "6px")
+                    .set("background-color", rowBgColor)
+                    .set("font-weight", "bold")
+                    .set("position", "sticky")
+                    .set("left", "0")
+                    .set("z-index", "1")
+                    .set("cursor", "help");
             tr.appendChild(tdItem);
 
             // 各Reviewerの回答セル
@@ -561,13 +569,13 @@ public class QAResultTablePage extends VerticalLayout {
                 Element td = new Element("td");
                 td.setText(getAnswerShort(answer));
                 td.getStyle()
-                    .set("border", "1px solid #ddd")
-                    .set("padding", "4px")
-                    .set("text-align", "center")
-                    .set("background-color", getAnswerBgColor(answer))
-                    .set("color", "white")
-                    .set("font-weight", "bold")
-                    .set("font-size", "11px");
+                        .set("border", "1px solid #ddd")
+                        .set("padding", "4px")
+                        .set("text-align", "center")
+                        .set("background-color", getAnswerBgColor(answer))
+                        .set("color", "white")
+                        .set("font-weight", "bold")
+                        .set("font-size", "11px");
                 tr.appendChild(td);
             }
 
@@ -590,11 +598,11 @@ public class QAResultTablePage extends VerticalLayout {
     private Div createSummarySection(List<ReviewerData> dataList) {
         Div summaryDiv = new Div();
         summaryDiv.getStyle()
-            .set("margin-top", "20px")
-            .set("padding", "15px")
-            .set("background-color", "#fff")
-            .set("border", "1px solid #ddd")
-            .set("border-radius", "5px");
+                .set("margin-top", "20px")
+                .set("padding", "15px")
+                .set("background-color", "#fff")
+                .set("border", "1px solid #ddd")
+                .set("border-radius", "5px");
 
         summaryDiv.add(new Span("Summary per Reviewer:"));
         summaryDiv.getElement().appendChild(new Element("br"));
@@ -606,20 +614,28 @@ public class QAResultTablePage extends VerticalLayout {
             for (String itemKey : QA_V9_ITEMS) {
                 String answer = data.answers.getOrDefault(itemKey, "").toLowerCase();
                 switch (answer) {
-                    case "yes": yesCount++; break;
-                    case "no": noCount++; break;
-                    case "partial": partialCount++; break;
-                    case "na": naCount++; break;
+                    case "yes":
+                        yesCount++;
+                        break;
+                    case "no":
+                        noCount++;
+                        break;
+                    case "partial":
+                        partialCount++;
+                        break;
+                    case "na":
+                        naCount++;
+                        break;
                 }
             }
 
             Div reviewerSummary = new Div();
             reviewerSummary.getStyle()
-                .set("display", "inline-flex")
-                .set("gap", "10px")
-                .set("margin-right", "30px")
-                .set("margin-bottom", "10px")
-                .set("align-items", "center");
+                    .set("display", "inline-flex")
+                    .set("gap", "10px")
+                    .set("margin-right", "30px")
+                    .set("margin-bottom", "10px")
+                    .set("align-items", "center");
 
             Span nameSpan = new Span(data.reviewerName + ": ");
             nameSpan.getStyle().set("font-weight", "bold").set("min-width", "80px");
@@ -639,23 +655,23 @@ public class QAResultTablePage extends VerticalLayout {
     private Div createBadge(String label, int count, String bgColor) {
         Div badge = new Div();
         badge.getStyle()
-            .set("display", "inline-flex")
-            .set("align-items", "center")
-            .set("gap", "3px");
+                .set("display", "inline-flex")
+                .set("align-items", "center")
+                .set("gap", "3px");
 
         Span labelSpan = new Span(label + ":");
         labelSpan.getStyle().set("font-size", "11px");
 
         Span countSpan = new Span(String.valueOf(count));
         countSpan.getStyle()
-            .set("background-color", bgColor)
-            .set("color", "white")
-            .set("padding", "1px 5px")
-            .set("border-radius", "8px")
-            .set("font-size", "10px")
-            .set("font-weight", "bold")
-            .set("min-width", "18px")
-            .set("text-align", "center");
+                .set("background-color", bgColor)
+                .set("color", "white")
+                .set("padding", "1px 5px")
+                .set("border-radius", "8px")
+                .set("font-size", "10px")
+                .set("font-weight", "bold")
+                .set("min-width", "18px")
+                .set("text-align", "center");
 
         badge.add(labelSpan, countSpan);
         return badge;
@@ -664,12 +680,12 @@ public class QAResultTablePage extends VerticalLayout {
     private Div createLegend() {
         Div legend = new Div();
         legend.getStyle()
-            .set("margin-top", "15px")
-            .set("padding", "10px")
-            .set("display", "flex")
-            .set("gap", "15px")
-            .set("flex-wrap", "wrap")
-            .set("align-items", "center");
+                .set("margin-top", "15px")
+                .set("padding", "10px")
+                .set("display", "flex")
+                .set("gap", "15px")
+                .set("flex-wrap", "wrap")
+                .set("align-items", "center");
 
         legend.add(new Span("凡例: "));
         legend.add(createLegendItem("Y", "Yes", "#28a745"));
@@ -684,18 +700,18 @@ public class QAResultTablePage extends VerticalLayout {
     private Div createLegendItem(String shortText, String fullText, String bgColor) {
         Div item = new Div();
         item.getStyle()
-            .set("display", "inline-flex")
-            .set("align-items", "center")
-            .set("gap", "4px");
+                .set("display", "inline-flex")
+                .set("align-items", "center")
+                .set("gap", "4px");
 
         Span badge = new Span(shortText);
         badge.getStyle()
-            .set("background-color", bgColor)
-            .set("color", "white")
-            .set("padding", "2px 6px")
-            .set("border-radius", "3px")
-            .set("font-size", "11px")
-            .set("font-weight", "bold");
+                .set("background-color", bgColor)
+                .set("color", "white")
+                .set("padding", "2px 6px")
+                .set("border-radius", "3px")
+                .set("font-size", "11px")
+                .set("font-weight", "bold");
 
         Span label = new Span("= " + fullText);
         label.getStyle().set("font-size", "12px");
@@ -707,22 +723,32 @@ public class QAResultTablePage extends VerticalLayout {
     private String getAnswerShort(String answer) {
         if (answer == null || answer.isEmpty()) return "-";
         switch (answer.toLowerCase()) {
-            case "yes": return "Y";
-            case "no": return "N";
-            case "partial": return "P";
-            case "na": return "NA";
-            default: return "-";
+            case "yes":
+                return "Y";
+            case "no":
+                return "N";
+            case "partial":
+                return "P";
+            case "na":
+                return "NA";
+            default:
+                return "-";
         }
     }
 
     private String getAnswerBgColor(String answer) {
         if (answer == null || answer.isEmpty()) return "#dee2e6";
         switch (answer.toLowerCase()) {
-            case "yes": return "#28a745";
-            case "no": return "#dc3545";
-            case "partial": return "#fd7e14";
-            case "na": return "#6c757d";
-            default: return "#dee2e6";
+            case "yes":
+                return "#28a745";
+            case "no":
+                return "#dc3545";
+            case "partial":
+                return "#fd7e14";
+            case "na":
+                return "#6c757d";
+            default:
+                return "#dee2e6";
         }
     }
 

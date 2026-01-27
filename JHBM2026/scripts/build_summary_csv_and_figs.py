@@ -2,6 +2,7 @@
 import json, glob, os, re, math, collections, statistics
 from pathlib import Path
 
+
 def load_json(path):
     try:
         with open(path, 'r', encoding='utf-8') as f:
@@ -9,8 +10,10 @@ def load_json(path):
     except Exception:
         return None
 
+
 def tokenize_semicolon(s):
     return [t.strip() for t in re.split(r";", s) if t and t.strip()]
+
 
 def modality_category(text):
     low = text.lower()
@@ -30,9 +33,11 @@ def modality_category(text):
         return 'MEG'
     return 'Others'
 
+
 def parse_phase(line):
     m = re.search(r"Phase:\s*([^|]+)", line)
     return m.group(1).strip() if m else 'Uninvestigated'
+
 
 def parse_n_values(text):
     # returns list of (phase, N)
@@ -55,25 +60,29 @@ def parse_n_values(text):
                 pass
     return out
 
+
 def parse_age_records(text):
     # returns list of dict per line: phase, mean, sd, min, max
     out = []
     for ln in [l for l in str(text).split('\n') if l.strip()]:
         rec = {'phase': parse_phase(ln), 'mean': None, 'sd': None, 'min': None, 'max': None}
+
         def pick(key):
             m = re.search(rf"{key}:\s*(NR|NA|\-?\d+(?:\.\d+)?)", ln, re.I)
-            if m and m.group(1).upper() not in ('NR','NA'):
+            if m and m.group(1).upper() not in ('NR', 'NA'):
                 try:
                     return float(m.group(1))
                 except Exception:
                     return None
             return None
+
         rec['mean'] = pick('mean')
-        rec['sd']   = pick('sd')
-        rec['min']  = pick('min')
-        rec['max']  = pick('max')
+        rec['sd'] = pick('sd')
+        rec['min'] = pick('min')
+        rec['max'] = pick('max')
         out.append(rec)
     return out
+
 
 def parse_sex_records(text):
     # returns list of (phase, female_pct)
@@ -95,8 +104,10 @@ def parse_sex_records(text):
                 pass
     return out
 
+
 def main():
-    files = glob.glob('share_package/data/*/DE/json/*human*.json') + glob.glob('share_package/data/*/DE/json/*Human*.json')
+    files = glob.glob('share_package/data/*/DE/json/*human*.json') + glob.glob(
+        'share_package/data/*/DE/json/*Human*.json')
     records = []  # flattened per (file, line)
     datasets_counter = collections.Counter()
     modality_counter = collections.Counter()
@@ -104,7 +115,8 @@ def main():
     disease_counter = collections.Counter()
     findings_terms = collections.Counter()
 
-    stop = set('the a an and or of for to in on with without among versus vs from at as by be is are was were been being into over under across within using include includes included including not no low high higher lower have has had were it its their his her our your they them we us this that these those may might should can could will would do did done such which than per among across into'.split())
+    stop = set(
+        'the a an and or of for to in on with without among versus vs from at as by be is are was were been being into over under across within using include includes included including not no low high higher lower have has had were it its their his her our your they them we us this that these those may might should can could will would do did done such which than per among across into'.split())
     word_re = re.compile(r"[A-Za-z][A-Za-z\-']+")
 
     for p in files:
@@ -118,28 +130,28 @@ def main():
         ref = j.get('reference_cohort_and_imaging_part') or {}
         # Dataset
         dsnode = ref.get('rci1_dataset_name')
-        dsval = dsnode.get('answer','') if isinstance(dsnode,dict) else (dsnode or '')
-        if isinstance(dsval,str) and dsval.strip():
+        dsval = dsnode.get('answer', '') if isinstance(dsnode, dict) else (dsnode or '')
+        if isinstance(dsval, str) and dsval.strip():
             ds_toks = tokenize_semicolon(dsval)
             for t in ds_toks:
                 datasets_counter[t] += 1
         # N
         nn = ref.get('rci2_hc_n')
-        nval = nn.get('answer','') if isinstance(nn,dict) else (nn or '')
+        nval = nn.get('answer', '') if isinstance(nn, dict) else (nn or '')
         n_list = parse_n_values(nval)
         # Age
         an = ref.get('rci3_hc_age')
-        aval = an.get('answer','') if isinstance(an,dict) else (an or '')
+        aval = an.get('answer', '') if isinstance(an, dict) else (an or '')
         age_list = parse_age_records(aval)
         # Sex
         sn = ref.get('rci4_hc_sex')
-        sval = sn.get('answer','') if isinstance(sn,dict) else (sn or '')
+        sval = sn.get('answer', '') if isinstance(sn, dict) else (sn or '')
         sex_list = parse_sex_records(sval)
         # Modality
         mn = ref.get('rci5_imaging_modality')
-        mval = mn.get('answer','') if isinstance(mn,dict) else (mn or '')
+        mval = mn.get('answer', '') if isinstance(mn, dict) else (mn or '')
         modality_list = []
-        if isinstance(mval,str) and mval.strip():
+        if isinstance(mval, str) and mval.strip():
             for t in [tt.strip() for tt in re.split(r";|,", mval) if tt.strip()]:
                 cat = modality_category(t)
                 modality_counter[cat] += 1
@@ -147,20 +159,20 @@ def main():
         # Origin
         nm = j.get('normative_modeling_part') or {}
         on = nm.get('nm1_model_origin')
-        oval = on.get('answer','') if isinstance(on,dict) else (on or '')
-        if isinstance(oval,str) and oval.strip():
+        oval = on.get('answer', '') if isinstance(on, dict) else (on or '')
+        if isinstance(oval, str) and oval.strip():
             origin_counter[oval.strip()] += 1
         # Disease
         caa = j.get('clinical_application_and_analysis_part') or {}
         dn = caa.get('caa2_diseases_studied') or caa.get('diseases_studied')
-        dval = dn.get('answer','') if isinstance(dn,dict) else (dn or '')
-        diseases = tokenize_semicolon(dval) if isinstance(dval,str) else []
+        dval = dn.get('answer', '') if isinstance(dn, dict) else (dn or '')
+        diseases = tokenize_semicolon(dval) if isinstance(dval, str) else []
         for d in diseases:
             disease_counter[d] += 1
         # Findings keywords（簡易）
         fv = caa.get('caa8_key_findings_brief')
-        fval = fv if isinstance(fv,str) else (fv.get('answer','') if isinstance(fv,dict) else '')
-        if isinstance(fval,str) and fval.strip():
+        fval = fv if isinstance(fv, str) else (fv.get('answer', '') if isinstance(fv, dict) else '')
+        if isinstance(fval, str) and fval.strip():
             for w in word_re.findall(fval.lower()):
                 w = w.strip("-'")
                 if not w or w in stop or len(w) <= 2:
@@ -168,7 +180,7 @@ def main():
                 findings_terms[w] += 1
 
         # Flatten records per available lines (align by phase best-effort)
-        phases_seen = set([ph for ph,_ in n_list] + [r['phase'] for r in age_list] + [ph for ph,_ in sex_list])
+        phases_seen = set([ph for ph, _ in n_list] + [r['phase'] for r in age_list] + [ph for ph, _ in sex_list])
         if not phases_seen:
             phases_seen = {'Uninvestigated'}
         for ph in phases_seen:
@@ -182,8 +194,8 @@ def main():
                 'age_max': None,
                 'female_pct': None,
                 'modality': ';'.join(sorted(set(modality_list))) if modality_list else '',
-                'origin': oval.strip() if isinstance(oval,str) else '',
-                'dataset': ';'.join(tokenize_semicolon(dsval)) if isinstance(dsval,str) else '',
+                'origin': oval.strip() if isinstance(oval, str) else '',
+                'dataset': ';'.join(tokenize_semicolon(dsval)) if isinstance(dsval, str) else '',
                 'disease': ';'.join(diseases),
             }
             # pick phase-matching values
@@ -193,31 +205,35 @@ def main():
             best_age = None
             for a in age_list:
                 if a['phase'] == ph:
-                    best_age = a; break
+                    best_age = a;
+                    break
             if not best_age and age_list:
                 best_age = age_list[0]
             if best_age:
                 rec['age_mean'] = best_age['mean']
-                rec['age_sd']   = best_age['sd']
-                rec['age_min']  = best_age['min']
-                rec['age_max']  = best_age['max']
+                rec['age_sd'] = best_age['sd']
+                rec['age_min'] = best_age['min']
+                rec['age_max'] = best_age['max']
             best_sex = None
             for ph2, fp in sex_list:
                 if ph2 == ph:
-                    best_sex = fp; break
+                    best_sex = fp;
+                    break
             if best_sex is None and sex_list:
                 best_sex = sex_list[0][1]
             rec['female_pct'] = best_sex
             records.append(rec)
 
     # Write CSVs for analysis reuse
-    outdir = Path('doc/figs'); outdir.mkdir(parents=True, exist_ok=True)
+    outdir = Path('doc/figs');
+    outdir.mkdir(parents=True, exist_ok=True)
     csv_path = outdir / 'records.csv'
-    cols = ['authorYear','phase','N','age_mean','age_sd','age_min','age_max','female_pct','modality','origin','dataset','disease']
-    with open(csv_path,'w',encoding='utf-8') as f:
-        f.write('\t'.join(cols)+'\n')
+    cols = ['authorYear', 'phase', 'N', 'age_mean', 'age_sd', 'age_min', 'age_max', 'female_pct', 'modality', 'origin',
+            'dataset', 'disease']
+    with open(csv_path, 'w', encoding='utf-8') as f:
+        f.write('\t'.join(cols) + '\n')
         for r in records:
-            f.write('\t'.join(['' if r[c] is None else str(r[c]) for c in cols])+'\n')
+            f.write('\t'.join(['' if r[c] is None else str(r[c]) for c in cols]) + '\n')
 
     # Try to plot figures with matplotlib
     try:
@@ -235,10 +251,10 @@ def main():
         plt.close()
 
     # Figure 1: N histogram (log10)
-    Ns = [r['N'] for r in records if isinstance(r.get('N'), int) and r['N']>0]
+    Ns = [r['N'] for r in records if isinstance(r.get('N'), int) and r['N'] > 0]
     if Ns:
         vals = np.log10(Ns)
-        plt.figure(figsize=(6,4))
+        plt.figure(figsize=(6, 4))
         plt.hist(vals, bins=30, color='#4e79a7', alpha=0.85)
         plt.xlabel('log10(N)')
         plt.ylabel('Count')
@@ -246,15 +262,17 @@ def main():
         savefig('fig01_n_hist.png')
 
     # Figure 2: Age mean vs sd (color=modality, size ~ N)
-    mean_sd = [(r['age_mean'], r['age_sd'], (r['modality'] or 'Others').split(';')[0], r['N'] or 100) for r in records if r['age_mean'] is not None and r['age_sd'] is not None]
+    mean_sd = [(r['age_mean'], r['age_sd'], (r['modality'] or 'Others').split(';')[0], r['N'] or 100) for r in records
+               if r['age_mean'] is not None and r['age_sd'] is not None]
     if mean_sd:
-        cats = ['T1w MRI','fMRI','dMRI','T2w MRI','PET','EEG','MEG','Others']
-        cmap = {c:col for c,col in zip(cats, ['#4e79a7','#f28e2b','#59a14f','#e15759','#76b7b2','#edc948','#b07aa1','#bab0ac'])}
-        xs = [x for x,_,_,_ in mean_sd]
-        ys = [y for _,y,_,_ in mean_sd]
-        cs = [cmap.get(cat, '#bab0ac') for _,_,cat,_ in mean_sd]
-        ss = [max(20, min(300, n**0.5)) for *_, n in mean_sd]
-        plt.figure(figsize=(6,4))
+        cats = ['T1w MRI', 'fMRI', 'dMRI', 'T2w MRI', 'PET', 'EEG', 'MEG', 'Others']
+        cmap = {c: col for c, col in
+                zip(cats, ['#4e79a7', '#f28e2b', '#59a14f', '#e15759', '#76b7b2', '#edc948', '#b07aa1', '#bab0ac'])}
+        xs = [x for x, _, _, _ in mean_sd]
+        ys = [y for _, y, _, _ in mean_sd]
+        cs = [cmap.get(cat, '#bab0ac') for _, _, cat, _ in mean_sd]
+        ss = [max(20, min(300, n ** 0.5)) for *_, n in mean_sd]
+        plt.figure(figsize=(6, 4))
         plt.scatter(xs, ys, s=ss, c=cs, alpha=0.7, edgecolor='none')
         plt.xlabel('Age Mean (Years)')
         plt.ylabel('Age SD (Years)')
@@ -264,7 +282,7 @@ def main():
     # Figure 3: Female% histogram
     Fp = [r['female_pct'] for r in records if r['female_pct'] is not None]
     if Fp:
-        plt.figure(figsize=(6,4))
+        plt.figure(figsize=(6, 4))
         plt.hist(Fp, bins=20, color='#e15759', alpha=0.85)
         plt.axvline(50, color='k', linestyle='--', linewidth=1)
         plt.xlabel('Female Percentage (%)')
@@ -273,15 +291,15 @@ def main():
         savefig('fig03_female_hist.png')
 
     # Figure 4: Modality x Disease heatmap (top diseases)
-    top_dis = [d for d,_ in disease_counter.most_common(10)]
-    cats = ['T1w MRI','fMRI','dMRI','T2w MRI','PET','EEG','MEG','Others']
+    top_dis = [d for d, _ in disease_counter.most_common(10)]
+    cats = ['T1w MRI', 'fMRI', 'dMRI', 'T2w MRI', 'PET', 'EEG', 'MEG', 'Others']
     mat = [[0 for _ in top_dis] for _ in cats]
     for r in records:
         ms = r['modality'].split(';') if r['modality'] else ['Others']
         ds = r['disease'].split(';') if r['disease'] else []
         for m in ms:
-            if not m: m='Others'
-            if m not in cats: m='Others'
+            if not m: m = 'Others'
+            if m not in cats: m = 'Others'
             mi = cats.index(m)
             for d in ds:
                 if d in top_dis:
@@ -289,7 +307,7 @@ def main():
                     mat[mi][dj] += 1
     if sum(sum(row) for row in mat) > 0:
         import numpy as np
-        plt.figure(figsize=(max(6, 0.7*len(top_dis)+2), 4))
+        plt.figure(figsize=(max(6, 0.7 * len(top_dis) + 2), 4))
         arr = np.array(mat)
         plt.imshow(arr, aspect='auto', cmap='Blues')
         plt.xticks(range(len(top_dis)), top_dis, rotation=45, ha='right')
@@ -301,9 +319,9 @@ def main():
     # Figure 5: Top Datasets bar
     top_ds = datasets_counter.most_common(15)
     if top_ds:
-        labels = [k for k,_ in top_ds]
-        counts = [v for _,v in top_ds]
-        plt.figure(figsize=(8, max(4, 0.4*len(labels))) )
+        labels = [k for k, _ in top_ds]
+        counts = [v for _, v in top_ds]
+        plt.figure(figsize=(8, max(4, 0.4 * len(labels))))
         y = list(range(len(labels)))[::-1]
         plt.barh(y, counts, color='#59a14f')
         plt.yticks(y, labels)
@@ -315,17 +333,18 @@ def main():
     if origin_counter:
         labels = list(origin_counter.keys())
         sizes = [origin_counter[k] for k in labels]
-        plt.figure(figsize=(5,5))
-        plt.pie(sizes, labels=labels, autopct='%1.0f%%', startangle=90, colors=['#4e79a7','#f28e2b','#bab0ac','#59a14f'])
+        plt.figure(figsize=(5, 5))
+        plt.pie(sizes, labels=labels, autopct='%1.0f%%', startangle=90,
+                colors=['#4e79a7', '#f28e2b', '#bab0ac', '#59a14f'])
         plt.title('Model Origin')
         savefig('fig06_origin_pie.png')
 
     # Figure 7: Findings keywords top bar
     top_kw = findings_terms.most_common(20)
     if top_kw:
-        labels = [k for k,_ in top_kw]
-        counts = [v for _,v in top_kw]
-        plt.figure(figsize=(8, max(4, 0.4*len(labels))) )
+        labels = [k for k, _ in top_kw]
+        counts = [v for _, v in top_kw]
+        plt.figure(figsize=(8, max(4, 0.4 * len(labels))))
         y = list(range(len(labels)))[::-1]
         plt.barh(y, counts, color='#b07aa1')
         plt.yticks(y, labels)
@@ -334,9 +353,9 @@ def main():
         savefig('fig07_findings_keywords.png')
 
     # Figure 8: Dataset x Modality heatmap (top datasets)
-    top_labels = [k for k,_ in datasets_counter.most_common(12)]
+    top_labels = [k for k, _ in datasets_counter.most_common(12)]
     if top_labels:
-        cats = ['T1w MRI','fMRI','dMRI','T2w MRI','PET','EEG','MEG','Others']
+        cats = ['T1w MRI', 'fMRI', 'dMRI', 'T2w MRI', 'PET', 'EEG', 'MEG', 'Others']
         mat = [[0 for _ in cats] for _ in top_labels]
         for r in records:
             ds = r['dataset'].split(';') if r['dataset'] else []
@@ -345,12 +364,12 @@ def main():
                 if d in top_labels:
                     di = top_labels.index(d)
                     for m in ms:
-                        if m not in cats: m='Others'
+                        if m not in cats: m = 'Others'
                         mj = cats.index(m)
                         mat[di][mj] += 1
         import numpy as np
         if sum(sum(row) for row in mat) > 0:
-            plt.figure(figsize=(8, max(4, 0.5*len(top_labels))))
+            plt.figure(figsize=(8, max(4, 0.5 * len(top_labels))))
             arr = np.array(mat)
             plt.imshow(arr, aspect='auto', cmap='Greens')
             plt.yticks(range(len(top_labels)), top_labels)
@@ -361,7 +380,7 @@ def main():
 
     # Figure 9: Modality trend by publication year (line chart)
     # Extract year from authorYear and count unique (authorYear, modality) per year
-    cats_order = ['T1w MRI','fMRI','dMRI','T2w MRI','PET','EEG','MEG','Others']
+    cats_order = ['T1w MRI', 'fMRI', 'dMRI', 'T2w MRI', 'PET', 'EEG', 'MEG', 'Others']
     year_mod_set = collections.defaultdict(set)  # year -> set of (authorYear, modality)
     years_all = set()
     for r in records:
@@ -371,7 +390,7 @@ def main():
             continue
         year = int(m.group(1))
         years_all.add(year)
-        mods = r.get('modality','').split(';') if r.get('modality') else []
+        mods = r.get('modality', '').split(';') if r.get('modality') else []
         if not mods:
             mods = ['Others']
         for mod in mods:
@@ -381,8 +400,10 @@ def main():
             year_mod_set[year].add((ay, mod))
     if years_all:
         years_sorted = sorted(years_all)
-        plt.figure(figsize=(8,4))
-        color_map = {c:col for c,col in zip(cats_order, ['#4e79a7','#f28e2b','#59a14f','#e15759','#76b7b2','#edc948','#b07aa1','#bab0ac'])}
+        plt.figure(figsize=(8, 4))
+        color_map = {c: col for c, col in zip(cats_order,
+                                              ['#4e79a7', '#f28e2b', '#59a14f', '#e15759', '#76b7b2', '#edc948',
+                                               '#b07aa1', '#bab0ac'])}
         # cumulative totals per modality (unique studies across all years)
         mod_to_studies = collections.defaultdict(set)
         for y, pairs in year_mod_set.items():
@@ -396,14 +417,14 @@ def main():
             for y in years_sorted:
                 cnt = sum(1 for (ay, mcat) in year_mod_set.get(y, set()) if mcat == cat)
                 ys.append(cnt)
-            if any(v>0 for v in ys):
+            if any(v > 0 for v in ys):
                 label = f"{cat} (n={mod_totals.get(cat, 0)})"
                 plt.plot(years_sorted, ys, marker='o', label=label, color=color_map.get(cat, None))
         plt.xlabel('Publication year')
         plt.ylabel('Count (unique studies)')
         # Title Case + optional line break for readability
         title_main = 'Trends in the Number of Normative Modeling Research Reports'
-        title_sub  = '(by Modality)'
+        title_sub = '(by Modality)'
         plt.title(f"{title_main}\n{title_sub}")
         # annotate study period inside the axes (top-right)
         period = 'Study period: Jan 2005–Mar 2025'
@@ -439,13 +460,15 @@ def main():
         for k in ('si4_title', 'title'):
             v = ref.get(k)
             if isinstance(v, str) and v.strip():
-                title = v.strip(); break
+                title = v.strip();
+                break
         # journal/year string for hint
         jy = None
         for k in ('si3_author_journal_year', 'author_journal_year'):
             v = ref.get(k)
             if isinstance(v, str) and v.strip():
-                jy = v.strip(); break
+                jy = v.strip();
+                break
         # DOI (if available)
         doi = None
         for k in ('si5_doi', 'doi'):
@@ -571,25 +594,27 @@ def main():
 
     if years_q_all:
         # build sorted quarters
-        years_sorted = sorted(set(y for y,_ in years_q_all))
-        quarters = [(y, q) for y in years_sorted for q in (1,2,3,4) if (y,q) in years_q_all]
+        years_sorted = sorted(set(y for y, _ in years_q_all))
+        quarters = [(y, q) for y in years_sorted for q in (1, 2, 3, 4) if (y, q) in years_q_all]
         if quarters:
-            plt.figure(figsize=(10,5))
-            color_map = {c:col for c,col in zip(cats_order, ['#4e79a7','#f28e2b','#59a14f','#e15759','#76b7b2','#edc948','#b07aa1','#bab0ac'])}
-            x_labels = [f"{y}-Q{q}" for (y,q) in quarters]
+            plt.figure(figsize=(10, 5))
+            color_map = {c: col for c, col in zip(cats_order,
+                                                  ['#4e79a7', '#f28e2b', '#59a14f', '#e15759', '#76b7b2', '#edc948',
+                                                   '#b07aa1', '#bab0ac'])}
+            x_labels = [f"{y}-Q{q}" for (y, q) in quarters]
             x = list(range(len(quarters)))
             for cat in cats_order:
                 ys = []
                 for y, q in quarters:
-                    cnt = sum(1 for (ay, mcat) in quarter_mod_set.get((y,q), set()) if mcat == cat)
+                    cnt = sum(1 for (ay, mcat) in quarter_mod_set.get((y, q), set()) if mcat == cat)
                     ys.append(cnt)
-                if any(v>0 for v in ys):
+                if any(v > 0 for v in ys):
                     plt.plot(x, ys, marker='o', label=cat, color=color_map.get(cat, None))
             plt.xticks(x, x_labels, rotation=45, ha='right')
             plt.xlabel('Publication quarter')
             plt.ylabel('Count (unique studies)')
             title_main = 'Trends in the Number of Normative Modeling Research Reports'
-            title_sub  = '(by Modality, per Quarter)'
+            title_sub = '(by Modality, per Quarter)'
             plt.title(f"{title_main}\n{title_sub}")
             ax = plt.gca()
             note = 'Study period: Jan 2005–Mar 2025'
@@ -615,7 +640,8 @@ def main():
         else:
             mm = re.search(r'(\d{4})', authorYear or '')
             if mm:
-                y = int(mm.group(1)); m = 6
+                y = int(mm.group(1));
+                m = 6
         if not y or not m:
             continue
         ym = f"{y:04d}-{m:02d}"
@@ -628,18 +654,22 @@ def main():
     if months_all:
         months_sorted = sorted(months_all)
         # build series per modality
-        color_map = {c:col for c,col in zip(cats_order, ['#4e79a7','#f28e2b','#59a14f','#e15759','#76b7b2','#edc948','#b07aa1','#bab0ac'])}
+        color_map = {c: col for c, col in zip(cats_order,
+                                              ['#4e79a7', '#f28e2b', '#59a14f', '#e15759', '#76b7b2', '#edc948',
+                                               '#b07aa1', '#bab0ac'])}
         x = list(range(len(months_sorted)))
         series = {cat: [len(month_counts[m].get(cat, set())) for m in months_sorted] for cat in cats_order}
         # stacked area chart
-        plt.figure(figsize=(12,6))
-        bottom = [0]*len(x)
+        plt.figure(figsize=(12, 6))
+        bottom = [0] * len(x)
         for cat in cats_order:
             ys = series[cat]
-            if any(v>0 for v in ys):
-                plt.fill_between(x, bottom, [bottom[i]+ys[i] for i in range(len(ys))], step='mid', alpha=0.6, color=color_map.get(cat, None), label=cat)
-                bottom = [bottom[i]+ys[i] for i in range(len(ys))]
-        plt.xticks(x[::max(1, len(x)//12)], [months_sorted[i] for i in range(0, len(x), max(1, len(x)//12))], rotation=45, ha='right')
+            if any(v > 0 for v in ys):
+                plt.fill_between(x, bottom, [bottom[i] + ys[i] for i in range(len(ys))], step='mid', alpha=0.6,
+                                 color=color_map.get(cat, None), label=cat)
+                bottom = [bottom[i] + ys[i] for i in range(len(ys))]
+        plt.xticks(x[::max(1, len(x) // 12)], [months_sorted[i] for i in range(0, len(x), max(1, len(x) // 12))],
+                   rotation=45, ha='right')
         plt.xlabel('Publication month')
         plt.ylabel('Count (unique studies)')
         plt.title('Trends in Normative Modeling Reports by Month (by Modality)')
@@ -650,6 +680,7 @@ def main():
     for fn in sorted(os.listdir(outdir)):
         if fn.endswith('.png'):
             print('Figure:', fn)
+
 
 if __name__ == '__main__':
     main()

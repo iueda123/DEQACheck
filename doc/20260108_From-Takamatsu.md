@@ -5,7 +5,6 @@
 preprocessの語で検索をかけて見つかっても、解釈が容易でないものが多かったような気がします。
 AIをかけての確認ステップもしていただけるとよいと感じます。
 
-
 ２）Response variables
 ・解剖学的には、皮質 vs 皮質下 vs 全脳
 ・測定対象は、厚み vs 表面積 vs 体積
@@ -34,27 +33,27 @@ sMRI以外の場合
 ・Multivariate/deviation-based measures（typicality, deviation score等）
 
 2. Spatial unit of analysis
-  ・Vertex-wise/voxel-wise 
-  ・ROI-based regional 
-  ・Network-level 
-  ・Along-tract 
-  ・Global summary 
-  ・Multiscale（global+regional+voxel）
-
+   ・Vertex-wise/voxel-wise
+   ・ROI-based regional
+   ・Network-level
+   ・Along-tract
+   ・Global summary
+   ・Multiscale（global+regional+voxel）
 
 ３）Modeling methods
 こちらも同様の、Table 1用のくくりが必要ということですよね。
 論文で書かれていた、まんまの手法・表現はsupplementaryに回しつつ、
 Table1のくくり方としてはどうなんでしょうか。10個だと多いでしょうか。
-  ・Linear regression/GLM（Linear regression, OLSR/OLS, GLM, polynomial regression） 
-  ・Additive/mixed-effects regression（GAM, GAMM, Linear MEM）
-  ・Distributional/quantile regression（GAMLSS, LMS, quantile regression, quantile linear/polynomial regression, tolerance intervals）
-  ・Nonparametric smoothing（LOESS, moving average curves, Nadaraya–Watson kernel regression） 
-  ・Gaussian process regression（GPR）
-  ・Bayesian linear regression（BLR, B-spline BLR） 
-  ・Hierarchical Bayesian regression（HBR, Spectral Normative Modeling + HBR） 
-  ・Functional regression（MFPR） 
-  ・Deep generative/representation learning（Autoencoder, deep autoencoder, AAE, VAE/ConvVAE, mmVAE/mmSIVAE, VQ-VAE） 
-  ・Other/unclear/not reported（NR, PBSI, FUNCOIN, N³, 他）
+・Linear regression/GLM（Linear regression, OLSR/OLS, GLM, polynomial regression）
+・Additive/mixed-effects regression（GAM, GAMM, Linear MEM）
+・Distributional/quantile regression（GAMLSS, LMS, quantile regression, quantile linear/polynomial regression, tolerance
+intervals）
+・Nonparametric smoothing（LOESS, moving average curves, Nadaraya–Watson kernel regression）
+・Gaussian process regression（GPR）
+・Bayesian linear regression（BLR, B-spline BLR）
+・Hierarchical Bayesian regression（HBR, Spectral Normative Modeling + HBR）
+・Functional regression（MFPR）
+・Deep generative/representation learning（Autoencoder, deep autoencoder, AAE, VAE/ConvVAE, mmVAE/mmSIVAE, VQ-VAE）
+・Other/unclear/not reported（NR, PBSI, FUNCOIN, N³, 他）
 
 高松

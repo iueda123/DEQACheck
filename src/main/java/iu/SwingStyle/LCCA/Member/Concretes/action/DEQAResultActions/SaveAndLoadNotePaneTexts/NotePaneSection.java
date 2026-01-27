@@ -39,11 +39,11 @@ enum NotePaneSection {
     }
 
     static List<NotePaneSection> deSections() {
-        return List.of(DESI_v10, DESC_v10, DERCI_v10, DENM_v10, DECAA_v10, DEGN_v10,DESI_v11, DEDC_v11, DENM_v12 );
+        return List.of(DESI_v10, DESC_v10, DERCI_v10, DENM_v10, DECAA_v10, DEGN_v10, DESI_v11, DEDC_v11, DENM_v12);
     }
 
     static List<NotePaneSection> saveTargets() {
-        return List.of(DESI_v10, DESC_v10, DERCI_v10, DENM_v10, DECAA_v10, DEGN_v10,DESI_v11, DEDC_v11, DENM_v12);
+        return List.of(DESI_v10, DESC_v10, DERCI_v10, DENM_v10, DECAA_v10, DEGN_v10, DESI_v11, DEDC_v11, DENM_v12);
     }
 
     String buildPropPath(String authorYear) {

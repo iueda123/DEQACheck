@@ -114,7 +114,7 @@ public class QANM_SubTabsHolder extends AbstCHolderMember implements SubTabsHold
         mngrOfSubTabBasePane_15.registerSubTabsHolder(this);
 
         // ./json/ フォルダの確認
-        Path   jsonFolderPathString = Paths.get("./data/" + authorYear + "/").resolve(LOCATION_OF_JSON);
+        Path jsonFolderPathString = Paths.get("./data/" + authorYear + "/").resolve(LOCATION_OF_JSON);
         File jsonDir = jsonFolderPathString.toFile();
 
         // jsonディレクトリが存在しない、またはディレクトリではない場合

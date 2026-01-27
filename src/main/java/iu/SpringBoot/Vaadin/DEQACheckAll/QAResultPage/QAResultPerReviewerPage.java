@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import jakarta.annotation.security.RolesAllowed;
 
 @Route("qa-results")
@@ -58,14 +59,14 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         resultContainer = new Div();
         resultContainer.setWidthFull();
         resultContainer.getStyle()
-            .set("overflow-y", "auto")
-            .set("overflow-x", "auto")
-            .set("margin-top", "20px")
-            .set("padding", "10px")
-            .set("border", "1px solid #e0e0e0")
-            .set("border-radius", "5px")
-            .set("background-color", "#fafafa")
-            .set("flex-grow", "1");
+                .set("overflow-y", "auto")
+                .set("overflow-x", "auto")
+                .set("margin-top", "20px")
+                .set("padding", "10px")
+                .set("border", "1px solid #e0e0e0")
+                .set("border-radius", "5px")
+                .set("background-color", "#fafafa")
+                .set("flex-grow", "1");
         add(resultContainer);
 
         // Set this layout to expand
@@ -105,7 +106,7 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         });
 
         HorizontalLayout dropdownLayout = new HorizontalLayout(
-            authorYearCombo, promptNameCombo, reviewerNameCombo, reloadButton
+                authorYearCombo, promptNameCombo, reviewerNameCombo, reloadButton
         );
         dropdownLayout.setAlignItems(Alignment.END);
         add(dropdownLayout);
@@ -118,11 +119,11 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         if (Files.exists(dataDir) && Files.isDirectory(dataDir)) {
             try (Stream<Path> stream = Files.list(dataDir)) {
                 result = stream
-                    .filter(Files::isDirectory)
-                    .map(p -> p.getFileName().toString())
-                    .filter(name -> !name.isEmpty() && Character.isUpperCase(name.charAt(0)))
-                    .sorted()
-                    .collect(Collectors.toList());
+                        .filter(Files::isDirectory)
+                        .map(p -> p.getFileName().toString())
+                        .filter(name -> !name.isEmpty() && Character.isUpperCase(name.charAt(0)))
+                        .sorted()
+                        .collect(Collectors.toList());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -140,11 +141,11 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         if (Files.exists(authorDir) && Files.isDirectory(authorDir)) {
             try (Stream<Path> stream = Files.list(authorDir)) {
                 promptNames = stream
-                    .filter(Files::isDirectory)
-                    .map(p -> p.getFileName().toString())
-                    .filter(name -> name.startsWith("QA"))
-                    .sorted()
-                    .collect(Collectors.toList());
+                        .filter(Files::isDirectory)
+                        .map(p -> p.getFileName().toString())
+                        .filter(name -> name.startsWith("QA"))
+                        .sorted()
+                        .collect(Collectors.toList());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -175,14 +176,14 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         if (Files.exists(jsonDir) && Files.isDirectory(jsonDir)) {
             try (Stream<Path> stream = Files.list(jsonDir)) {
                 reviewerNames = stream
-                    .filter(Files::isRegularFile)
-                    .map(p -> p.getFileName().toString())
-                    .filter(name -> name.endsWith(".json"))
-                    .map(this::extractReviewerName)
-                    .filter(name -> name != null && !name.isEmpty())
-                    .distinct()
-                    .sorted()
-                    .collect(Collectors.toList());
+                        .filter(Files::isRegularFile)
+                        .map(p -> p.getFileName().toString())
+                        .filter(name -> name.endsWith(".json"))
+                        .map(this::extractReviewerName)
+                        .filter(name -> name != null && !name.isEmpty())
+                        .distinct()
+                        .sorted()
+                        .collect(Collectors.toList());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -219,9 +220,9 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         if (authorYear == null || promptName == null || reviewerName == null) {
             Div placeholder = new Div("Please select AuthorYear, PromptName, and ReviewerName to view QA results.");
             placeholder.getStyle()
-                .set("color", "#666")
-                .set("font-style", "italic")
-                .set("padding", "20px");
+                    .set("color", "#666")
+                    .set("font-style", "italic")
+                    .set("padding", "20px");
             resultContainer.add(placeholder);
             return;
         }
@@ -237,9 +238,9 @@ public class QAResultPerReviewerPage extends VerticalLayout {
 
         try (Stream<Path> stream = Files.list(jsonDir)) {
             Optional<Path> matchingFile = stream
-                .filter(p -> p.getFileName().toString().endsWith(".json"))
-                .filter(p -> p.getFileName().toString().toLowerCase().contains(reviewerName.toLowerCase()))
-                .findFirst();
+                    .filter(p -> p.getFileName().toString().endsWith(".json"))
+                    .filter(p -> p.getFileName().toString().toLowerCase().contains(reviewerName.toLowerCase()))
+                    .findFirst();
 
             if (matchingFile.isPresent()) {
                 displayJsonContent(matchingFile.get());
@@ -262,10 +263,10 @@ public class QAResultPerReviewerPage extends VerticalLayout {
             // File info header
             Div fileInfoDiv = new Div();
             fileInfoDiv.getStyle()
-                .set("background-color", "#e3f2fd")
-                .set("padding", "10px")
-                .set("border-radius", "5px")
-                .set("margin-bottom", "15px");
+                    .set("background-color", "#e3f2fd")
+                    .set("padding", "10px")
+                    .set("border-radius", "5px")
+                    .set("margin-bottom", "15px");
 
             Span fileLabel = new Span("File: ");
             fileLabel.getStyle().set("font-weight", "bold");
@@ -335,11 +336,11 @@ public class QAResultPerReviewerPage extends VerticalLayout {
 
         Element table = new Element("table");
         table.getStyle()
-            .set("border-collapse", "collapse")
-            .set("width", "100%")
-            .set("margin-bottom", "20px")
-            .set("font-size", "13px")
-            .set("background-color", "white");
+                .set("border-collapse", "collapse")
+                .set("width", "100%")
+                .set("margin-bottom", "20px")
+                .set("font-size", "13px")
+                .set("background-color", "white");
 
         // Header row - QA_v8 format (no Category column)
         Element thead = new Element("thead");
@@ -351,15 +352,15 @@ public class QAResultPerReviewerPage extends VerticalLayout {
             Element th = new Element("th");
             th.setText(headers[i]);
             th.getStyle()
-                .set("border", "1px solid #ddd")
-                .set("padding", "10px")
-                .set("text-align", "left")
-                .set("background-color", "#1565c0")
-                .set("color", "white")
-                .set("position", "sticky")
-                .set("top", "0")
-                .set("min-width", widths[i])
-                .set("font-weight", "600");
+                    .set("border", "1px solid #ddd")
+                    .set("padding", "10px")
+                    .set("text-align", "left")
+                    .set("background-color", "#1565c0")
+                    .set("color", "white")
+                    .set("position", "sticky")
+                    .set("top", "0")
+                    .set("min-width", widths[i])
+                    .set("font-weight", "600");
             headerRow.appendChild(th);
         }
         thead.appendChild(headerRow);
@@ -458,10 +459,10 @@ public class QAResultPerReviewerPage extends VerticalLayout {
 
         Element table = new Element("table");
         table.getStyle()
-            .set("border-collapse", "collapse")
-            .set("width", "100%")
-            .set("margin-bottom", "20px")
-            .set("background-color", "white");
+                .set("border-collapse", "collapse")
+                .set("width", "100%")
+                .set("margin-bottom", "20px")
+                .set("background-color", "white");
 
         Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
         while (fields.hasNext()) {
@@ -475,21 +476,21 @@ public class QAResultPerReviewerPage extends VerticalLayout {
             Element th = new Element("th");
             th.setText(displayName);
             th.getStyle()
-                .set("border", "1px solid #ddd")
-                .set("padding", "10px")
-                .set("text-align", "left")
-                .set("background-color", "#f8f9fa")
-                .set("width", "200px")
-                .set("vertical-align", "top")
-                .set("font-weight", "600");
+                    .set("border", "1px solid #ddd")
+                    .set("padding", "10px")
+                    .set("text-align", "left")
+                    .set("background-color", "#f8f9fa")
+                    .set("width", "200px")
+                    .set("vertical-align", "top")
+                    .set("font-weight", "600");
 
             Element td = new Element("td");
             td.setText(field.getValue().asText());
             td.getStyle()
-                .set("border", "1px solid #ddd")
-                .set("padding", "10px")
-                .set("word-wrap", "break-word")
-                .set("white-space", "pre-wrap");
+                    .set("border", "1px solid #ddd")
+                    .set("padding", "10px")
+                    .set("word-wrap", "break-word")
+                    .set("white-space", "pre-wrap");
 
             tr.appendChild(th);
             tr.appendChild(td);
@@ -514,10 +515,18 @@ public class QAResultPerReviewerPage extends VerticalLayout {
                     if (itemData.isObject()) {
                         String answer = getFieldValue(itemData, "answer").toLowerCase();
                         switch (answer) {
-                            case "yes": yesCount++; break;
-                            case "no": noCount++; break;
-                            case "partial": partialCount++; break;
-                            case "na": naCount++; break;
+                            case "yes":
+                                yesCount++;
+                                break;
+                            case "no":
+                                noCount++;
+                                break;
+                            case "partial":
+                                partialCount++;
+                                break;
+                            case "na":
+                                naCount++;
+                                break;
                         }
                     }
                 }
@@ -529,14 +538,14 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         // Create summary div
         Div summaryDiv = new Div();
         summaryDiv.getStyle()
-            .set("display", "flex")
-            .set("gap", "20px")
-            .set("padding", "15px")
-            .set("background-color", "#fff")
-            .set("border", "1px solid #ddd")
-            .set("border-radius", "5px")
-            .set("margin-bottom", "15px")
-            .set("flex-wrap", "wrap");
+                .set("display", "flex")
+                .set("gap", "20px")
+                .set("padding", "15px")
+                .set("background-color", "#fff")
+                .set("border", "1px solid #ddd")
+                .set("border-radius", "5px")
+                .set("margin-bottom", "15px")
+                .set("flex-wrap", "wrap");
 
         // Summary title
         Div titleDiv = new Div("Summary: ");
@@ -567,10 +576,18 @@ public class QAResultPerReviewerPage extends VerticalLayout {
             while (items.hasNext()) {
                 String answer = getFieldValue(items.next().getValue(), "answer").toLowerCase();
                 switch (answer) {
-                    case "yes": yesCount++; break;
-                    case "no": noCount++; break;
-                    case "partial": partialCount++; break;
-                    case "na": naCount++; break;
+                    case "yes":
+                        yesCount++;
+                        break;
+                    case "no":
+                        noCount++;
+                        break;
+                    case "partial":
+                        partialCount++;
+                        break;
+                    case "na":
+                        naCount++;
+                        break;
                 }
             }
         }
@@ -582,10 +599,18 @@ public class QAResultPerReviewerPage extends VerticalLayout {
             while (items.hasNext()) {
                 String answer = getFieldValue(items.next().getValue(), "answer").toLowerCase();
                 switch (answer) {
-                    case "yes": yesCount++; break;
-                    case "no": noCount++; break;
-                    case "partial": partialCount++; break;
-                    case "na": naCount++; break;
+                    case "yes":
+                        yesCount++;
+                        break;
+                    case "no":
+                        noCount++;
+                        break;
+                    case "partial":
+                        partialCount++;
+                        break;
+                    case "na":
+                        naCount++;
+                        break;
                 }
             }
         }
@@ -595,14 +620,14 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         // Create summary div
         Div summaryDiv = new Div();
         summaryDiv.getStyle()
-            .set("display", "flex")
-            .set("gap", "20px")
-            .set("padding", "15px")
-            .set("background-color", "#fff")
-            .set("border", "1px solid #ddd")
-            .set("border-radius", "5px")
-            .set("margin-bottom", "15px")
-            .set("flex-wrap", "wrap");
+                .set("display", "flex")
+                .set("gap", "20px")
+                .set("padding", "15px")
+                .set("background-color", "#fff")
+                .set("border", "1px solid #ddd")
+                .set("border-radius", "5px")
+                .set("margin-bottom", "15px")
+                .set("flex-wrap", "wrap");
 
         // Summary title
         Div titleDiv = new Div("Summary: ");
@@ -626,20 +651,20 @@ public class QAResultPerReviewerPage extends VerticalLayout {
     private Div createBadge(String label, int count, String color) {
         Div badge = new Div();
         badge.getStyle()
-            .set("display", "inline-flex")
-            .set("align-items", "center")
-            .set("gap", "5px");
+                .set("display", "inline-flex")
+                .set("align-items", "center")
+                .set("gap", "5px");
 
         Span labelSpan = new Span(label + ": ");
         Span countSpan = new Span(String.valueOf(count));
         countSpan.getStyle()
-            .set("background-color", color)
-            .set("color", "white")
-            .set("padding", "2px 8px")
-            .set("border-radius", "10px")
-            .set("font-weight", "bold")
-            .set("min-width", "24px")
-            .set("text-align", "center");
+                .set("background-color", color)
+                .set("color", "white")
+                .set("padding", "2px 8px")
+                .set("border-radius", "10px")
+                .set("font-weight", "bold")
+                .set("min-width", "24px")
+                .set("text-align", "center");
 
         badge.add(labelSpan, countSpan);
         return badge;
@@ -651,10 +676,10 @@ public class QAResultPerReviewerPage extends VerticalLayout {
 
         Element table = new Element("table");
         table.getStyle()
-            .set("border-collapse", "collapse")
-            .set("width", "100%")
-            .set("margin-bottom", "20px")
-            .set("background-color", "white");
+                .set("border-collapse", "collapse")
+                .set("width", "100%")
+                .set("margin-bottom", "20px")
+                .set("background-color", "white");
 
         Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
         while (fields.hasNext()) {
@@ -664,21 +689,21 @@ public class QAResultPerReviewerPage extends VerticalLayout {
             Element th = new Element("th");
             th.setText(formatFieldName(field.getKey()));
             th.getStyle()
-                .set("border", "1px solid #ddd")
-                .set("padding", "10px")
-                .set("text-align", "left")
-                .set("background-color", "#f8f9fa")
-                .set("width", "200px")
-                .set("vertical-align", "top")
-                .set("font-weight", "600");
+                    .set("border", "1px solid #ddd")
+                    .set("padding", "10px")
+                    .set("text-align", "left")
+                    .set("background-color", "#f8f9fa")
+                    .set("width", "200px")
+                    .set("vertical-align", "top")
+                    .set("font-weight", "600");
 
             Element td = new Element("td");
             td.setText(field.getValue().asText());
             td.getStyle()
-                .set("border", "1px solid #ddd")
-                .set("padding", "10px")
-                .set("word-wrap", "break-word")
-                .set("white-space", "pre-wrap");
+                    .set("border", "1px solid #ddd")
+                    .set("padding", "10px")
+                    .set("word-wrap", "break-word")
+                    .set("white-space", "pre-wrap");
 
             tr.appendChild(th);
             tr.appendChild(td);
@@ -695,11 +720,11 @@ public class QAResultPerReviewerPage extends VerticalLayout {
 
         Element table = new Element("table");
         table.getStyle()
-            .set("border-collapse", "collapse")
-            .set("width", "100%")
-            .set("margin-bottom", "20px")
-            .set("font-size", "13px")
-            .set("background-color", "white");
+                .set("border-collapse", "collapse")
+                .set("width", "100%")
+                .set("margin-bottom", "20px")
+                .set("font-size", "13px")
+                .set("background-color", "white");
 
         // Header row
         Element thead = new Element("thead");
@@ -711,15 +736,15 @@ public class QAResultPerReviewerPage extends VerticalLayout {
             Element th = new Element("th");
             th.setText(headers[i]);
             th.getStyle()
-                .set("border", "1px solid #ddd")
-                .set("padding", "10px")
-                .set("text-align", "left")
-                .set("background-color", "#1565c0")
-                .set("color", "white")
-                .set("position", "sticky")
-                .set("top", "0")
-                .set("min-width", widths[i])
-                .set("font-weight", "600");
+                    .set("border", "1px solid #ddd")
+                    .set("padding", "10px")
+                    .set("text-align", "left")
+                    .set("background-color", "#1565c0")
+                    .set("color", "white")
+                    .set("position", "sticky")
+                    .set("top", "0")
+                    .set("min-width", widths[i])
+                    .set("font-weight", "600");
             headerRow.appendChild(th);
         }
         thead.appendChild(headerRow);
@@ -777,13 +802,13 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         Element td = new Element("td");
         td.setText(text != null ? text : "");
         td.getStyle()
-            .set("border", "1px solid #ddd")
-            .set("padding", "8px")
-            .set("background-color", bgColor)
-            .set("vertical-align", "top")
-            .set("word-wrap", "break-word")
-            .set("white-space", "pre-wrap")
-            .set("text-align", align);
+                .set("border", "1px solid #ddd")
+                .set("padding", "8px")
+                .set("background-color", bgColor)
+                .set("vertical-align", "top")
+                .set("word-wrap", "break-word")
+                .set("white-space", "pre-wrap")
+                .set("text-align", align);
         if (bold) {
             td.getStyle().set("font-weight", "600");
         }
@@ -797,13 +822,13 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         Element td = new Element("td");
         td.setText(text != null ? text : "");
         td.getStyle()
-            .set("border", "1px solid #ddd")
-            .set("padding", "8px")
-            .set("background-color", bgColor)
-            .set("vertical-align", "top")
-            .set("font-weight", "bold")
-            .set("text-align", "center")
-            .set("color", "white");
+                .set("border", "1px solid #ddd")
+                .set("padding", "8px")
+                .set("background-color", bgColor)
+                .set("vertical-align", "top")
+                .set("font-weight", "bold")
+                .set("text-align", "center")
+                .set("color", "white");
         tr.appendChild(td);
     }
 
@@ -811,34 +836,43 @@ public class QAResultPerReviewerPage extends VerticalLayout {
         Element td = new Element("td");
         td.setText(text != null ? text : "");
         td.getStyle()
-            .set("border", "1px solid #ddd")
-            .set("padding", "8px")
-            .set("background-color", bgColor)
-            .set("vertical-align", "top")
-            .set("font-weight", "600")
-            .set("text-align", "center")
-            .set("color", textColor);
+                .set("border", "1px solid #ddd")
+                .set("padding", "8px")
+                .set("background-color", bgColor)
+                .set("vertical-align", "top")
+                .set("font-weight", "600")
+                .set("text-align", "center")
+                .set("color", textColor);
         tr.appendChild(td);
     }
 
     private String getAnswerBgColor(String answer) {
         if (answer == null) return "#6c757d";
         switch (answer.toLowerCase()) {
-            case "yes": return "#28a745";      // Green
-            case "no": return "#dc3545";       // Red
-            case "partial": return "#fd7e14";  // Orange
-            case "na": return "#6c757d";       // Gray
-            default: return "#6c757d";         // Gray
+            case "yes":
+                return "#28a745";      // Green
+            case "no":
+                return "#dc3545";       // Red
+            case "partial":
+                return "#fd7e14";  // Orange
+            case "na":
+                return "#6c757d";       // Gray
+            default:
+                return "#6c757d";         // Gray
         }
     }
 
     private String getConfidenceColor(String confidence) {
         if (confidence == null) return "#000000";
         switch (confidence.toLowerCase()) {
-            case "high": return "#28a745";     // Green
-            case "medium": return "#ffc107";   // Yellow
-            case "low": return "#dc3545";      // Red
-            default: return "#000000";         // Black
+            case "high":
+                return "#28a745";     // Green
+            case "medium":
+                return "#ffc107";   // Yellow
+            case "low":
+                return "#dc3545";      // Red
+            default:
+                return "#000000";         // Black
         }
     }
 
@@ -851,8 +885,8 @@ public class QAResultPerReviewerPage extends VerticalLayout {
     private String formatFieldName(String fieldName) {
         // Convert snake_case to Title Case
         return Arrays.stream(fieldName.split("_"))
-            .map(word -> word.isEmpty() ? "" :
-                Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase())
-            .collect(Collectors.joining(" "));
+                .map(word -> word.isEmpty() ? "" :
+                        Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase())
+                .collect(Collectors.joining(" "));
     }
 }

@@ -26,7 +26,7 @@ import java.util.Vector;
  *   <li>ESC: ポップアップ非表示</li>
  * </ul>
  * </p>
- *
+ * <p>
  * 作成日: 2016/10/28
  */
 public class AutoCompleteComboBox2 extends JComboBox<String> {
@@ -103,7 +103,7 @@ public class AutoCompleteComboBox2 extends JComboBox<String> {
     /**
      * コンボボックスに登録されている全候補を取得します。
      *
-     * @return 候補リスト(ArrayList&lt;String&gt;)
+     * @return 候補リスト(ArrayList & lt ; String & gt ;)
      */
     public ArrayList<String> getWordList() {
         ArrayList<String> wordsList = new ArrayList<>();

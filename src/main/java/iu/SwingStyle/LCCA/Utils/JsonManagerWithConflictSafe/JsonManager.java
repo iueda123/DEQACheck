@@ -28,8 +28,8 @@ public class JsonManager {
         this.jsonFile = json_file;
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.jsonObject = loadJsonObject(this.jsonFile);
-        if(this.jsonObject == null){
-            System.err.println( "this.jsonObject is null.");
+        if (this.jsonObject == null) {
+            System.err.println("this.jsonObject is null.");
         }
     }
 
@@ -99,7 +99,7 @@ public class JsonManager {
             }
 
             if (current == null || !current.isJsonObject()) {
-               //System.err.println("current is null or current is not json object. @ JsonManager.java");
+                //System.err.println("current is null or current is not json object. @ JsonManager.java");
                 return null;
             }
             current = current.getAsJsonObject().get(key);
@@ -170,9 +170,9 @@ public class JsonManager {
 
         current.addProperty(lastKey, value);
 
-        if( this.getValueAsString(path_key).equals(value) ){
+        if (this.getValueAsString(path_key).equals(value)) {
             return true;
-        }else{
+        } else {
             System.err.println("Setting a new value was failed." + "[" + path_key + "]");
             return false;
         }
@@ -182,7 +182,7 @@ public class JsonManager {
         return this.jsonObject;
     }
 
-    public String getJsonAsText(){
+    public String getJsonAsText() {
         return gson.toJson(this.jsonObject);
     }
 
@@ -195,30 +195,30 @@ public class JsonManager {
      */
     public JsonObject loadJsonObject(File jsonFile) {
         //if (jsonObject == null) {
-            if (jsonFile.isFile()) {
-                // Objectはまだないが、Fileはある時
-                try (Reader reader =
-                             new InputStreamReader(
-                                     new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
-                    JsonElement element = JsonParser.parseReader(reader);
-                    if (element.isJsonObject()) {
-                        jsonObject = element.getAsJsonObject();
-                    } else {
-                        jsonObject = new JsonObject();
-                    }
-                } catch (FileNotFoundException fnfe) {
-                    fnfe.printStackTrace();
-                    jsonObject = new JsonObject();
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
+        if (jsonFile.isFile()) {
+            // Objectはまだないが、Fileはある時
+            try (Reader reader =
+                         new InputStreamReader(
+                                 new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
+                JsonElement element = JsonParser.parseReader(reader);
+                if (element.isJsonObject()) {
+                    jsonObject = element.getAsJsonObject();
+                } else {
                     jsonObject = new JsonObject();
                 }
-                return jsonObject;
-            } else {
-                // JsonObjectもなく、JsonFileもないとき
+            } catch (FileNotFoundException fnfe) {
+                fnfe.printStackTrace();
                 jsonObject = new JsonObject();
-                return jsonObject;
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                jsonObject = new JsonObject();
             }
+            return jsonObject;
+        } else {
+            // JsonObjectもなく、JsonFileもないとき
+            jsonObject = new JsonObject();
+            return jsonObject;
+        }
         //}
         //return jsonObject;
     }

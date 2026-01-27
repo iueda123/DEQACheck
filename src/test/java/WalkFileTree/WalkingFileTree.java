@@ -8,10 +8,10 @@ public class WalkingFileTree {
 
     static Path startPointPath = Paths.get("/home/iu/Downloads");
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         try {
-            Files.walkFileTree(startPointPath, new SimpleFileVisitor<Path>(){
+            Files.walkFileTree(startPointPath, new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 

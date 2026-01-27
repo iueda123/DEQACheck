@@ -185,7 +185,8 @@ public class ModalityHumanNormalizer {
         if (lower.contains("eeg")) {
             List<String> details = new ArrayList<>();
             if (lower.contains("rest")) details.add("rest");
-            if (lower.contains("hd") || lower.contains("high-density") || lower.contains("128")) details.add("HD-128ch");
+            if (lower.contains("hd") || lower.contains("high-density") || lower.contains("128"))
+                details.add("HD-128ch");
             return details.isEmpty() ? "EEG" : "EEG (" + String.join(", ", details) + ")";
         }
 

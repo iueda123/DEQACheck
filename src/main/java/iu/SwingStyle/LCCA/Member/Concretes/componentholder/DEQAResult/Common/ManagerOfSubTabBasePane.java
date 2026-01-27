@@ -98,7 +98,9 @@ public class ManagerOfSubTabBasePane {
         return basePaneForDEQAResultPanes;
     }
 
-    public String getSectionType(){return sectionType; }
+    public String getSectionType() {
+        return sectionType;
+    }
 
     public String getSectionName() {
         return sectionName;

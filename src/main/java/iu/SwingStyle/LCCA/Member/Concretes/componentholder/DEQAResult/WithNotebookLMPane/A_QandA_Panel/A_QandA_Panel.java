@@ -28,7 +28,7 @@ public class A_QandA_Panel extends JPanel {
     JButton button_AddNewPanel = new JButton("+");
     JButton button_RemovePanel = new JButton("-");
 
-    public A_QandA_Panel(String ID, String question, String answer, WithNotebookLMPanelHolder withNotebookLMPanelHolder){
+    public A_QandA_Panel(String ID, String question, String answer, WithNotebookLMPanelHolder withNotebookLMPanelHolder) {
         this.ID = ID;
         this.withNotebookLMPanelHolder = withNotebookLMPanelHolder;
 
@@ -122,7 +122,7 @@ public class A_QandA_Panel extends JPanel {
         button_RemovePanel.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               withNotebookLMPanelHolder.remove_One_QandA_Panel(ID);
+                withNotebookLMPanelHolder.remove_One_QandA_Panel(ID);
             }
         });
 
@@ -132,7 +132,6 @@ public class A_QandA_Panel extends JPanel {
                 withNotebookLMPanelHolder.add_One_QandA_Panel(ID);
             }
         });
-
 
 
     }

@@ -19,7 +19,7 @@ public class HumanJsonFileGenerator {
      * Human系JSONファイルが存在しない場合、テンプレートから生成する
      *
      * @param pathListOfAuthorYearDir AuthorYearディレクトリのリスト
-     * @param templatePath テンプレートファイルのパス
+     * @param templatePath            テンプレートファイルのパス
      * @return 生成結果のメッセージリスト
      */
     public static List<String> ensureHumanJsonFiles(List<Path> pathListOfAuthorYearDir, String templatePath) {

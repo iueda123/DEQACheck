@@ -58,57 +58,58 @@ Version: 202601014
 以上のような検討を経て、以下のようなCategoryキーワードを用いた整理方法を考えている。
 テーブルの下には各Minor Categoryにどの文献が該当するかの簡易調査結果がまとめてある。
 
-| Major Category | Minor Category   | Full Spelling                                             | Description                         | Example                   | 
-|----------------|------------------|-----------------------------------------------------------|-------------------------------------|---------------------------|
-| sMRI           | CT               | cortical thickness                                        | sMRI, 皮質厚の平均や頂点値                    | 左上側頭回の皮質厚                 |
-| sMRI           | CV               | cortical volume                                           | sMRI, 皮質領域の体積                       | 右前頭極の皮質体積                 |
-| sMRI           | SA               | surface area                                              | sMRI, 皮質面積（頂点/領域）                   | 左外側後頭葉の面積                 |
-| sMRI           | SV               | surface volume                                            | 表面ベースで算出した皮質体積                      | 全皮質の表面体積                  |
-| sMRI           | GMV              | gray matter volume                                        | 灰白質体積（領域/全脳）                        | 両側海馬の灰白質体積                |
-| sMRI           | WMV              | white matter volume                                       | 白質体積（領域/全脳）                         | 前頭葉白質体積                   |
-| sMRI           | GBV              | global brain volume                                       | 全脳の総体積                              | 全脳容積（灰白質+白質）              |
-| sMRI           | TIV              | total intracranial volume                                 | 頭蓋内容積                               | TIVでスケールした各IDP            |
-| sMRI           | CSF              | cerebrospinal fluid volume                                | 脳脊髄液量                               | 側脳室体積                     |
-| sMRI           | SubV             | subcortical volume (regional)                             | 汎用ROIの皮質下体積                         | 扁桃体体積                     |
-| sMRI           | CerLV            | cerebellar lobule volume                                  | 小脳葉の体積                              | Crus I体積                  |
-| sMRI           | CCMorph          | corpus callosum morphology                                | 脳梁の体積/面積/長さ/周長                      | 脳梁膨大部面積                   |
-| sMRI           | GI/CURV          | gyrification/curvature                                    | 脳回形成や曲率の指標                          | 全皮質平均gyrification         |
-| sMRI           | WMH              | white matter hyperintensity                               | 白質高信号量                              | Fazekasスコア、WMH総体積         |
-| sMRI           | DDM              | deformation-derived morphometry                           | 変形場のJacobianによる形態指標                 | VBMのJacobian平均            |
-| dMRI           | FA               | fractional anisotropy                                     | 拡散異方性のスカラー指標                        | 上縦束のFA                    |
-| dMRI           | GFA              | generalized fractional anisotropy                         | Q-ball等での一般化FA                      | 半球平均のGFA                  |
-| dMRI           | FAt              | tissue fractional anisotropy                              | 組織成分に限定したFA                         | CSF補正後FA                  |
-| dMRI           | MD               | mean diffusivity                                          | 平均拡散係数                              | 後部内包のMD                   |
-| dMRI           | RD               | radial diffusivity                                        | 放射方向拡散係数                            | 前放線冠のRD                   |
-| dMRI           | AD               | axial diffusivity                                         | 軸方向拡散係数                             | 鉤状束のAD                    |
-| dMRI           | FW               | free water                                                | 自由水成分の割合                            | 側頭葉白質のFW                  |
-| fMRI           | LLF-BOLD-metrics | Local low-frequency BOLD fluctuation metrics              | 周波数領域・局所指標                          | ALFF, fALFF, mALFF, zALFF |
-| fMRI           | FC               | functional connectivity                                   | 時系列相関によるFC                          | PCC–mPFCのFC               |
-| fMRI           | rs-FC            | resting-state functional connectivity                     | 安静時fMRIのFC                          | DMN内FC                    |
-| fMRI           | dyn-FC           | dynamic functional connectivity                           | 時間変動するFC/変動度                        | スライディングウィンドウFC分散          |
-| fMRI           | FC-gradient      | functional connectivity gradient                          | FC行列の勾配座標                           | 主勾配(Gradient 1)スコア        |
-| fMRI           | FC-strength      | functional connectivity strength                          | 接続強度の総和                             | mPFCのFCS                  |
-| fMRI           | TASK-GLM         | task fMRI general linear model                            | 課題fMRIコントラストのz/tマップ                 | faces>shapesのzマップ         |
-| fMRI           | GCor             | global correlation                                        | 全ボクセル平均相関                           | 全脳GCOR                    |
-| fMRI           | LCor             | local correlation                                         | 近傍との局所相関                            | 角回のLCOR                   |
-| qMRI           | R1               | Quantitative MRI Parameter - R1                           | 1/T1（縦緩和率）の定量指標                     | R1平均（皮質）                  |
-| qMRI           | R2*              | Quantitative MRI Parameter - R2 star                      | 1/T2*（有効横緩和率）の定量指標                  | R2*平均（被殻）                 |
-| qMRI           | χ                | Quantitative MRI Parameter - chi                          | 磁化率（QSM）指標                          | QSM χ平均                   |
-| PET            | SUVR-amyloid     | standardized uptake value ratio (amyloid)                 | アミロイドPETのSUVR                       | AV45 SUVRCER              |
-| PET            | SUVR-tau         | standardized uptake value ratio (tau)                     | タウPETのSUVR                          | FTP SUVRCBL               |
-| PET            | BPND             | binding potential (non-displaceable)                      | PET結合能指標                            | \[11C\]DASBの線条体BPND       |
-| PET            | Ki_cer           | influx rate constant (cerebellar ref.)                    | 小脳基準の取り込み率                          | [18F]FDOPA Ki_cer         |
-| MEG/EEG        | AEC/PEC          | amplitude/phase envelope correlation                      | MEG/EEGの周波数別FC                      | β帯域AEC                    |
-| MEG/EEG        | PSD              | power spectral density                                    | MEG/EEG帯域パワー                        | α帯域PSD                    |
-| Mathematical   | MSI              | morphometric similarity index                             | 形態類似度の指標                            | MSI行列の平均                  |
-| Mathematical   | PBSI             | person-based similarity index                             | 溝幅類似度の個人指標                          | Sulcal width PBSI         |
-| Mathematical   | IDP-set          | imaging derived phenotype set                             | 多数のIDPを束ねたセット                       | UKB 2,000+IDPセット          |
-| Mathematical   | VQ-VAE-TS        | vector-quantized variational autoencoder typicality score | VQ-VAEでの典型度スコア                      | 典型度z-score                |
-| Mathematical   | NMF              | non-negative matrix factorization                         | 成分負荷量/混合比                           | NMFコンポーネント重み              |
-| Mathematical   | LI               | laterality index                                          | 左右差の指数                              | 海馬体積のLI                   |
-| Mathematical   | NetMes           | network measures                                          | DC (degree centrality) などのネットワーク特徴量 | 視床のDC                     |
-| Others         | RETINA           | retinal thickness metrics                                 | 網膜/黄斑/視神経線維層計測                      | RNFL厚                     |
-| Unknown        | UNKNOWN          | unknown                                                   | 記述がなく不明。またはどのキーワードにも分類できない特徴量。      |                           | 
+| Major Category | Minor Category   | Full Spelling                                             | Description                         | Example                         | 
+|----------------|------------------|-----------------------------------------------------------|-------------------------------------|---------------------------------|
+| sMRI           | CT               | cortical thickness                                        | sMRI, 皮質厚の平均や頂点値                    | 左上側頭回の皮質厚                       |
+| sMRI           | CV               | cortical volume                                           | sMRI, 皮質領域の体積                       | 右前頭極の皮質体積                       |
+| sMRI           | SA               | surface area                                              | sMRI, 皮質面積（頂点/領域）                   | 左外側後頭葉の面積                       |
+| sMRI           | SV               | surface volume                                            | 表面ベースで算出した皮質体積                      | 全皮質の表面体積                        |
+| sMRI           | GMV              | gray matter volume                                        | 灰白質体積（領域/全脳）                        | 両側海馬の灰白質体積                      |
+| sMRI           | WMV              | white matter volume                                       | 白質体積（領域/全脳）                         | 前頭葉白質体積                         |
+| sMRI           | GBV              | global brain volume                                       | 全脳の総体積                              | 全脳容積（灰白質+白質）                    |
+| sMRI           | TIV              | total intracranial volume                                 | 頭蓋内容積                               | TIVでスケールした各IDP                  |
+| sMRI           | CSF              | cerebrospinal fluid volume                                | 脳脊髄液量                               | 側脳室体積                           |
+| sMRI           | SubV             | subcortical volume (regional)                             | 汎用ROIの皮質下体積                         | 扁桃体体積                           |
+| sMRI           | CerLV            | cerebellar lobule volume                                  | 小脳葉の体積                              | Crus I体積                        |
+| sMRI           | CCMorph          | corpus callosum morphology                                | 脳梁の体積/面積/長さ/周長                      | 脳梁膨大部面積                         |
+| sMRI           | GI/CURV          | gyrification/curvature                                    | 脳回形成や曲率の指標                          | 全皮質平均gyrification               |
+| sMRI           | WMH              | white matter hyperintensity                               | 白質高信号量                              | Fazekasスコア、WMH総体積               |
+| sMRI           | DDM              | deformation-derived morphometry                           | 変形場のJacobianによる形態指標                 | VBMのJacobian平均                  |
+| dMRI           | FA               | fractional anisotropy                                     | 拡散異方性のスカラー指標                        | 上縦束のFA                          |
+| dMRI           | GFA              | generalized fractional anisotropy                         | Q-ball等での一般化FA                      | 半球平均のGFA                        |
+| dMRI           | FAt              | tissue fractional anisotropy                              | 組織成分に限定したFA                         | CSF補正後FA                        |
+| dMRI           | MD               | mean diffusivity                                          | 平均拡散係数                              | 後部内包のMD                         |
+| dMRI           | RD               | radial diffusivity                                        | 放射方向拡散係数                            | 前放線冠のRD                         |
+| dMRI           | AD               | axial diffusivity                                         | 軸方向拡散係数                             | 鉤状束のAD                          |
+| dMRI           | FW               | free water                                                | 自由水成分の割合                            | 側頭葉白質のFW                        |
+| fMRI           | LLF-BOLD-metrics | Local low-frequency BOLD fluctuation metrics              | 周波数領域・局所指標                          | ALFF, fALFF, mALFF, zALFF       |
+| fMRI           | FC               | functional connectivity                                   | 時系列相関によるFC                          | PCC–mPFCのFC                     |
+| fMRI           | rs-FC            | resting-state functional connectivity                     | 安静時fMRIのFC                          | DMN内FC                          |
+| fMRI           | dyn-FC           | dynamic functional connectivity                           | 時間変動するFC/変動度                        | スライディングウィンドウFC分散                |
+| fMRI           | FC-gradient      | functional connectivity gradient                          | FC行列の勾配座標                           | 主勾配(Gradient 1)スコア              |
+| fMRI           | FC-strength      | functional connectivity strength                          | 接続強度の総和                             | mPFCのFCS                        |
+| fMRI           | TASK-GLM         | task fMRI general linear model                            | 課題fMRIコントラストのz/tマップ                 | faces>shapesのzマップ               |
+| fMRI           | GCor             | global correlation                                        | 全ボクセル平均相関                           | 全脳GCOR                          |
+| fMRI           | LCor             | local correlation                                         | 近傍との局所相関                            | 角回のLCOR                         |
+| qMRI           | R1               | Quantitative MRI Parameter - R1                           | 1/T1（縦緩和率）の定量指標                     | R1平均（皮質）                        |
+| qMRI           | R2*              | Quantitative MRI Parameter - R2 star                      | 1/T2*（有効横緩和率）の定量指標                  | R2*平均（被殻）                       |
+| qMRI           | χ                | Quantitative MRI Parameter - chi                          | 磁化率（QSM）指標                          | QSM χ平均                         |
+| PET            | SUVR-amyloid     | standardized uptake value ratio (amyloid)                 | アミロイドPETのSUVR                       | AV45 SUVRCER                    |
+| PET            | SUVR-tau         | standardized uptake value ratio (tau)                     | タウPETのSUVR                          | FTP SUVRCBL                     |
+| PET            | BPND             | binding potential (non-displaceable)                      | PET結合能指標                            | \[11C\]DASBの線条体BPND             |
+| PET            | Ki_cer           | influx rate constant (cerebellar ref.)                    | 小脳基準の取り込み率                          | [18F]FDOPA Ki_cer               |
+| MEG/EEG        | AEC/PEC          | amplitude/phase envelope correlation                      | MEG/EEGの周波数別FC                      | β帯域AEC                          |
+| MEG/EEG        | PSD              | power spectral density                                    | MEG/EEG帯域パワー                        | α帯域PSD                          |
+| MEG/EEG        | MEG/EEG-Other    | other MEG/EEG metrics                                     | MEG/EEGのその他指標                       | FFG source-level activation PC1 |
+| Mathematical   | MSI              | morphometric similarity index                             | 形態類似度の指標                            | MSI行列の平均                        |
+| Mathematical   | PBSI             | person-based similarity index                             | 溝幅類似度の個人指標                          | Sulcal width PBSI               |
+| Mathematical   | IDP-set          | imaging derived phenotype set                             | 多数のIDPを束ねたセット                       | UKB 2,000+IDPセット                |
+| Mathematical   | VQ-VAE-TS        | vector-quantized variational autoencoder typicality score | VQ-VAEでの典型度スコア                      | 典型度z-score                      |
+| Mathematical   | NMF              | non-negative matrix factorization                         | 成分負荷量/混合比                           | NMFコンポーネント重み                    |
+| Mathematical   | LI               | laterality index                                          | 左右差の指数                              | 海馬体積のLI                         |
+| Mathematical   | NetMes           | network measures                                          | DC (degree centrality) などのネットワーク特徴量 | 視床のDC                           |
+| Others         | RETINA           | retinal thickness metrics                                 | 網膜/黄斑/視神経線維層計測                      | RNFL厚                           |
+| Unknown        | UNKNOWN          | unknown                                                   | 記述がなく不明。またはどのキーワードにも分類できない特徴量。      |                                 | 
 
 ----
 
@@ -165,19 +166,6 @@ Yang2025
 
 ----
 
-## GMV に該当する文献
-
-GMV (gray matter volume) を Response Variable として用いた研究（31件）：
-
-完全なリスト（31研究）：
-
-Bedford2025, Bethlehem2021, CardenasDeLaParra2019, DeMeo2019, Fang2024, Floris2024, GarciaSanMartin2025, Geng2025,
-Gimbel2025,
-Han2023, Han2024A, Huo2024, Joo2024, Kumar2025, Laidi2022, Lamsma2024, Martin2025, Romascano2024, Sampaio2025,
-Segal2023,
-Shan2022, Shao2024, Verdi2024, Wang2023, Wen2025, Wolfers2018, Wolfers2020, Wolfers2021, Yu2024, Zhang2023, Zheng2024
-
-----
 
 ## WMV に該当する文献
 
@@ -256,6 +244,32 @@ Verdi2024, Vieira2025, Wen2025, Xiao2024, Yang2025, Young2024, Zhang2022, Floris
 - 視床（Thalamus）
 - 淡蒼球（Pallidum）
 - 側坐核（Nucleus Accumbens）
+
+
+----
+
+## GMV に該当する文献
+
+GMV (gray matter volume) を Response Variable として用いた研究（31件）：
+
+完全なリスト（31研究）：
+
+Bedford2025, Bethlehem2021, CardenasDeLaParra2019, DeMeo2019, Fang2024, Floris2024, GarciaSanMartin2025, Geng2025,
+Gimbel2025,
+Han2023, Han2024A, Huo2024, Joo2024, Kumar2025, Laidi2022, Lamsma2024, Martin2025, Romascano2024, Sampaio2025,
+Segal2023,
+Shan2022, Shao2024, Verdi2024, Wang2023, Wen2025, Wolfers2018, Wolfers2020, Wolfers2021, Yu2024, Zhang2023, Zheng2024
+
+-----
+
+## SubV と GMV　の使い分けは？
+
+SubV は「皮質下の特定ROI体積」を指す場合に用いる（例: 海馬、扁桃体、視床核、線条体、側坐核など）。
+GMV は「灰白質体積の一般的指標」を指す場合に用いる（例: 全脳GMV、広域/皮質ROIのGMV、VBM由来のGM体積）。
+迷った場合は、対象が明確に皮質下核の体積なら SubV、それ以外の灰白質体積は GMV に分類する。
+
+
+
 
 ----
 
@@ -503,25 +517,34 @@ Giacomel2025
 
 ----
 
-## AEC/PEC に該当する文献
+## MEG/EEG
 
-AEC/PEC (amplitude/phase envelope correlation) を Response Variable として用いた研究（11件）：
+**AEC/PEC に該当する文献**
+
+AEC/PEC (amplitude/phase envelope correlation) を Response Variable として用いた研究（10件）：
 
 完全なリスト（11研究）：
 
-Ebadi2024, Ebadi2025, Floris2024, FukamiGartner2023, Italinna2023, Kobbersmed2025, Lawn2024, Lin2023, Mansour2025,
-Tabbal2025,
+Ebadi2024, Ebadi2025, FukamiGartner2023, Italinna2023, Kobbersmed2025, Lawn2024, Lin2023, Mansour2025, Tabbal2025,
 Tong2024
 
-----
-
-## PSD に該当する文献
+**PSD に該当する文献**
 
 PSD (power spectral density) を Response Variable として用いた研究（1件）：
 
 完全なリスト（1研究）：
 
 Italinna2023
+
+**MEG/EEG-Other に該当する文献**
+
+MEG/EEG-Other (other MEG/EEG metrics) を Response Variable として用いた研究（1件）：
+
+完全なリスト（1研究）：
+
+Floris2024
+
+
 
 -------
 

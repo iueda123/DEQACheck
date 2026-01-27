@@ -2,12 +2,12 @@ package iu.SwingStyle.LCCA.Mediator.action;
 
 public class ActionMediatorFactory {
 
-  private static ActionMediator actionMediator;
+    private static ActionMediator actionMediator;
 
-  public static ActionMediator create(String authorYear) {
-    if (actionMediator == null) {
-      actionMediator = new ActionMediator(authorYear);
+    public static ActionMediator create(String authorYear) {
+        if (actionMediator == null) {
+            actionMediator = new ActionMediator(authorYear);
+        }
+        return actionMediator;
     }
-    return actionMediator;
-  }
 }

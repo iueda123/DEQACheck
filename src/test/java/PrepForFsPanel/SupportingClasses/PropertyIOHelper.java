@@ -7,10 +7,9 @@ import java.util.Properties;
 
 /**
  * The PropertyFileManager Class is a class for saving and loading of property files.
- *
+ * <p>
  * References
- *  - UTF-8 エンコーディングされたプロパティファイルを取り扱う方法 http://blog.k11i.biz/2014/09/java-utf-8.html
- *
+ * - UTF-8 エンコーディングされたプロパティファイルを取り扱う方法 http://blog.k11i.biz/2014/09/java-utf-8.html
  */
 public class PropertyIOHelper {
 

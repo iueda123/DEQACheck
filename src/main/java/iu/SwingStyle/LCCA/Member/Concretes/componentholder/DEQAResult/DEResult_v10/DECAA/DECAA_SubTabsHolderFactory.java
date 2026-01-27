@@ -5,13 +5,13 @@ import iu.SwingStyle.LCCA.Member.Abstracts.componentholder.AbstCHolderMemberFact
 
 public class DECAA_SubTabsHolderFactory extends AbstCHolderMemberFactory {
 
-  private DECAA_SubTabsHolder DECAA_SubTabsHolder;
+    private DECAA_SubTabsHolder DECAA_SubTabsHolder;
 
-  @Override
-  protected AbstCHolderMember createInstance(String cholder_name, String short_name, String... args) {
-    if (this.DECAA_SubTabsHolder == null) {
-      this.DECAA_SubTabsHolder = new DECAA_SubTabsHolder(cholder_name, short_name, args[0]);
+    @Override
+    protected AbstCHolderMember createInstance(String cholder_name, String short_name, String... args) {
+        if (this.DECAA_SubTabsHolder == null) {
+            this.DECAA_SubTabsHolder = new DECAA_SubTabsHolder(cholder_name, short_name, args[0]);
+        }
+        return DECAA_SubTabsHolder;
     }
-    return DECAA_SubTabsHolder;
-  }
 }

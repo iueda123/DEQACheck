@@ -183,11 +183,11 @@ public class JsonManagerWithConflictSafe extends JsonManager {
         }
 
         this.jsonObject = loadJsonObject(this.jsonFile);
-        if(this.jsonObject != null) {
+        if (this.jsonObject != null) {
             initializeMetadata();
             compWithReloadFunc.actionAfterSuccessfullyReloadingJson(this);
             return true;
-        }else{
+        } else {
             compWithReloadFunc.actionAfterFailingToReloadJson(this);
             return false;
         }

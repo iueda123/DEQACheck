@@ -507,12 +507,12 @@ public class QAReportCreationPage extends VerticalLayout {
                 TextArea supporting = new TextArea("Supporting Text");
                 ComboBox<String> location = new ComboBox<>("Location");
                 location.setItems(
-                    "Paper.pdf.md: Abstract",
-                    "Paper.pdf.md: Methods",
-                    "Paper.pdf.md: Results",
-                    "Paper.pdf.md: Discussion",
-                    "Supp.pdf.md: Table",
-                    "Supp.pdf.md: Figure"
+                        "Paper.pdf.md: Abstract",
+                        "Paper.pdf.md: Methods",
+                        "Paper.pdf.md: Results",
+                        "Paper.pdf.md: Discussion",
+                        "Supp.pdf.md: Table",
+                        "Supp.pdf.md: Figure"
                 );
                 location.setAllowCustomValue(true);
                 location.addCustomValueSetListener(ev -> location.setValue(ev.getDetail()));

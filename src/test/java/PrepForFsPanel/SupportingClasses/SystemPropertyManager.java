@@ -68,7 +68,6 @@ public class SystemPropertyManager {
 
     /**
      * Operating system name
-     *
      */
     public static String getOsName() {
         return System.getProperty("os.name");

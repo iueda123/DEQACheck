@@ -20,7 +20,7 @@ public class ColorChangeableTextField extends JTextField {
         setupTextField();
     }
 
-    private void setupTextField(){
+    private void setupTextField() {
 
         defaultValue = this.getText();
 
@@ -54,11 +54,11 @@ public class ColorChangeableTextField extends JTextField {
                 }
             }
 
-            private void checkUpdate(){
+            private void checkUpdate() {
                 if (ColorChangeableTextField.this.getText().equals(ColorChangeableTextField.this.defaultValue)) {
                     ColorChangeableTextField.this.updated = false;
                 } else {
-                    ColorChangeableTextField.this.updated =true;
+                    ColorChangeableTextField.this.updated = true;
                 }
             }
 
@@ -71,13 +71,13 @@ public class ColorChangeableTextField extends JTextField {
         ColorChangeableTextField.this.updated = false;
     }
 
-    public void resetBackgroundColor(){
+    public void resetBackgroundColor() {
         // UIManager から L&F 標準の背景色を取得
         Color defaultBg = UIManager.getColor("TextField.background");
         this.setBackground(defaultBg);
     }
 
-    public boolean isUpdated(){
+    public boolean isUpdated() {
         return updated;
     }
 

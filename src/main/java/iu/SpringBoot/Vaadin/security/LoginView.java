@@ -45,8 +45,8 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         loginForm.setForgotPasswordButtonVisible(false);
 
         add(
-            new H1("DEQACheckAll"),
-            loginForm
+                new H1("DEQACheckAll"),
+                loginForm
         );
     }
 

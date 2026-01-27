@@ -4,7 +4,6 @@ package PrepForFsPanel.SupportingClasses;/*
  */
 
 
-
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
@@ -19,10 +18,11 @@ import java.nio.file.Paths;
 /**
  * OSネイティブではなく、Swing の ファイルチューザーを起動するタイプ。
  * ファイルフィルタが使える。
- *
+ * <p>
  * 2018.12.17 アドレス領域が柔軟に広がるように改造した。
- * @author issey
  *
+ * @author issey
+ * <p>
  * 2020.01.23 サンプルコードを修正した。
  */
 public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
@@ -85,10 +85,10 @@ public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
                         FileChooserPanel_with_FileDrop_v3.this.setEnabled(false);   //PropertyChangeListenerに通知するための機構
 
                         //初期値の確認
-                        String open_path ="";
-                        if (new File(TextField.getText()).exists()){
+                        String open_path = "";
+                        if (new File(TextField.getText()).exists()) {
                             open_path = TextField.getText();
-                        }else{
+                        } else {
                             //無効なファイルパスなら親を辿って、存在するところを返す。なければユーザーホームを返す。
                             open_path = findExistingFileRecursively(new File(TextField.getText())).getAbsolutePath();
                         }
@@ -147,7 +147,7 @@ public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
                             File selected_target_file = new File(chooser.getSelectedFile().getAbsolutePath());
 
                             // ダブルクリックでフォルダを開いていった後に、選択等のボタンを押すと、フォルダ名が末尾に追加されるエラー回避のための処理
-                            if(!selected_target_file.exists()){
+                            if (!selected_target_file.exists()) {
                                 selected_target_file = selected_target_file.getParentFile();
                             }
 
@@ -156,7 +156,7 @@ public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
                             selected_target_file = selected_target_path.normalize().toFile();
 
                             if (SelectionMode == SELECTION_MODE_DIRECTORIES_ONLY_WITH_SHOWING_FILES) {
-                               //「SELECTION_MODE_DIRECTORIES_ONLY_WITH_SHOWING_FILES」モードの場合
+                                //「SELECTION_MODE_DIRECTORIES_ONLY_WITH_SHOWING_FILES」モードの場合
                                 //実際的にはファイルを選択することも可能なため次の処理をかましておく。
                                 if (selected_target_file.isFile()) {
                                     TextField.setText(selected_target_file.getParentFile().getAbsolutePath());
@@ -191,10 +191,10 @@ public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
 
     }
 
-    protected static File findExistingFileRecursively(File search_file){
-        if(search_file == null){
+    protected static File findExistingFileRecursively(File search_file) {
+        if (search_file == null) {
             return new File(SystemPropertyManager.getUserHome());
-        }else {
+        } else {
             if (search_file.exists()) {
                 return search_file;
             } else {
@@ -202,7 +202,9 @@ public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
             }
         }
 
-    };
+    }
+
+    ;
 
     protected abstract void performActionAfterSelectingFile();
 
@@ -213,9 +215,9 @@ public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
     /**
      * ファイルパス区切り文字で終わる形でパス文字列を取り出す
      */
-    public String getTextWithSeparatorEnding(){
+    public String getTextWithSeparatorEnding() {
         String rslt_str = this.TextField.getText();
-        if(!rslt_str.endsWith(SystemPropertyManager.getFileSeparator())){
+        if (!rslt_str.endsWith(SystemPropertyManager.getFileSeparator())) {
             rslt_str = rslt_str + SystemPropertyManager.getFileSeparator();
         }
         return rslt_str;
@@ -225,7 +227,7 @@ public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
         TextField.setText(text);
     }
 
-    public void setColumns(int i){
+    public void setColumns(int i) {
         TextField.setColumns(i);
     }
 
@@ -243,7 +245,7 @@ public abstract class FileChooserPanel_with_FileDrop_v3 extends JPanel {
                         //PrepForFsPanel.SupportingClasses.FileChooserPanel_with_FileDrop_v3.SELECTION_MODE_DIRECTORIES_ONLY_WITH_SHOWING_FILES,
                         false,
                         FileChooserPanel_with_FileDrop_v3.SHOW_MODE_SELECT
-                ){
+                ) {
                     @Override
                     protected void performActionAfterSelectingFile() {
                         System.out.println("Selection was changed.");

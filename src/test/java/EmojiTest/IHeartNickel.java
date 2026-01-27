@@ -77,7 +77,7 @@ public class IHeartNickel {
                 boolean cellHasFocus) {
             Component c = super.getListCellRendererComponent(
                     list, value, index, isSelected, cellHasFocus);
-            JLabel l = (JLabel)c;
+            JLabel l = (JLabel) c;
             Font font = new Font(value.toString(), Font.PLAIN, 20);
             l.setText(String.format(msg, font.getFontName()));
             l.setFont(font);

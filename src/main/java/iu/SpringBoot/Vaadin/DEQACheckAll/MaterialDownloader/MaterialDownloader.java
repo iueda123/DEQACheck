@@ -2,7 +2,7 @@ package iu.SpringBoot.Vaadin.DEQACheckAll.MaterialDownloader;
 
 /**
  * # Spec Info
- *
+ * <p>
  * このページは、share_package/data/<AuthorYear>/materials/non-optimized/ をダウンロードするためのページです。
  * コンボボックスで AuthorYear を選択し、「Download Materials」ボタンを押すとダウンロードが始まります。
  * ダウンロード対象のフォルダはzip圧縮されてダウンロードされる。

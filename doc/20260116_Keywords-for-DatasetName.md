@@ -10,13 +10,20 @@ Clinical Cohort の Source Dataset について、
 高松案（Table 1 のReference cohort - Source列、Clinical cohort - Source列）では、
 以下の、119個のキーワードで表現することが提案された。
 
-ABCCT / ABCD / ABIDE / ABIDE I / ABIDE I/II / ABIDE II / ABIL / ABRIM / ADHD 200 / ADNI / ADNI-ADS / ADNI3 / AIBL / ARWiBo / ASRB / Aggressotype / Australian Schizophrenia Research Bank / 
-BHRCS / BLISS / Bethlehem 2022 / CHUV / CIFASD / CNP / COBRE / Cam-CAN / CamCAN / DEMGEN / DIDA-MDD / DIRECT / Depression-EEG / EMBARC / ENIGMA / ENIGMA CHR-P / EU / Early Stages of Schizophrenia / 
-FCON / GAP / GROUP / GSP / Ge 2024 / HBN / HCP / HCP Aging / HCP Baby / HCP Development / HCP Lifespan / HCP Psychosis / HCP Young Adult / HCP-A / HCP-D / HCP-EP / HCP-YA / HCPEP / IBCDR / IDEAS / 
-IMpACT / INsIDER / IXI / Imperial APC / KQJH / Kia 2022 / Kim 2024 / Knight ADRC-ADS / LEAP / LEMON / LausanneASD / MATRICS / MCAD / MCIC / MIND-Set / MIPDB / MIRIAD / MSSEG2016 / 
-Multi-dataset (100+ datasets) / Multi-dataset (XX datasets) / Multi-site (XX sites) / NACC / NAKO / NIFD / NIH MRI Study of Normal Brain Development / NIHPD / NIL / NIMHANS / NKI / NUSDAST / 
-OASIS-3 / OASIS1 / OASIS3 / OPTIMSE / OpenBHB / OpenMSLong / PNC / PPP / Potvin 2022 / REST-meta-MDD / Rutherford 2022 / Rutherford 2022 (sMRI) / SAED / STROKEMRI / SVIP / Segal 2023 / 
-Single-site / StratiBip / TOP / TractoInferno / Two single-site / UCL / UCLA / UK Biobank / UK Biobank (IDPs) / UK Biobank (Jacobians) / Umich / Utrecht / Wolfers 2018 / Zabihi 2019 / 
+ABCCT / ABCD / ABIDE / ABIDE I / ABIDE I/II / ABIDE II / ABIL / ABRIM / ADHD 200 / ADNI / ADNI-ADS / ADNI3 / AIBL /
+ARWiBo / ASRB / Aggressotype / Australian Schizophrenia Research Bank /
+BHRCS / BLISS / Bethlehem 2022 / CHUV / CIFASD / CNP / COBRE / Cam-CAN / CamCAN / DEMGEN / DIDA-MDD / DIRECT /
+Depression-EEG / EMBARC / ENIGMA / ENIGMA CHR-P / EU / Early Stages of Schizophrenia /
+FCON / GAP / GROUP / GSP / Ge 2024 / HBN / HCP / HCP Aging / HCP Baby / HCP Development / HCP Lifespan / HCP Psychosis /
+HCP Young Adult / HCP-A / HCP-D / HCP-EP / HCP-YA / HCPEP / IBCDR / IDEAS /
+IMpACT / INsIDER / IXI / Imperial APC / KQJH / Kia 2022 / Kim 2024 / Knight ADRC-ADS / LEAP / LEMON / LausanneASD /
+MATRICS / MCAD / MCIC / MIND-Set / MIPDB / MIRIAD / MSSEG2016 /
+Multi-dataset (100+ datasets) / Multi-dataset (XX datasets) / Multi-site (XX sites) / NACC / NAKO / NIFD / NIH MRI Study
+of Normal Brain Development / NIHPD / NIL / NIMHANS / NKI / NUSDAST /
+OASIS-3 / OASIS1 / OASIS3 / OPTIMSE / OpenBHB / OpenMSLong / PNC / PPP / Potvin 2022 / REST-meta-MDD / Rutherford 2022 /
+Rutherford 2022 (sMRI) / SAED / STROKEMRI / SVIP / Segal 2023 /
+Single-site / StratiBip / TOP / TractoInferno / Two single-site / UCL / UCLA / UK Biobank / UK Biobank (IDPs) / UK
+Biobank (Jacobians) / Umich / Utrecht / Wolfers 2018 / Zabihi 2019 /
 devCCNP / femaleASD / sTOP / uTOP
 
 ## "DATASET/SITE" キーワードの理解
@@ -100,13 +107,13 @@ Author Yearはすべて Pre-trained Normative Model を用いている研究に�
 
 ---------------------
 
-
 ## 統一的なキーワードの提案
 
 上記119個のキーワードには以下のような不都合な点がある
-  * 表記のブレや付帯情報の記述ルールが曖昧さ 
-  * MULTI-SITE、MULTI-DATASET 付与時のN特定の手間
-  * Pre-Trained NM 利用研究に対して誤解を招きえる表記
+
+* 表記のブレや付帯情報の記述ルールが曖昧さ
+* MULTI-SITE、MULTI-DATASET 付与時のN特定の手間
+* Pre-Trained NM 利用研究に対して誤解を招きえる表記
 
 そこで、以下のAI抽出結果から表記のブレを省いた統一的なキーワード案を作成した。
 
@@ -132,7 +139,8 @@ Author Yearはすべて Pre-trained Normative Model を用いている研究に�
 1. **公式略称を基本形とする**（例: `ABCD`, `ADNI`, `UK Biobank`）。
 2. **バージョン/サブコホートはハイフンで接続**（例: `ABIDE-I`, `ADNI-3`, `HCP-A`）。
 4. **スペース/ハイフンの揺れを統一**（例: `Cam-CAN`, `ENIGMA-CHR-P`）。
-5. **MULTI-DATASET (UNSPECIFIED OR N>=10)**: 複数データセットの使用は明示されているが詳細不明、または 10 以上のデータセットを用いている場合。
+5. **MULTI-DATASET (UNSPECIFIED OR N>=10)**: 複数データセットの使用は明示されているが詳細不明、または 10
+   以上のデータセットを用いている場合。
 6. **MULTI-SITE (N>=2)**: 「XX sites」「XX scan sites」「複数スキャナ/施設」を明示しており、サイト数ベースでの統合が主題の場合。
 7. **SINGLE-SITE**: 単一施設・単一スキャナでの収集と読める場合。
 8. **None (Pre-Trained NM)**: 事前学習済み normative model を使用し、データセット名を付与しない場合。

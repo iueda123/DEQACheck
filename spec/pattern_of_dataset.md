@@ -15,10 +15,11 @@ SummaryView.javaが参照しているJSONファイルのDataset列に対応す�
 SummaryView.javaが参照しているJSONファイル自体に修正を施したいです。
 Dataset列に対応する要素の値を正規化して欲しいです。
 pattern_of_dataset.md を参考に書き換えてください。
-share_package/data/**/DE/json*/DE_*human*.json や share_package/data/**/DE/json*/DE_*Human*.json についてのみ修正をお願いします。名前に human や Human のつかないJSONファイルについては一切触らないでください。
-
+share_package/data/**/DE/json*/DE_*human*.json や share_package/data/**/DE/json*/DE_*Human*.json についてのみ修正をお願いします。名前に
+human や Human のつかないJSONファイルについては一切触らないでください。
 
 ## 主な傾向（要約）
+
 - 単一データセット名の表記（例: `UK Biobank`, `EU-AIMS LEAP`, `OASIS-3`）。
 - セミコロン区切りの複数列挙（例: `Cam-CAN; HCP; OASIS; PNC; UK Biobank`）。
 - 同一データセットの略称・別表記・派生（例: `UKBB`/`UK Biobank`/`UKBiobank`、`CamCAN`/`Cam-CAN`、`OASIS3`/`OASIS-3`）。
@@ -29,18 +30,20 @@ share_package/data/**/DE/json*/DE_*human*.json や share_package/data/**/DE/json
 - 括弧による注記（`(controls)`, `(HC)`, `(S1200 release)` など）。
 
 ## 正規化に向けた指針（提案）
+
 - セパレータ: `;` で分割し、各トークンを `trim()`。
 - 同義語マッピング（例）:
-  - `UKBB`, `UKBiobank` → `UK Biobank`
-  - `CamCAN` → `Cam-CAN`
-  - `OASIS3` → `OASIS-3`
-  - `HCP-D` → `HCP Development`
-  - `HCP-A`, `HCP Aging Lifespan` → `HCP Aging`
-  - `HCP-YA`, `HCP Young Adults`, `HCP S1200` → `HCP Young Adult`
-  - `NKI` → `NKI-Rockland`（必要なら `NKI-RS` に統一）
-  - `LEAP` 系 → `EU-AIMS LEAP`（`AIMS-2-TRIALS` は注記へ）
+    - `UKBB`, `UKBiobank` → `UK Biobank`
+    - `CamCAN` → `Cam-CAN`
+    - `OASIS3` → `OASIS-3`
+    - `HCP-D` → `HCP Development`
+    - `HCP-A`, `HCP Aging Lifespan` → `HCP Aging`
+    - `HCP-YA`, `HCP Young Adults`, `HCP S1200` → `HCP Young Adult`
+    - `NKI` → `NKI-Rockland`（必要なら `NKI-RS` に統一）
+    - `LEAP` 系 → `EU-AIMS LEAP`（`AIMS-2-TRIALS` は注記へ）
 - 括弧注記: `(HC)`, `(controls)`, `(S1200 release)` などは別フィールド（メタ情報）へ退避、またはサブタグ化。
-- 「マルチサイト集約」: `^Multi-site aggregated dataset` で始まる記述は `Aggregated (multi-site)` とし、括弧内列挙は個別データセットに分解・正規化。
+- 「マルチサイト集約」: `^Multi-site aggregated dataset` で始まる記述は `Aggregated (multi-site)`
+  とし、括弧内列挙は個別データセットに分解・正規化。
 - 参照表現: `See X`, `Same as Y` は「参照: X/Y」とタグ化し、可能であれば当該研究の Dataset 正規化結果へリンク。
 
 上記により `;` 区切りの各要素を「カノニカル名＋（任意注記）」に整理できます。
@@ -132,8 +135,10 @@ share_package/data/**/DE/json*/DE_*human*.json や share_package/data/**/DE/json
 ```
 
 ## 代表的な正規化マッピング（案）
+
 - UK Biobank 系: `UKBB`, `UKBiobank` → `UK Biobank`
-- HCP 系: `HCP-YA`, `HCP Young Adults`, `HCP S1200` → `HCP Young Adult`; `HCP-D` → `HCP Development`; `HCP-A`/`HCP Aging Lifespan` → `HCP Aging`; `HCPEP`/`HCP-psychosis` → `HCP Early Psychosis`
+- HCP 系: `HCP-YA`, `HCP Young Adults`, `HCP S1200` → `HCP Young Adult`; `HCP-D` → `HCP Development`; `HCP-A`/
+  `HCP Aging Lifespan` → `HCP Aging`; `HCPEP`/`HCP-psychosis` → `HCP Early Psychosis`
 - ABIDE 系: `ABIDE (Autism Brain Imaging Data Exchange)` → `ABIDE`; `ABIDE I/II` の混在は `ABIDE I` と `ABIDE II` に分割
 - Cam-CAN 系: `CamCAN` → `Cam-CAN`; 補足 `(Cambridge Centre for Ageing and Neuroscience)` は注記へ
 - OASIS 系: `OASIS3` → `OASIS-3`
@@ -144,8 +149,9 @@ share_package/data/**/DE/json*/DE_*human*.json や share_package/data/**/DE/json
 - 参照表現: `See X`, `Same as Y` → `Ref: X/Y`（別フィールドへ）
 
 ## 実装メモ（サマリ生成方法）
+
 - `glob('share_package/data/*/DE/json/*human*.json')` を走査。
 - JSON から `reference_cohort_and_imaging_part.rci1_dataset_name.answer` を取得。
 - 文字列が非空のものを集計し、ユニーク値・頻度を算出。
--（本ファイルの一覧は 2025-12-14 時点の結果に基づく）
+  -（本ファイルの一覧は 2025-12-14 時点の結果に基づく）
 

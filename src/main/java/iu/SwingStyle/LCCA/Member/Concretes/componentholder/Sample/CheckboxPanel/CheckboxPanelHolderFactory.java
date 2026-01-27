@@ -5,13 +5,13 @@ import iu.SwingStyle.LCCA.Member.Abstracts.componentholder.AbstCHolderMemberFact
 
 public class CheckboxPanelHolderFactory extends AbstCHolderMemberFactory {
 
-  private CheckboxPanelHolder checkboxPanelHolder;
+    private CheckboxPanelHolder checkboxPanelHolder;
 
-  @Override
-  protected AbstCHolderMember createInstance(String cholder_name, String short_name, String... args) {
-    if (this.checkboxPanelHolder == null) {
-      this.checkboxPanelHolder = new CheckboxPanelHolder(cholder_name, short_name);
+    @Override
+    protected AbstCHolderMember createInstance(String cholder_name, String short_name, String... args) {
+        if (this.checkboxPanelHolder == null) {
+            this.checkboxPanelHolder = new CheckboxPanelHolder(cholder_name, short_name);
+        }
+        return checkboxPanelHolder;
     }
-    return checkboxPanelHolder;
-  }
 }

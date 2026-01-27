@@ -14,5 +14,5 @@ public interface SubTabsHolderItrfc {
 
     String getAuthorYear();
 
-    
+
 }

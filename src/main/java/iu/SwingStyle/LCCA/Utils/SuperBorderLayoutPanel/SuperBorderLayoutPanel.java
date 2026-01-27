@@ -513,5 +513,4 @@ public class SuperBorderLayoutPanel extends JPanel {
     }
 
 
-
 }

@@ -245,19 +245,19 @@ public class One_ACRSL_Style_Pane extends One_DEQAResult_Pane_Abs {
         //System.out.println( "Is the tArea_Reason in " + this.getClass() + "updated?: " + tArea_Reason.isUpdated());
         //System.out.println( "Is the tArea_SupportingText in " + this.getClass() + "updated?: " + tArea_SupportingText.isUpdated());
         //System.out.println( "Is the tArea_Location in " + this.getClass() + "updated?: " + tArea_Location.isUpdated());
-            if (tArea_Answer.isUpdated()) {
-                return true;
-            } else if (tFiled_ConfidenceRating.isUpdated()) {
-                return true;
-            } else if (tArea_Reason.isUpdated()) {
-                return true;
-            } else if (tArea_SupportingText.isUpdated()) {
-                return true;
-            } else if (tArea_Location.isUpdated()) {
-                return true;
-            } else {
-                return false;
-            }
+        if (tArea_Answer.isUpdated()) {
+            return true;
+        } else if (tFiled_ConfidenceRating.isUpdated()) {
+            return true;
+        } else if (tArea_Reason.isUpdated()) {
+            return true;
+        } else if (tArea_SupportingText.isUpdated()) {
+            return true;
+        } else if (tArea_Location.isUpdated()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

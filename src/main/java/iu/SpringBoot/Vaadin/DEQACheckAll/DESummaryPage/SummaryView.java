@@ -31,6 +31,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+
 import jakarta.annotation.security.RolesAllowed;
 
 @PageTitle("DE Result Overview")
@@ -409,6 +410,7 @@ public class SummaryView extends VerticalLayout {
         th.setText(text == null ? "" : text);
         tr.appendChild(th);
     }
+
     private void appendHeaderCellWithStyle(Element tr, String text, String extraCss) {
         Element th = new Element("th");
         String base = "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-line;";
@@ -424,6 +426,7 @@ public class SummaryView extends VerticalLayout {
         td.setText(text == null ? "" : text);
         tr.appendChild(td);
     }
+
     private void appendDatasetCell(Element tr, String text) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); width:16ch; max-width:16ch; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;");
@@ -484,6 +487,7 @@ public class SummaryView extends VerticalLayout {
         }
         return String.join("; ", cats);
     }
+
     private String classifyModalityCategory(String t) {
         String src = t.trim();
         String lower = src.toLowerCase(Locale.ROOT);
@@ -582,7 +586,8 @@ public class SummaryView extends VerticalLayout {
     private void appendPreWrappedCell(Element tr, String text, boolean center) {
         Element td = new Element("td");
         String style = "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-wrap;";
-        if (center) style += " text-align: center;"; else style += " text-align: left;";
+        if (center) style += " text-align: center;";
+        else style += " text-align: left;";
         td.setAttribute("style", style);
         td.setText(text == null ? "" : text);
         tr.appendChild(td);

@@ -1,15 +1,17 @@
 package iu.SwingStyle.LCCA.Mediator;
 
 import iu.SwingStyle.LCCA.Member.MemberIntrfc;
+
 import java.util.Map;
 
 public interface MediatorIntrfc {
 
 
-  public abstract void createMembers();
-  public abstract void createMembers(String... arg);
+    public abstract void createMembers();
 
-  public abstract void requestFromMember();
+    public abstract void createMembers(String... arg);
 
-  public abstract Map<String, MemberIntrfc> getMemberMap();
+    public abstract void requestFromMember();
+
+    public abstract Map<String, MemberIntrfc> getMemberMap();
 }

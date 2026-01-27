@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public abstract class CommandProcessPanel extends JPanel  {
+public abstract class CommandProcessPanel extends JPanel {
 
     //Path String
     String RCodeFolderPathStr = SystemPropertyManager.getUserHome();
@@ -606,8 +606,8 @@ public abstract class CommandProcessPanel extends JPanel  {
         String command_str = "";
         command_str += "<html><body>";
         command_str += CodeFileSelector.getText() + " " + "<br>";
-        for(String argument : ArgumentList){
-            command_str += "&nbsp;&nbsp;&nbsp;&nbsp;" + argument + " " + "<br>" ;
+        for (String argument : ArgumentList) {
+            command_str += "&nbsp;&nbsp;&nbsp;&nbsp;" + argument + " " + "<br>";
         }
         command_str += "</html></body>";
 

@@ -134,7 +134,7 @@ public final class CollapsiblePanel extends JPanel {
 
         JPanel center_pane = new JPanel();
         center_pane.setLayout(new BoxLayout(center_pane, BoxLayout.Y_AXIS));
-        center_pane.add(new JScrollPane(new JTextArea("CENTER")) );
+        center_pane.add(new JScrollPane(new JTextArea("CENTER")));
 
         JPanel south_pane = new JPanel();
         south_pane.add(new JLabel("SOUTH"));

@@ -49,7 +49,7 @@ public class DESC_SubTabsHolder extends AbstCHolderMember implements SubTabsHold
     public DESC_SubTabsHolder(String cholder_name, String short_name, String authorYear) {
         super(cholder_name, short_name);
 
-        this.authorYear=authorYear;
+        this.authorYear = authorYear;
 
         arrayList_of_ManagerOfSubTabBasePane.add(mngrOfSubTabBasePane_1);
         mngrOfSubTabBasePane_1.registerSubTabsHolder(this);
