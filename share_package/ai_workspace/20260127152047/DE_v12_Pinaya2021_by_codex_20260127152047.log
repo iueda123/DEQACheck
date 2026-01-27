@@ -1,0 +1,557 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v12.md に従って作業をしてください。作業結果は ./DE_v12_Pinaya2021_by_codex_20260127152047.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019bfe1c-ac42-7233-b436-ad6542f1c1bb
+--------
+user
+./DE_Guide_v12.md に従って作業をしてください。作業結果は ./DE_v12_Pinaya2021_by_codex_20260127152047.json へ書き込んでください。
+mcp startup: no servers
+2026-01-27T06:20:52.833066Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047 succeeded in 22ms:
+DE_Guide_v12.md
+DE_v12_Pinaya2021_by_codex_20260127152047.json
+DE_v12_Pinaya2021_by_codex_20260127152047.log
+study_1
+exec
+/bin/bash -lc "sed -n '1,200p' DE_Guide_v12.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/202601271520472026-01-27T06:20:55.015872Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+# 神経画像におけるノルマティブモデリングのデータ抽出ガイダンス（システマティックレビュー）
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。このデータ抽出は、精神・神経疾患に対する神経画像の方法論的検討と応用に関するシステマティックレビューの一環として行われます。
+
+-------------------
+
+## 本レビューの目的
+
+本システマティックレビューでは、神経画像および神経生理検査（例: MRI, PET, EEG,
+MEG）を用いたノルマティブモデリング研究を評価します。以下の3点を扱います:
+
+*
+    1. **モダリティ**:
+       ノルマティブモデリングで用いられている計測技術は何か、それぞれどの程度使われているか。MRIのような一般的モダリティでは、どのシーケンス（例:
+       T-weighted）が最も頻用されるか。
+*
+2026-01-27T06:20:57.237256Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '200,400p' DE_Guide_v12.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047 succeeded in 29ms:
+| fMRI           | FC-strength      | functional connectivity strength                          | 接続強度の総和                             | mPFCのFCS                  |
+| fMRI           | TASK-GLM         | task fMRI general linear model                            | 課題fMRIコントラストのz/tマップ                 | faces>shapesのzマップ         |
+| fMRI           | GCor             | global correlation                                        | 全ボクセル平均相関                           | 全脳GCOR                    |
+| fMRI           | LCor             | local correlation                                         | 近傍との局所相関                            | 角回のLCOR                   |
+| qMRI           | R1               | Quantitative MRI Parameter - R1                           | 1/T1（縦緩和率）の定量指標                     | R1平均（皮質）                  |
+| qMRI           | R2*              | Quantitative MRI Parameter - R2 star                      | 1/T2*（有効横緩和率）の定量指標                  | R2*平均（被殻）                 |
+| qMRI           | χ                | Quantitative MRI Parameter - chi                          | 磁化率（QSM）指標                          | QSM χ平均                   |
+| PET            | SUVR-amyloid     | standardized uptake value ratio (amyloid)                 | アミロイドPETのSUVR                       | AV45 SUVRCER              |
+| PET            | SUVR-tau         | standardized uptake value ratio (tau)                     | タウPETのSUVR                          | FTP SUVRCBL               |
+| PET            | BPND             | binding potential (non-displaceable)                      | PET結合能指標                            | \[11C\]DASBの線条体BPND       |
+| PET            | Ki_cer           | influx rate constant (cerebellar ref.)                    | 小脳基準の取り込み率                          | [18F]FDOPA Ki_cer         |
+| MEG/EEG        | AEC/PEC          | amplitude/phase envelope correlation                      | MEG/EEGの周波数別FC                      | β帯域AEC                    |
+| MEG/EEG        | PSD              | power spectral density                                    | MEG/EEG帯域パワー                        | α帯域PSD                    |
+| Mathematical   | MSI              | morphometric similarity index                             | 形態類似度の指標                            | MSI行列の平均                  |
+| Mathematical   | PBSI             | person-based similarity index                             | 溝幅類似度の個人指標                          | Sulcal width PBSI         |
+| Mathematical   | IDP-set          | imaging derived phenotype set                             | 多数のIDPを束ねたセット                       | UKB 2,000+IDPセット          |
+| Mathematical   | VQ-VAE-TS        | vector-quantized variational autoencoder typicality score | VQ-VAEでの典型度スコア                      | 典型度z-score                |
+| Mathematical   | NMF              | non-negative matrix factorization                         | 成分負荷量/混合比                           | NMFコンポーネント重み              |
+| Mathematical   | LI               | laterality index                                          | 左右差の指数                              | 海馬体積のLI                   |
+| Mathematical   | NetMes           | network measures                                          | DC (degree centrality) などのネットワーク特徴量 | 視床のDC                     |
+
+thinking
+**Opening existing JSON template**
+2026-01-27T06:21:01.443395Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v12_Pinaya2021_by_codex_20260127152047.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047 succeeded in 18ms:
+{
+  "study_identification_part": {
+    "si_1_study_id": "",
+    "si_2_reference_file_names": "",
+    "si_3_author_journal_year": "",
+    "si_4_title": ""
+  },
+  "normative_modeling_2nd_part": {
+    "nm2_1_modeling_methods": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "nm2_2_response_variable": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+
+thinking
+**Listing files in study_1**
+2026-01-27T06:21:03.753557Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047 succeeded in 31ms:
+41598_2021_95098_MOESM1_ESM.pdf.md
+41598_2021_95098_MOESM1_ESM_artifacts
+Pinaya2021.pdf.md
+Pinaya2021_artifacts
+
+thinking
+**Reading paper markdown**
+2026-01-27T06:21:07.485056Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Pinaya2021.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047 succeeded in 16ms:
+## OPEN
+
+![Image](./Pinaya2021_artifacts/image_000000_5376c5741b0acee0c29002317ab239bf0091038ff4ba832222f0c37b3e2956c1.png)
+
+Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study
+
+Walter H. L. Pinaya ͷ,͸,͹ * , Cristina Scarpazza ͷ,ͺ , Rafael Garcia-Dias ͷ , Sandra Vieira ͷ , Lea Baecker ͷ , Pedro F da Costa ͻ,ͼ , Alberto Redolfi ͽ , Giovanni B. Frisoni ;,Ϳ , Michela Pievani ; , Vince D. Calhoun ͷͶ , João R. Sato ͸  &amp; Andrea Mechelli ͷ
+
+Normative modelling is an emerging method for quantifying how individuals deviate from the healthy populational pattern. Several machine learning models have been implemented to develop normative models to investigate brain disorders, including regression, support vector machines and Gaussian process models. With the advance of deep learning technology, the use of deep neural networks has also been proposed. In this study, we assessed normative models based on deep autoencoders using structural neuroimaging data from patients with Alzheimer's disease ȋn = ͸ͶͼȌ and mild cognitive impairment ȋn = ͹ͻͺȌ. We first trained the autoencoder on an independent dataset ȋUK Biobank datasetȌ with ͷͷ,Ͷ͹ͺ healthy controls. Then, we estimated how each patient deviated from this norm and established which brain regions were associated to this deviation. Finally, we compared the performance of our normative model against traditional classifiers. As expected, we found that patients exhibited deviations according to the severity of their clinical condition. The model identified medial temporal regions, including the hippocampus, and the ventricular system as critical regions for the calculation of the deviation score. Overall, the normative model had comparable cross-cohort generalizability to traditional classifiers. To promote open science, we are making all scripts and the trained models available to the wider research community.
+
+Normative modelling is an emerging method for quantifying and describing how individuals deviate from the expected pattern learned from a population or large   sample 1 . Recently, this approach has been applied to neuroimaging data to investigate a number of brain disorders, such as attention deficit hyperactivity   disorder 2, 3 , autism spectrum   disorder 4, 5 ,   schizophrenia 3, 5, 6 and   dementia 7, 8 . The procedure of normative modelling used in these studies has two steps: (i) first, statistical models are estimated to characterise the typical brain data from
+
+ͷ Department  of  Psychosis  Studies,  Institute  of  Psychiatry,  Psychology  and  Neuroscience,  King's  College London,  London,  UK. ͸ Center  of  Mathematics,  Computing,  and  Cognition,  Universidade  Federal  do  ABC, Santo  André,  Brazil. ͹ Department  of  Biomedical  Engineering,  School  of  Biomedical  Engineering  and  Imaging Sciences, King's College London, London, UK. ͺ Department of General Psychology, University of Padua, Padua, Italy. ͻ Department  of  Neuroimaging,  Institute  of  Psychiatry,  Psychology  and  Neuroscience,  King's  College London,  London,  UK. ͼ Centre  for  Brain  and  Cognitive  Development,  Birkbeck  College,  University  of  London, London, UK. ͽ Laboratory of Neuroinformatics, IRCCS Istituto Centro San Giovanni di Dio Fatebenefratelli, Brescia, Italy. ; Laboratory  of  Alzheimer's  Neuroimaging  and  Epidemiology,  IRCCS  Istituto  Centro  San  Giovanni  di  Dio Fatebenefratelli,  Brescia,  Italy. Ϳ Memory Clinic  and  LANVIE  Laboratory  of  Neuroimaging  of  Aging,  University Hospitals and University of Geneva, Geneva, Switzerland. ͷͶ Tri-Institutional Center for Translational Research in Neuroimaging and Data Science (TReNDS), Georgia State, Georgia Tech, Emory, USA. * email: walter.diaz\_sanz@ kcl.ac.uk
+
+Vol.:ȋͬͭͮͯͰͱͲͳʹ͵Ȍ
+
+Vol:.(1234567890)
+
+a reference cohort; (ii) then, the estimated model is applied to a target clinical cohort in order to quantify the variation (e.g. due to the effect of brain disorders).
+
+
+thinking
+**Searching for autoencoder usage**
+
+I'm looking for mentions of autoencoder or adversarial autoencoder in the documentation to confirm modeling choices and identify response and explanatory variables.
+2026-01-27T06:21:12.301438Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "autoencoder|adversarial|normative" study_1/Pinaya2021.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047 succeeded in 31ms:
+5:Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study
+9:Normative modelling is an emerging method for quantifying how individuals deviate from the healthy populational pattern. Several machine learning models have been implemented to develop normative models to investigate brain disorders, including regression, support vector machines and Gaussian process models. With the advance of deep learning technology, the use of deep neural networks has also been proposed. In this study, we assessed normative models based on deep autoencoders using structural neuroimaging data from patients with Alzheimer's disease ȋn = ͸ͶͼȌ and mild cognitive impairment ȋn = ͹ͻͺȌ. We first trained the autoencoder on an independent dataset ȋUK Biobank datasetȌ with ͷͷ,Ͷ͹ͺ healthy controls. Then, we estimated how each patient deviated from this norm and established which brain regions were associated to this deviation. Finally, we compared the performance of our normative model against traditional classifiers. As expected, we found that patients exhibited deviations according to the severity of their clinical condition. The model identified medial temporal regions, including the hippocampus, and the ventricular system as critical regions for the calculation of the deviation score. Overall, the normative model had comparable cross-cohort generalizability to traditional classifiers. To promote open science, we are making all scripts and the trained models available to the wider research community.
+11:Normative modelling is an emerging method for quantifying and describing how individuals deviate from the expected pattern learned from a population or large   sample 1 . Recently, this approach has been applied to neuroimaging data to investigate a number of brain disorders, such as attention deficit hyperactivity   disorder 2, 3 , autism spectrum   disorder 4, 5 ,   schizophrenia 3, 5, 6 and   dementia 7, 8 . The procedure of normative modelling used in these studies has two steps: (i) first, statistical models are estimated to characterise the typical brain data from
+21:Many statistical models have been proposed for normative modelling, including regression, support vector machines and Gaussian process modelling (for an extensive list, see Marquand et al., 2019). In Pinaya et al. 5 , we proposed a normative modelling approach based on the use of deep autoencoders to evaluate psychiatric patients. The use of a deep learning   approach 10, 11 enables models to learn multiple levels of representation about the intricate structure of the data and identify the most important morphological characteristic of the healthy brain. In addition, in Pinaya et al. 5 , the models were able to detect deviations at the level of the individual, with patients with schizophrenia and patients with autism spectrum disorder presenting values significantly higher than the healthy controls (HC).
+23:Similar to psychiatric disorders, the clinical interpretation of magnetic resonance imaging scans can be challenging in the context of neurodegenerative disorders, as brain alterations may be difficult to distinguish from those related to healthy ageing. The identification of disease-related alterations can be particularly tricky in the early stages of a disorder. For this reason, there is a grown interest in the development of methods for quantifying deviations of regional brain volumes that can discriminate between healthy and pathological ageing, with the ultimate aim of improving diagnostic and prognostic assessment of neurodegenerative   disorders 12 . Here, we used the autoencoder normative   method 5 to evaluate the most common type of dementia in the elderly worldwide, Alzheimer's disease (AD).
+25:First, we trained the normative models using a large number of HC subjects (&gt; 11,000 participants). Then, we assessed the performance of these models using data from patients with a diagnosis of mild cognitive impairment (MCI), the prodromal stage to AD, and patients with a diagnosis of AD. This assessment involved calculating the deviation, i.e. the extent to which subjects deviate from the norm, in five additional datasets composed of patients with MCI, patients with AD, and HC subjects. We had two main hypotheses. First, we hypothesised that the normative models would be robust and sensitive enough to create deviation values that reflect the severity of the brain anatomical alterations due to the disease, i.e. individuals with AD would deviate from normality more than those with MCI. Second, we hypothesised that the main brain regions driving the observed deviation would include the medial temporal cortex and the ventricular system, consistent with the results of previous neuroimaging studies of MCI and   AD 13, 14 . Finally, we compared the performance of the normative approach against traditional classifiers to discriminate the patient groups from the HC group.
+55:In the present study, we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD. To perform comparisons between HC and patient groups, we ensured that there were no significant statistical differences regarding age and sex in all five clinical datasets. We assessed each dataset independently using the ANOVA test to verify any differences in age and the Chi-square test of homogeneity to investigate differences in the sex ratios between groups (Tables 1, 2).
+75:Figure 1. Structure of the normative model based on adversarial autoencoders. In this configuration, the subject data is inputted into the encoder and then mapped to the latent code. This latent code is fed to the decoder with the demographic data, and then the decoder generates a reconstruction of the original data. During the training of the model, the discriminator predicts if its input data came from the latent code or if it was randomly sampled from the chosen prior distribution (e.g. Gaussian distribution). Based on these predictions, the adversarial autoencoder forces the encoder to produce a latent code similar to the prior distribution selected. Since the model is trained on healthy controls data, it is expected that it can reconstruct similar data relatively well, yielding a small reconstruction error. However, the model is expected to generate a high error when processing data affected by unseen underlying mechanisms, e.g. pathological mechanisms.
+79:Normative model. In this paper, we developed the normative model using the adversarial autoencoder (AAE; Fig. 1) 30, 31 . As an autoencoder, this neural network has an encoder and a decoder. The function of the encoder is to take in an input x and map it into a latent encoding space, creating a latent code h . Then, the goal of the decoder is to reconstruct the input data based on the latent code. The AAE is a blend of this autoencoder framework with adversarial training, which is used in generative adversarial networks   modelling 32 . This autoencoder uses the adversarial training to shape the distribution of the latent code to look similar to a predefined prior distribution. The AAE achieves this desired distribution by incorporating a discriminator network into its structure. In this scheme, the discriminator receives two types of inputs: random numbers sampled from the
+81:desired prior distribution, and the latent code. During the training process, the discriminator will make predictions regarding whether its input data was sampled from the prior distribution or the latent code. The adversarial training forces the encoder to produce a latent code space that can fool the discriminator into predicting that the encoded samples are just another sample from the prior distribution.
+83:In this study, we trained the AAE to codify and reconstruct the data of HC subjects. The main idea of this normative approach is that, since the AAE only learns how to reconstruct images from HC individuals, it will be less precise at mapping images from patients, which differ due to the pathological mechanisms of the disorder. As a result, the difference between the reconstructed data and the original data will be larger in patients than HC individuals.
+87:Normative model training. To train the autoencoder, first, we performed the pre-processing of the brain features. This involved estimating the relative brain region volumes for each subject by dividing the original brain region volumes by the total intracranial volume. Then, we normalised the relative brain region volumes across all the participants in the training set. In this step, we performed a normalisation robust to outliers by subtracting the median value of the relative brain region volume and then scaling the data according to its interquartile range. Centering and scaling was done independently for each brain region. The same relevant statistics (median and interquartile range) were later used to normalise the data from the clinical datasets before feeding them to the model.
+89:In our analyses, we used a conditioned   AAE 30 . This type of autoencoder allows us to influence the model's reconstruction using the demographic variables, i.e. age and sex. To input these variables into the model, we transformed age and sex into one-hot encoding vectors. After this transformation, each subject has an age vector with 27 positions, where each position corresponds to a year within the range of 47-73 years. In this vector, all positions have value zero except the one that indicates the subject's age which has a value equal to 1. The subject's sex was represented in a one-hot encoded vector with two positions, one for male and one for female. The AAE's decoder used these vectors together with the latent code to reconstruct the brain data. This architecture forces the network to disentangle the label information from the latent   code 30 .
+91:With the features pre-processed and the conditioning data prepared, we trained the autoencoder to minimise the mean squared value of its reconstruction error using Adam   optimizer 34 for 200 epochs. A minibatch approach was used in this gradient descent-based optimizer, with a batch size of 256. The model was trained with a cyclical learning   rate 35 , which allows convergence of the training with fewer epochs. We started using a base learning rate with a value of 0.0001 and a maximum learning rate value of 0.005, chosen using the 'LR Range Test' 36 . The learning rate cycle had a basic triangular shape with an amplitude decaying (gamma = 0.98).
+93:In this study, we accessed the robustness of the autoencoder approach by training it with different simulated sets using the bootstrapping as the resampling method. We created 1,000 bootstrapped sets (each one with n = 11,032) by sampling with replacement from the UK Biobank. These bootstrapped sets were used to train the AAE. With this resampling method, we calculated: the value of the mean deviation (' Analysis of the observed deviations' section) for each group from the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets, the discriminative performance of the normative approach ('Analysis of the observed deviations' section), and the deviation from normality of each brain region ('Brain regions deviations' section).
+99:where xi is the normalised value of the brain region i , ̂ xi is the autoencoder reconstructed value of the brain region i ,  and number of regions is the number of cortical regions and neuroanatomical structures used (i.e. number of regions = 101).
+101:In each iteration of the bootstrap method, we used the trained autoencoder to obtain the deviation metric of the subjects from the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets. Then, we calculated the difference between the mean deviation scores of each pair of groups. We identified a significant difference between groups if the confidence interval (95% of confidence) of this difference did not include the zero. Besides, we used the subjects' deviations to obtain the discriminative performance of the autoencoder approach, measured by the area under the receiver operating characteristic curve (AUC).
+103:Brain regions deviations. The autoencoder approach can quantify how much each brain region deviated from normality and contributed to the observed deviation. These values were obtained by measuring the difference between the inputted value and its reconstruction. In our study, we quantified the deviation for each subject from the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets. Then, in each iteration of the bootstrap method, we calculated the effect size of each brain region deviation-using Cliff's   delta 37  value-between the HC group and each patient group. Here we used Cliff's delta-a non-parametric effect size measure-because the observed deviation presents a gamma distribution.
+109:Comparison against traditional machine learning classification. A further aim of the present study was to compare the performance of our normative model against a traditional classification approach. To measure the performance of the classifiers, we calculated the AUC using the 0.632 + bootstrap   method 38 with 1,000 iterations. Each clinical dataset (ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD) was analysed independently using the HC and patient groups to train the classifiers. Besides, the analysis was performed as multiple binary classifications between HC and each clinical group (e.g. HC versus LMCI).
+119:where b was the number of iterations and the weight ω was defined considering the relative overfitting rate (full description in Efron and Tibshirani, 1997). To obtain the confidence interval (CI; 95% of confidence), we used the percentile   method 41 . Next, we compared these confidence intervals with the AUC obtained during the normative approach.
+
+thinking
+**Clarifying MRI variables and model type**
+
+The response variables are relative cortical and subcortical volumes normalized by total intracranial volume (TIV), used for scaling but not as predictors. Explanatory variables include age and sex, one-hot encoded. The model is an adversarial autoencoder (AAE) from deep learning. Next, I’ll confirm the paper’s bibliographic info, likely in Scientific Reports.
+2026-01-27T06:21:20.596175Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Scientific Reports|Sci Rep|Nature|journal" study_1/Pinaya2021.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047 succeeded in 26ms:
+213:10.  LeCun, Y., Bengio, Y. &amp; Hinton, G. Deep learning. Nature 521 , 436 (2015).
+289:Publisher's note Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.
+
+thinking
+**Checking metadata sources**
+
+I'll look for author, journal, and year info in the PDF header and supplementary files since these details might not be explicit in the main markdown.
+2026-01-27T06:21:23.873273Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,120p' study_1/41598_2021_95098_MOESM1_ESM.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047 succeeded in 29ms:
+Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's  disease  in  a  cross-sectional  multi-cohort study
+
+Walter H. L. Pinaya  a b c  *, Cristina Scarpazza  a d , Rafael Garcia-Dias  a , Sandra Vieira  a , Lea Baecker  a , Pedro F. da Costa  e f , Alberto Redolfi  g , Giovanni B. Frisoni h i , Michela Pievani  h , Vince D. Calhoun  j , João R. Sato  b , Andrea Mechelli  a
+
+*  a  Department of Psychosis Studies, Institute of Psychiatry, Psychology &amp; Neuroscience, King's College London, London, UK.
+
+b  Center of Mathematics, Computing, and Cognition, Universidade Federal do ABC, Santo André, Brazil.
+
+c  Department of Biomedical Engineering, School of Biomedical Engineering &amp;
+
+Imaging Sciences, King's College London, London, UK
+
+d  Department of General Psychology, University of Padua, Padua, Italy.
+
+e  Department of Neuroimaging, Institute of Psychiatry, Psychology &amp;
+
+Neuroscience, King's College London, London, UK.
+
+f  Centre for Brain and Cognitive Development, Birkbeck College, University of London, London, UK.
+
+
+
+thinking
+**Confirming citation details**
+
+The main article lacks explicit journal/year in text, but metadata and filenames confirm "Pinaya et al., Scientific Reports, 2021" is accurate to cite; the style allows inferred citation without explicit in-text source. Next, I'll extract response variable details with supporting quotes.
+thinking
+**Extracting and structuring model details**
+
+I've identified precise quotes on the adversarial autoencoder normative model, response variables (cortical and subcortical volumes normalized by TIV), and explanatory variables (age and sex one-hot encoded), with exact file-section references from Pinaya2021.pdf.md. Next, I'll craft and apply a JSON patch to populate ADCSL fields accordingly.
+2026-01-27T06:21:57.654187Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
+@@ -2,6 +2,6 @@
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Pinaya2021",
++    "si_2_reference_file_names": "Pinaya2021.pdf.md; 41598_2021_95098_MOESM1_ESM.pdf.md",
++    "si_3_author_journal_year": "Pinaya et al., Scientific Reports, 2021",
++    "si_4_title": "Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study"
+   },
+@@ -9,21 +9,44 @@
+     "nm2_1_modeling_methods": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "Deep Learning",
++          "minor-category": "AAE"
++        }
++      ],
++      "detail": "Normative model implemented as an adversarial autoencoder (AAE).",
++      "confidence_rating": "High",
++      "supporting_text": "In this paper, we developed the normative model using the adversarial autoencoder (AAE; Fig. 1) 30, 31 .",
++      "location": "Pinaya2021.pdf.md: Normative model"
+     },
+     "nm2_2_response_variable": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "sMRI",
++          "minor-category": "CV"
++        },
++        {
++          "major-category": "sMRI",
++          "minor-category": "SubV"
++        }
++      ],
++      "detail": "Cortical volumes for 68 cortical subregions and volumes of 33 neuroanatomical (subcortical) structures; volumes were normalized by total intracranial volume.",
++      "confidence_rating": "High",
++      "supporting_text": "The final data included the cortical volume for each of the 68 cortical subregions (34 per hemisphere) and the volume of 33 neuroanatomical structures, totalling 101 subregions/ structures (the complete list is presented in the supplementary materials).; This involved estimating the relative brain region volumes for each subject by dividing the original brain region volumes by the total intracranial volume.",
++      "location": "Pinaya2021.pdf.md: MRI processing.; Pinaya2021.pdf.md: Normative model training."
+     },
+     "nm2_3_explanatory_variables": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "Age-related",
++          "minor-category": "Age"
++        },
++        {
++          "major-category": "Demographics",
++          "minor-category": "Sex"
++        }
++      ],
++      "detail": "Age and sex used as conditioning variables in the autoencoder (one-hot encoded).",
++      "confidence_rating": "High",
++      "supporting_text": "This type of autoencoder allows us to influence the model's reconstruction using the demographic variables, i.e. age and sex.; To input these variables into the model, we transformed age and sex into one-hot encoding vectors.",
++      "location": "Pinaya2021.pdf.md: Normative model training."
+     }
+apply_patch(auto_approved=true) exited 0 in 4ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
+file update:
+diff --git a/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json b/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
+index 91468e98df2f93fc369148fa0f10e6cc6f12858e..4294893c4d836dd44058e299d05bbc00418eff05
+--- a/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
++++ b/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
+@@ -1,31 +1,54 @@
+ {
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Pinaya2021",
++    "si_2_reference_file_names": "Pinaya2021.pdf.md; 41598_2021_95098_MOESM1_ESM.pdf.md",
++    "si_3_author_journal_year": "Pinaya et al., Scientific Reports, 2021",
++    "si_4_title": "Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study"
+   },
+   "normative_modeling_2nd_part": {
+     "nm2_1_modeling_methods": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "Deep Learning",
++          "minor-category": "AAE"
++        }
++      ],
++      "detail": "Normative model implemented as an adversarial autoencoder (AAE).",
++      "confidence_rating": "High",
++      "supporting_text": "In this paper, we developed the normative model using the adversarial autoencoder (AAE; Fig. 1) 30, 31 .",
++      "location": "Pinaya2021.pdf.md: Normative model"
+     },
+     "nm2_2_response_variable": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "sMRI",
++          "minor-category": "CV"
++        },
++        {
++          "major-category": "sMRI",
++          "minor-category": "SubV"
++        }
++      ],
++      "detail": "Cortical volumes for 68 cortical subregions and volumes of 33 neuroanatomical (subcortical) structures; volumes were normalized by total intracranial volume.",
++      "confidence_rating": "High",
++      "supporting_text": "The final data included the cortical volume for each of the 68 cortical subregions (34 per hemisphere) and the volume of 33 neuroanatomical structures, totalling 101 subregions/ structures (the complete list is presented in the supplementary materials).; This involved estimating the relative brain region volumes for each subject by dividing the original brain region volumes by the total intracranial volume.",
++      "location": "Pinaya2021.pdf.md: MRI processing.; Pinaya2021.pdf.md: Normative model training."
+     },
+     "nm2_3_explanatory_variables": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "Age-related",
++          "minor-category": "Age"
++        },
++        {
++          "major-category": "Demographics",
++          "minor-category": "Sex"
++        }
++      ],
++      "detail": "Age and sex used as conditioning variables in the autoencoder (one-hot encoded).",
++      "confidence_rating": "High",
++      "supporting_text": "This type of autoencoder allows us to influence the model's reconstruction using the demographic variables, i.e. age and sex.; To input these variables into the model, we transformed age and sex into one-hot encoding vectors.",
++      "location": "Pinaya2021.pdf.md: Normative model training."
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json b/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
+index 91468e98df2f93fc369148fa0f10e6cc6f12858e..4294893c4d836dd44058e299d05bbc00418eff05
+--- a/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
++++ b/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
+@@ -1,31 +1,54 @@
+ {
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Pinaya2021",
++    "si_2_reference_file_names": "Pinaya2021.pdf.md; 41598_2021_95098_MOESM1_ESM.pdf.md",
++    "si_3_author_journal_year": "Pinaya et al., Scientific Reports, 2021",
++    "si_4_title": "Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study"
+   },
+   "normative_modeling_2nd_part": {
+     "nm2_1_modeling_methods": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "Deep Learning",
++          "minor-category": "AAE"
++        }
++      ],
++      "detail": "Normative model implemented as an adversarial autoencoder (AAE).",
++      "confidence_rating": "High",
++      "supporting_text": "In this paper, we developed the normative model using the adversarial autoencoder (AAE; Fig. 1) 30, 31 .",
++      "location": "Pinaya2021.pdf.md: Normative model"
+     },
+     "nm2_2_response_variable": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "sMRI",
++          "minor-category": "CV"
++        },
++        {
++          "major-category": "sMRI",
++          "minor-category": "SubV"
++        }
++      ],
++      "detail": "Cortical volumes for 68 cortical subregions and volumes of 33 neuroanatomical (subcortical) structures; volumes were normalized by total intracranial volume.",
++      "confidence_rating": "High",
++      "supporting_text": "The final data included the cortical volume for each of the 68 cortical subregions (34 per hemisphere) and the volume of 33 neuroanatomical structures, totalling 101 subregions/ structures (the complete list is presented in the supplementary materials).; This involved estimating the relative brain region volumes for each subject by dividing the original brain region volumes by the total intracranial volume.",
++      "location": "Pinaya2021.pdf.md: MRI processing.; Pinaya2021.pdf.md: Normative model training."
+     },
+     "nm2_3_explanatory_variables": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "Age-related",
++          "minor-category": "Age"
++        },
++        {
++          "major-category": "Demographics",
++          "minor-category": "Sex"
++        }
++      ],
++      "detail": "Age and sex used as conditioning variables in the autoencoder (one-hot encoded).",
++      "confidence_rating": "High",
++      "supporting_text": "This type of autoencoder allows us to influence the model's reconstruction using the demographic variables, i.e. age and sex.; To input these variables into the model, we transformed age and sex into one-hot encoding vectors.",
++      "location": "Pinaya2021.pdf.md: Normative model training."
+     }
+   }
+ }
+
+
+thinking
+**Finalizing with context note**
+
+I'm concluding that the journal was inferred from context without explicit mention in the files, which I'll note in the final response along with the absence of tests and offering next steps if changes are needed.
+codex
+Filled the JSON extraction with the study ID, references, title, and NM2 fields based on `study_1/Pinaya2021.pdf.md` (and the supplement list of features). Updated file: `DE_v12_Pinaya2021_by_codex_20260127152047.json`.
+
+Note: `si_3_author_journal_year` uses “Scientific Reports, 2021,” which isn’t explicitly stated in the provided text; let me know if you want it left as NR or sourced differently.
+
+Next steps (optional):
+1) I can double-check the journal/year against another provided source.
+2) I can add/adjust any fields if you want a stricter “only verbatim stated” policy.
+2026-01-27T06:22:03.082722Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json b/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
+index 91468e98df2f93fc369148fa0f10e6cc6f12858e..4294893c4d836dd44058e299d05bbc00418eff05
+--- a/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
++++ b/share_package/ai_workspace/20260127152047/DE_v12_Pinaya2021_by_codex_20260127152047.json
+@@ -1,31 +1,54 @@
+ {
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Pinaya2021",
++    "si_2_reference_file_names": "Pinaya2021.pdf.md; 41598_2021_95098_MOESM1_ESM.pdf.md",
++    "si_3_author_journal_year": "Pinaya et al., Scientific Reports, 2021",
++    "si_4_title": "Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study"
+   },
+   "normative_modeling_2nd_part": {
+     "nm2_1_modeling_methods": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "Deep Learning",
++          "minor-category": "AAE"
++        }
++      ],
++      "detail": "Normative model implemented as an adversarial autoencoder (AAE).",
++      "confidence_rating": "High",
++      "supporting_text": "In this paper, we developed the normative model using the adversarial autoencoder (AAE; Fig. 1) 30, 31 .",
++      "location": "Pinaya2021.pdf.md: Normative model"
+     },
+     "nm2_2_response_variable": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "sMRI",
++          "minor-category": "CV"
++        },
++        {
++          "major-category": "sMRI",
++          "minor-category": "SubV"
++        }
++      ],
++      "detail": "Cortical volumes for 68 cortical subregions and volumes of 33 neuroanatomical (subcortical) structures; volumes were normalized by total intracranial volume.",
++      "confidence_rating": "High",
++      "supporting_text": "The final data included the cortical volume for each of the 68 cortical subregions (34 per hemisphere) and the volume of 33 neuroanatomical structures, totalling 101 subregions/ structures (the complete list is presented in the supplementary materials).; This involved estimating the relative brain region volumes for each subject by dividing the original brain region volumes by the total intracranial volume.",
++      "location": "Pinaya2021.pdf.md: MRI processing.; Pinaya2021.pdf.md: Normative model training."
+     },
+     "nm2_3_explanatory_variables": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "major-category": "Age-related",
++          "minor-category": "Age"
++        },
++        {
++          "major-category": "Demographics",
++          "minor-category": "Sex"
++        }
++      ],
++      "detail": "Age and sex used as conditioning variables in the autoencoder (one-hot encoded).",
++      "confidence_rating": "High",
++      "supporting_text": "This type of autoencoder allows us to influence the model's reconstruction using the demographic variables, i.e. age and sex.; To input these variables into the model, we transformed age and sex into one-hot encoding vectors.",
++      "location": "Pinaya2021.pdf.md: Normative model training."
+     }
+   }
+ }
+
+tokens used
+32,292
+Filled the JSON extraction with the study ID, references, title, and NM2 fields based on `study_1/Pinaya2021.pdf.md` (and the supplement list of features). Updated file: `DE_v12_Pinaya2021_by_codex_20260127152047.json`.
+
+Note: `si_3_author_journal_year` uses “Scientific Reports, 2021,” which isn’t explicitly stated in the provided text; let me know if you want it left as NR or sourced differently.
+
+Next steps (optional):
+1) I can double-check the journal/year against another provided source.
+2) I can add/adjust any fields if you want a stricter “only verbatim stated” policy.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

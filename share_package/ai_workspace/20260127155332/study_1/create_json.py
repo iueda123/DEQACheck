@@ -1,0 +1,214 @@
+
+import json
+
+data = {
+  "study_identification_part": {
+      "si1_study_id": "Chien2022",
+      "si2_reference_file_names": "Chien2022.pdf.md; 41380_2022_1636_MOESM1_ESM.docx.md",
+      "si3_author_journal_year": "Chien et al., Molecular Psychiatry, 2022",
+      "si4_title": "Neurodevelopmental model of schizophrenia revisited: similarity in individual deviation and idiosyncrasy from the normative model of whole-brain white matter tracts and shared brain-cognition covariation with ADHD and ASD",
+      "si5_doi": "10.1038/s41380-022-01636-1"
+  },
+  "study_characteristics_part": {
+      "sc1_study_objective": "To map deviations from normative ranges of whole-brain major white matter (WM) tracts for individual patients to investigate the similarity and differences among schizophrenia, ASD, and ADHD, and to investigate shared brain-cognition links across these disorders.",
+      "sc2_study_design": "Cross-sectional",
+      "sc3_study_design_other": "-"
+  },
+  "reference_cohort_and_imaging_part": {
+    "rci1_dataset_name": {
+      "answer": "National Taiwan University Hospital cohort",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not provide a formal name for the dataset. It states that participants were recruited from the National Taiwan University Hospital and the surrounding community. The normative model is based on a cohort described in a previous publication [17] from the same group, suggesting an in-house dataset.",
+      "supporting_text": "The three patient groups were recruited from the Department of Psychiatry, National Taiwan University Hospital. We recruited TDC from the same community of the patient groups, either from schools or via advertisement...",
+      "location": "Chien2022.pdf.md: Methods and Materials / Participants"
+    },
+    "rci2_hc_n": {
+      "answer": "626",
+      "confidence_rating": "High",
+      "reason": "The number of typically developing controls (TDC) is explicitly stated in the Participants section of the main text.",
+      "supporting_text": "This study recruited 281 patients with schizophrenia (aged 16 -40 yrs), 175 children and adults with ASD (9 -35 yrs), 279 children and adults with ADHD (7 -38 yrs), and 626 typically developing controls (TDC) (Table 1 and STable 1 -2).",
+      "location": "Chien2022.pdf.md: Methods and Materials / Participants"
+    },
+    "rci3_hc_age": {
+      "answer": "mean 20.16; sd 8.5; min 5; max 40",
+      "confidence_rating": "High",
+      "reason": "The mean, standard deviation, and range of age for the healthy controls are explicitly stated in the 'Statistical analysis, standardized normative models' section.",
+      "supporting_text": "Individualized tract-deviation pro /uniFB01 les comprised GFA Z -scores of each WM tract derived from the sex-speci /uniFB01 c normative age models, constructed from 626 TDCs (Male/Female: 376/250; age range 5 -40, 20.16 ± 8.5 yrs) [17].",
+      "location": "Chien2022.pdf.md: Statistical analysis, standardized normative models"
+    },
+    "rci4_hc_sex": {
+      "answer": "M 376 (60.1%); F 250 (39.9%)",
+      "confidence_rating": "High",
+      "reason": "The number of male and female participants in the healthy control group is explicitly stated. Percentages were calculated from these numbers (376/626 and 250/626).",
+      "supporting_text": "constructed from 626 TDCs (Male/Female: 376/250; age range 5 -40, 20.16 ± 8.5 yrs) [17].",
+      "location": "Chien2022.pdf.md: Statistical analysis, standardized normative models"
+    },
+    "rci5_imaging_modality": {
+      "answer": "Diffusion Spectrum Imaging (DSI)",
+      "confidence_rating": "High",
+      "reason": "The imaging modality is explicitly stated in the 'Image acquisition and analysis' section.",
+      "supporting_text": "The diffusion spectrum imaging (DSI) protocol was detailed elsewhere [17], with 102 diffusionencoding directions with a maximal b value of 4000 s/mm 2 , using a singleshot spin-echo echo-planar imaging sequence with twice-refocused diffusion-sensitive gradients to reduce distortion caused by eddy currents [50].",
+      "location": "Chien2022.pdf.md: Image acquisition and analysis"
+    },
+    "rci6_analysis_level": {
+      "answer": "ROI-level",
+      "supporting_text": "The diffusion pro /uniFB01 les of each person included GFA of 45 major WM tracts ([17]; STable 4), prede /uniFB01 ned on an open-sourced DSI template [51] through deterministic streamline-based tractography [52].",
+      "location": "Chien2022.pdf.md: Image acquisition and analysis"
+    },
+    "rci7_preprocessing_pipeline": {
+      "answer": "Diffeomorphic registration; Deterministic streamline-based tractography; Mean-apparent propagator models. Details are in a separate publication [17].",
+      "confidence_rating": "Medium",
+      "reason": "The paper provides a high-level overview of the preprocessing steps and references another paper [17] for full details. Specific software is not named in the main text.",
+      "supporting_text": "The sampling coordinates in the native space were transformed from the template to individual MRI datasets with the corresponding deformation maps through diffeomorphic registration [51]. MRI acquisition, quality control, preprocessing, and tractography are detailed elsewhere [17].",
+      "location": "Chien2022.pdf.md: Image acquisition and analysis"
+    },
+    "rci8_quality_checking": "Yes",
+    "rci9_quality_checking_detail": {
+      "answer": "Exclusion based on low signal-noise ratio (SNR) or high signal-dropout counts (SDC). SNR and SDC were comparable between groups after QC. Z-scores were not correlated with SNR or motion levels.",
+      "confidence_rating": "Medium",
+      "reason": "The paper confirms that quality control was performed and mentions the metrics used (SNR, SDC). However, specific thresholds for exclusion are not provided, and the paper refers to another publication [17] for full details.",
+      "supporting_text": "Before analysis, the rigorous quality control of MRI data was implemented by excluding those with low signal-noise ratio (SNR) or high signal-dropout counts (SDC), a proxy of in-scanner motion levels. As a result, SNR and SDC were comparable between these groups. ... The derived Z -scores of clinical groups and TDC were not correlated with age, SNR, or in-scanner motion levels (SFig. 1).",
+      "location": "Chien2022.pdf.md: Image acquisition and analysis; Statistical analysis, standardized normative models"
+    },
+    "rci10_site_effect_handling": "None",
+    "rci11_site_effect_handling_detail": {
+      "answer": "-",
+      "confidence_rating": "High",
+      "reason": "The study was conducted at a single site using a single scanner, so no site effect handling was necessary.",
+      "supporting_text": "Herein, we developed the normative model of WM microstructural property (generalized fractional anisotropy, GFA), as a function of age, across the lifespan using large-sampled single-site harmonized cross-sectional MRI data... Participants received MRI scans on the same 3-Tesla Siemens TIM Trio scanner with a 32-channel phased-array head coil.",
+      "location": "Chien2022.pdf.md: Introduction; Image acquisition and analysis"
+    }
+  },
+  "normative_modeling_part": {
+    "nm1_model_origin": "Pre-trained",
+    "nm2_model_origin_detail": {
+      "answer": "The normative model was developed in a previous study [17] using the same cohort of 626 TDCs. It is a sex-specific model of GFA as a function of age.",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states that the normative models were constructed based on data from a prior publication [17].",
+      "supporting_text": "Individualized tract-deviation pro /uniFB01 les comprised GFA Z -scores of each WM tract derived from the sex-speci /uniFB01 c normative age models, constructed from 626 TDCs (Male/Female: 376/250; age range 5 -40, 20.16 ± 8.5 yrs) [17].",
+      "location": "Chien2022.pdf.md: Statistical analysis, standardized normative models"
+    },
+    "nm3_modeling_method": {
+      "answer": "Moving average approach",
+      "confidence_rating": "High",
+      "reason": "The paper explicitly states the modeling method used.",
+      "supporting_text": "A moving average approach was used to obtain the unbiased mean and variance estimates for the GFA metric in each age range.",
+      "location": "Chien2022.pdf.md: Statistical analysis, standardized normative models"
+    },
+    "nm4_software_tool": {
+      "answer": "NR",
+      "confidence_rating": "High",
+      "reason": "The specific software or library used for the normative modeling is not reported in the main text or supplementary materials.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm5_response_variable": {
+      "answer": "Generalized Fractional Anisotropy (GFA) of 45 major white matter tracts.",
+      "confidence_rating": "High",
+      "reason": "The response variable is clearly stated in the text.",
+      "supporting_text": "The diffusion pro /uniFB01 les of each person included GFA of 45 major WM tracts...",
+      "location": "Chien2022.pdf.md: Image acquisition and analysis"
+    },
+    "nm6_predictor_variables": {
+      "answer": "Age; Sex",
+      "confidence_rating": "High",
+      "reason": "The model is described as 'sex-specific' and a function of 'age'.",
+      "supporting_text": "...sex-speci /uniFB01 c normative age models...",
+      "location": "Chien2022.pdf.md: Statistical analysis, standardized normative models"
+    },
+    "nm7_predictor_effects": {
+      "answer": "Non-parametric (moving average)",
+      "confidence_rating": "Medium",
+      "reason": "The paper specifies a 'moving average approach', which is a non-parametric method. It does not use the terminology of fixed or random effects.",
+      "supporting_text": "A moving average approach was used to obtain the unbiased mean and variance estimates for the GFA metric in each age range.",
+      "location": "Chien2022.pdf.md: Statistical analysis, standardized normative models"
+    },
+    "nm8_nm_vldtn_handle_ns": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The study used a single site, which eliminates site effects. The non-parametric model handles age non-linearity. The analysis also confirmed that Z-scores were not correlated with motion (SDC) or SNR.",
+      "supporting_text": "Participants received MRI scans on the same 3-Tesla Siemens TIM Trio scanner... The derived Z-scores of clinical groups and TDC were not correlated with age, SNR, or in-scanner motion levels (SFig. 1).",
+      "location": "Chien2022.pdf.md: Image acquisition and analysis; Statistical analysis, standardized normative models"
+    },
+    "nm9_nm_vldtn_same_domain_nonindep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not report any validation of the normative model on the training data itself (e.g., bootstrap, goodness-of-fit on the training set). The model was developed on the TDC group and then applied to the clinical groups.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm10_nm_vldtn_same_domain_indep": {
+      "answer": "No",
+      "confidence_rating": "Medium",
+      "reason": "The paper does not mention using a train/test split or cross-validation for developing or validating the normative model within the TDC cohort.",
+      "supporting_text": "-",
+      "location": "-"
+    },
+    "nm11_nm_vldtn_diff_domain": {
+      "answer": "Yes",
+      "confidence_rating": "High",
+      "reason": "The normative model, trained on typically developing controls, was applied to three independent clinical populations (schizophrenia, ASD, ADHD) which represent different domains.",
+      "supporting_text": "Individual deviations from the norm, alongside variations in individual deviations, were then determined for around 300 individuals with schizophrenia, 300 with ADHD, and 200 with ASD.",
+      "location": "Chien2022.pdf.md: Introduction"
+    }
+  },
+  "clinical_application_and_analysis_part": {
+    "caa1_clinical_dataset": {
+      "answer": "National Taiwan University Hospital cohort",
+      "confidence_rating": "High",
+      "reason": "The paper states that all patient groups were recruited from the same institution.",
+      "supporting_text": "The three patient groups were recruited from the Department of Psychiatry, National Taiwan University Hospital.",
+      "location": "Chien2022.pdf.md: Methods and Materials / Participants"
+    }, 
+    "caa2_diseases_studied": {
+      "answer": "Schizophrenia; Autism spectrum disorder (ASD); Attention-deficit/hyperactivity disorder (ADHD)",
+      "confidence_rating": "High",
+      "reason": "The diseases studied are explicitly mentioned throughout the paper.",
+      "supporting_text": "This study recruited 281 patients with schizophrenia (aged 16 -40 yrs), 175 children and adults with ASD (9 -35 yrs), 279 children and adults with ADHD (7 -38 yrs)...",
+      "location": "Chien2022.pdf.md: Methods and Materials / Participants"
+    }, 
+    "caa3_clinical_groups_n": {
+      "answer": "Schizophrenia: 281 (FES: 75; Subchronic: 161; Chronic: 45); ASD: 175; ADHD: 279",
+      "confidence_rating": "High",
+      "reason": "The sample sizes for each clinical group and the schizophrenia subgroups are explicitly stated.",
+      "supporting_text": "This study recruited 281 patients with schizophrenia...The schizophrenia cohort included patients in different stages per the duration-based de /uniFB01 nition [44], i.e., ' /uniFB01 rst-episode ' (... n = 75...), ' subchronic ' (... n = 161...) and ' chronic ' (... n = 45...)",
+      "location": "Chien2022.pdf.md: Methods and Materials / Participants"
+    }, 
+    "caa4_clinical_groups_age": {
+      "answer": "Schizophrenia (FES): mean 25.8, sd 5.8; Schizophrenia (Subchronic): mean 26.6, sd 5.3; Schizophrenia (Chronic): mean 31.8, sd 5.0; ASD: mean 16.35, sd 4.2; ADHD: mean 18.20, sd 8.6",
+      "confidence_rating": "High",
+      "reason": "Age information for all clinical groups is provided in Table 1 and STable 1 and 2.",
+      "supporting_text": "Table 1. Demographic features and image data quality of all participants. ... STable 1. Demographic features and image data quality of participants with schizophrenia. ... STable 2. Demographic features and image data quality of the entire sample with neurodevelopmental disorders.",
+      "location": "Chien2022.pdf.md: Table 1; 41380_2022_1636_MOESM1_ESM.docx.md: STable 1, STable 2"
+    }, 
+    "caa5_clinical_groups_sex": {
+      "answer": "Schizophrenia: M 185 (65.8%), F 96 (34.2%); ASD: M 158 (90.3%), F 17 (9.7%); ADHD: M 206 (73.8%), F 75 (26.2%)",
+      "confidence_rating": "High",
+      "reason": "Sex distribution for all clinical groups is provided in Table 1 and STable 1 and 2. Percentages were calculated.",
+      "supporting_text": "Table 1. Demographic features and image data quality of all participants. ... STable 1. Demographic features and image data quality of participants with schizophrenia. ... STable 2. Demographic features and image data quality of the entire sample with neurodevelopmental disorders.",
+      "location": "Chien2022.pdf.md: Table 1; 41380_2022_1636_MOESM1_ESM.docx.md: STable 1, STable 2"
+    }, 
+    "caa6_deviation_metric": {
+      "answer": "Z-scores of Generalized Fractional Anisotropy (GFA) for each of 45 white matter tracts, derived from sex-specific normative age models.",
+      "confidence_rating": "High",
+      "reason": "The deviation metric is clearly defined in the statistical analysis section.",
+      "supporting_text": "Individualized tract-deviation pro /uniFB01 les comprised GFA Z -scores of each WM tract derived from the sex-speci /uniFB01 c normative age models, constructed from 626 TDCs...",
+      "location": "Chien2022.pdf.md: Statistical analysis, standardized normative models"
+    }, 
+    "caa7_association_analysis": "Canonical Correlation Analysis (CCA) to identify covariation between GFA Z-scores and cognitive measures (CANTAB and IQ). Spearman's correlation to assess similarity of deviation/idiosyncrasy profiles between groups. Two-sample t-tests and F-tests for between-group differences. Unsupervised machine learning (Ward's hierarchical clustering and k-means clustering) to test for group separation.",
+    "caa8_key_findings_brief": "The patterns of white matter tract deviation and idiosyncrasy were similar between early-stage schizophrenia and neurodevelopmental disorders (ADHD/ASD), with this similarity decreasing in chronic schizophrenia.",
+    "caa9_key_findings_detailed": "The study found that whole-brain white matter deviation patterns in early-stage schizophrenia are similar to those in ASD and ADHD, but these similarities diminish as schizophrenia progresses to a chronic stage. Unsupervised machine learning could not distinguish between the disorders based on these WM features. A significant brain-cognition link was found, where deviations in tracts like the fornix and IFOF were associated with working memory across all three disorders. This supports a neurodevelopmental continuum model with shared neural underpinnings.",
+    "caa10_key_limitations": {
+      "answer": "1. Unknown effects of psychotropic medication. 2. Influence of the number of psychotic relapses was not considered. 3. Some participants in the ADHD/ASD groups were younger than the typical onset age for schizophrenia. 4. Participants with intellectual disabilities were excluded.",
+      "supporting_text": "This study has several limitations. First, psychotropic medications ' effect on the current /uniFB01 ndings is unknown. ... Second, the number of psychotic relapses may also in /uniFB02 uence brain structures [70] in addition to illness duration. ... Third, some children with ADHD or ASD were under the common age of schizophrenia onset. ... Lastly, none of the participants were diagnosed with intellectual disabilities...",
+      "location": "Chien2022.pdf.md: Discussion"
+    },
+    "caa11_application_notes": "The study utilized propensity score weights matching for age in some analyses to control for age differences between groups. It also employed unsupervised clustering to test the separability of the diagnostic groups based on brain features."
+  },
+  "general_note_part": {
+      "gn1_general_notes": "A key feature of this study is the stratification of the schizophrenia cohort into first-episode, subchronic, and chronic stages to examine the progression of brain changes. The use of a single-site dataset is a major strength, as it eliminates inter-site variability. The normative model was pre-established in a prior publication [17] using the same control cohort."
+  }
+}
+
+with open("DE_Chien2022_by_gemini_20251122022111.json", "w") as f:
+    json.dump(data, f, indent=2)
