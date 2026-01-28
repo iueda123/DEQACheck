@@ -262,13 +262,16 @@ Shan2022, Shao2024, Verdi2024, Wang2023, Wen2025, Wolfers2018, Wolfers2020, Wolf
 
 -----
 
-## SubV と GMV　の使い分けは？
+## SubV と GMV、CV と GMV　の使い分けは？
 
 SubV は「皮質下の特定ROI体積」を指す場合に用いる（例: 海馬、扁桃体、視床核、線条体、側坐核など）。
 GMV は「灰白質体積の一般的指標」を指す場合に用いる（例: 全脳GMV、広域/皮質ROIのGMV、VBM由来のGM体積）。
 迷った場合は、対象が明確に皮質下核の体積なら SubV、それ以外の灰白質体積は GMV に分類する。
 
-
+CV と GMV の使い分けについては、対象が「皮質（cortex）に限定された体積」であることが明確な場合は CV とする
+（例: FreeSurfer の cortical volume、表面ベースで thickness×area から算出された体積、皮質ROIのcortical GM volume）。
+一方、VBM 由来のボクセル/領域の gray matter volume や、皮質下も含む灰白質体積、全脳GMVは GMV とする。
+記述が曖昧で「gray matter volume」とだけある場合は GMV に寄せる。
 
 
 ----

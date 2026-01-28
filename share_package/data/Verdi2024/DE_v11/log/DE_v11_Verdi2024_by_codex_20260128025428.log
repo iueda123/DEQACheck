@@ -1,0 +1,1208 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v11.md に従って作業をしてください。作業結果は ./DE_v11_Verdi2024_by_codex_20260128025428.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019c0097-c283-7991-8011-89426bf662a8
+--------
+user
+./DE_Guide_v11.md に従って作業をしてください。作業結果は ./DE_v11_Verdi2024_by_codex_20260128025428.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Checking for available documentation**
+
+I'm considering using ripgrep or simply reading files to locate a guide or relevant documentation for context.
+2026-01-27T17:54:34.817744Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428 succeeded in 18ms:
+DE_Guide_v11.md
+DE_v11_Verdi2024_by_codex_20260128025428.json
+DE_v11_Verdi2024_by_codex_20260128025428.log
+study_1
+2026-01-27T17:54:36.865452Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' DE_Guide_v11.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428 succeeded in 29ms:
+# 神経画像におけるノルマティブモデリングのデータ抽出ガイダンス（システマティックレビュー）
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。このデータ抽出は、精神・神経疾患に対する神経画像の方法論的検討と応用に関するシステマティックレビューの一環として行われます。
+
+-------------------
+
+## 本レビューの目的
+
+本システマティックレビューでは、神経画像および神経生理検査（例: MRI, PET, EEG,
+MEG）を用いたノルマティブモデリング研究を評価します。以下の3点を扱います:
+
+*
+    1. **モダリティ**:
+       ノルマティブモデリングで用いられている計測技術は何か、それぞれどの程度使われているか。MRIのような一般的モダリティでは、どのシーケンス（例:
+       T-weighted）が最も頻用されるか。
+*
+
+thinking
+**Planning extraction fields search**
+
+I’m preparing to locate extraction items by searching for keywords like "Data Extraction Form" and section markers such as "###" in the guide. This will help identify the relevant fields to extract.
+exec
+/bin/bash -lc 'rg -n "''^###|''^####" DE_Guide_v11.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/202601280254282026-01-27T17:54:42.960473Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 32ms:
+97:### SI. Study Identification Part
+99:#### SI-1. Study ID
+106:#### SI-2. Reference File Names
+113:#### SI-3. Author, Journal, and Year
+120:#### SI-4. Title
+125:### DC. Dataset Characteristics Part
+127:#### DC-1. Datasets Using in This Study
+239:#### DC-2. Purpose of Each Dataset
+257:#### DC-3. Healthy Control Number of Each Normative Model
+281:#### DC-4. Age Info of Each Normative Model
+339:#### DC-5. Sex Info of Each Normative Model
+385:### ACRSL_Style Format
+416:#### Example: ACRSL_Style
+430:### ADCSL_Style Format
+446:#### Example: ADCSL_Style
+460:### ASL_Style Format
+469:#### Example: ASL_Style
+481:### A_Style Format
+488:#### Example: A_Style
+
+thinking
+**Checking code from DC-2 onward**
+2026-01-27T17:54:46.083026Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '220,380p' DE_Guide_v11.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428 succeeded in 30ms:
+| devCCNP                  | devCCNP                              | developing Chinese Color Nest Project                                                  |
+| TOP                      | TOP                                  | Thematically Organized Psychosis                                                       |
+| TOP                      | sTOP                                 | Forensic Psychiatry study (sTOP)                                                       |
+| TOP                      | uTOP                                 | Youth-TOP study (uTOP)                                                                 |
+| femaleASD                | femaleASD                            | Multimodal Developmental Neurogenetics of Females with ASD                             |
+| MULTI-DATASET            | MULTI-DATASET (UNSPECIFIED OR N>=10) | Multiple Datasets (Unspecified or N>=10)                                               |
+| No Special Dataset Name  | MULTI-SITE (N>=2)                    | Multiple Sites (N>=2)                                                                  |
+| No Special Dataset Name  | SINGLE-SITE                          | Single Site                                                                            |
+| None (Pre-Trained NM)    | None (Pre-Trained NM)                | None (Pre-Trained Normative Model)                                                     |
+| Unknown                  | Unknown                              | Unknown Dataset                                                                        |                                                                                                                  |                                                                                                                                                                                                                                                                                                                                                   |                                                           |
+
+* 抽出スタイル: ADCSL_Style
+* "answer" 例:
+
+```json
+"answer": [ "HCP-A", "HCP-YA", "UK Biobank", "COBRE", "UMich", "TOP"]
+
+```
+
+#### DC-2. Purpose of Each Dataset
+
+thinking
+**Clarifying output fields and input data**
+
+The output JSON should include only fields from SI-1 through DC-5, and I need to read the documents related to study_1 for processing.
+exec
+/bin/bash -lc 'rg --files study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/202601280254282026-01-27T17:54:49.056031Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+study_1/Verdi2024.pdf.md
+2026-01-27T17:54:51.887427Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Verdi2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428 succeeded in 27ms:
+## RESEARCH ARTICLE
+
+![Image](./Verdi2024_artifacts/image_000000_ba363a304214c4536054d20d711dc650f144b8f9d5657cc00c941889a1614c26.png)
+
+![Image](./Verdi2024_artifacts/image_000001_aea9f37017a78ffe0b124246d968d8492cf27a04bf783aaf2deb5503a30f7bb7.png)
+
+## Personalizing progressive changes to brain structure in Alzheimer's disease using normative modeling
+
+Serena Verdi 1,2
+
+Saige Rutherford 3,4
+
+Charlotte Fraza 3,4
+
+DuyguTosun 5
+
+Andre Altmann 1
+
+Lars Lau Raket 6
+
+
+thinking
+**Confirming key datasets for normative model**
+
+I'm verifying that the dataset list includes main reference datasets like OASIS, ABCD, UK Biobank, and ADNI to ensure coverage for the normative model and research adaptation. Next, I'll search for explicit mentions of these dataset names in the documentation.
+exec
+/bin/bash -lc 'rg -n "UK Biobank|OASIS|ABCD|ADNI" DE_Guide_v11.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/202601280254282026-01-27T17:55:00.568249Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+135:| ABCD                     | ABCD                                 | Adolescent Brain Cognitive Development Study                                           |
+142:| ADDI                     | ADNI                                 | Alzheimer's Disease Neuroimaging Initiative                                            |
+143:| ADNI                     | ADNI-ADS                             | Alzheimer's Disease Neuroimaging Initiative - Alzheimer's Disease Spectrum             |
+144:| ADNI                     | ADNI-3                               | Alzheimer's Disease Neuroimaging Initiative 3                                          |
+202:| OASIS                    | OASIS-1                              | Open Access Series of Imaging Studies-1                                                |
+203:| OASIS                    | OASIS-3                              | Open Access Series of Imaging Studies-3                                                |
+217:| UK Biobank               | UK Biobank                           | UK Biobank                                                                             |
+235:"answer": [ "HCP-A", "HCP-YA", "UK Biobank", "COBRE", "UMich", "TOP"]
+250:{"UK Biobank": "regression benchmark (also partly in functional train/test)"},
+
+thinking
+**Clarifying OASIS dataset version**
+
+Planning to check the paper text for specific mentions of OASIS-1 or OASIS-3 to confirm which dataset versions were used, as the study references multiple sources without clear specification.
+2026-01-27T17:55:05.750333Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "OASIS|ABCD|UK Biobank|UKB|ADNI" study_1/Verdi2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428 succeeded in 32ms:
+45:Data used in preparation of this article were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu). As such, the investigators within the ADNI contributed to the design and implementation of ADNI and/or provided data but did not participate in the analysis or writing of this report. A complete listing of ADNIinvestigators can be found at:
+47:http://adni.loni.usc.edu/wpcontent/uploads/how\_to\_apply/ ADNI\_Acknowledgement\_List.pdf
+51:National Institutes of Health, Grant/Award Number: U01 AG024904; DOD ADNI, Grant/Award Number: W81XWH-12-2-0012; National Institute on Aging; National Institute of Biomedical Imaging and Bioengineering; AbbVie; Alzheimer's Association; Alzheimer's Drug Discovery Foundation; Araclon Biotech; BioClinica, Inc.; Biogen; Bristol-Myers Squibb Company; CereSpir, Inc.; Cogstate; Eisai Incorporated; Elan Pharmaceuticals, Inc.; Eli
+79:2019-2.1.7-ERA-NET-2020-00008; ADNI; Alzheimer's Association; Alzheimer's Drug Discovery Foundation; Department of Health's National Institute for Health Research funded University College London Hospitals Biomedical Research Centre; ZonMW, Grant/Award Number: 733051106; Agence Nationale de la Recherche, Grant/Award Number: ANR-19-JPW2-000; Italian Ministry of Health (MoH)
+101:Using neuroimaging data from the Alzheimer's Disease Neuroimaging Initiative (ADNI) we have previously shown the heterogeneous nature of cortical thinning patterns between individuals with AD. 17 Here, the individualized brain-wide z score maps revealed heterogenous atrophy patterns in the AD group; the extent of cortical thinning (i.e., in terms of deviation from the norm) in mild cognitive impairment (MCI) was predictive of conversion to AD and was also related to cognitive function, amyloid beta, phosphorylated tau, and apolipoprotein E ( APOE ) genotype. In a further study, individualized atrophy patterns were shown to relate to disease severity, presenting phenotypes and comorbidities in amyloid-positive AD patients in a 'real-world' memory clinic setting. 18 Insights from these studies have so far been based on cross-sectional neuroimaging data. Understanding how patterns of atrophychangeovertimemayprovideinsightsintocausalmechanisms, and aid in prognostication on an individual patient basis and when monitoring disease progression for clinical trials.
+109:Participants were derived from two datasets (Figure 1): (1) a reference (training) dataset comprised of healthy people across the human lifespan, and (2) a research dataset that included people with AD or MCI in addition to age-matched cognitively unimpaired controls. The reference dataset was made by combining T1-weighted MRI scan data on healthy people from multiple publicly available sources, 19 including Open Access Series of Imaging Studies (OASIS), Adolescent Brain Cognitive Development (ABCD) study, and UK Biobank (UKB), totaling 58,836 individuals from 82 sites. Data collection, data processing, and participant demographics of the reference dataset were described previously. 14
+111:The research data used in the preparation of this article were obtained from ADNI-http://adni.loni.usc.edu. Inclusion criteria were the availability of T1-weighted MRI scans (acquired using 1.5T and 3T MRI scanners) from ADNI-1, -GO, -2, and -3 ( n = 1849, a total of 4540
+121:Furthermore, additional variables were obtained from the research dataset (ADNI) and linked to each MRI assessment, assuming these additional data were acquired within 12 weeks of the scan. This included cognitive data: memory using ADNI memory (MEM) or executive function using ADNI executive function (EF), 22 and the MiniMental State Examination (MMSE) total score 23 ; amyloid and tau markers: for amyloid, florbetapir, a summary positron emission tomography (PET) standardized uptake value ratio (SUVR), 24 and tau, a PET summary SUVR flortaucipir 25 ; and genetic markers: APOE ε 4 status (determined by either being APOE ε 4 homozygous, APOE ε 4 heterozygous, or APOE ε 4 non-carrier), and previously generated polygenic risk score (PRS). 26
+127:FIGURE 1 Flow diagram of methods pipeline, study inclusion criteria, and sample sizes. Diagnostic groups include cognitively unimpaired controls, participants with MCI, and patients with dementia. *Study course is between baseline scan (0 months) and 115 months/9.5 years. ADNI, Alzheimer's Disease Neuroimaging Initiative; APOE , apolipoprotein E; MCI, mild cognitive impairment; MMSE, Mini-Mental State Examination; PET, positron emission tomography; SUVR, standardized uptake value ratio.
+137:For ADNI, T1-weighted images were acquired at 62 study sites using 1.5T or 3T MRI scanner visits across ADNI-1, -GO, -2, -3. Detailed MRI protocols for T1-weighted sequences are available online (http://adni. loni.usc.edu/methods/documents/mri-protocols/). The quality of raw scans was evaluated at the Mayo Clinic for technical problems and significant motion artifacts and clinical abnormalities. 29
+141:T1-weighted scans from both the reference and the research dataset were processed using FreeSurfer recon-all cross-sectional, to extract the cortical thickness of 148 cortical regions and gray matter tissue volume of 20 subcortical volumes from the Destrieux parcellations. 30,31 For the reference dataset FreeSurfer version 6 was used; for ADNI, FreeSurfer versions 5 or 6 were used. Quality control of FreeSurfer processing for the reference dataset relied on both manual and automated filtering, as described previously. 14 For the research dataset, quality control was based on a visual review of each cortical region performed at University of California San Francisco (https://adni.bitbucket.io/reference/docs/UCSFFSX51/UCSF% 20FreeSurfer%20Methods%20and%20QC\_OFFICIAL.pdf).
+145:A non-Gaussian Bayesian regression model was implemented, which accounts for the non-Gaussian distributions of the cortical thickness andsubcortical volume data and adjusts for unwanted noise from scanning acquisition across multiple sites. 32 This model was trained on 58,836scansfromdatasetsacross82sitestogeneratenormativemodels per region using the covariates age, sex, and site, as previously described. 14,32 Next, these estimates were calibrated to our specific test data (i.e., ADNI), using an adapted transfer learning approach. 19 The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site, with the aim of reducing site effects and software version effects (i.e., FreeSurfer v5 or v6). The controls for calibration were randomly selected with stratification to ensure all sites and sexes were present in the adaptation set. The data from the remaining 30% of cognitively unimpaired controls, plus participants with MCI and patients with AD, were then compared to these normative models, generating z scores per region for each scan. A summary of this pipeline and a breakdown of the respective sample sizes included are detailed in Figure 1. The final sample used in z score analysis is n = 1181, which included 3233 scans (Figure 1 and Table 1). The modeling steps and models trained on the reference dataset are openly available: https://github.com/predictive-clinical-neuroscience/ braincharts.
+159:To assess longitudinal atrophy, we took two related approaches. First, we calculated the rate of change in tOC as the difference in baseline and final tOC (up to 115 months). A linear model was used to test for differences in the rate of change in tOC between diagnostic groups while adjusting for age, sex, and predicted AD stage (AC score, see Section 2.1). 28,33 Second, we calculated the rate of change in z score per region. Here, we calculated the difference between the baseline and final z score, and then we defined a new 'normative model' based on the distribution of rates of change in scans of cognitively unimpaired controls reserved for analysis (661 scans). 'Rate of z score change outliers' was then defined if a rate of change was more than two standard deviations away from the mean in the ADNI controls (which was Z = -0.0009). Then, the neuroanatomical patterns of the 'rate of z score change outliers' were mapped onto brain surfaces for visualization purposes. As a final step, to provide more detail, we focused on the region of the highest rate of change (in this case, the left hippocampus), and compared patients with AD who had a 'rate of z score change outliers' to those that were not, based on their total MMSE score and their ADstage (AC score), age, sex, and APOE ε 4 status.
+163:TABLE 1 Demographics and AD-related characteristics of ADNI participants used in the study.
+175:| Baseline ADNI memory mean ± SD total & range                    | 1.2 ± 0.6 (-0.7-3.3)     | 0.3 ± 0.6 (-1.5-2.4)  | -0.9 ± 0.6 (-2.9-0.4) | 0.3 ± 0.9 (-2.8-3.3)   | F (2, 1074) = 590.5, p = 2.2 × 10 -16 |
+176:| Baseline ADNI executive function mean ± SDtotal & range         | 1.0 ± 0.8 (-1.2-2.9)     | 0.3 ± 0.8 (-2.3-2.9)  | -0.9 ± 1.0 (-3.0-2.6) | 0.3 ± 1.1 (-3.0-2.9)   | F (2, 1070) = 248.9, p = 2.2 × 10 -16 |
+183:Abbreviations: AD, Alzheimer's disease; ADNI, Alzheimer's Disease Neuroimaging Initiative; APOE , apolipoprotein E; IQR, interquartile range; MCI, mild cognitive impairment; PET, positron emission tomography; SD, standard deviation; SUVR, standardized uptake value ratio.
+207:Linear regression adjusting for age, sex, and years of education examined the relationship between tOC rate of change and cognitive composite scores (memory using ADNI MEM or executive function using ADNI EF). 34 Wethenassessed the interaction between the diagnostic group and cognitive composite score. Total MMSE scores were only used when comparing regional rates of change (Figure 1).
+271:In this study we used neuroanatomical normative modeling to capture individual patient trajectories of brain structure changes during MCIandafter AD diagnosis. Our normative modeling approach generates patient-specific regional outlier maps, and summary outlier scores (tOC), which we analyzed using serial MRI data acquired up to 9.5 years (mean follow-up time 2.4 years) as part of ADNI. Our findings illustrate that AD affects patients in a non-uniform way as the disease progresses.
+281:This is consistent with our finding that the rate of z score change was highest in the left hippocampus, with 53% of the AD group having outliers (i.e., greater than expected changes in z score) in this area (Figure 3). Hippocampal atrophy is seen as characteristic of AD and is included in AD diagnostic criteria, as well as being used in clinical trials. 35 However,ourresultsshowthatintheADNIADsample,47%of patients do not have greater-than-expected left hippocampal volume changes. These results highlight the individual differences between patients with AD and emphasize the limitation of group-average statistical designs, which would overlook this within-group variability. Moreover, we found that age, sex, total MMSE score and AD stage (AC score), and APOE ε 4 status were not associated with either having or not having a marked rate of z score change outliers (i.e., elevated atrophy), which may provide further evidence for a hippocampal-sparing subtype. 36-39
+
+
+thinking
+**Clarifying normative model structure**
+
+The paper describes separate cortical and subcortical normative models trained on 58k healthy controls, suggesting two models within one normative model set. Data counts and demographics for the reference dataset are unavailable, so these will be marked as not reported (NR), while noting the overall training size and adaptation details.
+thinking
+**Defining normative model phases and datasets**
+
+The normative model is based on 58,836 healthy scans from multiple datasets for both overall and training phases, with adaptation using 70% of ADNI controls for calibration. Since exact ADNI calibration counts aren’t given, these will be noted as unspecified in the details while presenting the main normative model counts transparently.
+2026-01-27T17:55:29.294984Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '430,520p' DE_Guide_v11.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428 succeeded in 30ms:
+### ADCSL_Style Format
+
+When an item requires ADCSL_Style, provide the following structured information:
+
+1. **Answer**: The extracted information according to the extraction criteria (typically a categorical or short textual
+   answer).
+
+2. **Detail**: Concise, structured details required by the item.
+
+3. **Confidence Rating**: Rate your confidence as "High", "Medium", or "Low".
+
+4. **Supporting Text**: Direct quotes from the source materials that support the answer (concise).
+
+5. **Location**: Where the supporting text was found.
+    - Format: "FileName: Section / Subsection / Location"
+
+#### Example: ADCSL_Style
+
+```json
+{
+
+thinking
+**Checking existing JSON template**
+
+I'm opening the existing DE_v11...json file to examine its structure for matching the output format.
+2026-01-27T17:55:32.265232Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v11_Verdi2024_by_codex_20260128025428.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428 succeeded in 26ms:
+{
+  "study_identification_part": {
+    "si_1_study_id": "",
+    "si_2_reference_file_names": "",
+    "si_3_author_journal_year": "",
+    "si_4_title": ""
+  },
+  "dataset_characteristics_part": {
+    "dc_1_datasets_using_in_this_study": {
+      "answer": [],
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "dc_2_purpose_of_each_dataset": {
+      "answer": [],
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+
+
+
+thinking
+**Clarifying dataset naming ambiguity**
+
+The reference mentions "OASIS" without specifying version, but the dataset list only includes "OASIS-1" and "OASIS-3." Since the paper likely involves both but doesn't clarify, I'll tentatively list both "OASIS-1; OASIS-3" for completeness while noting the uncertainty.
+thinking
+**Resolving dataset and normative model details**
+
+I'm settling on listing datasets as ["OASIS-1", "ABCD", "UK Biobank", "ADNI"] with medium confidence due to unspecified OASIS version, and detailing that ADNI serves both research and calibration roles. For normative model controls, I'll present two models: a large reference normative model (58,836 individuals) and an ADNI calibration model (291 controls), including available age and sex stats for ADNI while noting missing reference demographics.
+thinking
+**Finalizing detailed dataset and normative model metadata**
+
+I’m preparing precise entries for dataset lists, normative model healthy control counts, and associated age/sex data with medium confidence, fully supported by direct quotes from participants, methods, calibration, and Table 1 sections. I'll reflect ADNI calibration as a distinct model alongside the large reference normative model, noting all uncertainties clearly.
+2026-01-27T17:57:46.413835Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+@@ -2,6 +2,6 @@
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Verdi2024",
++    "si_2_reference_file_names": "Verdi2024.pdf.md",
++    "si_3_author_journal_year": "Verdi et al., Alzheimer's & Dementia, 2024",
++    "si_4_title": "Personalizing progressive changes to brain structure in Alzheimer's disease using normative modeling"
+   },
+@@ -9,35 +9,134 @@
+     "dc_1_datasets_using_in_this_study": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        "OASIS-1",
++        "ABCD",
++        "UK Biobank",
++        "ADNI"
++      ],
++      "detail": "Reference dataset sources listed as OASIS, ABCD, and UK Biobank (OASIS version not specified in paper; mapped to OASIS-1 per allowed list). Research dataset is ADNI (ADNI-1/GO/2/3).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The reference dataset was made by combining T1-weighted MRI scan data on healthy people from multiple publicly available sources, 19 including Open Access Series of Imaging Studies (OASIS), Adolescent Brain Cognitive Development (ABCD) study, and UK Biobank (UKB), totaling 58,836 individuals from 82 sites.\" \"The research data used in the preparation of this article were obtained from ADNI-http://adni.loni.usc.edu. Inclusion criteria were the availability of T1-weighted MRI scans (acquired using 1.5T and 3T MRI scanners) from ADNI-1, -GO, -2, and -3\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset"
+     },
+     "dc_2_purpose_of_each_dataset": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "OASIS-1": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ABCD": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "UK Biobank": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ADNI": "research dataset for AD/MCI/controls; used for transfer-learning calibration (70% controls) and analysis/testing (remaining controls + MCI/AD)"
++        }
++      ],
++      "detail": "Two datasets: reference (training) dataset of healthy controls; research dataset (ADNI). ADNI controls used for calibration via transfer learning; remaining controls plus MCI/AD used for comparison.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Participants were derived from two datasets (Figure 1): (1) a reference (training) dataset comprised of healthy people across the human lifespan, and (2) a research dataset that included people with AD or MCI in addition to age-matched cognitively unimpaired controls.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site... The data from the remaining 30% of cognitively unimpaired controls, plus participants with MCI and patients with AD, were then compared to these normative models\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset; Methods / 2.4 Neuroanatomical normative modeling"
+     },
+     "dc_3_number_of_healthy_control_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "reference normative model (cortical thickness + subcortical volume)",
++          "overall-phase": 58836,
++          "train-phase": 58836
++        },
++        "model-2": {
++          "model-name": "ADNI calibration (transfer learning) for normative model",
++          "overall-phase": 291,
++          "train-phase": "NR (70% of controls per ADNI site; exact N not reported)"
++        }
++      },
++      "detail": "Reference normative model trained on 58,836 scans from healthy datasets across 82 sites. ADNI controls total n=291; 70% used for calibration but exact N not reported.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"This model was trained on 58,836 scans from datasets across 82 sites to generate normative models per region using the covariates age, sex, and site, as previously described.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site\" \"| n                                                               | 291                      | 682                   | 208                   | 1181                   | -                                     |\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.4 Neuroanatomical normative modeling; study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_4_age_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "mean": 73.9,
++            "sd": 6.2,
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": 56,
++            "max": 93
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        }
++      },
++      "detail": "Age statistics reported for ADNI controls at baseline (mean, SD, range); no age summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Baseline age mean ± SD&range                                    | 73.9 ± 6.2 (56-93)       | 72.2 ± 7.8 (54-97)    | 74.1 ± 8.1 (55-90)    | 72.9 ± 7.6 (54-97)     | F (2, 1172) = 8.42, p = 0.0002        |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_5_sex_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "female_n": 170,
++            "female_pct": "58.4%",
++            "male_n": 121,
++            "male_pct": "41.6%"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        }
++      },
++      "detail": "Sex counts for ADNI controls reported as M:F = 121:170; percentages calculated from these counts. No sex summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Sex (M:F)                                                       | 121:170                  | 381:301               | 106:102               | 608:573                | X 2 = 16.68, p = 0.0002               |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     }
+apply_patch(auto_approved=true) exited 0 in 11ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+file update:
+diff --git a/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json b/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+index 82869c571edcc754c356e30e5ae4bd33fa2a5660..3a2f33318c0e21d75f4173c9ad25363020fbcb72
+--- a/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
++++ b/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+@@ -1,45 +1,144 @@
+ {
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Verdi2024",
++    "si_2_reference_file_names": "Verdi2024.pdf.md",
++    "si_3_author_journal_year": "Verdi et al., Alzheimer's & Dementia, 2024",
++    "si_4_title": "Personalizing progressive changes to brain structure in Alzheimer's disease using normative modeling"
+   },
+   "dataset_characteristics_part": {
+     "dc_1_datasets_using_in_this_study": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        "OASIS-1",
++        "ABCD",
++        "UK Biobank",
++        "ADNI"
++      ],
++      "detail": "Reference dataset sources listed as OASIS, ABCD, and UK Biobank (OASIS version not specified in paper; mapped to OASIS-1 per allowed list). Research dataset is ADNI (ADNI-1/GO/2/3).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The reference dataset was made by combining T1-weighted MRI scan data on healthy people from multiple publicly available sources, 19 including Open Access Series of Imaging Studies (OASIS), Adolescent Brain Cognitive Development (ABCD) study, and UK Biobank (UKB), totaling 58,836 individuals from 82 sites.\" \"The research data used in the preparation of this article were obtained from ADNI-http://adni.loni.usc.edu. Inclusion criteria were the availability of T1-weighted MRI scans (acquired using 1.5T and 3T MRI scanners) from ADNI-1, -GO, -2, and -3\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset"
+     },
+     "dc_2_purpose_of_each_dataset": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "OASIS-1": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ABCD": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "UK Biobank": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ADNI": "research dataset for AD/MCI/controls; used for transfer-learning calibration (70% controls) and analysis/testing (remaining controls + MCI/AD)"
++        }
++      ],
++      "detail": "Two datasets: reference (training) dataset of healthy controls; research dataset (ADNI). ADNI controls used for calibration via transfer learning; remaining controls plus MCI/AD used for comparison.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Participants were derived from two datasets (Figure 1): (1) a reference (training) dataset comprised of healthy people across the human lifespan, and (2) a research dataset that included people with AD or MCI in addition to age-matched cognitively unimpaired controls.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site... The data from the remaining 30% of cognitively unimpaired controls, plus participants with MCI and patients with AD, were then compared to these normative models\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset; Methods / 2.4 Neuroanatomical normative modeling"
+     },
+     "dc_3_number_of_healthy_control_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "reference normative model (cortical thickness + subcortical volume)",
++          "overall-phase": 58836,
++          "train-phase": 58836
++        },
++        "model-2": {
++          "model-name": "ADNI calibration (transfer learning) for normative model",
++          "overall-phase": 291,
++          "train-phase": "NR (70% of controls per ADNI site; exact N not reported)"
++        }
++      },
++      "detail": "Reference normative model trained on 58,836 scans from healthy datasets across 82 sites. ADNI controls total n=291; 70% used for calibration but exact N not reported.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"This model was trained on 58,836 scans from datasets across 82 sites to generate normative models per region using the covariates age, sex, and site, as previously described.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site\" \"| n                                                               | 291                      | 682                   | 208                   | 1181                   | -                                     |\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.4 Neuroanatomical normative modeling; study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_4_age_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "mean": 73.9,
++            "sd": 6.2,
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": 56,
++            "max": 93
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        }
++      },
++      "detail": "Age statistics reported for ADNI controls at baseline (mean, SD, range); no age summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Baseline age mean ± SD&range                                    | 73.9 ± 6.2 (56-93)       | 72.2 ± 7.8 (54-97)    | 74.1 ± 8.1 (55-90)    | 72.9 ± 7.6 (54-97)     | F (2, 1172) = 8.42, p = 0.0002        |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_5_sex_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "female_n": 170,
++            "female_pct": "58.4%",
++            "male_n": 121,
++            "male_pct": "41.6%"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        }
++      },
++      "detail": "Sex counts for ADNI controls reported as M:F = 121:170; percentages calculated from these counts. No sex summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Sex (M:F)                                                       | 121:170                  | 381:301               | 106:102               | 608:573                | X 2 = 16.68, p = 0.0002               |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json b/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+index 82869c571edcc754c356e30e5ae4bd33fa2a5660..3a2f33318c0e21d75f4173c9ad25363020fbcb72
+--- a/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
++++ b/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+@@ -1,45 +1,144 @@
+ {
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Verdi2024",
++    "si_2_reference_file_names": "Verdi2024.pdf.md",
++    "si_3_author_journal_year": "Verdi et al., Alzheimer's & Dementia, 2024",
++    "si_4_title": "Personalizing progressive changes to brain structure in Alzheimer's disease using normative modeling"
+   },
+   "dataset_characteristics_part": {
+     "dc_1_datasets_using_in_this_study": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        "OASIS-1",
++        "ABCD",
++        "UK Biobank",
++        "ADNI"
++      ],
++      "detail": "Reference dataset sources listed as OASIS, ABCD, and UK Biobank (OASIS version not specified in paper; mapped to OASIS-1 per allowed list). Research dataset is ADNI (ADNI-1/GO/2/3).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The reference dataset was made by combining T1-weighted MRI scan data on healthy people from multiple publicly available sources, 19 including Open Access Series of Imaging Studies (OASIS), Adolescent Brain Cognitive Development (ABCD) study, and UK Biobank (UKB), totaling 58,836 individuals from 82 sites.\" \"The research data used in the preparation of this article were obtained from ADNI-http://adni.loni.usc.edu. Inclusion criteria were the availability of T1-weighted MRI scans (acquired using 1.5T and 3T MRI scanners) from ADNI-1, -GO, -2, and -3\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset"
+     },
+     "dc_2_purpose_of_each_dataset": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "OASIS-1": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ABCD": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "UK Biobank": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ADNI": "research dataset for AD/MCI/controls; used for transfer-learning calibration (70% controls) and analysis/testing (remaining controls + MCI/AD)"
++        }
++      ],
++      "detail": "Two datasets: reference (training) dataset of healthy controls; research dataset (ADNI). ADNI controls used for calibration via transfer learning; remaining controls plus MCI/AD used for comparison.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Participants were derived from two datasets (Figure 1): (1) a reference (training) dataset comprised of healthy people across the human lifespan, and (2) a research dataset that included people with AD or MCI in addition to age-matched cognitively unimpaired controls.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site... The data from the remaining 30% of cognitively unimpaired controls, plus participants with MCI and patients with AD, were then compared to these normative models\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset; Methods / 2.4 Neuroanatomical normative modeling"
+     },
+     "dc_3_number_of_healthy_control_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "reference normative model (cortical thickness + subcortical volume)",
++          "overall-phase": 58836,
++          "train-phase": 58836
++        },
++        "model-2": {
++          "model-name": "ADNI calibration (transfer learning) for normative model",
++          "overall-phase": 291,
++          "train-phase": "NR (70% of controls per ADNI site; exact N not reported)"
++        }
++      },
++      "detail": "Reference normative model trained on 58,836 scans from healthy datasets across 82 sites. ADNI controls total n=291; 70% used for calibration but exact N not reported.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"This model was trained on 58,836 scans from datasets across 82 sites to generate normative models per region using the covariates age, sex, and site, as previously described.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site\" \"| n                                                               | 291                      | 682                   | 208                   | 1181                   | -                                     |\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.4 Neuroanatomical normative modeling; study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_4_age_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "mean": 73.9,
++            "sd": 6.2,
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": 56,
++            "max": 93
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        }
++      },
++      "detail": "Age statistics reported for ADNI controls at baseline (mean, SD, range); no age summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Baseline age mean ± SD&range                                    | 73.9 ± 6.2 (56-93)       | 72.2 ± 7.8 (54-97)    | 74.1 ± 8.1 (55-90)    | 72.9 ± 7.6 (54-97)     | F (2, 1172) = 8.42, p = 0.0002        |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_5_sex_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "female_n": 170,
++            "female_pct": "58.4%",
++            "male_n": 121,
++            "male_pct": "41.6%"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        }
++      },
++      "detail": "Sex counts for ADNI controls reported as M:F = 121:170; percentages calculated from these counts. No sex summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Sex (M:F)                                                       | 121:170                  | 381:301               | 106:102               | 608:573                | X 2 = 16.68, p = 0.0002               |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     }
+   }
+ }
+
+
+thinking
+**Validating JSON with Python**
+
+Deciding to use Python's built-in JSON tool to quickly check JSON validity instead of jq for simplicity.
+2026-01-27T17:57:50.406991Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'python -m json.tool DE_v11_Verdi2024_by_codex_20260128025428.json > /tmp/valid.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/20260128025428 succeeded in 53ms:
+
+file update:
+diff --git a/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json b/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+index 82869c571edcc754c356e30e5ae4bd33fa2a5660..3a2f33318c0e21d75f4173c9ad25363020fbcb72
+--- a/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
++++ b/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+@@ -1,45 +1,144 @@
+ {
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Verdi2024",
++    "si_2_reference_file_names": "Verdi2024.pdf.md",
++    "si_3_author_journal_year": "Verdi et al., Alzheimer's & Dementia, 2024",
++    "si_4_title": "Personalizing progressive changes to brain structure in Alzheimer's disease using normative modeling"
+   },
+   "dataset_characteristics_part": {
+     "dc_1_datasets_using_in_this_study": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        "OASIS-1",
++        "ABCD",
++        "UK Biobank",
++        "ADNI"
++      ],
++      "detail": "Reference dataset sources listed as OASIS, ABCD, and UK Biobank (OASIS version not specified in paper; mapped to OASIS-1 per allowed list). Research dataset is ADNI (ADNI-1/GO/2/3).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The reference dataset was made by combining T1-weighted MRI scan data on healthy people from multiple publicly available sources, 19 including Open Access Series of Imaging Studies (OASIS), Adolescent Brain Cognitive Development (ABCD) study, and UK Biobank (UKB), totaling 58,836 individuals from 82 sites.\" \"The research data used in the preparation of this article were obtained from ADNI-http://adni.loni.usc.edu. Inclusion criteria were the availability of T1-weighted MRI scans (acquired using 1.5T and 3T MRI scanners) from ADNI-1, -GO, -2, and -3\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset"
+     },
+     "dc_2_purpose_of_each_dataset": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "OASIS-1": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ABCD": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "UK Biobank": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ADNI": "research dataset for AD/MCI/controls; used for transfer-learning calibration (70% controls) and analysis/testing (remaining controls + MCI/AD)"
++        }
++      ],
++      "detail": "Two datasets: reference (training) dataset of healthy controls; research dataset (ADNI). ADNI controls used for calibration via transfer learning; remaining controls plus MCI/AD used for comparison.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Participants were derived from two datasets (Figure 1): (1) a reference (training) dataset comprised of healthy people across the human lifespan, and (2) a research dataset that included people with AD or MCI in addition to age-matched cognitively unimpaired controls.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site... The data from the remaining 30% of cognitively unimpaired controls, plus participants with MCI and patients with AD, were then compared to these normative models\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset; Methods / 2.4 Neuroanatomical normative modeling"
+     },
+     "dc_3_number_of_healthy_control_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "reference normative model (cortical thickness + subcortical volume)",
++          "overall-phase": 58836,
++          "train-phase": 58836
++        },
++        "model-2": {
++          "model-name": "ADNI calibration (transfer learning) for normative model",
++          "overall-phase": 291,
++          "train-phase": "NR (70% of controls per ADNI site; exact N not reported)"
++        }
++      },
++      "detail": "Reference normative model trained on 58,836 scans from healthy datasets across 82 sites. ADNI controls total n=291; 70% used for calibration but exact N not reported.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"This model was trained on 58,836 scans from datasets across 82 sites to generate normative models per region using the covariates age, sex, and site, as previously described.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site\" \"| n                                                               | 291                      | 682                   | 208                   | 1181                   | -                                     |\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.4 Neuroanatomical normative modeling; study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_4_age_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "mean": 73.9,
++            "sd": 6.2,
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": 56,
++            "max": 93
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        }
++      },
++      "detail": "Age statistics reported for ADNI controls at baseline (mean, SD, range); no age summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Baseline age mean ± SD&range                                    | 73.9 ± 6.2 (56-93)       | 72.2 ± 7.8 (54-97)    | 74.1 ± 8.1 (55-90)    | 72.9 ± 7.6 (54-97)     | F (2, 1172) = 8.42, p = 0.0002        |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_5_sex_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "female_n": 170,
++            "female_pct": "58.4%",
++            "male_n": 121,
++            "male_pct": "41.6%"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        }
++      },
++      "detail": "Sex counts for ADNI controls reported as M:F = 121:170; percentages calculated from these counts. No sex summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Sex (M:F)                                                       | 121:170                  | 381:301               | 106:102               | 608:573                | X 2 = 16.68, p = 0.0002               |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     }
+   }
+ }
+
+
+thinking
+**Summarizing filled JSON and next steps**
+
+The JSON file was completed following the guide, using key evidence including the assumed OASIS version mapping and inclusion of the ADNI calibration model as a separate entry. The updated file is at the given path, and JSON validity was confirmed using standard tooling. Next, I suggest verifying the exact OASIS version to ensure mapping accuracy and deciding whether to keep the ADNI calibration as a separate model or integrate it differently.
+codex
+Filled the extraction fields per `DE_Guide_v11.md` and documented evidence for datasets, purposes, and ADNI control demographics in `DE_v11_Verdi2024_by_codex_20260128025428.json`.
+
+Details and notes:
+- Mapped datasets to the allowed Minor Category list; OASIS is listed in the paper without version, so I mapped it to `OASIS-1` and called out the uncertainty in the detail field.
+- Split normative model info into a reference model (58,836) and ADNI calibration controls (n=291; 70% used but exact N not reported), per the methods and Table 1.
+- Age/sex stats filled for ADNI controls only; reference dataset age/sex are NR because the paper doesn’t report them.
+
+Validation:
+- `python -m json.tool DE_v11_Verdi2024_by_codex_20260128025428.json`
+
+If you want, I can:
+1) Re-map OASIS to `OASIS-3` or to a different scheme if you prefer.  
+2) Collapse the ADNI calibration into the reference model and remove model-2 to keep only one normative model entry.
+2026-01-27T17:58:01.848190Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json b/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+index 82869c571edcc754c356e30e5ae4bd33fa2a5660..3a2f33318c0e21d75f4173c9ad25363020fbcb72
+--- a/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
++++ b/share_package/ai_workspace/20260128025428/DE_v11_Verdi2024_by_codex_20260128025428.json
+@@ -1,45 +1,144 @@
+ {
+   "study_identification_part": {
+-    "si_1_study_id": "",
+-    "si_2_reference_file_names": "",
+-    "si_3_author_journal_year": "",
+-    "si_4_title": ""
++    "si_1_study_id": "Verdi2024",
++    "si_2_reference_file_names": "Verdi2024.pdf.md",
++    "si_3_author_journal_year": "Verdi et al., Alzheimer's & Dementia, 2024",
++    "si_4_title": "Personalizing progressive changes to brain structure in Alzheimer's disease using normative modeling"
+   },
+   "dataset_characteristics_part": {
+     "dc_1_datasets_using_in_this_study": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        "OASIS-1",
++        "ABCD",
++        "UK Biobank",
++        "ADNI"
++      ],
++      "detail": "Reference dataset sources listed as OASIS, ABCD, and UK Biobank (OASIS version not specified in paper; mapped to OASIS-1 per allowed list). Research dataset is ADNI (ADNI-1/GO/2/3).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The reference dataset was made by combining T1-weighted MRI scan data on healthy people from multiple publicly available sources, 19 including Open Access Series of Imaging Studies (OASIS), Adolescent Brain Cognitive Development (ABCD) study, and UK Biobank (UKB), totaling 58,836 individuals from 82 sites.\" \"The research data used in the preparation of this article were obtained from ADNI-http://adni.loni.usc.edu. Inclusion criteria were the availability of T1-weighted MRI scans (acquired using 1.5T and 3T MRI scanners) from ADNI-1, -GO, -2, and -3\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset"
+     },
+     "dc_2_purpose_of_each_dataset": {
+-      "answer": [],
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": [
++        {
++          "OASIS-1": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ABCD": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "UK Biobank": "reference (training) dataset for normative model (healthy controls)"
++        },
++        {
++          "ADNI": "research dataset for AD/MCI/controls; used for transfer-learning calibration (70% controls) and analysis/testing (remaining controls + MCI/AD)"
++        }
++      ],
++      "detail": "Two datasets: reference (training) dataset of healthy controls; research dataset (ADNI). ADNI controls used for calibration via transfer learning; remaining controls plus MCI/AD used for comparison.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Participants were derived from two datasets (Figure 1): (1) a reference (training) dataset comprised of healthy people across the human lifespan, and (2) a research dataset that included people with AD or MCI in addition to age-matched cognitively unimpaired controls.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site... The data from the remaining 30% of cognitively unimpaired controls, plus participants with MCI and patients with AD, were then compared to these normative models\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.1 Participants and research dataset; Methods / 2.4 Neuroanatomical normative modeling"
+     },
+     "dc_3_number_of_healthy_control_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "reference normative model (cortical thickness + subcortical volume)",
++          "overall-phase": 58836,
++          "train-phase": 58836
++        },
++        "model-2": {
++          "model-name": "ADNI calibration (transfer learning) for normative model",
++          "overall-phase": 291,
++          "train-phase": "NR (70% of controls per ADNI site; exact N not reported)"
++        }
++      },
++      "detail": "Reference normative model trained on 58,836 scans from healthy datasets across 82 sites. ADNI controls total n=291; 70% used for calibration but exact N not reported.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"This model was trained on 58,836 scans from datasets across 82 sites to generate normative models per region using the covariates age, sex, and site, as previously described.\" \"The distribution parameters of the reference normative model were calibrated to our ADNI dataset using 70% of cognitively unimpaired controls per ADNI site\" \"| n                                                               | 291                      | 682                   | 208                   | 1181                   | -                                     |\"",
++      "location": "study_1/Verdi2024.pdf.md: Methods / 2.4 Neuroanatomical normative modeling; study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_4_age_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "mean": 73.9,
++            "sd": 6.2,
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": 56,
++            "max": 93
++          },
++          "train-phase": {
++            "mean": "NR",
++            "sd": "NR",
++            "median": "NR",
++            "iqr_l": "NR",
++            "iqr_u": "NR",
++            "min": "NR",
++            "max": "NR"
++          }
++        }
++      },
++      "detail": "Age statistics reported for ADNI controls at baseline (mean, SD, range); no age summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Baseline age mean ± SD&range                                    | 73.9 ± 6.2 (56-93)       | 72.2 ± 7.8 (54-97)    | 74.1 ± 8.1 (55-90)    | 72.9 ± 7.6 (54-97)     | F (2, 1172) = 8.42, p = 0.0002        |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     },
+     "dc_5_sex_info_of_each_normative_nodel": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "overall-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        },
++        "model-2": {
++          "overall-phase": {
++            "female_n": 170,
++            "female_pct": "58.4%",
++            "male_n": 121,
++            "male_pct": "41.6%"
++          },
++          "train-phase": {
++            "female_n": "NR",
++            "female_pct": "NR",
++            "male_n": "NR",
++            "male_pct": "NR"
++          }
++        }
++      },
++      "detail": "Sex counts for ADNI controls reported as M:F = 121:170; percentages calculated from these counts. No sex summary for reference dataset reported in this paper.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"| Sex (M:F)                                                       | 121:170                  | 381:301               | 106:102               | 608:573                | X 2 = 16.68, p = 0.0002               |\"",
++      "location": "study_1/Verdi2024.pdf.md: Table 1"
+     }
+   }
+ }
+
+tokens used
+39,870
+Filled the extraction fields per `DE_Guide_v11.md` and documented evidence for datasets, purposes, and ADNI control demographics in `DE_v11_Verdi2024_by_codex_20260128025428.json`.
+
+Details and notes:
+- Mapped datasets to the allowed Minor Category list; OASIS is listed in the paper without version, so I mapped it to `OASIS-1` and called out the uncertainty in the detail field.
+- Split normative model info into a reference model (58,836) and ADNI calibration controls (n=291; 70% used but exact N not reported), per the methods and Table 1.
+- Age/sex stats filled for ADNI controls only; reference dataset age/sex are NR because the paper doesn’t report them.
+
+Validation:
+- `python -m json.tool DE_v11_Verdi2024_by_codex_20260128025428.json`
+
+If you want, I can:
+1) Re-map OASIS to `OASIS-3` or to a different scheme if you prefer.  
+2) Collapse the ADNI calibration into the reference model and remove model-2 to keep only one normative model entry.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

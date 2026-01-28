@@ -83,14 +83,10 @@ def main():
         "nm_4_response_variable": ("normative_modeling_part", "nm4_response_variable"),
         "nm_5_predictor_variables": ("normative_modeling_part", "nm5_predictor_variables"),
         "nm_6_predictor_effects": ("normative_modeling_part", "nm6_predictor_effects"),
-        "nm_7_normative_modeling_validation_with_handling_nuisance_structure": ("normative_modeling_part",
-                                                                                "nm7_nm_vldtn_handle_ns"),
-        "nm_8_normative_modeling_validation_strategy_using_same_domain_non_independent_dataset": (
-            "normative_modeling_part", "nm8_nm_vldtn_same_domain_nonindep"),
-        "nm_9_normative_modeling_validation_strategy_using_same_domain_independent_dataset": ("normative_modeling_part",
-                                                                                              "nm9_nm_vldtn_same_domain_indep"),
-        "nm_10_nm_validation_strategy_using_different_domain_dataset": ("normative_modeling_part",
-                                                                        "nm10_nm_vldtn_diff_domain"),
+        "nm_7_normative_modeling_validation_with_handling_nuisance_structure": ("normative_modeling_part", "nm7_nm_vldtn_handle_ns"),
+        "nm_8_normative_modeling_validation_strategy_using_same_domain_non_independent_dataset": ("normative_modeling_part", "nm8_nm_vldtn_same_domain_nonindep"),
+        "nm_9_normative_modeling_validation_strategy_using_same_domain_independent_dataset": ("normative_modeling_part", "nm9_nm_vldtn_same_domain_indep"),
+        "nm_10_nm_validation_strategy_using_different_domain_dataset": ("normative_modeling_part", "nm10_nm_vldtn_diff_domain"),
 
         # Clinical application and analysis
         "caa_1_clinical_dataset": ("clinical_application_and_analysis_part", "caa1_clinical_dataset"),
@@ -120,3 +116,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

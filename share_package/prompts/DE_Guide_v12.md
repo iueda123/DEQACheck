@@ -120,39 +120,41 @@ When an item requires ADCSL_Style, provide the following structured information:
 * Extraction Criteria: Specify the statistical/machine learning algorithm(s) used for normative modeling.
 * 以下の Major Category, Minor Category から該当するものを選んで回答してください（複数回答可）。
 
-| Major Category    | Minor Category | Full Spelling                                             | Description            | Example                    |
-|-------------------|----------------|-----------------------------------------------------------|------------------------|----------------------------|
-| Bayesian Methods  | BLR            | bayesian linear regression                                | ベイズ線形回帰                | 正規-逆ガンマ事前のBLR              |
-| Bayesian Methods  | GPR            | gaussian process regression                               | ガウス過程によるノンパラ回帰         | RBFカーネルのGPR                |
-| Bayesian Methods  | HBR            | hierarchical bayesian regression                          | 階層ベイズ回帰                | サイト階層を持つHBR                |
-| Bayesian Methods  | HBGPM          | hierarchical bayesian gaussian process model              | 階層ベイズGPR               | 集団+サイトの階層GPR               |
-| Bayesian Methods  | HBLM           | hierarchical bayesian linear model                        | 階層ベイズ線形モデル             | マルチレベル線形モデル                |
-| Bayesian Methods  | WBLR           | warped bayesian linear regression                         | 変数ワープを含むBLR            | ワーピング付きBLR                 |
-| Deep Learning     | AAE            | adversarial autoencoder                                   | 逆学習を用いたAE              | AAEで潜在分布整形                 |
-| Deep Learning     | AE             | autoencoder                                               | 素の自己符号化器               | denoising AE               |
-| Deep Learning     | ConVAE         | convolutional variational autoencoder                     | 畳み込みVAE                | 3D-CNN VAE                 |
-| Deep Learning     | GPT            | generative pre-trained transformer                        | 事前学習生成トランスフォーマ         | GPTで合成被験者生成                |
-| Deep Learning     | mmSIVAE        | multimodal introspective VAE                              | 自己内省型マルチモーダルVAE        | MRI+遺伝のmmSIVAE             |
-| Deep Learning     | mmVAE          | multimodal variational autoencoder                        | マルチモーダルVAE             | 画像+臨床のmmVAE                |
-| Deep Learning     | VAE            | variational autoencoder                                   | 変分自己符号化器               | β-VAE                      |
-| Deep Learning     | VQ-VAE         | vector-quantized variational autoencoder                  | ベクトル量子化VAE             | VQ-VAE-2                   |
-| Domain-Specific   | FUNCOIN        | functional connectivity integrative normative modelling   | FC統合ノーマティブモデル          | FUNCOINでFC分布推定             |
-| Domain-Specific   | PBSI           | person-based similarity index                             | 個人別類似性に基づくスコア          | PBSIで個別偏差を計算               |
-| Mixed-Effects     | LMM            | linear mixed model                                        | 線形混合効果モデル              | 体積を従属変数としたLMM              |
-| Mixed-Effects     | MEM            | mixed-effects model                                       | 混合効果モデルの総称             | ランダム切片のみのLME               |
-| Nearest Neighbor  | N3             | nearest neighbor normativity                              | 最近傍を用いたノーマティブ推定        | k=50のN3                    |
-| Nonparametric Reg | GAM            | generalized additive model                                | スムーズ項を含む非線形回帰          | thin-plate splineのGAM      |
-| Nonparametric Reg | GAMLSS         | generalized additive models for location, scale and shape | 分布の位置・尺度・形状を同時モデリング    | μ/σ/ν/τをスプラインで推定           |
-| Nonparametric Reg | GAMM           | generalized additive mixed model                          | ランダム効果を含むGAM           | サイトをランダム効果にしたGAMM          |
-| Nonparametric Reg | LOESS          | locally estimated scatterplot smoothing                   | ローカル回帰スムージング           | span=0.75のLOESS            |
-| Nonparametric Reg | QUANTREG       | quantile regression                                       | 分位点回帰でパーセンタイルを推定       | 5th/50th/95th quantile     |
-| Nonparametric Reg | MAA            | moving average approach                                   | 移動平均による時系列の平滑化         | 移動平均でベースライン抽出              |
-| Parametric Reg    | GLM            | generalized linear model                                  | 一般化線形モデルによる回帰          | GLM with Gaussian identity |
-| Parametric Reg    | MFPR           | multivariate fractional polynomial regression             | 多変量分数多項式回帰             | FP2で年齢効果をモデル               |
-| Parametric Reg    | OLSR           | ordinary least squares regression                         | 線形回帰の最小二乗推定            | ROIごとの線形回帰                 |
-| Parametric Reg    | POLY           | polynomial regression                                     | 線形/二次/三次など多項式回帰        | 二次項までの多項式モデル               |
-| Unspecified       | PCN-UNSPEC     | PCN toolkit unspecified                                   | PCN/nispat/nomisで手法未特定 | "PCNtoolkit pipeline"のみ    |
-| Unspecified       | UNKNOWN/NR     | unknown / not reported                                    | 情報欠損・非情報的回答            | "Yes", 空欄, NR              |
+| Major Category    | Minor Category | Full Spelling                                             | Description                                 | Example                    |
+|-------------------|----------------|-----------------------------------------------------------|---------------------------------------------|----------------------------|
+| Bayesian Methods  | BLR            | bayesian linear regression                                | ベイズ線形回帰                                     | 正規-逆ガンマ事前のBLR              |
+| Bayesian Methods  | GPR            | gaussian process regression                               | ガウス過程によるノンパラ回帰                              | RBFカーネルのGPR                |
+| Bayesian Methods  | HBR            | hierarchical bayesian regression                          | 階層ベイズ回帰                                     | サイト階層を持つHBR                |
+| Bayesian Methods  | HBGPM          | hierarchical bayesian gaussian process model              | 階層ベイズGPR                                    | 集団+サイトの階層GPR               |
+| Bayesian Methods  | HBLM           | hierarchical bayesian linear model                        | 階層ベイズ線形モデル                                  | マルチレベル線形モデル                |
+| Bayesian Methods  | WBLR           | warped bayesian linear regression                         | 変数ワープを含むBLR                                 | ワーピング付きBLR                 |
+| Deep Learning     | AAE            | adversarial autoencoder                                   | 逆学習を用いたAE                                   | AAEで潜在分布整形                 |
+| Deep Learning     | AE             | autoencoder                                               | 素の自己符号化器                                    | denoising AE               |
+| Deep Learning     | ConVAE         | convolutional variational autoencoder                     | 畳み込みVAE                                     | 3D-CNN VAE                 |
+| Deep Learning     | GPT            | generative pre-trained transformer                        | 事前学習生成トランスフォーマ                              | GPTで合成被験者生成                |
+| Deep Learning     | mmSIVAE        | multimodal introspective VAE                              | 自己内省型マルチモーダルVAE                             | MRI+遺伝のmmSIVAE             |
+| Deep Learning     | mmVAE          | multimodal variational autoencoder                        | マルチモーダルVAE                                  | 画像+臨床のmmVAE                |
+| Deep Learning     | VAE            | variational autoencoder                                   | 変分自己符号化器                                    | β-VAE                      |
+| Deep Learning     | VQ-VAE         | vector-quantized variational autoencoder                  | ベクトル量子化VAE                                  | VQ-VAE-2                   |
+| Domain-Specific   | FUNCOIN        | functional connectivity integrative normative modelling   | FC統合ノーマティブモデル                               | FUNCOINでFC分布推定             |
+| Domain-Specific   | PBSI           | person-based similarity index                             | 個人別類似性に基づくスコア                               | PBSIで個別偏差を計算               |
+| Mixed-Effects     | LMM            | linear mixed model                                        | 線形混合効果モデル                                   | 体積を従属変数としたLMM              |
+| Mixed-Effects     | MEM            | mixed-effects model                                       | 混合効果モデルの総称                                  | ランダム切片のみのLME               |
+| Nearest Neighbor  | N3             | nearest neighbor normativity                              | 最近傍を用いたノーマティブ推定                             | k=50のN3                    |
+| Nonparametric Reg | GAM            | generalized additive model                                | スムーズ項を含む非線形回帰                               | thin-plate splineのGAM      |
+| Nonparametric Reg | GAMLSS         | generalized additive models for location, scale and shape | 分布の位置・尺度・形状を同時モデリング                         | μ/σ/ν/τをスプラインで推定           |
+| Nonparametric Reg | GAMM           | generalized additive mixed model                          | ランダム効果を含むGAM                                | サイトをランダム効果にしたGAMM          |
+| Nonparametric Reg | LOESS          | locally estimated scatterplot smoothing                   | ローカル回帰スムージング                                | span=0.75のLOESS            |
+| Nonparametric Reg | NWK            | Nadaraya-Watson kernel regression                         | カーネル回帰による局所平均推定                             | Elad2021                   |
+| Nonparametric Reg | QUANTREG       | quantile regression                                       | 分位点回帰でパーセンタイルを推定                            | 5th/50th/95th quantile     |
+| Nonparametric Reg | MAA            | moving average approach                                   | 移動平均による時系列の平滑化                              | 移動平均でベースライン抽出              |
+| Parametric Reg    | GLM            | generalized linear model                                  | 一般化線形モデルによる回帰                               | GLM with Gaussian identity |
+| Parametric Reg    | MFPR           | multivariate fractional polynomial regression             | 多変量分数多項式回帰                                  | FP2で年齢効果をモデル               |
+| Parametric Reg    | OLSR           | ordinary least squares regression                         | 線形回帰の最小二乗推定                                 | ROIごとの線形回帰                 |
+| Parametric Reg    | POLY           | polynomial regression                                     | 線形/二次/三次など多項式回帰                             | 二次項までの多項式モデル               |
+| Others            | NIE            | Nonparametric Interval Estimation                         | nonparametric two-sided tolerance intervals |
+| Others            | PCN-UNSPEC     | PCN toolkit unspecified                                   | PCN/nispat/nomisで手法未特定                      | "PCNtoolkit pipeline"のみ    |
+| Others            | UNKNOWN/NR     | unknown / not reported                                    | 情報欠損・非情報的回答                                 | "Yes", 空欄, NR              |
 
 * Extraction Result Style: ADCSL_Style
 * "answer" example:
@@ -243,7 +245,7 @@ When an item requires ADCSL_Style, provide the following structured information:
 | Major Category         | Minor Category            | Full Spelling / Description                        |
 |------------------------|---------------------------|----------------------------------------------------|
 | Age-related            | Age                       | linear age term                                    |
-| Age-related            | Age²                      | quadratic age term                                 |
+| Age-related            | Age^2                     | quadratic age term                                 |
 | Age-related            | Age higher-order          | higher-order age terms (degree ≥3)                 |
 | Age-related            | Age non-int               | non-integer age terms (fractional/negative powers) |
 | Age-related            | PMA/PN weeks              | post-menstrual age / postnatal weeks at scan       |
@@ -279,10 +281,10 @@ When an item requires ADCSL_Style, provide the following structured information:
 | Task                   | Task performance          |                                                    |
 | Other                  | Hemisphere                |                                                    |
 | Other                  | BMI                       | body mass index                                    |
-| Other                  | FIQ                       | full-scale intelligence quotient                   |
+| Other                  | IQ                        | intelligence quotient                              |
 | Other                  | Others                    | Average FA, Average MD, and etc.                   |
 | Other                  | Not specified             | not specified                                      |
-| Other                  | None                      |                                                    
+| Other                  | None                      |
 
 * Extraction Result Style: ADCSL_Style
 * "answer" 例:

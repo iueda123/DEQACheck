@@ -1,0 +1,42 @@
+{
+  "study_identification_part": {
+    "si_1_study_id": "Sampaio2025",
+    "si_2_reference_file_names": "Sampaio2025.pdf.md; 1-s2.0-S0933365724003051-mmc1.docx.md",
+    "si_3_author_journal_year": "Sampaio et al., Artificial Intelligence in Medicine, 2025",
+    "si_4_title": "A generalizable normative deep autoencoder for brain morphological anomaly detection: application to the multi-site StratiBip dataset on bipolar disorder in an external validation framework"
+  },
+  "normative_modeling_2nd_part": {
+    "nm2_1_modeling_methods": {
+      "answer": [
+        {"major-category": "Deep Learning", "minor-category": "AE"}
+      ],
+      "detail": "Deep autoencoder (AE) with encoder-decoder architecture was used for normative modeling. The model was trained on healthy control data from HCP-YA dataset to learn normative brain morphology patterns, then applied in an anomaly detection framework to identify brain deviations in bipolar disorder subjects. The AE used selu activation, lecun_normal initialization, Adam optimizer, and MSE loss function. Architecture: single encoding layer (100 neurons) with latent dimension of 60.",
+      "confidence_rating": "High",
+      "supporting_text": "An AE has an encoder-decoder architecture based on artificial neural networks and is widely used for data embedding representation learning. In the normative framework, the model is trained in an unsupervised fashion to learn to represent normative data by optimizing a generic objective function that minimizes the model reconstruction error.",
+      "location": "Sampaio2025.pdf.md: Section 3.4.1 AE for normative modelling"
+    },
+    "nm2_2_response_variable": {
+      "answer": [
+        {"major-category": "sMRI", "minor-category": "CT"},
+        {"major-category": "sMRI", "minor-category": "GMV"},
+        {"major-category": "sMRI", "minor-category": "WMV"}
+      ],
+      "detail": "Three types of brain morphological features were concatenated and modeled together: (1) Cortical thickness (CT): 68 ROIs from Desikan-Killiany-Tourville (DK40) atlas; (2) Gray matter volume (GMV): 50 regions from CoBra atlas; (3) White matter volume (WMV): 52 regions from CoBra atlas. Total of 170 features used as input to the normative AE model.",
+      "confidence_rating": "High",
+      "supporting_text": "We concatenated the three types of brain features - 68 CT, 50 GMV and 52 WMV - into a unified set of 170 features, which was fed as input to the AE model.",
+      "location": "Sampaio2025.pdf.md: Section 3.4.2 Normative model development"
+    },
+    "nm2_3_explanatory_variables": {
+      "answer": [
+        {"major-category": "Age-related", "minor-category": "Age"},
+        {"major-category": "Demographics", "minor-category": "Sex"},
+        {"major-category": "Global brain measures", "minor-category": "ICV/TIV"},
+        {"major-category": "Site/Scanner", "minor-category": "Site"}
+      ],
+      "detail": "Biological covariates (age and sex) were removed from all brain features via linear regression. For volume features (GMV, WMV), harmonized TIV was also included as a covariate. Site effects were addressed through M-ComBat harmonization pipeline, which harmonized the multi-site StratiBip test set with the single-site HCP-YA training set. The confounder removal was performed before the normative AE model training.",
+      "confidence_rating": "High",
+      "supporting_text": "we proceeded with the removal of variance associated with age and sex biocovariates from regional volumes and CT features, and harmonized TIV from volume features, via standard LR",
+      "location": "Sampaio2025.pdf.md: Section 3.3.2 Biological covariates removal via linear regression"
+    }
+  }
+}

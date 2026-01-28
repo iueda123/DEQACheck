@@ -7,40 +7,40 @@ Version: 202601014
 122のNormative Modeling (NM) 研究における Explanatory Variables について、
 高松案（Table 1 のExplanatory Variables列）として、以下の32個のキーワードで表現することが提案された。
 
-| Major Category        | Minor Category               | Full Spelling                    | 
-|-----------------------|------------------------------|----------------------------------|
-| Age-related           | Age                          |                                  |
-| Age-related           | Age²                         | Age squared                      |
-| Age-related           | Age (polynomial)             |                                  |
-| Age-related           | Age (fractional polynomials) |                                  |
-| Age-related           | s(age)                       | Smooth function of age           |
-| Demographics          | Sex                          |                                  |
-| Demographics          | Race                         |                                  |
-| Demographics          | Ethnic background            |                                  |
-| Demographics          | Education                    |                                  |
-| Interactions          | Age×Sex                      |                                  |
-| Site/Scanner          | Site                         |                                  |
-| Site/Scanner          | Scanner                      |                                  |
-| Site/Scanner          | Scanner vendor               |                                  |
-| Site/Scanner          | Magnetic field strength      |                                  |
-| Site/Scanner          | FreeSurfer version           |                                  |
-| Site/Scanner          | Scanning protocol            |                                  |
-| Site/Scanner          | Acquisition/task parameters  |                                  |
-| Global brain measures | ICV                          | Intracranial volume              |
-| Global brain measures | TIV                          | Total intracranial volume        |
-| Global brain measures | Total brain volume           |                                  |
-| Global brain measures | Mean CT                      | Mean cortical thickness          |
-| Global brain measures | Mean SA                      | Mean surface area                |
-| Image/Data quality    | Euler number                 |                                  |
-| Image/Data quality    | Image quality                |                                  |
-| Image/Data quality    | Mean FD                      | Mean framewise displacement      |
-| Image/Data quality    | Mean relative motion         |                                  |
-| Image/Data quality    | Head motion                  |                                  |
-| Other                 | Hemisphere                   |                                  |
-| Other                 | BMI                          | Body mass index                  |
-| Other                 | FIQ                          | Full-scale intelligence quotient |
-| Other                 | Task performance             |                                  |
-| Other                 | None                         |                                  |
+| Major Category        | Minor Category               | Full Spelling               | 
+|-----------------------|------------------------------|-----------------------------|
+| Age-related           | Age                          |                             |
+| Age-related           | Age^2                         | Age squared                 |
+| Age-related           | Age (polynomial)             |                             |
+| Age-related           | Age (fractional polynomials) |                             |
+| Age-related           | s(age)                       | Smooth function of age      |
+| Demographics          | Sex                          |                             |
+| Demographics          | Race                         |                             |
+| Demographics          | Ethnic background            |                             |
+| Demographics          | Education                    |                             |
+| Interactions          | Age×Sex                      |                             |
+| Site/Scanner          | Site                         |                             |
+| Site/Scanner          | Scanner                      |                             |
+| Site/Scanner          | Scanner vendor               |                             |
+| Site/Scanner          | Magnetic field strength      |                             |
+| Site/Scanner          | FreeSurfer version           |                             |
+| Site/Scanner          | Scanning protocol            |                             |
+| Site/Scanner          | Acquisition/task parameters  |                             |
+| Global brain measures | ICV                          | Intracranial volume         |
+| Global brain measures | TIV                          | Total intracranial volume   |
+| Global brain measures | Total brain volume           |                             |
+| Global brain measures | Mean CT                      | Mean cortical thickness     |
+| Global brain measures | Mean SA                      | Mean surface area           |
+| Image/Data quality    | Euler number                 |                             |
+| Image/Data quality    | Image quality                |                             |
+| Image/Data quality    | Mean FD                      | Mean framewise displacement |
+| Image/Data quality    | Mean relative motion         |                             |
+| Image/Data quality    | Head motion                  |                             |
+| Other                 | Hemisphere                   |                             |
+| Other                 | BMI                          | Body mass index             |
+| Other                 | IQ                           | Intelligence quotient       |
+| Other                 | Task performance             |                             |
+| Other                 | None                         |                             |
 
 ## 不足キーワード調査
 
@@ -82,7 +82,7 @@ Age-related variables用category wordsの使い分けを明確にする。
 | Minor Category               | Full Spelling          | Description                                                                                                                          |
 |------------------------------|------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | Age                          |                        | age の1乗項が使われている場合は `age` を付与する。                                                                                                      |
-| Age²                         | Age squared            | age の2乗項が使われている場合は `age²` を付与する。線形の age とセットで投入されている論文も多いが、その場合もキーワードとしては `Age` と `Age²` の2つを記録する。                                   |
+| Age^2                         | Age squared            | age の2乗項が使われている場合は `age²` を付与する。線形の age とセットで投入されている論文も多いが、その場合もキーワードとしては `Age` と `Age^2` の2つを記録する。                                   |
 | Age (polynomial)             |                        | 3次以上の多項式（例: age, age², age³）を含む場合は `Age (polynomial)` にまとめる。明示的に次数が書かれていなくても「polynomial expansion of age」といった記述があればこのキーワードを採用する。     |
 | Age (fractional polynomials) |                        | 分数指数を含む多項式（例: age^0.5, age^-1 など）は `Age (fractional polynomials)` に統一する。FP2, FP3 のような表記がある研究にもこのキーワードを付与する。                          |
 | s(age)                       | Smooth function of age | GAM/GAMLSS などで spline として age を平滑化する場合は `s(age)` にマッピングする。単に「nonlinear age effect」と記載されている場合でも spline/smooth と明記されていれば `s(age)` を選ぶ。 |
@@ -152,7 +152,7 @@ BMI・喫煙・飲酒・糖尿病・SES などの心血管リスク要因はメ�
 | Minor Category   | Full Spelling          | Description                  |
 |------------------|------------------------|------------------------------|
 | Age              | linear age term        | 一次項。例：age                    |
-| Age²             | quadratic age term     | 二次項。 例：age^2                 |
+| Age^2             | quadratic age term     | 二次項。 例：age^2                 |
 | Age higher-order | higher-order age terms | 三次以上の整数冪。例：age^3, age^4      |
 | Age non-integer  | non-integer age terms  | 分数冪・負の冪。例：age^{-1}、age^{0.5} |
 
@@ -180,7 +180,7 @@ age以外の変数でスプライン平滑化を行っている研究がない�
 | Major Category         | Minor Category            | Full Spelling / Description                        |
 |------------------------|---------------------------|----------------------------------------------------|
 | Age-related            | Age                       | linear age term                                    |
-| Age-related            | Age²                      | quadratic age term                                 |
+| Age-related            | Age^2                      | quadratic age term                                 |
 | Age-related            | Age higher-order          | higher-order age terms (degree ≥3)                 |
 | Age-related            | Age non-int               | non-integer age terms (fractional/negative powers) |
 | Age-related            | PMA/PN weeks              | post-menstrual age / postnatal weeks at scan       |
@@ -216,7 +216,7 @@ age以外の変数でスプライン平滑化を行っている研究がない�
 | Task                   | Task performance          |                                                    |
 | Other                  | Hemisphere                |                                                    |
 | Other                  | BMI                       | body mass index                                    |
-| Other                  | FIQ                       | full-scale intelligence quotient                   |
+| Other                  | IQ                        | intelligence quotient                              |
 | Other                  | Others                    | Average FA, Average MD, and etc.                   |
 | Other                  | Not specified             | not specified                                      |
 | Other                  | None                      |                                                    |
@@ -237,6 +237,11 @@ HBRの際にsite情報を考慮するということは、説明変数としてs
 
 HBR+site に該当する研究についても見直しが必要。
 
+共変量という表現はどうか？
+共変量（covariates）
+
+語弊無く表現するならば「normative modeling時に考慮された主要な変数」ではある。
+
 -----
 
 ## 文献対応状況（簡易調査）
@@ -247,7 +252,7 @@ HBR+site に該当する研究についても見直しが必要。
 ### Age-related
 
 - Age: 114研究（例: Bayer2022, Bethlehem2021, Wolfers2020, Haukvik2025, Young2024）
-- Age²: 4研究（CardenasDeLaParra2019, DeMeo2019, DiBiase2022, Zhang2023）
+- Age^2: 4研究（CardenasDeLaParra2019, DeMeo2019, DiBiase2022, Zhang2023）
 - Age higher-order: 2研究（Coupe2022, Ge2024）
 - Age non-int: 5研究（CardenasDeLaParra2019, DeMeo2019, DiBiase2022, Ge2024, Zhang2023）
 - PMA/PN weeks: 1研究（FukamiGartner2023）
@@ -319,7 +324,7 @@ HBR+site に該当する研究についても見直しが必要。
 
 - Hemisphere: 該当なし（codex回答ベース）
 - BMI: 該当なし（codex回答ベース）
-- FIQ: 4研究（Laidi2022, Meijer2024, Zabihi2019, Zabihi2020）
+- IQ: 4研究（Laidi2022, Meijer2024, Zabihi2019, Zabihi2020）
 - None: 4研究（Feng2024, Mendes2024, OliveiraSaraiva2023, Tong2024）
 - Others (not specified): 20研究（Bethlehem2021, Chien2022, DeMeo2019, Elad2021, Fang2025, Feng2025, Ge2024,
   Georgiadis2024, Haas2024, Huo2024, Italinna2023, Kia2022, Kobbersmed2025, Lamsma2024, Ma2024, Parkes2021,
