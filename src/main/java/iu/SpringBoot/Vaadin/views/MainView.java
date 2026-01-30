@@ -15,8 +15,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.component.html.Anchor;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView2;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView_DEv10;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView_DEv10_2;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView_DEv11_DEv12;
 import iu.SpringBoot.Vaadin.DEQACheckAll.MaterialDownloader.MaterialDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.PromptDownloader.PromptDownloader;
@@ -78,6 +78,14 @@ public class MainView extends VerticalLayout {
         RouterLink link6 = new RouterLink("Download Materials", MaterialDownloader.class);
         add(link6);
 
+        Anchor mainDoctLink = new Anchor(
+                "https://docs.google.com/document/d/1txVIhmzKKYp5FDrX5DbbeZIjRj5DTlBt7c1dOGz018M/edit?tab=t.0",
+                "Google Doc - 議事録"
+        );
+        mainDoctLink.setTarget("_blank");
+        add(mainDoctLink);
+
+
         /// ////////////////////////////////////////////////////////
         Hr separator1 = new Hr();
         separator1.getStyle().set("width", "100%").set("margin", "10px 0");
@@ -95,13 +103,23 @@ public class MainView extends VerticalLayout {
         RouterLink link9 = new RouterLink("QA Result Table (Per AuthorYear and PromptName)", QAResultTablePage.class);
         add(link9);
 
-        // Data Extraction section - only visible to ADMIN users (admin, local)
-        if (hasAdminRole()) {
-            Hr separator2 = new Hr();
-            separator2.getStyle().set("width", "100%").set("margin", "10px 0");
-            add(separator2);
+        Hr separator2 = new Hr();
+        separator2.getStyle().set("width", "100%").set("margin", "10px 0");
+        add(separator2);
 
-            add(new H2("Data Extraction (for local server)"));
+        /// ///////////////////////////////////////////////
+
+        add(new H2("Data Extraction (for local server)"));
+
+        Anchor spreadsheetLink = new Anchor(
+                "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
+                "Google Spreadsheet - table1_NM_2025.11.17"
+        );
+        spreadsheetLink.setTarget("_blank");
+        add(spreadsheetLink);
+
+        // only visible to ADMIN users (admin, local)
+        if (hasAdminRole()) {
 
             RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
             add(link1);
@@ -109,21 +127,16 @@ public class MainView extends VerticalLayout {
             RouterLink link11 = new RouterLink("DE File Table (v11/v12)", DEFileTable.class);
             add(link11);
 
-            RouterLink link2 = new RouterLink("Summary View", SummaryView.class);
+            RouterLink link2 = new RouterLink("Summary View for DE_v10", SummaryView_DEv10.class);
             add(link2);
 
-            RouterLink link3 = new RouterLink("Summary View 2", SummaryView2.class);
+            RouterLink link3 = new RouterLink("Summary View for DE_v10 (ver 2)", SummaryView_DEv10_2.class);
             add(link3);
 
-            RouterLink link10 = new RouterLink("Summary View 3 (DE v11 & v12)", SummaryView_DEv11_DEv12.class);
+            RouterLink link10 = new RouterLink("Summary View for DE_v11/12", SummaryView_DEv11_DEv12.class);
             add(link10);
 
-            Anchor spreadsheetLink = new Anchor(
-                    "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
-                    "Google Spreadsheet - table1_NM_2025.11.17"
-            );
-            spreadsheetLink.setTarget("_blank");
-            add(spreadsheetLink);
+
         }
 
         // Help link - fixed at bottom right

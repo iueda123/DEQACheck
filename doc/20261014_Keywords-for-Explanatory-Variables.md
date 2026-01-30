@@ -1,6 +1,6 @@
 # Keywords for Normalization: Explanatory Variables
 
-Version: 202601014
+Version: 20260128
 
 ## 高松案の確認
 

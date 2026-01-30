@@ -1,3 +1,22 @@
+## 2026.01.28
+
+table 1 調査
+
+* Response Variables１次意見
+* Explanatory Variable１次意見
+* Modeling Methods１次意見
+* Model buildに関する調査
+* AgeはMajor Categoryを採用
+* Site/Scanner effect handling 調査
+* Explanatory Variables -> Covariates など。Fraza2025を参考に
+* Response Variables -> Fraza2025を参考に
+* Reference cohort の Source
+* Clinical cohort の Source
+* Reference cohort の Demographics
+* Clinical cohort の Demographics
+
+## 2026.
+
 * NM系再調査
     * Modeling Method
         * Keywords-for-Modeling-Method.mdの見直し

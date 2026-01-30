@@ -185,7 +185,7 @@ When an item requires ADCSL_Style, provide the following structured information:
 | sMRI           | SubV             | subcortical volume (regional)                             | 汎用ROIの皮質下体積                         | 扁桃体体積                     |
 | sMRI           | CerLV            | cerebellar lobule volume                                  | 小脳葉の体積                              | Crus I体積                  |
 | sMRI           | CCMorph          | corpus callosum morphology                                | 脳梁の体積/面積/長さ/周長                      | 脳梁膨大部面積                   |
-| sMRI           | GI/CURV          | gyrification/curvature                                    | 脳回形成や曲率の指標                          | 全皮質平均gyrification         |
+| sMRI           | CGeom            | cortical geometry                                         | 皮質表面の幾何学的特性（GI, curvature, K/I/S等）  | LGI, K, I, S              |
 | sMRI           | WMH              | white matter hyperintensity                               | 白質高信号量                              | Fazekasスコア、WMH総体積         |
 | sMRI           | DDM              | deformation-derived morphometry                           | 変形場のJacobianによる形態指標                 | VBMのJacobian平均            |
 | dMRI           | FA               | fractional anisotropy                                     | 拡散異方性のスカラー指標                        | 上縦束のFA                    |

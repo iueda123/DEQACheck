@@ -568,8 +568,8 @@ for _author_year in ${AuthorYearArray[@]}; do
       # ai_workspace/<timestamp>/ にGuideファイルとTemplateファイルを配置
       # ai_workspace/<timestamp>/study_1/ に研究ファイルを配置し、AIはそこで作業する
       ai_workspace_base=${this_script_parent}/../ai_workspace
-      _timestamp=$(date +%Y%m%d%H%M%S)
-      ai_workspace=${ai_workspace_base}/${_timestamp}
+      _timestamp=$(date +%Y%m%d%H%M%S%3N)
+      ai_workspace=${ai_workspace_base}/${AiAgentName}_${DE_Name}_${_timestamp}
       study_1_directory=${ai_workspace}/study_1
       source_directory=${this_script_parent}/../data/${_author_year}/materials/optimized
 
@@ -729,6 +729,13 @@ EOF
       cd "${_previous_directory}" || exit 1
       echo "作業ディレクトリを元に戻しました: $(pwd)"
       echo ""
+
+      if [[ ${DryRun} == false ]]; then
+          if [[ -n "${ai_workspace}" ]] && [[ -d "${ai_workspace}" ]] && [[ "${ai_workspace}" == "${ai_workspace_base}/"* ]]; then
+              rm -rf "${ai_workspace}"
+              echo "AIワークスペースを削除しました: ${ai_workspace}"
+          fi
+      fi
   
   fi
 

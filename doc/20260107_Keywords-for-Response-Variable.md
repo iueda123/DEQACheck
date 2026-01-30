@@ -1,6 +1,6 @@
 # Keywords for Normalization: Response Variable
 
-Version: 202601014
+Version: 20260128
 
 ## 再検討の記録
 
@@ -72,7 +72,7 @@ Version: 202601014
 | sMRI           | SubV             | subcortical volume (regional)                             | 汎用ROIの皮質下体積                         | 扁桃体体積                           |
 | sMRI           | CerLV            | cerebellar lobule volume                                  | 小脳葉の体積                              | Crus I体積                        |
 | sMRI           | CCMorph          | corpus callosum morphology                                | 脳梁の体積/面積/長さ/周長                      | 脳梁膨大部面積                         |
-| sMRI           | GI/CURV          | gyrification/curvature                                    | 脳回形成や曲率の指標                          | 全皮質平均gyrification               |
+| sMRI           | CGeom            | cortical geometry                                         | 皮質表面の幾何学的特性（GI, curvature, K/I/S等）  | LGI, K, I, S                    |
 | sMRI           | WMH              | white matter hyperintensity                               | 白質高信号量                              | Fazekasスコア、WMH総体積               |
 | sMRI           | DDM              | deformation-derived morphometry                           | 変形場のJacobianによる形態指標                 | VBMのJacobian平均                  |
 | dMRI           | FA               | fractional anisotropy                                     | 拡散異方性のスカラー指標                        | 上縦束のFA                          |
@@ -166,7 +166,6 @@ Yang2025
 
 ----
 
-
 ## WMV に該当する文献
 
 WMV (white matter volume) を Response Variable として用いた研究（9件）：
@@ -245,7 +244,6 @@ Verdi2024, Vieira2025, Wen2025, Xiao2024, Yang2025, Young2024, Zhang2022, Floris
 - 淡蒼球（Pallidum）
 - 側坐核（Nucleus Accumbens）
 
-
 ----
 
 ## GMV に該当する文献
@@ -288,41 +286,60 @@ Jia2024, Kim2024
 
 ## CCMorph に該当する文献
 
-CCMorph (corpus callosum morphology) を Response Variable として用いた研究（3件）：
-
-完全なリスト（3研究）：
-
-Leiberg2023, Mao2025, Wu2023
+CCMorph (corpus callosum morphology) を Response Variable として用いた研究（3件）： Leiberg2023, Mao2025, Wu2023
 
 ----
 
-## GI/CURV に該当する文献
+## CGeom に該当する文献
 
-GI/CURV (gyrification/curvature) を Response Variable として用いた研究（2件）：
+CGeom (Cortical Geometry ) を Response Variable として用いた研究（3件）： Janssen2024, Joo2024, Little2025
 
-完全なリスト（2研究）：
+### CGeom という minor category keyword の設定経緯について
 
-Janssen2024, Joo2024
+CGeom (Cortical Geometry) は、皮質表面の幾何学的特性を反映する指標を包括するために設けられたminor categoryである。
+当初は GI/CURV (gyrification/curvature) というキーワードで gyrification index や curvature をまとめようとしていたが、
+Little2025で用いられた K, I, S という独立成分指標を含める必要が生じたため、より包括的な名称に変更した。
+
+#### 包含する指標
+
+| 指標                      | 説明                                                                 | 出典                            |
+|-------------------------|--------------------------------------------------------------------|-------------------------------|
+| Gyrification Index (GI) | 皮質の折り畳み度合いを測定する指標（局所的または全脳的）。FreeSurferのlocalGI等で算出。               | Schaer et al., 2012           |
+| Curvature               | 皮質表面の局所的な曲率（mean curvature, Gaussian curvatureなど）。                 | FreeSurfer標準出力                |
+| K (tension component)   | 皮質にかかる張力を反映する無次元量。種間で保存されるが加齢・疾患に敏感。universal scaling lawに基づく独立成分。 | Wang et al., 2016, 2019, 2021 |
+| I (isometric size)      | Kと直交・統計的に独立で、等方的なサイズ情報を捉える指標。                                      | Wang et al., 2016, 2019, 2021 |
+| S (shape/complexity)    | KとIのクロス積で、皮質折り畳みの複雑さを反映する指標。                                       | Wang et al., 2016, 2019, 2021 |
+
+#### K, I, S の導出背景
+
+Wang et al.が提案した「universal scaling law of cortical folding」に基づき、
+cortical thickness (T)、pial surface area (At)、exposed surface area (Ae) の共分散を考慮して導出された
+統計的に独立な3成分である。従来のCT/SA/CVなどが共変動する問題を解決し、
+皮質形態の独立した側面を捉えることができる。
+Little2025では、Kが他の形態指標（R²=0.4-0.6）と比較して最も高いmodel fit（R²=0.8）を示すことが報告されている。
+
+#### 該当文献の詳細
+
+1. **Janssen2024**（統合失調症・縦断）: 62 DKT ROIのMorphometric Similarity（CT/SA/CV/曲率から算出）を
+   Warped BLRでnormative zスコア化。
+2. **Joo2024**（多施設SCZ・横断）: 308 ROIのSA/GMV/CT/LGI（Local Gyrification Index）でPBSIを算出し、
+   HC平均・SDに基づくZスコアで逸脱を評価。
+3. **Little2025**（Brain MoNoCle）: 3,276人の健常者データからK, I, Sを含む複数の皮質形態指標の
+   normative modelを構築。GAMLSSを用いて年齢・性別・サイトを共変量としてモデル化。
+   TLE患者でIとcortical volumeが側性化の検出に有効であることを示した。
 
 ----
 
 ## WMH に該当する文献
 
-WMH (white matter hyperintensity) を Response Variable として用いた研究（1件）：
-
-完全なリスト（1研究）：
-
-Leenings2024
+WMH (white matter hyperintensity) を Response Variable として用いた研究（1件）： Leenings2024
 
 ----
 
 ## FA に該当する文献
 
-FA (fractional anisotropy) を Response Variable として用いた研究（8件）：
-
-完全なリスト（8研究）：
-
-Chien2022, Cirstian2024, Elad2021, Feng2024, Feng2025, Lamsma2024, Lv2021, VillalonReina2024
+FA (fractional anisotropy) を Response Variable として用いた研究（8件）： Chien2022, Cirstian2024, Elad2021, Feng2024,
+Feng2025, Lamsma2024, Lv2021, VillalonReina2024
 
 ----
 

@@ -1,6 +1,6 @@
 # Keywords for Normalization: Modeling Method
 
-Version: 202601014
+Version: 20260128
 
 ## 再検討の記録
 
