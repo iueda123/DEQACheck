@@ -57,6 +57,7 @@ public class JsonManagerWithConflictSafe extends JsonManager {
             initializeMetadata();
             compWithReloadFunc.actionAfterSuccessfullyOpeningJson(this);
         } else {
+            logLastLoadError("open");
             compWithReloadFunc.actionAfterFailingToOpenJson(this);
         }
     }
@@ -68,6 +69,7 @@ public class JsonManagerWithConflictSafe extends JsonManager {
             initializeMetadata();
             compWithReloadFunc.actionAfterSuccessfullyOpeningJson(this);
         } else {
+            logLastLoadError("open");
             compWithReloadFunc.actionAfterFailingToOpenJson(this);
         }
     }
@@ -188,6 +190,7 @@ public class JsonManagerWithConflictSafe extends JsonManager {
             compWithReloadFunc.actionAfterSuccessfullyReloadingJson(this);
             return true;
         } else {
+            logLastLoadError("reload");
             compWithReloadFunc.actionAfterFailingToReloadJson(this);
             return false;
         }
@@ -216,6 +219,13 @@ public class JsonManagerWithConflictSafe extends JsonManager {
 
     private String getHashString() {
         return Hashes.sha256(gson.toJson(this.jsonObject));
+    }
+
+    private void logLastLoadError(String action) {
+        String detail = getLastLoadErrorMessage();
+        if (detail != null && !detail.isEmpty()) {
+            System.err.println("JsonManagerWithConflictSafe " + action + " failed: " + detail);
+        }
     }
 
     /**

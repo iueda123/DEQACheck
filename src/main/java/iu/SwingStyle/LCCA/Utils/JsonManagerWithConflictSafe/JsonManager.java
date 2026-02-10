@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonParseException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -14,6 +15,7 @@ public class JsonManager {
     protected File jsonFile;
     protected JsonObject jsonObject;
     protected Gson gson;
+    protected String lastLoadErrorMessage;
 
     /**
      * コンストラクタ
@@ -182,6 +184,10 @@ public class JsonManager {
         return this.jsonObject;
     }
 
+    public String getLastLoadErrorMessage() {
+        return lastLoadErrorMessage;
+    }
+
     public String getJsonAsText() {
         return gson.toJson(this.jsonObject);
     }
@@ -194,6 +200,7 @@ public class JsonManager {
      * @return JsonObject
      */
     public JsonObject loadJsonObject(File jsonFile) {
+        lastLoadErrorMessage = null;
         //if (jsonObject == null) {
         if (jsonFile.isFile()) {
             // Objectはまだないが、Fileはある時
@@ -206,6 +213,12 @@ public class JsonManager {
                 } else {
                     jsonObject = new JsonObject();
                 }
+            } catch (JsonParseException | IllegalStateException e) {
+                lastLoadErrorMessage = "Failed to parse JSON: " + jsonFile.getAbsolutePath() + " (" + e.getMessage() + ")";
+                System.err.println(lastLoadErrorMessage);
+                e.printStackTrace();
+                jsonObject = null;
+                return null;
             } catch (FileNotFoundException fnfe) {
                 fnfe.printStackTrace();
                 jsonObject = new JsonObject();

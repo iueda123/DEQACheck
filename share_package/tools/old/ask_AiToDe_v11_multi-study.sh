@@ -249,7 +249,7 @@ function askAiAgentForStudies(){
     if [[ ${_ai_agent_name} == "gemini" ]]; then
         techo ""
         techo "========== Gemini コマンド =========="
-        techo "gemini \\"
+        techo "gemini -p \\"
         techo "    \"${_prompt}\" \\"
         techo "    --approval-mode auto_edit \\"
         techo "    --allowed-tools \"run_shell_command\""
@@ -262,7 +262,7 @@ function askAiAgentForStudies(){
             techo "Gemini が作業を実行中..."
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
-            gemini "${_prompt}" \
+            gemini -p "${_prompt}" \
                 --approval-mode auto_edit \
                 --allowed-tools "run_shell_command" \
                 2>&1 | tee -a "${_log_file_name}"

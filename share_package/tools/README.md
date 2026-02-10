@@ -18,7 +18,7 @@ DE/QA 名を任意に付けて AI 依頼を行う簡易版。研究リストま�
 QA_v9 想定の AI 依頼スクリプト。リスト/単一研究指定、ドライラン既定、ログ付き。
 
 ### 03_checkStructureKeyOfJson_and_Normalization.sh
-JSON 構造/キーを SubFuncs_for_03/checkJsonStructureAndKey.py で検査し、FAIL/ERROR だけ ask_AiToNormalize_for_v10.sh で正規化を試行するオーケストレーター（DE/QA 対応、ドライラン可、notes へ TSV/詳細ログを出力）。
+JSON 構造/キーを checkAndNormalizeJson/subfuncs/checkJsonStructureAndKey.py で検査し、FAIL/ERROR だけ checkAndNormalizeJson/subfuncs/ask_AiToNormalize_for_DE_v10.sh で正規化を試行するオーケストレーター（DE/QA 対応、ドライラン可、notes へ TSV/詳細ログを出力）。
 
 ### checkExistenceOfJsonFiles.sh
 data/<AuthorYear>/<DE|QA>/json に各エージェント（gemini/claude/codex）の JSON が存在するか確認し、notes 配下に TSV を出力。

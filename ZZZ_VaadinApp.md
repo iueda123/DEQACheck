@@ -31,7 +31,6 @@ fuser -k 8080/tcp
 ./gradlew bootRun
 ```
 
-
 ### 本番モードで起動する
 
 ```bash

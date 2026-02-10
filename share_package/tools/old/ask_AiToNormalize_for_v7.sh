@@ -264,7 +264,7 @@ function askAiAgent(){
     if [[ ${AiAgentName} == "gemini" ]]; then
         echo ""
         echo "========== Gemini コマンド =========="
-        echo "gemini \\"
+        echo "gemini -p \\"
         echo "    \"${_prompt}\" \\"
         echo "    --approval-mode auto_edit \\"
         echo "    --allowed-tools \"ShellTool(git status,rm,mv,mkdir)\""
@@ -277,7 +277,7 @@ function askAiAgent(){
             echo "Gemini を実行中..."
             echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
-            gemini "${_prompt}" \
+            gemini -p "${_prompt}" \
                 --approval-mode auto_edit \
                 --allowed-tools "ShellTool(git status,rm,mv,mkdir)"
 

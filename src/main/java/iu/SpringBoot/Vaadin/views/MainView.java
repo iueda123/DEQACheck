@@ -17,7 +17,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.component.html.Anchor;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView_DEv10;
 import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView_DEv10_2;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView_DEv11_DEv12;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.ResultOverView_DEv11_v12;
 import iu.SpringBoot.Vaadin.DEQACheckAll.MaterialDownloader.MaterialDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.PromptDownloader.PromptDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAReportCreationPage.QAReportCreationPage;
@@ -133,7 +133,7 @@ public class MainView extends VerticalLayout {
             RouterLink link3 = new RouterLink("Summary View for DE_v10 (ver 2)", SummaryView_DEv10_2.class);
             add(link3);
 
-            RouterLink link10 = new RouterLink("Summary View for DE_v11/12", SummaryView_DEv11_DEv12.class);
+            RouterLink link10 = new RouterLink("Summary View for DE_v11/12", ResultOverView_DEv11_v12.class);
             add(link10);
 
 

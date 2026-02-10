@@ -8,25 +8,25 @@ JSONファイルの構造・キーのチェックと、AIエージェントを�
 
 | ファイル | 説明 |
 |----------|------|
-| `checkJsonStructureAndKey.py` | JSONの構造・キーをテンプレートと照合してチェック |
-| `ask_AiToNormalize_for_DE_v10.sh` | DE_v10用 AIエージェント正規化スクリプト |
-| `ask_AiToNormalize_for_DE_v11.sh` | DE_v11用 AIエージェント正規化スクリプト |
-| `ask_AiToNormalize_for_DE_v12.sh` | DE_v12用 AIエージェント正規化スクリプト |
+| `subfuncs/checkJsonStructureAndKey.py` | JSONの構造・キーをテンプレートと照合してチェック |
+| `subfuncs/ask_AiToNormalize_for_DE_v10.sh` | DE_v10用 AIエージェント正規化スクリプト |
+| `subfuncs/ask_AiToNormalize_for_DE_v11.sh` | DE_v11用 AIエージェント正規化スクリプト |
+| `subfuncs/ask_AiToNormalize_for_DE_v12.sh` | DE_v12用 AIエージェント正規化スクリプト |
 | `normalizeJsonsUsingAiAgent.sh` | 複数ファイルの一括正規化ラッパー |
 | `check_rslt/` | チェック結果の出力ディレクトリ |
 
-## 1. checkJsonStructureAndKey.py
+## 1. subfuncs/checkJsonStructureAndKey.py
 
 JSONファイルの構造とキーをテンプレートと照合し、不一致を検出します。
 
 ### 使用方法
 
 ```bash
-python3 checkJsonStructureAndKey.py \
+python3 subfuncs/checkJsonStructureAndKey.py \
     --data-type <データタイプ> \
     --target-folder <対象フォルダ> \
     --template <テンプレートJSONパス> \
-    [--output-folder <出力先>]
+    [--result-folder <出力先>]
 ```
 
 ### オプション
@@ -36,13 +36,13 @@ python3 checkJsonStructureAndKey.py \
 | `--data-type` | 必須 | データタイプ（例: `DE_v11`, `DE_v12`, `QA_v9`）                                                           |
 | `--target-folder` | 必須 | スキャン対象のルートフォルダ (例： `share_package/data`)                                                         |
 | `--template` | 必須 | 期待される構造を定義したテンプレートJSON (例: `share_package/templates/*.json`) |
-| `--output-folder` | 任意 | 結果の出力先（デフォルト: `./check_rslt`）                                                                    |
+| `--result-folder` | 任意 | 結果の出力先（デフォルト: `./str_and_key_check_results`）                                                                    |
 
 ### 使用例
 
 ```bash
 # DE_v12 のJSONファイルをチェック
-python3 checkJsonStructureAndKey.py \
+python3 subfuncs/checkJsonStructureAndKey.py \
     --data-type DE_v12 \
     --target-folder ../../data \
     --template ../../templates/DE_v12_Author20XX_by_Someone_YYYYmmddHHMMSS.json
@@ -66,14 +66,14 @@ python3 checkJsonStructureAndKey.py \
 
 ---
 
-## 2. ask_AiToNormalize_for_DE_v*.sh
+## 2. subfuncs/ask_AiToNormalize_for_DE_v*.sh
 
 AIエージェント（Gemini, Claude, Codex）を使用して、単一のJSONファイルをテンプレートに合わせて正規化します。
 
 ### 使用方法
 
 ```bash
-./ask_AiToNormalize_for_DE_v12.sh [OPTIONS]
+./subfuncs/ask_AiToNormalize_for_DE_v12.sh [OPTIONS]
 ```
 
 ### オプション
@@ -91,25 +91,25 @@ AIエージェント（Gemini, Claude, Codex）を使用して、単一のJSON�
 
 ```bash
 # ドライラン（実行内容の確認のみ）
-./ask_AiToNormalize_for_DE_v12.sh -f ../data/Author2025/DE_v12/json/DE_v12_Author2025_by_gemini.json
+./subfuncs/ask_AiToNormalize_for_DE_v12.sh -f ../data/Author2025/DE_v12/json/DE_v12_Author2025_by_gemini.json
 
 # Codexを使用して実行
-./ask_AiToNormalize_for_DE_v12.sh -f path/to/DE_v12_file.json -a codex -r
+./subfuncs/ask_AiToNormalize_for_DE_v12.sh -f path/to/DE_v12_file.json -a codex -r
 
 # Geminiを使用（詳細出力あり）
-./ask_AiToNormalize_for_DE_v12.sh -f path/to/DE_v12_file.json -a gemini -r -v
+./subfuncs/ask_AiToNormalize_for_DE_v12.sh -f path/to/DE_v12_file.json -a gemini -r -v
 
 # Claudeを使用して実行
-./ask_AiToNormalize_for_DE_v12.sh -f path/to/DE_v12_file.json -a claude -r
+./subfuncs/ask_AiToNormalize_for_DE_v12.sh -f path/to/DE_v12_file.json -a claude -r
 ```
 
 ### バージョン別対応テンプレート
 
 | スクリプト | 対応ファイル | テンプレート |
 |------------|-------------|--------------|
-| `ask_AiToNormalize_for_DE_v10.sh` | `DE_*`, `QA_*` | DE_v10用, QA_v9用 |
-| `ask_AiToNormalize_for_DE_v11.sh` | `DE_*` | DE_v11用 |
-| `ask_AiToNormalize_for_DE_v12.sh` | `DE_*` | DE_v12用 |
+| `subfuncs/ask_AiToNormalize_for_DE_v10.sh` | `DE_*`, `QA_*` | DE_v10用, QA_v9用 |
+| `subfuncs/ask_AiToNormalize_for_DE_v11.sh` | `DE_*` | DE_v11用 |
+| `subfuncs/ask_AiToNormalize_for_DE_v12.sh` | `DE_*` | DE_v12用 |
 
 ### 注意事項
 
@@ -121,7 +121,7 @@ AIエージェント（Gemini, Claude, Codex）を使用して、単一のJSON�
 
 ## 3. normalizeJsonsUsingAiAgent.sh
 
-`checkJsonStructureAndKey.py` が出力したサマリTSVをもとに、複数のJSONファイルを一括で正規化します。
+`subfuncs/checkJsonStructureAndKey.py` が出力したサマリTSVをもとに、複数のJSONファイルを一括で正規化します。
 
 ### 使用方法
 
@@ -147,19 +147,19 @@ AIエージェント（Gemini, Claude, Codex）を使用して、単一のJSON�
 # ドライラン（FAILのファイルを確認）
 ./normalizeJsonsUsingAiAgent.sh \
     --summary-tsv ./check_rslt/json_structure_check_DE_v12_20260127171907.tsv \
-    --ask-script ./ask_AiToNormalize_for_DE_v12.sh
+    --ask-script ./subfuncs/ask_AiToNormalize_for_DE_v12.sh
 
 # FAILのファイルをCodexで正規化
 ./normalizeJsonsUsingAiAgent.sh \
     --summary-tsv ./check_rslt/json_structure_check_DE_v12_20260127171907.tsv \
-    --ask-script ./ask_AiToNormalize_for_DE_v12.sh \
+    --ask-script ./subfuncs/ask_AiToNormalize_for_DE_v12.sh \
     --agent codex \
     --run
 
 # WARN含む全ての問題ファイルを処理（最大5件）
 ./normalizeJsonsUsingAiAgent.sh \
     --summary-tsv ./check_rslt/json_structure_check_DE_v12_20260127171907.tsv \
-    --ask-script ./ask_AiToNormalize_for_DE_v12.sh \
+    --ask-script ./subfuncs/ask_AiToNormalize_for_DE_v12.sh \
     --result ALL \
     --limit 5 \
     --run
@@ -172,7 +172,7 @@ AIエージェント（Gemini, Claude, Codex）を使用して、単一のJSON�
 ### 1. 構造チェックの実行
 
 ```bash
-python3 checkJsonStructureAndKey.py \
+python3 subfuncs/checkJsonStructureAndKey.py \
     --data-type DE_v12 \
     --target-folder ../../data \
     --template ../../templates/DE_v12_Author20XX_by_Someone_YYYYmmddHHMMSS.json
@@ -194,19 +194,19 @@ cat check_rslt/json_structure_check_DE_v12_*_details/*.txt
 # まずドライランで確認
 ./normalizeJsonsUsingAiAgent.sh \
     --summary-tsv ./check_rslt/json_structure_check_DE_v12_*.tsv \
-    --ask-script ./ask_AiToNormalize_for_DE_v12.sh
+    --ask-script ./subfuncs/ask_AiToNormalize_for_DE_v12.sh
 
 # 問題なければ実行
 ./normalizeJsonsUsingAiAgent.sh \
     --summary-tsv ./check_rslt/json_structure_check_DE_v12_*.tsv \
-    --ask-script ./ask_AiToNormalize_for_DE_v12.sh \
+    --ask-script ./subfuncs/ask_AiToNormalize_for_DE_v12.sh \
     --run
 ```
 
 ### 4. 再度チェックして確認
 
 ```bash
-python3 checkJsonStructureAndKey.py \
+python3 subfuncs/checkJsonStructureAndKey.py \
     --data-type DE_v12 \
     --target-folder ../../data \
     --template ../../templates/DE_v12_Author20XX_by_Someone_YYYYmmddHHMMSS.json

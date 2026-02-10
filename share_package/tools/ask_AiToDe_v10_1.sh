@@ -440,7 +440,7 @@ function askAiAgent(){
     if [[ ${_ai_agent_name} == "gemini" ]]; then
         techo ""
         techo "========== Gemini コマンド =========="
-        techo "gemini \\"
+        techo "gemini -p \\"
         techo "    \"$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
         techo "    --approval-mode auto_edit \\"
         techo "    --allowed-tools \"run_shell_command\""
@@ -453,7 +453,7 @@ function askAiAgent(){
             techo "Gemini が作業を実行中..."
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
-            gemini "$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
+            gemini -p "$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
                 --approval-mode auto_edit \
                 --allowed-tools "run_shell_command" \
                 2>&1 | tee -a ${_log_file_name}

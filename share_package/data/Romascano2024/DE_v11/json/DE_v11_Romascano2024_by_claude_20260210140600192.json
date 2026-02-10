@@ -1,0 +1,131 @@
+{
+  "study_identification_part": {
+    "si_1_study_id": "Romascano2024",
+    "si_2_reference_file_names": "Romascano2024.pdf.md; 1-s2.0-S2213158224000639-mmc1.docx.md",
+    "si_3_author_journal_year": "Romascano et al., NeuroImage: Clinical, 2024",
+    "si_4_title": "Cortical thickness and grey-matter volume anomaly detection in individual MRI scans: Comparison of two methods"
+  },
+  "dataset_characteristics_part": {
+    "dc_1_datasets_using_in_this_study": {
+      "answer": ["OASIS-3"],
+      "detail": "The study uses the OASIS3 dataset (Open Access Series of Imaging Studies), which contains 2,643 high-resolution isotropic T1-weighted MRI scans from 1,038 participants. Scans were acquired using Siemens scanners at 1.5T (Magnetom Sonata and Avanto, 42 scans) and 3T (Biograph mMR and Magnetom Trio, 2,601 scans). The HC subset (CDR=0, non-converters) was used for normative model building, and the AD subset (CDR>=1) for clinical evaluation.",
+      "confidence_rating": "High",
+      "supporting_text": "\"The OASIS3 dataset (Open Access Series of Imaging Studies, LaMontagne et al., 2019) is publicly available at www.oasis-brains.org/ and contains NIFTI files of 2'643 high-resolution ... isotropic T1-weighted MRI scans from 1'038 participants.\"",
+      "location": "Romascano2024.pdf.md: 2.1. OASIS3 dataset, L80"
+    },
+    "dc_2_purpose_of_each_dataset": {
+      "answer": [
+        {"OASIS-3 (HC subset, CDR=0 non-converters)": "normative model building (both DL+DiReCT and FreeSurfer pipelines) and LOOCV evaluation"},
+        {"OASIS-3 (AD subset, CDR>=1)": "clinical evaluation of AD patients against normative models"},
+        {"OASIS-3 (converters, CDR=0 to >=0.5)": "longitudinal follow-up analysis of atrophy progression"},
+        {"OASIS-3 (undetermined, CDR=0.5)": "CDR-stratified evaluation of atrophy patterns"}
+      ],
+      "detail": "The OASIS3 HC subset (696 non-converting subjects, 1,927 scans, cleaned to 1,828 scans) served as the normative reference dataset for both the DL+DiReCT and FreeSurfer processing pipelines. LOOCV was used to evaluate specificity. The AD subset (209 scans, CDR>=1) was evaluated against the clean normative models. The 41 converter subjects (87 scans) were used for longitudinal analysis of CTh change trajectories. Undetermined cases (CDR=0.5, 309 scans) were included in CDR-stratified analyses.",
+      "confidence_rating": "High",
+      "supporting_text": "\"Those scans were excluded from building our normative model, which was therefore based on 1'927 scans from 696 non-converting subjects\" ... \"The 41 'converter' subjects were instead used to investigate the change trajectories between the first and follow-up scans longitudinally.\" ... \"The AD dataset consisted of 209 scans with CDR >= 1.0. When using the clean HC dataset to evaluate AD scans, both processing pipelines indicated increased proportions of anomalous scans\"",
+      "location": "Romascano2024.pdf.md: 2.1. OASIS3 dataset, L80-L82; 3.1. Application to AD patients, L157"
+    },
+    "dc_3_number_of_healthy_control_of_each_normative_nodel": {
+      "answer": {
+        "model-1": {
+          "model-name": "ScanOMetrics with DL+DiReCT",
+          "overall-phase": 1927,
+          "train-phase": 1828
+        },
+        "model-2": {
+          "model-name": "ScanOMetrics with FreeSurfer",
+          "overall-phase": 1927,
+          "train-phase": 1828
+        }
+      },
+      "detail": "Two normative models were built using the same OASIS3 HC dataset but with different SBA metric extraction pipelines (DL+DiReCT and FreeSurfer). The initial HC dataset contained 1,927 scans from 696 non-converting subjects (CDR=0). After LOOCV-based cleaning, 99 scans were removed (flagged as anomalous by either pipeline), resulting in 1,828 clean HC scans used for the final normative models. The overall-phase represents the initial HC set before cleaning; the train-phase represents the cleaned set used for the final normative models. No separate train/validation/test split was employed; instead, subject-wise LOOCV was used for evaluation.",
+      "confidence_rating": "High",
+      "supporting_text": "\"our normative model, which was therefore based on 1'927 scans from 696 non-converting subjects\" ... \"The 99 HC scans with large number of anomalies (5.15 %) were removed before our final normative models were built from the of 1'828 remaining HC scans.\"",
+      "location": "Romascano2024.pdf.md: 2.1. OASIS3 dataset, L82; 3.7. Cleaning the normative models, L259"
+    },
+    "dc_4_age_info_of_each_normative_nodel": {
+      "answer": {
+        "model-1": {
+          "overall-phase": {
+            "mean": "69.0",
+            "sd": "9.3",
+            "median": "NR",
+            "iqr_l": "NR",
+            "iqr_u": "NR",
+            "min": "42.7",
+            "max": "97.0"
+          },
+          "train-phase": {
+            "mean": "NR",
+            "sd": "NR",
+            "median": "NR",
+            "iqr_l": "NR",
+            "iqr_u": "NR",
+            "min": "NR",
+            "max": "NR"
+          }
+        },
+        "model-2": {
+          "overall-phase": {
+            "mean": "69.0",
+            "sd": "9.3",
+            "median": "NR",
+            "iqr_l": "NR",
+            "iqr_u": "NR",
+            "min": "42.7",
+            "max": "97.0"
+          },
+          "train-phase": {
+            "mean": "NR",
+            "sd": "NR",
+            "median": "NR",
+            "iqr_l": "NR",
+            "iqr_u": "NR",
+            "min": "NR",
+            "max": "NR"
+          }
+        }
+      },
+      "detail": "Age statistics are reported in Table 1 for the 1,927 HC scans (CDR=0, non-converters) used for the overall-phase: mean 69.0 years, SD 9.3 years, range 42.7-97.0 years. These values are at scan level (not participant level). Both models (DL+DiReCT and FreeSurfer) share the same normative dataset, so age statistics are identical. After cleaning (removing 99 scans to yield the 1,828-scan train-phase), no separate age statistics are reported for the cleaned subset.",
+      "confidence_rating": "High",
+      "supporting_text": "\"69.0 +/- 9.3, (42.7 -- 97.0)\"",
+      "location": "Romascano2024.pdf.md: Table 1, L94-L100"
+    },
+    "dc_5_sex_info_of_each_normative_nodel": {
+      "answer": {
+        "model-1": {
+          "overall-phase": {
+            "female_n": 1188,
+            "female_pct": "61.7%",
+            "male_n": 739,
+            "male_pct": "38.3%"
+          },
+          "train-phase": {
+            "female_n": "NR",
+            "female_pct": "NR",
+            "male_n": "NR",
+            "male_pct": "NR"
+          }
+        },
+        "model-2": {
+          "overall-phase": {
+            "female_n": 1188,
+            "female_pct": "61.7%",
+            "male_n": 739,
+            "male_pct": "38.3%"
+          },
+          "train-phase": {
+            "female_n": "NR",
+            "female_pct": "NR",
+            "male_n": "NR",
+            "male_pct": "NR"
+          }
+        }
+      },
+      "detail": "Sex information is reported at the scan level for the 1,927 HC scans (CDR=0, non-converters) in Table 1: 1,188 female scans (61.7%). Male scans derived by subtraction: 1,927 - 1,188 = 739 (38.3%). At the participant level: 696 participants, 419 female (60.2%), 277 male (39.8%). Both models share the same dataset. After cleaning to 1,828 scans, specific sex breakdown is not reported. Since the normative model operates at the scan level, scan-level sex counts are used for the overall-phase.",
+      "confidence_rating": "High",
+      "supporting_text": "\"1'927 (1'188, 61.7 %)\"",
+      "location": "Romascano2024.pdf.md: Table 1, L94-L100"
+    }
+  }
+}

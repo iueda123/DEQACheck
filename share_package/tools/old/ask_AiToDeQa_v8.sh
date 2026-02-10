@@ -371,7 +371,7 @@ function askAiAgent(){
     if [[ ${_ai_agent_name} == "gemini" ]]; then
         echo ""
         echo "========== Gemini コマンド =========="
-        echo "gemini \\"
+        echo "gemini -p \\"
         echo "    \"$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
         echo "    --approval-mode auto_edit \\"
         echo "    --allowed-tools \"ShellTool(git status,rm,mv,mkdir,cat)\""
@@ -384,7 +384,7 @@ function askAiAgent(){
             echo "Gemini が作業を実行中..."
             echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
-            gemini "$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
+            gemini -p "$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
                 --approval-mode auto_edit \
                 --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)"
 

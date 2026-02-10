@@ -6,7 +6,7 @@
 子フォルダごとに、配下の <DE|QA>/json にある各 JSON ファイルの
 「書き込み率（フィル率）」を集計し、ファイル単位で結果を出力します。
 
-オプションとデフォルトの挙動は tools/checkJsonStructureAndKey.py に合わせています。
+オプションとデフォルトの挙動は tools/checkAndNormalizeJson/subfuncs/checkJsonStructureAndKey.py に合わせています。
 - --target-folder: 走査の起点（既定: このスクリプトの親ディレクトリ）
 - --output-folder: 出力先（既定: このスクリプトの親ディレクトリ/notes）
 - --data-type: DE または QA（必須）

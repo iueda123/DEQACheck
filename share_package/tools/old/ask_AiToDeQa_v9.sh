@@ -372,7 +372,7 @@ function askAiAgent(){
     if [[ ${_ai_agent_name} == "gemini" ]]; then
         echo ""                                      2>&1 | tee -a ${_log_file_name}
         echo "========== Gemini コマンド =========="  2>&1 | tee -a ${_log_file_name}
-        echo "gemini \\"                             2>&1 | tee -a ${_log_file_name}
+        echo "gemini -p \\"                             2>&1 | tee -a ${_log_file_name}
         echo "    \"$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\" 2>&1 | tee -a ${_log_file_name}
         echo "    --approval-mode auto_edit \\"      2>&1 | tee -a ${_log_file_name}
         echo "    --allowed-tools \"ShellTool(git status,rm,mv,mkdir,cat)\"" 2>&1 | tee -a ${_log_file_name}
@@ -385,7 +385,7 @@ function askAiAgent(){
             echo "Gemini が作業を実行中..." 2>&1 | tee -a ${_log_file_name}
             echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" 2>&1 | tee -a ${_log_file_name}
 
-            gemini "$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
+            gemini -p "$(basename ${_guide_file}) に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
                 --approval-mode auto_edit \
                 --allowed-tools "ShellTool(git status,rm,mv,mkdir,cat)" \
                 2>&1 | tee -a ${_log_file_name}

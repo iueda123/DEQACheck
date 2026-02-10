@@ -20,7 +20,7 @@ set -euo pipefail
 #   - 一時ファイル: テンプレートJSONを同階層に一時コピーし、処理後に削除
 #
 # 使い方例:
-#   ./checkStructureKeyOfJson_and_Normalization.sh --summary-tsv ../check_rslt/json_structure_check_DE_*.tsv --ask-script ./ask_AiToNormalize_for_v12.sh --run
+#   ./checkStructureKeyOfJson_and_Normalization.sh --summary-tsv ../check_rslt/json_structure_check_DE_*.tsv --ask-script ./subfuncs/ask_AiToNormalize_for_DE_v12.sh --run
 #
 
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
@@ -50,7 +50,7 @@ ask_AiToNormalize_for_*.sh で修復を試みます。
       対象JSONの内容が正規化により更新される可能性
 
 オプション:
-  --summary-tsv PATH      既存のサマリTSVを指定（必須）
+  --str-and-key-check-result-tsv PATH      既存のサマリTSVを指定（必須）
   --ask-script PATH       ask_AiToNormalize_for_*.sh のパスを指定（必須）
   --result {FAIL|WARN|ALL} 対象とする result を指定（既定: FAIL）
   --agent {codex|gemini|claude}  使用AI（既定: ${AI_AGENT}）
@@ -59,14 +59,14 @@ ask_AiToNormalize_for_*.sh で修復を試みます。
   -h, --help              このヘルプ
 
 例:
-  $(basename "$0") --summary-tsv ../check_rslt/json_structure_check_DE_*.tsv --ask-script ./ask_AiToNormalize_for_v12.sh --run
+  $(basename "$0") --str-and-key-check-result-tsv ../check_rslt/json_structure_check_DE_*.tsv --ask-script ./subfuncs/ask_AiToNormalize_for_DE_v12.sh --run
 EOF
 }
 
 # 引数処理
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --summary-tsv)
+    --str-and-key-check-result-tsv)
       SUMMARY_TSV_OVERRIDE="$(readlink -f "$2")"; shift 2;;
     --ask-script)
       NORMALIZER_SH="$(readlink -f "$2")"; shift 2;;
@@ -87,7 +87,7 @@ done
 
 # 入力検証
 if [[ -z "${SUMMARY_TSV_OVERRIDE}" ]]; then
-  echo "エラー: --summary-tsv は必須です" >&2
+  echo "エラー: --str-and-key-check-result-tsv は必須です" >&2
   exit 2
 fi
 if [[ -z "${NORMALIZER_SH}" ]]; then
@@ -178,3 +178,6 @@ for f in "${TARGET_FILES[@]}"; do
 done
 
 echo "完了: 修復試行が終了しました。"
+if [[ "${DRY_RUN}" == true ]]; then
+  echo "実行モードにするには --run または -r を指定してください。"
+fi
