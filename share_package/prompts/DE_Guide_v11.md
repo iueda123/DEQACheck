@@ -129,110 +129,112 @@ MEG）を用いたノルマティブモデリング研究を評価します。�
 * 抽出基準: この研究で用いられているデータセットを列挙してください。
 * データセット名は次の表のMinor Category列から選んでください。
 
-| Major Category Keyword   | Minor Category                       | Minor Category Full Spelling                                                           |
-|--------------------------|--------------------------------------|----------------------------------------------------------------------------------------|
-| ABCCT                    | ABCCT                                | Autism Biomarker Consortium for Clinical Trials Dataset                                |
-| ABCD                     | ABCD                                 | Adolescent Brain Cognitive Development Study                                           |
-| ABIDE                    | ABIDE                                | Autism Brain Imaging Data Exchange                                                     |
-| ABIDE                    | ABIDE-I                              | Autism Brain Imaging Data Exchange I                                                   |
-| ABIDE                    | ABIDE-II                             | Autism Brain Imaging Data Exchange II                                                  |
-| ABIDE                    | ABIDE (I+II)                         | Autism Brain Imaging Data Exchange I and II                                            |
-| ABRIM                    | ABRIM                                | Advanced Brain Imaging on Ageing and Memory                                            |
-| ADHD-200                 | ADHD-200                             | ADHD-200 Sample                                                                        |
-| ADDI                     | ADNI                                 | Alzheimer's Disease Neuroimaging Initiative                                            |
-| ADNI                     | ADNI-ADS                             | Alzheimer's Disease Neuroimaging Initiative - Alzheimer's Disease Spectrum             |
-| ADNI                     | ADNI-3                               | Alzheimer's Disease Neuroimaging Initiative 3                                          |
-| AIBL                     | AIBL                                 | Australian Imaging, Biomarkers and Lifestyle Study of Ageing                           |
-| ARWiBo                   | ARWiBo                               | Alzheimer's Disease Repository Without Borders                                         |
-| ASRB                     | ASRB                                 | Australian Schizophrenia Research Bank                                                 |
-| Aggressotype and MATRICS | Aggressotype and MATRICS             | The dataset from EU-funded Aggressotype and MATRICS consortia                          |
-| BHRCS                    | BHRCS                                | Brazilian High-Risk Cohort Study                                                       |
-| BLISS                    | BLISS                                | Bipolar Lithium Imaging and Spectroscopy Study                                         |
-| CHUV                     | CHUV                                 | Centre Hospitalier Universitaire Vaudois                                               |
-| CIFASD                   | CIFASD                               | Collaborative Initiative on Fetal Alcohol Spectrum Disorders                           |
-| CNP                      | CNP                                  | Consortium for Neuropsychiatric Phenomics                                              |
-| COBRE                    | COBRE                                | Center for Biomedical Research Excellence                                              |
-| Cam                      | Cam-CAN                              | Cambridge Centre for Ageing and Neuroscience                                           |
-| DEMGEN                   | DEMGEN                               | Norwegian Dementia Genetics Network                                                    |
-| DIDA                     | DIDA-MDD                             | Disease Imaging Data Archiving - Major Depressive Disorder                             |
-| DIRECT                   | DIRECT                               | DIRECT consortium                                                                      |
-| Depression               | Depression-EEG                       | Depression-EEG                                                                         |
-| EMBARC                   | EMBARC                               | Establishing Moderators and Biosignatures of Antidepressant Response for Clinical Care |
-| ENIGMA                   | ENIGMA                               | Enhancing NeuroImaging Genetics through Meta-Analysis                                  |
-| ENIGMA                   | ENIGMA-CHR-P                         | Enhancing NeuroImaging Genetics through Meta-Analysis - Clinical High Risk - Psychosis |
-| EU                       | EU                                   | European 16p11.2 consortium                                                            |
-| Early                    | Early Stages of Schizophrenia        | Early Stages of Schizophrenia                                                          |
-| FCON                     | FCON                                 | 1000 Functional Connectomes Project                                                    |
-| GAP                      | GAP                                  | the Genetics and Psychosis                                                             |
-| GROUP                    | GROUP                                | Genetic Risk and Outcome of Psychosis                                                  |
-| GSP                      | GSP                                  | Brain Genomics Superstruct Project                                                     |
-| HBN                      | HBN                                  | Healthy Brain Network                                                                  |
-| HCP                      | HCP                                  | Human Connectome Project                                                               |
-| HCP                      | HCP-A                                | Human Connectome Project Aging                                                         |
-| HCP                      | HCP-B                                | Human Connectome Project Baby                                                          |
-| HCP                      | HCP-D                                | Human Connectome Project Development                                                   |
-| HCP                      | HCP-EP                               | Human Connectome Project Early Psychosis                                               |
-| HCP                      | HCP-LS                               | Human Connectome Project Lifespan                                                      |
-| HCP                      | HCP-YA                               | Human Connectome Project Young Adult                                                   |
-| IBCDR                    | IBCDR                                | International Big-Data Center for Depression Research                                  |
-| IDEAS                    | IDEAS                                | Imaging Database for Epilepsy and Surgery                                              |
-| IMpACT                   | IMpACT                               | International Multicenter persistent ADHD CollaboraTion                                |
-| INsIDER                  | INsIDER                              | Imaging Axonal Damage & Repair in Multiple Sclerosis                                   |
-| IXI                      | IXI                                  | Information eXtraction from Images dataset                                             |
-| Imperial APC             | Imperial APC                         | The Imperial Amyloid PET Cohort                                                        |
-| KQJH                     | KQJH                                 | KQJH dataset                                                                           |
-| Knight                   | Knight ADRC-ADS                      | Knight Alzheimer's Disease Research Center                                             |
-| LEAP                     | LEAP                                 | Longitudinal European Autism Project                                                   |
-| LEMON                    | LEMON                                | Leipzig Study for Mind-Body-Emotion Interactions                                       |
-| Lausanne                 | Lausanne-ASD                         | Lausanne Autism Spectrum Disorder cohort                                               |
-| MCAD                     | MCAD                                 | Multicenter Alzheimer Disease Imaging Consortium                                       |
-| MCIC                     | MCIC                                 | MIND Clinical Imaging Consortium                                                       |
-| MIND                     | MIND-Set                             | MIND-Set study                                                                         |
-| MIPDB                    | MIPDB                                | Multimodal Resource for Studying Information Processing in the Developing Brain        |
-| MIRIAD                   | MIRIAD                               | Minimal Interval Resonance Imaging in Alzheimer's Disease                              |
-| MSSEG2016                | MSSEG2016                            | MICCAI MSSEG 2016 Challenge                                                            |
-| NACC                     | NACC                                 | National Alzheimer's Coordinating Center                                               |
-| NAKO                     | NAKO                                 | German National Cohort (NAKO Gesundheitsstudie)                                        |
-| NIFD                     | NIFD                                 | Neuroimaging in Frontotemporal Dementia                                                |
-| NIHPD                    | NIHPD                                | NIH MRI Study of Normal Brain Development                                              |
-| NIL                      | NIL                                  | Louvain Neuroinflammation Imaging Lab                                                  |
-| NIMHANS                  | NIMHANS                              | National Institute of Mental Health and Neurosciences                                  |
-| NKI                      | NKI                                  | Nathan Kline Institute                                                                 |
-| NUSDAST                  | NUSDAST                              | Northwestern University Schizophrenia Data and Software Tool                           |
-| OASIS                    | OASIS-1                              | Open Access Series of Imaging Studies-1                                                |
-| OASIS                    | OASIS-3                              | Open Access Series of Imaging Studies-3                                                |
-| OPTiMiSE                 | OPTiMiSE                             | the Optimization of Treatment and Management of Schizophrenia in Europe                |
-| OpenBHB                  | OpenBHB                              | Open Brain Health Benchmark                                                            |
-| OpenMSLong               | OpenMSLong                           | OpenMS Longitudinal dataset                                                            |
-| PNC                      | PNC                                  | Philadelphia Neurodevelopmental Cohort                                                 |
-| PPP                      | PPP                                  | Personalized Parkinson Project                                                         |
-| REST                     | REST-meta-MDD                        | REST-meta-MDD consortium                                                               |
-| SAED                     | SAED                                 | Shanghai Autism Early Developmental Cohort                                             |
-| STROKEMRI                | STROKEMRI                            | Stroke MRI study                                                                       |
-| SVIP                     | SVIP                                 | Simons VIP (Variation in Individuals Project)                                          |
-| StratiBip                | StratiBip                            | Stratification of Bipolar Disorder                                                     |
-| TractoInferno            | TractoInferno                        | TractoInferno challenge                                                                |
-| UCL                      | UCL                                  | University College London                                                              |
-| UCLA                     | UCLA                                 | University of California, Los Angeles                                                  |
-| UK Biobank               | UK Biobank                           | UK Biobank                                                                             |
-| UMich                    | UMich                                | University of Michigan                                                                 |
-| Utrecht                  | Utrecht                              | The dataset from Utrecht Schizophrenia project                                         |
-| devCCNP                  | devCCNP                              | developing Chinese Color Nest Project                                                  |
-| TOP                      | TOP                                  | Thematically Organized Psychosis                                                       |
-| TOP                      | sTOP                                 | Forensic Psychiatry study (sTOP)                                                       |
-| TOP                      | uTOP                                 | Youth-TOP study (uTOP)                                                                 |
-| femaleASD                | femaleASD                            | Multimodal Developmental Neurogenetics of Females with ASD                             |
-| MULTI-DATASET            | MULTI-DATASET (UNSPECIFIED OR N>=10) | Multiple Datasets (Unspecified or N>=10)                                               |
-| No Special Dataset Name  | MULTI-SITE (N>=2)                    | Multiple Sites (N>=2)                                                                  |
-| No Special Dataset Name  | SINGLE-SITE                          | Single Site                                                                            |
-| None (Pre-Trained NM)    | None (Pre-Trained NM)                | None (Pre-Trained Normative Model)                                                     |
-| Unknown                  | Unknown                              | Unknown Dataset                                                                        |                                                                                                                  |                                                                                                                                                                                                                                                                                                                                                   |                                                           |
+| Major Category Keyword   | Minor Category                    | Minor Category Full Spelling                                                              |
+|--------------------------|-----------------------------------|-------------------------------------------------------------------------------------------|
+| ABCCT                    | ABCCT                             | Autism Biomarker Consortium for Clinical Trials Dataset                                   |
+| ABCD                     | ABCD                              | Adolescent Brain Cognitive Development Study                                              |
+| ABIDE                    | ABIDE                             | Autism Brain Imaging Data Exchange                                                        |
+| ABIDE                    | ABIDE-I                           | Autism Brain Imaging Data Exchange I                                                      |
+| ABIDE                    | ABIDE-II                          | Autism Brain Imaging Data Exchange II                                                     |
+| ABIDE                    | ABIDE (I+II)                      | Autism Brain Imaging Data Exchange I and II                                               |
+| ABRIM                    | ABRIM                             | Advanced Brain Imaging on Ageing and Memory                                               |
+| ADHD-200                 | ADHD-200                          | ADHD-200 Sample                                                                           |
+| ADDI                     | ADNI                              | Alzheimer's Disease Neuroimaging Initiative                                               |
+| ADNI                     | ADNI-ADS                          | Alzheimer's Disease Neuroimaging Initiative - Alzheimer's Disease Spectrum                |
+| ADNI                     | ADNI-3                            | Alzheimer's Disease Neuroimaging Initiative 3                                             |
+| AIBL                     | AIBL                              | Australian Imaging, Biomarkers and Lifestyle Study of Ageing                              |
+| ARWiBo                   | ARWiBo                            | Alzheimer's Disease Repository Without Borders                                            |
+| ASRB                     | ASRB                              | Australian Schizophrenia Research Bank                                                    |
+| Aggressotype and MATRICS | Aggressotype and MATRICS          | The dataset from EU-funded Aggressotype and MATRICS consortia                             |
+| BHRCS                    | BHRCS                             | Brazilian High-Risk Cohort Study                                                          |
+| BLISS                    | BLISS                             | Bipolar Lithium Imaging and Spectroscopy Study                                            |
+| CHUV                     | CHUV                              | Centre Hospitalier Universitaire Vaudois                                                  |
+| CIFASD                   | CIFASD                            | Collaborative Initiative on Fetal Alcohol Spectrum Disorders                              |
+| COBRE                    | COBRE                             | Center for Biomedical Research Excellence                                                 |
+| Cam                      | Cam-CAN                           | Cambridge Centre for Ageing and Neuroscience                                              |
+| DEMGEN                   | DEMGEN                            | Norwegian Dementia Genetics Network                                                       |
+| DIDA                     | DIDA-MDD                          | Disease Imaging Data Archiving - Major Depressive Disorder                                |
+| DIRECT                   | DIRECT                            | DIRECT consortium                                                                         |
+| Depression               | Depression-EEG                    | Depression-EEG                                                                            |
+| EMBARC                   | EMBARC                            | Establishing Moderators and Biosignatures of Antidepressant Response for Clinical Care    |
+| ENIGMA                   | ENIGMA                            | Enhancing NeuroImaging Genetics through Meta-Analysis                                     |
+| ENIGMA                   | ENIGMA-CHR-P                      | Enhancing NeuroImaging Genetics through Meta-Analysis - Clinical High Risk - Psychosis    |
+| EU                       | EU                                | European 16p11.2 consortium                                                               |
+| Early                    | Early Stages of Schizophrenia     | Early Stages of Schizophrenia                                                             |
+| FCON                     | FCON                              | 1000 Functional Connectomes Project                                                       |
+| GAP                      | GAP                               | the Genetics and Psychosis                                                                |
+| GROUP                    | GROUP                             | Genetic Risk and Outcome of Psychosis                                                     |
+| GSP                      | GSP                               | Brain Genomics Superstruct Project                                                        |
+| HBN                      | HBN                               | Healthy Brain Network                                                                     |
+| HCP                      | HCP                               | Human Connectome Project                                                                  |
+| HCP                      | HCP-A                             | Human Connectome Project Aging                                                            |
+| HCP                      | HCP-B                             | Human Connectome Project Baby                                                             |
+| HCP                      | HCP-D                             | Human Connectome Project Development                                                      |
+| HCP                      | HCP-EP                            | Human Connectome Project Early Psychosis                                                  |
+| HCP                      | HCP-LS                            | Human Connectome Project Lifespan                                                         |
+| HCP                      | HCP-YA                            | Human Connectome Project Young Adult                                                      |
+| IBCDR                    | IBCDR                             | International Big-Data Center for Depression Research                                     |
+| IDEAS                    | IDEAS                             | Imaging Database for Epilepsy and Surgery                                                 |
+| IMpACT                   | IMpACT                            | International Multicenter persistent ADHD CollaboraTion                                   |
+| INsIDER                  | INsIDER                           | Imaging Axonal Damage & Repair in Multiple Sclerosis                                      |
+| IXI                      | IXI                               | Information eXtraction from Images dataset                                                |
+| Imperial APC             | Imperial APC                      | The Imperial Amyloid PET Cohort                                                           |
+| KQJH                     | KQJH                              | KQJH dataset                                                                              |
+| Knight                   | Knight ADRC-ADS                   | Knight Alzheimer's Disease Research Center                                                |
+| LEAP                     | LEAP                              | Longitudinal European Autism Project                                                      |
+| LEMON                    | LEMON                             | Leipzig Study for Mind-Body-Emotion Interactions                                          |
+| Lausanne                 | Lausanne-ASD                      | Lausanne Autism Spectrum Disorder cohort                                                  |
+| MCAD                     | MCAD                              | Multicenter Alzheimer Disease Imaging Consortium                                          |
+| MCIC                     | MCIC                              | MIND Clinical Imaging Consortium                                                          |
+| MIND                     | MIND-Set                          | MIND-Set study                                                                            |
+| MIPDB                    | MIPDB                             | Multimodal Resource for Studying Information Processing in the Developing Brain           |
+| MIRIAD                   | MIRIAD                            | Minimal Interval Resonance Imaging in Alzheimer's Disease                                 |
+| MSSEG2016                | MSSEG2016                         | MICCAI MSSEG 2016 Challenge                                                               |
+| NACC                     | NACC                              | National Alzheimer's Coordinating Center                                                  |
+| NAKO                     | NAKO                              | German National Cohort (NAKO Gesundheitsstudie)                                           |
+| NIFD                     | NIFD                              | Neuroimaging in Frontotemporal Dementia                                                   |
+| NIHPD                    | NIHPD                             | NIH MRI Study of Normal Brain Development                                                 |
+| NIL                      | NIL                               | Louvain Neuroinflammation Imaging Lab                                                     |
+| NIMHANS                  | NIMHANS                           | National Institute of Mental Health and Neurosciences                                     |
+| NKI                      | NKI                               | Nathan Kline Institute                                                                    |
+| NUSDAST                  | NUSDAST                           | Northwestern University Schizophrenia Data and Software Tool                              |
+| OASIS                    | OASIS-1                           | Open Access Series of Imaging Studies-1                                                   |
+| OASIS                    | OASIS-3                           | Open Access Series of Imaging Studies-3                                                   |
+| OPTiMiSE                 | OPTiMiSE                          | the Optimization of Treatment and Management of Schizophrenia in Europe                   |
+| OpenBHB                  | OpenBHB                           | Open Brain Health Benchmark                                                               |
+| OpenMSLong               | OpenMSLong                        | OpenMS Longitudinal dataset                                                               |
+| PNC                      | PNC                               | Philadelphia Neurodevelopmental Cohort                                                    |
+| PPP                      | PPP                               | Personalized Parkinson Project                                                            |
+| REST                     | REST-meta-MDD                     | REST-meta-MDD consortium                                                                  |
+| SAED                     | SAED                              | Shanghai Autism Early Developmental Cohort                                                |
+| STROKEMRI                | STROKEMRI                         | Stroke MRI study                                                                          |
+| SVIP                     | SVIP                              | Simons VIP (Variation in Individuals Project)                                             |
+| StratiBip                | StratiBip                         | Stratification of Bipolar Disorder                                                        |
+| TractoInferno            | TractoInferno                     | TractoInferno challenge                                                                   |
+| UCL                      | UCL                               | University College London                                                                 |
+| UCLA                     | UCLA-LA5c                         | University of California Los Angeles Consortium for Neuropsychiatric Phenomics LA5c Study |                     
+| UCLA                     | UCLA-NGD                          | UCLA 22Q11.2 CNV/NEUROGENETIC DATASET                                                     | 
+| UK Biobank               | UK Biobank                        | UK Biobank                                                                                |
+| UMich                    | UMich                             | University of Michigan                                                                    |
+| Utrecht                  | Utrecht                           | The dataset from Utrecht Schizophrenia project                                            |
+| devCCNP                  | devCCNP                           | developing Chinese Color Nest Project                                                     |
+| TOP                      | TOP                               | Thematically Organized Psychosis                                                          |
+| TOP                      | sTOP                              | Forensic Psychiatry study (sTOP)                                                          |
+| TOP                      | uTOP                              | Youth-TOP study (uTOP)                                                                    |
+| femaleASD                | femaleASD                         | Multimodal Developmental Neurogenetics of Females with ASD                                |
+| MULTI-DATASET            | MULTI-DATASET (NOT ALL PRESENTED) | Multiple datasets, but not all are presented                                              |
+| MULTI-DATASET            | MULTI-DATASET (UNSPECIFIED)       | Multiple Datasets, but Unspecified                                                        |
+| No Special Dataset Name  | MULTI-SITE (N>=2)                 | Multiple Sites (N>=2)                                                                     |
+| No Special Dataset Name  | SINGLE-SITE                       | Single Site                                                                               |
+| None (Pre-Trained NM)    | None (Pre-Trained NM)             | None (Pre-Trained Normative Model)                                                        |
+| Unknown                  | Unknown                           | Unknown Dataset                                                                           | 
 
 * 抽出スタイル: ADCSL_Style
 * "answer" 例:
 
 ```json
-"answer": [ "HCP-A", "HCP-YA", "UK Biobank", "COBRE", "UMich", "TOP"]
+"answer": ["HCP-A", "HCP-YA", "UK Biobank", "COBRE", "UMich", "TOP"
+]
 
 ```
 
@@ -265,16 +267,16 @@ MEG）を用いたノルマティブモデリング研究を評価します。�
 
 ```json
 "answer": {
-  "model-1": {
-    "model-name": "functional model",
-    "overall-phase": 21594,
-     "train-phase": "NR"
-  },
+"model-1": {
+"model-name": "functional model",
+"overall-phase": 21594,
+"train-phase": "NR"
+},
 "model-2": {
-    "model-name": "structural model",
-    "overall-phase": "NR",
-    "train-phase": 14473
-  }
+"model-name": "structural model",
+"overall-phase": "NR",
+"train-phase": 14473
+}
 }
 ```
 
@@ -293,46 +295,46 @@ MEG）を用いたノルマティブモデリング研究を評価します。�
 
 ```json
 "answer": {
-  "model-1": {
-    "overall-phase": {
-      "mean": "39.85 weighted",
-      "sd": "7.94 pooled",
-      "median": "NR",
-      "iqr_l": "NR",
-      "iqr_u": "NR",
-      "min": "2 inferred",
-      "max": "100 inferred"
-    },
-    "train-phase": {
-      "mean": "NR",
-      "sd": "NR",
-      "median": "NR",
-      "iqr_l": "NR",
-      "iqr_u": "NR",
-      "min": "2 inferred",
-      "max": "100 inferred"
-    }
-  },
-  "model-2": {
-    "overall-phase": {
-      "mean": "NR",
-      "sd": "NR",
-      "median": "NR",
-      "iqr_l": "NR",
-      "iqr_u": "NR",
-      "min": "2 inferred",
-      "max": "100 inferred"
-    },
-    "train-phase": {
-      "mean": "NR",
-      "sd": "NR",
-      "median": "NR",
-      "iqr_l": "NR",
-      "iqr_u": "NR",
-      "min": "2 inferred",
-      "max": "100 inferred"
-    }
-  }
+"model-1": {
+"overall-phase": {
+"mean": "39.85 weighted",
+"sd": "7.94 pooled",
+"median": "NR",
+"iqr_l": "NR",
+"iqr_u": "NR",
+"min": "2 inferred",
+"max": "100 inferred"
+},
+"train-phase": {
+"mean": "NR",
+"sd": "NR",
+"median": "NR",
+"iqr_l": "NR",
+"iqr_u": "NR",
+"min": "2 inferred",
+"max": "100 inferred"
+}
+},
+"model-2": {
+"overall-phase": {
+"mean": "NR",
+"sd": "NR",
+"median": "NR",
+"iqr_l": "NR",
+"iqr_u": "NR",
+"min": "2 inferred",
+"max": "100 inferred"
+},
+"train-phase": {
+"mean": "NR",
+"sd": "NR",
+"median": "NR",
+"iqr_l": "NR",
+"iqr_u": "NR",
+"min": "2 inferred",
+"max": "100 inferred"
+}
+}
 }
 ```
 
@@ -347,34 +349,34 @@ MEG）を用いたノルマティブモデリング研究を評価します。�
 
 ```json
 "answer": {
-  "model-1": {
-    "overall-phase": {
-      "female_n": 11085,
-      "female_pct": "51.5%",
-      "male_n": 10429,
-      "male_pct": "48.5%"
-    },
-    "train-phase": {
-      "female_n": 7517,
-      "female_pct": "51.9%",
-      "male_n": 6955,
-      "male_pct": "48.1%"
-    }
-  },
-  "model-2": {
-    "overall-phase": {
-      "female_n": "NR",
-      "female_pct": "NR",
-      "male_n": "NR",
-      "male_pct": "NR"
-    },
-    "train-phase": {
-      "female_n": 15033,
-      "female_pct": "51.1%",
-      "male_n": 14385,
-      "male_pct": "48.9%"
-    }
-  }
+"model-1": {
+"overall-phase": {
+"female_n": 11085,
+"female_pct": "51.5%",
+"male_n": 10429,
+"male_pct": "48.5%"
+},
+"train-phase": {
+"female_n": 7517,
+"female_pct": "51.9%",
+"male_n": 6955,
+"male_pct": "48.1%"
+}
+},
+"model-2": {
+"overall-phase": {
+"female_n": "NR",
+"female_pct": "NR",
+"male_n": "NR",
+"male_pct": "NR"
+},
+"train-phase": {
+"female_n": 15033,
+"female_pct": "51.1%",
+"male_n": 14385,
+"male_pct": "48.9%"
+}
+}
 }
 ```
 
@@ -496,6 +498,7 @@ answer without confidence rating, reason, supporting text, or location.
 -------------------------
 
 ## 抽出結果の出力
+
 - ファイル形式
     - JSON。`./DE_v11_Author20XX_by_Someone_YYYYmmddHHMMSS.json` の構造に合わせる。
 - ファイル名は `<DE version>_by_<Agent Name>_<AuthorYear>_<Processing Date>.json`

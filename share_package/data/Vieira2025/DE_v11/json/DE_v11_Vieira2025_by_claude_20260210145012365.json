@@ -1,0 +1,134 @@
+{
+  "study_identification_part": {
+    "si_1_study_id": "Vieira2025",
+    "si_2_reference_file_names": "Vieira2025.pdf.md; 41398_2025_3290_MOESM1_ESM.docx.md",
+    "si_3_author_journal_year": "Vieira et al., Translational Psychiatry, 2025",
+    "si_4_title": "Neurofind: using deep learning to make individualised inferences in brain-based disorders"
+  },
+  "dataset_characteristics_part": {
+    "dc_1_datasets_using_in_this_study": {
+      "answer": ["HCP-YA", "HCP-A", "UK Biobank", "IXI", "AIBL", "MCIC", "COBRE"],
+      "detail": "The normative models were trained on four publicly available HC datasets: HCP Young Adult (referred to as 'Human Connectome Project' with data release link to HCP Young Adults), HCP Aging, UK Biobank, and IXI. Three additional clinical datasets (AIBL, MCIC, COBRE) were used for exemplar applications. Table S1 shows 7 scanners across training datasets (HCP: N=599; HCP Aging: N=458; Biobank S01: N=1462; Biobank S02: N=349; IXI S01: N=293; IXI S02: N=165; IXI S03: N=36) and 4 scanners across clinical datasets (AIBL: N=122; MCIC S01: N=64; MCIC S02: N=40; MCIC S03: N=52; COBRE: N=86).",
+      "confidence_rating": "High",
+      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\" ... \"Exemplar applications were carried out in three clinical datasets: the Australian Imaging, Biomarkers and Lifestyle Study (AIBL), the MIND Clinical Imaging Consortium (MCIC) and the Center for Biomedical Research Excellence (COBRE) dataset.\"",
+      "location": "Vieira2025.pdf.md: MODEL DEVELOPMENT Datasets, L31; Exemplar Applications / Datasets used for exemplar applications, L92; 41398_2025_3290_MOESM1_ESM.docx.md: Table S1, L47-L60"
+    },
+    "dc_2_purpose_of_each_dataset": {
+      "answer": [
+        {"HCP-YA": "normative model training (Outlier Detection AAE + Brain Age SVR)"},
+        {"HCP-A": "normative model training (Outlier Detection AAE + Brain Age SVR)"},
+        {"UK Biobank": "normative model training (Outlier Detection AAE + Brain Age SVR; largest scanner undersampled to max 55 per age group)"},
+        {"IXI": "normative model training (Outlier Detection AAE + Brain Age SVR)"},
+        {"AIBL": "clinical exemplar application (Alzheimer's disease patients and matched healthy controls)"},
+        {"MCIC": "clinical exemplar application (schizophrenia patients and healthy controls)"},
+        {"COBRE": "clinical exemplar application (schizophrenia patients and healthy controls)"}
+      ],
+      "detail": "All four training datasets (HCP-YA, HCP-A, UK Biobank, IXI) contributed healthy controls to a single train set (N=3362) used to develop both the Outlier Detection (AAE) and Brain Age (SVR) normative models, as well as the Neuroharmony scanner harmonisation model. The three clinical datasets (AIBL, MCIC, COBRE) were used solely for exemplar applications to demonstrate the tool, not for model training. For AAE hyperparameter tuning, 75% of the train set was used for training and 25% for validation; the best configuration was then retrained on the entire train set. For SVR, 10-fold cross-validated grid search was used within the train set.",
+      "confidence_rating": "High",
+      "supporting_text": "\"The final data for the train set comprised 3362 participants\" ... \"Neuroharmony was trained in the same train datasets as used for the development of the outlier detection and brain age models\" ... \"The best configuration was used to train the entire training set\" ... \"A systematic hyperparameter search for C was conducted using a ten-fold cross-validated grid-search\" ... \"The Neuroharmony model (trained in the model development data) was applied separately to the clinical datasets used for exemplar applications.\"",
+      "location": "Vieira2025.pdf.md: MODEL DEVELOPMENT Datasets, L31-L36; Scanner harmonisation, L49-L50; Outlier detection, L52-L54; Brain age, L57-L60; Exemplar Applications, L91-L102"
+    },
+    "dc_3_number_of_healthy_control_of_each_normative_nodel": {
+      "answer": {
+        "model-1": {
+          "model-name": "Outlier Detection (Adversarial Autoencoder)",
+          "overall-phase": 3362,
+          "train-phase": 3362
+        },
+        "model-2": {
+          "model-name": "Brain Age (Support Vector Regression)",
+          "overall-phase": 3362,
+          "train-phase": 3362
+        }
+      },
+      "detail": "Both models were trained on the same train set of 3362 healthy controls. No separate held-out test set from the HC data is described for either normative model. For the AAE, hyperparameter tuning used a 75/25 internal train/validation split, but the final model was retrained on the full 3362. For the SVR, 10-fold cross-validation was used for hyperparameter selection, then the chosen C was applied to the whole training set. Therefore, overall-phase equals train-phase. The initial sample was 13,918 T1-weighted images; after exclusions (missing data, age outside 20-80, MRIQC quality threshold >0.7, undersampling of UK Biobank, iterative outlier removal), 3362 remained. Per-scanner breakdown from Table S1: HCP=599, HCP Aging=458, Biobank S01=1462, Biobank S02=349, IXI S01=293, IXI S02=165, IXI S03=36.",
+      "confidence_rating": "High",
+      "supporting_text": "\"The final data for the train set comprised 3362 participants (Fig. 1, Table 1)\" ... \"The best configuration was used to train the entire training set\" ... \"The C value with the best performance ... was then applied to the whole training set (C = 2^-2)\"",
+      "location": "Vieira2025.pdf.md: MODEL DEVELOPMENT / MRI data acquisition and pre-processing, L35; Table 1, L43; Outlier detection, L52-L54; Brain age, L58-L60; 41398_2025_3290_MOESM1_ESM.docx.md: Table S1, L47-L55; AAE structure and training, L106-L108"
+    },
+    "dc_4_age_info_of_each_normative_nodel": {
+      "answer": {
+        "model-1": {
+          "overall-phase": {
+            "mean": "NR",
+            "sd": "NR",
+            "median": "52.0",
+            "iqr_l": "NR",
+            "iqr_u": "NR",
+            "min": "20 inferred",
+            "max": "80 inferred"
+          },
+          "train-phase": {
+            "mean": "NR",
+            "sd": "NR",
+            "median": "52.0",
+            "iqr_l": "NR",
+            "iqr_u": "NR",
+            "min": "20 inferred",
+            "max": "80 inferred"
+          }
+        },
+        "model-2": {
+          "overall-phase": {
+            "mean": "NR",
+            "sd": "NR",
+            "median": "52.0",
+            "iqr_l": "NR",
+            "iqr_u": "NR",
+            "min": "20 inferred",
+            "max": "80 inferred"
+          },
+          "train-phase": {
+            "mean": "NR",
+            "sd": "NR",
+            "median": "52.0",
+            "iqr_l": "NR",
+            "iqr_u": "NR",
+            "min": "20 inferred",
+            "max": "80 inferred"
+          }
+        }
+      },
+      "detail": "Both models share the same train set (N=3362), so age statistics are identical. Table 1 reports median=52.0 and a value of 15.2 in brackets. The bracket format in Table 1 is 'median [Q1, Q3]' per the column header, but only a single value (15.2) appears, which likely represents the IQR width rather than separate Q1 and Q3. Therefore Q1 and Q3 cannot be individually determined. Mean and SD are not reported and cannot be reliably computed because per-dataset age distributions are not provided. Min and max are inferred from the inclusion criterion: 'Participants ... younger than 20 and older than 80 years old were excluded', and this is consistent with Fig. 1 showing age range approximately 20-80. Since overall-phase equals train-phase for both models, the values are the same.",
+      "confidence_rating": "Medium",
+      "supporting_text": "\"Participants with missing data and younger than 20 and older than 80 years old were excluded.\" ... Table 1: \"Age, median [Q1, Q3]: 52.0 [15.2]\" ... \"Neurofind may not be suitable for analysis of subjects that are very different from our training range, i.e., outside of ages 20-80\"",
+      "location": "Vieira2025.pdf.md: Table 1, L43-L46; MRI data acquisition and pre-processing, L35; Discussion, L182"
+    },
+    "dc_5_sex_info_of_each_normative_nodel": {
+      "answer": {
+        "model-1": {
+          "overall-phase": {
+            "female_n": 1893,
+            "female_pct": "56.3%",
+            "male_n": 1469,
+            "male_pct": "43.7%"
+          },
+          "train-phase": {
+            "female_n": 1893,
+            "female_pct": "56.3%",
+            "male_n": 1469,
+            "male_pct": "43.7%"
+          }
+        },
+        "model-2": {
+          "overall-phase": {
+            "female_n": 1893,
+            "female_pct": "56.3%",
+            "male_n": 1469,
+            "male_pct": "43.7%"
+          },
+          "train-phase": {
+            "female_n": 1893,
+            "female_pct": "56.3%",
+            "male_n": 1469,
+            "male_pct": "43.7%"
+          }
+        }
+      },
+      "detail": "Both models share the same train set (N=3362). Table 1 explicitly reports sex distribution: Female=1893 (56.3%), Male=1469 (43.7%). Since there is no separate held-out test/validation set (overall-phase equals train-phase), the values are identical for both phases and both models.",
+      "confidence_rating": "High",
+      "supporting_text": "Table 1: \"Sex F/M, N (%): 1893 (56.3) / 1469 (43.7)\" for \"Train set (N = 3362)\"",
+      "location": "Vieira2025.pdf.md: Table 1, L43-L46"
+    }
+  }
+}

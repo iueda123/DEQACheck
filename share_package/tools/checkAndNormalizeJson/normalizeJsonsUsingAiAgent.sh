@@ -28,8 +28,9 @@ SCRIPT_DIR="$(dirname "${SCRIPT_PATH}")"
 
 # 依存スクリプト:
 # - ask_AiToNormalize_for_*.sh: AIエージェント（Gemini/Claude/Codex）を使用してJSONを正規化
-NORMALIZER_SH=""
+DATA_TYPE_NAME=""
 
+DEFAULT_TSV_DIR="${SCRIPT_DIR}/str_and_key_check_results"
 AI_AGENT="codex"  # gemini | claude | codex
 DRY_RUN=true
 VERBOSE=true      # 詳細出力は常に有効
@@ -50,8 +51,9 @@ ask_AiToNormalize_for_*.sh で修復を試みます。
       対象JSONの内容が正規化により更新される可能性
 
 オプション:
-  --str-and-key-check-result-tsv PATH      既存のサマリTSVを指定（必須）
-  --ask-script PATH       ask_AiToNormalize_for_*.sh のパスを指定（必須）
+  --str-and-key-check-result-tsv PATH      既存のサマリTSVを指定
+                                           （省略時: ${DEFAULT_TSV_DIR}/ 下の最新TSVを自動選択）
+  --data-type, -d {DE_v10|DE_v11|DE_v12}  対象データ型を指定（必須）
   --result {FAIL|WARN|ALL} 対象とする result を指定（既定: FAIL）
   --agent {codex|gemini|claude}  使用AI（既定: ${AI_AGENT}）
   --run, -r               実行モード（既定はドライラン）
@@ -59,7 +61,8 @@ ask_AiToNormalize_for_*.sh で修復を試みます。
   -h, --help              このヘルプ
 
 例:
-  $(basename "$0") --str-and-key-check-result-tsv ../check_rslt/json_structure_check_DE_*.tsv --ask-script ./subfuncs/ask_AiToNormalize_for_DE_v12.sh --run
+  $(basename "$0") -d DE_v12 --run
+  $(basename "$0") --data-type DE_v11 --str-and-key-check-result-tsv ./str_and_key_check_results/json_structure_check_DE_v11_*.tsv --run
 EOF
 }
 
@@ -68,8 +71,8 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --str-and-key-check-result-tsv)
       SUMMARY_TSV_OVERRIDE="$(readlink -f "$2")"; shift 2;;
-    --ask-script)
-      NORMALIZER_SH="$(readlink -f "$2")"; shift 2;;
+    --data-type|-d)
+      DATA_TYPE_NAME="$2"; shift 2;;
     --result)
       RESULT_FILTER="$2"; shift 2;;
     --agent)
@@ -86,14 +89,31 @@ while [[ $# -gt 0 ]]; do
 done
 
 # 入力検証
+# --data-type を先に検証（TSV自動選択でフィルタに使うため）
+if [[ -z "${DATA_TYPE_NAME}" ]]; then
+  echo "エラー: --data-type (-d) は必須です（DE_v10, DE_v11, DE_v12 のいずれか）" >&2
+  exit 2
+fi
+if [[ ! "${DATA_TYPE_NAME}" =~ ^(DE_v10|DE_v11|DE_v12)$ ]]; then
+  echo "エラー: --data-type は DE_v10, DE_v11, DE_v12 のいずれかを指定してください" >&2
+  exit 2
+fi
+# --str-and-key-check-result-tsv が未指定の場合、DATA_TYPE_NAME に一致する最新TSVを自動選択
 if [[ -z "${SUMMARY_TSV_OVERRIDE}" ]]; then
-  echo "エラー: --str-and-key-check-result-tsv は必須です" >&2
-  exit 2
+  if [[ ! -d "${DEFAULT_TSV_DIR}" ]]; then
+    echo "エラー: デフォルトTSVディレクトリが見つかりません: ${DEFAULT_TSV_DIR}" >&2
+    echo "  --str-and-key-check-result-tsv でTSVファイルを指定してください" >&2
+    exit 2
+  fi
+  SUMMARY_TSV_OVERRIDE="$(find "${DEFAULT_TSV_DIR}" -maxdepth 1 -name "json_structure_check_${DATA_TYPE_NAME}_*.tsv" -printf '%f\n' | sort | tail -n1)"
+  if [[ -z "${SUMMARY_TSV_OVERRIDE}" ]]; then
+    echo "エラー: ${DEFAULT_TSV_DIR} に ${DATA_TYPE_NAME} のTSVファイルが見つかりません" >&2
+    exit 2
+  fi
+  SUMMARY_TSV_OVERRIDE="${DEFAULT_TSV_DIR}/${SUMMARY_TSV_OVERRIDE}"
+  ${VERBOSE} && echo "[INFO] 自動選択されたサマリTSV: ${SUMMARY_TSV_OVERRIDE}" || true
 fi
-if [[ -z "${NORMALIZER_SH}" ]]; then
-  echo "エラー: --ask-script は必須です" >&2
-  exit 2
-fi
+NORMALIZER_SH="${SCRIPT_DIR}/subfuncs/ask_AiToNormalize_for_${DATA_TYPE_NAME}.sh"
 if [[ ! -x "${NORMALIZER_SH}" ]]; then
   echo "エラー: 正規化スクリプトが見つかりません: ${NORMALIZER_SH}" >&2
   exit 1
