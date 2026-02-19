@@ -11,12 +11,12 @@ SummaryView.javaが参照しているJSONファイルのDisease列に対応す�
 SummaryView.javaが参照しているJSONファイル自体に修正を施したいです。
 Disease列に対応する要素の値を正規化して欲しいです。
 pattern_of_disease.md を参考に書き換えてください。
-share_package/data/**/DE/json*/DE_*human*.json や share_package/data/**/DE/json*/DE_*Human*.json についてのみ修正をお願いします。名前に
+share_package/data/**/DE_v10/json*/DE_*human*.json や share_package/data/**/DE_v10/json*/DE_*Human*.json についてのみ修正をお願いします。名前に
 human や Human のつかないJSONファイルについては一切触らないでください。
 
 ## 対象と方法
 
-- 対象ファイル: `share_package/data/*/DE/json/*human*.json`
+- 対象ファイル: `share_package/data/*/DE_v10/json/*human*.json`
 - 読み取り方法:
     - `SummaryView` は `RowObject` を通じて JSON を読み、`clinical_application_and_analysis_part` セクションの `caaN_*`
       キーを数値順で収集。

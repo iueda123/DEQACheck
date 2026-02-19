@@ -22,7 +22,7 @@ public class DEGN_SubTabsHolder extends AbstCHolderMember implements SubTabsHold
 
     public static final String staticMemberName = "sub_tabs_holder_DEGN";
 
-    static final String LOCATION_OF_JSON = "DE/json/";
+    static final String LOCATION_OF_JSON = "DE_v10/json/";
 
 
     static String sectionName = "general_note_part";

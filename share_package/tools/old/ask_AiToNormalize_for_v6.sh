@@ -31,7 +31,7 @@ JSONファイルの構造とキーを正規化するスクリプトです。
 
 使用例:
   # Codexを使用してJSONファイルを正規化
-  ${this_script_name} --file ../Bhome2024/DE/json/DE_Bhome2024_by_gemini_*.json
+  ${this_script_name} --file ../Bhome2024/DE_v10/json/DE_Bhome2024_by_gemini_*.json
 
   # Geminiを使用して正規化（詳細出力あり）
   ${this_script_name} -f QA_Bedford2025_by_claude.json -a gemini -v

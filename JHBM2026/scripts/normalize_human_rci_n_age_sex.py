@@ -309,8 +309,8 @@ def process_file(path: str):
 
 def main():
     patterns = [
-        'share_package/data/*/DE/json*/DE_*human*.json',
-        'share_package/data/*/DE/json*/DE_*Human*.json',
+        'share_package/data/*/DE_v10/json*/DE_*human*.json',
+        'share_package/data/*/DE_v10/json*/DE_*Human*.json',
     ]
     files = []
     for pat in patterns:

@@ -3,7 +3,7 @@
 この文書は `reference_cohort_and_imaging_part.rci5_imaging_modality.answer` に記載されたモダリティ表現（SummaryView
 の「Modality」列）を実データから収集し、表記ゆれの傾向を整理・正規化方針を提案するものです。
 
-- 対象データ: `share_package/data/**/DE/json*/DE_*.json`
+- 対象データ: `share_package/data/**/DE_v10/json*/DE_*.json`
 - 解析方法: rci5_imaging_modality.answer を抽出しユニーク化・頻度集計
 
 ## サマリ

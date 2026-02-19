@@ -19,7 +19,7 @@ Usage: $(basename "$0") --agent {gemini|claude|codex} [--threshold VAL] [--run] 
 
 Reads notes/DE_JsonFillRate.tsv, selects rows where the file path
 contains 'by_<agent>' and the rate < threshold, and deletes <agent>-related
-JSONs under <AuthorYear>/DE/json for those studies.
+JSONs under <AuthorYear>/DE_v10/json for those studies.
 
 Options:
   --agent VAL       One of: gemini, claude, codex (required)
@@ -122,7 +122,7 @@ ${quiet} || {
 }
 
 for s in "${studies[@]}"; do
-  dir="${repo_root}/${s}/DE/json"
+  dir="${repo_root}/${s}/DE_v10/json"
   if [[ ! -d "${dir}" ]]; then
     ${quiet} || echo "[skip] Missing dir: ${dir}"
     continue

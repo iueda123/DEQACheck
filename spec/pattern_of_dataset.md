@@ -1,6 +1,6 @@
 # Dataset (RCI1) 表現パターン調査
 
-本調査は SummaryView が参照する Human JSON（`share_package/data/*/DE/json/*human*.json`）中、
+本調査は SummaryView が参照する Human JSON（`share_package/data/*/DE_v10/json/*human*.json`）中、
 `reference_cohort_and_imaging_part.rci1_dataset_name.answer`（＝表の「Dataset」列）に入力されている文字列表現のバラエティを収集・要約したものです。
 
 - 解析対象ファイル数: 108
@@ -15,7 +15,7 @@ SummaryView.javaが参照しているJSONファイルのDataset列に対応す�
 SummaryView.javaが参照しているJSONファイル自体に修正を施したいです。
 Dataset列に対応する要素の値を正規化して欲しいです。
 pattern_of_dataset.md を参考に書き換えてください。
-share_package/data/**/DE/json*/DE_*human*.json や share_package/data/**/DE/json*/DE_*Human*.json についてのみ修正をお願いします。名前に
+share_package/data/**/DE_v10/json*/DE_*human*.json や share_package/data/**/DE_v10/json*/DE_*Human*.json についてのみ修正をお願いします。名前に
 human や Human のつかないJSONファイルについては一切触らないでください。
 
 ## 主な傾向（要約）
@@ -150,7 +150,7 @@ human や Human のつかないJSONファイルについては一切触らない
 
 ## 実装メモ（サマリ生成方法）
 
-- `glob('share_package/data/*/DE/json/*human*.json')` を走査。
+- `glob('share_package/data/*/DE_v10/json/*human*.json')` を走査。
 - JSON から `reference_cohort_and_imaging_part.rci1_dataset_name.answer` を取得。
 - 文字列が非空のものを集計し、ユニーク値・頻度を算出。
   -（本ファイルの一覧は 2025-12-14 時点の結果に基づく）

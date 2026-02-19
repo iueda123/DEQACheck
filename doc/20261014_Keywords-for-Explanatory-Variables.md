@@ -46,9 +46,9 @@ Version: 20260128
 
 続いて、 上田が、これらに当てはまらないようなキーワードがないかを再考した。 方法としては、
 
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`,
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`,
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`:
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`,
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`,
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`:
 
 というファイルの
 "normative_modeling_part/nm5_predictor_variables/answer"
@@ -56,7 +56,7 @@ Version: 20260128
 上記32キーワードでは足りないものがないかを調べた。
 その結果以下が挙げられた。
 
-- 対象: `share_package/data/*/DE/json/DE_*_by_{codex,claude,gemini}_*.json` を走査。
+- 対象: `share_package/data/*/DE_v10/json/DE_*_by_{codex,claude,gemini}_*.json` を走査。
 - 正規化: Age 系の多項式・スプライン表記、Sex/Gender、Site/Scanner/Batch、ICV/TIV/Total brain volume、Mean CT/SA、QC 指標（Euler
   number、FD、Head motion 等）、Task performance、None などは32キーワードに吸収（大文字小文字差や説明文付きも含む）。
 - 上記で吸収できなかった 28 件の研究についてそのExplanatory Variablesの内容で束ねたところ、以下のキーワードが現行32個には無い。
@@ -252,7 +252,7 @@ Mendes2024でのNLMとの問答が参考になるかも
 
 ## 文献対応状況（簡易調査）
 
-`share_package/data/*/DE/json/DE_*_by_codex_*.json` にある 129 件の `nm5_predictor_variables/answer` を
+`share_package/data/*/DE_v10/json/DE_*_by_codex_*.json` にある 129 件の `nm5_predictor_variables/answer` を
 正規表現で自動マッピングした結果。ヒューリスティックな自動判定のため過不足の可能性あり（目視確認の起点として利用）。
 
 ### Age-related

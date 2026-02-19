@@ -24,7 +24,7 @@ public class DECAA_SubTabsHolder extends AbstCHolderMember implements SubTabsHol
 
     public static final String staticMemberName = "sub_tabs_holder_DECAA";
 
-    static final String LOCATION_OF_JSON = "DE/json/";
+    static final String LOCATION_OF_JSON = "DE_v10/json/";
 
 
     static String sectionName = "clinical_application_and_analysis_part";

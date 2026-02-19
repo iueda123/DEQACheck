@@ -31,7 +31,7 @@ public class SummaryRowsBuilder_for_DE_v10 {
                 continue;
             }
 
-            Path jsonDir = authorYearPath.resolve("DE").resolve("json");
+            Path jsonDir = authorYearPath.resolve("DE_v10").resolve("json");
             if (!Files.exists(jsonDir) || !Files.isDirectory(jsonDir)) {
                 continue;
             }

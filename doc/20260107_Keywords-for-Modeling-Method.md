@@ -34,9 +34,9 @@ Version: 20260128
 続いて、 上田が、これらに当てはまらないようなキーワードがないかを再考した。
 方法としては、
 
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`,
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`,
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`:
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`,
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`,
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`:
 
 というファイルの
 "normative_modeling_part/nm2_modeling_method/answer"

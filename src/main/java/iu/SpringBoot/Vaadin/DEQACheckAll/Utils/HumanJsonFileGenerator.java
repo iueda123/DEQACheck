@@ -36,7 +36,7 @@ public class HumanJsonFileGenerator {
 
         for (Path authorYearPath : pathListOfAuthorYearDir) {
             String authorYear = authorYearPath.getFileName().toString();
-            Path jsonDir = authorYearPath.resolve("DE").resolve("json");
+            Path jsonDir = authorYearPath.resolve("DE_v10").resolve("json");
 
             // jsonディレクトリが存在しない場合は作成
             if (!Files.exists(jsonDir)) {

@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 //
-//Normalize rci5_imaging_modality.answer in human/Human JSONs under share_package/data/**/DE/json*/DE_*human*.json.
+//Normalize rci5_imaging_modality.answer in human/Human JSONs under share_package/data/**/DE_v10/json*/DE_*human*.json.
 //Categories: T1w MRI, T2w MRI, fMRI, dMRI, PET, EEG, MEG, Others.
 //Details are kept in parentheses for applicable categories, e.g., fMRI (task), PET (Amyloid, 18F-Florbetapir).
 //
@@ -33,7 +33,7 @@ public class ModalityHumanNormalizer {
         try (DirectoryStream<Path> authors = Files.newDirectoryStream(base)) {
             for (Path author : authors) {
                 if (!Files.isDirectory(author)) continue;
-                Path de = author.resolve("DE");
+                Path de = author.resolve("DE_v10");
                 if (!Files.isDirectory(de)) continue;
 
                 try (DirectoryStream<Path> subs = Files.newDirectoryStream(de)) {

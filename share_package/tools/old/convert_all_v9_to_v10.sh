@@ -73,14 +73,14 @@ for dir in "${BASE_DIR}"/*/; do
     continue
   fi
 
-  json_dir="${dir%/}/DE/json"
+  json_dir="${dir%/}/DE_v10/json"
   for json in "$json_dir"/*.json; do
     [[ -e "$json" ]] || continue
     found_any=true
 
     relpath="${json#${BASE_DIR%/}/}"
     de_dir=$(dirname -- "$json_dir")          # .../<Name>/DE
-    backup_dir="${de_dir}/json_v9"             # .../<Name>/DE/json_v9
+    backup_dir="${de_dir}/json_v9"             # .../<Name>/DE_v10/json_v9
     filename=$(basename -- "$json")
     backup_file="${backup_dir}/${filename}"
 

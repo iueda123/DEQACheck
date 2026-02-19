@@ -26,9 +26,9 @@ Version: 20260128
 
 続いて、 上田が、これらに当てはまらないようなキーワードがないかを再考した。
 方法としては、
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`,
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`,
-`share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`,
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`,
+`share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`
 というファイルの
 "normative_modeling_part/nm4_response_variable/answer"
 要素の値をキーワードに置き換えて正規化しようとしたときに、
@@ -50,7 +50,7 @@ Version: 20260128
     - 特定ROI体積: 小脳葉・視床核、海馬、脳梁形態（面積/長さ/周長など）。
     - グローバル組織量: WMH、CSF、TIV/ICV など（GMV/WMV以外）。
     - 混合IDPセット: 2000+ IDPや多組織スコア（単一キーワードでは括りにくい）。
-- 補足: `share_package/data/Feng2024/DE/json/DE_Feng2024_by_gemini_20251210071754.json` は answer 欄が空。`Yes`
+- 補足: `share_package/data/Feng2024/DE_v10/json/DE_Feng2024_by_gemini_20251210071754.json` は answer 欄が空。`Yes`
   だけの回答も1件あり要確認。
 
 ## Keywords for Normalization
@@ -576,7 +576,7 @@ MSI (Morphometric Similarity Index) は皮質形態の類似度行列を指標�
 
 - Janssen2024（統合失調症・縦断）: 62 DKT ROIのMorphometric Similarity（CT/SA/CV/曲率から算出）をWarped
   BLRで年齢・性別・Euler数・スキャナを共変量としたnormative
-  zスコア化し、Yeo-7ネットワーク平均zも評価。share_package/data/Janssen2024/DE/json/DE_Janssen2024_by_codex_202510300210.json
+  zスコア化し、Yeo-7ネットワーク平均zも評価。share_package/data/Janssen2024/DE_v10/json/DE_Janssen2024_by_codex_202510300210.json
 
 -------
 
@@ -584,7 +584,7 @@ MSI (Morphometric Similarity Index) は皮質形態の類似度行列を指標�
 
 - Janssen2021（統合失調症・縦断）:
   PBSI-SW（11両側溝幅）を計算し、年齢/スキャナ/TBVで残差化後にHC平均・SDからZ化して逸脱者（|Z|>
-  2）を特定。比較としてPBSI-CTも算出。share_package/data/Janssen2021/DE/json_v9/
+  2）を特定。比較としてPBSI-CTも算出。share_package/data/Janssen2021/DE_v10/json_v9/
   DE_Janssen2021_by_codex_202510291208.json
 - Baldwin2022（ENIGMA CHR-Pメガ解析）: SA・CT・SV（+ICV）の153 ROIベクトルをHCプロファイルと相関させるPBSIでnormative
   Zスコアを作成し、>1.5 SDで顕著逸脱をカウント。share_package/data/Baldwin2022/DE_v12/json/

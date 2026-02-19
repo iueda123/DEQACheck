@@ -106,8 +106,8 @@ def parse_sex_records(text):
 
 
 def main():
-    files = glob.glob('share_package/data/*/DE/json/*human*.json') + glob.glob(
-        'share_package/data/*/DE/json/*Human*.json')
+    files = glob.glob('share_package/data/*/DE_v10/json/*human*.json') + glob.glob(
+        'share_package/data/*/DE_v10/json/*Human*.json')
     records = []  # flattened per (file, line)
     datasets_counter = collections.Counter()
     modality_counter = collections.Counter()
@@ -122,7 +122,7 @@ def main():
     for p in files:
         j = load_json(p)
         if not j: continue
-        # Expected layout: share_package/data/<AuthorYear>/DE/json/filename.json
+        # Expected layout: share_package/data/<AuthorYear>/DE_v10/json/filename.json
         try:
             authorYear = Path(p).parents[2].name
         except Exception:

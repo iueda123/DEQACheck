@@ -5,8 +5,8 @@
 Fill missing study_identification_part fields in Human JSONs from sibling codex JSONs.
 
 Targets:
-  - data/*/DE/json/*Human*.json
-  - data/*/DE/json/*human*.json
+  - data/*/DE_v10/json/*Human*.json
+  - data/*/DE_v10/json/*human*.json
 
 Rules:
   - For each target file, if any of these fields are empty or missing,
@@ -149,7 +149,7 @@ def fill_from_codex(target_path: Path, *, dry_run: bool = False) -> Tuple[bool, 
 def build_arg_parser() -> argparse.ArgumentParser:
     desc = (
         "Human JSON の study_identification_part 欠損項目を、同階層の codex JSON から補完します。\n"
-        "対象: data/*/DE/json/*[Hh]uman*.json（各フォルダ内の最新の *codex*.json を参照）"
+        "対象: data/*/DE_v10/json/*[Hh]uman*.json（各フォルダ内の最新の *codex*.json を参照）"
     )
     epilog = (
         "空とみなす条件: 未定義/null/空文字/空配列/空オブジェクト。\n"
@@ -182,8 +182,8 @@ def main(argv: List[str]) -> int:
     # Discover target human JSON files
     root: Path = args.root.resolve()
     patterns = [
-        "data/*/DE/json/*Human*.json",
-        "data/*/DE/json/*human*.json",
+        "data/*/DE_v10/json/*Human*.json",
+        "data/*/DE_v10/json/*human*.json",
     ]
 
     targets: List[Path] = []
@@ -192,7 +192,7 @@ def main(argv: List[str]) -> int:
         targets.extend(sorted(root.glob(pat)))
 
     if not targets:
-        print("[INFO] No target Human JSON files found under data/*/DE/json/.")
+        print("[INFO] No target Human JSON files found under data/*/DE_v10/json/.")
         return 0
 
     total = len(targets)

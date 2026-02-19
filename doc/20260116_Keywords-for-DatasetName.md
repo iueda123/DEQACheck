@@ -46,9 +46,9 @@ Major Category Keyword として "DATASET/SITE" が付与されうる研究と�
 これらに対して高松がどのような基準で MULTI-DATASET (N>=100), MULTI-DATASET (N=XX), MULITI-SITE (N=XX), SINGLE-SITE,
 TWO-SINGLE-SITE という Minor Category Keywordを付与したかのルールを逆算した。
 
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`
 
 というファイルの
 
@@ -120,9 +120,9 @@ Author Yearはすべて Pre-trained Normative Model を用いている研究に�
 
 そこで、以下のAI抽出結果から表記のブレを省いた統一的なキーワード案を作成した。
 
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`
 
 これらファイルの
 
@@ -251,9 +251,9 @@ Author Yearはすべて Pre-trained Normative Model を用いている研究に�
 
 ### 該当論文簡易調査方法の例： "ABCD" の場合
 
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`
-* `share_package/data/<AuthorYear>/DE/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_codex_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_claude_<ProcessedTime>.json`
+* `share_package/data/<AuthorYear>/DE_v10/json/DE_AuthorYear>_by_gemini_<ProcessedTime>.json`
 
 というファイルの
 
@@ -264,7 +264,7 @@ Author Yearはすべて Pre-trained Normative Model を用いている研究に�
 
 要素の値を参照し、"ABCD" というキーワードを付与すべき論文を特定してください。
 
-調査結果: `share_package/data/**/DE/json` の rci1/caa1 の answer/supporting_text で "ABCD" が確認できた論文は
+調査結果: `share_package/data/**/DE_v10/json` の rci1/caa1 の answer/supporting_text で "ABCD" が確認できた論文は
 Bethlehem2021, GarciaSanMartin2025, Ge2024, Kia2022, Loreto2024, Mendes2024, Rutherford2022, Rutherford2023, Verdi2023,
 Verdi2024, VillalonReina2024, Worker2023。
 

@@ -24,7 +24,7 @@ public class DERCI_SubTabsHolder extends AbstCHolderMember implements SubTabsHol
 
     public static final String staticMemberName = "sub_tabs_holder_DERCI";
 
-    static final String LOCATION_OF_JSON = "DE/json/";
+    static final String LOCATION_OF_JSON = "DE_v10/json/";
 
 
     static String sectionName = "reference_cohort_and_imaging_part";

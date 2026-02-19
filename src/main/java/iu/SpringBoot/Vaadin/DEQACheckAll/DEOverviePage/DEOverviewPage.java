@@ -45,7 +45,7 @@ public class DEOverviewPage extends VerticalLayout {
         setSpacing(true);
         setWidthFull();
 
-        add(new H2("DEQAData/AuthorYear/DE/json/*human*.json 一覧"));
+        add(new H2("DEQAData/AuthorYear/DE_v10/json/*human*.json 一覧"));
 
         Path base = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME);
 
@@ -204,7 +204,7 @@ public class DEOverviewPage extends VerticalLayout {
                 continue;
             }
 
-            Path jsonDir = authorYearPath.resolve("DE").resolve("json");
+            Path jsonDir = authorYearPath.resolve("DE_v10").resolve("json");
             if (!Files.exists(jsonDir) || !Files.isDirectory(jsonDir)) {
                 continue;
             }

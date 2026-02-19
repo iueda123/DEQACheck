@@ -24,7 +24,7 @@ JSON 構造/キーを checkAndNormalizeJson/subfuncs/checkJsonStructureAndKey.py
 data/<AuthorYear>/<DE|QA>/json に各エージェント（gemini/claude/codex）の JSON が存在するか確認し、notes 配下に TSV を出力。
 
 ### deleteLowFillRateJsons.sh
-notes/DE_JsonFillRate.tsv を参照し、指定エージェントのフィル率が閾値未満の研究について <AuthorYear>/DE/json 配下の該当 JSON を削除する（既定はドライラン）。
+notes/DE_JsonFillRate.tsv を参照し、指定エージェントのフィル率が閾値未満の研究について <AuthorYear>/DE_v10/json 配下の該当 JSON を削除する（既定はドライラン）。
 
 ### prepareHumanJsonFilesForQA.sh / prepareQaJsonFiles.sh
 QA テンプレートを data/<AuthorYear>/QA/json にタイムスタンプ付きでコピー。既に JSON がある場合はスキップ。

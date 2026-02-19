@@ -35,7 +35,7 @@ N列、RC Age列、Sex列が参照している要素の値を正規化する方�
 
 ## 以下AI回答
 
-本メモは、SummaryView.java が参照している Human 系 JSON（`share_package/data/*/DE/json*/DE_*human*.json` など）における以下
+本メモは、SummaryView.java が参照している Human 系 JSON（`share_package/data/*/DE_v10/json*/DE_*human*.json` など）における以下
 3 列の現在の記述と、それを踏まえた正規化方針・表記ルール案をまとめたものです。
 
 - N 列: `reference_cohort_and_imaging_part.rci2_hc_n`

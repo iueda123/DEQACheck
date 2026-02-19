@@ -360,7 +360,7 @@ public class SummaryView_DEv10_2 extends VerticalLayout {
         setSpacing(true);
         setWidthFull();
 
-        add(new H2("DEQAData/AuthorYear/DE/json/*human*.json 一覧"));
+        add(new H2("DEQAData/AuthorYear/DE_v10/json/*human*.json 一覧"));
 
         Path base = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME);
 

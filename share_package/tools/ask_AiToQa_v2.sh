@@ -278,7 +278,7 @@ fi
 #
 # notes/DE_JsonFillRate.tsv を参照して、claude かつ rate が 0.90 未満のものについて tools/ask_AiToDeQa_for_v8.sh 内の line 198-325 の範囲でコメントを無効化し処理対象となるようにしてください。
 #
-# notes/DE_JsonFillRate.tsv を参照して、gemini かつ rate が 0.90 未満のものについて <AuthorYear>/DE/json下にある gemini 関連ファイルを削除するスクリプトを ./tools/ の下に作ってください。
+# notes/DE_JsonFillRate.tsv を参照して、gemini かつ rate が 0.90 未満のものについて <AuthorYear>/DE_v10/json下にある gemini 関連ファイルを削除するスクリプトを ./tools/ の下に作ってください。
 # 
 # notes/DE_json_existence_by_gemini.tsv を参照して、Status が NOT_FOUND であるものついて 、tools/ask_AiToDeQa_for_v10.sh 内の line 239-366 の範囲でコメントを無効化し処理対象となるようにしてください。
 # 

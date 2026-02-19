@@ -54,11 +54,11 @@ fi
 
 shopt -s nullglob
 
-# Find all JSONs under 09_DataExtractionPrep3/<AuthorYear>/DE/json/*.json
-mapfile -t JSON_FILES < <(find "$REPO_ROOT/09_DataExtractionPrep3" -type f -path '*/DE/json/*.json' | sort)
+# Find all JSONs under 09_DataExtractionPrep3/<AuthorYear>/DE_v10/json/*.json
+mapfile -t JSON_FILES < <(find "$REPO_ROOT/09_DataExtractionPrep3" -type f -path '*/DE_v10/json/*.json' | sort)
 
 if [ ${#JSON_FILES[@]} -eq 0 ]; then
-  echo "No JSON files found under 09_DataExtractionPrep3/*/DE/json/. Nothing to do."
+  echo "No JSON files found under 09_DataExtractionPrep3/*/DE_v10/json/. Nothing to do."
   exit 0
 fi
 
@@ -92,7 +92,7 @@ for json in "${JSON_FILES[@]}"; do
   fi
 
   # Move backup to ../json_v10/ and rename to drop _v10 suffix
-  json_dir="$(dirname "$json")"           # .../DE/json
+  json_dir="$(dirname "$json")"           # .../DE_v10/json
   dest_dir="$(cd "$json_dir/.." && pwd)/json_v10"
   orig_name="$(basename "$json")"         # e.g., foo.json (desired name in json_v10)
   target_path="$dest_dir/$orig_name"

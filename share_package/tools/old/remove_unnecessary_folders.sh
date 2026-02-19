@@ -9,8 +9,8 @@ package_root="$(cd -- "${script_dir}/.." && pwd)"
 shopt -s nullglob
 
 targets=(
-  "${package_root}/data"/*/DE/json_v9
-  "${package_root}/data"/*/DE/json_v10
+  "${package_root}/data"/*/DE_v10/json_v9
+  "${package_root}/data"/*/DE_v10/json_v10
   "${package_root}/data"/*/QA
 )
 

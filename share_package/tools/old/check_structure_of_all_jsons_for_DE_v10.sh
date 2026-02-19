@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run the template checker on every JSON under <Project>/<UppercaseDir>/DE/json/
+# Run the template checker on every JSON under <Project>/<UppercaseDir>/DE_v10/json/
 set -uo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -17,7 +17,7 @@ shopt -s nullglob
 while IFS= read -r -d '' dir; do
   base="$(basename "$dir")"
   [[ $base =~ ^[A-Z] ]] || continue
-  json_dir="$dir/DE/json"
+  json_dir="$dir/DE_v10/json"
   [[ -d "$json_dir" ]] || continue
   while IFS= read -r -d '' json_file; do
     output="$($CHECKER "$json_file" 2>&1)"

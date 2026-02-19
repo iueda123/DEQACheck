@@ -23,7 +23,7 @@ public class DENM_SubTabsHolder extends AbstCHolderMember implements SubTabsHold
 
     public static final String staticMemberName = "sub_tabs_holder_DENM";
 
-    static final String LOCATION_OF_JSON = "DE/json/";
+    static final String LOCATION_OF_JSON = "DE_v10/json/";
 
     static String sectionName = "normative_modeling_part";
 
