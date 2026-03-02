@@ -1,0 +1,593 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Elad2021_by_codex_20260302084915697.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084915697/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cabce-6f9a-7a70-b330-bd94f79b10dd
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Elad2021_by_codex_20260302084915697.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Reading instructions file**
+2026-03-01T23:49:21.025386Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084915697 succeeded in 19ms:
+DE_Guide_v13.md
+DE_v13_Elad2021_by_codex_20260302084915697.json
+DE_v13_Elad2021_by_codex_20260302084915697.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020849156972026-03-01T23:49:24.057915Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Listing study_1 files**
+2026-03-01T23:49:26.487268Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084915697 succeeded in 37ms:
+DE_v13_Elad2021_by_codex_20260302084915697.json
+DE_Guide_v13.md
+DE_v13_Elad2021_by_codex_20260302084915697.log
+study_1/Supplementary Materials.md
+study_1/HBM-42-4658-s002.docx.md
+study_1/HBM-42-4658-s005.tif
+study_1/Elad2021.pdf.md
+
+thinking
+**Preparing to review model-building document**
+exec
+/bin/bash -lc 'rg -n "normative|normative model|model build|training|healthy" study_1/Elad2021.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020849156972026-03-01T23:49:29.335804Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+3:## Improving the predictive potential of diffusion MRI in schizophrenia using normative models -Towards subject-level classification
+33:The vast majority of dMRI studies in schizophrenia apply case -control comparisons between individuals diagnosed with schizophrenia and healthy controls to identify significant group-level differences in specified white matter locations. However, group differences that are found in a case -control comparison do not imply abnormalities in a given individual subject (see e.g. Arbabshirani, Plis, Sui, &amp; Calhoun, 2017). For example, the hallmark finding of widespread FA reductions in the schizophrenia group (Kelly et al., 2018), does not
+37:Diffusion MRI studies consistently report group differences in white matter between individuals diagnosed with schizophrenia and healthy controls. Nevertheless, the abnormalities found at the group-level are often not observed at the individual level. Among the different approaches aiming to study white matter abnormalities at the subject level, normative modeling analysis takes a step towards subject-level predictions by identifying affected brain locations in individual subjects based on extreme deviations from a normative range. Here, we leveraged a large harmonized diffusion MRI dataset from 512 healthy controls and 601 individuals diagnosed with schizophrenia, to study whether normative modeling can improve subject-level predictions from a binary classifier. To this aim, individual deviations from a normative model of standard (fractional anisotropy) and advanced (free-water) dMRI measures, were calculated by means of age and sex-adjusted z -scores relative to control data, in 18 white matter regions. Even though larger effect sizes are found when testing for group differences in z -scores than are found with raw values ( p &lt; .001), predictions based on summary z -score measures achieved low predictive power (AUC &lt; 0.63). Instead, we find that combining information from the different white matter tracts, while using multiple imaging measures simultaneously, improves prediction performance (the best predictor achieved AUC = 0.726). Our findings suggest that extreme deviations from a normative model are not optimal features for prediction. However, including the complete distribution of deviations across multiple imaging measures improves prediction, and could aid in subject-level classification.
+43:There are two leading analysis methods that provide subject specific inferences: The first is prediction modeling, which aims to classify each subject into one of several groups, thereby making it more suitable for clinical diagnosis. The second is normative modeling, which aims to characterize individual variations in reference to a normative range. Unlike the case -control approach that searches for group differences in the mean value of some feature in a specific brain location (e.g., mean FA in one specific white matter tract), prediction approaches search for features that maximize the separation between the groups. Separation is usually measured by the area under the receiver operator curve (AUC) of a particular prediction classifier. Previous studies (see e.g. Ardekani et al., 2011; Lee et al., 2018; Mikolas et al., 2018; Rathi et al., 2010 and the references therein) have already demonstrated that dMRI measures can serve as discriminative features in the discrimination of individuals diagnosed with schizophrenia
+45:from healthy controls, but suffered from relatively small sample sizes, which questions the generalizability of their results.
+47:Normative modeling is an alternative paradigm, based on the notion that different individuals could be affected by different patterns of abnormality. In normative modeling, the range of variation within the control group is modeled first, and then individual deviations from this range are calculated, providing information about potential abnormalities in each particular individual. This is different from the case -control approach, which assumes a consistent pattern of abnormality across individuals that belong to the same group. Deviations are typically quantified using a z -score, relative to the control group, and abnormalities are identified as those values that are outliers relative to the distribution of the control group, that is, having z -scores with an absolute value larger than a threshold (Bouix et al., 2013; Marquand et al., 2019; Marquand, Rezek, Buitelaar, &amp; Beckmann, 2016). The ability of the normative modeling approach to shed light on individualized abnormality profiles was leveraged by studies applying normative modeling on various neuroimaging datasets, often to investigate heterogeneity of abnormalities across subjects. Studies applying normative modeling on diffusion MRI are available, for example, in traumatic brain injuries (Bouix et al., 2013; Pasternak et al., 2014; Taylor, da Silva, Blamire, Wang, &amp; Forsyth, 2020), autism and brain development (Chamberland et al., 2020; Dean III et al., 2017; Dimitrova et al., 2020). A few studies have also applied normative modeling on data from subjects diagnosed with schizophrenia, using diffusion MRI (Lv et al., 2020; White, Schmidt, &amp; Karatekin, 2009) and T1-weighted MRI (Alexander-Bloch et al., 2014; Wolfers et al., 2018, 2021). References to more studies applying normative modeling on different datasets can be found in Marquand et al. (2019).
+49:The few published normative modeling studies applied on subjects diagnosed with schizophrenia, using diffusion MRI (Lv et al., 2020; White et al., 2009), or T1-weighted MRI (Wolfers et al., 2018, 2021), found high interindividual differences in the locations of the implicated brain abnormalities. In a recent study, applying normative modeling on diffusion MRI data (Lv et al., 2020), it was further shown that the majority of individuals with schizophrenia had at least one abnormal location implicated, when considering FA as the modality of choice. At the same time, however, a large number of healthy controls also showed at least one abnormal location.
+51:While normative modeling aims to provide useful insights at the subject-level, previous studies did not utilize the framework to go beyond group-level differences between the schizophrenia and control groups. In this article, we use a large sample of harmonized dMRI data (Cetin-Karayumak et al., 2020), comprised of 512 healthy controls and 601 individuals diagnosed with schizophrenia, to evaluate the predictive power of features derived from a normative modeling approach and compare it with the predictive power of raw dMRI values serving as features. Here, our motivation is to improve the characterization of the schizophrenia group as a whole by assuming that common abnormalities (e.g., decreased FA/FAt, increased FW) may occur in spatially distinct regions across subjects. By using the features obtained from the normative model in a classification scheme, we test whether these profiles provide an improved characterization of the group, compared to the raw values.
+53:We emphasize that as the diagnosis of schizophrenia relies upon identifying several different combinations of clinical symptoms and behavioral signs through an interview with a medical specialist, we do not expect that combining the normative modeling approach with classification would yield a performance that is comparable to clinical diagnosis. Rather, our aim is to provide new information about white matter abnormalities in schizophrenia using the combination of the two approaches, which may be proven useful in the future design of classification schemes for the diagnosis of schizophrenia.
+55:Previous studies utilizing this dataset have already demonstrated significant group-differences in FA across the life span between healthy controls and individuals diagnosed with schizophrenia, as well as age effects (Cetin-Karayumak et al., 2020), and sex effects in healthy controls (Seitz et al., 2020). Here, we take a step towards subject-level inferences by investigating the application of the normative modeling approach on this dataset. We first generate a normative model by estimating age- and sex-adjusted z -scores from standard (FA) and advanced (Free-water) dMRI measures in 18 white matter regions of interest (ROIs). Then, for every subject, the predictive performance of the following features is calculated and compared with the predictive performance of the raw dMRI values: (1) z -scores obtained by applying the normative modeling approach on FA values; (2) summary measures for the z -score distributions (Pasternak et al., 2014); (3) z -scores and summary measures obtained by applying the normative modeling approach on free-water imaging derived measures (Pasternak, Sochen, Gur, Intrator, &amp; Assaf, 2009) rather than on FA.
+61:The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male). dMRI data were collated from 13 different sites across a number of separate studies. The single shell dMRI data followed a standardized preprocessing protocol and were harmonized across sites to remove site-related differences using retrospective harmonization (Karayumak et al., 2019; Ning et al., 2020). In particular, Cetin-Karayumak et al. (2020) evaluated the performance of the harmonization procedure by using unpaired t tests to assess between-site differences and showed that statistical differences between matched controls across sites were removed after harmonization (see Figure S2 in Cetin-Karayumak et al., 2020). We note that following the harmonization, site differences between subjects diagnosed with schizophrenia are likely to occur, because of different
+71:## 2.3 | Construction of a normative model
+73:The normative model represents the distribution of the normative range within each ROI in the healthy controls using the sample mean and standard deviation. To control for confounding factors resulting from age and sex differences, we represented the normative range in each ROI by an age specific weighted mean, c mh , and standard deviation, b σ 2 h , for each sex separately. To do so, we used the NadarayaWatson (NW) estimator (Nadaraya, 1964; Watson, 1964) with a Gaussian kernel,
+89:The procedure therefore guarantees that we select the bandwidth for which the weighted mean c mh best reflects the normative range. The chosen bandwidths are reported in Table S1.
+91:## 2.4 | Calculation of deviation from the normative model
+93:The deviation of every individual diagnosed with schizophrenia from the normative atlas, in each ROI, was captured by a z -score, calculated using the NW estimators c mh , b σ h 2 (see Equations (1a) and (1b)),
+97:where x is the subject's age and y is the subject's dMRI value (e.g., the mean FA value over the ROI). The z -scores were truncated to the range /C0 10,10 ½ /C138 . The same procedure was also used to evaluate deviation of each healthy control subject, but with a leave-one-out approach, that is, we compared a given healthy control subject with a normative model composed of all healthy control subjects, excluding the one being evaluated. As a result, for each subject, and for each dMRI value (FA, FAt, or FW), we obtained a vector with 18 z -scores (for 17 tracts + white matter skeleton) representing deviation from the normative model.
+103:Group comparisons of raw dMRI values (i.e., the FA, FAt and FW values before the construction of the normative model) and z -score values (for FA, FAt and FW) of all subjects in each ROI were
+117:To better focus on the range of z -scores that best discriminates individuals diagnosed with schizophrenia from healthy controls, the distribution of z -scores was estimated for each subject by collecting the z -scores in all ROIs and computing the probability density function (PDF), regularized by a normal distribution kernel, in 50 equally spaced bins that cover the range ( /C0 10,10). We then compared the PDFs between the healthy controls and the schizophrenia groups by comparing the density in each bin, using a 1-tailed Welch's t test searching for higher values in the schizophrenia group. This comparison provided a range of z -scores (referred to as the significant range ) which appear significantly more frequently in the schizophrenia group than in the healthy controls group.
+121:We examined the diagnostic potential of the normative modeling approach by using the z -score maps, as well as the z -score derived measures, as inputs to a binary classifier, with the aim of classifying individual subjects as either healthy controls or as diagnosed with
+
+
+thinking
+**Extracting RCI dataset and model details**
+
+Determined the normative model is newly built using a 512 healthy control dataset from 13 sites with cross-validation; reference cohort demographics are only reported overall, so RCI-4 uses overall HC info. The model applies to diffusion MRI measures across 18 ROIs as a single normative model.
+thinking
+**Completing demographic extraction**
+
+Calculated female count and percentages (45.5% inferred) from provided male data; age mean and SD are known but no range, so min/max marked as not reported. Preparing to extract exact supporting quote from dataset description.
+2026-03-01T23:49:40.854853Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '58,66p' study_1/Elad2021.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084915697 succeeded in 31ms:
+
+## 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures
+
+The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male). dMRI data were collated from 13 different sites across a number of separate studies. The single shell dMRI data followed a standardized preprocessing protocol and were harmonized across sites to remove site-related differences using retrospective harmonization (Karayumak et al., 2019; Ning et al., 2020). In particular, Cetin-Karayumak et al. (2020) evaluated the performance of the harmonization procedure by using unpaired t tests to assess between-site differences and showed that statistical differences between matched controls across sites were removed after harmonization (see Figure S2 in Cetin-Karayumak et al., 2020). We note that following the harmonization, site differences between subjects diagnosed with schizophrenia are likely to occur, because of different
+
+distributions across sites of parameters such as age, sex, and type of clinical populations. These differences are important to be preserved, as they reflect true variability related to the disorder, while scanner related differences are removed. A complete account of demographics, inclusion and exclusion criteria, acquisition protocols across the 13 sites, preprocessing and harmonization procedures can be found in Cetin-Karayumak et al. (2020). Following harmonization, all data had isotropic resolution of 1.5 mm /C2 1.5 mm /C2 1.5 mm, with a b -value of 1,000 s/mm 2 .
+
+## 2.2 | White matter processing
+
+
+thinking
+**Preparing JSON model construction**
+
+I'm opening an existing JSON template to construct the normative model with data for sex, age, and MSAD and planning to write the completed JSON file to the target path.
+exec
+/bin/bash -lc 'cat DE_v13_Elad2021_by_codex_20260302084915697.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020849156972026-03-01T23:49:46.152207Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Crafting detailed JSON for RCI answers**
+
+I'm framing JSON responses for RCI based on dataset details from Cetin-Karayumak et al. 2020, assigning confidence levels and supporting text carefully; next I'll apply a patch to add this structured data with appropriate notes.
+thinking
+**Preparing precise supporting text with quotes**
+
+I'm defining exact quoted supporting text and source locations for each RCI entry to ensure citations are accurate and well-formatted before applying the patch.
+2026-03-01T23:50:22.575363Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
+@@ -3,43 +3,64 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site dataset; 13 sites across separate studies",
++      "confidence_rating": "High",
++      "supporting_text": "dMRI data were collated from 13 different sites across a number of separate studies.",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from a multi-site schizophrenia dataset; no established public datasets from the EPD list are named",
++      "confidence_rating": "Medium",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No",
++      "confidence_rating": "High",
++      "supporting_text": "NR",
++      "location": "NR"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Overall",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "n": 512
++        }
++      },
++      "detail": "Overall healthy controls used to build the normative range",
++      "confidence_rating": "High",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "female_n": 233,
++          "female_pct": "45.5%",
++          "male_n": 279,
++          "male_pct": "54.5%"
++        }
++      },
++      "detail": "Overall healthy controls; female_n inferred from total N minus reported male_n",
++      "confidence_rating": "Medium",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "mean": "30.15",
++          "sd": "14.26",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Overall healthy controls; age in years",
++      "confidence_rating": "High",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M DE_v13_Elad2021_by_codex_20260302084915697.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json b/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..86a016a5091b2fce71873cc6f576ef8f780452ac
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site dataset; 13 sites across separate studies",
++      "confidence_rating": "High",
++      "supporting_text": "dMRI data were collated from 13 different sites across a number of separate studies.",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from a multi-site schizophrenia dataset; no established public datasets from the EPD list are named",
++      "confidence_rating": "Medium",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No",
++      "confidence_rating": "High",
++      "supporting_text": "NR",
++      "location": "NR"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Overall",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "n": 512
++        }
++      },
++      "detail": "Overall healthy controls used to build the normative range",
++      "confidence_rating": "High",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "female_n": 233,
++          "female_pct": "45.5%",
++          "male_n": 279,
++          "male_pct": "54.5%"
++        }
++      },
++      "detail": "Overall healthy controls; female_n inferred from total N minus reported male_n",
++      "confidence_rating": "Medium",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "mean": "30.15",
++          "sd": "14.26",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Overall healthy controls; age in years",
++      "confidence_rating": "High",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json b/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..86a016a5091b2fce71873cc6f576ef8f780452ac
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site dataset; 13 sites across separate studies",
++      "confidence_rating": "High",
++      "supporting_text": "dMRI data were collated from 13 different sites across a number of separate studies.",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from a multi-site schizophrenia dataset; no established public datasets from the EPD list are named",
++      "confidence_rating": "Medium",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No",
++      "confidence_rating": "High",
++      "supporting_text": "NR",
++      "location": "NR"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Overall",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "n": 512
++        }
++      },
++      "detail": "Overall healthy controls used to build the normative range",
++      "confidence_rating": "High",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "female_n": 233,
++          "female_pct": "45.5%",
++          "male_n": 279,
++          "male_pct": "54.5%"
++        }
++      },
++      "detail": "Overall healthy controls; female_n inferred from total N minus reported male_n",
++      "confidence_rating": "Medium",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "mean": "30.15",
++          "sd": "14.26",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Overall healthy controls; age in years",
++      "confidence_rating": "High",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     }
+   }
+ }
+
+
+thinking
+**Finalizing response**
+
+The task is complete. The relevant path has been provided. No further steps are needed unless specified.
+codex
+Filled the reference cohort extraction in `DE_v13_Elad2021_by_codex_20260302084915697.json` using the dataset details from `Elad2021.pdf.md`.
+
+If you want, I can also cross-check the supplement for any additional demographics or ranges.
+2026-03-01T23:50:26.326365Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json b/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..86a016a5091b2fce71873cc6f576ef8f780452ac
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084915697/./DE_v13_Elad2021_by_codex_20260302084915697.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site dataset; 13 sites across separate studies",
++      "confidence_rating": "High",
++      "supporting_text": "dMRI data were collated from 13 different sites across a number of separate studies.",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from a multi-site schizophrenia dataset; no established public datasets from the EPD list are named",
++      "confidence_rating": "Medium",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No",
++      "confidence_rating": "High",
++      "supporting_text": "NR",
++      "location": "NR"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Overall",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "n": 512
++        }
++      },
++      "detail": "Overall healthy controls used to build the normative range",
++      "confidence_rating": "High",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "female_n": 233,
++          "female_pct": "45.5%",
++          "male_n": 279,
++          "male_pct": "54.5%"
++        }
++      },
++      "detail": "Overall healthy controls; female_n inferred from total N minus reported male_n",
++      "confidence_rating": "Medium",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "dMRI normative model (FA/FAt/FW)",
++          "mean": "30.15",
++          "sd": "14.26",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Overall healthy controls; age in years",
++      "confidence_rating": "High",
++      "supporting_text": "The dataset used in this study coincides with the dataset utilized in the published work by (Cetin-Karayumak et al., 2020), which includes 601 individuals diagnosed with schizophrenia-spectrum disorder across multiple illness stages (mean [SD] age, 31.46 [12.31] years; 380 [63.23%] male), and 512 healthy controls (mean [SD] age, 30.15 [14.26] years; 279 [54.49%] male).",
++      "location": "Elad2021.pdf.md: 2.1 | Participants, imaging acquisition, image preprocessing and harmonization procedures"
+     }
+   }
+ }
+
+tokens used
+20,188
+Filled the reference cohort extraction in `DE_v13_Elad2021_by_codex_20260302084915697.json` using the dataset details from `Elad2021.pdf.md`.
+
+If you want, I can also cross-check the supplement for any additional demographics or ranges.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

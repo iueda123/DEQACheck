@@ -1,0 +1,878 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_DeMeo2019_by_codex_20260302084257246.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084257246/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cabc8-a949-7321-9f1f-21694aa86317
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_DeMeo2019_by_codex_20260302084257246.json へ書き込んでください。
+mcp startup: no servers
+2026-03-01T23:43:03.702733Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084257246 succeeded in 15ms:
+DE_Guide_v13.md
+DE_v13_DeMeo2019_by_codex_20260302084257246.json
+DE_v13_DeMeo2019_by_codex_20260302084257246.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020842572462026-03-01T23:43:06.258285Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Locating study files**
+
+I'm searching for files related to the study within the study_1 directory to better understand its structure and content.
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020842572462026-03-01T23:43:09.895458Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 37ms:
+DE_v13_DeMeo2019_by_codex_20260302084257246.json
+DE_Guide_v13.md
+DE_v13_DeMeo2019_by_codex_20260302084257246.log
+study_1/DeMeo2019.pdf.md
+
+thinking
+**Planning to read PDF markdown**
+exec
+/bin/bash -lc 'cat study_1/DeMeo2019.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020842572462026-03-01T23:43:12.829469Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+![Image](./DeMeo2019_artifacts/image_000000_f178741870ced534247b6a7244aabfaa973f80d6516892c37e6da9406edd4ef0.png)
+
+## Dynamic gray matter volume changes in pediatric multiple sclerosis
+
+A 3.5 year MRI study
+
+Ermelinda De Meo, MD, Alessandro Meani, MSc, Lucia Moiola, MD, Angelo Ghezzi, MD, Pierangelo Veggiotti, MD, Massimo Filippi, MD, and Maria A. Rocca, MD
+
+Neurology ® 2019;92:e1709-e1723. doi:10.1212/WNL.0000000000007267
+
+## Abstract
+
+## Objectives
+
+To assess, using MRI, the spatial patterns of gray matter (GM) atrophy in pediatric patients with multiple sclerosis (MS), their dynamic changes over time, and their clinical relevance.
+
+## Methods
+
+Sixty-eight pediatric patients with MS (30 with a clinical and MRI follow-up after 3.5 years) and 26 healthy controls (HC) underwent clinical and MRI evaluation. To overcome di /uniFB03 culties in obtaining longitudinal scans in pediatric HC, a group of 317 pediatric HC from an NIH-funded MRI Study of Normal Brain Development was used to estimate GM developmental trajectories. In pediatric patients with MS, deviations from normative GM volume values at the voxel level were assessed at baseline and during the follow-up, using linear mixed-e /uniFB00 ects models. Correlations between GM volume deviations and disability, IQ, and white matter (WM) lesion volumes (LV) were estimated.
+
+
+thinking
+**Clarifying model build and dataset usage**
+
+The normative model is newly built using two pediatric healthy control groups (26 local, 317 NIH multi-site) totaling 343 for training a GM volume developmental trajectory model; EPD list excludes the NIH MRI Study dataset, so some RCI criteria are negative or not applicable. Next, I'll confirm sex breakdowns via targeted searches.
+exec
+/bin/bash -lc 'rg -n "sex|male|female|girls|boys" study_1/DeMeo2019.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020842572462026-03-01T23:43:20.649270Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 32ms:
+53:Given the rarity of pediatric MS, MRI studies of this population are relatively scarce. Cross-sectional investigations have demonstrated reduced volumes of the thalamus 3,4 and whole brain 5 in pediatric patients with MS compared to ageand sex-matched healthy controls (HC). During childhood and adolescence, subtle modi /uniFB01 cations of brain structures related to maturational phenomena occurring in the brain WM and GM (myelination and synaptic pruning) have been demonstrated using volumetric MRI measurements in healthy youths. 6 Thus it is possible that disease onset during such a critical period of life might a /uniFB00 ect the physiologic trajectories of maturation. In line with this hypothesis, a 2-year longitudinal study 7 showed that disease onset during childhood leads to a failure of age-expected primary brain growth and subsequent brain atrophy.
+73:To overcome the di /uniFB03 culty of obtaining longitudinal MRI scans from pediatric HC, 2 groups of pediatric HC were selected for comparison of MRI volumes: (1) a group of 26 sexand age-matched HC recruited at Hospital San Ra /uniFB00 aele (HSR) with no history of neurologic dysfunction and a normal neurologic examination, studied on the same MRI scanner as patients with MS at baseline; and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC) with longitudinal MRI assessments for brain volume quanti /uniFB01 cation (median follow-up 3.6 years, range
+99:To estimate normative sex- and age-expected GM growth curves, using Matlab ' s ' /uniFB01 tlme ' function (Statistics and Machine Learning Toolbox), the following linear mixed-e /uniFB00 ects model was /uniFB01 tted voxel-wise to HC preprocessed GM maps:
+103:where Yij represents the GM amount at voxel level, Ageij the mean-centered age, Sexi the sex (binary variable) of
+109:At each HC age decile, the /uniFB01 rst-order derivative of the model was evaluated to test for nullity of the growth rate in healthy male and female participants. As previously suggested, 20 to provide a standardized measure of the deviation from the normative expected value of each participant ' s GM volume at each time point, a z score map was computed from each GM map using the estimated sex- and age-speci /uniFB01 c, populationaveraged, marginal mean and SD. The procedure is illustrated in /uniFB01 gure 1A for the left thalamus (as an example).
+111:At baseline, linear models (SPM12) were applied to estimate for the whole group of pediatric patients with MS (n = 68) mean z scores and their correlation (considering those regions signi /uniFB01 cantly divergent from sexand age-speci /uniFB01 c expected values in pediatric patients with MS) with disease duration, EDSS, premorbid IQ full scale and subscales, as well as T2 LV and T1 LV. 21 Mean z scores between patients with (n = 30) and without (n = 38) follow-up evaluation were also compared. In patients with a follow-up evaluation (n = 30), linear models, adjusted for follow-up duration, baseline EDSS, and disease duration, were applied to estimate changes over time of z scores and their correlation (for those regions
+115:(A.a) Left thalamus GM developmental trajectories are represented as estimated in the whole group of healthy controls (means are represented by solid lines and 95% confidence interval by dashed lines). The model was estimated, for illustrative purposes, from average relative GM volumes (representing the amount of GM relative to the voxel size) within the left thalamus mask from automatic anatomical labeling atlas. 50 Spaghetti lines for each participant ' s measurement over time are also shown. (A.b) Graphical representation for pediatric patients with MS of deviations from the sex- and age-specific left thalamusGMdevelopmentaltrajectories. Onemaleandonefemalepatient withMS whoselongitudinal scans were available were taken as examples to show their deviation from the expected values (vertical solid arrows) as assessed at baseline and at follow-up. From magnetic field strength -adjusted measurements obtained for each patient with MS at each time point, z scores were computed by subtracting and dividing by the normative sex- and age-specific estimated mean (solid line) and SD, respectively. Mean ± 1 SD reference lines are also represented (dotted lines) for comparison. (B) GM volume deviations from the expected values in pediatric patients with MS (represented in terms of mean z scores) at baseline (one-sample t test, p &lt; 0.05 family-wise error corrected). Brain regions experiencing significantly greater loss of GM are highlighted on the blue-light blue scale. (C) Longitudinal changes (expressed as mean estimated z score changes) in GM volume deviations from the expected values in pediatric patients with MS (one-sample t test, adjusted for follow-up duration, baseline Expanded Disability Status Scale, and disease duration, p &lt;s 0.001 uncorrected). Brain regions experiencing GM damage progression are highlighted using the blue -light blue scale, while those experiencing reduced deviation from the expected values are highlighted using the red-yellow scale. Images are presented in neurologic convention.
+138:| Female/male                          | 15/11      | 166/151         | 40/28                                      | 0.57 a /0.92 a,b | 18/12                                | 22/16                                   | 0.86 a     |
+170:MFS showed the lowest absolute r values (median [interquartile range] absolute r values: age = 0.16 [0.09 -0.25], sex = 0.17 [0.13 -0.21], age × sex = 0.11 [0.09 -0.14], age 2 = 0.32 [0.20 -0.39], MFS = 0.07 [0.03 -0.11]; p &lt; 0.0001).
+174:GMvolume developmental trajectories as estimated in all HC are shown separately for male and female participants in /uniFB01 gure 2. In line with previous studies, di /uniFB00 erent GM developmental trajectories were found in male and female participants. 22 Developmental trajectories were also di /uniFB00 erent in the main brain regions, 23 con /uniFB01 rming the existence of a heterocronic maturational process. Brain regions showing negative GM volume change per year (growth rate) reached their maturational peak /uniFB01 rst, while brain regions showing a positive growth rate continued their maturation across the whole age range explored, in line with the inverted-U shape developmental
+180:Relative GM volume change per year in healthy controls at each age decile, shown separately for male and female participants. Brain regions showing a significant increase of relative GM volume per year are red-yellow, while brain regions showing a significant negative GM volume change per year are represented in blue -light blue (linear mixed-effects model, p &lt; 0.001 uncorrected). Images are presented in radiologic convention.
+184:trajectory described previously. 24 At 7.3 years ( /uniFB01 rst decile of HC age distribution), both male and female participants experienced positive GM volume growth rate in cortical and subcortical regions and cerebellum, only excluding small areas of the occipital and parietal lobes. At 12.1 years, under hormonal pubertal in /uniFB02 uence, 25 male and female developmental trajectories started to diverge: male participants showed positive GM volume growth rate in frontal and temporal regions, basal ganglia, and cerebellum, while female participants showed smaller regions of positive GM volume growth rate in the same brain regions and negative growth rate in the parietal lobe. At 14.9 years, male participants showed positive GM volume growth rate in temporal regions, basal ganglia, and cerebellum and negative growth rate in parietal lobe, while female participants showed positive GM volume growth rate in the thalamus, hippocampus, and small cerebellar regions and negative growth rate in brain regions belonging to the frontal, parietal, temporal, and occipital lobes. Such a pattern was evident in male participants at 18.1 years, when female participants experienced a negative GM growth rate in frontal, temporal, parietal, and occipital lobes and in the cerebellum.
+188:Compared to sexand age-expected GM volume developmental trajectories as estimated in the HC cohort, pediatric patients with MS showed signi /uniFB01 cant GM volume deviations (reduction from the expected values) in several cortical and subcortical regions, including the basal ganglia, and several regions located in the frontal, parietal, temporal, and occipital lobes and cerebellum (table 2 and /uniFB01 gure 1B). No GM regions with positive deviations from normative values were detected. No di /uniFB00 erences were found when comparing pediatric patients with MS with and without follow-up (data not shown).
+197:Table 2 Brain regions showing significant negative deviations from the sex- and age-expected gray matter volume developmental trajectories ( z scores &lt;0) in pediatric multiple sclerosis patients ( p &lt; 0.05 family-wise error corrected for multiple comparisons)
+243:Table 2 Brain regions showing significant negative deviations from the sex- and age-expected gray matter volume developmental trajectories ( z scores &lt;0) in pediatric multiple sclerosis patients ( p &lt; 0.05 family-wise error corrected for multiple comparisons) (continued)
+274:During the follow-up, pediatric patients with MS showed both increases and decreases of their deviations from the sex- and age-expected GM volume values (estimated on normally developing participants as explained above). In detail, pediatric patients with MS showed progression of GM atrophy in the bilateral thalamus and putamen, supplementary motor area, precuneus, superior, middle, and inferior frontal gyri, cingulate cortex, precentral gyrus (PCG) and postcentral gyrus (PoCG), insula, hippocampus, parahippocampal gyrus, paracentral lobule, inferior parietal lobule (IPL), rolandic operculum, calcarine cortex and cuneus, left Heschl gyrus, amygdala, superior and middle occipital gyrus, fusiform gyrus and cerebellum, and in the right supramarginal gyrus and superior parietal lobule (table 4 and /uniFB01 gure 1C). Pediatric patients with MS, over time, also showed reduced deviation from the sex- and age-expected GM
+283:Table 3 Brain regions showing significant correlations between z scores (deviations from the sex- and age-expected gray matter volume trajectories) with clinical and lesional MRI variables in pediatric multiple sclerosis patients at baseline (multiple regression models, p &lt; 0.001 uncorrected, cluster extent = 50 voxels)
+322:Table 3 Brain regions showing significant correlations between z scores (deviations from the sex- and age-expected gray matter volume trajectories) with clinical and lesional MRI variables in pediatric multiple sclerosis patients at baseline (multiple regression models, p &lt; 0.001 uncorrected, cluster extent = 50 voxels) (continued)
+360:Table 4 Brain regions showing significant increased and decreased z scores (deviations from the sex- and age-expected gray matter volume developmental trajectories) during the follow-up in pediatric patients with multiple sclerosis (MS) ( p &lt; 0.001 uncorrected, cluster extent = 50 voxels)
+400:Table 4 Brain regions showing significant increased and decreased z scores (deviations from the sex- and age-expected gray matter volume developmental trajectories) during the follow-up in pediatric patients with multiple sclerosis (MS) ( p &lt; 0.001 uncorrected, cluster extent = 50 voxels) (continued)
+
+thinking
+**Locating demographic table**
+
+I'm inspecting lines 120-150 to review the table showing female/male counts, which is likely Table 1.
+2026-03-01T23:43:23.452829Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '120,160p' study_1/DeMeo2019.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084257246 succeeded in 25ms:
+
+Results were tested at p &lt; 0.05, family-wise error corrected for multiple comparisons. However, in consideration of the relatively small number of pediatric patients with MS included in the longitudinal assessment, the results were also tested at p &lt; 0.001 uncorrected (cluster extent = 50 voxels), as explorative analysis.
+
+## Data availability
+
+The dataset used and analyzed during the current study are available from the corresponding author on reasonable request.
+
+## Results
+
+## Clinical and lesional MRI data
+
+Demographic, clinical, and lesional MRI data from the 3 study groups at baseline and their longitudinal changes are summarized in table 1. At baseline, all pediatric patients with MS were receiving disease-modifying treatments (interferonβ = 41, glatiramer acetate = 16, natalizumab = 11). Except for IQ subscale score, at baseline no di /uniFB00 erences were found for all variables explored when comparing pediatric patients with MS with and those without follow-up. Sixteen (23%) pediatric patients with MS showed a low IQ (range 70 -90), including 5 patients with and 11 without follow-up. In the group of pediatric patients with MSwithfollow-up, median EDSS scores remained stable over time ( p = 0.28). None of the patients changed treatment during the follow-up. During the follow-up, pediatric patients with MS had a median annualized relapse rate of 0 (range 0 -1.23). T2 LV did not change signi /uniFB01 cantly over time ( p = 0.06), whereas a signi /uniFB01 cant increase in T1 LV was found ( p = 0.03).
+
+Table 1 Main demographic, clinical, and lesional MRI characteristics of pediatric patients with multiple sclerosis (MS) and healthy controls enrolled at Hospital San Raffaele (HSR HC) and healthy controls from NIH-funded MRI Study of Normal Brain Development (NIH HC)
+
+|                                      | HSR HC     | NIH HC          | Pediatric patients with MS (whole group)   | p Values         | Pediatric patients with MS with FU   | Pediatric patients with MS without FU   | p Values   |
+|--------------------------------------|------------|-----------------|--------------------------------------------|------------------|--------------------------------------|-----------------------------------------|------------|
+| Number of participants               | 26         | 317             | 68                                         | -                | 30                                   | 38                                      | -          |
+| Female/male                          | 15/11      | 166/151         | 40/28                                      | 0.57 a /0.92 a,b | 18/12                                | 22/16                                   | 0.86 a     |
+| Median follow-up duration, y (range) | -          | 3.6 (0.9 - 5.4) | -                                          | -                | 3.5 (1.2 - 6.3)                      | -                                       | -          |
+
+thinking
+**Calculating total sex counts and weighted age statistics**
+
+I'm totaling female/male counts across cohorts and computing overall sex percentages, then preparing to calculate combined weighted mean age and pooled standard deviation using cohort sizes, means, and SDs.
+2026-03-01T23:43:31.632349Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n1,mean1,sd1=26,15.4,3.8
+n2,mean2,sd2=317,10.8,3.7
+N=n1+n2
+weighted=(n1*mean1+n2*mean2)/N
+# pooled SD (sample) = sqrt(((n1-1)sd1"'^2+(n2-1)sd2''^2 + n1*(mean1-weighted)''^2 + n2*(mean2-weighted)''^2)/(N-1))
+var=((n1-1)*sd1**2+(n2-1)*sd2**2 + n1*(mean1-weighted)**2 + n2*(mean2-weighted)**2)/(N-1)
+pooled=math.sqrt(var)
+print(N, weighted, pooled)
+PY' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084257246 succeeded in 37ms:
+343 11.148688046647232 3.8976289499694974
+
+
+thinking
+**Extracting age range and dataset details**
+
+I'm consolidating the age range as 4.2 to 22.3 from NIH text and confirming multi-site NIH data from 6 pediatric centers plus single-site HSR. I'm preparing to cite participant counts and note that EPD is not included using direct table quotes.
+thinking
+**Summarizing demographics and preparing JSON output**
+
+I'm extracting sex counts and percentages from Table 1 for combined datasets and calculating weighted mean age and pooled SD with NIH min/max. I'm also verifying training details and planning to update the output JSON accordingly.
+2026-03-01T23:43:42.617625Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v13_DeMeo2019_by_codex_20260302084257246.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084257246 succeeded in 29ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Preparing final data and answer structure**
+
+I'm calculating sex percentages with derived totals rated Medium confidence and assembling the answer using RCI5 format, including the normative model name and total counts pooled from two healthy control groups. I'll include minimal supporting text aligned with ADCSL style while acknowledging Medium confidence for derived metrics.
+thinking
+**Finalizing RCI-2 and RCI-4 fields**
+
+I'll fill RCI-2 with "No" plus supporting text noting the dataset and that the EPD list excludes it, and set RCI-4 phase to "Training" without extra details before updating the JSON.
+2026-03-01T23:44:11.443647Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+@@ -3,21 +3,21 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site NIH HC (6 pediatric centers) plus single-site HSR HC were aggregated for the normative HC cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Scans of the NIH HC were obtained at 6 pediatric centers on GE (Cleveland, OH) and Siemens (Munich, Germany) 1.5T scanners.\"",
++      "location": "DeMeo2019.pdf.md: MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort built from HSR HC and NIH-funded MRI Study of Normal Brain Development; neither is in the predefined EPD list.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No.",
++      "confidence_rating": "High",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+@@ -25,21 +25,42 @@
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "n": 343
++        }
++      },
++      "detail": "Training phase HC cohort total derived by summing HSR HC (26) and NIH HC (317).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Number of participants | 26 | 317\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "female_n": 181,
++          "female_pct": "52.8%",
++          "male_n": 162,
++          "male_pct": "47.2%"
++        }
++      },
++      "detail": "Training phase; totals computed by summing HSR HC (15/11) and NIH HC (166/151) female/male counts; percentages computed from total N=343.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Female/male                          | 15/11      | 166/151\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "mean": "11.15 weighted",
++          "sd": "3.90 pooled",
++          "min": "4.2",
++          "max": "22.3"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HSR HC (mean 15.4, SD 3.8, N=26) and NIH HC (mean 10.8, SD 3.7, N=317). Age range reported for NIH HC; age in years.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Mean age, y (SD)                     | 15.4 (3.8) | 10.8 (3.7)\"; \"aged from 4.2 years at the first MRI scan up to 22.3 years at the last MRI scan.\"",
++      "location": "DeMeo2019.pdf.md: Table 1; DeMeo2019.pdf.md: Participants"
+     }
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M DE_v13_DeMeo2019_by_codex_20260302084257246.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..57d22ccc63839747c485eea27d682e3ea1eb79c1
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site NIH HC (6 pediatric centers) plus single-site HSR HC were aggregated for the normative HC cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Scans of the NIH HC were obtained at 6 pediatric centers on GE (Cleveland, OH) and Siemens (Munich, Germany) 1.5T scanners.\"",
++      "location": "DeMeo2019.pdf.md: MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort built from HSR HC and NIH-funded MRI Study of Normal Brain Development; neither is in the predefined EPD list.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No.",
++      "confidence_rating": "High",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+     "rci4_phase": "",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "n": 343
++        }
++      },
++      "detail": "Training phase HC cohort total derived by summing HSR HC (26) and NIH HC (317).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Number of participants | 26 | 317\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "female_n": 181,
++          "female_pct": "52.8%",
++          "male_n": 162,
++          "male_pct": "47.2%"
++        }
++      },
++      "detail": "Training phase; totals computed by summing HSR HC (15/11) and NIH HC (166/151) female/male counts; percentages computed from total N=343.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Female/male                          | 15/11      | 166/151\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "mean": "11.15 weighted",
++          "sd": "3.90 pooled",
++          "min": "4.2",
++          "max": "22.3"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HSR HC (mean 15.4, SD 3.8, N=26) and NIH HC (mean 10.8, SD 3.7, N=317). Age range reported for NIH HC; age in years.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Mean age, y (SD)                     | 15.4 (3.8) | 10.8 (3.7)\"; \"aged from 4.2 years at the first MRI scan up to 22.3 years at the last MRI scan.\"",
++      "location": "DeMeo2019.pdf.md: Table 1; DeMeo2019.pdf.md: Participants"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..57d22ccc63839747c485eea27d682e3ea1eb79c1
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site NIH HC (6 pediatric centers) plus single-site HSR HC were aggregated for the normative HC cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Scans of the NIH HC were obtained at 6 pediatric centers on GE (Cleveland, OH) and Siemens (Munich, Germany) 1.5T scanners.\"",
++      "location": "DeMeo2019.pdf.md: MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort built from HSR HC and NIH-funded MRI Study of Normal Brain Development; neither is in the predefined EPD list.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No.",
++      "confidence_rating": "High",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+     "rci4_phase": "",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "n": 343
++        }
++      },
++      "detail": "Training phase HC cohort total derived by summing HSR HC (26) and NIH HC (317).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Number of participants | 26 | 317\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "female_n": 181,
++          "female_pct": "52.8%",
++          "male_n": 162,
++          "male_pct": "47.2%"
++        }
++      },
++      "detail": "Training phase; totals computed by summing HSR HC (15/11) and NIH HC (166/151) female/male counts; percentages computed from total N=343.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Female/male                          | 15/11      | 166/151\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "mean": "11.15 weighted",
++          "sd": "3.90 pooled",
++          "min": "4.2",
++          "max": "22.3"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HSR HC (mean 15.4, SD 3.8, N=26) and NIH HC (mean 10.8, SD 3.7, N=317). Age range reported for NIH HC; age in years.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Mean age, y (SD)                     | 15.4 (3.8) | 10.8 (3.7)\"; \"aged from 4.2 years at the first MRI scan up to 22.3 years at the last MRI scan.\"",
++      "location": "DeMeo2019.pdf.md: Table 1; DeMeo2019.pdf.md: Participants"
+     }
+   }
+ }
+
+
+thinking
+**Filling missing phase field**
+
+I'm setting the phase field to Training as needed and preparing to apply the patch accordingly.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+@@ -23,3 +23,3 @@
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+2026-03-01T23:44:15.991750Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M DE_v13_DeMeo2019_by_codex_20260302084257246.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..adf50869a1faa6ee359be1368035fcd3f29a7813
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site NIH HC (6 pediatric centers) plus single-site HSR HC were aggregated for the normative HC cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Scans of the NIH HC were obtained at 6 pediatric centers on GE (Cleveland, OH) and Siemens (Munich, Germany) 1.5T scanners.\"",
++      "location": "DeMeo2019.pdf.md: MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort built from HSR HC and NIH-funded MRI Study of Normal Brain Development; neither is in the predefined EPD list.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No.",
++      "confidence_rating": "High",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "n": 343
++        }
++      },
++      "detail": "Training phase HC cohort total derived by summing HSR HC (26) and NIH HC (317).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Number of participants | 26 | 317\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "female_n": 181,
++          "female_pct": "52.8%",
++          "male_n": 162,
++          "male_pct": "47.2%"
++        }
++      },
++      "detail": "Training phase; totals computed by summing HSR HC (15/11) and NIH HC (166/151) female/male counts; percentages computed from total N=343.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Female/male                          | 15/11      | 166/151\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "mean": "11.15 weighted",
++          "sd": "3.90 pooled",
++          "min": "4.2",
++          "max": "22.3"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HSR HC (mean 15.4, SD 3.8, N=26) and NIH HC (mean 10.8, SD 3.7, N=317). Age range reported for NIH HC; age in years.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Mean age, y (SD)                     | 15.4 (3.8) | 10.8 (3.7)\"; \"aged from 4.2 years at the first MRI scan up to 22.3 years at the last MRI scan.\"",
++      "location": "DeMeo2019.pdf.md: Table 1; DeMeo2019.pdf.md: Participants"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..adf50869a1faa6ee359be1368035fcd3f29a7813
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site NIH HC (6 pediatric centers) plus single-site HSR HC were aggregated for the normative HC cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Scans of the NIH HC were obtained at 6 pediatric centers on GE (Cleveland, OH) and Siemens (Munich, Germany) 1.5T scanners.\"",
++      "location": "DeMeo2019.pdf.md: MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort built from HSR HC and NIH-funded MRI Study of Normal Brain Development; neither is in the predefined EPD list.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No.",
++      "confidence_rating": "High",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "n": 343
++        }
++      },
++      "detail": "Training phase HC cohort total derived by summing HSR HC (26) and NIH HC (317).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Number of participants | 26 | 317\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "female_n": 181,
++          "female_pct": "52.8%",
++          "male_n": 162,
++          "male_pct": "47.2%"
++        }
++      },
++      "detail": "Training phase; totals computed by summing HSR HC (15/11) and NIH HC (166/151) female/male counts; percentages computed from total N=343.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Female/male                          | 15/11      | 166/151\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "mean": "11.15 weighted",
++          "sd": "3.90 pooled",
++          "min": "4.2",
++          "max": "22.3"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HSR HC (mean 15.4, SD 3.8, N=26) and NIH HC (mean 10.8, SD 3.7, N=317). Age range reported for NIH HC; age in years.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Mean age, y (SD)                     | 15.4 (3.8) | 10.8 (3.7)\"; \"aged from 4.2 years at the first MRI scan up to 22.3 years at the last MRI scan.\"",
++      "location": "DeMeo2019.pdf.md: Table 1; DeMeo2019.pdf.md: Participants"
+     }
+   }
+ }
+
+
+thinking
+**Confirming ASCII usage and finalizing response**
+
+I verified no Unicode characters are needed aside from the micro sign, which isn’t used here. I'll provide a concise explanation referencing the relevant paths and suggest next steps without running tests.
+codex
+Updated the reference cohort extraction in `DE_v13_DeMeo2019_by_codex_20260302084257246.json` with MSAD/EPD judgments and computed combined HC N, sex, and age stats from Table 1 and participant text, plus training phase designation. This captures the two HC sources (HSR + NIH) used to build the normative GM trajectory model and documents the derived totals and weighted/pooled age estimates.
+
+Details and sources are recorded directly in `DE_v13_DeMeo2019_by_codex_20260302084257246.json`.
+
+Next steps if you want:
+1. I can double-check any computed values or rounding preferences.
+2026-03-01T23:44:21.175190Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..adf50869a1faa6ee359be1368035fcd3f29a7813
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084257246/./DE_v13_DeMeo2019_by_codex_20260302084257246.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site NIH HC (6 pediatric centers) plus single-site HSR HC were aggregated for the normative HC cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Scans of the NIH HC were obtained at 6 pediatric centers on GE (Cleveland, OH) and Siemens (Munich, Germany) 1.5T scanners.\"",
++      "location": "DeMeo2019.pdf.md: MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort built from HSR HC and NIH-funded MRI Study of Normal Brain Development; neither is in the predefined EPD list.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "RCI-2 = No.",
++      "confidence_rating": "High",
++      "supporting_text": "\"2 groups of pediatric HC were selected... (1) a group of 26 sexand age-matched HC recruited at Hospital San Raffaele (HSR)... and (2) a group of 317 pediatric HC from the NIH-funded MRI Study of Normal Brain Development (NIH HC)\"",
++      "location": "DeMeo2019.pdf.md: Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "n": 343
++        }
++      },
++      "detail": "Training phase HC cohort total derived by summing HSR HC (26) and NIH HC (317).",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Number of participants | 26 | 317\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "female_n": 181,
++          "female_pct": "52.8%",
++          "male_n": 162,
++          "male_pct": "47.2%"
++        }
++      },
++      "detail": "Training phase; totals computed by summing HSR HC (15/11) and NIH HC (166/151) female/male counts; percentages computed from total N=343.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Female/male                          | 15/11      | 166/151\"",
++      "location": "DeMeo2019.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "normative GM developmental trajectory model",
++          "mean": "11.15 weighted",
++          "sd": "3.90 pooled",
++          "min": "4.2",
++          "max": "22.3"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HSR HC (mean 15.4, SD 3.8, N=26) and NIH HC (mean 10.8, SD 3.7, N=317). Age range reported for NIH HC; age in years.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Mean age, y (SD)                     | 15.4 (3.8) | 10.8 (3.7)\"; \"aged from 4.2 years at the first MRI scan up to 22.3 years at the last MRI scan.\"",
++      "location": "DeMeo2019.pdf.md: Table 1; DeMeo2019.pdf.md: Participants"
+     }
+   }
+ }
+
+tokens used
+31,146
+Updated the reference cohort extraction in `DE_v13_DeMeo2019_by_codex_20260302084257246.json` with MSAD/EPD judgments and computed combined HC N, sex, and age stats from Table 1 and participant text, plus training phase designation. This captures the two HC sources (HSR + NIH) used to build the normative GM trajectory model and documents the derived totals and weighted/pooled age estimates.
+
+Details and sources are recorded directly in `DE_v13_DeMeo2019_by_codex_20260302084257246.json`.
+
+Next steps if you want:
+1. I can double-check any computed values or rounding preferences.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,663 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Bethlehem2021_by_codex_20260302082908335.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cabbc-039c-72c2-9d98-147c3b578dba
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Bethlehem2021_by_codex_20260302082908335.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning to read guide file**
+2026-03-01T23:29:14.503397Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 20ms:
+DE_Guide_v13.md
+DE_v13_Bethlehem2021_by_codex_20260302082908335.json
+DE_v13_Bethlehem2021_by_codex_20260302082908335.log
+study_1
+2026-03-01T23:29:17.278175Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 25ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Searching study documents**
+
+I'm searching for study-related documents, focusing on the study_1 directory using file name filters.
+2026-03-01T23:29:19.834827Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 36ms:
+DE_v13_Bethlehem2021_by_codex_20260302082908335.json
+DE_v13_Bethlehem2021_by_codex_20260302082908335.log
+DE_Guide_v13.md
+study_1/Table4_Distributions/Table4_7_Total_surface_area.csv
+study_1/Table4_Distributions/Table4_4_Ventricular_volume.csv
+study_1/Table4_Distributions/Table4_1_Grey_matter_volume.csv
+study_1/Table4_Distributions/Table4_5_Total_cortical_volume.csv
+study_1/Table4_Distributions/Table4_3_Subcortical_grey_matter_volume.csv
+study_1/Table4_Distributions/Table4_6_Mean_cortical_thickness.csv
+study_1/Table4_Distributions/Table4_2_White_matter_volume.csv
+study_1/Bethlehem2021.pdf.md
+study_1/Table5_IQR/Table_5_2_White_matter_volume.csv
+study_1/Table8_SxDifferences/Table8_2_Centile_sex_by_dx_WMV.csv
+study_1/Table8_SxDifferences/Table8_1_Centile_sex_by_dx_GMV.csv
+study_1/Table5_IQR/Table_5_6_Mean_cortical_thickness.csv
+study_1/Table8_SxDifferences/Table8_4_Centile_sex_by_dx_CSF.csv
+study_1/Table5_IQR/Table_5_7_Total_surface_area.csv
+study_1/Table8_SxDifferences/Table8_7_Centile_sex_by_dx_CT.csv
+study_1/Table5_IQR/Table_5_5_Total_cortical_volume.csv
+study_1/Table8_SxDifferences/Table8_5_Centile_sex_by_dx_TCV.csv
+
+thinking
+**Waiting on file access**
+2026-03-01T23:29:23.472868Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|training|reference|healthy|control|dataset|cohort|sample" study_1/Bethlehem2021.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 32ms:
+17:Over the past few decades, neuroimaging has become a ubiquitous tool in basic research and clinical studies of the human brain. However, no reference standards currently exist to quantify individual differences in neuroimaging metrics over time, in contrast to growth charts for anthropometric traits such as height and weight 1 . Here we assemble an interactive open resource to benchmark brain morphology derived from any current or future sample of MRI data (http://www.brainchart.io/). With the goal of basing these reference charts on the largest and most inclusive dataset available, acknowledging limitations due to known biases of MRI studies relative to the diversity of the global population, we aggregated 123,984 MRI scans, across more than 100 primary studies, from 101,457 human participants between 115 days post-conception to 100 years of age. MRI metrics were quantified by centile scores, relative to non-linear trajectories 2 of brain structural changes, and rates of change, over the lifespan. Brain charts identified previously u  nr  ep  or  ted n  eu  ro  de  ve  lopmental milestones 3 , showed high stability of individuals across longitudinal assessments, and demonstrated robustness to technical and methodological differences between primary studies. Centile scores showed increased heritability compared with non-centiled MRI phenotypes, and provided a standardized measure of atypical brain structure that revealed patterns of n  e  u  ro  a  n  at  omical v  a  r  i  a  tion across neurological and psychiatric disorders. In summary, brain charts are an essential step towards robust quantification of individual variation benchmarked to normative trajectories in multiple, commonly used neuroimaging phenotypes.
+21:The simple framework of growth charts to quantify age-related change was first published in the late eighteenth century 1 and remains a cornerstone of paediatric healthcare-an enduring example of the utility of standardized norms to benchmark individual trajectories of development. However, growth charts are currently available only for a small set of anthropometric variables, such as height, weight and head circumference, and only for the first decade of life. There are no analogous charts available for quantification of age-related changes in the human brain, although it is known to go through a prolonged and complex maturational program from pregnancy to the third decade 4 , followed by progressive senescence from approximately the sixth decade 5 . The lack of tools for standardized assessment of brain development and ageing is particularly relevant to research studies of psychiatric disorders, which are increasingly recognized as a consequence of atypical brain development 6 , and neurodegenerative diseases that cause pathological brain changes in the context of normative senescence 7 . Preterm birth and neurogenetic disorders are also associated with marked abnormalities of brain structure 8,9 that persist into adult life 9,10 and are associated with learning disabilities and mental health disorders. Mental illness and dementia collectively represent the single biggest global health burden 11 , highlighting the urgent need for normative brain charts as an anchor point for standardized quantification of brain structure over the lifespan 12 .
+23:Such standards for human brain measurement have not yet materialized from decades of neuroimaging research, probably owing to the challenges of integrating MRI data across multiple, methodologically diverse studies targeting distinct developmental epochs and clinical conditions 13 . For example, the perinatal period is rarely incorporated in analysis of age-related brain changes, despite evidence that early biophysical and molecular processes powerfully influence life-long neurodevelopmental trajectories 14,15 and vulnerability to psychiatric disorders 3 . Primary case-control studies are usually focused on a single disorder despite evidence of trans-diagnostically shared risk factors and pathogenic mechanisms, especially in psychiatry 16,17 . Harmonization of MRI data across primary studies to address these and other deficiencies in the extant literature is challenged by methodological and technical heterogeneity. Compared with relatively simple anthropometric measurements such as height or weight, brain morphometrics are known to be highly sensitive to variation in scanner platforms and sequences, data quality control, pre-processing and statistical analysis 18 , thus severely limiting the generalizability of trajectories estimated from any individual study 19 . Collaborative initiatives spurring collection of large-scale datasets 20,21 , recent advances in neuroimaging data processing 22,23 and proven statistical frameworks for modelling biological growth curves 2,24,25 provide the building blocks for a more comprehensive and generalizable approach to age-normed quantification of MRI phenotypes over the entire lifespan (see Supplementary Information 1 for details and consideration of previous work focused on the related but distinct objective of inferring brain age from MRI data). Here, we demonstrate that these convergent advances now enable the generation of brain charts that (1) robustly define normative processes of sex-stratified, age-related change in multiple MRI-derived phenotypes; (2) identify previously unreported brain growth milestones; (3) increase sensitivity to detect genetic and early life environmental effects on brain structure; and (4) provide standardized effect sizes to quantify neuroanatomical atypicality of brain scans collected across multiple clinical disorders. We do not claim to have yet reached the ultimate goal of quantitatively precise diagnosis of MRI scans from
+27:Fig. 1 | Human brain charts. a , MRI data were aggregated from over 100 primary studies comprising 123,984 scans that collectively spanned the age range from mid-gestation to 100 postnatal years. Box-violin plots show the age distribution for each study coloured by its relative sample size (log-scaled using the natural logarithm for visualization purposes). b , Non-centiled, 'raw' bilateral cerebrum tissue volumes for grey matter, white matter, subcortical grey matter and ventricles are plotted for each cross-sectional control scan as a function of age (log-scaled); points are coloured by sex. c , Normative brain-volume trajectories were estimated using GAMLSS, accounting for site- and study-specific batch effects, and stratified by sex (female, red; male, blue). All four cerebrum tissue volumes demonstrated distinct, non-linear trajectories of their medians (with 2.5% and 97.5% centiles denoted as dotted lines) as a function of age over the lifespan. Demographics for each cross-sectional sample of healthy controls
+31:individual patients in clinical practice. However, the present work proves the principle that building normative charts to benchmark individual differences in brain structure is already achievable at global scale and over the entire life-course; and provides a suite of open science resources for the neuroimaging research community to accelerate further progress in the direction of standardized quantitative assessment of MRI data.
+33:included in the reference dataset for normative GAMLSS modelling of each MRI phenotype are detailed in Supplementary Table 1.2-1.8. d , Trajectories of median between-subject variability and 95% confidence intervals for four cerebrum tissue volumes were estimated by sex-stratified bootstrapping (see Supplementary Information 3 for details). e , Rates of volumetric change across the lifespan for each tissue volume, stratified by sex, were estimated by the first derivatives of the median volumetric trajectories. For solid (parenchymal) tissue volumes, the horizontal line ( y = 0) indicates when the volume at which each tissue stops growing and starts shrinking and the solid vertical line indicates the age of maximum growth of each tissue. See Supplementary Table 2.1 for all neurodevelopmental milestones and their confidence intervals. Note that y axes in b -e are scaled in units of 10,000 mm 3 (10 ml).
+35:## Mapping normative brain growth
+45:modelling of brain structural and functional MRI phenotypes in open datasets 19,26-31 . Our approach to GAMLSS modelling leveraged the greater scale of data available to optimize model selection empirically, to estimate non-linear age-related trends (in median and variance) stratified by sex over the entire lifespan, and to account for site- or study-specific 'batch effects' on MRI phenotypes in terms of multiple random effect parameters. Specifically, GAMLSS models were fitted to structural MRI data from control subjects for the four main tissue volumes of the cerebrum (total cortical grey matter volume (GMV), total white matter volume (WMV), total subcortical grey matter volume (sGMV) and total ventricular cerebrospinal fluid volume (ventricles or CSF)). Supplementary Tables 1.1-1.8 present details on acquisition, processing and demographics of the dataset; see Methods, 'Model generation and specification' and Supplementary Information 1 for further details regarding GAMLSS model specification and estimation; image quality control, which used a combination of expert visual curation and automated metrics of image quality (Supplementary Information 2);
+49:model stability and robustness (Supplementary Information 3, 4); phenotypic validation against non-imaging metrics (Supplementary Information 3 and 5.2); inter-study harmonization (Supplementary Information 5); and assessment of cohort effects (Supplementary Information 6). See Supplementary Information 19 for details on all primary studies contributing to the reference dataset, including multiple publicly available open MRI datasets 32-42 .
+51:Lifespan curves (Fig. 1, Supplementary Table 2.1) showed an initial strong increase in GMV from mid-gestation onwards, peaking at 5.9 years (95% bootstrap confidence interval (CI) 5.8-6.1), followed by a near-linear decrease. This peak was observed 2 to 3 years later than previous reports relying on smaller, more age-restricted samples 43,44 . WMV also increased rapidly from mid-gestation to early childhood, peaking at 28.7 years (95% bootstrap CI 28.1-29.2), with subsequent accelerated decline in WMV after 50 years. Subcortical GMV showed an intermediate growth pattern compared with GMV and WMV, peaking in adolescence at 14.4 years (95% bootstrap
+55:Fig. 3 | Neurodevelopmental milestones. Top, a graphical summary of the normative trajectories of the median (50th centile) for each global MRI phenotype, and key developmental milestones, as a function of age (log-scaled). Circles depict the peak rate of growth milestones for each phenotype (defined by the maxima of the first derivatives of the median trajectories (Fig. 1e)). Triangles depict the peak volume of each phenotype (defined by the maxima of the median trajectories); the definition of GMV:WMV differentiation is detailed in Supplementary Information 9.1. Bottom, a graphical summary of additional MRI and non-MRI developmental stages and milestones. From top to bottom: blue shaded boxes denote the age range of incidence for each of the major clinical disorders represented in the MRI dataset; black boxes denote the age at which these conditions are generally diagnosed as derived from literature 73 (Methods); brown lines
+61:represent the normative intervals for developmental milestones derived from non-MRI data, based on previous literature and averaged across males and females (Methods); grey bars depict age ranges for existing (World Health Organization (WHO) and Centers for Disease Control and Prevention (CDC)) growth charts of anthropometric and ultrasonographic variables 24 . Across both panels, light grey vertical lines delimit lifespan epochs (labelled above the top panel) previously defined by neurobiological criteria 63 . Tanner refers to the Tanner scale of physical development. AD, Alzheimer's disease; ADHD, attention deficit hyperactivity disorder; ASD, autism spectrum disorder (including high-risk individuals with confirmed diagnosis at a later age); ANX, anxiety or phobic disorders; BD, bipolar disorder; MDD, major depressive disorder; RMR, resting metabolic rate; SCZ, schizophrenia.
+65:To extend the scope of brain charts beyond the four cerebrum tissue volumes, we generalized the same GAMLSS modelling approach to estimate normative trajectories for additional MRI phenotypes including other morphometric properties at a global scale (mean cortical thickness and total surface area) and regional volume at each of 34 cortical areas 47 (Fig. 2, Supplementary Information 7-9, Supplementary Tables 1, 2). We found, as expected, that total surface area closely tracked the development of total cerebrum volume (TCV) across the lifespan (Fig. 2a), with both metrics peaking
+67:- Median clinical centile difference to normative population a
+69:Fig. 4 | Case-control differences and heritability of centile scores. a , Centile score distributions for each diagnostic category of clinical cases relative to the control group median (depicted as a horizontal black line). The median deviation of centile scores in each diagnostic category is overlaid as a lollipop plot (white lines with circles corresponding to the median centile score for each group of cases). Pairwise tests for significance were based on Monte Carlo resampling (10,000 permutations) and P values were adjusted for multiple comparisons using the Benjamini-Hochberg false discovery rate (FDR) correction across all possible case-control differences. Only significant differences from the control group (CN) median (with corrected P &lt; 0.001) are highlighted with an asterisk. For a complete overview of all pairwise comparisons, see Supplementary Information 10, Supplementary Table 3. Groups are ordered by their multivariate distance from the CN group (see c and Supplementary Information 10.3). b , The CMD is a summary metric that quantifies the aggregate atypicality of an individual scan in terms of all global MRI phenotypes. The schematic shows segmentation of four cerebrum tissue
+75:We also found evidence for regional variability in volumetric neurodevelopmental trajectories. Compared with peak GMV at 5.9 years, the age of peak regional grey matter volume varied considerably-from approximately 2 to 10 years-across 34 cortical areas. Primary sensory regions reached peak volume earliest and showed faster post-peak declines, whereas fronto-temporal association cortical areas peaked later and showed slower post-peak declines (Fig. 2b, Supplementary Information 8.2). Notably, this spatial pattern recapitulated a gradient volumes, followed by estimation of univariate centile scores, leading to the orthogonal projection of a single participant's scan (Sub x ) onto the four respective principal components of the CN (coloured axes and arrows). The CMD for Sub x is then the sum of its distances from the CN group mean on all four dimensions of the multivariate space. c , Probability density plots of CMD across disorders. Vertical black line depicts the median CMD of the control group. Asterisks indicate an FDR-corrected significant difference from the CN group ( P &lt; 0.001). d , Heritability of raw volumetric phenotypes and their centile scores across two twin studies (Adolescent Brain Cognitive Development (ABCD) and Human Connectome Project (HCP)); Supplementary Information 19), see Supplementary Information 13 for a full overview of statistics for each individual feature in each dataset. Data are mean ± s.e.m. (although some confidence intervals are too narrow to be seen). MCI, mild cognitive impairment. See Fig. 3 for other diagnostic abbreviations. FDR-corrected significance: * P &lt; 0.05, ** P &lt; 0.01, *** P &lt; 0.001.
+83:Fig. 5 | Schematic overview of brain charts, highlighting methods for out-of-sample centile scoring. Top, brain phenotypes were measured in a reference dataset of MRI scans. GAMLSS modelling was used to estimate the relationship between (global) MRI phenotypes and age, stratified by sex, and controlling for technical and other sources of variation between scanning sites and primary studies. Bottom, the normative trajectory of the median and confidence interval for each phenotype was plotted as a population reference curve. Out-of-sample data from a new MRI study were aligned to the
+87:and sGMV (peak velocity and size) (Fig. 3) coincided with the early neonatal and adolescent peaks of height and weight velocity 52,53 . The velocity of mean cortical thickness peaked even earlier, in the prenatal period at -0.38 years (95% bootstrap CI -0.4 to -0.34) (relative to birth), corresponding approximately to mid-gestation. This early peak in cortical thickness velocity has not been reported previously-to our knowledge-in part owing to challenges in acquiring adequate and consistent signal from typical MRI sequences in the perinatal period 54 . Similarly, normative trajectories revealed an early period of GMV:WMV differentiation, beginning in the first month after birth with the switch from WMV to GMV as the proportionally dominant tissue compartment, and ending when the absolute difference of GMV and WMV peaked around 3 years (Supplementary Information 9). This epoch of GMV:WMV differentiation, which may reflect underlying changes in myelination and synaptic proliferation 4,55-58 , has not been demarcated in previous studies 45,59 . It was probably identified in this study owing to the substantial amount of early developmental MRI data available for analysis in the aggregated dataset (in total across all primary studies, N = 2,571 and N = 1,484 participants aged less than 2 years were available for analysis of cerebrum tissue volumes and extended global MRI phenotypes, respectively). The period of GMV:WMV differentiation encompasses dynamic changes in brain metabolites 60 (0-3 months), resting metabolic rate 61 (RMR) (minimum = 7 months, maximum = 4.2 years), the typical period of acquisition of motor capabilities and other early paediatric milestones 62 , and the most rapid change in TCV (Fig. 3).
+91:We computed individualized centile scores that benchmarked each individual scan in the context of normative age-related trends (Methods, 'Centile scores and case-control differences' and Supplementary Information 1-6 for further details). This approach is conceptually similar to quantile rank mapping, as previously reported 26,28,29 , where
+93:corresponding epoch of the normative trajectory, using maximum likelihood to estimate the study specific offsets (random effects) for three moments of the underlying statistical distributions: mean ( μ ), variance ( σ ), and skewness ( ν ) in an age- and sex-specific manner. Centile scores of each phenotype could then be estimated for each scan in the new study, on the same scale as the reference population curve, while accounting for study-specific 'batch effects' on technical or other sources of variation (see Supplementary Information 1.8 for details). MLE, maximum likelihood estimation.
+
+thinking
+**Locating demographics data**
+
+I'm checking Supplementary Table 1 and Supplementary_Table_Information.md for demographic and RCI details to support the task.
+2026-03-01T23:29:26.946620Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat study_1/Supplementary_Table_Information.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 29ms:
+# Supplementary Information
+
+This file includes common nomenclature, Supplementary Methods, sensitivity analyses, supplementary analyses, reference database details, replication/validation datasets, a note on data sharing, affiliations, Acknowledgements and supplementary references.
+
+## Supplementary Table 1
+Demographic information. SI1.1, sample size and acquisition parameters for each individual study. SI1.2–SI1.42, demographic information per study and sex for each individual brain imaging phenotype (that is, SI1.2 has demographics for all control subjects included in the GMV model, SI1.3 for all subjects included in the WMV model, etc.). Thus these contain all demographics and sample sizes related to the models presented in Figs. 1, 2.
+
+## Supplementary Table 2
+Milestones. SI2.1, information on volumetric peaks and rate of change peaks for the global neuroimaging phenotypes as presented in Figs. 1–3. SI2.2, information on volumetric peaks and rate of change peaks for the regional phenotypes as presented in Fig. 2.
+
+## Supplementary Table 3
+Case–control centile comparisons. SI3.1–3.7, statistics and sample size for case–control comparisons presented in Fig. 4a (that is, for clinical groups with N > 500) and SI10. Each table reports the sample sizes, test-statistics, effect sizes and corrected and uncorrected P-values per case–control pair and per sex. Corrected P-values represent P-values adjusted using Benjamini–Hochberg FDR correction for multiple comparisons across all case–control pairs of a specific sex within a specific feature. SI3.8–3.14, same statistics as 3.1–3.7 for all clinical groups with N > 250. SI3.15–3.21, same statistics as 3.1–3.7 for all clinical groups with N > 100. SI3.22–3.28, same statistics as 3.1–3.7 for all clinical groups with N > 50.
+
+## Supplementary Table 4
+Centile distributions. SI4.1–4.7, statistics on centile distributions of global neuroimaging phenotypes, presenting the estimated number of peaks and the accompanying Hartigan’s dip-test statistic for unimodality per sex per phenotype.
+
+## Supplementary Table 5
+Case–control IQR comparisons. SI5.1–5.7, statistics of the case–control comparisons of the interquartile range for subjects that had longitudinal data. Each table reports the sample sizes, test-statistics, effect sizes and corrected and uncorrected P-values per case–control pair and per sex. Corrected P-values represent P-values adjusted using Benjamini–Hochberg FDR correction for multiple comparisons across all case–control pairs of a specific sex within a specific feature.
+
+## Supplementary Table 6
+
+thinking
+**Locating demographics data**
+
+I'm checking supplementary tables and identified a CSV likely containing aggregated demographics to access the needed information.
+exec
+/bin/bash -lc 'head -n 40 study_1/Table1_Demographics/Table_1_1_Acquisition_and_Demographics.csv' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020829083352026-03-01T23:29:30.418331Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+Study,Site code,Sex,Sample size,Processing pipeline,Processed in-house,Only post QC data shared/used,Extracted QC metrics,QC Rating included,Further notes on QC,Acquisition protocol,Native resolution,Longitudinal included,Scanner,Manufacturer,Field strength,Acquisition Parameter Notes,TR,TE,TI,FA,Citation for extended description
+3R-BRAIN,1,Female,74,FS6_T1,yes,No,Euler,,Anatomical T1 images were visually inspected to exclude individuals with substantial head motion and structural abnormalities.,MPRAGE,0.7mm,Pending,Siemens 3T Prisma,Siemens,3,,2400,2.23,1000,8,https://pubmed.ncbi.nlm.nih.gov/34653938/
+3R-BRAIN,1,Male,87,FS6_T1,yes,No,Euler,,Anatomical T1 images were visually inspected to exclude individuals with substantial head motion and structural abnormalities.,MPRAGE,0.7mm,Pending,Siemens 3T Prisma,Siemens,3,,2400,2.23,1000,8,https://pubmed.ncbi.nlm.nih.gov/34653938/
+3R-BRAIN,2,Female,72,FS6_T1,yes,No,Euler,,Anatomical T1 images were visually inspected to exclude individuals with substantial head motion and structural abnormalities.,3D T1,1mm,Pending,GE 3T MR750,General Electric,3,,6.9,2.99,450,8,https://pubmed.ncbi.nlm.nih.gov/34653938/
+3R-BRAIN,2,Male,97,FS6_T1,yes,No,Euler,,Anatomical T1 images were visually inspected to exclude individuals with substantial head motion and structural abnormalities.,3D T1,1mm,Pending,GE 3T MR750,General Electric,3,,6.9,2.99,450,8,https://pubmed.ncbi.nlm.nih.gov/34653938/
+ABCD,site01,Female,4,FS6_T1,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE,1mm,Pending,Philips 3T Achieva dStream,Philips,3,,6.31,2.9,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site01,Male,5,FS6_T1,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE,1mm,Pending,Philips 3T Achieva dStream,Philips,3,,6.31,2.9,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site01,Female,183,FS6_T1T2,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE + 3D T2-weighted fast spin echo,1mm,Pending,Philips 3T Achieva dStream,Philips,3,,6.31,2.9,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site01,Male,176,FS6_T1T2,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE + 3D T2-weighted fast spin echo,1mm,Pending,Philips 3T Achieva dStream,Philips,3,,6.31,2.9,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site02,Female,5,FS6_T1,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE,1mm,Pending,Siemens 3T Prisma,Siemens,3,,2500,2.88,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site02,Male,6,FS6_T1,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE,1mm,Pending,Siemens 3T Prisma,Siemens,3,,2500,2.88,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site02,Female,241,FS6_T1T2,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE + 3D T2-weighted fast spin echo,1mm,Pending,Siemens 3T Prisma,Siemens,3,,2500,2.88,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site02,Male,274,FS6_T1T2,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE + 3D T2-weighted fast spin echo,1mm,Pending,Siemens 3T Prisma,Siemens,3,,2500,2.88,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site03,Female,4,FS6_T1,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE,1mm,Pending,Siemens 3T Prisma,Siemens,3,,2500,2.88,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site03,Male,11,FS6_T1,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE,1mm,Pending,Siemens 3T Prisma,Siemens,3,,2500,2.88,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site03,Female,278,FS6_T1T2,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE + 3D T2-weighted fast spin echo,1mm,Pending,Siemens 3T Prisma,Siemens,3,,2500,2.88,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site03,Male,292,FS6_T1T2,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE + 3D T2-weighted fast spin echo,1mm,Pending,Siemens 3T Prisma,Siemens,3,,2500,2.88,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site04,Female,5,FS6_T1,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE,1mm,Pending,GE 3T MR750,General Electric,3,,2500,2,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site04,Male,13,FS6_T1,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE,1mm,Pending,GE 3T MR750,General Electric,3,,2500,2,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+ABCD,site04,Female,300,FS6_T1T2,yes,No,"Euler, FreesurferQC",,see https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010,MPRAGE + 3D T2-weighted fast spin echo,1mm,Pending,GE 3T MR750,General Electric,3,,2500,2,1060,8,https://www.sciencedirect.com/science/article/pii/S1878929317301214#tbl0010
+
+
+thinking
+**Assessing reference cohort totals**
+
+The overall reference dataset includes 123,984 scans from 101,457 participants aggregated across 100+ studies, matching the normative modeling training cohort. Next, I'll confirm if sex counts are needed or can be approximated by summing dataset-level sex-specific sample sizes.
+thinking
+**Clarifying phenotype-specific data needs**
+
+The normative models cover multiple phenotypes requiring separate reference cohorts per model, but the available main table mixes demographic and regional brain volume data. Next, I'll examine phenotype-specific tables like grey matter volume to identify the appropriate dataset for each model.
+2026-03-01T23:29:42.509765Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'head -n 20 study_1/Table1_Demographics/Table_1_2_Grey_matter_volume.csv' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 26ms:
+"Study","Sex","Sample size","Mean Age (in days)","Minimum age (in days)","Maximum age (in days)"
+"3R-BRAIN","Female",146,9796.5,7081.8,13444.4
+"3R-BRAIN","Male",184,9932.6,7206,13773.1
+"ABCD","Female",4543,3899,3568.6,4269
+"ABCD","Male",4347,3903,3568.6,4269
+"abide1","Female",99,5918,3110.7,17081.3
+"abide1","Male",461,6658.2,2643.1,20806.8
+"abide2","Female",113,5811.1,2437.5,17300.4
+"abide2","Male",278,6848.7,2430.2,23655.7
+"ADHD200","Female",237,4655.5,2898.8,9889.6
+"ADHD200","Male",254,4697.5,2906.1,9425.7
+"ADNI","Female",205,27067.4,20526.8,32726
+"ADNI","Male",203,27545.6,21878.2,32506.8
+"AIBL","Female",261,26300.4,21914.7,33602.5
+"AIBL","Male",200,26471.1,21914.7,32872.1
+"AOBA","Female",515,16606.9,6574.4,28123.9
+"AOBA","Male",449,15354.9,4748.2,29584.8
+"AOMIC_ID1000","Female",483,8626.2,7584.9,9776.4
+"AOMIC_ID1000","Male",442,8622.2,7219.7,9776.4
+"AOMIC_PIOP1","Female",44,8091.4,6665.7,9496.4
+
+
+thinking
+**Assessing age summary options**
+
+The data lacks SD for age, so I'll compute weighted mean age from study means in days and convert to years, but will report SD as not reported and use the reported age range from the paper.
+thinking
+**Planning aggregated demographics per phenotype**
+
+I'll process the seven phenotype CSV tables to compute total, female, and male sample sizes plus weighted mean age and age range in years per model, using a Python script with the CSV module for precise, ASCII-safe computations.
+exec
+/bin/bash -lc "python - <<'PY'
+import csv, math, os
+base = 'study_1/Table1_Demographics'
+files = [
+    ('GMV', 'Table_1_2_Grey_matter_volume.csv'),
+    ('WMV', 'Table_1_3_White_matter_volume.csv'),
+    ('sGMV', 'Table_1_4_Subcortical_grey_matter_volume.csv'),
+    ('Ventricular volume', 'Table_1_5_Ventricular_volume.csv'),
+    ('Total cerebrum volume', 'Table_1_6_Total_cerebrum_volume.csv'),
+    ('Mean cortical thickness', 'Table_1_7_Mean_cortical_thickness.csv'),
+    ('Total surface area', 'Table_1_8_Total_surface_area.csv'),
+]
+
+def summarize(path):
+    total = 0
+    female = 0
+    male = 0
+    wsum = 0.0
+    min_age = None
+    max_age = None
+    with open(path, newline='') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            n = int(row['Sample size'])
+            sex = row['Sex'].strip()
+            mean_age = float(row['Mean Age (in days)'])
+            min_a = float(row['Minimum age (in days)'])
+            max_a = float(row['Maximum age (in days)'])
+            total += n
+            if sex.lower().startswith('f'):
+                female += n
+            elif sex.lower().startswith('m'):
+                male += n
+            wsum += mean_age * n
+            min_age = min_a if min_age is None else min(min_age, min_a)
+            max_age = max_a if max_age is None else max(max_age, max_a)
+    mean_age_days = wsum / total if total else float('nan')
+    return {
+        'total': total,
+        'female': female,
+        'male': male,
+        'mean_age_days': mean_age_days,
+        'min_age_days': min_age,
+        'max_age_days': max_age,
+    }
+
+for label, fname in files:
+    path = os.path.join(base, fname)
+    s = summarize(path)
+    print(label)
+    print(s)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020829083352026-03-01T23:30:13.516964Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 226ms:
+GMV
+{'total': 77157, 'female': 38839, 'male': 38318, 'mean_age_days': 15139.223837111344, 'min_age_days': 115.0, 'max_age_days': 36504.0}
+WMV
+{'total': 77031, 'female': 38783, 'male': 38248, 'mean_age_days': 15162.79893808986, 'min_age_days': 137.0, 'max_age_days': 36504.0}
+sGMV
+{'total': 75646, 'female': 38084, 'male': 37562, 'mean_age_days': 15362.064923459271, 'min_age_days': 137.0, 'max_age_days': 36504.0}
+Ventricular volume
+{'total': 70000, 'female': 35298, 'male': 34702, 'mean_age_days': 15111.40559428571, 'min_age_days': 288.0, 'max_age_days': 36504.0}
+Total cerebrum volume
+{'total': 70565, 'female': 36311, 'male': 34254, 'mean_age_days': 14977.83473676752, 'min_age_days': 137.0, 'max_age_days': 36504.0}
+Mean cortical thickness
+{'total': 59599, 'female': 30539, 'male': 29060, 'mean_age_days': 15095.092647527645, 'min_age_days': 145.0, 'max_age_days': 36504.0}
+Total surface area
+{'total': 59643, 'female': 30560, 'male': 29083, 'mean_age_days': 15084.20861123686, 'min_age_days': 205.0, 'max_age_days': 36504.0}
+
+thinking
+**Planning age conversion to years**
+
+I'll convert ages from days to years using a 365.25-day year and calculate mean, min, and max ages with two decimals for accuracy, aligning with the data range from 115 days (0.32 yrs) to about 100 years.
+2026-03-01T23:30:24.769473Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+vals = {
+    'GMV': (15139.223837111344, 115.0, 36504.0),
+    'WMV': (15162.79893808986, 137.0, 36504.0),
+    'sGMV': (15362.064923459271, 137.0, 36504.0),
+    'Ventricular volume': (15111.40559428571, 288.0, 36504.0),
+    'Total cerebrum volume': (14977.83473676752, 137.0, 36504.0),
+    'Mean cortical thickness': (15095.092647527645, 145.0, 36504.0),
+    'Total surface area': (15084.20861123686, 205.0, 36504.0),
+}
+for k,(mean_d,min_d,max_d) in vals.items():
+    mean_y = mean_d/365.25
+    min_y = min_d/365.25
+    max_y = max_d/365.25
+    print(k, f\"mean {mean_y:.2f} y\", f\"min {min_y:.2f} y\", f\"max {max_y:.2f} y\")
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 40ms:
+GMV mean 41.45 y min 0.31 y max 99.94 y
+WMV mean 41.51 y min 0.38 y max 99.94 y
+sGMV mean 42.06 y min 0.38 y max 99.94 y
+Ventricular volume mean 41.37 y min 0.79 y max 99.94 y
+Total cerebrum volume mean 41.01 y min 0.38 y max 99.94 y
+Mean cortical thickness mean 41.33 y min 0.40 y max 99.94 y
+Total surface area mean 41.30 y min 0.56 y max 99.94 y
+
+thinking
+**Planning female percentage calculation**
+
+I'll compute the female percentage in Python by deriving it as needed for the sex proportion metric.
+exec
+/bin/bash -lc "python - <<'PY'
+items = {
+    'GMV': (77157, 38839, 38318),
+    'WMV': (77031, 38783, 38248),
+    'sGMV': (75646, 38084, 37562),
+    'Ventricular volume': (70000, 35298, 34702),
+    'Total cerebrum volume': (70565, 36311, 34254),
+    'Mean cortical thickness': (59599, 30539, 29060),
+    'Total surface area': (59643, 30560, 29083),
+}
+for k,(total,female,male) in items.items():
+    fp = female/total*100
+    mp = male/total*100
+    print(k, f\"{fp:.1f}%\", f\"{mp:.1f}%\")
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020829083352026-03-01T23:30:31.966291Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 42ms:
+GMV 50.3% 49.7%
+WMV 50.3% 49.7%
+sGMV 50.3% 49.7%
+Ventricular volume 50.4% 49.6%
+Total cerebrum volume 51.5% 48.5%
+Mean cortical thickness 51.2% 48.8%
+Total surface area 51.2% 48.8%
+
+
+thinking
+**Listing datasets for multi-site RCI**
+
+I'm identifying and verifying the multi-site datasets cited in the paper's acknowledgments and dataset list, confirming inclusion of UK Biobank, ABCD, HCP, AIBL, ADNI, ENIGMA, FCON (INDI), Healthy Brain Network, and Cam-CAN, while noting uncertainty about some others like TOP, COBRE, and IXI. I'll use the quoted aggregate MRI scan count and cite Bethlehem2021.md lines accordingly.
+thinking
+**Verifying ABIDE presence**
+
+I'm confirming whether ABIDE appears in the acknowledgments or dataset table since it's not clearly listed; I'll search the paper text for explicit mentions of ABIDE and other datasets to ensure accurate EPD inclusion.
+2026-03-01T23:30:44.346777Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "HCP|Human Connectome|UK BioBank|UK Biobank|ABCD|AIBL|ADNI|ENIGMA|Cam-CAN|FCON|FCON|Healthy Brain Network|HBN|ABIDE|PNC|IXI|NKI|COBRE|TOP|OASIS|LEAP|REST-meta-MDD" study_1/Bethlehem2021.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 37ms:
+75:We also found evidence for regional variability in volumetric neurodevelopmental trajectories. Compared with peak GMV at 5.9 years, the age of peak regional grey matter volume varied considerably-from approximately 2 to 10 years-across 34 cortical areas. Primary sensory regions reached peak volume earliest and showed faster post-peak declines, whereas fronto-temporal association cortical areas peaked later and showed slower post-peak declines (Fig. 2b, Supplementary Information 8.2). Notably, this spatial pattern recapitulated a gradient volumes, followed by estimation of univariate centile scores, leading to the orthogonal projection of a single participant's scan (Sub x ) onto the four respective principal components of the CN (coloured axes and arrows). The CMD for Sub x is then the sum of its distances from the CN group mean on all four dimensions of the multivariate space. c , Probability density plots of CMD across disorders. Vertical black line depicts the median CMD of the control group. Asterisks indicate an FDR-corrected significant difference from the CN group ( P &lt; 0.001). d , Heritability of raw volumetric phenotypes and their centile scores across two twin studies (Adolescent Brain Cognitive Development (ABCD) and Human Connectome Project (HCP)); Supplementary Information 19), see Supplementary Information 13 for a full overview of statistics for each individual feature in each dataset. Data are mean ± s.e.m. (although some confidence intervals are too narrow to be seen). MCI, mild cognitive impairment. See Fig. 3 for other diagnostic abbreviations. FDR-corrected significance: * P &lt; 0.05, ** P &lt; 0.01, *** P &lt; 0.001.
+153:17. Opel, N. et al. Cross-disorder analysis of brain structural abnormalities in six major psychiatric disorders: a secondary analysis of mega- and meta-analytical findings from the ENIGMA consortium. Biol. Psychiatry 88 , 678-686 (2020).
+156:20. Bycroft, C. et al. The UK Biobank resource with deep phenotyping and genomic data. Nature 562 , 203-209 (2018).
+157:21. Casey, B. J. et al. The Adolescent Brain Cognitive Development (ABCD) study: imaging acquisition across 21 sites. Dev. Cogn. Neurosci. 32 , 43-54 (2018).
+202:65. Elliott, L. T . et al. Genome-wide association studies of brain imaging phenotypes in UK Biobank. Nat. Neurosci. 562 , 210-216 (2018).
+311:AIBL, Alzheimer's Disease Neuroimaging Initiative, Alzheimer's Disease Repository Without Borders Investigators, CALM Team, Cam-CAN, CCNP, COBRE, cVEDA, ENIGMA Developmental Brain Age Working Group, Developing Human Connectome Project, FinnBrain, Harvard Aging Brain Study, IMAGEN, KNE96, The Mayo Clinic Study of Aging, NSPN, POND, The PREVENT-AD Research Group, VETSA, E. T. Bullmore 6,220 &amp; A. F. Alexander-Bloch 3,4,5,220
+329:AIBL*
+349:Cam-CAN*
+357:COBRE*
+365:ENIGMA Developmental Brain Age Working Group*
+369:Developing Human Connectome Project*
+504:Acknowledgements R.A.I.B. was supported by a British Academy Postdoctoral fellowship and by the Autism Research Trust. J. Seidlitz was supported by NIMH T32MH019112-29 and K08MH120564. S.R.W. was funded by UKRI Medical Research Council MC\_UU\_00002/2 and was supported by the NIHR Cambridge Biomedical Research Centre (BRC-1215-20014). E.T.B. was supported by an NIHR Senior Investigator award and the Wellcome Trust collaborative award for the Neuroscience in Psychiatry Network. A.F.A.-B. was supported by NIMH K08MH120564. Data were curated and analysed using a computational facility funded by an MRC research infrastructure award (MR/M009041/1) to the School of Clinical Medicine, University of Cambridge and supported by the mental health theme of the NIHR Cambridge Biomedical Research Centre. The views expressed are those of the authors and not necessarily those of the NIH, NHS, the NIHR or the Department of Health and Social Care. We acknowledge the invaluable contribution to this effort made by several openly shared MRI datasets: OpenNeuro (https://openneuro.org/), the Healthy Brain Network (https:// healthybrainnetwork.org/), UK BioBank (https://www.ukbiobank.ac.uk/), ABCD (https:// abcdstudy.org/), the Laboratory of NeuroImaging (https://loni.usc.edu/), data made available through the Open Science Framework (https://osf.io/), COINS (http://coins.mrn.org/dx), the Developing Human Connectome Project (http://www.developingconnectome.org/), the Human Connectome Project (http://www.humanconnectomeproject.org/), the OpenPain project (https://www.openpain.org), the International Neuroimaging Datasharing Initiative (INDI) (https://fcon\_1000.projects.nitrc.org/), and the NIMH Data Archive (https://nda.nih.gov/). See Supplementary Information 21 for further notes on the usage of open MRI data and data sharing. Data used in this article were provided by the brain consortium for reliability, reproducibility and replicability (3R-BRAIN) (https://github.com/zuoxinian/3R-BRAIN). Data used in the preparation of this article was obtained from the Australian Imaging Biomarkers and Lifestyle flagship study of ageing (AIBL) funded by the Commonwealth Scientific and Industrial Research Organisation (CSIRO) which was made available at the ADNI database (https://adni.loni.usc.edu/aibl-australian-imaging-biomarkers-and-lifestyle-study-of-ageing18-month-data-now-released/). The AIBL researchers contributed data but did not participate in analysis or writing of this report. AIBL researchers are listed at https://www.aibl.csiro.au. Data used in preparation of this article were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database (https://adni.loni.usc.edu/). The investigators within the ADNI contributed to the design and implementation of ADNI and/or provided data but did not participate in analysis or writing of this report. A complete listing of ADNI investigators can be found at https://adni.loni.usc.edu/wp-content/uploads/how\_to\_apply/ADNI\_ Acknowledgement\_List.pdf. More information on the ARWIBO consortium can be found at https://www.arwibo.it/. More information on CALM team members can be found at https:// calm.mrc-cbu.cam.ac.uk/team/ and in the Supplementary Information. Further information about the Cam-CAN corporate authorship membership can be found at https://www.cam-can. org/index.php?content=corpauth#12. Data used in this article were obtained from the developmental component 'Growing Up in China' of the Chinese Color Nest Project (http:// deepneuro.bnu.edu.cn/?p=163). Data were downloaded from the COllaborative Informatics and Neuroimaging Suite Data Exchange tool (COINS) (https://coins.trendscenter.org/) and data collection was performed at the Mind Research Network. Data used in the preparation of this article were obtained from the IConsortium on Vulnerability to Externalizing Disorders and Addictions (c-VEDA), India (https://cveda-project.org/). Details of The ENIGMA Developmental Brain Age working group can be found at https://github.com/ENIGMA-DevelopmentalBrainAge/main. Data used in the preparation of this article were obtained from the Harvard Aging Brain Study (HABS P01AG036694) (https://habs.mgh.harvard.edu). Data used in the preparation of this article were obtained from the IMAGEN consortium (https://imagen-europe. com/). Data used in this article were obtained from the Korean Longitudinal Study on Cognitive Aging and Dementia (KLOSCAD) (https://recode.re.kr). A full list of NSPN consortium members can be found at https://www.nspn.org.uk/nspn-team/. The POND network (https:// pond-network.ca/) is a Canadian translational network in neurodevelopmental disorders, primarily funded by the Ontario Brain Institute.
+
+thinking
+**Confirming dataset mentions and citation details**
+
+All key datasets in the EPD list are explicitly referenced, including HBN, Cam-CAN, ENIGMA, and FCON (INDI). I'll also use the aggregated data text for RCI-1 MSAD citations, noting source locations simply from Bethlehem2021.pdf.md around line 17. Next, I'll update the JSON output accordingly.
+exec
+/bin/bash -lc 'cat DE_v13_Bethlehem2021_by_codex_20260302082908335.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020829083352026-03-01T23:30:51.447951Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 31ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Deciding how to source supporting text for totals**
+
+Contemplating whether to quote supporting text directly from tables or paper text since totals were computed, with no direct stated totals in tables; leaning toward using overall total scans from the paper for the main count and marking sex/age data as not recorded. Considering defining a single "global MRI reference dataset" model with total N for simplicity despite detailed per-phenotype counts differing.
+thinking
+**Planning computed totals with detailed supporting text**
+
+Decided to provide multiple model-specific Ns computed by summing sample sizes from Supplementary Tables 1.2–1.8, citing a combined supporting text from Supplementary_Table_Information.md that describes these tables as giving demographics per study and sex per phenotype. For age and sex metadata, will mark sex as not recorded and use age range from main text with NR for mean/SD. Also planning to extract direct quotes for MSAD/EPD details from related files for precise supporting text.
+exec
+/bin/bash -lc "sed -n '15,22p' study_1/Bethlehem2021.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020829083352026-03-01T23:31:15.603753Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+![Image](./Bethlehem2021_artifacts/image_000000_6b141a264e48310d86d7ff5078071ffa2b79510c2eda9fade0943f4b09076015.png)
+
+Over the past few decades, neuroimaging has become a ubiquitous tool in basic research and clinical studies of the human brain. However, no reference standards currently exist to quantify individual differences in neuroimaging metrics over time, in contrast to growth charts for anthropometric traits such as height and weight 1 . Here we assemble an interactive open resource to benchmark brain morphology derived from any current or future sample of MRI data (http://www.brainchart.io/). With the goal of basing these reference charts on the largest and most inclusive dataset available, acknowledging limitations due to known biases of MRI studies relative to the diversity of the global population, we aggregated 123,984 MRI scans, across more than 100 primary studies, from 101,457 human participants between 115 days post-conception to 100 years of age. MRI metrics were quantified by centile scores, relative to non-linear trajectories 2 of brain structural changes, and rates of change, over the lifespan. Brain charts identified previously u  nr  ep  or  ted n  eu  ro  de  ve  lopmental milestones 3 , showed high stability of individuals across longitudinal assessments, and demonstrated robustness to technical and methodological differences between primary studies. Centile scores showed increased heritability compared with non-centiled MRI phenotypes, and provided a standardized measure of atypical brain structure that revealed patterns of n  e  u  ro  a  n  at  omical v  a  r  i  a  tion across neurological and psychiatric disorders. In summary, brain charts are an essential step towards robust quantification of individual variation benchmarked to normative trajectories in multiple, commonly used neuroimaging phenotypes.
+
+Check for updates
+
+The simple framework of growth charts to quantify age-related change was first published in the late eighteenth century 1 and remains a cornerstone of paediatric healthcare-an enduring example of the utility of standardized norms to benchmark individual trajectories of development. However, growth charts are currently available only for a small set of anthropometric variables, such as height, weight and head circumference, and only for the first decade of life. There are no analogous charts available for quantification of age-related changes in the human brain, although it is known to go through a prolonged and complex maturational program from pregnancy to the third decade 4 , followed by progressive senescence from approximately the sixth decade 5 . The lack of tools for standardized assessment of brain development and ageing is particularly relevant to research studies of psychiatric disorders, which are increasingly recognized as a consequence of atypical brain development 6 , and neurodegenerative diseases that cause pathological brain changes in the context of normative senescence 7 . Preterm birth and neurogenetic disorders are also associated with marked abnormalities of brain structure 8,9 that persist into adult life 9,10 and are associated with learning disabilities and mental health disorders. Mental illness and dementia collectively represent the single biggest global health burden 11 , highlighting the urgent need for normative brain charts as an anchor point for standardized quantification of brain structure over the lifespan 12 .
+
+
+thinking
+**Extracting snippet for supporting text**
+
+I'm preparing to extract a snippet around line 504 using sed to get the acknowledgements line for EPD supporting text and mapping MSAD and age range accordingly.
+2026-03-01T23:31:19.867660Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '500,515p' study_1/Bethlehem2021.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 26ms:
+75. Heude, B. et al. A big-data approach to producing descriptive anthropometric references: a feasibility and validation study of paediatric growth charts. Lancet Digit Health 1 , e413-e423 (2019).
+76. Erkkinen, M. G., Kim, M.-O. &amp; Geschwind, M. D. Clinical neurology and epidemiology of the major neurodegenerative diseases. Cold Spring Harb. Perspect. Biol. 10 , a033118 (2018).
+77. Bethlehem, R. A. I. et al. A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder. Commun Biol 3 , 486 (2020).
+
+Acknowledgements R.A.I.B. was supported by a British Academy Postdoctoral fellowship and by the Autism Research Trust. J. Seidlitz was supported by NIMH T32MH019112-29 and K08MH120564. S.R.W. was funded by UKRI Medical Research Council MC\_UU\_00002/2 and was supported by the NIHR Cambridge Biomedical Research Centre (BRC-1215-20014). E.T.B. was supported by an NIHR Senior Investigator award and the Wellcome Trust collaborative award for the Neuroscience in Psychiatry Network. A.F.A.-B. was supported by NIMH K08MH120564. Data were curated and analysed using a computational facility funded by an MRC research infrastructure award (MR/M009041/1) to the School of Clinical Medicine, University of Cambridge and supported by the mental health theme of the NIHR Cambridge Biomedical Research Centre. The views expressed are those of the authors and not necessarily those of the NIH, NHS, the NIHR or the Department of Health and Social Care. We acknowledge the invaluable contribution to this effort made by several openly shared MRI datasets: OpenNeuro (https://openneuro.org/), the Healthy Brain Network (https:// healthybrainnetwork.org/), UK BioBank (https://www.ukbiobank.ac.uk/), ABCD (https:// abcdstudy.org/), the Laboratory of NeuroImaging (https://loni.usc.edu/), data made available through the Open Science Framework (https://osf.io/), COINS (http://coins.mrn.org/dx), the Developing Human Connectome Project (http://www.developingconnectome.org/), the Human Connectome Project (http://www.humanconnectomeproject.org/), the OpenPain project (https://www.openpain.org), the International Neuroimaging Datasharing Initiative (INDI) (https://fcon\_1000.projects.nitrc.org/), and the NIMH Data Archive (https://nda.nih.gov/). See Supplementary Information 21 for further notes on the usage of open MRI data and data sharing. Data used in this article were provided by the brain consortium for reliability, reproducibility and replicability (3R-BRAIN) (https://github.com/zuoxinian/3R-BRAIN). Data used in the preparation of this article was obtained from the Australian Imaging Biomarkers and Lifestyle flagship study of ageing (AIBL) funded by the Commonwealth Scientific and Industrial Research Organisation (CSIRO) which was made available at the ADNI database (https://adni.loni.usc.edu/aibl-australian-imaging-biomarkers-and-lifestyle-study-of-ageing18-month-data-now-released/). The AIBL researchers contributed data but did not participate in analysis or writing of this report. AIBL researchers are listed at https://www.aibl.csiro.au. Data used in preparation of this article were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database (https://adni.loni.usc.edu/). The investigators within the ADNI contributed to the design and implementation of ADNI and/or provided data but did not participate in analysis or writing of this report. A complete listing of ADNI investigators can be found at https://adni.loni.usc.edu/wp-content/uploads/how\_to\_apply/ADNI\_ Acknowledgement\_List.pdf. More information on the ARWIBO consortium can be found at https://www.arwibo.it/. More information on CALM team members can be found at https:// calm.mrc-cbu.cam.ac.uk/team/ and in the Supplementary Information. Further information about the Cam-CAN corporate authorship membership can be found at https://www.cam-can. org/index.php?content=corpauth#12. Data used in this article were obtained from the developmental component 'Growing Up in China' of the Chinese Color Nest Project (http:// deepneuro.bnu.edu.cn/?p=163). Data were downloaded from the COllaborative Informatics and Neuroimaging Suite Data Exchange tool (COINS) (https://coins.trendscenter.org/) and data collection was performed at the Mind Research Network. Data used in the preparation of this article were obtained from the IConsortium on Vulnerability to Externalizing Disorders and Addictions (c-VEDA), India (https://cveda-project.org/). Details of The ENIGMA Developmental Brain Age working group can be found at https://github.com/ENIGMA-DevelopmentalBrainAge/main. Data used in the preparation of this article were obtained from the Harvard Aging Brain Study (HABS P01AG036694) (https://habs.mgh.harvard.edu). Data used in the preparation of this article were obtained from the IMAGEN consortium (https://imagen-europe. com/). Data used in this article were obtained from the Korean Longitudinal Study on Cognitive Aging and Dementia (KLOSCAD) (https://recode.re.kr). A full list of NSPN consortium members can be found at https://www.nspn.org.uk/nspn-team/. The POND network (https:// pond-network.ca/) is a Canadian translational network in neurodevelopmental disorders, primarily funded by the Ontario Brain Institute.
+
+Author contributions R.A.I.B., J.S., S.R.W., E. T .B. and A.F.A.-B. designed the study, conducted analyses, wrote and edited the manuscript. J.V. and K.M.A. helped to design the study and contributed to data analysis. All other authors made substantial contributions to the conception or design of the work, the acquisition, analysis or interpretation of data, the creation of new software used in the work, or drafted or substantively revised the Article.
+
+Competing interests E.T.B. serves on the scientific advisory board of Sosei Heptares and as a consultant for GlaxoSmithKline, Boehringer Ingelheim and Monument Therapeutics. G.S.A. has served on advisory boards of Eisai and Janssen and in speakers bureaus of Allergan, Takeda and Lundbeck. K.M.A. is an employee of Neumora Therapeutics. P.B.J. has consulted for MSD. L. Palaniyappan reports personal fees from Janssen Canada for participating in an Advisory Board (2019) and Continuous Professional Development events (2017-2020), Otsuka Canada for Continuous Professional Development events (2017-2020), SPMM Course Limited,
+
+UK for preparing educational materials for psychiatrists and trainees (2010 onwards), Canadian Psychiatric Association for Continuous Professional Development events (2018-2019); book royalties from Oxford University Press (2009 onwards); institution-paid investigator-initiated educational grants with no personal remunerations from Janssen Canada, Sunovion and Otsuka Canada (2016-2019); travel support to attend a study investigator's meeting organized by Boehringer-Ingelheim (2017); travel support from Magstim Limited (UK) to speak at an academic meeting (2014); none of these activities are related to this work. T.R. has received honoraria from Oxford Biomedica. A.P.S. has consulted for Janssen, Biogen, Qynapse, and NervGen. R.T.S. has received consulting income from Octave Bioscience and compensation for scientific review duties from the American Medical Association, the US Department of Defense, the Emerson Collective, and the National Institutes of Health. R.A.S. has consulted for Janssen, AC Immune, NervGen and Genentech. D.J.S. has received research grants and/or consultancy honoraria from Discovery Vitality, Johnson &amp; Johnson, Lundbeck, Sanofi, Servier,
+
+Takeda and Vistagen. J. Suckling has consulted for GW Pharmaceuticals, Claritas HealthTech, Fundacion La Caixa and Fondazione Cariplo. All other authors declare no competing interests.
+
+## Additional information
+
+
+
+thinking
+**Planning EPDs and JSON output**
+
+I extracted a list of dataset names from the supporting text to match with EPDs for rci3 and will reuse that text for rci2/3. For rci4, I'll set the training phase as "Training." Rci5/6/7 require JSON output with model details, counts, percentages, and statistics; I'll format numbers as strings to include notes like "weighted" or "years."
+thinking
+**Detailing JSON values and supporting text**
+
+I refined JSON numeric strings to two decimals with notes and set confidence levels—medium for computed table data, high for dataset usage from acknowledgments. Supporting text quotes come from Supplementary_Table_Information.md for rci5/6/7 and from the main text or table info for age ranges. The EPD dataset list matches well with known sources. I'll proceed to generate the JSON file using these details.
+2026-03-01T23:32:23.538928Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "cat <<'EOF' > DE_v13_Bethlehem2021_by_codex_20260302082908335.json
+{
+  \"reference_cohort_info_part\": {
+    \"rci1_using_msad\": {
+      \"answer\": \"Yes\",
+      \"detail\": \"Multi-site aggregated dataset; 123,984 MRI scans across more than 100 primary studies.\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"we aggregated 123,984 MRI scans, across more than 100 primary studies, from 101,457 human participants\\\"\",
+      \"location\": \"Bethlehem2021.pdf.md: Introduction\"
+    },
+    \"rci2_using_epd\": {
+      \"answer\": \"Yes\",
+      \"detail\": \"Reference dataset includes established public datasets such as UK Biobank, ABCD, HCP, HBN, AIBL, ADNI, INDI (FCON), Cam-CAN, and ENIGMA.\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"We acknowledge the invaluable contribution to this effort made by several openly shared MRI datasets: OpenNeuro (https://openneuro.org/), the Healthy Brain Network (https:// healthybrainnetwork.org/), UK BioBank (https://www.ukbiobank.ac.uk/), ABCD (https:// abcdstudy.org/), ... the Human Connectome Project (http://www.humanconnectomeproject.org/), ... the International Neuroimaging Datasharing Initiative (INDI) (https://fcon_1000.projects.nitrc.org/) ... Data used in the preparation of this article was obtained from the Australian Imaging Biomarkers and Lifestyle flagship study of ageing (AIBL) ... Data used in preparation of this article were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) ... Further information about the Cam-CAN corporate authorship membership ... Details of The ENIGMA Developmental Brain Age working group...\\\"\",
+      \"location\": \"Bethlehem2021.pdf.md: Acknowledgements\"
+    },
+    \"rci3_epd_name\": {
+      \"answer\": \"HCP; ABCD; UK Biobank; HBN; AIBL; ADNI; ENIGMA; Cam-CAN; FCON\",
+      \"detail\": \"EPD names explicitly acknowledged as contributing datasets.\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"... the Healthy Brain Network ... UK BioBank ... ABCD ... the Human Connectome Project ... the International Neuroimaging Datasharing Initiative (INDI) ... AIBL ... ADNI ... Cam-CAN ... ENIGMA Developmental Brain Age working group ...\\\"\",
+      \"location\": \"Bethlehem2021.pdf.md: Acknowledgements\"
+    },
+    \"rci4_phase\": \"Training\",
+    \"rci5_n\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"GMV model\",
+          \"n\": 77157
+        },
+        \"model-2\": {
+          \"model-name\": \"WMV model\",
+          \"n\": 77031
+        },
+        \"model-3\": {
+          \"model-name\": \"sGMV model\",
+          \"n\": 75646
+        },
+        \"model-4\": {
+          \"model-name\": \"Ventricular volume model\",
+          \"n\": 70000
+        },
+        \"model-5\": {
+          \"model-name\": \"Total cerebrum volume model\",
+          \"n\": 70565
+        },
+        \"model-6\": {
+          \"model-name\": \"Mean cortical thickness model\",
+          \"n\": 59599
+        },
+        \"model-7\": {
+          \"model-name\": \"Total surface area model\",
+          \"n\": 59643
+        }
+      },
+      \"detail\": \"Training phase; totals computed by summing study-level sample sizes per phenotype from Supplementary Table 1.2-1.8 (Table1_Demographics CSVs).\",
+      \"confidence_rating\": \"Medium\",
+      \"supporting_text\": \"\\\"SI1.2–SI1.42, demographic information per study and sex for each individual brain imaging phenotype (that is, SI1.2 has demographics for all control subjects included in the GMV model, SI1.3 for all subjects included in the WMV model, etc.).\\\"\",
+      \"location\": \"Supplementary_Table_Information.md: Supplementary Table 1\"
+    },
+    \"rci6_sex\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"GMV model\",
+          \"female_n\": 38839,
+          \"female_pct\": \"50.3%\",
+          \"male_n\": 38318,
+          \"male_pct\": \"49.7%\"
+        },
+        \"model-2\": {
+          \"model-name\": \"WMV model\",
+          \"female_n\": 38783,
+          \"female_pct\": \"50.3%\",
+          \"male_n\": 38248,
+          \"male_pct\": \"49.7%\"
+        },
+        \"model-3\": {
+          \"model-name\": \"sGMV model\",
+          \"female_n\": 38084,
+          \"female_pct\": \"50.3%\",
+          \"male_n\": 37562,
+          \"male_pct\": \"49.7%\"
+        },
+        \"model-4\": {
+          \"model-name\": \"Ventricular volume model\",
+          \"female_n\": 35298,
+          \"female_pct\": \"50.4%\",
+          \"male_n\": 34702,
+          \"male_pct\": \"49.6%\"
+        },
+        \"model-5\": {
+          \"model-name\": \"Total cerebrum volume model\",
+          \"female_n\": 36311,
+          \"female_pct\": \"51.5%\",
+          \"male_n\": 34254,
+          \"male_pct\": \"48.5%\"
+        },
+        \"model-6\": {
+          \"model-name\": \"Mean cortical thickness model\",
+          \"female_n\": 30539,
+          \"female_pct\": \"51.2%\",
+          \"male_n\": 29060,
+          \"male_pct\": \"48.8%\"
+        },
+        \"model-7\": {
+          \"model-name\": \"Total surface area model\",
+          \"female_n\": 30560,
+          \"female_pct\": \"51.2%\",
+          \"male_n\": 29083,
+          \"male_pct\": \"48.8%\"
+        }
+      },
+      \"detail\": \"Training phase; sex totals computed by summing study-level female/male sample sizes per phenotype from Supplementary Table 1.2-1.8 (Table1_Demographics CSVs).\",
+      \"confidence_rating\": \"Medium\",
+      \"supporting_text\": \"\\\"SI1.2–SI1.42, demographic information per study and sex for each individual brain imaging phenotype (that is, SI1.2 has demographics for all control subjects included in the GMV model, SI1.3 for all subjects included in the WMV model, etc.).\\\"\",
+      \"location\": \"Supplementary_Table_Information.md: Supplementary Table 1\"
+    },
+    \"rci7_age\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"GMV model\",
+          \"mean\": \"41.45 weighted\",
+          \"sd\": \"NR\",
+          \"min\": \"0.31\",
+          \"max\": \"99.94\"
+        },
+        \"model-2\": {
+          \"model-name\": \"WMV model\",
+          \"mean\": \"41.51 weighted\",
+          \"sd\": \"NR\",
+          \"min\": \"0.38\",
+          \"max\": \"99.94\"
+        },
+        \"model-3\": {
+          \"model-name\": \"sGMV model\",
+          \"mean\": \"42.06 weighted\",
+          \"sd\": \"NR\",
+          \"min\": \"0.38\",
+          \"max\": \"99.94\"
+        },
+        \"model-4\": {
+          \"model-name\": \"Ventricular volume model\",
+          \"mean\": \"41.37 weighted\",
+          \"sd\": \"NR\",
+          \"min\": \"0.79\",
+          \"max\": \"99.94\"
+        },
+        \"model-5\": {
+          \"model-name\": \"Total cerebrum volume model\",
+          \"mean\": \"41.01 weighted\",
+          \"sd\": \"NR\",
+          \"min\": \"0.38\",
+          \"max\": \"99.94\"
+        },
+        \"model-6\": {
+          \"model-name\": \"Mean cortical thickness model\",
+          \"mean\": \"41.33 weighted\",
+          \"sd\": \"NR\",
+          \"min\": \"0.40\",
+          \"max\": \"99.94\"
+        },
+        \"model-7\": {
+          \"model-name\": \"Total surface area model\",
+          \"mean\": \"41.30 weighted\",
+          \"sd\": \"NR\",
+          \"min\": \"0.56\",
+          \"max\": \"99.94\"
+        }
+      },
+      \"detail\": \"Training phase; weighted mean ages computed from study-level mean ages and sample sizes per phenotype; min/max from study-level minimum/maximum ages. Age in years (days/365.25).\",
+      \"confidence_rating\": \"Medium\",
+      \"supporting_text\": \"\\\"SI1.2–SI1.42, demographic information per study and sex for each individual brain imaging phenotype (that is, SI1.2 has demographics for all control subjects included in the GMV model, SI1.3 for all subjects included in the WMV model, etc.).\\\"\",
+      \"location\": \"Supplementary_Table_Information.md: Supplementary Table 1\"
+    }
+  }
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 24ms:
+
+
+
+thinking
+**Checking non-ASCII characters in supporting text**
+
+I’m confirming that the supporting text likely contains non-ASCII whitespace and punctuation like non-breaking spaces and em dashes, while quoted sections use ASCII ellipses and standard quotes; this affects how text sanitization or encoding should be handled.
+thinking
+**Verifying JSON validity with ASCII text**
+
+I'll ensure the supporting text, including apostrophes, is JSON-valid by testing it with Python to prevent encoding or syntax errors.
+2026-03-01T23:32:33.547352Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import json
+path = 'DE_v13_Bethlehem2021_by_codex_20260302082908335.json'
+with open(path) as f:
+    data = json.load(f)
+print('ok', list(data['reference_cohort_info_part'].keys()))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302082908335 succeeded in 57ms:
+ok ['rci1_using_msad', 'rci2_using_epd', 'rci3_epd_name', 'rci4_phase', 'rci5_n', 'rci6_sex', 'rci7_age']
+
+thinking
+**Providing concise final summary**
+
+I've edited the specified file with the computed changes, summarized outcomes, and included relevant file paths; no further immediate steps are suggested.
+codex
+Filled the RCI fields for Bethlehem2021 and wrote the extracted/computed values (including multi-phenotype totals and weighted age stats) into `DE_v13_Bethlehem2021_by_codex_20260302082908335.json` based on `study_1/Bethlehem2021.pdf.md` and `Supplementary_Table_Information.md`, with model-level totals computed from the Table1_Demographics CSVs.
+
+If you want, I can also add a brief note in the log about the computed aggregation steps.
+2026-03-01T23:32:38.491165Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+50,505
+Filled the RCI fields for Bethlehem2021 and wrote the extracted/computed values (including multi-phenotype totals and weighted age stats) into `DE_v13_Bethlehem2021_by_codex_20260302082908335.json` based on `study_1/Bethlehem2021.pdf.md` and `Supplementary_Table_Information.md`, with model-level totals computed from the Table1_Demographics CSVs.
+
+If you want, I can also add a brief note in the log about the computed aggregation steps.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,625 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Coupe2022_by_codex_20260302084125262.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084125262/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cabc7-4205-7540-a4d6-dcd709055194
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Coupe2022_by_codex_20260302084125262.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Looking for instructions in DE_Guide**
+2026-03-01T23:41:30.776692Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084125262 succeeded in 19ms:
+DE_Guide_v13.md
+DE_v13_Coupe2022_by_codex_20260302084125262.json
+DE_v13_Coupe2022_by_codex_20260302084125262.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020841252622026-03-01T23:41:32.862495Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+2026-03-01T23:41:35.259355Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084125262 succeeded in 29ms:
+DE_Guide_v13.md
+DE_v13_Coupe2022_by_codex_20260302084125262.json
+DE_v13_Coupe2022_by_codex_20260302084125262.log
+study_1/Coupe2022.pdf.md
+
+thinking
+**Opening PDF markdown extract**
+2026-03-01T23:41:38.945641Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat study_1/Coupe2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084125262 succeeded in 30ms:
+## R E S E A R C H ARTICLE
+
+## Hippocampal-amygdalo-ventricular atrophy score: Alzheimer disease detection using normative and pathological lifespan models
+
+Pierrick Coupé 1 | José V. Manj /C19 on 2 | Boris Mansencal 1 | Thomas Tourdias 3,4 Gwenaëlle Catheline 5 | Vincent Planche 6
+
+1 CNRS, Univ. Bordeaux, Bordeaux INP, Talence, France
+
+2 ITACA, Universitat Politècnica de València, Valencia, Spain
+
+3 Inserm U1215 - Neurocentre Magendie, Bordeaux, France
+
+4 Service de neuroimagerie, CHU de Bordeaux, Bordeaux, France
+
+5 INCIA, EPHE, Université PSL, Univ Bordeaux, CNRS, Bordeaux, France
+
+6 Univ. Bordeaux, CNRS, UMR 5293, Institut des Maladies Neurodégénératives, and Centre Mémoire Ressources Recherches, Pôle de Neurosciences Cliniques, CHU de Bordeaux, Bordeaux, France
+
+## Correspondence
+
+
+thinking
+**Extracting and aggregating training dataset details**
+
+I'm gathering training dataset info for CN subjects from multiple open access sources, confirming N=2,655 for the reference cohort, identifying key datasets (ABIDE, IXI, OASIS, ADNI), and deciding to treat the normative model as a single CN lifespan trajectory model for selected structures; next, I'll compute aggregated sex totals across datasets.
+exec
+/bin/bash -lc "python - <<'PY'
+import pandas as pd
+cn = [
+('C-MIND',236,129,107),
+('NDAR',382,174,208),
+('ABIDE',492,84,408),
+('ICBM',294,142,152),
+('IXI',549,307,242),
+('OASIS',298,187,111),
+('ADNI',404,203,201),
+]
+N=sum(n for _,n,_,_ in cn)
+F=sum(f for _,_,f,_ in cn)
+M=sum(m for _,_,_,m in cn)
+print(N,F,M)
+print(F+M)
+print(F/N*100, M/N*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020841252622026-03-01T23:41:49.534645Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 766ms:
+2655 1226 1429
+2655
+46.17702448210923 53.82297551789077
+
+
+thinking
+**Computing weighted mean age, skipping SD**
+
+The datasets provide means, Ns, and ranges but no SDs, so I'll compute an overall weighted mean age from dataset means and sample sizes, noting SD is not reported.
+thinking
+**Computing weighted mean age now**
+2026-03-01T23:42:02.125186Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+cn = [
+('C-MIND',236,8.44),
+('NDAR',382,12.39),
+('ABIDE',492,17.53),
+('ICBM',294,33.75),
+('IXI',549,48.76),
+('OASIS',298,45.34),
+('ADNI',404,74.81),
+]
+N=sum(n for _,n,_ in cn)
+wm=sum(n*mean for _,n,mean in cn)/N
+print(N, wm)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084125262 succeeded in 34ms:
+2655 36.07377777777778
+
+
+thinking
+**Clarifying dataset ranges and multi-site support**
+
+Decided to use exact min/max values from the table (0.74 and 94) with supporting text citing "CN subjects from 9 months to 94y" and referencing source location by filename and section. Confirmed multi-site nature by citing "seven open access databases" from the training dataset description, with corresponding dataset names listed for each RCI.
+thinking
+**Summarizing sex and age details**
+
+Planning to report total sex counts from the table while citing it directly for dataset-level F/M values. For age, I'll include the weighted mean computed from dataset means and overall min/max from the table, noting SD not reported. Preparing to update the JSON file with these details.
+exec
+/bin/bash -lc 'cat DE_v13_Coupe2022_by_codex_20260302084125262.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020841252622026-03-01T23:42:14.111258Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Preparing detailed data patch**
+
+I'm constructing JSON values with computed female and male percentages and crafting detailed supporting text quoting multiple dataset age statistics from the table, assigning medium confidence to most values except high for explicit subject count.
+thinking
+**Constructing detailed patch entries**
+
+I'm capturing high-confidence yes/no answers with detailed supporting text and precise locations, including dataset counts, sex breakdowns with medium confidence, and weighted age statistics quoting multiple dataset ranges from the table; now ready to apply the patch.
+2026-03-01T23:42:52.548464Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
+@@ -3,43 +3,64 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site aggregated; seven open access databases.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases (Table 1).\"",
++      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "EPD included ABIDE, IXI, OASIS, and ADNI in the training CN datasets.",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE\"; \"IXI\"; \"OASIS\"; \"ADNI\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE; IXI; OASIS; ADNI",
++      "detail": "Listed in the training dataset CN group.",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE\"; \"IXI\"; \"OASIS\"; \"ADNI\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "n": 2655
++        }
++      },
++      "detail": "Training dataset CN subjects used for CN trajectories.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This dataset was composed of 2,655 CN subjects (CN) and 377 patients with AD.\"",
++      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "female_n": 1226,
++          "female_pct": "46.2%",
++          "male_n": 1429,
++          "male_pct": "53.8%"
++        }
++      },
++      "detail": "Training CN totals computed by summing female/male counts across CN datasets in Table 1.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"C-MIND | CN | 236 | F = 129/M = 107\"; \"NDAR | CN | 382 | F = 174/M = 208\"; \"ABIDE | CN | 492 | F = 84/M = 408\"; \"ICBM | CN | 294 | F = 142/M = 152\"; \"IXI | CN | 549 | F = 307/M = 242\"; \"OASIS | CN | 298 | F = 187/M = 111\"; \"ADNI | CN | 404 | F = 203/M = 201\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "mean": "36.07 weighted",
++          "sd": "NR",
++          "min": "0.74",
++          "max": "94"
++        }
++      },
++      "detail": "Training CN age; weighted mean computed from dataset means in Table 1; SD not reported; range from min/max across CN datasets.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"C-MIND | CN | 236 | F = 129/M = 107 | 8.44 (0.74 - 18.86)\"; \"OASIS | CN | 298 | F = 187/M = 111 | 45.34 (18 - 94)\"; \"ADNI | CN | 404 | F = 203/M = 201 | 74.81 (60 - 90)\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json b/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..568ae625c892d39a5f46b2eb830f846f86025589
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site aggregated; seven open access databases.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases (Table 1).\"",
++      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "EPD included ABIDE, IXI, OASIS, and ADNI in the training CN datasets.",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE\"; \"IXI\"; \"OASIS\"; \"ADNI\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE; IXI; OASIS; ADNI",
++      "detail": "Listed in the training dataset CN group.",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE\"; \"IXI\"; \"OASIS\"; \"ADNI\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "n": 2655
++        }
++      },
++      "detail": "Training dataset CN subjects used for CN trajectories.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This dataset was composed of 2,655 CN subjects (CN) and 377 patients with AD.\"",
++      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "female_n": 1226,
++          "female_pct": "46.2%",
++          "male_n": 1429,
++          "male_pct": "53.8%"
++        }
++      },
++      "detail": "Training CN totals computed by summing female/male counts across CN datasets in Table 1.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"C-MIND | CN | 236 | F = 129/M = 107\"; \"NDAR | CN | 382 | F = 174/M = 208\"; \"ABIDE | CN | 492 | F = 84/M = 408\"; \"ICBM | CN | 294 | F = 142/M = 152\"; \"IXI | CN | 549 | F = 307/M = 242\"; \"OASIS | CN | 298 | F = 187/M = 111\"; \"ADNI | CN | 404 | F = 203/M = 201\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "mean": "36.07 weighted",
++          "sd": "NR",
++          "min": "0.74",
++          "max": "94"
++        }
++      },
++      "detail": "Training CN age; weighted mean computed from dataset means in Table 1; SD not reported; range from min/max across CN datasets.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"C-MIND | CN | 236 | F = 129/M = 107 | 8.44 (0.74 - 18.86)\"; \"OASIS | CN | 298 | F = 187/M = 111 | 45.34 (18 - 94)\"; \"ADNI | CN | 404 | F = 203/M = 201 | 74.81 (60 - 90)\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json b/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..568ae625c892d39a5f46b2eb830f846f86025589
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site aggregated; seven open access databases.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases (Table 1).\"",
++      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "EPD included ABIDE, IXI, OASIS, and ADNI in the training CN datasets.",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE\"; \"IXI\"; \"OASIS\"; \"ADNI\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE; IXI; OASIS; ADNI",
++      "detail": "Listed in the training dataset CN group.",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE\"; \"IXI\"; \"OASIS\"; \"ADNI\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "n": 2655
++        }
++      },
++      "detail": "Training dataset CN subjects used for CN trajectories.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This dataset was composed of 2,655 CN subjects (CN) and 377 patients with AD.\"",
++      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "female_n": 1226,
++          "female_pct": "46.2%",
++          "male_n": 1429,
++          "male_pct": "53.8%"
++        }
++      },
++      "detail": "Training CN totals computed by summing female/male counts across CN datasets in Table 1.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"C-MIND | CN | 236 | F = 129/M = 107\"; \"NDAR | CN | 382 | F = 174/M = 208\"; \"ABIDE | CN | 492 | F = 84/M = 408\"; \"ICBM | CN | 294 | F = 142/M = 152\"; \"IXI | CN | 549 | F = 307/M = 242\"; \"OASIS | CN | 298 | F = 187/M = 111\"; \"ADNI | CN | 404 | F = 203/M = 201\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "mean": "36.07 weighted",
++          "sd": "NR",
++          "min": "0.74",
++          "max": "94"
++        }
++      },
++      "detail": "Training CN age; weighted mean computed from dataset means in Table 1; SD not reported; range from min/max across CN datasets.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"C-MIND | CN | 236 | F = 129/M = 107 | 8.44 (0.74 - 18.86)\"; \"OASIS | CN | 298 | F = 187/M = 111 | 45.34 (18 - 94)\"; \"ADNI | CN | 404 | F = 203/M = 201 | 74.81 (60 - 90)\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     }
+   }
+ }
+
+
+thinking
+**Providing final summary and next steps**
+
+The implementation is complete without tests; the relevant changes are located under the given path. Next steps could include adding tests and ensuring integration is smooth.
+codex
+Filled the RCI-1–RCI-7 extraction for Coupe2022 using the training CN cohort details and table-derived aggregates, including computed sex totals and weighted age mean in `DE_v13_Coupe2022_by_codex_20260302084125262.json`. The updates pull evidence from the training dataset description and Table 1 and note where values were computed from per-dataset counts or means.
+
+Next steps:
+1) If you want, I can compute pooled SD for age if SDs become available.
+2026-03-01T23:42:57.207130Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json b/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..568ae625c892d39a5f46b2eb830f846f86025589
+--- a/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302084125262/DE_v13_Coupe2022_by_codex_20260302084125262.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site aggregated; seven open access databases.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Our training dataset was composed of 3,032 T1-weighted (T1w) MRI from seven open access databases (Table 1).\"",
++      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "EPD included ABIDE, IXI, OASIS, and ADNI in the training CN datasets.",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE\"; \"IXI\"; \"OASIS\"; \"ADNI\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE; IXI; OASIS; ADNI",
++      "detail": "Listed in the training dataset CN group.",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE\"; \"IXI\"; \"OASIS\"; \"ADNI\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "n": 2655
++        }
++      },
++      "detail": "Training dataset CN subjects used for CN trajectories.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This dataset was composed of 2,655 CN subjects (CN) and 377 patients with AD.\"",
++      "location": "Coupe2022.pdf.md: 2.1.1 Training dataset"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "female_n": 1226,
++          "female_pct": "46.2%",
++          "male_n": 1429,
++          "male_pct": "53.8%"
++        }
++      },
++      "detail": "Training CN totals computed by summing female/male counts across CN datasets in Table 1.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"C-MIND | CN | 236 | F = 129/M = 107\"; \"NDAR | CN | 382 | F = 174/M = 208\"; \"ABIDE | CN | 492 | F = 84/M = 408\"; \"ICBM | CN | 294 | F = 142/M = 152\"; \"IXI | CN | 549 | F = 307/M = 242\"; \"OASIS | CN | 298 | F = 187/M = 111\"; \"ADNI | CN | 404 | F = 203/M = 201\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "CN lifespan trajectory model (training CN subjects)",
++          "mean": "36.07 weighted",
++          "sd": "NR",
++          "min": "0.74",
++          "max": "94"
++        }
++      },
++      "detail": "Training CN age; weighted mean computed from dataset means in Table 1; SD not reported; range from min/max across CN datasets.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"C-MIND | CN | 236 | F = 129/M = 107 | 8.44 (0.74 - 18.86)\"; \"OASIS | CN | 298 | F = 187/M = 111 | 45.34 (18 - 94)\"; \"ADNI | CN | 404 | F = 203/M = 201 | 74.81 (60 - 90)\"",
++      "location": "Coupe2022.pdf.md: Table 1 Training dataset description"
+     }
+   }
+ }
+
+tokens used
+26,105
+Filled the RCI-1–RCI-7 extraction for Coupe2022 using the training CN cohort details and table-derived aggregates, including computed sex totals and weighted age mean in `DE_v13_Coupe2022_by_codex_20260302084125262.json`. The updates pull evidence from the training dataset description and Table 1 and note where values were computed from per-dataset counts or means.
+
+Next steps:
+1) If you want, I can compute pooled SD for age if SDs become available.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

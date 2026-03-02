@@ -1,0 +1,223 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Feng2024_by_codex_20260302085315857.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302085315857/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cabd2-19b6-7fe1-8c72-bcf277d9ccab
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Feng2024_by_codex_20260302085315857.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Opening guide file**
+2026-03-01T23:53:22.373141Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302085315857 succeeded in 21ms:
+DE_Guide_v13.md
+DE_v13_Feng2024_by_codex_20260302085315857.json
+DE_v13_Feng2024_by_codex_20260302085315857.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020853158572026-03-01T23:53:25.415790Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 24ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Locating data from study paper**
+2026-03-01T23:53:27.769288Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302085315857 succeeded in 33ms:
+DE_Guide_v13.md
+DE_v13_Feng2024_by_codex_20260302085315857.json
+DE_v13_Feng2024_by_codex_20260302085315857.log
+study_1/Feng2024.pdf.md
+exec
+/bin/bash -lc 'cat study_1/Feng2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020853158572026-03-01T23:53:30.988836Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+## Deep Normative Tractometry for Identifying Joint White Matter Macro- and Micro-structural Abnormalities in Alzheimer's Disease
+
+Yixue Feng ∗ , Bramsh Q. Chandio ∗ , Julio E. Villalon-Reina ∗ , Sebastian Benavidez ∗ , Tamoghna Chattopadhyay ∗ , Sasha Chehrzadeh ∗ , Emily Laltoo ∗ , Sophia I. Thomopoulos ∗ , Himanshu Joshi † , † † ∗ ∗
+
+Ganesan Venkatasubramanian , John P. John , Neda Jahanshad , and Paul M. Thompson
+
+Email: yixuefen, pthomp@usc.edu; jpj, gvs@nimhans.ac.in
+
+∗ Imaging Genetics Center, Mark and Mary Stevens Neuroimaging and Informatics Institute, Keck School of Medicine,
+
+University of Southern California, Marina del Rey, CA, United States
+
+† Multimodal Brain Image Analysis Laboratory, Translational Psychiatry Laboratory,
+
+National Institute of Mental Health and Neuro Sciences (NIMHANS), Bengaluru, Karnataka, India
+
+Abstract -This study introduces the Deep Normative Tractometry (DNT) framework, that encodes the joint distribution of both macrostructural and microstructural profiles of the brain white matter tracts through a variational autoencoder (VAE). By training on data from healthy controls, DNT learns the normative distribution of tract data, and can delineate along-tract microand macro-structural abnormalities. Leveraging a large sample size via generative pre-training, we assess DNT's generalizability using transfer learning on data from an independent cohort acquired in India. Our findings demonstrate DNT's capacity to detect widespread diffusivity abnormalities along tracts in mild cognitive impairment and Alzheimer's disease, aligning closely with results from the Bundle Analytics (BUAN) tractometry pipeline. By incorporating tract geometry information, DNT may be able to distinguish disease-related abnormalities in anisotropy from tract macrostructure, and shows promise in enhancing fine-scale mapping and detection of white matter alterations in neurodegenerative conditions.
+
+Index Terms -tractometry, normative modeling, deep generative model, tractography, diffusion MRI
+
+
+
+thinking
+**Clarifying normative model training and reference cohort**
+
+The normative model is built via pretraining on TractoInferno (198 healthy controls, no age/sex detailed) followed by fine-tuning on 50 healthy controls from NIMHANS, whose age/sex info isn't individually provided. This combined training data forms the reference cohort for extracting RCI details.
+thinking
+**Defining reference cohort details with combined training datasets**
+
+The reference cohort encompasses both pretraining (N=198 from six sites) and fine-tuning (N=50) datasets as sequential phases for a single normative model; totaling N=248 for training. Age and sex data aren't reported for either dataset, so those fields remain not reported.
+exec
+/bin/bash -lc 'cat DE_v13_Feng2024_by_codex_20260302085315857.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020853158572026-03-01T23:53:58.960250Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Extracting exact dataset quotes**
+
+I'm gathering precise quotes from pdf.md for supporting text on datasets, confirming MSAD uses the multi-site TractoInferno (6 sites) and NIMHANS (2 scanners). For RCI1, I'll use the quote about 198 single-shell dMRI volumes from the TractoInferno dataset acquired on 3T scanners at 6 sites. For RCI2 and RCI3, I'll note TractoInferno and NIMHANS as training datasets not appearing in the EPD list, justifying "No" or "NA" answers with exact excerpts. RCI4 phase "Training" requires no supporting text.
+thinking
+**Composing detailed dataset and demographics support**
+
+I'm preparing supporting text quoting exact dataset sizes—198 from TractoInferno and 50 from NIMHANS—summed as 248 with medium confidence because this is derived. For sex and age in RCI6/7, I'll note "NR" with low confidence and supply relevant quotes showing only counts without demographics. Dataset presence leads to RCI2 "No" with high confidence, RCI3 "NA" aligned accordingly, and I'll embed these details clearly with precise document locations for clarity.
+2026-03-01T23:54:40.939417Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "cat <<'EOF' > DE_v13_Feng2024_by_codex_20260302085315857.json
+{
+  \"reference_cohort_info_part\": {
+    \"rci1_using_msad\": {
+      \"answer\": \"Yes\",
+      \"detail\": \"Multi-site; pre-training used TractoInferno data acquired on 3T scanners from 6 sites (plus fine-tuning on NIMHANS CN).\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"The pre-training dataset was composed of 198 singleshell dMRI volumes from the publicly available TractoInferno training dataset [32], acquired on 3T scanners from 6 sites.\\\"\",
+      \"location\": \"Feng2024.pdf.md: II. DATA / pre-training dataset\"
+    },
+    \"rci2_using_epd\": {
+      \"answer\": \"No\",
+      \"detail\": \"Normative model training used TractoInferno and NIMHANS CN datasets; neither is in the predefined EPD list.\",
+      \"confidence_rating\": \"Medium\",
+      \"supporting_text\": \"\\\"The pre-training dataset was composed of 198 singleshell dMRI volumes from the publicly available TractoInferno training dataset [32], acquired on 3T scanners from 6 sites.\\\" \\\"Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model for 5000 steps.\\\"\",
+      \"location\": \"Feng2024.pdf.md: II. DATA / pre-training dataset; III.B Deep Normative Tractometry (DNT)\"
+    },
+    \"rci3_epd_name\": {
+      \"answer\": \"NA\",
+      \"detail\": \"RCI-2=No; no listed EPD used for normative model training.\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"The pre-training dataset was composed of 198 singleshell dMRI volumes from the publicly available TractoInferno training dataset [32], acquired on 3T scanners from 6 sites.\\\" \\\"Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model for 5000 steps.\\\"\",
+      \"location\": \"Feng2024.pdf.md: II. DATA / pre-training dataset; III.B Deep Normative Tractometry (DNT)\"
+    },
+    \"rci4_phase\": \"Training\",
+    \"rci5_n\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"DNT normative model (TractoInferno pretraining + NIMHANS CN fine-tuning)\",
+          \"n\": 248
+        }
+      },
+      \"detail\": \"Training phase; N=198 TractoInferno pretraining + 50 NIMHANS CN fine-tuning (sum=248).\",
+      \"confidence_rating\": \"Medium\",
+      \"supporting_text\": \"\\\"The pre-training dataset was composed of 198 singleshell dMRI volumes from the publicly available TractoInferno training dataset [32], acquired on 3T scanners from 6 sites.\\\" \\\"Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model for 5000 steps.\\\"\",
+      \"location\": \"Feng2024.pdf.md: II. DATA / pre-training dataset; III.B Deep Normative Tractometry (DNT)\"
+    },
+    \"rci6_sex\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"DNT normative model (TractoInferno pretraining + NIMHANS CN fine-tuning)\",
+          \"female_n\": \"NR\",
+          \"female_pct\": \"NR\",
+          \"male_n\": \"NR\",
+          \"male_pct\": \"NR\"
+        }
+      },
+      \"detail\": \"Training phase; sex breakdown for TractoInferno and the 50 CN fine-tuning subset not reported.\",
+      \"confidence_rating\": \"Low\",
+      \"supporting_text\": \"\\\"Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model for 5000 steps.\\\"\",
+      \"location\": \"Feng2024.pdf.md: III.B Deep Normative Tractometry (DNT)\"
+    },
+    \"rci7_age\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"DNT normative model (TractoInferno pretraining + NIMHANS CN fine-tuning)\",
+          \"mean\": \"NR\",
+          \"sd\": \"NR\",
+          \"min\": \"NR\",
+          \"max\": \"NR\"
+        }
+      },
+      \"detail\": \"Training phase; age statistics for TractoInferno and the 50 CN fine-tuning subset not reported.\",
+      \"confidence_rating\": \"Low\",
+      \"supporting_text\": \"\\\"Fifty CN subjects from the NIMHANS dataset, randomly selected and stratified by sex and scanner, were then used to fine-tune the model for 5000 steps.\\\"\",
+      \"location\": \"Feng2024.pdf.md: III.B Deep Normative Tractometry (DNT)\"
+    }
+  }
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302085315857 succeeded in 27ms:
+
+
+thinking
+**Providing final concise summary**
+
+The main relevant file is noted, and no further action is suggested given current progress.
+codex
+Wrote the extracted RCI fields to `DE_v13_Feng2024_by_codex_20260302085315857.json` based on `study_1/Feng2024.pdf.md`, including MSAD status, datasets used, training phase N, and NR for missing sex/age details.
+
+If you want, I can also validate the JSON schema or adjust the N interpretation (e.g., separate pretraining vs fine-tuning counts instead of the summed total).
+2026-03-01T23:54:44.251486Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+26,029
+Wrote the extracted RCI fields to `DE_v13_Feng2024_by_codex_20260302085315857.json` based on `study_1/Feng2024.pdf.md`, including MSAD status, datasets used, training phase N, and NR for missing sex/age details.
+
+If you want, I can also validate the JSON schema or adjust the N interpretation (e.g., separate pretraining vs fine-tuning counts instead of the summed total).
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

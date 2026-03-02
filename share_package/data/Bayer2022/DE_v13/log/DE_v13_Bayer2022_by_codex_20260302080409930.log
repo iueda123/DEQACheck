@@ -1,0 +1,346 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Bayer2022_by_codex_20260302080409930.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302080409930/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019caba5-264d-7c62-89e9-73d8f199be28
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Bayer2022_by_codex_20260302080409930.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Scanning instruction file**
+2026-03-01T23:04:17.476139Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302080409930 succeeded in 28ms:
+DE_Guide_v13.md
+DE_v13_Bayer2022_by_codex_20260302080409930.json
+DE_v13_Bayer2022_by_codex_20260302080409930.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020804099302026-03-01T23:04:20.696089Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Checking for source paper in study list**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302080409930/study_12026-03-01T23:04:24.110043Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 52ms:
+Bayer2022.pdf.md
+1-s2.0-S1053811922008205-mmc1.pdf.md
+
+thinking
+**Opening main paper file**
+2026-03-01T23:04:28.038837Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|reference|healthy|control|training|dataset|sample|participants|site|multi-site|multisite|cohort|HCP|ABIDE|Cam-CAN|UK Biobank|OASIS|ADNI|PNC|ABCD|IXI|NKI|HBN|COBRE|AIBL|ENIGMA|LEAP|REST|FCON" Bayer2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302080409930/study_1 succeeded in 41ms:
+67:The potential of normative modeling to make individualized predictions from neuroimaging data has enabled inferences that go beyond the case-control approach. However, site effects are often confounded with variables of interest in a complex manner and can bias estimates of normative models, which has impeded the application of normative models to large multi-site neuroimaging data sets. In this study, we suggest accommodating for these site effects by including them as random effects in a hierarchical Bayesian model. We compared the performance of a linear and a non-linear hierarchical Bayesian model in modeling the effect of age on cortical thickness. We used data of 570 healthy individuals from the ABIDE (autism brain imaging data exchange) data set in our experiments. In addition, we used data from individuals with autism to test whether our models are able to retain clinically useful information while removing site effects. We compared the proposed single stage hierarchical Bayesian method to several harmonization techniques commonly used to deal with additive and multiplicative site effects using a two stage regression, including regressing out site and harmonizing for site with ComBat, both with and without explicitly preserving variance related to age and sex as biological variation of interest. In addition, we made predictions from raw data, in which site has not been accommodated for. The proposed hierarchical Bayesian method showed the best predictive performance according to multiple metrics. Beyond that, the resulting z-scores showed little to no residual site effects, yet still retained clinically useful information. In contrast, performance was particularly poor for the regression model and the ComBat model in which age and sex were not explicitly modeled. In all two stage harmonization models, predictions were poorly scaled, suffering from a loss of more than 90 % of the original variance. Our results show the value of hierarchical Bayesian regression methods for accommodating site variation in neuroimaging data, which provides an alternative to harmonization techniques. While the approach we propose may have broad utility, our approach is particularly well suited to normative modelling where the primary interest is in accurate modelling of inter-subject variation and statistical quantification of deviations from a reference model.
+71:neuroimaging; normative modeling; site effects; Hierarchical Bayesian Modeling
+75:The most prominent paradigm in clinical neuroimaging research has for a long time been case-control approaches which compare averages of groups of individuals on brain imaging measures. Case-control inferences can be clinically meaningful under some circumstances when the group mean is a good representation of each individual in the group. However, this pre-condition has been challenged recently, demonstrating that the biological heterogeneity within clinical groups can be substantial (Marquand et al., 2016). For example, the structure and morphology of the brain have been found to vary between individuals in dynamic phases like adolescence (Foulkes and Blakemore, 2018) and within clinical groups, such as bipolar disorder and schizophrenia (Wolfers et al., 2018a) and attention deficit disorder (Wolfers et al., 2019). In addition, inter-individual differences have shown to not necessarily be in line with results obtained via the group comparison approach (Wolfers et al., 2019). Such
+81:heterogeneity has been considered a potential cause for the lack of differences between clinical groups and controls within the standard group comparison approach (Feczko et al., 2019) and the failure to replicate findings between studies (Fried, 2017). As a consequence, there has been a shift in focus towards taking into account variation at the individual level (Marquand et al., 2019). This is in line with a trend towards personalized medicine or 'precision medicine' (Mirnezami et al., 2012), where characteristics of an individual are used to guide the treatment of mental disorders.
+83:This shift has been accompanied by a trend towards approaches that go beyond comparing averages of distinctly labeled groups (Insel et al., 2010; Insel, 2014). Among them, normative modeling has been successfully used to capture inter-individual variability and make predictions at the individual level. The strength of normative modeling lies within the ability to map variation across one or more biological response variables (e.g., brain volume) onto one or more covariates or predictor variables (e.g., age), redefining the variation in the first dimension as explained by this new covariate(s) of interest. This concept allows to describe the normative variation, thus the range containing e.g., 95 % of all individuals, as a function of the covariates. As a consequence, each individual's score in considered relation to the variation in the reference group defined by the covariates, allowing to calculate a z-score of deviation from the norm at the level of the individual. The concept is similar to the use of growth charts in pediatric medicine, in which height and weight are expressed as a function of age. Hence, in this setting, an individual's height or weight is not considered by its absolute value, but expressed as a percentile score of deviation fluctuating with age, with the median line corresponding to the 50% percentile and defining the norm, or average height.
+85:In neuroimaging, normative models have been applied to clinical and non-clinical problems using various covariates, statistical modeling approaches (for an overview see (Marquand et al., 2019, 2016)) and targeting a variety of response variables. In general, any variable can be used as a covariate in a normative model targeting neuroimaging measures, as long as the variation along the co-varying dimension is not zero. However, normative models with age and sex as covariates and brain volume as response variable are currently more frequently found in the literature (Wolfers et al., 2020, 2018b; Zabihi et al., 2019a; Kessler et al., 2016). These implement the growth charting idea applied to high dimensional brain imaging data. For example, a normative model of a brain structure can be created based on the variation of individuals in population based cohorts. The estimated norm can be used to infer where individuals with clinical symptoms can be placed with respect to the reference defined by the normative model. This has been the recipe of many recently published studies using the normative modeling framework (Wolfers et al., 2020; Bethlehem et al., 2018; Wolfers et al., 2019; Lv et al., 2020). Underlying this approach is the assumption that the individually derived patterns of deviation uncover associations to clinical/behavioral variables that would be obscured by averaging across groups of individuals. However, the amount of data necessary to create normative models poses a challenge to normative modeling in neuroimaging, as the cost and time factor associated with neuroimaging data impedes the collection of large neuroimaging samples in a harmonized way. One exceptional example, where large scale data collection succeeded and included both harmonized scanners and scanning protocols, is
+91:the UK Biobank initiative. When launched in 2006, it aimed to scan 100,000 individuals at four different scanning locations [https://www.ukbiobank.ac.uk/explore-your-participation/ contribute-further/imaging-study](Miller et al., 2016). Other neuroimaging initiatives have also taken on the challenge to collect neuroimaging data in large scale quantities and have relied on harmonized scanning protocols, but did not collect the data using harmonized scanners (i.e., ADNI (Mueller et al., 2005) and the ABCD study (Volkow et al., 2018)). Nonetheless, the restricted age ranges (e.g., 40-69 years in UK Biobank (Miller et al., 2016)), or focus on a particular (clinical) cohort (e.g., Alzheimer's in ADNI, (Mueller et al., 2005)) limit their utility for estimating normative models mapping the normative association between, for example, age and brain structure or function.
+93:An alternative way to obtain large neuroimaging datasets and assess data from a large number of subjects is by pooling or sharing data that has already been collected. One example is the Enhancing NeuroImaging and Genetics through Meta-Analysis (ENIGMA) consortium (Thompson et al., 2020). ENIGMA succeeded in pooling neuroimaging and genetics data of thousands of individuals, including healthy individuals and individuals with psychiatric or neurological disorders. The strategy of data sharing initiatives like ENIGMA is to collect already collected data from different cohorts and different scanning sites and harmonize preprocessing and statistical analysis with standardized protocols. However, a major disadvantage is the presence of confounding 'scanner effects' (Fortin et al., 2017, 2018) (e.g., differences in field strength, scanner manufacturer etc. (Han et al., 2006))). These confounding effects present as site correlated biases that cannot be explained by biological heterogeneity between samples. An example of those effects on derived measures of cortical thickness can be found in Fig. 1a. They result from a potentially complex interaction between site and variables of interest, manifesting in biases on lower and higher order properties of the distribution of interest, such as differences in mean and standard deviations, skewness and spatial biases Fig. (1a, 1b), and cannot be explained by e.g., differences in age or sex Fig. (1c). As the origin of these effects might not only be related to the scanner per se, but extend to various factors related to a single acquisition site (Gronenschild et al., 2012), we will refer to them as site effects from here on.
+95:As outlined in the previous paragraph, the effort to create large samples to capture between subject variability often induces site-driven variability. This issue of site-driven variability in shared neuroimaging data has been acknowledged and has led to the development of harmonization methods at a statistical level. A common approach to deal with site effects is through 'harmonizing' by, e.g., confound regression. One example of this approach is a set of algorithms summarized under the name 'ComBat' (Fortin et al., 2017). The method had originally been developed by Johnson et al. (2007), who used empirical Bayes to estimate 'batch effects', referring to non-biological variation in micro-array experiments for gene expression data. Fortin and colleagues adapted the framework to apply to neuroimaging data (Fortin et al., 2017). In ComBat, additive and multiplicative site effects on a particular target unit (e.g., a particular brain voxel for one participant) are estimated using empirical Bayes and by placing a prior distribution over estimates for these units. The estimate of the scanner effect is then used to adjust the prediction. Newer versions also allow to preserve variance of interest in the model, for example for age, sex or diagnosis (Fortin et al., 2017, 2018). ComBat has been applied to several types of neuroimaging data, including diffusion tensor
+103:The estimation and interpretation of data harmonization strategies is relatively straightforward if site effects are orthogonal to the effect of interest and uncorrelated with other covariates in the model (Chen et al., 2014). However, this is often not the case in neuroimaging cohorts containing data pooled from several sites. For example, many individual neuroimaging samples are restricted to a specific age range, leading to age being correlated with site effects. In this scenario, removing an estimate of the scanner effect can also remove (biological) variation that would be of interest. This is undesirable from the point of view of normative modelling, where analysis focuses on deviations from a reference model because the deviations from a model where scanner effects have been regressed out in a two stage procedure may be different from a model that integrates site information in a single regression. Data harmonisation also has other features that make it suboptimal for normative modelling: first, many implementations pool estimates over voxels or parcels, which means that the centiles of population variation at a particular brain region are influenced by other regions. Second, a problem that is not widely appreciated in the neuroimaging field is that data harmonisation strategies can yield overly optimistic inferences in downstream analyses due to an under-estimation of the uncertainty of model coefficients Nygaard et al. (2016)
+105:For these reasons, we suggest an alternative approach to deal with site effects in neuroimaging data. While we focus in particular on normative modeling, our approach can be also applied to other neuroimaging data analyses scenarios. We propose a hierarchical Bayesian approach in which we include site as a random effect in the model, avoiding the exclusion of meaningful variance correlated with site by predicting site effects as part of the model instead of removing them from the data.
+107:This approach is similar to the approach by Kia et al. (2020), who used hierarchical Bayesian regression (HBR) in a similar way for multi-site normative modeling in a pooled neuroimaging data set, which contained 7499 participants who were scanned with 33 different scanners. Kia et al. (2020)'s estimate of site variation is based on a partial pooling approach, in which the variation between site-specific parameters is bound by a shared prior. The approach showed better performance when evaluated with respect to metrics accounting for the quality of the predictive mean and variance compared to a complete pooling of site parameters and to ComBat harmonization, and similar performance to a no-pooling approach, with the benefit of reduced risk of over-fitting due to the shared site variance. Moreover, Kia et al. (2020) also showed that the posterior distribution of site parameters from the training set can also be used as an informed prior to make predictions in an unseen, new test set, outperforming predictions from complete pooling and uninformed priors. The method was also able to preserve and parse heterogeneity between individuals with varying clinical diagnoses in associated brain regions of 1017 clinical patients of the study.
+109:The present paper is a replication and extension of the approach by Kia et al. (2020). Based on several successful attempts of using Gaussian Process Regression to map non-linearity in normative models (Kia and Marquand, 2018; Marquand et al., 2016, 2014), we extend the
+115:normative model with the capacity to account for site effects by adding a Gaussian process to model non-linear effects between age and the brain structure. In addition, our model is fully Bayesian and entails a hierarchical structure, including priors and hyper-priors for each parameter. We used the healthy control sample from the ABIDE (autism brain imaging data exchange, http://preprocessed-connectomes-project.org/abide/) (Di Martino et al., 2014) data set to compare a non-linear, Gaussian process version of the model, to a linear hierarchical Bayesian version accounting for site effects that does not include the Gaussian Process term. We show that the hierarchical Bayesian models including a site parameter perform better than existing methods for dealing with additive and multiplicative site effects, including ComBat and regressing out site. Subsequently, we validate the hierarchical Bayesian models in the autism sample of the ABIDE data set and test their ability to retain clinically useful variance while correcting for site effects. We discuss the normative hierarchical Bayesian methods with regard to their implications for neuroimaging data-sharing initiatives and their use as general technique to correct for site effects.
+119:In this section, we will introduce the data used in this study and the pre-processing steps applied, followed by a conceptual and mathematical description of our approach to include site as predictor in a normative hierarchical Bayesian model. We will also illustrate other methods (than including site as predictor) to accommodate for site effects that will be used to validate our approach against. Lastly, we will outline which measures will be used for model comparison.
+123:The following sub-section aims to give a description of the ABIDE data set, including a study on the scope of site effects in the data.
+125:3.1.1 ABIDE data setThe ABIDE consortium (http://preprocessed-connectomesproject.org/abide/) was founded to facilitate research and collaboration on autism spectrum disorders by data aggregation and sharing. The consortium provides a publicly available structural magnetic resonance imaging (MRI) data set and corresponding phenotypic information of 539 individuals with autism spectrum disorder and 573 age-matched typical controls. For this study, we used 569 controls for development and performance testing of the models, out of which 470 were male. In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male. The data were processed using a standardized protocol (Craddock et al., 2013) of the FreeSurfer standard pipeline (Desikan-Kiliany Atlas) as part of the Preprocessed Connectomes Project (Craddock et al., 2013) and has been made available for download on the preprocessed section of the ABIDE initiative. For the current study, we focused on cortical thickness measures of the 34 bilateral regions (averaged between left and right hemisphere) of the Desikian Killiany atlas parcellation (Desikan et al., 2006) as a part of the FreeSurfer (Fischl et al., 2004) output and the average cortical thickness across all 34 regions. We chose to include only cortical thickness measures since they show a strong
+133:3.1.2 Site effects in the ABIDE data setThe ABIDE data set has been obtained by aggregating data from 20 independent samples collected at 17 different scanning locations (Di Martino et al., 2014). Although all data has been collected with 3 Tesla scanners and preprocessed in a harmonized way (Craddock et al., 2013), sequence parameters for anatomical and functional data, as well as type of scanner varied across sites (Di Martino et al., 2014). In addition, sites differ in distribution of age and sex and in sample size. An overview of site-specific data is provided in Table 1 and in (Di Martino et al., 2014).
+135:The ABIDE data set is affected by site specific effects that are unlikely to be explained by biological variation. They manifest as linear and non-linear interactions between scanning site, covariates (for example age and sex), and cortical measures. Similar to batch effects in genomics (Leek et al., 2010), those effects lead to a clustering of the data caused by external factors related to the scanning and analysis process. With the aim to estimate to which extent the ABIDE data set is affected by site effects, we calculated an ANCOVA with age as covariate in the healthy control sample of the data set. It revealed that average cortical thickness differed between site (main effect site: F(19, 516) = 4.4, p &lt; 0.1 × 10 -8 , sum contrast). In addition we tested for differences in variance between sites. Bartlett's sphericity test Bartlett (1937) showed a difference in variance between sites even after regressing out variance that could be explained by age and sex (p &lt; 0.001). The site effects in the healthy control sample of the ABIDE data set are visualized in Fig. 1.
+137:## 3.2 Pre-processing of the ABIDE data set
+
+thinking
+**Seeking dataset specifics**
+
+I'm verifying if details like sample size, sex, and age for healthy controls are specified, especially the split between phase training and overall data, likely in tables or supplementary materials around line 120-140.
+2026-03-01T23:04:31.650196Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '120,160p' Bayer2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302080409930/study_1 succeeded in 26ms:
+
+## 3.1 Data
+
+The following sub-section aims to give a description of the ABIDE data set, including a study on the scope of site effects in the data.
+
+3.1.1 ABIDE data setThe ABIDE consortium (http://preprocessed-connectomesproject.org/abide/) was founded to facilitate research and collaboration on autism spectrum disorders by data aggregation and sharing. The consortium provides a publicly available structural magnetic resonance imaging (MRI) data set and corresponding phenotypic information of 539 individuals with autism spectrum disorder and 573 age-matched typical controls. For this study, we used 569 controls for development and performance testing of the models, out of which 470 were male. In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male. The data were processed using a standardized protocol (Craddock et al., 2013) of the FreeSurfer standard pipeline (Desikan-Kiliany Atlas) as part of the Preprocessed Connectomes Project (Craddock et al., 2013) and has been made available for download on the preprocessed section of the ABIDE initiative. For the current study, we focused on cortical thickness measures of the 34 bilateral regions (averaged between left and right hemisphere) of the Desikian Killiany atlas parcellation (Desikan et al., 2006) as a part of the FreeSurfer (Fischl et al., 2004) output and the average cortical thickness across all 34 regions. We chose to include only cortical thickness measures since they show a strong
+
+![Image](./Bayer2022_artifacts/image_000012_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png)
+
+![Image](./Bayer2022_artifacts/image_000013_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png)
+
+(negative) association with age (unlike measures of surface area, which remain more stable across the lifespan (Storsve et al., 2014)).
+
+3.1.2 Site effects in the ABIDE data setThe ABIDE data set has been obtained by aggregating data from 20 independent samples collected at 17 different scanning locations (Di Martino et al., 2014). Although all data has been collected with 3 Tesla scanners and preprocessed in a harmonized way (Craddock et al., 2013), sequence parameters for anatomical and functional data, as well as type of scanner varied across sites (Di Martino et al., 2014). In addition, sites differ in distribution of age and sex and in sample size. An overview of site-specific data is provided in Table 1 and in (Di Martino et al., 2014).
+
+The ABIDE data set is affected by site specific effects that are unlikely to be explained by biological variation. They manifest as linear and non-linear interactions between scanning site, covariates (for example age and sex), and cortical measures. Similar to batch effects in genomics (Leek et al., 2010), those effects lead to a clustering of the data caused by external factors related to the scanning and analysis process. With the aim to estimate to which extent the ABIDE data set is affected by site effects, we calculated an ANCOVA with age as covariate in the healthy control sample of the data set. It revealed that average cortical thickness differed between site (main effect site: F(19, 516) = 4.4, p &lt; 0.1 × 10 -8 , sum contrast). In addition we tested for differences in variance between sites. Bartlett's sphericity test Bartlett (1937) showed a difference in variance between sites even after regressing out variance that could be explained by age and sex (p &lt; 0.001). The site effects in the healthy control sample of the ABIDE data set are visualized in Fig. 1.
+
+## 3.2 Pre-processing of the ABIDE data set
+
+Measures of cortical thickness were extracted from the arpac.stats files as part of the Freesurfer output of 1051 individuals in the ABIDE data set, separately for left and right hemisphere. As a first step, the measures were scanned for outliers. The criterion applied to mark a value as an outlier was if it was above or beyond 2 inter quartile ranges from the mean of all values for that region and hemisphere. This quite liberal criterion was applied with the aim to detect not outliers in a mathematical sense (+/- 95 % confidence interval), but to detect impossible values. This leads to the removal of 1055 out of 162905 data points (0.006%) of all values. After this step, the values of right and left hemisphere for each region were averaged (in case the value of one hemisphere was missing, the value of the remaining hemisphere was considered to be the average.) This procedure was preformed including all participants (control sample and autism sample, per region).
+
+thinking
+**Checking dataset demographics in Figure 2**
+
+I'm verifying the sample sizes and demographic breakdowns for training and test sets, especially age and sex details likely in Figure 2 or its legend, to confirm normative model basis and include the relevant stats.
+2026-03-01T23:04:35.965460Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Figure 2|Fig. 2|Fig 2|Age" Bayer2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302080409930/study_1 succeeded in 34ms:
+149:scale parameters of the training set. For the model estimation process only complete pairs of observations (per region) were used. An overview of the distribution of age and sex for the training and test sets for healthy controls and individuals with autism can be found in Fig. 2
+482:Figure 2. Overview over phenotypic information in the ABIDE data set. Controls : Age male subjects: M = 17.5., SD = 8.3. Age female subjects: M = 15.6, SD = 7.0., range = 6.5-40; Autism sample : Age male subjects: M = 16.9., SD = 6.5. Age female subjects: M = 15.1, SD = 5.8., range = 8-39;
+
+
+thinking
+**Clarifying data phase for demographics**
+
+Training set has N but lacks sex/age breakdown, while overall controls report sex/age but no training/test split; choosing Overall phase for sex/age aligns with available data despite mismatch with training N.
+thinking
+**Choosing training phase despite incomplete demographics**
+
+Training phase is set since N is known and instructions prioritize training data, even though age and sex stats are only available overall; sex and age will be marked NR for training, avoiding mixing phases to keep consistency.
+exec
+/bin/bash -lc 'rg -n "training|test|male|female|sex|age|controls" 1-s2.0-S1053811922008205-mmc1.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302080409930/study_12026-03-01T23:04:52.150248Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+5:Despite the aim of the study to run all seven models in this study on the 3 same data set, we were faced with the challenge that differing requirements 4 for each model with respect to missing values made an adjustment of sample 5 sizes per model necessary. Combat [ Fortin2017 , Fortin2018 ] accepts missing 6 values, and could be thus run on the full data set. In contrast, ComBat Gam 7 [ pomponio2020 ] does not. Thus, for ComBat Gam all subjects with a missing 8 value in any of the 35 regions had to be excluded, which lead to a sample size 9 reduction from 391 to 370 individuals for the training set, and from 168 to 156 10 individuals for the healthy test set. The normative modeling process is performed 11 region wise and independently, thus only the subjects that contained missing 12 subjects for that particular region were deleted. 13
+27:All comparisons regarding measures of model performance were performed using 39 two-way ANOVAs including the factors model (HBLM, HBGPM, Combat Gam, 40 ComBat, ComBat without covariates, residuals, raw data) and set (train, test). 41 Post hoc tests were performed using Tukey tests and corrected for multiple 42 comparisons. Parametric tests such as ANOVA were deliberately chosen over 43 their non-parametric equivalents, since deviations from gaussianity were negligible 44 in the present data set and in the authors' opinion, the substantial loss of power 45 with the choice of non-parametric tests does not scale with the potential threat 46 of violated modeling assumptions such as homoscedasticity and gaussianity. 47
+31:![Image](./1-s2.0-S1053811922008205-mmc1_artifacts/image_000000_53bb53279f81708fccb01dff992bab8a7fe76c5bc535f696989a5b4c35e423b7.png)
+33:![Image](./1-s2.0-S1053811922008205-mmc1_artifacts/image_000001_4faf58f1f634c0732426e7f14fade0c58452cd16819a91bb63046b9e562ffc01.png)
+39:![Image](./1-s2.0-S1053811922008205-mmc1_artifacts/image_000002_372de8c214d5a83e80d574579a1f5d2ccdbe1b441b969d1867906b692dfd733c.png)
+43:![Image](./1-s2.0-S1053811922008205-mmc1_artifacts/image_000003_1420f8347dbccb034ffa4c48babbd9c8d726307134fc58c2cb5f07cf756624ac.png)
+45:![Image](./1-s2.0-S1053811922008205-mmc1_artifacts/image_000004_2cc39d5d1f162c45d31240d6c90bce9a50f0186d448816a07479a0016daeb51c.png)
+51:![Image](./1-s2.0-S1053811922008205-mmc1_artifacts/image_000005_56161df75b09dabaf6d05613eef1eccb63146dcd98e73f09a3a5cd1dcb615503.png)
+55:![Image](./1-s2.0-S1053811922008205-mmc1_artifacts/image_000006_a5599d8ef2872734b28c123f0357933e366e55508907186930b4cba36246bf4f.png)
+69:- region. ρ ranged from 0.60 to 0.84 in the training and 0.55 to 0.80 in the test set. 61
+70:- Overall, for just the Bayesian models, correlations were higher in the training 62
+71:- set and dropped in the test set (training set, across all regions: ¯ ρ HBLM = 0.73, 63
+72:- SE = 0.05; ¯ ρ HBGPM = 0.75, SE = 0.06; test set: ¯ ρ HBLM = 0.69, SE = 0.06; 64
+83:- both for training and test set (t-test HBLM and any other model p &lt; 0.001, 71
+84:- t-test HBGPM 72
+86:and any other model p &lt; 0.001, both for training and test set.)
+90:can be found in Fig 3a, main text. In addition, a test comparing the performance 74 of all models for all regions (Bayesian and non-Bayesian) showed that predictions 75 made from training data were not overall more accurate than predictions from 76 the test data (main effect set , F[1, 476] = 0.30, p = ns, interaction set × model , 77 F[1, 476] = 3.50, p = 0.002). Further inspection showed that this might have 78 been caused by the residuals , the ComBat w/o covariates and the ComBat 79 model, where the test set performed better than the training set, canceling out 80 performance benefits of the training data in the HBLM and HBGPM (see also 81 Fig. 3a, main text). 82
+94:We further evaluated the fit of the models by calculating the Standardized Root 84 Mean Squared Error (SRMSE) between true values and predicted values per 85 model per region. As expected, the SRMSE was larger for the test set ( M = 86 0.083) and smaller for the training set ( M = 0.080, [F(1, 134278) = 59.28, p 87 &lt; 0.001]). For both the training and the test set, the Bayesian models showed 88 smaller SRMSEs than all other models across all regions (p &lt; 0.001; training 89 set: ¯ SRMSE HBGPM = 0.06, SE = 0.005; ¯ SRMSE HBLM = 0.06, SE = 0.005; 90 ¯ SRMSE ComBatGam = 0.11, SE = 0.01; ¯ SRMSE residuals = 0.09, SE = 0.002; 91 ¯ SRMSE ComBat = 0.08, SE = 0.007, ¯ SRMSE ComBat -w/o -covariates = 0.09, SE 92 = 0.002; ¯ SRMSE rawdata = 0.08, SE = 0.005; test set: ¯ SRMSE HBGPM = 0.06, 93 SE = 0.005; ¯ SRMSE HBLM = 0.07, SE = 0.006; ¯ SRMSE ComBatGam = 0.12, 94 SE = 0.01; ¯ SRMSE residuals = 0.09, SE = 0.005; ¯ SRMSE ComBat = 0.08, SE 95 = 0.009; ¯ SRMSE ComBat -w/o -covariates = 0.09, SE = 0.005; ¯ SRMSE rawdata 96 = 0.085, SE = 0.007). Neither in the training nor the test set did the Bayesian 97 models differ from each other (training set: contrast HBLMR -HBLM , t = 98 2.33, p = ns. ; test set: contrast HBLMR -HBLM , t = 1.14, p = ns. ). We also 99
+96:observed that both in the training and test set, the SRMSE of ComBat w/o 100 covariates did not differ from the SRMSE of the residuals (training set: contrast 101 ComBat w/o covariates -residuals , t = 0.69, p = ns. ; test set: contrast ComBat 102 w/o covariates -residuals , t = -1.70, p = ns. . The full distribution of SRMSE 103 for all 35 regions per model can be found in Fig 3b, main text. 104
+102:Analysis of the proportion of variance explained EV = σ 2 ˆ y -y σ 2 y per model per region 106 were in line with the results reflected in ρ and SRMSE. EV was higher for the 107 HBLM and HBGPM , with an average of 0.56 ( HBGPM , range: 0.35-0.70) and 108 0.53 ( HBLM , range 0.35 - 0.67) for the training set and 0.50 ( HBGPM , range 109 0.31 - 0.63) and 0.48 ( HBLM , range 0.28 - 0.60) for the test set across all cortical 110 regions. The proportion of explained variance was substantially lower for the 111 comparison models, with the ComBat and the ComBat Gam model performing 112 best out of the comparison models, with an average of 0.31 for ComBat model 113 for the training set (range: 0.00 - 0.51) and 0.33 for the test set (range -0.02 114 0.58) across cortical regions, and an average of 0.31 for ComBat Gam for the 115 training set (range: -0.01 - 0.51) and 0.22 for the test set (range 0.03 - 0.46) but 116 showing lower EV than the Bayesian models. Predictions derived from residuals 117 and ComBat w/o covariates showed even lower EV, with residuals explaining an 118 average of 0.07 for the training set (range: 0.00 - 0.15) and 0.11 for the test set 119 (range 0.00 - 0.20) across cortical regions, and ComBat explaining an average 120 of 0.09 for the training set (range: 0.00 - 0.17) and 0.12 for the test set (range: 121 0.00 - 0.25) across cortical regions. Thus, the ComBat w/o covariates, ComBat 122 and residuals model performed even worse than predictions derived from raw 123 data , which showed an average EV of 0.21 in the training set (range: 0.00 -0.46) 124 and 0.20 in the test set (range 0.00 - 0.44) across cortical regions. These results 125
+
+
+thinking
+**Clarifying model training set details**
+
+Training set size is 389 for both normative models, with sex and age not reported specifically for training; the solution is to list both models with the same N and note sex/age as not reported, adding detail that overall control age by sex is available only outside training data.
+thinking
+**Confirming training cohort data and reporting NR**
+
+Decided to prioritize training cohort data with N=389 and mark sex and age as not reported for training, while including overall age range only as detailed context outside training data; next is to write the JSON file and verify existing structure.
+exec
+/bin/bash -lc 'cat DE_v13_Bayer2022_by_codex_20260302080409930.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020804099302026-03-01T23:05:06.238328Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 24ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Clarifying cohort and model details**
+
+Considering splitting normative model training (n=389 subset) from overall reference cohort (n=569 controls) used for development and testing; planning to use ABIDE data and specify model names (HBLM, HBGPM) with appropriate supporting text and sex distribution details mainly at the overall cohort level.
+thinking
+**Deciding sex and age data source**
+
+Choosing to follow instructions strictly by prioritizing training set data where available, meaning sex and age stats will be NR for training due to missing details, while overall cohort stats can be used separately if needed; considering computing weighted age stats from overall male/female counts but noting complexity and potential mismatch with instruction priority.
+exec
+/bin/bash -lc 'ls study_1/Bayer2022_artifacts' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603020804099302026-03-01T23:05:29.169531Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+image_000000_876e409a1479a52aaa8b96ff0b8c4e117d5a142689ec8833f76de155321fc800.png
+image_000001_ba297df0780536f8c49999502ecc6871b460ea8f6469bd14dd0c5a24c047fcb9.png
+image_000002_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png
+image_000003_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png
+image_000004_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png
+image_000005_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png
+image_000006_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png
+image_000007_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png
+image_000008_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png
+image_000009_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png
+image_000010_f91e487a346531ced3b3a6c8b37a76e6b566e15836c2ba2f72278f632273c379.png
+image_000011_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png
+image_000012_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png
+image_000013_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png
+image_000014_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png
+image_000015_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png
+image_000016_5dc1cec383355592df2d3924b94fdf1544c824f8926814b4fcf80704f9577a53.png
+image_000017_b4526b61c6c89582172ccbd3bff4552526c65884da6dc0f7227eb346e5df52fb.png
+image_000018_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png
+image_000019_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png
+
+
+thinking
+**Evaluating data phase for age/sex info**
+
+The figure caption provides only overall age and sex stats without training/test splits, suggesting it's best to use overall demographics for age/sex, while training/test counts can come from elsewhere; considering prioritizing overall data for consistency with later phases despite having a training phase present.
+thinking
+**Finalizing phase and demographic details**
+
+Decided to set phase to Training per priority rules, using training N for models but marking sex and age breakdown as not reported (NR) for training; overall sex/age stats exist but won't be used for training details, with low confidence and NR supporting text for sex/age.
+2026-03-01T23:06:14.036524Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "cat <<'EOF' > DE_v13_Bayer2022_by_codex_20260302080409930.json
+{
+  \"reference_cohort_info_part\": {
+    \"rci1_using_msad\": {
+      \"answer\": \"Yes\",
+      \"detail\": \"ABIDE aggregated from 20 independent samples across 17 scanning locations.\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"The ABIDE data set has been obtained by aggregating data from 20 independent samples collected at 17 different scanning locations (Di Martino et al., 2014).\\\"\",
+      \"location\": \"Bayer2022.pdf.md: 3.1.2 Site effects in the ABIDE data set\"
+    },
+    \"rci2_using_epd\": {
+      \"answer\": \"Yes\",
+      \"detail\": \"ABIDE (publicly available) controls used for normative model development/testing.\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"The ABIDE consortium ... provides a publicly available structural magnetic resonance imaging (MRI) data set and corresponding phenotypic information of 539 individuals with autism spectrum disorder and 573 age-matched typical controls. For this study, we used 569 controls for development and performance testing of the models...\\\"\",
+      \"location\": \"Bayer2022.pdf.md: 3.1.1 ABIDE data set\"
+    },
+    \"rci3_epd_name\": {
+      \"answer\": \"ABIDE\",
+      \"detail\": \"ABIDE typical controls used as reference cohort.\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"The ABIDE consortium ... provides a publicly available structural magnetic resonance imaging (MRI) data set ... For this study, we used 569 controls for development and performance testing of the models...\\\"\",
+      \"location\": \"Bayer2022.pdf.md: 3.1.1 ABIDE data set\"
+    },
+    \"rci4_phase\": \"Training\",
+    \"rci5_n\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"hierarchical Bayesian linear model (HBLM) for cortical thickness\",
+          \"n\": 389
+        },
+        \"model-2\": {
+          \"model-name\": \"hierarchical Bayesian Gaussian process model (HBGPM) for cortical thickness\",
+          \"n\": 389
+        }
+      },
+      \"detail\": \"Healthy control training set (70% of data) used for model training; within-site split.\",
+      \"confidence_rating\": \"High\",
+      \"supporting_text\": \"\\\"we split the the healthy control data set into a training set (70% of data, n=389) and a test set (30% of data, n=166)\\\"\",
+      \"location\": \"Bayer2022.pdf.md: 3.3 Splitting the ABIDE data set into training and test sets\"
+    },
+    \"rci6_sex\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"hierarchical Bayesian linear model (HBLM) for cortical thickness\",
+          \"female_n\": \"NR\",
+          \"female_pct\": \"NR\",
+          \"male_n\": \"NR\",
+          \"male_pct\": \"NR\"
+        },
+        \"model-2\": {
+          \"model-name\": \"hierarchical Bayesian Gaussian process model (HBGPM) for cortical thickness\",
+          \"female_n\": \"NR\",
+          \"female_pct\": \"NR\",
+          \"male_n\": \"NR\",
+          \"male_pct\": \"NR\"
+        }
+      },
+      \"detail\": \"Training set sex breakdown not reported.\",
+      \"confidence_rating\": \"Low\",
+      \"supporting_text\": \"NR\",
+      \"location\": \"NR\"
+    },
+    \"rci7_age\": {
+      \"answer\": {
+        \"model-1\": {
+          \"model-name\": \"hierarchical Bayesian linear model (HBLM) for cortical thickness\",
+          \"mean\": \"NR\",
+          \"sd\": \"NR\",
+          \"min\": \"NR\",
+          \"max\": \"NR\"
+        },
+        \"model-2\": {
+          \"model-name\": \"hierarchical Bayesian Gaussian process model (HBGPM) for cortical thickness\",
+          \"mean\": \"NR\",
+          \"sd\": \"NR\",
+          \"min\": \"NR\",
+          \"max\": \"NR\"
+        }
+      },
+      \"detail\": \"Training set age statistics not reported.\",
+      \"confidence_rating\": \"Low\",
+      \"supporting_text\": \"NR\",
+      \"location\": \"NR\"
+    }
+  }
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302080409930 succeeded in 29ms:
+
+
+thinking
+**Confirming implementation completion**
+
+The requested code changes are done in the specified file; the next step is to verify correctness by running tests or performing manual checks as needed.
+codex
+Training-phase reference cohort details are filled in and written to `DE_v13_Bayer2022_by_codex_20260302080409930.json`, using ABIDE as a multi-site EPD and the reported training N. Sex/age breakdowns for the training set are not reported, so they are marked NR.
+
+If you want, I can also extract the overall (training+test) sex/age stats as a separate pass or switch RCI4 to Overall to include them.
+2026-03-01T23:06:17.484801Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+45,472
+Training-phase reference cohort details are filled in and written to `DE_v13_Bayer2022_by_codex_20260302080409930.json`, using ABIDE as a multi-site EPD and the reported training N. Sex/age breakdowns for the training set are not reported, so they are marked NR.
+
+If you want, I can also extract the overall (training+test) sex/age stats as a separate pass or switch RCI4 to Overall to include them.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

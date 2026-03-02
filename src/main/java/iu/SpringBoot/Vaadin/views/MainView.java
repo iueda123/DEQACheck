@@ -1,7 +1,6 @@
 package iu.SpringBoot.Vaadin.views;
 
 import iu.SpringBoot.Vaadin.DEQACheckAll.DEOverviePage.DEFileTable;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DEOverviePage.DEOverviewPage;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
@@ -15,15 +14,17 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.component.html.Anchor;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView_DEv10;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView_DEv10_2;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.ResultOverView_DEv11_v12;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.SummaryView_DEv10_0;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.SummaryView_DEv10_1;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.SummaryView_DEv10_2;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.SummaryView_DEv11_v12;
 import iu.SpringBoot.Vaadin.DEQACheckAll.MaterialDownloader.MaterialDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.PromptDownloader.PromptDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAReportCreationPage.QAReportCreationPage;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultPerReviewerPage;
 import com.vaadin.flow.server.VaadinServletRequest;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAResultPage.QAResultTablePage;
+import iu.SpringBoot.Vaadin.DEQACheckAll.RsltComparatorWeb.RsltComparatorWebView;
 import iu.SpringBoot.Vaadin.DEQACheckAll.HelpPages.TheFirstHelpPage;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.security.core.Authentication;
@@ -121,21 +122,23 @@ public class MainView extends VerticalLayout {
         // only visible to ADMIN users (admin, local)
         if (hasAdminRole()) {
 
-            RouterLink link1 = new RouterLink("DE Overview", DEOverviewPage.class);
+            RouterLink link1 = new RouterLink("Summary View for DE_v10 (ver 0)", SummaryView_DEv10_0.class);
             add(link1);
 
-            RouterLink link11 = new RouterLink("DE File Table (v11/v12)", DEFileTable.class);
-            add(link11);
-
-            RouterLink link2 = new RouterLink("Summary View for DE_v10", SummaryView_DEv10.class);
+            RouterLink link2 = new RouterLink("Summary View for DE_v10 (ver 1)", SummaryView_DEv10_1.class);
             add(link2);
 
             RouterLink link3 = new RouterLink("Summary View for DE_v10 (ver 2)", SummaryView_DEv10_2.class);
             add(link3);
 
-            RouterLink link10 = new RouterLink("Summary View for DE_v11/12", ResultOverView_DEv11_v12.class);
+            RouterLink link11 = new RouterLink("DE File Table (v11/v12)", DEFileTable.class);
+            add(link11);
+
+            RouterLink link10 = new RouterLink("Summary View for DE_v11/12", SummaryView_DEv11_v12.class);
             add(link10);
 
+            RouterLink link12 = new RouterLink("Result Comparator", RsltComparatorWebView.class);
+            add(link12);
 
         }
 
