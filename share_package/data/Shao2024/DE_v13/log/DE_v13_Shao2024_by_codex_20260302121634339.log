@@ -1,0 +1,657 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Shao2024_by_codex_20260302121634339.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121634339/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac8c-3c01-76b3-961b-73135c772379
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Shao2024_by_codex_20260302121634339.json へ書き込んでください。
+mcp startup: no servers
+2026-03-02T03:16:39.900497Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121634339 succeeded in 17ms:
+DE_Guide_v13.md
+DE_v13_Shao2024_by_codex_20260302121634339.json
+DE_v13_Shao2024_by_codex_20260302121634339.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021216343392026-03-02T03:16:42.070815Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 32ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Listing all source files**
+2026-03-02T03:16:44.429468Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121634339 succeeded in 31ms:
+DE_v13_Shao2024_by_codex_20260302121634339.log
+DE_Guide_v13.md
+DE_v13_Shao2024_by_codex_20260302121634339.json
+study_1/1-s2.0-S0006322323014920-mmc1.pdf.md
+study_1/1-s2.0-S0006322323014920-mmc2.xlsx.md
+study_1/Shao2024.pdf.md
+
+thinking
+**Opening main paper file**
+exec
+/bin/bash -lc 'rg -n "normative|normative model|healthy|control|participants|sample|training|dataset|HCP|ABIDE|UK Biobank|Cam-CAN|OASIS|ADNI|ABCD|PNC|IXI|NKI|HBN|COBRE|AIBL|ENIGMA|LEAP|REST-meta-MDD|FCON|multi-site|multisite|site" study_1/Shao2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021216343392026-03-02T03:16:48.376932Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 24ms:
+9:BACKGROUND: The high heterogeneity of depression prevents us from obtaining reproducible and de /uniFB01 nite anatomical maps of brain structural changes associated with the disorder, which limits the individualized diagnosis and treatment of patients. In this study, we investigated the clinical issues related to depression according to individual deviations from normative ranges of gray matter volume.
+11:METHODS: We enrolled 1092 participants, including 187 patients with depression and 905 healthy control participants. Structural magnetic resonance imaging data of healthy control participants from the Human Connectome Project ( n = 510) and REST-meta-MDD Project ( n = 229) were used to establish a normative model across the life span in adults 18 to 65 years old for each brain region. Deviations from the normative range for 187 patients and 166 healthy control participants recruited from two local hospitals were captured as normative probability maps, which were used to identify the disease risk and treatment-related latent factors.
+13:RESULTS: In contrast to case-control results, our normative modeling approach revealed highly individualized patterns of anatomic abnormalities in depressed patients (less than 11% extreme deviation overlapping for any regions). Based on our classi /uniFB01 cation framework, models trained with individual normative probability maps (area under the receiver operating characteristic curve range, 0.7146 -0.7836) showed better performance than models trained with original gray matter volume values (area under the receiver operating characteristic curve range, 0.6800 -0.7036), which was veri /uniFB01 ed in an independent external test set. Furthermore, different latent brain structural factors in relation to antidepressant treatment were revealed by a Bayesian model based on normative probability maps, suggesting distinct treatment response and inclination.
+15:CONCLUSIONS: Capturing personalized deviations from a normative range could help in understanding the heterogeneous neurobiology of depression and thus guide clinical diagnosis and treatment of depression.
+25:precise and personalized diagnosis and prognosis of depression (7,8). However, even though the brain structure is relatively stable, the results were inconsistent across studies when considering only decreased gray matter volume (GMV) in patients with depression compared with control participants (9,10). This might be partly explained by two factors. First, depression is a highly heterogeneous psychiatric syndrome (11 -13). DSM identi /uniFB01 es at least 256 unique symptom manifestations that meet the standard de /uniFB01 nition of depression, resulting in extensive clinical heterogeneity (14). Further, patients vary greatly in the temporal dynamics of symptom onset, including age of onset and frequency of episodes. Depression is also heterogeneous in psychiatric comorbidities and treatment outcomes (11,15). Second, the use of relatively small samples might lead to type I and II errors (16), therefore limiting the generalizability of results. These factors are inevitable challenges in the process of achieving precision medicine in depression.
+27:The goal of precision medicine is to provide timely and accurate diagnosis, prognosis, and treatment for individual patients (17 -19). However, traditional case-control analyses allow only statistical inferences at the group level, rather than the individual level, and cannot fully capture brain abnormalities at the individual level (20,21). Furthermore, most studies employ standard single-variable analysis methods, the predictive power of which, either singularly or cumulatively, remains inadequate (22). Machine learning offers a new paradigm that enables automated and more objective assessment for prognosis and diagnosis of depression. Studies have shown that machine learning models could predict treatment-resistant depression with comparable accuracy (0.7) (23). Besides, data-driven subtypes of depression can facilitate an understanding of heterogeneity, which may help improve the predictability of diagnosis and clinical outcomes (24,25). Therefore, an approach that takes into account individual heterogeneity combined with machine learning algorithms is needed to understand the pathophysiological changes of depression and to explore whether there are potential diagnostic and antidepressant treatment-related effects.
+29:Normative modeling is an emerging statistical technique for mapping individual deviations at the participant level with respect to a reference model, which could help in understanding the heterogeneous biology underlying psychiatric disorders (26,27). In this study, a large dataset of healthy adults 18 to 65 years of age from the Human Connectome Project (28) and REST-meta-MDD Project (29) was used to estimate normative models of GMV across the life span. These models were then applied to patient cohorts to assess the individual deviations from a normative range. Based on this, we developed three applications, as follows: 1) We built an individual depression prediction model in a discovery cohort to mine the depression-related information over those deviations from the normative range and provide an individualized objective assessment. We also explored the performance of the prediction model in an independent external test set. 2) A Bayesian model was used to explore the brain structural changes associated with antidepressant treatment to /uniFB01 nd the latent brain factors in the subgroup of patients who are sensitive to treatment with selective serotonin reuptake inhibitors (SSRIs). 3) We further explored the similarities and differences in the brain structure of patients targeted by two typical antidepressants, i.e., SSRIs and serotonin norepinephrine reuptake inhibitors (SNRIs). This study provides new insights into the neurobiological heterogeneity of depression and demonstrates its promising application in clinical diagnosis and treatment.
+35:The cohorts of this study were mainly composed of three datasets, two of which were from an open data sharing project (details of participant inclusion in Figure S1). In dataset I, we enrolled 127 depressed patients and 110 healthy control (HC) participants from the Af /uniFB01 liated Brain Hospital of Nanjing Medical University as the discovery cohort. Additionally, 60 patients and 56 HC participants from Nanjing Drum Tower
+37:Hospital were recruited as an external test set. Details of this dataset and treatment of patients are provided in Supplemental Methods. In this study, patients with at least a 50% reduction in the total scores of 17-item Hamilton Rating Scale for Depression after 4 weeks were conventionally de /uniFB01 ned as responders ( n = 111; 77 with SSRIs, 34 with SNRIs), and patients with less than 50% reduction were de /uniFB01 ned as nonresponders ( n = 43; 35 with SSRIs, 8 with SNRIs).
+39:To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29). All images in datasets I through III were acquired on Siemens 3T MRI scanners (Siemens Healthineers). Further details about MRI acquisition and preprocessed pipeline are provided in Table S1 and Supplemental Methods. After all T1 images were preprocessed, the GMV of each brain region was estimated based on the Automated Anatomical Labeling atlas, and the total intracranial volume (TIV) for each participant was calculated simultaneously.
+43:Continuous clinical variables were compared between patients with depression and HC participants in dataset I using the twosample t test or Mann-Whitney U test after normality testing (Supplemental Methods). The c 2 test was used to compare categorical clinical variables. Regional GMV between patients and HC participants was examined using the two-sample t test after regressing out several covariates, including age, sex, and TIV, to avoid potential confounders. Two-tailed p , .05 indicated a signi /uniFB01 cant statistical difference when false discovery rate was used for multiple comparison correction.
+47:To minimize the nonbiological variance introduced by differences in MRI scanners and acquisition protocols, we used the ComBat method (30) to harmonize data from these three datasets. ComBat is a popular batch adjustment method developed for genomics expression analysis that has been demonstrated to remove the unwanted variation introduced by site in diffusion tensor imaging (31,32) or structural MRI (33) studies, while effectively preserving biological variability. Speci /uniFB01 cally, we /uniFB01 rst harmonized the data from dataset I (discovery cohort) and datasets II and III into a common domain using the ComBat method. To avoid a potential data leakage problem for subsequent classi /uniFB01 cation modeling, we retained the biological variability related to age, sex, and TIV, without preserving the diagnostic labels. Then, the pretrained ComBat model was applied to harmonize the external test set directly (Figure 1A).
+51:Analogous to the normative growth charts used in pediatric medicine to plot child development based on height or weight as a function of age, the essence of the normative model is to chart standardized brain development and aging (34 -36). A normative model can be interpreted as a statistical
+53:Figure 1. Overview of the normative model and its application pipeline. (A) T1 images were segmented by the magnetic resonance imaging preprocessing pipeline to obtain the gray matter map, and the gray matter volume (GMV) of each region in the Automated Anatomical Labeling atlas was calculated. Then, we harmonized the discovery cohort of dataset I and datasets II and III into a common domain using the ComBat method, and the magnetic resonance imaging data of the external test set in dataset I was harmonized with the trained ComBat model (different colored arrows indicated different dataset types). (B) Estimate of the normative model with B-spline Bayesian linear regression for each brain region based on healthy control (HC) participants of datasets II and III (gray dots). The model provided the ability to predict GMV in this region for a given age and sex, along with measures of predictive con /uniFB01 dence (blue contour lines). Different shades of shadow indicate different centiles of predictive con /uniFB01 dence for the cohort (percentages on the right, e.g., 5% -95%). For each participant from other independent datasets (dataset I in this study; depression patients [red dots] and HC participants [black dots]), one can compute a normative probability map ( z scores) that quanti /uniFB01 ed the individual ' s deviation from the normative model of each brain region. (C) Clinical applications based on the normative models: Machine learning models were trained in the discovery cohort of dataset I to diagnose depressed patients using the z scores and veri /uniFB01 ed in the external test set (left); a Bayesian model was used to /uniFB01 nd the latent brain factors in the subgroup of patients who are sensitive to treatment with selective serotonin reuptake inhibitors (SSRIs) (middle); another Bayesian model was used to explore the similarities and differences in the brain structure of patients targeted by SSRIs or serotonin norepinephrine reuptake inhibitors (SNRIs) (right). ROI, region of interest.
+57:model that maps clinically relevant variables to readouts of biological measures (such as neuroimaging metrics) using healthy samples (27). Then, it can be applied to patient cohorts to measure individual deviation. This framework shifts the focus away from group-level comparisons across different diagnostic groups toward characterizing the extreme values of biological measures or deviations from normative functions, thus enabling dimensional analysis to study heterogeneous presentations. Brie /uniFB02 y, for each brain region, we estimated an age-related normative model with datasets II and III ( n = 510 1 229 = 739) (Figure 1B, top) to predict regional GMV as a function of age and sex plus nuisance covariate TIV using a B-spline Bayesian linear regression (37). Then, this normative model was applied to each individual from dataset I to predict the normative GMV value of the current brain region for a given age and sex (Figure 1B, middle). We derived a normative probability map (NPM) (38), quantifying the individual deviations from normative ranges, by computing z scores for each region of each participant re /uniFB02 ecting the difference between the
+65:All the analyses were performed in Python 3.6, using the PCNtoolkit (39) (https://github.com/amarquand/PCNtoolkit) for model estimation and evaluation. We established the threshold for NPM using j z j . ± 1 : 96 (i.e., exceeding the two-tailed 95% CI) to de /uniFB01 ne the extreme positive or negative deviations from the normative model.
+69:According to the NPMs obtained from the normative models, depression evaluation models were trained over the discovery cohort in dataset I for individual prediction. First, the enrolled participants in the discovery cohort were randomly divided into a training set and a test set in a 4:1 ratio. To avoid the in /uniFB02 uence of data splitting, we randomly repeated dividing training and test sets with the above proportion 10,000 times independently (40). In different splits of sample, the proportion of patients and HC participants remained consistent in both the training (102 patients vs. 88 HC participants) and the test (25 patients vs. 22 HC participants) sets. Moreover, feature selection was performed using max-relevance and minredundancy (41) with 10-fold cross-validation. Then, each trained model was used to predict the diagnostic category for each participant in the corresponding test set, which was rebuilt and tested during the 10,000 resampling procedure.
+71:To verify the superiority of individual GMV deviation measure over large sample normative distribution, we also constructed depression prediction models with original GMV as performance comparison. The related aspects, including the effect of sites harmonization, kernels for support vector machine (linear, sigmoid, and radial basis function), and feature dimension, were comprehensively analyzed. Finally, each model trained in the discovery cohort was applied to the external test set to evaluate the generalizability and transportability of the models under different sites (Figure 1C, left).
+75:An unsupervised Bayesian model, polar Latent Dirichlet Allocation (pLDA) (42,43), was applied to identify latent factors associated with treatment in patients with depression based on the NPMs. To apply this model to our GMV data, the z scores from normative models were multiplied by 10 and rounded to the nearest integer (details in Supplemental Methods). Given the discretized z scores and the number of prede /uniFB01 ned factors, K , we can estimate the GMV patterns of factor speci /uniFB01 city [i.e., E(GMV patterns|Factor)] and the factor composition of each patient [i.e., Pr(Factor|Patient)].
+85:The demographic data of open datasets are shown in Table S2: 510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women). The demographic and clinical characteristics of participants in dataset I are summarized in Table 1. There were signi /uniFB01 cant age and sex differences between patients with depression and HC participants and between the discovery cohort and external test set, which was adjusted by our normative models. Furthermore, there was no signi /uniFB01 cant difference in the 17-item Hamilton Rating Scale for Depression score between responders and nonresponders at baseline ( p = .407) for patients treated with SSRIs (Table S3). The SSRI- and SNRI-targeted patients also had no signi /uniFB01 cant difference in the 17-item Hamilton Rating Scale for Depression score either at baseline ( p = .275) (Table S4) or after 4 weeks of treatment ( p = .257) (Table S4).
+
+
+thinking
+**Extracting reference cohort details**
+
+Identified that the normative model uses two datasets: HCP (510 healthy controls) and REST-meta-MDD (229 healthy controls, multi-site including site 20). Demographics like mean age, SD, and sex counts are around line 85 and table S2 in supplemental mmc1. Next, I'll verify and potentially compute combined weighted means and pooled SDs for the aggregated cohort.
+thinking
+**Calculating combined sex distribution and age statistics**
+
+Computed female count as 458 and male inferred as 281 for the combined cohort, with females making up about 61.9%. Identified age ranges for datasets and planned weighted mean age calculation using dataset sizes and means. Next, I'll compute the weighted mean and pooled SD for age.
+2026-03-02T03:17:05.285942Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n1=510; m1=29.19; sd1=3.50
+n2=229; m2=39.34; sd2=15.66
+N=n1+n2
+mean=(n1*m1+n2*m2)/N
+# pooled SD (assuming sample SDs)
+# pooled variance = ((n1-1)*sd1**2 + (n2-1)*sd2**2)/ (N-2)
+pooled_var=((n1-1)*sd1**2 + (n2-1)*sd2**2)/(N-2)
+pooled_sd=math.sqrt(pooled_var)
+# weighted (overall) SD with means? maybe compute population SD using weighted variance
+# Use N-1 denominator for combined sample SD
+# combined variance = [ (n1-1)sd1"'^2 + (n2-1)sd2''^2 + n1(m1-mean)''^2 + n2(m2-mean)''^2 ]/(N-1)
+combined_var=((n1-1)*sd1**2 + (n2-1)*sd2**2 + n1*(m1-mean)**2 + n2*(m2-mean)**2)/(N-1)
+combined_sd=math.sqrt(combined_var)
+print('"'N',N,'mean',mean,'pooled_sd',pooled_sd,'combined_sd',combined_sd)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121634339 succeeded in 38ms:
+N 739 mean 32.33526387009473 pooled_sd 9.182970995781393 combined_sd 10.308942182435263
+
+thinking
+**Clarifying weighted mean and pooled SD usage**
+
+Deciding to use weighted mean and pooled SD based on within-group formula per instruction, though combined SD might better reflect overall distribution; will cite exact participant details with file and section references from Shao2024.pdf.md around lines 39 and 85.
+exec
+/bin/bash -lc "sed -n '34,46p' study_1/Shao2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021216343392026-03-02T03:17:12.948915Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+
+The cohorts of this study were mainly composed of three datasets, two of which were from an open data sharing project (details of participant inclusion in Figure S1). In dataset I, we enrolled 127 depressed patients and 110 healthy control (HC) participants from the Af /uniFB01 liated Brain Hospital of Nanjing Medical University as the discovery cohort. Additionally, 60 patients and 56 HC participants from Nanjing Drum Tower
+
+Hospital were recruited as an external test set. Details of this dataset and treatment of patients are provided in Supplemental Methods. In this study, patients with at least a 50% reduction in the total scores of 17-item Hamilton Rating Scale for Depression after 4 weeks were conventionally de /uniFB01 ned as responders ( n = 111; 77 with SSRIs, 34 with SNRIs), and patients with less than 50% reduction were de /uniFB01 ned as nonresponders ( n = 43; 35 with SSRIs, 8 with SNRIs).
+
+To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29). All images in datasets I through III were acquired on Siemens 3T MRI scanners (Siemens Healthineers). Further details about MRI acquisition and preprocessed pipeline are provided in Table S1 and Supplemental Methods. After all T1 images were preprocessed, the GMV of each brain region was estimated based on the Automated Anatomical Labeling atlas, and the total intracranial volume (TIV) for each participant was calculated simultaneously.
+
+## Statistical Analysis
+
+Continuous clinical variables were compared between patients with depression and HC participants in dataset I using the twosample t test or Mann-Whitney U test after normality testing (Supplemental Methods). The c 2 test was used to compare categorical clinical variables. Regional GMV between patients and HC participants was examined using the two-sample t test after regressing out several covariates, including age, sex, and TIV, to avoid potential confounders. Two-tailed p , .05 indicated a signi /uniFB01 cant statistical difference when false discovery rate was used for multiple comparison correction.
+
+## Harmonization
+
+
+thinking
+**Requesting specific line context**
+exec
+/bin/bash -lc "sed -n '80,90p' study_1/Shao2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021216343392026-03-02T03:17:15.417837Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+
+## RESULTS
+
+## Demographic and GMV Data
+
+The demographic data of open datasets are shown in Table S2: 510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women). The demographic and clinical characteristics of participants in dataset I are summarized in Table 1. There were signi /uniFB01 cant age and sex differences between patients with depression and HC participants and between the discovery cohort and external test set, which was adjusted by our normative models. Furthermore, there was no signi /uniFB01 cant difference in the 17-item Hamilton Rating Scale for Depression score between responders and nonresponders at baseline ( p = .407) for patients treated with SSRIs (Table S3). The SSRI- and SNRI-targeted patients also had no signi /uniFB01 cant difference in the 17-item Hamilton Rating Scale for Depression score either at baseline ( p = .275) (Table S4) or after 4 weeks of treatment ( p = .257) (Table S4).
+
+Figure 2A shows the group-level differences of GMV values between patients with depression and HC participants using the conventional case-control inference. For the 9 of 90 brain regions with signi /uniFB01 cant group differences in GMV, all were signi /uniFB01 cantly lower in the depression group compared with the HC group in the discovery cohort after false discovery rate correction ( p , .05) (Table S5). However, no positive groupwise signi /uniFB01 cant results were found in the external test set.
+
+## Individual Deviations From Normative Ranges
+
+
+thinking
+**Extracting participant and dataset details**
+
+I'm confirming participant counts and dataset sources, identifying text around line 39 and 57 that specify totals and sample descriptions, and noting dataset names and multi-site details to support reported statistics.
+exec
+/bin/bash -lc "sed -n '52,60p' study_1/Shao2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021216343392026-03-02T03:17:22.097077Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+
+Figure 1. Overview of the normative model and its application pipeline. (A) T1 images were segmented by the magnetic resonance imaging preprocessing pipeline to obtain the gray matter map, and the gray matter volume (GMV) of each region in the Automated Anatomical Labeling atlas was calculated. Then, we harmonized the discovery cohort of dataset I and datasets II and III into a common domain using the ComBat method, and the magnetic resonance imaging data of the external test set in dataset I was harmonized with the trained ComBat model (different colored arrows indicated different dataset types). (B) Estimate of the normative model with B-spline Bayesian linear regression for each brain region based on healthy control (HC) participants of datasets II and III (gray dots). The model provided the ability to predict GMV in this region for a given age and sex, along with measures of predictive con /uniFB01 dence (blue contour lines). Different shades of shadow indicate different centiles of predictive con /uniFB01 dence for the cohort (percentages on the right, e.g., 5% -95%). For each participant from other independent datasets (dataset I in this study; depression patients [red dots] and HC participants [black dots]), one can compute a normative probability map ( z scores) that quanti /uniFB01 ed the individual ' s deviation from the normative model of each brain region. (C) Clinical applications based on the normative models: Machine learning models were trained in the discovery cohort of dataset I to diagnose depressed patients using the z scores and veri /uniFB01 ed in the external test set (left); a Bayesian model was used to /uniFB01 nd the latent brain factors in the subgroup of patients who are sensitive to treatment with selective serotonin reuptake inhibitors (SSRIs) (middle); another Bayesian model was used to explore the similarities and differences in the brain structure of patients targeted by SSRIs or serotonin norepinephrine reuptake inhibitors (SNRIs) (right). ROI, region of interest.
+
+![Image](./Shao2024_artifacts/image_000000_f98709a9437f15c6dc22d30851ad7d8509544e52e0d8e19e6a48abd0f77e19f7.png)
+
+model that maps clinically relevant variables to readouts of biological measures (such as neuroimaging metrics) using healthy samples (27). Then, it can be applied to patient cohorts to measure individual deviation. This framework shifts the focus away from group-level comparisons across different diagnostic groups toward characterizing the extreme values of biological measures or deviations from normative functions, thus enabling dimensional analysis to study heterogeneous presentations. Brie /uniFB02 y, for each brain region, we estimated an age-related normative model with datasets II and III ( n = 510 1 229 = 739) (Figure 1B, top) to predict regional GMV as a function of age and sex plus nuisance covariate TIV using a B-spline Bayesian linear regression (37). Then, this normative model was applied to each individual from dataset I to predict the normative GMV value of the current brain region for a given age and sex (Figure 1B, middle). We derived a normative probability map (NPM) (38), quantifying the individual deviations from normative ranges, by computing z scores for each region of each participant re /uniFB02 ecting the difference between the
+
+predicted regional GMV and true value normalized by the uncertainty of the model (Figure 1B, bottom):
+
+
+
+thinking
+**Assembling detailed RCI supporting texts**
+
+I'm gathering precise supporting quotes from dataset lines to confirm multi-site nature, participant counts, and model details, planning to merge relevant direct quotes for clarity while ensuring all data aligns with the required RCI fields.
+thinking
+**Defining combined quotes for demographic stats**
+
+I'm planning to create combined strings with paired quotes separated by " / " for age and counts, adding computed weighted mean and pooled SD for age, and citing exact sections for clarity. Next, I'll integrate this into the JSON structure.
+exec
+/bin/bash -lc 'cat DE_v13_Shao2024_by_codex_20260302121634339.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021216343392026-03-02T03:17:39.827104Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Computing and formatting demographic stats**
+
+I'm calculating female and male percentages with rounding, age weighted mean with two decimals, and pooled SD at 9.18 per instructions, including age min/max as strings and noting pooled SD source, ensuring JSON output with ASCII encoding.
+thinking
+**Compiling detailed source citations**
+
+I'm assembling high-confidence citations for model details, training phase, participant datasets, sex counts, and age stats from specified document sections to incorporate into the patch.
+2026-03-02T03:18:16.848591Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
+@@ -3,43 +3,64 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "REST-meta-MDD Project is multi-site (site 20) and is combined with HCP for normative model construction",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Human Connectome Project and REST-meta-MDD Project used to build the normative model",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "HCP; REST-meta-MDD",
++      "detail": "Human Connectome Project (dataset II) and REST-meta-MDD Project (dataset III)",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "n": 739
++        }
++      },
++      "detail": "Training phase HC; datasets II (HCP) + III (REST-meta-MDD)",
++      "confidence_rating": "High",
++      "supporting_text": "\"we estimated an age-related normative model with datasets II and III ( n = 510 1 229 = 739)\"",
++      "location": "Shao2024.pdf.md: Methods / Normative model description"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "female_n": 458,
++          "female_pct": "61.9%",
++          "male_n": 281,
++          "male_pct": "38.1%"
++        }
++      },
++      "detail": "Training phase; female_n summed from HCP and REST-meta-MDD; male_n inferred from total N (739 minus 458)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women).\"",
++      "location": "Shao2024.pdf.md: Results / Demographic and GMV Data"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "mean": "32.34 weighted",
++          "sd": "9.18 pooled",
++          "min": "18",
++          "max": "65"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HCP (mean 29.19, SD 3.50, N=510) and REST-meta-MDD (mean 39.34, SD 15.66, N=229); age in years; overall range from datasets II and III",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women).\" \"Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Results / Demographic and GMV Data; Shao2024.pdf.md: Methods / Participants"
+     }
+apply_patch(auto_approved=true) exited 0 in 11ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json b/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..d5d8da8aced6690515ad164f03748b71725883a3
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "REST-meta-MDD Project is multi-site (site 20) and is combined with HCP for normative model construction",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Human Connectome Project and REST-meta-MDD Project used to build the normative model",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "HCP; REST-meta-MDD",
++      "detail": "Human Connectome Project (dataset II) and REST-meta-MDD Project (dataset III)",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "n": 739
++        }
++      },
++      "detail": "Training phase HC; datasets II (HCP) + III (REST-meta-MDD)",
++      "confidence_rating": "High",
++      "supporting_text": "\"we estimated an age-related normative model with datasets II and III ( n = 510 1 229 = 739)\"",
++      "location": "Shao2024.pdf.md: Methods / Normative model description"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "female_n": 458,
++          "female_pct": "61.9%",
++          "male_n": 281,
++          "male_pct": "38.1%"
++        }
++      },
++      "detail": "Training phase; female_n summed from HCP and REST-meta-MDD; male_n inferred from total N (739 minus 458)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women).\"",
++      "location": "Shao2024.pdf.md: Results / Demographic and GMV Data"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "mean": "32.34 weighted",
++          "sd": "9.18 pooled",
++          "min": "18",
++          "max": "65"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HCP (mean 29.19, SD 3.50, N=510) and REST-meta-MDD (mean 39.34, SD 15.66, N=229); age in years; overall range from datasets II and III",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women).\" \"Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Results / Demographic and GMV Data; Shao2024.pdf.md: Methods / Participants"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json b/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..d5d8da8aced6690515ad164f03748b71725883a3
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "REST-meta-MDD Project is multi-site (site 20) and is combined with HCP for normative model construction",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Human Connectome Project and REST-meta-MDD Project used to build the normative model",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "HCP; REST-meta-MDD",
++      "detail": "Human Connectome Project (dataset II) and REST-meta-MDD Project (dataset III)",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "n": 739
++        }
++      },
++      "detail": "Training phase HC; datasets II (HCP) + III (REST-meta-MDD)",
++      "confidence_rating": "High",
++      "supporting_text": "\"we estimated an age-related normative model with datasets II and III ( n = 510 1 229 = 739)\"",
++      "location": "Shao2024.pdf.md: Methods / Normative model description"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "female_n": 458,
++          "female_pct": "61.9%",
++          "male_n": 281,
++          "male_pct": "38.1%"
++        }
++      },
++      "detail": "Training phase; female_n summed from HCP and REST-meta-MDD; male_n inferred from total N (739 minus 458)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women).\"",
++      "location": "Shao2024.pdf.md: Results / Demographic and GMV Data"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "mean": "32.34 weighted",
++          "sd": "9.18 pooled",
++          "min": "18",
++          "max": "65"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HCP (mean 29.19, SD 3.50, N=510) and REST-meta-MDD (mean 39.34, SD 15.66, N=229); age in years; overall range from datasets II and III",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women).\" \"Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Results / Demographic and GMV Data; Shao2024.pdf.md: Methods / Participants"
+     }
+   }
+ }
+
+
+thinking
+**Confirming final response**
+
+The quote string seems valid as is; no changes needed. The task is done, and no immediate next steps are required.
+codex
+Filled in the reference cohort extraction for Shao2024, using the HCP and REST-meta-MDD training datasets (counts, sex, age, phase, MSAD/EPD status) and computed weighted mean age and pooled SD for the combined cohort. Updated `DE_v13_Shao2024_by_codex_20260302121634339.json` with direct quotes and locations from `study_1/Shao2024.pdf.md`.
+
+If you want, I can also cross-check Table S2 in the supplemental files to confirm the demographic numbers.
+2026-03-02T03:18:20.967924Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json b/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..d5d8da8aced6690515ad164f03748b71725883a3
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121634339/DE_v13_Shao2024_by_codex_20260302121634339.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "REST-meta-MDD Project is multi-site (site 20) and is combined with HCP for normative model construction",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Human Connectome Project and REST-meta-MDD Project used to build the normative model",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "HCP; REST-meta-MDD",
++      "detail": "Human Connectome Project (dataset II) and REST-meta-MDD Project (dataset III)",
++      "confidence_rating": "High",
++      "supporting_text": "\"To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Methods / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "n": 739
++        }
++      },
++      "detail": "Training phase HC; datasets II (HCP) + III (REST-meta-MDD)",
++      "confidence_rating": "High",
++      "supporting_text": "\"we estimated an age-related normative model with datasets II and III ( n = 510 1 229 = 739)\"",
++      "location": "Shao2024.pdf.md: Methods / Normative model description"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "female_n": 458,
++          "female_pct": "61.9%",
++          "male_n": 281,
++          "male_pct": "38.1%"
++        }
++      },
++      "detail": "Training phase; female_n summed from HCP and REST-meta-MDD; male_n inferred from total N (739 minus 458)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women).\"",
++      "location": "Shao2024.pdf.md: Results / Demographic and GMV Data"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GMV normative model (AAL regions)",
++          "mean": "32.34 weighted",
++          "sd": "9.18 pooled",
++          "min": "18",
++          "max": "65"
++        }
++      },
++      "detail": "Training phase; weighted mean and pooled SD computed from HCP (mean 29.19, SD 3.50, N=510) and REST-meta-MDD (mean 39.34, SD 15.66, N=229); age in years; overall range from datasets II and III",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women).\" \"Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29).\"",
++      "location": "Shao2024.pdf.md: Results / Demographic and GMV Data; Shao2024.pdf.md: Methods / Participants"
+     }
+   }
+ }
+
+tokens used
+23,429
+Filled in the reference cohort extraction for Shao2024, using the HCP and REST-meta-MDD training datasets (counts, sex, age, phase, MSAD/EPD status) and computed weighted mean age and pooled SD for the combined cohort. Updated `DE_v13_Shao2024_by_codex_20260302121634339.json` with direct quotes and locations from `study_1/Shao2024.pdf.md`.
+
+If you want, I can also cross-check Table S2 in the supplemental files to confirm the demographic numbers.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

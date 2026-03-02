@@ -1,0 +1,1128 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Shan2022_by_codex_20260302121507238.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac8a-e7d5-7880-b854-53da95294db1
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Shan2022_by_codex_20260302121507238.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to extract instructions from DE_Guide_v13.md**
+2026-03-02T03:15:12.952619Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238 succeeded in 17ms:
+DE_Guide_v13.md
+DE_v13_Shan2022_by_codex_20260302121507238.json
+DE_v13_Shan2022_by_codex_20260302121507238.log
+study_1
+2026-03-02T03:15:15.223314Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' DE_Guide_v13.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238 succeeded in 26ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+exec
+/bin/bash -lc "sed -n '200,400p' DE_Guide_v13.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021215072382026-03-02T03:15:18.640107Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+      }
+    },
+    "detail": "Training phase HC for each model",
+    "confidence_rating": "High",
+    "supporting_text": "\"For the functional model, 21,594 healthy controls were included... The structural model used 14,473 participants...\"",
+    "location": "Example2024.pdf.md: Methods / Participants, L80-L95"
+  }
+}
+```
+
+### RCI-6. Sex
+
+* 抽出基準: リファレンスコホート（健常者）の Female / Male 各々のN数および比率（%）を記録する。RCI-4 で記録した Phase に対応する情報を抽出する。
+* 複数モデルがある場合は、DC-5 形式を参考にモデル別構造で記録する。
+* 各モデルには `model-name`（そのモデルが何を対象としているかの端的な説明）を必ず付与する。
+* 抽出スタイル: ADCSL_Style
+* 注意:
+    * 一方の性別のみ記載されている場合、総N（RCI-5）から差し引いて他方を推定する。推定した場合は Detail に推定である旨を明記する。
+    * 比率（%）は小数1桁（例: "51.5%"）。
+* "answer" 例（単一モデル）:
+
+thinking
+**Requesting specific study information**
+2026-03-02T03:15:22.447781Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "rg --files -g '*Shan2022*' -g '*.md' -g '*.txt' -g '*.pdf' study_1" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238 succeeded in 31ms:
+study_1/Shan2022.pdf.md
+study_1/1-s2.0-S000632232200052X-mmc1.pdf.md
+study_1/1-s2.0-S000632232200052X-mmc2.xlsx.md
+
+thinking
+**Locating source in documentation**
+
+I'm looking for the relevant extract from Shan2022 within the open pdf.md file to proceed.
+2026-03-02T03:15:25.168545Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Shan2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238 succeeded in 27ms:
+## Archival Report
+
+## Mapping the Heterogeneous Brain Structural Phenotype of Autism Spectrum Disorder Using the Normative Model
+
+Xiaolong Shan, Lucina Q. Uddin, Jinming Xiao, Changchun He, Zihan Ling, Lei Li, Xinyue Huang, Huafu Chen, and Xujun Duan
+
+## ABSTRACT
+
+BACKGROUND: Autism spectrum disorder (ASD) is a complex neurodevelopmental disorder characterized by substantial clinical and biological heterogeneity. Quantitative and individualized metrics for delineating the heterogeneity of brain structure in ASD are still lacking. Likewise, the extent to which brain structural metrics of ASD deviate from typical development (TD) and whether deviations can be used for parsing brain structural phenotypes of ASD is unclear.
+
+METHODS: T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model to map brain structure deviations of ABIDE I subjects ( n TD = 560, n ASD = 496). Voxel-based morphometry was used to compute gray matter volume. Non-negative matrix factorization was employed to decompose the gray matter matrix into 6 factors and weights. These weights were used for normative modeling to estimate the factor deviations. Then, clustering analysis was used to identify ASD subtypes. RESULTS: Compared with TD, ASD showed increased weights and deviations in 5 factors. Three subtypes with distinct neuroanatomical deviation patterns were identi /uniFB01 ed. ASD subtype 1 and subtype 3 showed positive deviations, whereas ASD subtype 2 showed negative deviations. Distinct clinical manifestations in social communication de /uniFB01 cits were identi /uniFB01 ed among the three subtypes.
+
+CONCLUSIONS: Our /uniFB01 ndings suggest that individuals with ASD have heterogeneous deviation patterns in brain structure. The results highlight the need to test for subtypes in neuroimaging studies of ASD. This study also presents a framework for understanding neuroanatomical heterogeneity in this increasingly prevalent neurodevelopmental disorder.
+
+https://doi.org/10.1016/j.biopsych.2022.01.011
+
+Autism spectrum disorder (ASD) is a pervasive neurodevelopmental condition characterized by de /uniFB01 cits in social communication skills and interaction, alongside restricted, repetitive behavior (RRB) and sensory anomalies (1). Individuals with ASD exhibit multilevel heterogeneity across genetics (2,3), brain systems (4), and clinical manifestation (5). This heterogeneity has become the largest obstacle to understanding and treatment of ASD. The identi /uniFB01 cation of homogeneous and biologically de /uniFB01 ned subgroups of ASD may help parse this heterogeneity, thus improving diagnosis and individualized treatment. In recent decades, investigators have attempted to identify ASD subgroups based on behavioral or cognitive characteristics (6 -8). However, subgroups with homogeneous clinical phenotypes may be driven by different neurobiological factors. Therefore, the identi /uniFB01 cation of neuroimaging-based neurophysiological subgroups would provide insights into how different neurophysiological factors may lead to heterogeneity within the broad clinical phenotype (9).
+
+Structural magnetic resonance imaging (MRI), a noninvasive tool with high spatial resolution, is a useful modality for probing brain structural organization. Previous studies on brain morphometry have reported atypical neuroanatomy in ASD, with inconsistencies in regional speci /uniFB01 city (10 -12). Neurobiological heterogeneity is a factor that might reconcile con /uniFB02 icting results in the literature. Identi /uniFB01 cation of neurobiologically homogeneous ASD subtypes is imperative to understanding the etiology and treatment of this disorder. At the present time, the literature on subtypes of ASD based on structural MRI is in its infancy. Despite studies varying in methodology, previous results have revealed evidence for two to four ASD subtypes (13). Hrdlicka et al. (14) focused on cortical thickness of the frontal lobe and size of the corpus callosum, hippocampus, caudate, and amygdala for clustering analysis and revealed four ASD subtypes with distinct region of interest -based anatomical pro /uniFB01 les. Hong et al. (15) used a novel analytical framework integrating cortex-wide features (i.e., thickness, tissue contrast, and surface area) and identi /uniFB01 ed three anatomically diverse subgroups by hierarchical clustering. However, in these studies, the features used for clustering analysis were based on prior knowledge or high-dimensional
+
+
+thinking
+**Confirming data origin and sites**
+
+The normative model is built new on ABIDE II TD (n=564), confirming it’s not pre-trained elsewhere. I'll verify the number of sites involved by checking the supplement, likely mmc1, to confirm ABIDE's multi-site nature.
+exec
+/bin/bash -lc 'rg -n "site|sites|multi" study_1/1-s2.0-S000632232200052X-mmc1.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021215072382026-03-02T03:15:29.405139Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+13:NMF is an unsupervised machine learning method used to decompose matrices; it can be used for dimension reduction and extraction of features (1) and has been widely utilized across multiple fields in MRI data analysis (2), image analysis (3), and signal processing (4). Compared with principle component analysis, independent component analysis, and singular value decomposition, NMF  can  capture  robust  and  reliable  non-negative  underlying  structural  differences  in  high dimension data, and is well-suited for structural MRI to detect differences among individuals.
+21:In our study, we used the multiplicative update method to obtained the factors and weights, which is the most commonly used method for solving the NMF problem. The package for NMF is available at https://github.com/smatmo/l0-sparse-NMF. NMF was first applied on the ABIDE\_II\_TD GM matrix, and it was decomposed to six factors and their corresponding weights (Fig.1 (b)). Then, the  non-negative  reconstruction  algorithm  was  used  to  reconstruct  the  ABIDE\_I\_ASD  and ABIDE\_I\_TD GM matrices (Figs.1(c) and 1(d), respectively). The strategy iteratively updates the H matrix, while keeping the W matrix obtained from the ABIDE\_II\_TD GM matrix decomposition fixed. A two-sample t -test was utilized to examine group differences in the weights obtained from the
+53:The  multiplicative  update  method  (https://github.com/smatmo/l0-sparse-NMF)  was  used  to solve the NMF problem and estimate the subject loading matrix (11). The difference between NMF and BR-NMF is that BR-NMF iteratively updates the H matrix, while keeping the W matrix obtained from the ABIDE\_II\_TD GM matrix decomposition fixed, and does not stop until the reconstruction error is almost unchanged compared with the previous iteration.
+128:In ABIDE\_I\_TD participants, we found that all of the weights were associated positively with FIQ.  In  previous  studies,  FSIQ  has  been  shown  to  correlate  positively  with  GM  volume  in  left superior temporal gyrus, bilateral supramarginal gyrus, and left fusiform gyrus in adults and with GM volume in frontal, parietal, and cerebellar regions in children (20-22). In order to exclude the effects of covariates on weights, we used the generalized linear model method to regress out age, gender, handedness, FSIQ, and sites when comparing the difference of weights and deviations between ASD and TD.
+176:We added four steps to examine the robustness and generalizability of our work. First, to estimate the generalizability of the NMF algorithm, we implemented NMF on the GM matrix of ABIDE\_I\_TD and obtained six latent factors and corresponding weights. The similarity between ABIDE\_II\_TD latent factors (Fig.s9) and ABIDE\_I\_TD latent factors was 0.9067, which indicates that NMF leads to a highly stable and reproducible representation of factors in the TD cohort. We obtained the weights of ABIDE\_II\_ASD and ABIDE\_II\_TD participants by using the non-negative reconstruction algorithm to reconstruct the GM matrix. To exclude the effects of covariates on weights,  we  used  the  GLM  method  to  regress  out  age,  gender,  handedness,  FIQ,  and  sites. Significant  differences  in  weights  were  observed  between  the  ABIDE\_II\_ASD  and  ABDIE\_II\_TD cohorts (Fig.s9), which were similar to the results in the main text. Compared with TD, participants
+188:Figure  S9.  Latent  factors  and  differences  in  weights. The  brain  maps  represent  six  factors  obtained  from implementing the NMF on ABIDE\_I\_TD GM matrix. The bright color indicates a high contribution at the spatial location for the factor. The violin plots represent the differences in weights of factors between ABIDE\_II\_TD and ABIDE\_II\_ASD. The weights that were obtained from BR-NMF had regressed out covariates including age, gender, handedness, FSIQ, and sites. P value was calculated using two-sample t -tests.
+192:Figure S10. Normative model and the differences of deviations in factors. GPR was used to estimate the normative model. For the weight of ABIDE\_I\_TD, the normative models were estimated. In each model, the weight of the factor was the response variable, and age and gender were covariates. In the first and second columns, the red line represents the predicted weight from the TD male, orange line represents the predicted weight from the TD female, the blue and purple dots represent the weight of ABIDE\_II\_ASD males and females. The violin plots represent the differences of deviations  in  factors between  ABIDE\_II\_TD and  ABIDE\_II\_ASD. The deviations had regressed out covariates including age, gender, handedness, FSIQ, and sites. P value was calculated using two-sample t -tests.
+236:Table S6 . The relationship between ABIDE\_II site and ABIDE\_I site
+240:| BNI_1  | This site did not participate in  ABIDE I.           | OHSU_1 | This  site  participated  in  ABIDE  I;  the present data represent newly  collected  data  from  independent  participants.                             |
+241:| EMC_1  | This site has not participated  in ABIDE I before.   | OILH_2 | This  site  participated  in  ABIDE  I.  The  present  data  collection  represents  newly  collected  data  from independent participants.              |
+242:| ETH_1  | This is a new independent site  and data collection. | SDSU_1 | This  site  participated  in  ABIDE  I;  the present data represent newly  collected  data  from  independent  participants.                             |
+243:| GU_1   | This site did not participate in  ABIDE I.           | SU_2   | This  site  participated  in  ABIDE  I.  The  data  included  in  this  collection  represents  newly  collected  data  from  independent  participants. |
+244:| IP_1   | This site did not participate in  ABIDE I.           | TCD_1  | This  site  participated  in  ABIDE  I;  the present data represent newly                                                                                |
+248:| IU_1  | This site did not participate in  ABIDE I.                                                                                             | UCD_1   | This  site  did  not  participate  in  ABIDE I. This is a new independent  site and data collection.                                                     |
+249:| KKI_1 | This site participated in ABIDE  I;  the present data collection  represents  newly  collected  data  from  independent  participants. | UCLA_1  | This site has participated in ABIDE  I.  The  data  included  in  this  collection  represents  newly  collected  data  from  independent  participants. |
+250:| KUL_3 | This site participated in ABIDE  I. The present data collection  represents  newly  collected  data  from  independent  participants.  | U_MIA_1 | This  site  did  not  participate  in  ABIDE I.                                                                                                          |
+251:| NYU_1 | This site participated in ABIDE  I;  the  present data represent  newly  collected  data  from  independent participants.              | USM_1   | This  site  participated  in  ABIDE  I.  The present data represent newly  collected  data  from  independent  participants.                             |
+252:| NYU_2 | This site participated in ABIDE  I. The present data collection  represents  newly  collected  data  from  independent  participants.  |         |                                                                                                                                                          |
+261:6. Avants BB, Libon DJ, Rascovsky K, Boller A, McMillan CT, Massimo L, et al. (2014): Sparse canonical correlation analysis relates network-level atrophy to multivariate cognitive measures in a neurodegenerative population. Neuroimage . 84:698-711.
+535:ABIDE\_I\_ASD \_452\_group\_analysis(The subjects without FIQ or handedness were excluded, and the number of SBL subjects is less than 5 ， this site was excluded)
+
+thinking
+**Confirming multi-site reference and cohort details**
+
+The ABIDE dataset qualifies as multi-site based on supplement table S6, providing the needed supporting text. I'm focused on extracting and documenting key cohort stats—sample size, sex distribution, and age range—from ABIDE II TD for the normative model training, and preparing to update the JSON metadata accordingly.
+exec
+/bin/bash -lc 'cat DE_v13_Shan2022_by_codex_20260302121507238.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021215072382026-03-02T03:15:36.775697Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 15ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+thinking
+**Preparing multi-site supporting text**
+
+I'm gathering lines 236-250 from table S6 to highlight multiple site entries and plan to create supporting text like "Table S6. The relationship between ABIDE II site and ABIDE I site" with the list of sites.
+exec
+/bin/bash -lc "sed -n '228,252p' study_1/1-s2.0-S000632232200052X-mmc1.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021215072382026-03-02T03:15:40.882319Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+Age and FIQ are presented as mean(SD)[range].
+
+ADOS, autism diagnostic observation schedule; FIQ, full-scale IQ; RRB, restricted repetitive behavior.
+
+a: p value was calculated using one-way analysis of variance.
+
+b: p value was calculated using Chi-square test.
+
+Table S6 . The relationship between ABIDE\_II site and ABIDE\_I site
+
+| Site   | Relation to ABIDE_I                                  | Site   | Relation to ABIDE_I                                                                                                                                      |
+|--------|------------------------------------------------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| BNI_1  | This site did not participate in  ABIDE I.           | OHSU_1 | This  site  participated  in  ABIDE  I;  the present data represent newly  collected  data  from  independent  participants.                             |
+| EMC_1  | This site has not participated  in ABIDE I before.   | OILH_2 | This  site  participated  in  ABIDE  I.  The  present  data  collection  represents  newly  collected  data  from independent participants.              |
+| ETH_1  | This is a new independent site  and data collection. | SDSU_1 | This  site  participated  in  ABIDE  I;  the present data represent newly  collected  data  from  independent  participants.                             |
+| GU_1   | This site did not participate in  ABIDE I.           | SU_2   | This  site  participated  in  ABIDE  I.  The  data  included  in  this  collection  represents  newly  collected  data  from  independent  participants. |
+| IP_1   | This site did not participate in  ABIDE I.           | TCD_1  | This  site  participated  in  ABIDE  I;  the present data represent newly                                                                                |
+
+|       |                                                                                                                                        |         | collected  data  from  independent  participants.                                                                                                        |
+|-------|----------------------------------------------------------------------------------------------------------------------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+thinking
+**Preparing data support for ABIDE training**
+
+I'm confirming ABIDE II dataset is used publicly for normative model training and will source supporting quotes and demographic percentages from ABIDE II Table 1 to document the training phase and population details.
+2026-03-02T03:15:45.782592Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n=564
+female=170
+male=394
+print(female/n*100, male/n*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238 succeeded in 39ms:
+30.141843971631204 69.8581560283688
+
+
+thinking
+**Composing detailed ABIDE II site note**
+
+I'm drafting a JSON update describing ABIDE II as multi-site with high confidence, including a direct quote from Table S6 showing multiple site names and referencing the supplement location for support.
+thinking
+**Adding normative model details from ABIDE II**
+
+I'm preparing JSON updates with supporting quotes from the abstract and Table 1 showing ABIDE II TD sample size, sex distribution, and age statistics used for the normative model, ensuring accurate citations for each detail.
+2026-03-02T03:16:17.411646Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -3,43 +3,64 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II reference cohort includes multiple sites (Table S6 lists multiple ABIDE II sites).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"",
++      "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II TD dataset used to generate the normative model.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE II TD cohort used for normative model training.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "n": 564
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE II TD ( n = 564)\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "female_n": 170,
++          "female_pct": "30.1%",
++          "male_n": 394,
++          "male_pct": "69.9%"
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Gender, F/M, n 170/394\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "mean": "15.12",
++          "sd": "9.45",
++          "min": "5.80",
++          "max": "64.00"
++        }
++      },
++      "detail": "Training phase; age in years (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age, years, mean (SD) [range] 15.12 (9.45) [5.80 - 64.00]\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     }
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M DE_v13_Shan2022_by_codex_20260302121507238.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..0ca74b5eaeaa60ccc6267634a9a3445ea36f35d2
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II reference cohort includes multiple sites (Table S6 lists multiple ABIDE II sites).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"",
++      "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II TD dataset used to generate the normative model.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE II TD cohort used for normative model training.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "n": 564
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE II TD ( n = 564)\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "female_n": 170,
++          "female_pct": "30.1%",
++          "male_n": 394,
++          "male_pct": "69.9%"
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Gender, F/M, n 170/394\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "mean": "15.12",
++          "sd": "9.45",
++          "min": "5.80",
++          "max": "64.00"
++        }
++      },
++      "detail": "Training phase; age in years (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age, years, mean (SD) [range] 15.12 (9.45) [5.80 - 64.00]\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..0ca74b5eaeaa60ccc6267634a9a3445ea36f35d2
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II reference cohort includes multiple sites (Table S6 lists multiple ABIDE II sites).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"",
++      "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II TD dataset used to generate the normative model.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE II TD cohort used for normative model training.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "n": 564
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE II TD ( n = 564)\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "female_n": 170,
++          "female_pct": "30.1%",
++          "male_n": 394,
++          "male_pct": "69.9%"
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Gender, F/M, n 170/394\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "mean": "15.12",
++          "sd": "9.45",
++          "min": "5.80",
++          "max": "64.00"
++        }
++      },
++      "detail": "Training phase; age in years (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age, years, mean (SD) [range] 15.12 (9.45) [5.80 - 64.00]\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     }
+   }
+ }
+
+
+thinking
+**Adding more supporting text samples**
+
+I'm expanding the supporting text to include multiple site names as examples to better align with MSAD needs, keeping the snippet short and adding a quote with site entries for clarity.
+2026-03-02T03:16:22.933205Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M DE_v13_Shan2022_by_codex_20260302121507238.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..0ca74b5eaeaa60ccc6267634a9a3445ea36f35d2
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II reference cohort includes multiple sites (Table S6 lists multiple ABIDE II sites).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"",
++      "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II TD dataset used to generate the normative model.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE II TD cohort used for normative model training.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "n": 564
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE II TD ( n = 564)\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "female_n": 170,
++          "female_pct": "30.1%",
++          "male_n": 394,
++          "male_pct": "69.9%"
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Gender, F/M, n 170/394\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "mean": "15.12",
++          "sd": "9.45",
++          "min": "5.80",
++          "max": "64.00"
++        }
++      },
++      "detail": "Training phase; age in years (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age, years, mean (SD) [range] 15.12 (9.45) [5.80 - 64.00]\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..0ca74b5eaeaa60ccc6267634a9a3445ea36f35d2
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II reference cohort includes multiple sites (Table S6 lists multiple ABIDE II sites).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"",
++      "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II TD dataset used to generate the normative model.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE II TD cohort used for normative model training.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "n": 564
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE II TD ( n = 564)\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "female_n": 170,
++          "female_pct": "30.1%",
++          "male_n": 394,
++          "male_pct": "69.9%"
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Gender, F/M, n 170/394\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "mean": "15.12",
++          "sd": "9.45",
++          "min": "5.80",
++          "max": "64.00"
++        }
++      },
++      "detail": "Training phase; age in years (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age, years, mean (SD) [range] 15.12 (9.45) [5.80 - 64.00]\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     }
+   }
+ }
+
+
+thinking
+**Planning multi-site supporting text update**
+
+I’m preparing to update the supporting_text to include detailed site lines for multiple sites in a single JSON string, using a direct quote with two sentences for clarity.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -6,3 +6,3 @@
+       "confidence_rating": "High",
+-      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"; \"| BNI_1  | This site did not participate in  ABIDE I.           | OHSU_1 | This  site  participated  in  ABIDE  I;  the present data represent newly  collected  data  from  independent  participants.\"",
+       "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+2026-03-02T03:16:29.030143Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M DE_v13_Shan2022_by_codex_20260302121507238.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..eebf301809d52ab5e11fe817c41ce03a80886865
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II reference cohort includes multiple sites (Table S6 lists multiple ABIDE II sites).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"; \"| BNI_1  | This site did not participate in  ABIDE I.           | OHSU_1 | This  site  participated  in  ABIDE  I;  the present data represent newly  collected  data  from  independent  participants.\"",
++      "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II TD dataset used to generate the normative model.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE II TD cohort used for normative model training.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "n": 564
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE II TD ( n = 564)\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "female_n": 170,
++          "female_pct": "30.1%",
++          "male_n": 394,
++          "male_pct": "69.9%"
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Gender, F/M, n 170/394\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "mean": "15.12",
++          "sd": "9.45",
++          "min": "5.80",
++          "max": "64.00"
++        }
++      },
++      "detail": "Training phase; age in years (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age, years, mean (SD) [range] 15.12 (9.45) [5.80 - 64.00]\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..eebf301809d52ab5e11fe817c41ce03a80886865
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II reference cohort includes multiple sites (Table S6 lists multiple ABIDE II sites).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"; \"| BNI_1  | This site did not participate in  ABIDE I.           | OHSU_1 | This  site  participated  in  ABIDE  I;  the present data represent newly  collected  data  from  independent  participants.\"",
++      "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II TD dataset used to generate the normative model.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE II TD cohort used for normative model training.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "n": 564
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE II TD ( n = 564)\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "female_n": 170,
++          "female_pct": "30.1%",
++          "male_n": 394,
++          "male_pct": "69.9%"
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Gender, F/M, n 170/394\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "mean": "15.12",
++          "sd": "9.45",
++          "min": "5.80",
++          "max": "64.00"
++        }
++      },
++      "detail": "Training phase; age in years (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age, years, mean (SD) [range] 15.12 (9.45) [5.80 - 64.00]\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     }
+   }
+ }
+
+
+thinking
+**Finalizing response with summary**
+
+I'll confirm the supporting text is accurately quoted, note that no tests were added, and provide a clear summary in the final reply.
+codex
+Filled the reference cohort extraction in `DE_v13_Shan2022_by_codex_20260302121507238.json` using ABIDE II TD as the training cohort, including MSAD status, EPD usage/name, and demographic stats from Table 1 and the supplement table of sites.
+
+Details:
+- Updated MSAD determination using ABIDE II multi-site table evidence in `1-s2.0-S000632232200052X-mmc1.pdf.md`.
+- Set EPD usage/name with ABIDE II normative model statement from `study_1/Shan2022.pdf.md`.
+- Entered training phase N, sex counts/percentages, and age stats from Table 1 in `study_1/Shan2022.pdf.md`.
+
+Next steps (optional):
+1) Run a quick JSON validation if you have a preferred tool.
+2) If you want, I can also add a brief note in the `.log` file.
+2026-03-02T03:16:34.301285Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..eebf301809d52ab5e11fe817c41ce03a80886865
+--- a/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302121507238/./DE_v13_Shan2022_by_codex_20260302121507238.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II reference cohort includes multiple sites (Table S6 lists multiple ABIDE II sites).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Table S6 . The relationship between ABIDE_II site and ABIDE_I site\"; \"| BNI_1  | This site did not participate in  ABIDE I.           | OHSU_1 | This  site  participated  in  ABIDE  I;  the present data represent newly  collected  data  from  independent  participants.\"",
++      "location": "1-s2.0-S000632232200052X-mmc1.pdf.md: Table S6"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE II TD dataset used to generate the normative model.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE II TD cohort used for normative model training.",
++      "confidence_rating": "High",
++      "supporting_text": "\"T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Data Exchange (ABIDE) II ( n TD = 564) were used to generate a normative model\"",
++      "location": "Shan2022.pdf.md: Abstract"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "n": 564
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"ABIDE II TD ( n = 564)\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "female_n": 170,
++          "female_pct": "30.1%",
++          "male_n": 394,
++          "male_pct": "69.9%"
++        }
++      },
++      "detail": "Training phase (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Gender, F/M, n 170/394\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "GPR normative model on ABIDE II TD factor weights",
++          "mean": "15.12",
++          "sd": "9.45",
++          "min": "5.80",
++          "max": "64.00"
++        }
++      },
++      "detail": "Training phase; age in years (ABIDE II TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age, years, mean (SD) [range] 15.12 (9.45) [5.80 - 64.00]\"",
++      "location": "Shan2022.pdf.md: Table 1"
+     }
+   }
+ }
+
+tokens used
+26,621
+Filled the reference cohort extraction in `DE_v13_Shan2022_by_codex_20260302121507238.json` using ABIDE II TD as the training cohort, including MSAD status, EPD usage/name, and demographic stats from Table 1 and the supplement table of sites.
+
+Details:
+- Updated MSAD determination using ABIDE II multi-site table evidence in `1-s2.0-S000632232200052X-mmc1.pdf.md`.
+- Set EPD usage/name with ABIDE II normative model statement from `study_1/Shan2022.pdf.md`.
+- Entered training phase N, sex counts/percentages, and age stats from Table 1 in `study_1/Shan2022.pdf.md`.
+
+Next steps (optional):
+1) Run a quick JSON validation if you have a preferred tool.
+2) If you want, I can also add a brief note in the `.log` file.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

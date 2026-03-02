@@ -50,7 +50,7 @@ show_help() {
     cat << EOF
 使用方法: ${this_script_name} [OPTIONS]
 
-AIエージェント（Gemini, Claude, Codex）を使用して、
+AIエージェント（Gemini, Claude, Codex, Copilot等）を使用して、
 データ抽出（DE）または品質評価（QA）を自動実行するスクリプトです。
 
 オプション:
@@ -158,7 +158,7 @@ if [[ -z "${DE_Name}" ]]; then
 fi
 
 # AIエージェント名の検証
-if [[ ! "${AiAgentName}" =~ ^(gemini|claude|codex)$ ]]; then
+if [[ ! "${AiAgentName}" =~ ^(gemini|claude|codex|cgemini|opus)$ ]]; then
     echo "エラー: 無効なAIエージェント名: ${AiAgentName}"
     echo "有効な値: gemini, claude, codex"
     exit 1
@@ -304,7 +304,67 @@ function askAiAgent(){
     _actual_run=$4
     _log_file_name=$5
 
-    if [[ ${_ai_agent_name} == "gemini" ]]; then
+if [[ ${_ai_agent_name} == "opus" ]]; then
+        techo ""
+        techo "========== Opus via Copilot コマンド =========="
+        techo "copilot  --prompt \\"
+        techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
+        techo "    --model \"claude-opus-4.6\" \\"
+        techo "    --allow-all-tools \\"
+        techo "    --add-dir . \\"
+        techo "    --deny-url \"*\" "
+        techo "===================================="
+        techo ""
+
+        if [[ ${_actual_run} == true ]]; then
+            sleep 3
+            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+            techo "Opus via Copilot が作業を実行中..."
+            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+
+            copilot --prompt "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
+                --model "claude-opus-4.6" \
+                --allow-all-tools \
+                --add-dir . \
+                --deny-url "*" \
+                2>&1 | tee -a ${_log_file_name}
+
+            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            techo "Opus via Copilot による作業が完了しました"
+            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+        fi
+
+   elif [[ ${_ai_agent_name} == "cgemini" ]]; then
+        techo ""
+        techo "========== Gemini via Copilot コマンド =========="
+        techo "copilot  --prompt \\"
+        techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
+        techo "    --model \"gemini-3-pro-preview\" \\"
+        techo "    --allow-all-tools \\"
+        techo "    --add-dir . \\"
+        techo "    --deny-url \"*\" "
+        techo "===================================="
+        techo ""
+
+        if [[ ${_actual_run} == true ]]; then
+            sleep 3
+            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+            techo "Gemini via Copilot が作業を実行中..."
+            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+
+            copilot --prompt "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
+                --model "gemini-3-pro-preview" \
+                --allow-all-tools \
+                --add-dir . \
+                --deny-url "*" \
+                2>&1 | tee -a ${_log_file_name}
+
+            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            techo "Gemini via Copilot による作業が完了しました"
+            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+        fi
+
+    elif [[ ${_ai_agent_name} == "gemini" ]]; then
         techo ""
         techo "========== Gemini コマンド =========="
         techo "gemini -p \\"

@@ -1,0 +1,638 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Kia2022_by_codex_20260302111238779.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302111238779/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac51-b565-71e0-97c4-4ed7ab6dfcb1
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Kia2022_by_codex_20260302111238779.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Deciding how to access instructions**
+
+Considering whether to open the guide directly or use a search tool to locate relevant instructions before proceeding.
+2026-03-02T02:12:44.242583Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302111238779 succeeded in 18ms:
+DE_Guide_v13.md
+DE_v13_Kia2022_by_codex_20260302111238779.json
+DE_v13_Kia2022_by_codex_20260302111238779.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021112387792026-03-02T02:12:46.585133Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Locating study data files**
+
+I'm checking the study_1 directory to find the necessary data files for analysis.
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021112387792026-03-02T02:12:52.456965Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+Kia2022.pdf.md
+Kia2022_artifacts
+Kia2022_sup.pdf.md
+Kia2022_sup_artifacts
+
+thinking
+**Planning model build extraction**
+
+I'm locating the Kia2022 markdown file and planning to search it for model build information using ripgrep.
+2026-03-02T02:12:56.836258Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|model build|pre-trained|training|train" -i Kia2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302111238779/study_1 succeeded in 35ms:
+7:Citation: Kia SM, Huijsdens H, Rutherford S, de Boer A, Dinga R, Wolfers T, et al. (2022) Closing the life-cycle of normative modeling using federated hierarchical Bayesian regression. PLoS ONE 17(12): e0278776. https://doi.org/10.1371/ journal.pone.0278776
+23:## Closing the life-cycle of normative modeling using federated hierarchical Bayesian regression
+35:Clinical neuroimaging data availability has grown substantially in the last decade, providing the potential for studying heterogeneity in clinical cohorts on a previously unprecedented scale. Normative modeling is an emerging statistical tool for dissecting heterogeneity in complex brain disorders. However, its application remains technically challenging due to medical data privacy issues and difficulties in dealing with nuisance variation, such as the variability in the image acquisition process. Here, we approach the problem of estimating a reference normative model across a massive population using a massive multi-center neuroimaging dataset. To this end, we introduce a federated probabilistic framework using hierarchical Bayesian regression (HBR) to complete the life-cycle of normative modeling. The proposed model provides the possibilities to learn, update, and adapt the model parameters on decentralized neuroimaging data. Our experimental results confirm the superiority of HBRin deriving more accurate normative ranges on large multi-site neuroimaging datasets compared to the current standard methods. In addition, our approach provides the possibility to recalibrate and reuse the learned model on local datasets and even on datasets with very small sample sizes. The proposed method will facilitate applications of normative modeling as a medical tool for screening the biological deviations in individuals affected by complex illnesses such as mental disorders.
+39:Normative modeling was recently introduced as a statistical framework for studying the biological heterogeneity of mental disorders in clinical neuroimaging cohorts [1]. Normative
+49:modeling involves estimating the centiles of variation, i.e ., the normative ranges, of a biological brain measure ( e.g ., ROI cortical thickness, ROI volume, functional connectivity) as a function of clinical covariates. This is performed via regressing the units of neuroimaging data ( e.g ., a voxel in structural or functional MRIs) against a set of clinically relevant covariates ( e.g ., age). Analogous to the use of 'growth charts' in pediatric medicine, such a mapping function provides a norm for the changes in the structure or functional dynamics of the brain across the human lifespan [2]. Deviations of individuals from the normative range can be quantified as zscores [3]. This approach has recently been used to dissect the heterogeneity of several mental disorders [4-7], providing compelling evidence that brain abnormalities of patients with psychiatric disorders cannot be captured in a case-control setting, i.e ., by average group differences between patients with a specific disorder and healthy controls. Thus, normative modeling allows us to enhance classical symptom-based diagnostics by incorporating biological and environmental factors in a principled way. Such a paradigm change will hopefully result in developing effective biological tests and individualized treatments to improve the quality of life of patients with psychiatric, neurodevelopmental, and neurodegenerative disorders [8, 9].
+51:The success of normative modeling depends on the accuracy of estimating the norm and the variability around this norm for a certain brain measure (or putative biomarker) across a population. Therefore, massive data availability from a large and diverse population, extensive computational resources, and intelligent modeling techniques play pivotal roles. The advancements in data sharing standards [10] and protocols [11-13] led to an exponential growth in neuroimaging data availability. Neuroimaging groups worldwide join forces in international consortia leading to clinical neuroimaging studies that are orders of magnitude larger today than a decade ago [10, 14, 15]. This trend has just begun, and with the recent advances in highperformance computing technologies such as grid computing, cloud computing, and GPU technologies, we now possess enough computational power to store and process these massive datasets. Furthermore, progress in artificial intelligence and machine learning over the last decades brought ubiquitous applications in healthcare. These developments are the foundations for large-scale normative modeling.
+53:In this article, we attack the problem of estimating a reference normative model on decentralized multi-center neuroimaging data. Developing such a reference normative model is challenged in practice by two main obstacles. First, it requires aggregating smaller neuroimaging datasets acquired at several imaging centers with different acquisition protocols and scanners. Furthermore, the data is often processed using various preprocessing pipelines and toolboxes, each of which leaves its signature on the final derived statistics [16], referred to as site-effects . Site-effects introduce artefactual variability in data which confounds the derived deviations in normative modeling [3]. Thus, the practical application of normative modeling as a medical tool is limited as the data collected at different centers may express variable characteristics. To this end, developing effective methods to deal with these confounds is essential. The second barrier in deriving a reference normative model and deploying it as a medical tool at local clinical centers is data privacy [17, 18]. Clinical data are always subject to privacy regulations and cannot be distributed freely without acquiring appropriate consent. This fact challenges the centralized model estimation in which the model estimation algorithm requires access to whole data at once. Therefore, it is essential to decentralize the model estimation phase by developing a federated learning [18-21] approach for normative modeling.
+55:Federated learning (FL) [19] offers a natural solution for decentralizing the learning process of a reference normative model on distributed data. In FL, multiple local data centers (clients) collaborate in learning the parameters of a machine learning model [22]. This process is generally orchestrated by a central server that handles the distribution and aggregation of model
+59:In this study, we first sketch the life-cycle of normative modeling. Then, we show how a hierarchical Bayesian regression (HBR) [23] model can be employed to close this life-cycle. To this end, we extend our previous effort in using HBR for multi-site normative modeling [24] by introducing a fully probabilistic federated learning framework for normative modeling on decentralized neuroimaging data. Our method offers several notable features: i) it provides the possibility of federated model estimation/calibration on decentralized data; ii) it can handle the site-effect in multi-center neuroimaging data without the need for data harmonization, thus largely avoids its shortcomings ( e.g ., removing too much variance when site effects are correlated with effects of interest); iii) it is suitable for federated learning on non-IID data from multiple sites; iv) it offers a mechanism for few-shot learning on small local data thus is suitable for federated learning on unbalanced data distributions; v) given its probabilistic nature, it provides estimations of phenomenological variability in data and epistemological uncertainty in the model [25], thus is well-suited for normative modeling; and vi) it is highly flexible and accommodates different modeling choices ( e.g ., non-linear effects or heteroscedastic noise). More specifically, our contribution extends our previous conference publication [24] in methodological and experimental aspects. From the methodological point of view, here and for the first time, we use the generative nature of the HBR model to estimate/update model parameters in a federative manner and on decentralized data. From the experimental point of view, we scaled up the size of our experimental data from 7 to 16 datasets, from 33 to 79 scanners, and from 7499 to 37126 scans. We have also added several experiments including i) performance comparison with polynomial and B-spline models, ii) the performance comparison between centralized and decentralized scenarios, and iii) few-shot learning in the extremely unbalanced data distribution. Our experimental results on massive neuroimaging data demonstrate the effectiveness of the proposed FL framework in several scenarios for developing and deploying a reference normative model on decentralized data.
+63:In this section, we discuss the components involved in this life-cycle of normative modeling and their technical requirements in model development and deployment stages. After formalizing the definition of normative modeling in a machine learning setting, we review possible existing solutions for normative modeling on multi-site data and their limitations. Then, we show how the hierarchical Bayesian framework is used to overcome these limitations and close the life-cycle of normative modeling. Finally, we describe the experimental materials and setups used to validate the proposed solution.
+65:## Normative modeling: The life-cycle
+67:The complete pipeline of normative modeling, Fig 1, is comprised of two main components i) model development and ii) model deployment. The model development refers to the i) estimation of an early version of a reference model on a multi-center initial dataset and ii) iterative and cyclic process of updating its parameters on newly observed data from new centers over
+73:Fig 1. Model development and model deployment in the normative model life-cycle. In the model development phase, the parameters of the reference model are estimated on d datasets ( D 1 , D 2 , . . . , Dd ). The model extension loop provides the possibility of model development on decentralized data at time point t . In the model deployment phase, the parameters of the reference model are adapted to local data at hospitals or research centers.
+79:time. The model deployment refers to the process of adapting the parameters of the reference model to local data, e.g ., at local hospitals or research centers. We refer to this complete pipeline as a life-cycle because it contains all the operations needed for estimating, updating, adapting, and applying a reference normative model.
+81:However, implementing the life-cycle of normative modeling is not straightforward due to the real-world limitations in multi-site data analysis and data privacy/access issues. To address these issues, the modeling approach that is employed for estimating the parameters of the normative model must have four vital features:
+85:3. It should apply to both centralized and decentralized data. The centralized data refers to the scenario in which all training data are available for model estimation. In the decentralized case, the data are distributed across different centers, and data sharing and transfer are not possible due to privacy issues;
+90:In the remaining text of this section, we present practical solutions for implementing these features. To this end, we first formally define the normative modeling procedure.
+92:## Normative modeling: The formal definition
+94:Let X 2 R n � p represent a matrix of p clinical covariates for n participants. We denote the corresponding neuroimaging measures at each measurement unit ( e.g ., a voxel) by y 2 R n . Assuming a Gaussian distribution over each neuroimaging measure, i.e ., y � N ð m ; s 2 Þ , in normative modeling we are interested in finding a parametric or non-parametric form for μ and σ given the covariates in X . Then, for example, μ ± 1.96 σ forms the 95% percentile for the normative range of y . To estimate μ and σ , we parametrize them respectively on f μ ( X , θμ ) and f þ s ð X ; y s Þ , where θμ and θσ are the parameters of f μ and f þ s . Here, f þ s is a non-negative function that estimates the standard deviation of heteroscedastic noise in data. The homoscedastic formulation is a specific case where σ is independent of X . The non-negativity of f þ s can be enforced for example using the softplus function f þ s ¼ log ð 1 þ exp ð f s ÞÞ [27-29].
+96:In the normative modeling context, the deviations of samples from the normative range are quantified as z-scores [1]:
+
+thinking
+**Searching for participants details**
+2026-03-02T02:13:01.159049Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Participants|Subjects|Dataset|Datasets|healthy" -i Kia2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302111238779/study_1 succeeded in 24ms:
+19:Data Availability Statement: The ABCD data are available at https://nda.nih.gov/abcd/ (DOI: 10. 15154/1523041). The CamCAN data are available at https://www.cam-can.com/. The CMI data are available at http://fcon\_1000.projects.nitrc.org/indi/ cmi\_healthy\_brain\_network/sharing\_neuro.html. The CNP data are available at https://legacy. openfmri.org/dataset/ds000030/ (accession number ds000030). The FCON data are available at http://fcon\_1000.projects.nitrc.org/fcpClassic/ FcpTable.html. The HCP data are available at https://www.humanconnectome.org/study/hcp-
+35:Clinical neuroimaging data availability has grown substantially in the last decade, providing the potential for studying heterogeneity in clinical cohorts on a previously unprecedented scale. Normative modeling is an emerging statistical tool for dissecting heterogeneity in complex brain disorders. However, its application remains technically challenging due to medical data privacy issues and difficulties in dealing with nuisance variation, such as the variability in the image acquisition process. Here, we approach the problem of estimating a reference normative model across a massive population using a massive multi-center neuroimaging dataset. To this end, we introduce a federated probabilistic framework using hierarchical Bayesian regression (HBR) to complete the life-cycle of normative modeling. The proposed model provides the possibilities to learn, update, and adapt the model parameters on decentralized neuroimaging data. Our experimental results confirm the superiority of HBRin deriving more accurate normative ranges on large multi-site neuroimaging datasets compared to the current standard methods. In addition, our approach provides the possibility to recalibrate and reuse the learned model on local datasets and even on datasets with very small sample sizes. The proposed method will facilitate applications of normative modeling as a medical tool for screening the biological deviations in individuals affected by complex illnesses such as mental disorders.
+41:young-adult/document/1200-subjects-datarelease. The HCPAG data are available at https:// www.humanconnectome.org/study/hcp-lifespanaging/data-releases. HCPDV data are available at https://www.humanconnectome.org/study/hcplifespan-development/data-releases. HCPEP data are available at https://www.humanconnectome. org/study/human-connectome-project-for-earlypsychosis. IXI data are available at https://braindevelopment.org/ixi-dataset/. NKI data are available at https://fcon\_1000.projects.nitrc.org/indi/pro/nki. html. OASIS3 dataset is available at https://www. oasis-brains.org/. The OPN dataset is available at https://openneuro.org/. PNC data are available at https://www.med.upenn.edu/bbl/ philadelphianeurodevelopmentalcohort.html. UKBB data are accessible at https://biobank.ctsu.ox.ac. uk/crystal/exinfo.cgi?src=accessing\_data\_guide.
+49:modeling involves estimating the centiles of variation, i.e ., the normative ranges, of a biological brain measure ( e.g ., ROI cortical thickness, ROI volume, functional connectivity) as a function of clinical covariates. This is performed via regressing the units of neuroimaging data ( e.g ., a voxel in structural or functional MRIs) against a set of clinically relevant covariates ( e.g ., age). Analogous to the use of 'growth charts' in pediatric medicine, such a mapping function provides a norm for the changes in the structure or functional dynamics of the brain across the human lifespan [2]. Deviations of individuals from the normative range can be quantified as zscores [3]. This approach has recently been used to dissect the heterogeneity of several mental disorders [4-7], providing compelling evidence that brain abnormalities of patients with psychiatric disorders cannot be captured in a case-control setting, i.e ., by average group differences between patients with a specific disorder and healthy controls. Thus, normative modeling allows us to enhance classical symptom-based diagnostics by incorporating biological and environmental factors in a principled way. Such a paradigm change will hopefully result in developing effective biological tests and individualized treatments to improve the quality of life of patients with psychiatric, neurodevelopmental, and neurodegenerative disorders [8, 9].
+51:The success of normative modeling depends on the accuracy of estimating the norm and the variability around this norm for a certain brain measure (or putative biomarker) across a population. Therefore, massive data availability from a large and diverse population, extensive computational resources, and intelligent modeling techniques play pivotal roles. The advancements in data sharing standards [10] and protocols [11-13] led to an exponential growth in neuroimaging data availability. Neuroimaging groups worldwide join forces in international consortia leading to clinical neuroimaging studies that are orders of magnitude larger today than a decade ago [10, 14, 15]. This trend has just begun, and with the recent advances in highperformance computing technologies such as grid computing, cloud computing, and GPU technologies, we now possess enough computational power to store and process these massive datasets. Furthermore, progress in artificial intelligence and machine learning over the last decades brought ubiquitous applications in healthcare. These developments are the foundations for large-scale normative modeling.
+53:In this article, we attack the problem of estimating a reference normative model on decentralized multi-center neuroimaging data. Developing such a reference normative model is challenged in practice by two main obstacles. First, it requires aggregating smaller neuroimaging datasets acquired at several imaging centers with different acquisition protocols and scanners. Furthermore, the data is often processed using various preprocessing pipelines and toolboxes, each of which leaves its signature on the final derived statistics [16], referred to as site-effects . Site-effects introduce artefactual variability in data which confounds the derived deviations in normative modeling [3]. Thus, the practical application of normative modeling as a medical tool is limited as the data collected at different centers may express variable characteristics. To this end, developing effective methods to deal with these confounds is essential. The second barrier in deriving a reference normative model and deploying it as a medical tool at local clinical centers is data privacy [17, 18]. Clinical data are always subject to privacy regulations and cannot be distributed freely without acquiring appropriate consent. This fact challenges the centralized model estimation in which the model estimation algorithm requires access to whole data at once. Therefore, it is essential to decentralize the model estimation phase by developing a federated learning [18-21] approach for normative modeling.
+59:In this study, we first sketch the life-cycle of normative modeling. Then, we show how a hierarchical Bayesian regression (HBR) [23] model can be employed to close this life-cycle. To this end, we extend our previous effort in using HBR for multi-site normative modeling [24] by introducing a fully probabilistic federated learning framework for normative modeling on decentralized neuroimaging data. Our method offers several notable features: i) it provides the possibility of federated model estimation/calibration on decentralized data; ii) it can handle the site-effect in multi-center neuroimaging data without the need for data harmonization, thus largely avoids its shortcomings ( e.g ., removing too much variance when site effects are correlated with effects of interest); iii) it is suitable for federated learning on non-IID data from multiple sites; iv) it offers a mechanism for few-shot learning on small local data thus is suitable for federated learning on unbalanced data distributions; v) given its probabilistic nature, it provides estimations of phenomenological variability in data and epistemological uncertainty in the model [25], thus is well-suited for normative modeling; and vi) it is highly flexible and accommodates different modeling choices ( e.g ., non-linear effects or heteroscedastic noise). More specifically, our contribution extends our previous conference publication [24] in methodological and experimental aspects. From the methodological point of view, here and for the first time, we use the generative nature of the HBR model to estimate/update model parameters in a federative manner and on decentralized data. From the experimental point of view, we scaled up the size of our experimental data from 7 to 16 datasets, from 33 to 79 scanners, and from 7499 to 37126 scans. We have also added several experiments including i) performance comparison with polynomial and B-spline models, ii) the performance comparison between centralized and decentralized scenarios, and iii) few-shot learning in the extremely unbalanced data distribution. Our experimental results on massive neuroimaging data demonstrate the effectiveness of the proposed FL framework in several scenarios for developing and deploying a reference normative model on decentralized data.
+67:The complete pipeline of normative modeling, Fig 1, is comprised of two main components i) model development and ii) model deployment. The model development refers to the i) estimation of an early version of a reference model on a multi-center initial dataset and ii) iterative and cyclic process of updating its parameters on newly observed data from new centers over
+73:Fig 1. Model development and model deployment in the normative model life-cycle. In the model development phase, the parameters of the reference model are estimated on d datasets ( D 1 , D 2 , . . . , Dd ). The model extension loop provides the possibility of model development on decentralized data at time point t . In the model deployment phase, the parameters of the reference model are adapted to local data at hospitals or research centers.
+84:2. In the development phase, it should have the possibility of updating the parameters of the reference model over time and when new datasets are available, without requiring access to the full primary dataset. We refer to this process as model extension;
+94:Let X 2 R n � p represent a matrix of p clinical covariates for n participants. We denote the corresponding neuroimaging measures at each measurement unit ( e.g ., a voxel) by y 2 R n . Assuming a Gaussian distribution over each neuroimaging measure, i.e ., y � N ð m ; s 2 Þ , in normative modeling we are interested in finding a parametric or non-parametric form for μ and σ given the covariates in X . Then, for example, μ ± 1.96 σ forms the 95% percentile for the normative range of y . To estimate μ and σ , we parametrize them respectively on f μ ( X , θμ ) and f þ s ð X ; y s Þ , where θμ and θσ are the parameters of f μ and f þ s . Here, f þ s is a non-negative function that estimates the standard deviation of heteroscedastic noise in data. The homoscedastic formulation is a specific case where σ is independent of X . The non-negativity of f þ s can be enforced for example using the softplus function f þ s ¼ log ð 1 þ exp ð f s ÞÞ [27-29].
+104:Let y i 2 R n i denote neuroimaging measures for ni participants in the i th group, i 2 {1, . . . , m }, of data and we have y i � N ð m i ; s 2 i Þ . Here, a group refers to any non-ordinal categorical variable such as a batch-effect (that causes unwanted and non-biological variation in data) or other biologically relevant variables such as sex or ethnicity. In this article, since the focus is on multi-site normative modeling, we use the term 'batch' to refer to each group (otherwise mentioned) where each batch refers to data that are collected at different imaging sites. However, our formulations are general for application on other possible batch-effects ( e.g ., processing software version) or biologically relevant group-effects ( e.g ., sex and ethnicity).
+174:Model extension using HBR. Considering the Bayesian nature of the HBR, once the parameters and hyperparameters of the model for a specific brain measure y i are inferred, we can use the generative nature of the model to simulate synthetic neuroimaging measures ^ y i by sampling from the posterior predictive distribution of the model. In the normative modeling context, each generated sample represents the data for a single healthy participant. We exploit this property to implement the extension loop in the model development process. The model extension loop in Fig 1 can be expanded to a repetitive process of data generation and model estimation as illustrated in Fig 3. Here, we assume that we have access to the data from a single dataset at stage i of the model estimation. To estimate the model parameters at stage i , the synthetic data generated for 1, . . . , i -1 stages are used to set up the complete dataset for parameter estimation.
+176:In this scheme, if each stage is defined as a time interval, then the model extension loop can be used to update the model parameters over time and when new datasets are available. On the other hand, if each stage is defined as the geographical data distribution across data centers, then the model expansion loop can be used to train a reference normative model on decentralized data. These characteristics are crucial to maintaining the life-cycle of normative modeling.
+178:Model adaptation by transferring parameters. Importantly, HBR also provides the possibility to transfer the knowledge inferred about the distribution of hyperparameters from a primary set of observed data y (in the model development process) to secondary datasets from new sites y � when deploying model at local centers. To achieve this, we propose to use posterior distributions of hyperparameters of the reference normative model, i.e ., p ð m y m j y Þ , p ð s y m j y Þ , p ð m y s j y Þ , and p ð s y s j y Þ , as informative hyperpriors for the secondary model.
+194:The core aim of normative modeling is to derive the normative range for a structural or functional brain measure. Therefore, we only need data from healthy participants to derive the model (although normative models can also be estimated from other populations). This property is advantageous given the excess of data availability for healthy populations compared to clinical populations. If successful, then any large deviation from this normative range is interpreted as an abnormality in the brain that can be studied concerning different mental disorders. Given the normal distribution of z-scores and without any assumption on the direction of abnormal samples (left or right tail), these abnormalities can be quantified in the form of a probability by computing the area of the shaded region in Fig 4. To this end, each z-score z 2 z in Eq 1 can be mapped to its corresponding abnormal probability index Pabn ( z ) as follows (for more details on derivation see appendix Calculating the abnormal probability index in the S1 File):
+204:Datasets and preprocessing. Table 1 lists the 16 neuroimaging datasets that are used in our experiments. For the ABCD dataset [15], we used data from the first imaging timepoint for subjects included in the v 2.0.1 curated release. For the UK Biobank (UKBB) study [10], we used approximately 15000 subjects derived from the 2017 release. For the Human Connectome Project aging, development and early psychosis studies (HCPAG, HCPDV and HCPEP,
+212:respectively) we used data from the 1.0 data release. Further details surrounding the other datasets can be found in the relevant papers listed in Table 1. Ethical approval for the public data were provided by the relevant local research authorities for the studies contributing data. All subjects provide written informed consent for their data to be used for the purposes reported in this manuscript. For the public datasets, if there are minors ( e.g ., under 18 years), then this consent was also provided by the parent or guardian. For the clinical data in the TOP dataset, approval was obtained via the Regional Committee for Medical Health Research Ethics South East Norway Approval number 2009/2485 -C .
+214:Wehave excluded participants with missing demographic (age/sex) information and those with poor quality imaging data. We excluded 1566 (4%) subjects due to low-quality images. Subjects were excluded if their scan-site median-centered absolute Euler number was higher than 25. The Euler numbers are computed as a part of standard recon-all Freesurfer [54] pipeline. The exclusion of outliers based on Euler numbers has been shown to be a reliable quality control strategy in large neuroimaging cohorts [55, 56]. Median centering is necessary because the Euler number is scaled differently for different datasets. The threshold of 25 was determined empirically by manually examining the excluded scans. The final data consists of 37126 scans from 79 scanners that reasonably cover a wide range of human lifespan from 6 to 100 years old. Fig 5 depicts the age span for each dataset. Note that the peak at approximately 10 years is driven by the ABCD dataset, where subjects are all nearly the same age. These properties make these data a perfect case-study for large-scale multi-site normative modeling of aging. The data also contain 1107 scans from participants diagnosed with a neurodevelopmental, psychiatric, or neurodegenerative disease, including attention deficit hyperactivity disorder (ADHD), schizophrenia (SZ), bipolar disorder (BD), major depressive disorder (MDD), early psychosis (EP), mild cognitive impairment (MCI), and (mild) dementia (DM).
+216:Table 1. Demographics of multi-site experimental data. ( � ) The HCPDV and HCPAG datasets are collected by the same data acquisition centers. We consider this in computing the total number of scanners in data.
+
+thinking
+**Preparing to extract table demographics**
+exec
+/bin/bash -lc "sed -n '200,235p' Kia2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302111238779/study_12026-03-02T02:13:04.032340Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+## Experimental materials and setups
+
+In this section, we describe the experimental data and four experiments that are used for evaluating HBR in the normative modeling life-cycle.
+
+Datasets and preprocessing. Table 1 lists the 16 neuroimaging datasets that are used in our experiments. For the ABCD dataset [15], we used data from the first imaging timepoint for subjects included in the v 2.0.1 curated release. For the UK Biobank (UKBB) study [10], we used approximately 15000 subjects derived from the 2017 release. For the Human Connectome Project aging, development and early psychosis studies (HCPAG, HCPDV and HCPEP,
+
+Fig 4. The area of the shaded region is computed as the abnormal probability index Pabn for a given z-score z (i.e., the deviation from norm of population). The Pabn is zero for a sample with 0 deviation from the norm and is getting closer to 1 as | z | grows.
+
+![Image](./Kia2022_artifacts/image_000006_a8adc11d6985e43dae826364bbe837bb78938a82ae0e442e8f10004bcbe5c4e2.png)
+
+https://doi.org/10.1371/journal.pone.0278776.g004
+
+respectively) we used data from the 1.0 data release. Further details surrounding the other datasets can be found in the relevant papers listed in Table 1. Ethical approval for the public data were provided by the relevant local research authorities for the studies contributing data. All subjects provide written informed consent for their data to be used for the purposes reported in this manuscript. For the public datasets, if there are minors ( e.g ., under 18 years), then this consent was also provided by the parent or guardian. For the clinical data in the TOP dataset, approval was obtained via the Regional Committee for Medical Health Research Ethics South East Norway Approval number 2009/2485 -C .
+
+Wehave excluded participants with missing demographic (age/sex) information and those with poor quality imaging data. We excluded 1566 (4%) subjects due to low-quality images. Subjects were excluded if their scan-site median-centered absolute Euler number was higher than 25. The Euler numbers are computed as a part of standard recon-all Freesurfer [54] pipeline. The exclusion of outliers based on Euler numbers has been shown to be a reliable quality control strategy in large neuroimaging cohorts [55, 56]. Median centering is necessary because the Euler number is scaled differently for different datasets. The threshold of 25 was determined empirically by manually examining the excluded scans. The final data consists of 37126 scans from 79 scanners that reasonably cover a wide range of human lifespan from 6 to 100 years old. Fig 5 depicts the age span for each dataset. Note that the peak at approximately 10 years is driven by the ABCD dataset, where subjects are all nearly the same age. These properties make these data a perfect case-study for large-scale multi-site normative modeling of aging. The data also contain 1107 scans from participants diagnosed with a neurodevelopmental, psychiatric, or neurodegenerative disease, including attention deficit hyperactivity disorder (ADHD), schizophrenia (SZ), bipolar disorder (BD), major depressive disorder (MDD), early psychosis (EP), mild cognitive impairment (MCI), and (mild) dementia (DM).
+
+Table 1. Demographics of multi-site experimental data. ( � ) The HCPDV and HCPAG datasets are collected by the same data acquisition centers. We consider this in computing the total number of scanners in data.
+
+| Datasets    |   No. Scans | No. Patients                        | No. Scanners   | Age Range   | Sex M/F   | FS Version   |
+|-------------|-------------|-------------------------------------|----------------|-------------|-----------|--------------|
+
+
+thinking
+**Clarifying data splits for normative model training**
+
+Determined the normative model trains on healthy participants only, about 36,019 scans from 37,126 total. The 80/20 train-test split applies but exact training N isn't given; I'll associate demographic details with the RCI-4 training phase as a best fit.
+thinking
+**Deriving cohort size and dataset details for normative model**
+
+Computed healthy cohort N as 36,019 from total scans minus patient scans; clear sex/age breakdowns for healthy group aren't reported, so I'll mark them NR with explanation. Identified 16 multi-site datasets and 79 scanners underpinning the reference normative model, with supporting text listing dataset names and multi-site scope for documentation.
+exec
+/bin/bash -lc 'cat DE_v13_Kia2022_by_codex_20260302111238779.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021112387792026-03-02T02:13:31.358541Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+thinking
+**Computing necessary value**
+
+I'm calculating the difference 37126 minus 1107 to determine N healthy for further use.
+exec
+/bin/bash -lc "python - <<'PY'
+print(37126-1107)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021112387792026-03-02T02:13:36.134869Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+36019
+
+thinking
+**Defining model structure with partial data**
+
+I'm setting key parameters like sex as "NR" due to missing overall counts, using age range 6–100 with medium confidence from text, and preparing supporting text references based on dataset details and participant health status for relevant RCI fields.
+2026-03-02T02:14:04.924907Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
+@@ -3,43 +3,64 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site; 16 datasets, 79 scanners",
++      "confidence_rating": "High",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners\"; \"Table 1 lists the 16 neuroimaging datasets that are used in our experiments.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Reference model estimated on public datasets including ABCD, CAMCAN, FCON, HCP, IXI, NKI, PNC, and UKBB",
++      "confidence_rating": "High",
++      "supporting_text": "\"we first use a linear homoscedastic model to estimate the parameters of the reference normative model on datasets with only healthy participants (ABCD, CAMCAN, CMI, FCON, HCP, HCPAG, HCPDV, IXI, NKI OPN, PNC, and UKBB).\"",
++      "location": "Kia2022.pdf.md: Experiments / Model adaptation"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABCD; Cam-CAN; FCON; HCP; IXI; NKI; PNC; UK Biobank",
++      "detail": "EPDs explicitly listed as healthy datasets for reference normative model estimation",
++      "confidence_rating": "High",
++      "supporting_text": "\"datasets with only healthy participants (ABCD, CAMCAN, CMI, FCON, HCP, HCPAG, HCPDV, IXI, NKI OPN, PNC, and UKBB).\"",
++      "location": "Kia2022.pdf.md: Experiments / Model adaptation"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Overall",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "n": 36019
++        }
++      },
++      "detail": "Overall healthy cohort size derived as total scans (37126) minus patient scans (1107)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners\"; \"The data also contain 1107 scans from participants diagnosed with a neurodevelopmental, psychiatric, or neurodegenerative disease\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the healthy reference cohort is not reported; only per-dataset sex percentages are listed without separating patients from healthy participants",
++      "confidence_rating": "Low",
++      "supporting_text": "\"Table 1. Demographics of multi-site experimental data.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "6",
++          "max": "100"
++        }
++      },
++      "detail": "Overall data age range reported; mean/SD for healthy reference cohort not reported",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners that reasonably cover a wide range of human lifespan from 6 to 100 years old.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     }
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json b/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..e7e87ffc445bfe3cc0fcede0d9feadb2c9c8bd6f
+--- a/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site; 16 datasets, 79 scanners",
++      "confidence_rating": "High",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners\"; \"Table 1 lists the 16 neuroimaging datasets that are used in our experiments.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Reference model estimated on public datasets including ABCD, CAMCAN, FCON, HCP, IXI, NKI, PNC, and UKBB",
++      "confidence_rating": "High",
++      "supporting_text": "\"we first use a linear homoscedastic model to estimate the parameters of the reference normative model on datasets with only healthy participants (ABCD, CAMCAN, CMI, FCON, HCP, HCPAG, HCPDV, IXI, NKI OPN, PNC, and UKBB).\"",
++      "location": "Kia2022.pdf.md: Experiments / Model adaptation"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABCD; Cam-CAN; FCON; HCP; IXI; NKI; PNC; UK Biobank",
++      "detail": "EPDs explicitly listed as healthy datasets for reference normative model estimation",
++      "confidence_rating": "High",
++      "supporting_text": "\"datasets with only healthy participants (ABCD, CAMCAN, CMI, FCON, HCP, HCPAG, HCPDV, IXI, NKI OPN, PNC, and UKBB).\"",
++      "location": "Kia2022.pdf.md: Experiments / Model adaptation"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Overall",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "n": 36019
++        }
++      },
++      "detail": "Overall healthy cohort size derived as total scans (37126) minus patient scans (1107)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners\"; \"The data also contain 1107 scans from participants diagnosed with a neurodevelopmental, psychiatric, or neurodegenerative disease\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the healthy reference cohort is not reported; only per-dataset sex percentages are listed without separating patients from healthy participants",
++      "confidence_rating": "Low",
++      "supporting_text": "\"Table 1. Demographics of multi-site experimental data.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "6",
++          "max": "100"
++        }
++      },
++      "detail": "Overall data age range reported; mean/SD for healthy reference cohort not reported",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners that reasonably cover a wide range of human lifespan from 6 to 100 years old.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json b/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..e7e87ffc445bfe3cc0fcede0d9feadb2c9c8bd6f
+--- a/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site; 16 datasets, 79 scanners",
++      "confidence_rating": "High",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners\"; \"Table 1 lists the 16 neuroimaging datasets that are used in our experiments.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Reference model estimated on public datasets including ABCD, CAMCAN, FCON, HCP, IXI, NKI, PNC, and UKBB",
++      "confidence_rating": "High",
++      "supporting_text": "\"we first use a linear homoscedastic model to estimate the parameters of the reference normative model on datasets with only healthy participants (ABCD, CAMCAN, CMI, FCON, HCP, HCPAG, HCPDV, IXI, NKI OPN, PNC, and UKBB).\"",
++      "location": "Kia2022.pdf.md: Experiments / Model adaptation"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABCD; Cam-CAN; FCON; HCP; IXI; NKI; PNC; UK Biobank",
++      "detail": "EPDs explicitly listed as healthy datasets for reference normative model estimation",
++      "confidence_rating": "High",
++      "supporting_text": "\"datasets with only healthy participants (ABCD, CAMCAN, CMI, FCON, HCP, HCPAG, HCPDV, IXI, NKI OPN, PNC, and UKBB).\"",
++      "location": "Kia2022.pdf.md: Experiments / Model adaptation"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Overall",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "n": 36019
++        }
++      },
++      "detail": "Overall healthy cohort size derived as total scans (37126) minus patient scans (1107)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners\"; \"The data also contain 1107 scans from participants diagnosed with a neurodevelopmental, psychiatric, or neurodegenerative disease\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the healthy reference cohort is not reported; only per-dataset sex percentages are listed without separating patients from healthy participants",
++      "confidence_rating": "Low",
++      "supporting_text": "\"Table 1. Demographics of multi-site experimental data.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "6",
++          "max": "100"
++        }
++      },
++      "detail": "Overall data age range reported; mean/SD for healthy reference cohort not reported",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners that reasonably cover a wide range of human lifespan from 6 to 100 years old.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     }
+   }
+ }
+
+codex
+JSONを `DE_v13_Kia2022_by_codex_20260302111238779.json` に記入しました。  
+- マルチサイト/EPDの判定は本文のデータセット記述に基づけています。  
+- Nは総スキャン数と患者スキャン数から健常者数を算出（36019）しています。  
+- 性別内訳と年齢平均/SDは健常者のみの集計が明示されていないためNRにしています（年齢範囲のみ記載あり）。
+
+次にやることがあれば教えてください。
+2026-03-02T02:14:08.767061Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json b/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..e7e87ffc445bfe3cc0fcede0d9feadb2c9c8bd6f
+--- a/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302111238779/DE_v13_Kia2022_by_codex_20260302111238779.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site; 16 datasets, 79 scanners",
++      "confidence_rating": "High",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners\"; \"Table 1 lists the 16 neuroimaging datasets that are used in our experiments.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Reference model estimated on public datasets including ABCD, CAMCAN, FCON, HCP, IXI, NKI, PNC, and UKBB",
++      "confidence_rating": "High",
++      "supporting_text": "\"we first use a linear homoscedastic model to estimate the parameters of the reference normative model on datasets with only healthy participants (ABCD, CAMCAN, CMI, FCON, HCP, HCPAG, HCPDV, IXI, NKI OPN, PNC, and UKBB).\"",
++      "location": "Kia2022.pdf.md: Experiments / Model adaptation"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABCD; Cam-CAN; FCON; HCP; IXI; NKI; PNC; UK Biobank",
++      "detail": "EPDs explicitly listed as healthy datasets for reference normative model estimation",
++      "confidence_rating": "High",
++      "supporting_text": "\"datasets with only healthy participants (ABCD, CAMCAN, CMI, FCON, HCP, HCPAG, HCPDV, IXI, NKI OPN, PNC, and UKBB).\"",
++      "location": "Kia2022.pdf.md: Experiments / Model adaptation"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Overall",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "n": 36019
++        }
++      },
++      "detail": "Overall healthy cohort size derived as total scans (37126) minus patient scans (1107)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners\"; \"The data also contain 1107 scans from participants diagnosed with a neurodevelopmental, psychiatric, or neurodegenerative disease\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the healthy reference cohort is not reported; only per-dataset sex percentages are listed without separating patients from healthy participants",
++      "confidence_rating": "Low",
++      "supporting_text": "\"Table 1. Demographics of multi-site experimental data.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "cortical thickness normative model (healthy participants)",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "6",
++          "max": "100"
++        }
++      },
++      "detail": "Overall data age range reported; mean/SD for healthy reference cohort not reported",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"The final data consists of 37126 scans from 79 scanners that reasonably cover a wide range of human lifespan from 6 to 100 years old.\"",
++      "location": "Kia2022.pdf.md: Experimental materials and setups / Datasets and preprocessing"
+     }
+   }
+ }
+
+tokens used
+36,182
+JSONを `DE_v13_Kia2022_by_codex_20260302111238779.json` に記入しました。  
+- マルチサイト/EPDの判定は本文のデータセット記述に基づけています。  
+- Nは総スキャン数と患者スキャン数から健常者数を算出（36019）しています。  
+- 性別内訳と年齢平均/SDは健常者のみの集計が明示されていないためNRにしています（年齢範囲のみ記載あり）。
+
+次にやることがあれば教えてください。
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

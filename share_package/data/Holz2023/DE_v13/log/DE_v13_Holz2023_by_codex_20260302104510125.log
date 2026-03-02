@@ -1,0 +1,689 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Holz2023_by_codex_20260302104510125.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104510125/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac38-8d71-7e03-8f5f-cc93fed43be0
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Holz2023_by_codex_20260302104510125.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Scanning for agent and guide files**
+
+I'm searching the repo for files named AGENTS or DE_Guide using ripgrep and shell commands to locate relevant documentation.
+2026-03-02T01:45:16.819298Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104510125 succeeded in 19ms:
+DE_Guide_v13.md
+DE_v13_Holz2023_by_codex_20260302104510125.json
+DE_v13_Holz2023_by_codex_20260302104510125.log
+study_1
+
+thinking
+**Planning to read guide**
+2026-03-02T01:45:19.209716Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104510125 succeeded in 30ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Locating extraction source**
+
+I'm focusing on the study_1 list as the likely source for extraction from the specific doc.
+2026-03-02T01:45:21.881917Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104510125 succeeded in 29ms:
+DE_Guide_v13.md
+DE_v13_Holz2023_by_codex_20260302104510125.json
+DE_v13_Holz2023_by_codex_20260302104510125.log
+study_1/S003329172200068Xsup006.tif
+study_1/Holz2023.pdf.md
+study_1/S003329172200068Xsup007.docx.md
+study_1/S003329172200068Xsup002.tif
+study_1/S003329172200068Xsup004.tif
+study_1/S003329172200068Xsup001.tif
+study_1/S003329172200068Xsup003.tif
+study_1/S003329172200068Xsup005.tif
+
+thinking
+**Planning to open Holz2023.pdf.md**
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Holz2023.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021045101252026-03-02T01:45:24.538354Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 36ms:
+## Psychological Medicine
+
+cambridge.org/psm
+
+## Original Article
+
+*Shared first authorship.
+
+† Shared last authorship.
+
+Cite this article: Holz NE et al (2023). Agerelated brain deviations and aggression. Psychological Medicine 53 , 4012 -4021. https:// doi.org/10.1017/S003329172200068X
+
+Received: 29 March 2021 Revised: 15 February 2022 Accepted: 22 February 2022 First published online: 22 April 2022
+
+## Key words:
+
+Aggression; disruptive behavior disorders; emotion processing; fMRI; normative modeling
+
+## Authors for correspondence:
+
+
+
+thinking
+**Clarifying reference cohort and model details**
+
+The normative model is newly built using the whole cohort (cases plus controls) due to small sample size, though instructions specify a healthy reference cohort; I'll report this explicitly. The study involves multi-site data but not EPD, so RCI-2 and RCI-3 are no/NA; the phase is training with a sample of about 129 subjects per modality, producing two models (functional and structural) via GPR.
+thinking
+**Detailing model sample sizes and demographics**
+
+I've clarified model names with sample sizes: functional normative model (fMRI) n=129 and structural normative model (anatomical) n=127, both including cases and controls. For functional, I can derive combined sex counts and percentages from table data; structural sex breakdown isn’t given and shouldn’t be estimated. Next, I’m calculating weighted mean age and pooled SD for the whole training cohort.
+2026-03-02T01:45:44.831184Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n1=52
+m1=13.88
+sd1=2.44
+n2=77
+m2=13.48
+sd2=2.58
+n=n1+n2
+mean=(n1*m1+n2*m2)/n
+# pooled SD for combined groups (assuming sample sd).
+# pooled variance = ((n1-1)*sd1"'^2 + (n2-1)*sd2''^2 + n1*(m1-mean)''^2 + n2*(m2-mean)''^2) / (n-1)
+var=((n1-1)*sd1**2 + (n2-1)*sd2**2 + n1*(m1-mean)**2 + n2*(m2-mean)**2)/(n-1)
+print(mean,var,math.sqrt(var))
+PY' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104510125 succeeded in 39ms:
+13.641240310077519 6.363173449612403 2.5225331414299403
+
+
+thinking
+**Evaluating age statistics usage**
+
+The mean and SD of age (8–18) apply for the overall sample (N=129), but age stats for the structural model subset (N=127) are not explicitly given. Since only two scans were excluded, using the same statistics is possible but would be an assumption, so marking them as not reported (NR) for the structural model is safer.
+thinking
+**Preparing to reference methods and data**
+
+Planning to extract supporting text from the methods section and Table 1 for age and sex statistics, formatted in RCI style, and investigating the existing JSON output structure to align with it.
+exec
+/bin/bash -lc 'cat DE_v13_Holz2023_by_codex_20260302104510125.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021045101252026-03-02T01:45:53.930880Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 16ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Planning detailed supporting quotes**
+
+I'm gathering exact supporting quotes for MSAD multi-site locations, cohort training sample sizes, and functional model sex breakdown from tables, intending to use combined direct quotes separated by semicolons to provide precise sourcing and computed details from Table 1.
+thinking
+**Detailing cohort sex and age statistics with computations**
+
+I'm preparing supporting text citing Table 1 for male/female counts and percentages computed for the whole cohort, plus weighted mean, pooled SD, and age range from the abstract for model-1, while noting model-2 as not reported, all referenced with direct quotes and source locations.
+2026-03-02T01:46:32.281057Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
+@@ -3,43 +3,82 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site cohort; nine sites across Europe.",
++      "confidence_rating": "High",
++      "supporting_text": "\"MRI scans were performed in nine different sites across Europe.\"",
++      "location": "Holz2023.pdf.md: Method / Functional images"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from Aggressotype and MATRICS projects (in-house consortia); no listed EPDs reported.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Participants in the current study were part of the EU-funded Aggressotype and MATRICS projects.\"",
++      "location": "Holz2023.pdf.md: Method / Study sample"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "No EPDs used for normative model reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Participants in the current study were part of the EU-funded Aggressotype and MATRICS projects.\"",
++      "location": "Holz2023.pdf.md: Method / Study sample"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "n": 129
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "n": 127
++        }
++      },
++      "detail": "Training phase; reference cohort includes both TD controls and DBD cases (whole cohort used as reference).",
++      "confidence_rating": "High",
++      "supporting_text": "\"A model of brain development as a function of age and sex was created by training a Gaussian process regression (GPR) model... on a sample of n = 129 and n = 127 (77 cases, Table 1, online Supplementary Fig. S3 for an age distribution) to predict brain function and structure, respectively... Here, we used the whole cohort (both TD and DBD) as a reference\"",
++      "location": "Holz2023.pdf.md: Method / Constructing normative models of brain structure and function"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "female_n": 31,
++          "female_pct": "24.0%",
++          "male_n": 98,
++          "male_pct": "76.0%"
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Training phase; model-1 sex counts aggregated from control and case male counts in Table 1 (female_n inferred as total N minus male_n). Model-2 sex breakdown not reported for the n=127 structural sample.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Control ( n = 52)... Males, no. (%) 34 (65.4)... Case ( n = 77)... Males, no. (%) 64 (83.1)\"",
++      "location": "Holz2023.pdf.md: Table 1. Sample characteristics"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "mean": "13.64 weighted",
++          "sd": "2.52 pooled",
++          "min": "8",
++          "max": "18"
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; model-1 weighted mean and pooled SD computed from control and case age statistics in Table 1; age range from study description (years). Model-2 age statistics not reported for the n=127 structural sample.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"aged 8 -18 years\"; \"Age, mean (S.D.) 13.88 (2.44)\"; \"Age, mean (S.D.) 13.48 (2.58)\"",
++      "location": "Holz2023.pdf.md: Abstract / Methods; Holz2023.pdf.md: Table 1. Sample characteristics"
+     }
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M DE_v13_Holz2023_by_codex_20260302104510125.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json b/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..cd2d70528178fa0376192b07b0cd0b2610efac48
+--- a/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site cohort; nine sites across Europe.",
++      "confidence_rating": "High",
++      "supporting_text": "\"MRI scans were performed in nine different sites across Europe.\"",
++      "location": "Holz2023.pdf.md: Method / Functional images"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from Aggressotype and MATRICS projects (in-house consortia); no listed EPDs reported.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Participants in the current study were part of the EU-funded Aggressotype and MATRICS projects.\"",
++      "location": "Holz2023.pdf.md: Method / Study sample"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "No EPDs used for normative model reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Participants in the current study were part of the EU-funded Aggressotype and MATRICS projects.\"",
++      "location": "Holz2023.pdf.md: Method / Study sample"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "n": 129
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "n": 127
++        }
++      },
++      "detail": "Training phase; reference cohort includes both TD controls and DBD cases (whole cohort used as reference).",
++      "confidence_rating": "High",
++      "supporting_text": "\"A model of brain development as a function of age and sex was created by training a Gaussian process regression (GPR) model... on a sample of n = 129 and n = 127 (77 cases, Table 1, online Supplementary Fig. S3 for an age distribution) to predict brain function and structure, respectively... Here, we used the whole cohort (both TD and DBD) as a reference\"",
++      "location": "Holz2023.pdf.md: Method / Constructing normative models of brain structure and function"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "female_n": 31,
++          "female_pct": "24.0%",
++          "male_n": 98,
++          "male_pct": "76.0%"
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Training phase; model-1 sex counts aggregated from control and case male counts in Table 1 (female_n inferred as total N minus male_n). Model-2 sex breakdown not reported for the n=127 structural sample.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Control ( n = 52)... Males, no. (%) 34 (65.4)... Case ( n = 77)... Males, no. (%) 64 (83.1)\"",
++      "location": "Holz2023.pdf.md: Table 1. Sample characteristics"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "mean": "13.64 weighted",
++          "sd": "2.52 pooled",
++          "min": "8",
++          "max": "18"
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; model-1 weighted mean and pooled SD computed from control and case age statistics in Table 1; age range from study description (years). Model-2 age statistics not reported for the n=127 structural sample.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"aged 8 -18 years\"; \"Age, mean (S.D.) 13.88 (2.44)\"; \"Age, mean (S.D.) 13.48 (2.58)\"",
++      "location": "Holz2023.pdf.md: Abstract / Methods; Holz2023.pdf.md: Table 1. Sample characteristics"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json b/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..cd2d70528178fa0376192b07b0cd0b2610efac48
+--- a/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site cohort; nine sites across Europe.",
++      "confidence_rating": "High",
++      "supporting_text": "\"MRI scans were performed in nine different sites across Europe.\"",
++      "location": "Holz2023.pdf.md: Method / Functional images"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from Aggressotype and MATRICS projects (in-house consortia); no listed EPDs reported.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Participants in the current study were part of the EU-funded Aggressotype and MATRICS projects.\"",
++      "location": "Holz2023.pdf.md: Method / Study sample"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "No EPDs used for normative model reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Participants in the current study were part of the EU-funded Aggressotype and MATRICS projects.\"",
++      "location": "Holz2023.pdf.md: Method / Study sample"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "n": 129
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "n": 127
++        }
++      },
++      "detail": "Training phase; reference cohort includes both TD controls and DBD cases (whole cohort used as reference).",
++      "confidence_rating": "High",
++      "supporting_text": "\"A model of brain development as a function of age and sex was created by training a Gaussian process regression (GPR) model... on a sample of n = 129 and n = 127 (77 cases, Table 1, online Supplementary Fig. S3 for an age distribution) to predict brain function and structure, respectively... Here, we used the whole cohort (both TD and DBD) as a reference\"",
++      "location": "Holz2023.pdf.md: Method / Constructing normative models of brain structure and function"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "female_n": 31,
++          "female_pct": "24.0%",
++          "male_n": 98,
++          "male_pct": "76.0%"
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Training phase; model-1 sex counts aggregated from control and case male counts in Table 1 (female_n inferred as total N minus male_n). Model-2 sex breakdown not reported for the n=127 structural sample.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Control ( n = 52)... Males, no. (%) 34 (65.4)... Case ( n = 77)... Males, no. (%) 64 (83.1)\"",
++      "location": "Holz2023.pdf.md: Table 1. Sample characteristics"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "mean": "13.64 weighted",
++          "sd": "2.52 pooled",
++          "min": "8",
++          "max": "18"
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; model-1 weighted mean and pooled SD computed from control and case age statistics in Table 1; age range from study description (years). Model-2 age statistics not reported for the n=127 structural sample.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"aged 8 -18 years\"; \"Age, mean (S.D.) 13.88 (2.44)\"; \"Age, mean (S.D.) 13.48 (2.58)\"",
++      "location": "Holz2023.pdf.md: Abstract / Methods; Holz2023.pdf.md: Table 1. Sample characteristics"
+     }
+   }
+ }
+
+
+thinking
+**Confirming JSON validity before finalizing**
+codex
+Filled the reference cohort extraction fields per `DE_Guide_v13.md`, using the Holz 2023 paper text; computed weighted age mean/pooled SD and aggregated sex counts for the functional training cohort and marked structural-sample demographics as NR where not reported in the paper. Updated `DE_v13_Holz2023_by_codex_20260302104510125.json` with ADCSL/A_Style entries and supporting quotes with locations.
+
+If you want, I can:
+1) Cross-check the supplement file for any structural-sample sex/age breakdowns to replace NR.
+2) Add a brief audit log to `DE_v13_Holz2023_by_codex_20260302104510125.log` with the derived calculations.
+2026-03-02T01:46:36.952021Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json b/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..cd2d70528178fa0376192b07b0cd0b2610efac48
+--- a/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302104510125/./DE_v13_Holz2023_by_codex_20260302104510125.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site cohort; nine sites across Europe.",
++      "confidence_rating": "High",
++      "supporting_text": "\"MRI scans were performed in nine different sites across Europe.\"",
++      "location": "Holz2023.pdf.md: Method / Functional images"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from Aggressotype and MATRICS projects (in-house consortia); no listed EPDs reported.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Participants in the current study were part of the EU-funded Aggressotype and MATRICS projects.\"",
++      "location": "Holz2023.pdf.md: Method / Study sample"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "No EPDs used for normative model reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Participants in the current study were part of the EU-funded Aggressotype and MATRICS projects.\"",
++      "location": "Holz2023.pdf.md: Method / Study sample"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "n": 129
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "n": 127
++        }
++      },
++      "detail": "Training phase; reference cohort includes both TD controls and DBD cases (whole cohort used as reference).",
++      "confidence_rating": "High",
++      "supporting_text": "\"A model of brain development as a function of age and sex was created by training a Gaussian process regression (GPR) model... on a sample of n = 129 and n = 127 (77 cases, Table 1, online Supplementary Fig. S3 for an age distribution) to predict brain function and structure, respectively... Here, we used the whole cohort (both TD and DBD) as a reference\"",
++      "location": "Holz2023.pdf.md: Method / Constructing normative models of brain structure and function"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "female_n": 31,
++          "female_pct": "24.0%",
++          "male_n": 98,
++          "male_pct": "76.0%"
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Training phase; model-1 sex counts aggregated from control and case male counts in Table 1 (female_n inferred as total N minus male_n). Model-2 sex breakdown not reported for the n=127 structural sample.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Control ( n = 52)... Males, no. (%) 34 (65.4)... Case ( n = 77)... Males, no. (%) 64 (83.1)\"",
++      "location": "Holz2023.pdf.md: Table 1. Sample characteristics"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "functional normative model (fMRI)",
++          "mean": "13.64 weighted",
++          "sd": "2.52 pooled",
++          "min": "8",
++          "max": "18"
++        },
++        "model-2": {
++          "model-name": "structural normative model (anatomical)",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; model-1 weighted mean and pooled SD computed from control and case age statistics in Table 1; age range from study description (years). Model-2 age statistics not reported for the n=127 structural sample.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"aged 8 -18 years\"; \"Age, mean (S.D.) 13.88 (2.44)\"; \"Age, mean (S.D.) 13.48 (2.58)\"",
++      "location": "Holz2023.pdf.md: Abstract / Methods; Holz2023.pdf.md: Table 1. Sample characteristics"
+     }
+   }
+ }
+
+tokens used
+42,262
+Filled the reference cohort extraction fields per `DE_Guide_v13.md`, using the Holz 2023 paper text; computed weighted age mean/pooled SD and aggregated sex counts for the functional training cohort and marked structural-sample demographics as NR where not reported in the paper. Updated `DE_v13_Holz2023_by_codex_20260302104510125.json` with ADCSL/A_Style entries and supporting quotes with locations.
+
+If you want, I can:
+1) Cross-check the supplement file for any structural-sample sex/age breakdowns to replace NR.
+2) Add a brief audit log to `DE_v13_Holz2023_by_codex_20260302104510125.log` with the derived calculations.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,501 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Kim2024_by_codex_20260302131437271.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302131437271/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cacc1-61da-7582-ac71-9fe58b1182ba
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Kim2024_by_codex_20260302131437271.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning file inspection**
+
+I'm deciding whether to read the target file using ripgrep or simply cat it via shell to review its contents.
+2026-03-02T04:14:43.148830Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302131437271 succeeded in 21ms:
+DE_Guide_v13.md
+DE_v13_Kim2024_by_codex_20260302131437271.json
+DE_v13_Kim2024_by_codex_20260302131437271.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021314372712026-03-02T04:14:45.403954Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Locating initial study file**
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021314372712026-03-02T04:14:49.643675Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+1-s2.0-S2667174325000953-mmc1.pdf.md
+1-s2.0-S2667174325000953-mmc1_artifacts
+1-s2.0-S2667174325000953-mmc2.xlsx.md
+1-s2.0-S2667174325000953-mmc2_artifacts
+Kim2024.pdf.md
+Kim2024_artifacts
+
+thinking
+**Opening source documents**
+
+I'm accessing the extraction file and supplements for Kim2024.pdf to gather needed information for the task.
+exec
+/bin/bash -lc 'rg -n "model|normative|training|healthy|control|participant|dataset|site|multi-site|multisite|cohort|sample" -S Kim2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302131437271/study_12026-03-02T04:14:54.021938Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+3:## Predicting Mental and Neurological Illnesses Based on Cerebellar Normative Features
+9:BACKGROUND: Mental and neurological conditions have been linked to structural brain variations. However, aside from dementia, the value of brain structural characteristics derived from brain scans for prediction is relatively low. One reason for this limitation is the clinical and biological heterogeneity inherent to such conditions. Recent studies have implicated aberrations in the cerebellum, a relatively understudied brain region, in these clinical conditions. METHODS: Here, we used machine learning to test the value of individual deviations from normative cerebellar development across the lifespan (based on trained data from . 27,000 participants) for prediction of autism spectrum disorder (ASD) ( n = 317), bipolar disorder ( n = 238), schizophrenia (SZ) ( n = 195), mild cognitive impairment ( n = 122), and Alzheimer ' s disease ( n = 116); individuals without diagnoses were matched to the clinical cohorts. We applied several atlases and derived median, variance, and percentages of extreme deviations within each region of interest. RESULTS: The results show that lobular and voxelwise cerebellar data can be used to discriminate reference samples from individuals with ASD and SZ with moderate accuracy (the area under the receiver operating characteristic curves ranged from 0.56 to 0.65). Contributions to these predictive models originated from both anterior and posterior regions of the cerebellum.
+11:CONCLUSIONS: Our study highlights the utility of cerebellar normative modeling in predicting ASD and SZ, aided by 4 cerebellar atlases that enhanced the interpretability of the /uniFB01 ndings.
+15:Clinical heterogeneity and complex pathobiological mechanisms impede the discovery of reliable biomarkers for many neurological and especially psychiatric disorders, thereby complicating precise clinical decision making and treatments. Over the last 2 decades, there has been a trend in the development of neuroimaging-based tools and machine learning for prognosis and diagnosis of psychiatric disorders (1,2) and neurological illnesses (3). Neuroimaging-based prediction studies of autism spectrum disorder (ASD), bipolar disorder (BD), and schizophrenia (SZ) have reported a wide range of accuracies, underscoring the limitations associated with small samples, including poor generalization performance (4,5). Notably, prediction studies on dementia have shown greater promise for clinical usage in both Alzheimer ' s disease (AD) (3) and mild cognitive impairment (MCI).
+19:ASD (12 -14). Using a normative modeling approach, we recently demonstrated signi /uniFB01 cant deviations from normal cerebellar developmental across the lifespan in individuals with mental and neurodegenerative illnesses including SZ and AD (15). The deviation refers to instances where an individual falls outside the typical range. However, recent literature indicates that there are no signi /uniFB01 cant differences in the cerebellum in ASD (16), a condition characterized by repetitive patterns in behaviors, restricted interests, and dif /uniFB01 culties in social interaction and communication (17). This may be attributed to the presence of both positive and negative deviations in cerebellar characteristics (15). In contrast, several studies (11,18) of SZ indicate a reduction in cerebellar volume, particularly in regions associated with perception, language comprehension, and cognitive functions. Patient studies have shown that abnormalities in the cerebellum can exert a signi /uniFB01 cant in /uniFB02 uence on motor, cognitive, and emotional functions (19 -21); however, there has been little exploration of the role of the cerebellum in predicting and classifying mental and neurological illnesses. While these individual-level deviations revealed substantial cerebellar heterogeneity among individuals with the same
+23:In this study, we addressed this gap by performing a set of predictions of ASD, MCI, AD, BD, and SZ using magnetic resonance imaging (MRI) -based cerebellar features and crossvalidated machine learning classi /uniFB01 ers. We applied lobular and voxelwise normative models (15) and aggregated the median, variance, and percentage of extreme deviations across atlases (22,23). The features, speci /uniFB01 cally the percentage of extreme deviation, median, and variance for each of the different cerebellar atlas regions, illuminate the model performance in terms of prediction of the disorders and diseases, given different parcellations and features. Finally, for models that were able to meaningfully differentiate between patients and healthy control participants, we identi /uniFB01 ed the cerebellar regions that contributed most to the prediction.
+27:## Sample
+29:The study sample consisted of individuals from the cerebellar lifespan normative model (15), where individuals without a diagnosis were split into a training set ( n = 27,117; 54% female), a test set ( n = 26,985; 53% females), and a clinical set ( n = 1757; 30% females) (Figure 1A and Table S2). Individuals without diagnoses were matched to the clinical datasets of patients with AD, ASD, BD, MCI, and SZ (Table 1) using nearest-neighbor matching based on exact matches of sex and scanning site with age as implemented in MatchIt (24). The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts. Information about each cohort and studies can be found in the corresponding publications (Table S1). If participants were scanned at several time points, only baseline scans were chosen for this study. Individuals who withdrew from the studies or lacked essential demographic information and T1-weighted MRI data were excluded from the analyses.
+35:To segment the cerebellum, we utilized the Automatic Cerebellum Anatomical Parcellation Using U-Net with Locally Constrained Optimization (ACAPULCO) algorithm (28), a part of the Enhancing Neuro Imaging Genetics through Meta Analysis (ENIGMA) Cerebellum Volumetric Pipeline, which is a cerebellum parcellation algorithm based on convolutional neural networks. This algorithm delivers fast and precise quantitative in vivo regional assessment of the cerebellum. As part of the algorithm, the images were corrected for inhomogeneity by the N4 correction method (29) and registered to the 1-mm isotropic ICBM 2009c template in Montreal Neurological Institute (MNI) space using the Advanced Normalization Tools registration suite (30). The ACAPULCO algorithm is based on 15 expert manual delineations of an adult cohort (31). It achieves per-voxel labeling and uses postprocessing of the parcellation to correct for mislabeling and accurate segmentation. ACAPULCO segments the cerebellum into 28 cerebellar lobules and computes the volume (mm 3 ) for each lobule. These regions include bilateral lobules I -VI; crus I and II; lobules VIIB, VIIIA, VIIIB, and IX -X; vermis VI, VII, VIII, IX, and X; and the corpus medullare. To ensure data quality, participants with extreme outliers (2.698 SD above or below the mean) (32) in more than 2 lobules based on automated quality control measures were excluded. We set the threshold at 2 lobules because the differences between 1 and 2 lobules were not signi /uniFB01 cant (see Supplemental Methods for detailed information on quality control).
+41:## Normative Modeling
+43:Normative modeling (35), similar to pediatric growth charts, addresses the limitation of case-control studies by mapping developmental and aging trajectories across the lifespan, thereby preserving individual-level inference in reference to large populations (36 -38). Widely applied in clinical research (38 -43), it helps detect extreme deviations in individuals. Here, we used this approach to normalize clinical groups against the population reference, accounting for age, sex, and site effects. We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15). The cerebellar normative model was developed using a large reference sample that spans ages 3 to 85 years. This broad age range allows us to map individual deviations from established norms within clinical cohorts, including young participants. The use of this extensive reference sample provides a basis for normalization and confound removal with respect to age, sex, and site. This normative model includes cerebellar lobules and voxelwise intensities, which differ across tissues (e.g., gray matter, white matter, cerebrospinal /uniFB02 uid) based on their proton density and relaxation properties, while adjusting for sex, age, and scanning site (Figure 1B).
+47:## A Dataset
+55:## C Features and Models
+59:## B Normative Model
+61:Lobular / Voxel-wise Model
+67:datasets (45). Scanning site was accounted for as a /uniFB01 xed effect (47,48). The normative model provides point estimates and evaluation metrics such as explained variance, mean squared log loss, skew, and kurtosis (46). These evaluation metrics were calculated in the test set, which did not include clinical cohorts. Extreme deviations were de /uniFB01 ned as | z | . 1.96, corresponding to the most extreme 5% of cases in both directions in the reference cohort.
+71:First, lobular normative models were used to derive deviation scores of volume for the 28 cerebellar lobules (Table S3). Second, voxelwise normative models were utilized to map deviation pro /uniFB01 les of gray matter onto existing atlases (see Supplemental Methods for statistics and reproducibility). Four existing atlases were selected: 28 regions of interest (ROIs) from cerebellar anatomical atlas, 10 ROIs from a multidomain task battery (23), 32 ROIs from a hierarchical atlas (49), and 17 ROIs from resting-state connectivity (22,50) (see Atlases in Supplemental Methods and Figure S1 for labels). For each ROI delineated by these atlases, we computed 3 key statistics: the median, variance, and percentage of extreme deviations (Figure 1C). To quantify the percentage of extremes in deviation, we also calculated the proportion of voxelwise deviations that exceeded the established threshold of | z | . 1.96, denoting both extreme positive and negative deviations. This proportion was determined by dividing the count of such extreme deviations by the total voxel count within the corresponding ROI. Variance has previously been used to examine the structural heterogeneity among patients with SZ (51,52). Unlike percentage of extreme deviation (| z | . 1.96), which has been used in past normative studies (38,42,53), variance assesses the dispersion within the region, capturing the regionally heterogeneous spread within patients.
+73:## Model Training and Evaluation
+75:Machine learning models using logistic regression (LR) were used to build prediction models (Figure 1D). The LR model was trained on the provided dataset, utilizing a logistic function to optimize weights to best /uniFB01 t the data. In addition, results from the random forest (RF) algorithm from the scikit-learn library version 1.2.2 (54) and the eXtreme Gradient Boosting (XGBoost) library version 1.7.3 (55) can be found in Figure S4. RF is a nonparametric supervised learning method that addresses over /uniFB01 tting by combining decision trees into a single outcome, effectively balancing the bias-variance trade-off. XGBoost is an open-source library to implement advanced gradient boosting algorithms (55).
+81:Figure 1. Overview of predicting mental and neurological illnesses. (A) The study included 5 clinical datasets: Alzheimer ' s disease, autism spectrum disorder, bipolar disorder, mild cognitive impairment, and schizophrenia. The input data, together with the samples, consist of both lobular and voxelwise data. (B) Individuals without a diagnosis were divided into training and test sets to evaluate the cerebellar normative models. The deviation score ( z score) measures how much an individual deviates from the norm represented by the estimated population model. (C) The analysis utilized the deviation scores derived from the cerebellar lobular and voxelwise normative models. Lobular z scores consist of 28 lobular volumes. For voxelwise, deviation scores overlaid onto existing cerebellar atlases including anatomical, task-based, hierarchical, and resting-state parcellations. This process calculated median, variance, and percentage of extreme positive and negative deviation for each atlas ' regions of interest (ROIs). Logistic regression was used for each atlas to assess the predictive value of features across all ROIs.
+
+thinking
+**Confirming model as pre-trained**
+
+The cerebellar normative model referenced is pre-trained from a prior study, not newly built here; the paper uses this existing model without retraining. Next, I'll update the JSON accordingly.
+exec
+/bin/bash -lc 'cat DE_v13_Kim2024_by_codex_20260302131437271.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021314372712026-03-02T04:14:59.708648Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+thinking
+**Preparing standardized pre-trained model response**
+
+Planning to mark all RCI fields as "NA" with consistent notes about using a pre-trained normative model, including exact supporting quotes from the source document to explain no new reference cohort was built.
+exec
+/bin/bash -lc "sed -n '24,50p' Kim2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302131437271/study_12026-03-02T04:15:08.835890Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+
+## METHODS AND MATERIALS
+
+## Sample
+
+The study sample consisted of individuals from the cerebellar lifespan normative model (15), where individuals without a diagnosis were split into a training set ( n = 27,117; 54% female), a test set ( n = 26,985; 53% females), and a clinical set ( n = 1757; 30% females) (Figure 1A and Table S2). Individuals without diagnoses were matched to the clinical datasets of patients with AD, ASD, BD, MCI, and SZ (Table 1) using nearest-neighbor matching based on exact matches of sex and scanning site with age as implemented in MatchIt (24). The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts. Information about each cohort and studies can be found in the corresponding publications (Table S1). If participants were scanned at several time points, only baseline scans were chosen for this study. Individuals who withdrew from the studies or lacked essential demographic information and T1-weighted MRI data were excluded from the analyses.
+
+## Lobular-Level Processing
+
+The T1-weighted images were skull stripped using the FreeSurfer version 5.3 auto-recon pipeline (25) and reoriented to the standard FSL orientation using the fslreorient2std (26). Linear registration was performed using /uniFB02 irt (27), which utilized linear interpolation (with 6 degrees of freedom) and the default 1 mm FSL template (version 6.0). The borders were cropped at coordinates (6:173, 2:214, 0:160) to minimize their size without removing brain tissue. Finally, the voxel intensity values of all brain images were normalized to the range of (0, 1), adjusting the intensity values of each voxel to a standardized scale.
+
+To segment the cerebellum, we utilized the Automatic Cerebellum Anatomical Parcellation Using U-Net with Locally Constrained Optimization (ACAPULCO) algorithm (28), a part of the Enhancing Neuro Imaging Genetics through Meta Analysis (ENIGMA) Cerebellum Volumetric Pipeline, which is a cerebellum parcellation algorithm based on convolutional neural networks. This algorithm delivers fast and precise quantitative in vivo regional assessment of the cerebellum. As part of the algorithm, the images were corrected for inhomogeneity by the N4 correction method (29) and registered to the 1-mm isotropic ICBM 2009c template in Montreal Neurological Institute (MNI) space using the Advanced Normalization Tools registration suite (30). The ACAPULCO algorithm is based on 15 expert manual delineations of an adult cohort (31). It achieves per-voxel labeling and uses postprocessing of the parcellation to correct for mislabeling and accurate segmentation. ACAPULCO segments the cerebellum into 28 cerebellar lobules and computes the volume (mm 3 ) for each lobule. These regions include bilateral lobules I -VI; crus I and II; lobules VIIB, VIIIA, VIIIB, and IX -X; vermis VI, VII, VIII, IX, and X; and the corpus medullare. To ensure data quality, participants with extreme outliers (2.698 SD above or below the mean) (32) in more than 2 lobules based on automated quality control measures were excluded. We set the threshold at 2 lobules because the differences between 1 and 2 lobules were not signi /uniFB01 cant (see Supplemental Methods for detailed information on quality control).
+
+## Voxel-Level Processing
+
+We used Spatially Unbiased Infratentorial Toolbox (SUIT) version 3.4 (33) to segment cerebellar gray and white matter voxel-based morphometry maps. SUIT leverages the outputs from ACAPULCO, an MNI-aligned T1 image (33,34), and an average mask derived from a randomly selected group of 300 individuals without a diagnosis. After segmentation, the gray matter maps were standardized for comparison by aligning them to SUIT space through Jacobian modulation, ensuring that each voxel re /uniFB02 ected its proportional alignment to the original volume.
+
+## Normative Modeling
+
+Normative modeling (35), similar to pediatric growth charts, addresses the limitation of case-control studies by mapping developmental and aging trajectories across the lifespan, thereby preserving individual-level inference in reference to large populations (36 -38). Widely applied in clinical research (38 -43), it helps detect extreme deviations in individuals. Here, we used this approach to normalize clinical groups against the population reference, accounting for age, sex, and site effects. We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15). The cerebellar normative model was developed using a large reference sample that spans ages 3 to 85 years. This broad age range allows us to map individual deviations from established norms within clinical cohorts, including young participants. The use of this extensive reference sample provides a basis for normalization and confound removal with respect to age, sex, and site. This normative model includes cerebellar lobules and voxelwise intensities, which differ across tissues (e.g., gray matter, white matter, cerebrospinal /uniFB02 uid) based on their proton density and relaxation properties, while adjusting for sex, age, and scanning site (Figure 1B).
+
+thinking
+**Annotating as pre-trained normative model**
+
+I'm preparing to mark all fields as "NA (Pre-trained normative model used)" with supporting quotes noting the publicly available cerebellar normative model and its large sample, then applying these updates to the JSON.
+2026-03-02T04:15:32.084456Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
+@@ -3,29 +3,29 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "This study used a publicly available cerebellar normative model from prior work; no new reference cohort was built.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "Reference cohort was not constructed in this study.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The study sample consisted of individuals from the cerebellar lifespan normative model (15)\"",
++      "location": "Kim2024.pdf.md: Sample"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "EPD identification not applicable because the reference cohort/model was pre-trained in prior work.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "NA (Pre-trained normative model used)",
+     "rci5_n": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort N for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+@@ -33,6 +33,6 @@
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort sex breakdown for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The study sample consisted of individuals from the cerebellar lifespan normative model (15)\"",
++      "location": "Kim2024.pdf.md: Sample"
+     },
+@@ -40,6 +40,6 @@
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort age statistics for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     }
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json b/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..e01078733f15a33ab83c586d8ac74fbc0a7747d8
+--- a/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
+@@ -1,47 +1,47 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "This study used a publicly available cerebellar normative model from prior work; no new reference cohort was built.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "Reference cohort was not constructed in this study.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The study sample consisted of individuals from the cerebellar lifespan normative model (15)\"",
++      "location": "Kim2024.pdf.md: Sample"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "EPD identification not applicable because the reference cohort/model was pre-trained in prior work.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "NA (Pre-trained normative model used)",
+     "rci5_n": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort N for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+     "rci6_sex": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort sex breakdown for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The study sample consisted of individuals from the cerebellar lifespan normative model (15)\"",
++      "location": "Kim2024.pdf.md: Sample"
+     },
+     "rci7_age": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort age statistics for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json b/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..e01078733f15a33ab83c586d8ac74fbc0a7747d8
+--- a/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
+@@ -1,47 +1,47 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "This study used a publicly available cerebellar normative model from prior work; no new reference cohort was built.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "Reference cohort was not constructed in this study.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The study sample consisted of individuals from the cerebellar lifespan normative model (15)\"",
++      "location": "Kim2024.pdf.md: Sample"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "EPD identification not applicable because the reference cohort/model was pre-trained in prior work.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "NA (Pre-trained normative model used)",
+     "rci5_n": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort N for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+     "rci6_sex": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort sex breakdown for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The study sample consisted of individuals from the cerebellar lifespan normative model (15)\"",
++      "location": "Kim2024.pdf.md: Sample"
+     },
+     "rci7_age": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort age statistics for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     }
+   }
+ }
+
+
+thinking
+**Summarizing update and next steps**
+
+The file was updated using a pre-trained model. No further immediate actions are suggested unless additional requests arise.
+codex
+Pre-trained normative model identified, so RCI-1–RCI-7 are marked NA with supporting quotes. Updated `DE_v13_Kim2024_by_codex_20260302131437271.json`.
+
+If you want, I can also extract the training/test split demographics from the paper for other sections.
+2026-03-02T04:15:34.734569Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json b/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..e01078733f15a33ab83c586d8ac74fbc0a7747d8
+--- a/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302131437271/DE_v13_Kim2024_by_codex_20260302131437271.json
+@@ -1,47 +1,47 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "This study used a publicly available cerebellar normative model from prior work; no new reference cohort was built.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "Reference cohort was not constructed in this study.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The study sample consisted of individuals from the cerebellar lifespan normative model (15)\"",
++      "location": "Kim2024.pdf.md: Sample"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA (Pre-trained normative model used)",
++      "detail": "EPD identification not applicable because the reference cohort/model was pre-trained in prior work.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "NA (Pre-trained normative model used)",
+     "rci5_n": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort N for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     },
+     "rci6_sex": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort sex breakdown for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The study sample consisted of individuals from the cerebellar lifespan normative model (15)\"",
++      "location": "Kim2024.pdf.md: Sample"
+     },
+     "rci7_age": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Reference cohort age statistics for model build not extracted because the normative model was pre-trained.",
++      "confidence_rating": "High",
++      "supporting_text": "\"We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15).\"",
++      "location": "Kim2024.pdf.md: Normative Modeling"
+     }
+   }
+ }
+
+tokens used
+20,182
+Pre-trained normative model identified, so RCI-1–RCI-7 are marked NA with supporting quotes. Updated `DE_v13_Kim2024_by_codex_20260302131437271.json`.
+
+If you want, I can also extract the training/test split demographics from the paper for other sections.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

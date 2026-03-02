@@ -1,0 +1,765 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Han2024B_by_codex_20260302104210364.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac35-cf40-7aa3-940e-a4d231185cb0
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Han2024B_by_codex_20260302104210364.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning file reading approach**
+2026-03-02T01:42:17.100123Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364 succeeded in 17ms:
+DE_Guide_v13.md
+DE_v13_Han2024B_by_codex_20260302104210364.json
+DE_v13_Han2024B_by_codex_20260302104210364.log
+study_1
+2026-03-02T01:42:19.349922Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364 succeeded in 149ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Checking source paper in study_1**
+2026-03-02T01:42:22.182790Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364 succeeded in 35ms:
+Han2024B.pdf.md
+Han2024B_artifacts
+S0033291724002617sup001.docx.md
+S0033291724002617sup001_artifacts
+
+thinking
+**Opening paper for extraction**
+2026-03-02T01:42:25.458003Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|model|training|healthy|control|HC|dataset|cohort|participants|sample|site" study_1/Han2024B.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364 succeeded in 32ms:
+21:amplitude of low-frequency fluctuations; dimension; heterogeneity; major depressive disorder; normative modeling
+25:95% CI: 95% confidence interval; AAL: automated anatomical labeling; AHBA: Allen Human Brain Atlas; ALFF: amplitude of lowfrequency fluctuations; ARI: adjusted Rand index; BIC: Bayesian information criterion; DSM-IV: Diagnostic and Statistical Manual of Mental Disorders-IV; FD: frame-wise displacement; FDR: false-discovery rate; GE: generalizability error; GMM: Gaussian mixture model; HAMD: Hamilton Depression Rating Scale; HC: healthy control; MDD: major depressive disorder; MRI: magnetic resonance imaging; MSE: mean squared error; NMF: nonnegative matrix factorization; PET: positron emission tomography; SC: structural covariance
+57:Methods. To address this variability, our study adopts a novel framework to parse individualized ALFF abnormalities. We hypothesize that individualized ALFF abnormalities can be portrayed as a unique linear combination of shared differential factors. Our study involved two large multi-center datasets, comprising 2424 patients with MDD and 2183 healthy controls. In patients, individualized ALFF abnormalities were derived through normative modeling and further deconstructed into differential factors using non-negative matrix factorization. Results. Two positive and two negative factors were identified. These factors were closely linked to clinical characteristics and explained group-level ALFF abnormalities in the two datasets. Moreover, these factors exhibited distinct associations with the distribution of neurotransmitter receptors/transporters, transcriptional profiles of inflammation-related genes, and connectome-informed epicenters, underscoring their neurobiological relevance. Additionally, factor compositions facilitated the identification of four distinct depressive subtypes, each characterized by unique abnormal ALFF patterns and clinical features. Importantly, these findings were successfully replicated in another dataset with different acquisition equipment, protocols, preprocessing strategies, and medication statuses, validating their robustness and generalizability.
+63:Major depressive disorder (MDD) stands out as a widespread and debilitating psychiatric condition, holding the dubious distinction of being the foremost cause of global disability (Winter et al., 2022). The heterogeneity within MDD is striking, with patients exhibiting a diverse array of symptoms to the extent that two cases can present markedly different symptom profiles as outlined in the Diagnostic and Statistical Manual of Mental Disorders, 5th edition criteria for MDD (Goldberg, 2011). This heterogeneity extends beyond symptoms, encompassing variations in etiologies, responses to treatment, and the trajectories of the disease (Drysdale et al., 2017; Shelton, 2007). Despite this pronounced diversity, most neuroimaging studies still rely on traditional case-control approaches, geared toward uncovering group-level effects. However, it is increasingly evident that such approaches only capture effects of a fraction of patients and mask the distinct neuroimaging characteristics unique to individuals (Lv et al., 2021; Marquand, Rezek, Buitelaar, &amp; Beckmann, 2016; Wolfers et al., 2018). The heterogeneity among cases is one of the leading causes of inconsistent neuroimaging findings in these researchers (Chen et al., 2016). It is urgent to develop approaches to identifying personspecific neuroimaging differential patterns to facilitate precision clinical decision-making.
+67:Magnetic resonance imaging (MRI) studies have uncovered anomalies in both brain structure and intrinsic activity widespread brain regions in MDD (Gong et al., 2020; Ho et al., 2022; Schmaal et al., 2017). Nevertheless, the consistency of findings poses a persistent challenge (Chen et al., 2016). While discrepancies can be attributed, in part, to variations in scanning parameters, analysis pipelines, and small sample sizes (Schmaal et al., 2017), growing evidence suggests that psychiatric disorders, including MDD, are highly heterogeneous syndromes (Buch &amp; Liston, 2021; Lynch, Gunning, &amp; Liston, 2020; Wen et al., 2022). To address the heterogeneity, researchers typically identify more homogeneous subtypes based on neuroimaging, clinical characteristics, or a combination of both (Beijers, Wardenaar, van Loo, &amp; Schoevers, 2019; Lynch et al., 2020; van Hulst, de Zeeuw, &amp; Durston, 2015). Some have gone a step further, using normative modeling to reveal individual-specific patterns of neuroimaging abnormalities (Marquand et al., 2016; Wolfers &amp; Beckmann, 2020; Wolfers et al., 2018; Zabihi et al., 2019). Normative modeling characterizes individual-level differential patterns of MRI metrics by assessing extreme deviations from normal expectations constructed based on demographic information from healthy cohorts (Marquand et al., 2016; Wolfers et al., 2018). This approach has demonstrated effectiveness in revealing personalized patterns of gray matter morphological abnormalities across a range of psychiatric disorders, including schizophrenia, MDD, autism, and attention deficit hyperactivity disorder (Marquand et al., 2016; Wolfers &amp; Beckmann, 2020; Wolfers et al., 2018; Zabihi et al., 2019). In the context of MDD, researchers have identified individualized gray matter morphological abnormalities that define two reproducible biotypes, showing divergent associations with responses to antidepressant treatments (Li et al., 2023; Shao et al., 2023). These studies contribute to our understanding of the heterogeneity and offer insights for precision medicine within MDD. Moving beyond structural brain abnormalities, MDD individuals exhibit alterations in spontaneous neural activity, typically measured through the amplitude of low-frequency fluctuations (ALFF) (Zang et al., 2007). Abnormal ALFF has been reported in depressed and remitted patients, as well as subthreshold individuals, signifying a trait-related marker of vulnerability to MDD (Huang et al., 2021; Jing et al., 2013) and demonstrating modulation by treatment (Huang et al., 2021; Kong et al., 2017; Wall et al., 2023; Xiao et al., 2024). However, the heterogeneity of spontaneous neural activity abnormalities in MDD is understudied.
+69:Furthermore, previous examinations of individual-level abnormalities in neuroimaging metrics face certain constraints. First, patients with psychiatric disorders exhibit extensive variations in individual-level abnormal patterns of neuroimaging metrics, to the extent that a regional extreme deviation is shared by at most 7% of cases with the same diagnosis (Wolfers &amp; Beckmann, 2020; Wolfers et al., 2018; Zabihi et al., 2019). These studies fall to reconcile the contradiction between the notable variations and phenotypic similarities among cases with identical diagnoses (Segal et al., 2023). In a prior study, the authors addressed the heterogeneity among individualized gray matter morphological abnormalities in MDD from a dimensional perspective. Their findings suggested that these individualized abnormalities could be depicted as a unique and linear weighted sum of shared differential factors in MDD. This approach effectively reconciled the contradiction between interindividual variability in neuroimaging abnormalities and the observed phenotypic similarities (Han et al., 2023a). In the current study, we hypothesize that individualized ALFF abnormalities are also constituted by differential factors shared by MDD. Second, the transcriptional and molecular substrates underlying individualized ALFF abnormalities remain elusive. For instance, the neuroinflammation hypothesis of depression posits that an elevated inflammatory response induced by factors such as stress exerts direct neurotoxic effects on the brain, leading to structural and functional changes (Berk et al., 2013; Eisenberger et al., 2010; Han &amp; Ham, 2021; Troubat et al., 2021). Transcriptional profiles of inflammation-related genes have shown associations with cortical thickness decrease in psychiatric disorders, such as schizophrenia (Cui et al., 2023). Additionally, neurotransmitter dysfunction contributes to cortical abnormalities in psychiatric disorders including MDD (Hansen et al., 2022). Investigating the transcriptional and molecular bias associated with individualized ALFF abnormalities helps bridge the gap between neuroimaging and biological mechanisms in MDD. Third, a notable limitation in relevant studies is the relatively small sample size, limiting the reproducibility and reliability.
+71:To address these limitations, this study leveraged extensive data from two large multi-center datasets, comprising 2424 patients with MDD and 2183 healthy controls (HCs) to parse interindividual heterogeneity in ALFF abnormalities in MDD. Inspired by a previous research on gray matter morphological abnormalities (Han et al., 2023a), we postulated that individualized ALFF abnormalities could be expressed as linear weighted sum of shared differential factors in MDD (Fig. 1a). We employed normative modeling trained with HCs to deduce individualized ALFF abnormalities in patients and then dissected them into differential factors using non-negative matrix factorization (NMF) (Han et al., 2023a). A series of sensitivity analyses were conducted to evaluate the robustness and generalizability of these identified factors. Subsequently, we explored the relevance of these factors to both group-level outcomes and clinical characteristics. To gain deeper insights into these factors, we examined their distinct associations with the distribution of neurotransmitter receptors/transporters, transcriptional profiles of inflammation-related genes, and connectome-informed epicenters. Notably, our findings revealed that these factor compositions facilitated the identification of four reproducible subtypes, each exhibiting unique patterns of ALFF abnormalities and clinical characteristics (Fig. 1b).
+77:This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium. The DIDA-MDD encompassed nine research sites (Sun et al., 2023). Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%). Patients received diagnoses from experienced psychiatrists based on the Diagnostic and Statistical Manual of Mental Disorders-IV (DSM-IV) criteria for MDD, without comorbidities with other psychiatric disorders or current substance use. The severity of symptoms in patients was assessed using the Hamilton Depression Rating Scale (HAMD) (Hamilton, 1960). HCs and first-degree relatives had no current or lifetime history
+79:Figure 1. Workflow of this study. In (a), we propose that individualized ALFF abnormalities can be expressed as a linear weighted sum of shared differential factors (DFs) in MDD. Moving to (b), the regional ALFF abnormalities are derived through normative modeling and further deconstructed into DFs using NMF. To enhance the biological interpretability of these identified DFs, we explore their associations with group-level results, connectome-informed epicenters, the distribution of neurotransmitters, and expression profiles of inflammation-related genes. Additionally, we utilize factor compositions to identify potential subtypes.
+83:of psychiatric disorders, and all participants had no nervous system diseases, cardiovascular diseases, or a history of trauma or brain surgery. Further details are thoroughly described elsewhere (Sun et al., 2023; Xia et al., 2022).
+85:The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%). Patients were diagnosed by experienced psychiatrists based on DSM-IV criteria for MDD. Additional details can be found in previous studies (Chen et al., 2022; Yan et al., 2019).
+87:All analyses were initially conducted in the discovery dataset and subsequently replicated in the validation dataset unless specified otherwise. Approval for this study was obtained from the local Research Ethics Committees, and informed written consent was obtained from all participants before the experiment. For further information on data acquisition and preprocessing, refer to the online Supplementary methods.
+91:In the discovery dataset, ALFF maps were calculated with the Data Processing Assistant for Resting-State fMRI (DPARSF)
+93:protocol (version 5.4) (Chao-Gan &amp; Yu-Feng, 2010). In the validation dataset, we utilized the released ALFF maps from the REST-meta-MDD consortium (http://rfmri.org/REST-metaMDD). Mean ALFF values were calculated for each brain region defined in the brain connectome atlas (Fan et al., 2016). Combat harmonization was independently performed in each dataset to minimize site effect on ALFF values (Johnson, Li, &amp; Rabinovic, 2007) in each dataset independently. Combat, a technique capable of removing unwanted site variation while preserving biological variability, has been widely employed in neuroimaging studies to mitigate site effects on imaging metrics (Fortin et al., 2017, 2018; Shao et al., 2023).
+95:As done in previous studies (Han et al., 2023a; Marquand et al., 2016; Wolfers et al., 2018), individualized ALFF abnormalities were calculated. Specifically, for each brain region, a Gaussian process regression was trained to estimate the normative range of ALFF values based on age and sex in HCs. The trained model was then applied to each patient, generating a Z -score (individualized ALFF abnormality). The Z -score represents the degree of deviation from the healthy reference population ' s normative range, where a positive Z -score indicates a higher ALFF value than HCs in patients with MDD and vice versa. While normative modeling has shown robust predictive capabilities regarding gray matter morphology, its effectiveness in predicting ALFF values
+97:remains unexplored. Therefore, the performance of normative modeling on ALFF was thoroughly evaluated using the following strategies: (1) 10-fold cross-validation (repeat 100 times); (2) leave-one-site-out cross-validation, where one set served as the testing site and the remaining as the training set; (3) training a Gaussian process regression model based on HCs in the discovery dataset and applying it to HCs in the validation dataset, and vice versa; and (4) utilizing another brain atlas with different resolutions (automated anatomical labeling, AAL) containing 90 cortical and subcortical regions (excluding the cerebellum) (Tzourio-Mazoyer et al., 2002). Model performance was assessed by calculating the standardized mean squared error (MSE) between the true ALFF values and predicted ones (Marquand et al., 2016).
+99:After confirming the performance of normative modeling performance, Z -scores were calculated for each patient using the trained model with HCs, resulting in a Z -score matrix for patients (number of patients × brain regions, N × 246).
+111:To determine the optimal number of factors ( K ) within the range of 2 -10, we employed the generalizability error (GE) metric (Chen et al., 2020). The GE was defined as the mean of absolute differences between the reconstructed out-of-sample Z -scores, obtained using the trained NMF, and the true Z -scores. A lower GE indicated superior generalizability. Specifically, we randomly split patients into two halves (half 1 and 2). NMF was trained using one half (half 1) and then applied to the remaining half (half 2). The mean absolute reconstruction error (between the reconstructed and true Z -scores) for half 1 ( e 11) and half 2 ( e 12 ) were calculated. Similarly, e 11 and e 12 were also obtained. The GE was calculated using the following formula:
+117:To evaluate the generalizability of the identified differential factors, we computed spatial correlations between factors obtained from distinct datasets. The correspondence between factors was established using the Hungarian matching algorithm (Lee et al., 2022; Zhang et al., 2016). Significance was set at p &lt; 0.05, with false-discovery rate (FDR) correction.
+119:We then assessed the extent to which the identified differential factors accounted for the variance in individualized ALFF abnormalities, and whether they explained a greater proportion of variance than chance. Specifically, for each patient, a linear regression model was constructed to quantify the extent to which differential factors explained the variance in the individualized ALFF abnormalities. To rigorously evaluate whether the identified differential factors accounted for a more substantial variance in individualized ALFF abnormalities than expected by chance, we conducted a permutation test (10 000 times). For each run individualized ALFF abnormalities were shuffled. NMF was constructed based on shuffled data to obtain differential factors, and then variance explained was determined.
+
+
+thinking
+**Clarifying normative model training details**
+
+Normative models are trained separately per dataset using healthy controls—discovery and validation datasets each have their HCs used to train Gaussian process regression models based on age and sex. I'll treat this as two models for training phases accordingly.
+thinking
+**Confirming reference cohorts for modeling**
+
+The paper uses healthy controls from both datasets to build normative models separately, training on discovery and validating on validation dataset; I'll support this with exact dataset description text from lines 77-85.
+2026-03-02T01:42:34.987577Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '70,90p' study_1/Han2024B.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364 succeeded in 23ms:
+
+To address these limitations, this study leveraged extensive data from two large multi-center datasets, comprising 2424 patients with MDD and 2183 healthy controls (HCs) to parse interindividual heterogeneity in ALFF abnormalities in MDD. Inspired by a previous research on gray matter morphological abnormalities (Han et al., 2023a), we postulated that individualized ALFF abnormalities could be expressed as linear weighted sum of shared differential factors in MDD (Fig. 1a). We employed normative modeling trained with HCs to deduce individualized ALFF abnormalities in patients and then dissected them into differential factors using non-negative matrix factorization (NMF) (Han et al., 2023a). A series of sensitivity analyses were conducted to evaluate the robustness and generalizability of these identified factors. Subsequently, we explored the relevance of these factors to both group-level outcomes and clinical characteristics. To gain deeper insights into these factors, we examined their distinct associations with the distribution of neurotransmitter receptors/transporters, transcriptional profiles of inflammation-related genes, and connectome-informed epicenters. Notably, our findings revealed that these factor compositions facilitated the identification of four reproducible subtypes, each exhibiting unique patterns of ALFF abnormalities and clinical characteristics (Fig. 1b).
+
+## Methods
+
+## Samples
+
+This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium. The DIDA-MDD encompassed nine research sites (Sun et al., 2023). Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%). Patients received diagnoses from experienced psychiatrists based on the Diagnostic and Statistical Manual of Mental Disorders-IV (DSM-IV) criteria for MDD, without comorbidities with other psychiatric disorders or current substance use. The severity of symptoms in patients was assessed using the Hamilton Depression Rating Scale (HAMD) (Hamilton, 1960). HCs and first-degree relatives had no current or lifetime history
+
+Figure 1. Workflow of this study. In (a), we propose that individualized ALFF abnormalities can be expressed as a linear weighted sum of shared differential factors (DFs) in MDD. Moving to (b), the regional ALFF abnormalities are derived through normative modeling and further deconstructed into DFs using NMF. To enhance the biological interpretability of these identified DFs, we explore their associations with group-level results, connectome-informed epicenters, the distribution of neurotransmitters, and expression profiles of inflammation-related genes. Additionally, we utilize factor compositions to identify potential subtypes.
+
+![Image](./Han2024B_artifacts/image_000002_c32e965ed15225dc20f131acf124bc4c8fab22d13c806843a8925939715d9986.png)
+
+of psychiatric disorders, and all participants had no nervous system diseases, cardiovascular diseases, or a history of trauma or brain surgery. Further details are thoroughly described elsewhere (Sun et al., 2023; Xia et al., 2022).
+
+The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%). Patients were diagnosed by experienced psychiatrists based on DSM-IV criteria for MDD. Additional details can be found in previous studies (Chen et al., 2022; Yan et al., 2019).
+
+All analyses were initially conducted in the discovery dataset and subsequently replicated in the validation dataset unless specified otherwise. Approval for this study was obtained from the local Research Ethics Committees, and informed written consent was obtained from all participants before the experiment. For further information on data acquisition and preprocessing, refer to the online Supplementary methods.
+
+## Modeling individualized ALFF abnormalities
+
+thinking
+**Checking modeling section for phase details**
+2026-03-02T01:42:38.892387Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '90,115p' study_1/Han2024B.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364 succeeded in 29ms:
+
+In the discovery dataset, ALFF maps were calculated with the Data Processing Assistant for Resting-State fMRI (DPARSF)
+
+protocol (version 5.4) (Chao-Gan &amp; Yu-Feng, 2010). In the validation dataset, we utilized the released ALFF maps from the REST-meta-MDD consortium (http://rfmri.org/REST-metaMDD). Mean ALFF values were calculated for each brain region defined in the brain connectome atlas (Fan et al., 2016). Combat harmonization was independently performed in each dataset to minimize site effect on ALFF values (Johnson, Li, &amp; Rabinovic, 2007) in each dataset independently. Combat, a technique capable of removing unwanted site variation while preserving biological variability, has been widely employed in neuroimaging studies to mitigate site effects on imaging metrics (Fortin et al., 2017, 2018; Shao et al., 2023).
+
+As done in previous studies (Han et al., 2023a; Marquand et al., 2016; Wolfers et al., 2018), individualized ALFF abnormalities were calculated. Specifically, for each brain region, a Gaussian process regression was trained to estimate the normative range of ALFF values based on age and sex in HCs. The trained model was then applied to each patient, generating a Z -score (individualized ALFF abnormality). The Z -score represents the degree of deviation from the healthy reference population ' s normative range, where a positive Z -score indicates a higher ALFF value than HCs in patients with MDD and vice versa. While normative modeling has shown robust predictive capabilities regarding gray matter morphology, its effectiveness in predicting ALFF values
+
+remains unexplored. Therefore, the performance of normative modeling on ALFF was thoroughly evaluated using the following strategies: (1) 10-fold cross-validation (repeat 100 times); (2) leave-one-site-out cross-validation, where one set served as the testing site and the remaining as the training set; (3) training a Gaussian process regression model based on HCs in the discovery dataset and applying it to HCs in the validation dataset, and vice versa; and (4) utilizing another brain atlas with different resolutions (automated anatomical labeling, AAL) containing 90 cortical and subcortical regions (excluding the cerebellum) (Tzourio-Mazoyer et al., 2002). Model performance was assessed by calculating the standardized mean squared error (MSE) between the true ALFF values and predicted ones (Marquand et al., 2016).
+
+After confirming the performance of normative modeling performance, Z -scores were calculated for each patient using the trained model with HCs, resulting in a Z -score matrix for patients (number of patients × brain regions, N × 246).
+
+## Modeling differential factors
+
+First, we replicated previous findings about heterogeneity in locations of individualized neuroimaging abnormalities. We quantified regional heterogeneity in ALFF deviations as the proportion of patients showing an extreme deviation in each brain region, where regional extreme deviations were defined as | Z | &gt; 2.6 (corresponding to p &lt; 0.005) (Segal et al., 2023; Wolfers et al., 2018).
+
+Given the little overlap in locations of regional individualized ALFF abnormalities (see Results), we next parsed individualized ALFF abnormalities from the perspective of dimension. We hypothesized that individualized ALFF abnormalities could be expressed as a linear combination of differential factors shared by all patients. Individualized ALFF abnormalities ( Z -score matrix) were parsed into latent differential factors using NMF (Han et al., 2023a) defined as follows:
+
+<!-- formula-not-decoded -->
+
+In the above equation, Z represents the Z -score matrix (with dimensions: number of patients × brain regions), F denotes the latent differential factors (with dimensions: number of factors ( K ) × brain regions), W (with dimensions: number of patients × K ) signifies factor compositions (weights), and 1 denotes the residuals. Notably, the optimal number of factors ( K ) remains unknown.
+
+thinking
+**Confirming dataset inclusion and cohort details**
+
+Determined that the multi-center datasets include DIDA-MDD (9 sites) and REST-meta-MDD (25 sites). For EPD, REST-meta-MDD is included but DIDA-MDD is not. Defined phases and cohort sizes with labels for discovery and validation; started calculating female counts from percentages for the HCs, confirming precise numbers via computation.
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n=1079
+pct=56.81/100
+print(n*pct)
+print(round(n*pct))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021042103642026-03-02T01:42:46.737401Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 33ms:
+612.9799
+613
+
+thinking
+**Calculating male percentage in validation set**
+
+The validation set has 1104 HCs with 58.06% female, so I’ll compute the corresponding male percentage next.
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n=1104
+pct=58.06/100
+print(n*pct)
+print(round(n*pct))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021042103642026-03-02T01:42:51.582997Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 36ms:
+640.9824
+641
+
+thinking
+**Clarifying percentage rounding and age precision**
+
+I'll round percentages to one decimal place for consistency, noting when estimates come from reported percentages. For age stats, I'll keep the given decimal precision (e.g., 24.552) and include means and SDs as strings in the JSON output. Next, I'll open the target file to write this data.
+2026-03-02T01:42:59.807142Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v13_Han2024B_by_codex_20260302104210364.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364 succeeded in 29ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+thinking
+**Planning patch application with line numbers**
+
+I'm preparing to build a JSON including supporting texts with quotes and need to capture exact line numbers in the specified file using line numbering commands to ensure precise location formatting.
+2026-03-02T01:43:04.666386Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "nl -ba study_1/Han2024B.pdf.md | sed -n '72,92p'" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364 succeeded in 28ms:
+    72	
+    73	## Methods
+    74	
+    75	## Samples
+    76	
+    77	This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium. The DIDA-MDD encompassed nine research sites (Sun et al., 2023). Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%). Patients received diagnoses from experienced psychiatrists based on the Diagnostic and Statistical Manual of Mental Disorders-IV (DSM-IV) criteria for MDD, without comorbidities with other psychiatric disorders or current substance use. The severity of symptoms in patients was assessed using the Hamilton Depression Rating Scale (HAMD) (Hamilton, 1960). HCs and first-degree relatives had no current or lifetime history
+    78	
+    79	Figure 1. Workflow of this study. In (a), we propose that individualized ALFF abnormalities can be expressed as a linear weighted sum of shared differential factors (DFs) in MDD. Moving to (b), the regional ALFF abnormalities are derived through normative modeling and further deconstructed into DFs using NMF. To enhance the biological interpretability of these identified DFs, we explore their associations with group-level results, connectome-informed epicenters, the distribution of neurotransmitters, and expression profiles of inflammation-related genes. Additionally, we utilize factor compositions to identify potential subtypes.
+    80	
+    81	![Image](./Han2024B_artifacts/image_000002_c32e965ed15225dc20f131acf124bc4c8fab22d13c806843a8925939715d9986.png)
+    82	
+    83	of psychiatric disorders, and all participants had no nervous system diseases, cardiovascular diseases, or a history of trauma or brain surgery. Further details are thoroughly described elsewhere (Sun et al., 2023; Xia et al., 2022).
+    84	
+    85	The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%). Patients were diagnosed by experienced psychiatrists based on DSM-IV criteria for MDD. Additional details can be found in previous studies (Chen et al., 2022; Yan et al., 2019).
+    86	
+    87	All analyses were initially conducted in the discovery dataset and subsequently replicated in the validation dataset unless specified otherwise. Approval for this study was obtained from the local Research Ethics Committees, and informed written consent was obtained from all participants before the experiment. For further information on data acquisition and preprocessing, refer to the online Supplementary methods.
+    88	
+    89	## Modeling individualized ALFF abnormalities
+    90	
+    91	In the discovery dataset, ALFF maps were calculated with the Data Processing Assistant for Resting-State fMRI (DPARSF)
+
+
+thinking
+**Deciding citation lines for supporting text**
+
+I'm selecting line 77 for most sample details including multi-center info and line 85 for validation dataset references, combining them in supporting_text with a semicolon separator and citing both lines in one location string separated by semicolons.
+thinking
+**Finalizing dataset details and updating JSON**
+
+I'm specifying validation dataset use for RCI-2/3 with REST-meta-MDD, including sample size and demographic details for RCI-5/6, confirming no pre-training for RCI-7, and preparing to update JSON with precise fields and confidence levels while avoiding Unicode.
+2026-03-02T01:43:56.293468Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
+@@ -3,43 +3,82 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-center datasets; DIDA-MDD has nine sites and REST-meta-MDD has 25 sites.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium. The DIDA-MDD encompassed nine research sites (Sun et al., 2023).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "REST-meta-MDD consortium used for normative modeling validation; DIDA-MDD also used.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium.\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "REST-meta-MDD",
++      "detail": "REST-meta-MDD consortium (validation dataset) used for normative modeling.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L85"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "n": 1079
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "n": 1104
++        }
++      },
++      "detail": "Training phase HCs in discovery and validation datasets used to train normative models.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "female_n": 613,
++          "female_pct": "56.8%",
++          "male_n": 466,
++          "male_pct": "43.2%"
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "female_n": 641,
++          "female_pct": "58.1%",
++          "male_n": 463,
++          "male_pct": "41.9%"
++        }
++      },
++      "detail": "Training phase; female_n and male_n estimated from reported female percentages and total N.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "mean": "33.96",
++          "sd": "19.25",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "mean": "36.15",
++          "sd": "24.552",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json b/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..1db605eb8f2b623493a466a461b540674ca15d0f
+--- a/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-center datasets; DIDA-MDD has nine sites and REST-meta-MDD has 25 sites.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium. The DIDA-MDD encompassed nine research sites (Sun et al., 2023).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "REST-meta-MDD consortium used for normative modeling validation; DIDA-MDD also used.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium.\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "REST-meta-MDD",
++      "detail": "REST-meta-MDD consortium (validation dataset) used for normative modeling.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L85"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "n": 1079
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "n": 1104
++        }
++      },
++      "detail": "Training phase HCs in discovery and validation datasets used to train normative models.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "female_n": 613,
++          "female_pct": "56.8%",
++          "male_n": 466,
++          "male_pct": "43.2%"
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "female_n": 641,
++          "female_pct": "58.1%",
++          "male_n": 463,
++          "male_pct": "41.9%"
++        }
++      },
++      "detail": "Training phase; female_n and male_n estimated from reported female percentages and total N.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "mean": "33.96",
++          "sd": "19.25",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "mean": "36.15",
++          "sd": "24.552",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json b/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..1db605eb8f2b623493a466a461b540674ca15d0f
+--- a/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-center datasets; DIDA-MDD has nine sites and REST-meta-MDD has 25 sites.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium. The DIDA-MDD encompassed nine research sites (Sun et al., 2023).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "REST-meta-MDD consortium used for normative modeling validation; DIDA-MDD also used.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium.\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "REST-meta-MDD",
++      "detail": "REST-meta-MDD consortium (validation dataset) used for normative modeling.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L85"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "n": 1079
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "n": 1104
++        }
++      },
++      "detail": "Training phase HCs in discovery and validation datasets used to train normative models.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "female_n": 613,
++          "female_pct": "56.8%",
++          "male_n": 466,
++          "male_pct": "43.2%"
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "female_n": 641,
++          "female_pct": "58.1%",
++          "male_n": 463,
++          "male_pct": "41.9%"
++        }
++      },
++      "detail": "Training phase; female_n and male_n estimated from reported female percentages and total N.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "mean": "33.96",
++          "sd": "19.25",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "mean": "36.15",
++          "sd": "24.552",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     }
+   }
+ }
+
+
+thinking
+**Summarizing final changes with next steps**
+
+I've updated the code with the requested functionality and explained the changes clearly. The next step is to review the implementation carefully, as no tests were added yet. The changes are located in the specified file path.
+codex
+Filled the reference cohort fields in `DE_v13_Han2024B_by_codex_20260302104210364.json` using the sample descriptions in `study_1/Han2024B.pdf.md`, including multi-site status, EPD use, HC Ns, sex breakdown (estimated from reported %), and HC ages for discovery vs validation datasets.
+
+- Updated JSON: `DE_v13_Han2024B_by_codex_20260302104210364.json`
+
+Next steps:
+1) If you want, I can also compute pooled/weighted age stats across datasets.
+2026-03-02T01:44:00.587711Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json b/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..1db605eb8f2b623493a466a461b540674ca15d0f
+--- a/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302104210364/DE_v13_Han2024B_by_codex_20260302104210364.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-center datasets; DIDA-MDD has nine sites and REST-meta-MDD has 25 sites.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium. The DIDA-MDD encompassed nine research sites (Sun et al., 2023).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "REST-meta-MDD consortium used for normative modeling validation; DIDA-MDD also used.",
++      "confidence_rating": "High",
++      "supporting_text": "\"This study included two extensive multi-center datasets comprising 2424 patients with MDD and 2183 HCs sourced from the Disease Imaging Data Archiving-Major Depressive Disorder Working Group (DIDA-MDD) and REST-meta-MDD consortium.\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "REST-meta-MDD",
++      "detail": "REST-meta-MDD consortium (validation dataset) used for normative modeling.",
++      "confidence_rating": "High",
++      "supporting_text": "\"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L85"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "n": 1079
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "n": 1104
++        }
++      },
++      "detail": "Training phase HCs in discovery and validation datasets used to train normative models.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "female_n": 613,
++          "female_pct": "56.8%",
++          "male_n": 466,
++          "male_pct": "43.2%"
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "female_n": 641,
++          "female_pct": "58.1%",
++          "male_n": 463,
++          "male_pct": "41.9%"
++        }
++      },
++      "detail": "Training phase; female_n and male_n estimated from reported female percentages and total N.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery dataset (DIDA-MDD) HC normative model",
++          "mean": "33.96",
++          "sd": "19.25",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-2": {
++          "model-name": "validation dataset (REST-meta-MDD) HC normative model",
++          "mean": "36.15",
++          "sd": "24.552",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Following rigorous quality control for both clinical and imaging data (Sun et al., 2023), the final sample included 1148 patients with MDD (age: 33.83 ± 22.17 years, females: 58.62%) and 1079 HCs (age: 33.96 ± 19.25 years, females: 56.81%).\"; \"The validation dataset was sourced from the REST-meta-MDD consortium (http://rfmri.org/REST-meta-MDD) (Chen et al., 2022; Yan et al., 2019), comprising 25 research sites with 1276 patients diagnosed with MDD (age: 36.23 ± 21.378 years, females: 63.71%) and 1104 HCs (age: 36.15 ± 24.552 years, females: 58.06%).\"",
++      "location": "Han2024B.pdf.md: Methods / Samples, L77; Han2024B.pdf.md: Methods / Samples, L85"
+     }
+   }
+ }
+
+tokens used
+34,549
+Filled the reference cohort fields in `DE_v13_Han2024B_by_codex_20260302104210364.json` using the sample descriptions in `study_1/Han2024B.pdf.md`, including multi-site status, EPD use, HC Ns, sex breakdown (estimated from reported %), and HC ages for discovery vs validation datasets.
+
+- Updated JSON: `DE_v13_Han2024B_by_codex_20260302104210364.json`
+
+Next steps:
+1) If you want, I can also compute pooled/weighted age stats across datasets.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

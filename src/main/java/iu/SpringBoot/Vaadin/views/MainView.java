@@ -14,10 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.component.html.Anchor;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.SummaryView_DEv10_0;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.SummaryView_DEv10_1;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.SummaryView_DEv10_2;
-import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.SummaryView_DEv11_v12;
+import iu.SpringBoot.Vaadin.DEQACheckAll.DESummaryPage.SummaryView.*;
 import iu.SpringBoot.Vaadin.DEQACheckAll.MaterialDownloader.MaterialDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.PromptDownloader.PromptDownloader;
 import iu.SpringBoot.Vaadin.DEQACheckAll.QAReportCreationPage.QAReportCreationPage;
@@ -131,11 +128,17 @@ public class MainView extends VerticalLayout {
             RouterLink link3 = new RouterLink("Summary View for DE_v10 (ver 2)", SummaryView_DEv10_2.class);
             add(link3);
 
-            RouterLink link11 = new RouterLink("DE File Table (v11/v12)", DEFileTable.class);
+            RouterLink link11 = new RouterLink("DE File Table (v11/v12/v13)", DEFileTable.class);
             add(link11);
 
             RouterLink link10 = new RouterLink("Summary View for DE_v11/12", SummaryView_DEv11_v12.class);
             add(link10);
+
+            RouterLink link13 = new RouterLink("Summary View for DE_v13", SummaryView_DEv13.class);
+            add(link13);
+
+            RouterLink link14 = new RouterLink("Summary View for DE_v13_2", SummaryView_DEv13_2.class);
+            add(link14);
 
             RouterLink link12 = new RouterLink("Result Comparator", RsltComparatorWebView.class);
             add(link12);

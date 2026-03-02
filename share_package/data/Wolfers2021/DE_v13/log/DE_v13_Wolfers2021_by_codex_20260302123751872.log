@@ -1,0 +1,720 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Wolfers2021_by_codex_20260302123751872.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302123751872/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac9f-ba63-7541-b7d7-33b306b3c661
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Wolfers2021_by_codex_20260302123751872.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read documentation**
+2026-03-02T03:37:58.128032Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302123751872 succeeded in 18ms:
+DE_Guide_v13.md
+DE_v13_Wolfers2021_by_codex_20260302123751872.json
+DE_v13_Wolfers2021_by_codex_20260302123751872.log
+study_1
+2026-03-02T03:38:00.299364Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302123751872 succeeded in 153ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Listing study files**
+
+I'm locating all PDF, Markdown, and similar study-related files to prepare for reading content next.
+2026-03-02T03:38:03.096927Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302123751872 succeeded in 20ms:
+DE_v13_Wolfers2021_by_codex_20260302123751872.log
+DE_v13_Wolfers2021_by_codex_20260302123751872.json
+DE_Guide_v13.md
+study_1/Wolfers2021.pdf.md
+study_1/hbm25386-sup-0001-supinfo.docx.md
+
+thinking
+**Planning to extract from Wolfers2021**
+2026-03-02T03:38:05.998781Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Wolfers2021.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302123751872 succeeded in 26ms:
+## RESEARCH ARTICLE
+
+## Replicating extensive brain structural heterogeneity in individuals with schizophrenia and bipolar disorder
+
+![Image](./Wolfers2021_artifacts/image_000000_9972d23a2e10f5140a434f532d0e5fce782d86a53691a82d4911a778a2c2dd0d.png)
+
+Thomas Wolfers 1,2,3
+
+| Jaroslav Rokicki 1,2 | Dag Alnæs 1,2 | Pierre Berthet 1,2 | Seyed Mostafa Kia 3 | Tobias Kaufmann 2 | Mariam Zabihi 3 | Ingrid Melle 2 | Christian F. Beckmann 3,7 | | Andre F. Marquand 3,7,8 | Lars T. Westlye 1,2,4
+
+Ingrid Agartz 2,4,5,6
+
+|
+
+Torgeir Moberget 1,2
+
+|
+
+Ole A. Andreassen 2,4
+
+
+
+thinking
+**Clarifying normative model and cohorts**
+
+The normative model is built anew using healthy individuals from the TOP study without pre-training, with separate models for discovery and each replication sample. Though data come from the same hospital using different scanners, it's likely a single-site dataset, not multisite, and the training cohort is local rather than public.
+thinking
+**Computing cohort demographics for training phase**
+
+I’m calculating male and female counts from percentages for each healthy training sample and extracting mean±SD age from Table 1, noting min/max is not reported. Next, I’ll source supporting text from the table and fill the JSON with these details under training phase.
+2026-03-02T03:38:22.425845Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v13_Wolfers2021_by_codex_20260302123751872.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302123751872 succeeded in 16ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Detailing model evaluations and supporting evidence**
+
+I've assigned three models labeled discovery, replication1, and replication2 with consistent "No" answers on msad and epd usage, supported by quotes from participant recruitment and MRI location details indicating single-site studies. Confidence levels are medium due to some ambiguity in scanner differences for MSAD. For sample sizes, I'll reference the combined N counts in Table 1's Healthy row to support the replication and discovery sets.
+thinking
+**Computing sex and age stats with table data**
+
+I'm calculating male and female percentages from Table 1 male % values, estimating counts based on N, and noting these as estimates. For age, I'll use the mean±std from the table and mark min/max as "NR," then update the JSON using a patch.
+2026-03-02T03:38:58.768746Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
+@@ -3,43 +3,100 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Single-site TOP study at Oslo University Hospital; participants recruited from the same population/catchment area.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"All participants were recruited from the same population and catchment area\"; \"Structural scans were obtained on ... Oslo University Hospital\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants; Wolfers2021.pdf.md: Methods / MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from the TOP study / local NORMENT database (in-house).",
++      "confidence_rating": "High",
++      "supporting_text": "\"All participants were recruited as part of the Thematically Organized Psychosis (TOP) study\"; \"The participants have been selected from the NoDa (local NORMENT database)\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants; Wolfers2021.pdf.md: Table 1 Demographics (footnote a)"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "No established public dataset used for reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"All participants were recruited as part of the Thematically Organized Psychosis (TOP) study\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "n": 256
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "n": 400
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "n": 312
++        }
++      },
++      "detail": "Training phase healthy controls for each normative model (discovery and two replication samples).",
++      "confidence_rating": "High",
++      "supporting_text": "\"N 312 ... 400 ... 256\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "female_n": 116,
++          "female_pct": "45.3%",
++          "male_n": 140,
++          "male_pct": "54.7%"
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "female_n": 199,
++          "female_pct": "49.8%",
++          "male_n": 201,
++          "male_pct": "50.2%"
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "female_n": 131,
++          "female_pct": "42.0%",
++          "male_n": 181,
++          "male_pct": "58.0%"
++        }
++      },
++      "detail": "Training phase; male % reported in Table 1; male/female counts and female % estimated from N and male %. Percentages rounded to 1 decimal.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Male (%) 58.01% ... 50.25% ... 54.70%\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "mean": "34",
++          "sd": "9.5",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "mean": "34",
++          "sd": "11.3",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "mean": "30",
++          "sd": "8.0",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; age in years; mean ± SD reported for healthy controls in Table 1.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age (mean ± std) 30 ± 8.0 ... 34 ± 11.3 ... 34 ± 9.5\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     }
+apply_patch(auto_approved=true) exited 0 in 11ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json b/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..64d4f3dbe74e0df996c3aed6df9b9edb81dcb39e
+--- a/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
+@@ -1,47 +1,104 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Single-site TOP study at Oslo University Hospital; participants recruited from the same population/catchment area.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"All participants were recruited from the same population and catchment area\"; \"Structural scans were obtained on ... Oslo University Hospital\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants; Wolfers2021.pdf.md: Methods / MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from the TOP study / local NORMENT database (in-house).",
++      "confidence_rating": "High",
++      "supporting_text": "\"All participants were recruited as part of the Thematically Organized Psychosis (TOP) study\"; \"The participants have been selected from the NoDa (local NORMENT database)\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants; Wolfers2021.pdf.md: Table 1 Demographics (footnote a)"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "No established public dataset used for reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"All participants were recruited as part of the Thematically Organized Psychosis (TOP) study\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "n": 256
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "n": 400
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "n": 312
++        }
++      },
++      "detail": "Training phase healthy controls for each normative model (discovery and two replication samples).",
++      "confidence_rating": "High",
++      "supporting_text": "\"N 312 ... 400 ... 256\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "female_n": 116,
++          "female_pct": "45.3%",
++          "male_n": 140,
++          "male_pct": "54.7%"
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "female_n": 199,
++          "female_pct": "49.8%",
++          "male_n": 201,
++          "male_pct": "50.2%"
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "female_n": 131,
++          "female_pct": "42.0%",
++          "male_n": 181,
++          "male_pct": "58.0%"
++        }
++      },
++      "detail": "Training phase; male % reported in Table 1; male/female counts and female % estimated from N and male %. Percentages rounded to 1 decimal.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Male (%) 58.01% ... 50.25% ... 54.70%\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "mean": "34",
++          "sd": "9.5",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "mean": "34",
++          "sd": "11.3",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "mean": "30",
++          "sd": "8.0",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; age in years; mean ± SD reported for healthy controls in Table 1.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age (mean ± std) 30 ± 8.0 ... 34 ± 11.3 ... 34 ± 9.5\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json b/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..64d4f3dbe74e0df996c3aed6df9b9edb81dcb39e
+--- a/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
+@@ -1,47 +1,104 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Single-site TOP study at Oslo University Hospital; participants recruited from the same population/catchment area.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"All participants were recruited from the same population and catchment area\"; \"Structural scans were obtained on ... Oslo University Hospital\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants; Wolfers2021.pdf.md: Methods / MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from the TOP study / local NORMENT database (in-house).",
++      "confidence_rating": "High",
++      "supporting_text": "\"All participants were recruited as part of the Thematically Organized Psychosis (TOP) study\"; \"The participants have been selected from the NoDa (local NORMENT database)\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants; Wolfers2021.pdf.md: Table 1 Demographics (footnote a)"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "No established public dataset used for reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"All participants were recruited as part of the Thematically Organized Psychosis (TOP) study\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "n": 256
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "n": 400
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "n": 312
++        }
++      },
++      "detail": "Training phase healthy controls for each normative model (discovery and two replication samples).",
++      "confidence_rating": "High",
++      "supporting_text": "\"N 312 ... 400 ... 256\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "female_n": 116,
++          "female_pct": "45.3%",
++          "male_n": 140,
++          "male_pct": "54.7%"
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "female_n": 199,
++          "female_pct": "49.8%",
++          "male_n": 201,
++          "male_pct": "50.2%"
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "female_n": 131,
++          "female_pct": "42.0%",
++          "male_n": 181,
++          "male_pct": "58.0%"
++        }
++      },
++      "detail": "Training phase; male % reported in Table 1; male/female counts and female % estimated from N and male %. Percentages rounded to 1 decimal.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Male (%) 58.01% ... 50.25% ... 54.70%\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "mean": "34",
++          "sd": "9.5",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "mean": "34",
++          "sd": "11.3",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "mean": "30",
++          "sd": "8.0",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; age in years; mean ± SD reported for healthy controls in Table 1.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age (mean ± std) 30 ± 8.0 ... 34 ± 11.3 ... 34 ± 9.5\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     }
+   }
+ }
+
+
+thinking
+**Confirming percent rounding behavior**
+codex
+Updated the reference cohort extraction for Wolfers2021 and wrote results to `DE_v13_Wolfers2021_by_codex_20260302123751872.json`, using Table 1 demographics and Methods for dataset provenance and site info.
+
+Next steps if you want:
+1. I can double-check the supplement file `study_1/hbm25386-sup-0001-supinfo.docx.md` for any additional cohort details.
+2026-03-02T03:39:03.617045Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json b/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..64d4f3dbe74e0df996c3aed6df9b9edb81dcb39e
+--- a/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302123751872/DE_v13_Wolfers2021_by_codex_20260302123751872.json
+@@ -1,47 +1,104 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Single-site TOP study at Oslo University Hospital; participants recruited from the same population/catchment area.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"All participants were recruited from the same population and catchment area\"; \"Structural scans were obtained on ... Oslo University Hospital\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants; Wolfers2021.pdf.md: Methods / MRI acquisition"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "No",
++      "detail": "Reference cohort drawn from the TOP study / local NORMENT database (in-house).",
++      "confidence_rating": "High",
++      "supporting_text": "\"All participants were recruited as part of the Thematically Organized Psychosis (TOP) study\"; \"The participants have been selected from the NoDa (local NORMENT database)\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants; Wolfers2021.pdf.md: Table 1 Demographics (footnote a)"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "No established public dataset used for reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "\"All participants were recruited as part of the Thematically Organized Psychosis (TOP) study\"",
++      "location": "Wolfers2021.pdf.md: Methods / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "n": 256
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "n": 400
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "n": 312
++        }
++      },
++      "detail": "Training phase healthy controls for each normative model (discovery and two replication samples).",
++      "confidence_rating": "High",
++      "supporting_text": "\"N 312 ... 400 ... 256\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "female_n": 116,
++          "female_pct": "45.3%",
++          "male_n": 140,
++          "male_pct": "54.7%"
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "female_n": 199,
++          "female_pct": "49.8%",
++          "male_n": 201,
++          "male_pct": "50.2%"
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "female_n": 131,
++          "female_pct": "42.0%",
++          "male_n": 181,
++          "male_pct": "58.0%"
++        }
++      },
++      "detail": "Training phase; male % reported in Table 1; male/female counts and female % estimated from N and male %. Percentages rounded to 1 decimal.",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Male (%) 58.01% ... 50.25% ... 54.70%\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "discovery sample normative model (healthy controls)",
++          "mean": "34",
++          "sd": "9.5",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-2": {
++          "model-name": "replication sample 1 normative model (healthy controls)",
++          "mean": "34",
++          "sd": "11.3",
++          "min": "NR",
++          "max": "NR"
++        },
++        "model-3": {
++          "model-name": "replication sample 2 normative model (healthy controls)",
++          "mean": "30",
++          "sd": "8.0",
++          "min": "NR",
++          "max": "NR"
++        }
++      },
++      "detail": "Training phase; age in years; mean ± SD reported for healthy controls in Table 1.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Age (mean ± std) 30 ± 8.0 ... 34 ± 11.3 ... 34 ± 9.5\" (Healthy column for Replication 2, Replication 1, Discovery)",
++      "location": "Wolfers2021.pdf.md: Table 1 Demographics"
+     }
+   }
+ }
+
+tokens used
+21,302
+Updated the reference cohort extraction for Wolfers2021 and wrote results to `DE_v13_Wolfers2021_by_codex_20260302123751872.json`, using Table 1 demographics and Methods for dataset provenance and site info.
+
+Next steps if you want:
+1. I can double-check the supplement file `study_1/hbm25386-sup-0001-supinfo.docx.md` for any additional cohort details.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

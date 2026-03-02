@@ -154,6 +154,7 @@ public class SummaryView_DEv10_1 extends VerticalLayout {
         columnCopySelect = new ComboBox<>("Column Copy");
         columnCopySelect.setItems(
                 "AuthorYear",
+                "Dataset",
                 "SI3", "SI6", "SI7", "SI8",
                 "SC4", "SC5", "SC6",
                 "RCI1", "RCI2", "RCI3", "RCI4", "RCI5", "RCI6", "RCI7", "RCI8", "RCI9",
@@ -1057,6 +1058,12 @@ public class SummaryView_DEv10_1 extends VerticalLayout {
         // AuthorYear列
         if ("AuthorYear".equals(column)) {
             return row.authorYear != null ? row.authorYear : "";
+        }
+        if ("Dataset".equals(column)) {
+            if (row.valueList_RCI != null && !row.valueList_RCI.isEmpty()) {
+                return row.valueList_RCI.get(0);
+            }
+            return "";
         }
 
         // SI列

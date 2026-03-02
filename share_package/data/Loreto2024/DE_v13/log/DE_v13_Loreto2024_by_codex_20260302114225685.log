@@ -1,0 +1,538 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Loreto2024_by_codex_20260302114225685.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302114225685/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac6c-f98c-7a42-a9c7-7c819d1e5b23
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Loreto2024_by_codex_20260302114225685.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Opening guide file for review**
+2026-03-02T02:42:31.231977Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302114225685 succeeded in 17ms:
+DE_Guide_v13.md
+DE_v13_Loreto2024_by_codex_20260302114225685.json
+DE_v13_Loreto2024_by_codex_20260302114225685.log
+study_1
+exec
+/bin/bash -lc "sed -n '1,200p' DE_Guide_v13.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021142256852026-03-02T02:42:33.413913Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Locating study file**
+
+I'm checking the study_1 directory to find the required study file.
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021142256852026-03-02T02:42:40.864263Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+DAD2-16-e12559-s002.docx.md
+DAD2-16-e12559-s002_artifacts
+Loreto2024.pdf.md
+Loreto2024_artifacts
+
+thinking
+**Searching for JSON usage**
+
+I'm looking for JSON references in the guide to find instructions related to the desired output format.
+2026-03-02T02:42:46.875201Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "JSON|output|記入|フォーマット|schema" DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302114225685 exited 1 in 26ms:
+
+exec
+/bin/bash -lc "sed -n '200,400p' DE_Guide_v13.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021142256852026-03-02T02:42:49.452078Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+      }
+    },
+    "detail": "Training phase HC for each model",
+    "confidence_rating": "High",
+    "supporting_text": "\"For the functional model, 21,594 healthy controls were included... The structural model used 14,473 participants...\"",
+    "location": "Example2024.pdf.md: Methods / Participants, L80-L95"
+  }
+}
+```
+
+### RCI-6. Sex
+
+* 抽出基準: リファレンスコホート（健常者）の Female / Male 各々のN数および比率（%）を記録する。RCI-4 で記録した Phase に対応する情報を抽出する。
+* 複数モデルがある場合は、DC-5 形式を参考にモデル別構造で記録する。
+* 各モデルには `model-name`（そのモデルが何を対象としているかの端的な説明）を必ず付与する。
+* 抽出スタイル: ADCSL_Style
+* 注意:
+    * 一方の性別のみ記載されている場合、総N（RCI-5）から差し引いて他方を推定する。推定した場合は Detail に推定である旨を明記する。
+    * 比率（%）は小数1桁（例: "51.5%"）。
+* "answer" 例（単一モデル）:
+
+thinking
+**Opening existing JSON file**
+exec
+/bin/bash -lc 'cat DE_v13_Loreto2024_by_codex_20260302114225685.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021142256852026-03-02T02:42:52.046937Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Loreto2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021142256852026-03-02T02:42:55.429786Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+## RESEARCH ARTICLE
+
+## Alzheimer's disease heterogeneity revealed by neuroanatomical normative modeling
+
+Flavia Loreto 1
+
+Serena Verdi 2,3
+
+Seyed Mostafa Kia 4,5,6
+
+Aleksandar Duvnjak 1
+
+Haneen Hakeem 1
+
+AnnaFitzgerald 1
+
+Neva Patel 7
+
+Johan Lilja 8
+
+
+
+thinking
+**Confirming use of pre-trained normative model**
+
+The study uses a previously trained normative model based on a reference cohort from prior work, so it relies on a pre-trained model and does not build a new one or provide RCI-1 to RCI-7 metrics.
+thinking
+**Deciding on JSON field values for pre-trained model**
+
+I'll set all RCI-1 to RCI-7 fields to "NA" to clearly indicate they are not applicable for the pre-trained model per the expected output format.
+2026-03-02T02:43:04.516750Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v13_Loreto2024_by_codex_20260302114225685.log' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302114225685 succeeded in 15ms:
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Loreto2024_by_codex_20260302114225685.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302114225685/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac6c-f98c-7a42-a9c7-7c819d1e5b23
+--------
+
+
+thinking
+**Clarifying pre-trained model handling**
+
+The plan is to mark all RCI fields as "NA" and include a note indicating the model is pre-trained with RCI not applicable, reflecting transfer learning rather than new training.
+thinking
+**Defining detailed JSON fields for pre-trained case**
+
+Planning to set rci1–rci3 answer to "NA" with detail and confidence "High," citing the pre-trained statement; rci4 as "NA"; and rci5–rci7 with empty answers but detailed notes and supporting text referencing Methods 2.3.2. This balances schema consistency with clearly indicating pre-trained status.
+2026-03-02T02:43:37.541110Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
+@@ -3,29 +3,29 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "NA",
+     "rci5_n": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+@@ -33,6 +33,6 @@
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+@@ -40,6 +40,6 @@
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M DE_v13_Loreto2024_by_codex_20260302114225685.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json b/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..4ee7f3384ef95b1bbcb6fc4e42aa9a060c10fbe7
+--- a/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
+@@ -1,47 +1,47 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "NA",
+     "rci5_n": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci6_sex": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci7_age": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json b/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..4ee7f3384ef95b1bbcb6fc4e42aa9a060c10fbe7
+--- a/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
+@@ -1,47 +1,47 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "NA",
+     "rci5_n": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci6_sex": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci7_age": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     }
+   }
+ }
+
+
+thinking
+**Providing final summary and next steps**
+
+The implementation is complete without tests. The main file involved is specified for reference. Next steps could include adding tests and any necessary refinements.
+codex
+Pre-trained normative model noted and RCI fields marked not applicable per guide, with supporting citation from the methods section. Updated `DE_v13_Loreto2024_by_codex_20260302114225685.json`.
+
+Next steps if you want:
+1. I can extract the actual reference cohort demographics from the cited prior study if you want to extend beyond the “pre-trained” rule.
+2. I can also sanity-check other sections of `Loreto2024.pdf.md` for any explicit training/RCI details you’d like captured.
+2026-03-02T02:43:44.102185Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json b/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..4ee7f3384ef95b1bbcb6fc4e42aa9a060c10fbe7
+--- a/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302114225685/./DE_v13_Loreto2024_by_codex_20260302114225685.json
+@@ -1,47 +1,47 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "NA",
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "NA",
+     "rci5_n": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci6_sex": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     },
+     "rci7_age": {
+       "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "detail": "Model Build = Pre-trained; RCI not applicable.",
++      "confidence_rating": "High",
++      "supporting_text": "\"Hierarchical Bayesian regression was previously trained on the reference cohort (compiled by Kia and colleagues)\"",
++      "location": "Loreto2024.pdf.md: Methods / 2.3.2 Neuroanatomical normative modeling"
+     }
+   }
+ }
+
+tokens used
+20,796
+Pre-trained normative model noted and RCI fields marked not applicable per guide, with supporting citation from the methods section. Updated `DE_v13_Loreto2024_by_codex_20260302114225685.json`.
+
+Next steps if you want:
+1. I can extract the actual reference cohort demographics from the cited prior study if you want to extend beyond the “pre-trained” rule.
+2. I can also sanity-check other sections of `Loreto2024.pdf.md` for any explicit training/RCI details you’d like captured.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

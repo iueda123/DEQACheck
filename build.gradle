@@ -68,11 +68,28 @@ jar {
     }
 }
 
-task fatJar(type: Jar) {
+task rsltComparatorV1Jar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'iu.SwingStyle.LCCA.Startup.MainStarter.Starter'
+        attributes 'Main-Class': 'iu.SwingStyle.LCCA.Startup.RsltComparatorV1.Starter'
     }
-    archiveClassifier = 'all'
+    archiveBaseName = 'RsltComparator'
+    archiveVersion = version
+    archiveClassifier = 'V1'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    destinationDirectory = file("./share_package/jar")
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
+
+task rsltComparatorV2Jar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'iu.SwingStyle.LCCA.Startup.RsltComparatorV2.Starter'
+    }
+    archiveBaseName = 'RsltComparator'
+    archiveVersion = version
+    archiveClassifier = 'V2'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     destinationDirectory = file("./share_package/jar")
     from {

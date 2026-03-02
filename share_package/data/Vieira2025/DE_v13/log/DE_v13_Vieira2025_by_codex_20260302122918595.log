@@ -1,0 +1,712 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Vieira2025_by_codex_20260302122918595.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302122918595/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac97-e57b-7e90-b04b-2fb0d09a7e72
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Vieira2025_by_codex_20260302122918595.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning to read key docs**
+
+I'm preparing to read AGENTS and DE_Guide files to gather necessary info, using search tools to locate and open them for better understanding.
+2026-03-02T03:29:25.879571Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302122918595 succeeded in 21ms:
+DE_Guide_v13.md
+DE_v13_Vieira2025_by_codex_20260302122918595.json
+DE_v13_Vieira2025_by_codex_20260302122918595.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021229185952026-03-02T03:29:28.235689Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Locating input files**
+
+I'm checking the study_1 directory to find the required input files.
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021229185952026-03-02T03:29:30.774345Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 16ms:
+41398_2025_3290_MOESM1_ESM.docx.md
+41398_2025_3290_MOESM1_ESM_artifacts
+Vieira2025.pdf.md
+Vieira2025_artifacts
+
+thinking
+**Extracting data from Vieira2025**
+2026-03-02T03:29:33.448815Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Model" -n study_1/Vieira2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302122918595 succeeded in 23ms:
+98:Materials for image acquisition parameters). Data were cleaned and pre-processed in line with the steps outlined for the model development data in Section ' Model development ' . In addition, healthy controls from AIBL were randomly subsampled to match the sample size of AD patients to address the large class imbalance. The /uniFB01 nal data comprised 364 participants in the clinical datasets (Fig. 3, Table 2, Supplementary Materials for sample size/scanner). Age did not follow a normal distribution in all sub-groups according to the Shapiro-Wilk test (ADAD = 0.9, p &lt; 0.001; ADHC = 1.0, p &lt; 0.05; SZSZ = 0.9, p &lt; 0.001; SZHC = 0.9, p &lt; 0.01). Differences in sex and age between patients and healthy controls in the clinical data were tested using chi-square test and Mann-Whitney U test, respectively; this revealed no statistically signi /uniFB01 cant differences between the two groups (Table 2).
+102:The Neuroharmony model (trained in the model development data, as described in Section ' Model development ' ) was applied separately to the clinical datasets used for exemplar applications. Results of the harmonisation are shown in the Supplementary Materials.
+
+thinking
+**Reading model development file**
+2026-03-02T03:29:38.904847Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Model development|training|healthy|controls|reference|normative|dataset|AIBL|ADNI|HCP|UK Biobank|Cam-CAN|ABCD|IXI|NKI|HBN|PNC|ENIGMA|OASIS|COBRE|TOP|LEAP|REST-meta-MDD|FCON" study_1/Vieira2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302122918595 succeeded in 34ms:
+13:Within precision psychiatry, there is a growing interest in normative models given their ability to parse heterogeneity. While they are intuitive and informative, the technical expertise and resources required to develop normative models may not be accessible to most researchers. Here we present Neuro /uniFB01 nd, a new freely available tool that bridges this gap by wrapping sound and previously tested methods on data harmonisation and advanced normative models into a web-based platform that requires minimal input from the user. We explain how Neuro /uniFB01 nd was developed, how to use the Neuro /uniFB01 nd website in four simple steps (www.neuro /uniFB01 nd.ai), and provide exemplar applications. Neuro /uniFB01 nd takes as input structural MRI images and outputs two main metrics derived from independent normative models: (1) Outlier Index Score, a deviation score from the normative brain morphology, and (2) Brain Age, the predicted age based on an individual ' s brain morphometry. The tool was trained on 3362 images of healthy controls aged 20 -80 from publicly available datasets. The volume of 101 cortical and subcortical regions was extracted and modelled with an adversarial autoencoder for the Outlier index model and a support vector regression for the Brain age model. To illustrate potential applications, we applied Neuro /uniFB01 nd to 364 images from three independent datasets of patients diagnosed with Alzheimer ' s disease and schizophrenia. In Alzheimer ' s disease, 55.2% of patients had very extreme Outlier Index Scores, mostly driven by larger deviations in temporal-limbic structures and ventricles. Patients were also homogeneous in how they deviated from the norm. Conversely, only 30.1% of schizophrenia patients were extreme outliers, due to deviations in the hippocampus and pallidum, and patients tended to be more heterogeneous than controls. Both groups showed signs of accelerated brain ageing.
+19:Psychiatric and neurological disorders represent 10.4% of the global burden of disease and account for 258 million DALYs per year [1]. Until recently, the investigation of the brain correlates of these disorders has relied mostly on analytical methods based on mass-univariate comparisons between groups (e.g., statistical parametric mapping) [2 -4]. However, this approach is not aligned with the complex, widespread and heterogeneous alterations which are typical of these disorders and the need for individuallevel decisions in clinical practice [2, 5, 6]. This discrepancy may explain the limited translational impact of neuroimaging /uniFB01 ndings in neurology and psychiatry so far [7]. In recent years, a growing number of studies have attempted to address this issue by using multivariate predictive methods that allow statistical inferences at the individual level [8 -11]. Within this movement, there is a growing interest in normative models given their added ability to parse heterogeneity [12 -14]. Here, the aim is to /uniFB01 rst model the variability of a measure (e.g., brain morphology) or relationship (e.g., brain morphology and age) of interest in a reference cohort. Because the latter is typically a group of healthy controls (HC), it is assumed that the variability captured by the model corresponds to the ' norm ' , i.e., expected pattern in the absence of illness. A new and unseen individual can then be mapped against this model, and the distance of this individual from the norm can be quanti /uniFB01 ed. Within this approach, individuals with the same diagnosis can differ from healthy controls in their own unique way or, importantly, not differ at all (i.e., not deviate from the norm) [15]. This is a signi /uniFB01 cant departure from the traditional casecontrol design, where the ' average patient ' is compared with the ' average control ' , under the assumption that they represent qualitatively different groups. This may be a reasonable assumption when the patient group is characterised by consistent and well-de /uniFB01 ned alterations. However, a growing number of studies using normative modelling are revealing that a surprisingly large proportion of patients fall within the normative range for several brain features [16, 17] and that there is substantial heterogeneity within diagnoses [6, 16, 18 -22] as well as overlap between diagnoses [18].
+27:discuss in a recent systematic review [23], these tools were designed to support the diagnosis of neurological disorders namely dementia (ADABOOST [24], Jung Diagnostistics [25, 26], NeuroQuant [27], Quantib [28], volBrain [29, 30]), multiple sclerosis (Jung Diagnostics [31], Quantib [32], volBrain [33]), traumatic brain injury (Icobrain [34], NeuroQuant [35 -38]), temporal lobe epilepsy (NeuroQuant [39, 40]) and intracranial hemorrhages and mass effects in the brain (Qure [41]). These tools map known biomarkers for these disorders including atrophy of hippocampal/sub-cortical structures and ventricles (NeuroQuant, Jung Diagnostics), whitematter lesions (Icobrain, Jung Diagnostics, Quantib, volBrain) or gross abnormalities with computed tomography (Qure). Therefore, to our knowledge, there are no easy-access tools to map deviations from normative whole-brain morphology without making assumptions about a possible diagnosis of a neurological disorder. This hinders the use of existing tools in psychiatry, where disorders are characterised by a heterogeneous, subtle and widespread pattern of abnormalities across the brain. Here we present Neuro /uniFB01 nd , a new user-friendly and freely available webbased tool that outputs an individualised report based on normative modelling from high-resolution structural magnetic resonance (MRI) images. This individualised report includes two main components: (1) Outlier Detection - overall deviation from the normative brain morphology as well as deviations for each brain region, and (2) Brain Age predicted age based on an individual ' s brain morphology. The Outlier Detection model uses an adversarial auto-encoder (AAE), a deep learning approach that has shown promising results in clinical neuroimaging [42, 43]. Speci /uniFB01 cally, we developed an AAE that learns a latent representation of the input data by /uniFB01 rst reducing its dimensionality via consecutive layers of non-linear transformations (encoder); this reduced representation is then used to reconstruct the input (decoder). By constraining this reconstruction to be as similar as possible to the input data, the autoencoder is forced to learn a good representation of the input data [44]. Therefore, the AAE will be able to reconstruct new data with minimal difference between input and reconstruction if it is similar to the data used to learn the latent representation. In Neuro /uniFB01 nd, we used an AAE to learn a latent representation of the normative brain morphology. It is expected that, when presented with new images, the AAE will be able to reconstruct data from healthy controls, but it will be less precise when processing data from patients, i.e., the reconstruction error (i.e., difference between input and reconstruction) will be larger in patients compared to healthy controls. Therefore, the reconstruction error can be thought of as a proxy for deviation from the normative disease-free brain morphology. The Brain Age model, on the other hand, measures the effects of ageing on the brain and builds on the well-established relationship between age and neuroanatomy across the lifespan [45]. Brain age is often used to calculate the brain age gap (BAG), i.e., the difference between the predicted brain age and chronological age. A positive BAG means that the individual ' s predicted brain age was higher than their actual age, suggesting ' accelerated ' ageing; conversely, a negative BAG indicates ' delayed ' ageing. There has been a surge in the investigation of BAG as a potential biomarker [46] after several studies showing an higher brain ages in psychosis [47 -51], bipolar disorder [50 -53], Alzheimer ' s disease (AD) [51, 54, 55], among others. In addition to providing these two informative and complementary metrics, Neuro /uniFB01 nd uses a novel method -Neuroharmony [56] -to mitigate scanner effects of new incoming images. This overcomes the limitation of popular harmonisation methods, such as ComBat [57, 58], that require a representative sample from each scanner, which is not suitable for clinical translation, as new patients ' scans will likely originate from previously unseen scanners. Therefore, Neuro /uniFB01 nd combines our previous work on the use of AAE to build a normative model of brain morphology [59], brain age [60] and harmonisation of unseen scanners [56] into a user-friendly web-based tool targeted at researchers who wish to apply normative modelling to their morphological data. In the following sections, we present (1) the development of the models in Neuro /uniFB01 nd, (2) a guide on how to use Neuro /uniFB01 nd in four simple steps, and (3) exemplar applications of the tool in AD and schizophrenia (SZ).
+31:Data for training the web-based normative models used in Neuro /uniFB01 nd consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project [61, 62], the Human Connectome Project Aging [63], Biobank [64] and IXI (http://brain-development.org/ixi-dataset/).
+35:The initial total sample included 13,918 T1-weighted MRI images from 7 scanners (see Supplementary Materials for image acquisition parameters). Participants with missing data and younger than 20 and older than 80 years old were excluded. Poor quality images were excluded based on the MRIQC tool [65]. This tool uses 68 image quality metrics (IQMs) such as the presence of movement, artefacts, and signal-to-noise ratio to determine the probability of an image being unusable. Images with a probability higher than 0.7 were discarded. The remaining images were pre-processed using the recon-all pipeline with standard parameters in FreeSurfer (version 6.0) [66]. The cortical surface was parcellated using the Desikan-Killiany cortical atlas [67] and segmented into 68 cortical regions (34 per hemisphere). An additional 33 neuroanatomical structures were extracted using the ASEG atlas in FreeSurfer [66, 67] totalling 101 brain regions (ROIs) (full list of extracted regions in the Supplementary Materials). We estimated the relative brain region volumes (ROIrel ) for each subject by dividing the original brain region volumes by the total intracranial volume (also computed with FreeSurfer). The /uniFB01 nal pre-processed data included 13,187 participants. However, there was an imbalanced distribution between the number of younger and older healthy controls, mostly due to the Biobank dataset (Fig. 1). The largest scanner of the Biobank dataset was under-sampled such that a maximum of 55 participants per age group were selected at random. Since outliers are unexpected in healthy subjects and are likely to be due to artefacts, healthy controls in the train set with at least 10 ROI rel more than 3 standard deviations ( σ ) away from the sample mean ( μ ) were considered outliers and excluded. This process was repeated iteratively, recalculating μ and σ until no additional participant met the criteria for being an outlier. This process was implemented within each scanner to ensure that participants would not be considered outliers simply due to differences between scanners. The /uniFB01 nal data for the train set comprised 3362 participants (Fig. 1, Table 1, Supplementary Materials for sample size/scanner).
+50:Scanner effects on the ROIrel were mitigated using the Neuroharmony method [56]. Brie /uniFB02 y, Neuroharmony uses a random forest model to capture the relationship between IQMs and the corrections for each brain region prescribed by ComBat, a popular harmonisation approach that uses an empirical Bayes framework to correct for additive and multiplicative batch effects [68]. Once this relationship is learned, Neuroharmony predicts and applies the ComBat corrections for a new set of IQMs extracted from an unseen T1-weighted image. Neuroharmony was trained twice to accommodate the speci /uniFB01 c needs of the Outlier Detection and Brain Age models. For the former, Neuroharmony was trained whilst controlling for the effects of age and sex, whereas for Brain Age, only sex was added as a covariate. Neuroharmony was trained in the same train datasets as used for the development of the outlier detection and brain age models. Results of the harmonisation are shown in the Supplementary Materials.
+54:Our outlier detection model uses an adversarial autoencoder (AAE) to learn a representation of disease-free brain morphology. Brie /uniFB02 y, AAE combines a standard autoencoder with adversarial learning to improve the learned latent representation by forcing it to have a distribution similar to a desired prior distribution. In our approach, we used a Gaussian distribution. This is achieved by adding a third element to the standard autoencoder, the discriminator, responsible for deciding whether its input data comes from random numbers sampled from the prede /uniFB01 ned prior distribution or the latent code. A successful AAE will be able to generate a latent code capable of fooling the discriminator into inferring that the encoded samples come from the prior distribution (i.e., the discriminator will not be able to distinguish the two distributions). Therefore, the aim is to produce a latent representation that yields a low reconstruction error whilst also having a similar shape to the desired prior distribution. The AAE was trained in the harmonised ROIrel from the train set following the same approach described in previous work [59] (see Supplementary Materials for details on model training). The reconstruction error for each ROIrel was estimated by calculating the squared error between the inputted value and its reconstruction. An overall reconstruction error was then generated for each participant by calculating the mean squared error between the reconstruction and the inputted data. The distributions for all ROIlevel and overall reconstruction errors in the train set were positively skewed. Therefore, all values were scaled by subtracting the median and dividing by the interquartile range such that the median of the overall and ROI-level scaled errors was 0.0 (IQR = 1.0) (Supplementary Materials). The /uniFB01 nal scaled errors, which we named Outlier Index Score (OIS), represent the number of interquartile ranges away from the median in the train set. The OIS is categorised into: Within the norm (&lt;0.26), Low ( ≥ 0.26), Medium ( ≥ 1.1) and High ( ≥ 2.3) deviations from the norm (values indicate number of interquartile ranges away from the median in the train set). Cut-off values were extracted from the train set by /uniFB01 rst dividing the distribution of OIS into centiles and then grouping them into quartiles.
+60:model as implemented in the Python package scikit-learn [69] with a similar approach as described previously [60]. A systematic hyperparameter search for C was conducted using a ten-fold cross-validated grid-search over the search space 2 -7 , 2 -5 , 2 -3 , 2 -2 , 2 -1 , 2 0 , and 2 1 . The C value with the best performance, as determined by the scoring parameter negative mean absolute error (MAE), was then applied to the whole training set (C = 2 -2 ). The parameters epsilon and tolerance for stopping criterion were 0.1 and 1e -3, respectively. In the train set, the MAE was 10.5 ± 9.8 years.
+86:The individualised report contains three main outputs: Brain Age, Outlier Index Score and Regional deviations from the norm. For Brain Age, the predicted and chronological ages are given. The difference between the two represents the BAG. A positive BAG means that the individual ' s predicted brain age was higher than their chronological age, suggesting ' accelerated ' ageing; conversely, a negative BAG indicates ' delayed ' ageing. The Outlier Index Score conveys the magnitude of the overall deviation from the normative brain morphology. As the deviation increases, the Outlier Index Score will be classi /uniFB01 ed as Within the norm, Low, Medium and High deviation from the norm (see Section ' Outlier detection ' for explanation of cut-off values). The brain regions with the largest deviations from the norm are shown in a glass brain and shown in full in a table at the end of the report.
+92:Exemplar applications were carried out in three clinical datasets: the Australian Imaging, Biomarkers and Lifestyle Study (AIBL), the MIND Clinical Imaging Consortium (MCIC) and the Center for Biomedical Research Excellence (COBRE) dataset. The AIBL dataset includes patients diagnosed with AD and healthy controls; the latter two datasets include patients diagnosed with SZ and corresponding healthy controls; for details about recruitment see [70 -73].
+98:Materials for image acquisition parameters). Data were cleaned and pre-processed in line with the steps outlined for the model development data in Section ' Model development ' . In addition, healthy controls from AIBL were randomly subsampled to match the sample size of AD patients to address the large class imbalance. The /uniFB01 nal data comprised 364 participants in the clinical datasets (Fig. 3, Table 2, Supplementary Materials for sample size/scanner). Age did not follow a normal distribution in all sub-groups according to the Shapiro-Wilk test (ADAD = 0.9, p &lt; 0.001; ADHC = 1.0, p &lt; 0.05; SZSZ = 0.9, p &lt; 0.001; SZHC = 0.9, p &lt; 0.01). Differences in sex and age between patients and healthy controls in the clinical data were tested using chi-square test and Mann-Whitney U test, respectively; this revealed no statistically signi /uniFB01 cant differences between the two groups (Table 2).
+102:The Neuroharmony model (trained in the model development data, as described in Section ' Model development ' ) was applied separately to the clinical datasets used for exemplar applications. Results of the harmonisation are shown in the Supplementary Materials.
+106:The overall and ROI-level reconstruction errors in the clinical sample were scaled according to the median and interquartile range obtained in the train set (see Section ' Outlier detection ' ). Differences in overall and ROI-level OIS and BAG between patients and respective controls were investigated using an independentsample t-test or Mann-Whitney U Test depending on whether the distribution for both groups was normally distributed or not, respectively. Normality was tested using the Shapiro-Wilk test. For the ROI-level comparisons the p-value was adjusted using the Benjamini-Hochberg correction for multiple comparisons. The association between OIS and BAG with symptom severity was tested with Pearson ' s correlation coef /uniFB01 cient (r) or Spearman ' s rho ( ρ ) depending on the outcome of the Shapiro-Wilk test for the symptoms. Statistical signi /uniFB01 cance was set at 0.05. Patients ' symptom severity was assessed with the Mini Mental State Examination (MMSE) [74] (AIBL), the Scale for the Assessment of Negative Symptoms (SANS) [75] and the Scale for the Assessment of Positive Symptoms (SAPS) [76] (MCIC) or the Positive and Negative Syndrome Scale (PANSS) [77] (COBRE). Lower scores in
+114:where Minimum and Maximum refer to the lowest and highest score allowed for either PANSS or SAPS/SANS. The resulting symptom severity scores were normalised by subtracting the mean from every item and then dividing the resulting value by the standard deviation of the item (i.e., zero mean unit variance normalization). To investigate heterogeneity of deviations from the normative brain morphology amongst participants, we calculated the mean pairwise cosine similarity (CS) across all individual ROI-level OIS and within prede /uniFB01 ned brain regions based on the Desikan-Killiany atlas: frontal, temporal, parietal and occipital lobes, insula, cingulate, subcortical structures, cerebellum, corpus callosum and ventricles (Supplementary Materials). Brie /uniFB02 y, CS quanti /uniFB01 es the similarity between two vectors by calculating the cosine of the angle between the two. The magnitude varies from 0 (low similarity between individuals, i.e., vectors are 90 degrees or perpendicular to each other) and 1 (perfect similarity between individuals). BAG was calculated by subtracting the chronological age from the predicted brain age and normalised according to the train set used for model development.
+118:Quantifying deviation from the normative brain morphology . The overall and ROI-level OIS did not follow a normal distribution, whilst the BAG did (Supplementary Materials). AD patients (Median = 2.46, IQR = 2.50) showed a signi /uniFB01 cantly larger OIS compared to HC (Median = 0.91, IQR = 1.36) (Mann-U = 1361; p &lt; 0.001) (Fig. 4A). AD patients showed signi /uniFB01 cantly larger median OIS for individual ROIs relative to respective HC for bilateral amygdala (Mann-ULeft Amyg = 1196, p &lt; 0.01; Mann-URight Amyg = 1246, p &lt; 0.001), hippocampus (Mann-ULeft Hipp = 1476, p &lt; 0.001; Mann-URight Hipp = 1425, p &lt; 0.001), inferior temporal gyrus (Mann-ULeft Inf Temp = 1245, p &lt; 0.001; Mann-URight Inf Temp = 1343, p &lt; 0.001) and inferior lateral ventricle (Mann-ULeft Inf. Lat. Ven. = 1519, p &lt; 0.001; Mann-URight Inf. Lat.Ven. = 1382, p &lt; 0.001), left inferior parietal gyrus (Mann-U = 1185, p &lt; 0.05) (Fig. 4C; see Supplementary Materials for detailed results). Conversely, there was no statistically signi /uniFB01 cant difference in overall OIS between SZ patients (Median = 1.38, IQR = 1.83) and respective HC (Median = 1.10, IQR = 1.76) (Mann-U = 7657; p = 0.091) (Fig. 4A). However, patients showed signi /uniFB01 cantly larger median deviations from HC in bilateral hippocampus (Mann-U Left Hipp = 8077, p &lt; 0.01; Mann-URight Hip = 7384, p &lt; 0.05) and left putamen (Mann-U = 7846, p &lt; 0.05) (Fig. 4D, see Supplementary Materials for detailed results).
+120:Fig. 3 Distribution of age and sex in the clinical datasets used for exemplar applications.
+124:Table 2. Demographic characteristics of the clinical datasets used for exemplar applications.
+126:|                     | Clinical datasets ( N = 367)   | Clinical datasets ( N = 367)   |       | Schizophrenia ( N = 245)   |                       |       |
+132:Fig. 4 Results from the exemplar applications for AD and SZ. A Outlier Index Score (OIS) for AD and SZ. B BAG for patients and HC. C , D Median difference between OIS for schizophrenia / Alzheimer ' s disease and respective controls for ROIs with a statistically signi /uniFB01 cant difference between the two. Plots show the mean difference between patients and respective controls and the 95% con /uniFB01 dence interval (CI) for this difference. The 95% CI was calculated with bootstrapping (1000 repetitions). *** p ≤ 0.001, ** p ≤ 0.010, * p &lt; 0.05, ns p &gt; 0.05.
+136:Fig. 5 Proportion of patients with overall OIS within the norm, low, medium, or high deviation. A In the Alzheimer ' s disease group, only a small fraction of patients exhibited an overall OIS within the normative range. The percentage of patients classi /uniFB01 ed with deviations increased progressively, with the majority falling into the high deviation category. B In the schizophrenia group, a greater proportion of patients displayed deviations from the norm, with more individuals classi /uniFB01 ed in the medium and high deviation categories than in the low deviation range.
+
+thinking
+**Identifying key demographics for extraction**
+
+Planning to extract sample size, sex, and age details from Table 1 in the paper to use for training data preparation. Next step is to review Table 1 closely for relevant demographic information.
+2026-03-02T03:29:42.472073Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table 1|Table 1.|Table 1" -n study_1/Vieira2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302122918595 succeeded in 26ms:
+35:The initial total sample included 13,918 T1-weighted MRI images from 7 scanners (see Supplementary Materials for image acquisition parameters). Participants with missing data and younger than 20 and older than 80 years old were excluded. Poor quality images were excluded based on the MRIQC tool [65]. This tool uses 68 image quality metrics (IQMs) such as the presence of movement, artefacts, and signal-to-noise ratio to determine the probability of an image being unusable. Images with a probability higher than 0.7 were discarded. The remaining images were pre-processed using the recon-all pipeline with standard parameters in FreeSurfer (version 6.0) [66]. The cortical surface was parcellated using the Desikan-Killiany cortical atlas [67] and segmented into 68 cortical regions (34 per hemisphere). An additional 33 neuroanatomical structures were extracted using the ASEG atlas in FreeSurfer [66, 67] totalling 101 brain regions (ROIs) (full list of extracted regions in the Supplementary Materials). We estimated the relative brain region volumes (ROIrel ) for each subject by dividing the original brain region volumes by the total intracranial volume (also computed with FreeSurfer). The /uniFB01 nal pre-processed data included 13,187 participants. However, there was an imbalanced distribution between the number of younger and older healthy controls, mostly due to the Biobank dataset (Fig. 1). The largest scanner of the Biobank dataset was under-sampled such that a maximum of 55 participants per age group were selected at random. Since outliers are unexpected in healthy subjects and are likely to be due to artefacts, healthy controls in the train set with at least 10 ROI rel more than 3 standard deviations ( σ ) away from the sample mean ( μ ) were considered outliers and excluded. This process was repeated iteratively, recalculating μ and σ until no additional participant met the criteria for being an outlier. This process was implemented within each scanner to ensure that participants would not be considered outliers simply due to differences between scanners. The /uniFB01 nal data for the train set comprised 3362 participants (Fig. 1, Table 1, Supplementary Materials for sample size/scanner).
+41:Table 1. Demographic characteristics of the train set used in model development.
+
+thinking
+**Searching for Table 1 content**
+2026-03-02T03:29:46.756728Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Demographic characteristics of the train set" -n study_1/Vieira2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302122918595 succeeded in 26ms:
+41:Table 1. Demographic characteristics of the train set used in model development.
+
+thinking
+**Checking table extraction around line 40**
+exec
+/bin/bash -lc "sed -n '35,60p' study_1/Vieira2025.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021229185952026-03-02T03:29:49.944350Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+The initial total sample included 13,918 T1-weighted MRI images from 7 scanners (see Supplementary Materials for image acquisition parameters). Participants with missing data and younger than 20 and older than 80 years old were excluded. Poor quality images were excluded based on the MRIQC tool [65]. This tool uses 68 image quality metrics (IQMs) such as the presence of movement, artefacts, and signal-to-noise ratio to determine the probability of an image being unusable. Images with a probability higher than 0.7 were discarded. The remaining images were pre-processed using the recon-all pipeline with standard parameters in FreeSurfer (version 6.0) [66]. The cortical surface was parcellated using the Desikan-Killiany cortical atlas [67] and segmented into 68 cortical regions (34 per hemisphere). An additional 33 neuroanatomical structures were extracted using the ASEG atlas in FreeSurfer [66, 67] totalling 101 brain regions (ROIs) (full list of extracted regions in the Supplementary Materials). We estimated the relative brain region volumes (ROIrel ) for each subject by dividing the original brain region volumes by the total intracranial volume (also computed with FreeSurfer). The /uniFB01 nal pre-processed data included 13,187 participants. However, there was an imbalanced distribution between the number of younger and older healthy controls, mostly due to the Biobank dataset (Fig. 1). The largest scanner of the Biobank dataset was under-sampled such that a maximum of 55 participants per age group were selected at random. Since outliers are unexpected in healthy subjects and are likely to be due to artefacts, healthy controls in the train set with at least 10 ROI rel more than 3 standard deviations ( σ ) away from the sample mean ( μ ) were considered outliers and excluded. This process was repeated iteratively, recalculating μ and σ until no additional participant met the criteria for being an outlier. This process was implemented within each scanner to ensure that participants would not be considered outliers simply due to differences between scanners. The /uniFB01 nal data for the train set comprised 3362 participants (Fig. 1, Table 1, Supplementary Materials for sample size/scanner).
+
+Fig. 1 Distribution of age and sex in the train set before and after addressing data imbalance.
+
+![Image](./Vieira2025_artifacts/image_000001_ebce9ce88cd3c14d1aef885c09f8eea793838f54e618ebc40761608d201984f3.png)
+
+Table 1. Demographic characteristics of the train set used in model development.
+
+|                      | Train set ( N = 3362)     |
+|----------------------|---------------------------|
+| Sex F/M, N (%)       | 1893 (56.3) / 1469 (43.7) |
+| Age, median [Q1, Q3] | 52.0 [15.2]               |
+
+## Scanner harmonisation
+
+Scanner effects on the ROIrel were mitigated using the Neuroharmony method [56]. Brie /uniFB02 y, Neuroharmony uses a random forest model to capture the relationship between IQMs and the corrections for each brain region prescribed by ComBat, a popular harmonisation approach that uses an empirical Bayes framework to correct for additive and multiplicative batch effects [68]. Once this relationship is learned, Neuroharmony predicts and applies the ComBat corrections for a new set of IQMs extracted from an unseen T1-weighted image. Neuroharmony was trained twice to accommodate the speci /uniFB01 c needs of the Outlier Detection and Brain Age models. For the former, Neuroharmony was trained whilst controlling for the effects of age and sex, whereas for Brain Age, only sex was added as a covariate. Neuroharmony was trained in the same train datasets as used for the development of the outlier detection and brain age models. Results of the harmonisation are shown in the Supplementary Materials.
+
+## Outlier detection
+
+Our outlier detection model uses an adversarial autoencoder (AAE) to learn a representation of disease-free brain morphology. Brie /uniFB02 y, AAE combines a standard autoencoder with adversarial learning to improve the learned latent representation by forcing it to have a distribution similar to a desired prior distribution. In our approach, we used a Gaussian distribution. This is achieved by adding a third element to the standard autoencoder, the discriminator, responsible for deciding whether its input data comes from random numbers sampled from the prede /uniFB01 ned prior distribution or the latent code. A successful AAE will be able to generate a latent code capable of fooling the discriminator into inferring that the encoded samples come from the prior distribution (i.e., the discriminator will not be able to distinguish the two distributions). Therefore, the aim is to produce a latent representation that yields a low reconstruction error whilst also having a similar shape to the desired prior distribution. The AAE was trained in the harmonised ROIrel from the train set following the same approach described in previous work [59] (see Supplementary Materials for details on model training). The reconstruction error for each ROIrel was estimated by calculating the squared error between the inputted value and its reconstruction. An overall reconstruction error was then generated for each participant by calculating the mean squared error between the reconstruction and the inputted data. The distributions for all ROIlevel and overall reconstruction errors in the train set were positively skewed. Therefore, all values were scaled by subtracting the median and dividing by the interquartile range such that the median of the overall and ROI-level scaled errors was 0.0 (IQR = 1.0) (Supplementary Materials). The /uniFB01 nal scaled errors, which we named Outlier Index Score (OIS), represent the number of interquartile ranges away from the median in the train set. The OIS is categorised into: Within the norm (&lt;0.26), Low ( ≥ 0.26), Medium ( ≥ 1.1) and High ( ≥ 2.3) deviations from the norm (values indicate number of interquartile ranges away from the median in the train set). Cut-off values were extracted from the train set by /uniFB01 rst dividing the distribution of OIS into centiles and then grouping them into quartiles.
+
+
+thinking
+**Clarifying age stats and model labeling**
+
+Age range can be inferred as 20–80 based on inclusion criteria and noted as inferred since mean/SD aren’t provided. The two normative models (outlier and brain age) share the same 3362 training participants; they should be recorded separately by model name per instructions.
+thinking
+**Confirming training data details and dataset labeling**
+
+Both models share the same train set with N=3362; sex data applies to both. Age stats include median/IQR with inferred min/max 20–80; mean/SD not reported. Training data spans four public datasets and seven scanners, confirming a multi-site design, with EPD datasets including HCP, UK Biobank, and IXI; HCP Aging is treated as part of HCP for listing.
+exec
+/bin/bash -lc 'cat DE_v13_Vieira2025_by_codex_20260302122918595.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021229185952026-03-02T03:30:04.280023Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Adding detailed dataset and model quotes**
+
+I'm preparing precise quoted support for dataset size, multi-site nature, sex distribution with percentages, and age statistics including inferred age range; model names "outlier detection model" and "brain age model" are noted for consistency.
+thinking
+**Planning JSON edits with source locations**
+
+I'm preparing to edit the JSON to add the training phase and combined quoted supporting text with exact file and section locations for each mention.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
+@@ -3,43 +3,82 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site aggregated data; four public datasets with 7 scanners",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"; \"The initial total sample included 13,918 T1-weighted MRI images from 7 scanners\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "HCP (Young Adult + Aging), UK Biobank, and IXI used as training datasets",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "HCP; UK Biobank; IXI",
++      "detail": "HCP includes HCP Young Adult and HCP Aging datasets",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "n": 3362
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "n": 3362
++        }
++      },
++      "detail": "Training phase; same train set used for both normative models",
++      "confidence_rating": "High",
++      "supporting_text": "\"The final data for the train set comprised 3362 participants\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "female_n": 1893,
++          "female_pct": "56.3%",
++          "male_n": 1469,
++          "male_pct": "43.7%"
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "female_n": 1893,
++          "female_pct": "56.3%",
++          "male_n": 1469,
++          "male_pct": "43.7%"
++        }
++      },
++      "detail": "Training phase; sex distribution reported for train set",
++      "confidence_rating": "High",
++      "supporting_text": "\"Sex F/M, N (%) 1893 (56.3) / 1469 (43.7)\"",
++      "location": "Vieira2025.pdf.md: Model development / Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "20 inferred",
++          "max": "80 inferred"
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "20 inferred",
++          "max": "80 inferred"
++        }
++      },
++      "detail": "Training phase; age reported as median [Q1, Q3] only; range inferred from exclusion criteria (younger than 20 and older than 80 excluded)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Age, median [Q1, Q3] 52.0 [15.2]\"; \"Participants with missing data and younger than 20 and older than 80 years old were excluded.\"",
++      "location": "Vieira2025.pdf.md: Model development / Table 1; Vieira2025.pdf.md: Model development / Training data"
+     }
+2026-03-02T03:30:37.840828Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M DE_v13_Vieira2025_by_codex_20260302122918595.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json b/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..d7bfdd19f9218eb8f991e34f2f6175f7de7352c2
+--- a/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site aggregated data; four public datasets with 7 scanners",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"; \"The initial total sample included 13,918 T1-weighted MRI images from 7 scanners\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "HCP (Young Adult + Aging), UK Biobank, and IXI used as training datasets",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "HCP; UK Biobank; IXI",
++      "detail": "HCP includes HCP Young Adult and HCP Aging datasets",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "n": 3362
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "n": 3362
++        }
++      },
++      "detail": "Training phase; same train set used for both normative models",
++      "confidence_rating": "High",
++      "supporting_text": "\"The final data for the train set comprised 3362 participants\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "female_n": 1893,
++          "female_pct": "56.3%",
++          "male_n": 1469,
++          "male_pct": "43.7%"
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "female_n": 1893,
++          "female_pct": "56.3%",
++          "male_n": 1469,
++          "male_pct": "43.7%"
++        }
++      },
++      "detail": "Training phase; sex distribution reported for train set",
++      "confidence_rating": "High",
++      "supporting_text": "\"Sex F/M, N (%) 1893 (56.3) / 1469 (43.7)\"",
++      "location": "Vieira2025.pdf.md: Model development / Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "20 inferred",
++          "max": "80 inferred"
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "20 inferred",
++          "max": "80 inferred"
++        }
++      },
++      "detail": "Training phase; age reported as median [Q1, Q3] only; range inferred from exclusion criteria (younger than 20 and older than 80 excluded)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Age, median [Q1, Q3] 52.0 [15.2]\"; \"Participants with missing data and younger than 20 and older than 80 years old were excluded.\"",
++      "location": "Vieira2025.pdf.md: Model development / Table 1; Vieira2025.pdf.md: Model development / Training data"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json b/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..d7bfdd19f9218eb8f991e34f2f6175f7de7352c2
+--- a/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site aggregated data; four public datasets with 7 scanners",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"; \"The initial total sample included 13,918 T1-weighted MRI images from 7 scanners\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "HCP (Young Adult + Aging), UK Biobank, and IXI used as training datasets",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "HCP; UK Biobank; IXI",
++      "detail": "HCP includes HCP Young Adult and HCP Aging datasets",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "n": 3362
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "n": 3362
++        }
++      },
++      "detail": "Training phase; same train set used for both normative models",
++      "confidence_rating": "High",
++      "supporting_text": "\"The final data for the train set comprised 3362 participants\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "female_n": 1893,
++          "female_pct": "56.3%",
++          "male_n": 1469,
++          "male_pct": "43.7%"
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "female_n": 1893,
++          "female_pct": "56.3%",
++          "male_n": 1469,
++          "male_pct": "43.7%"
++        }
++      },
++      "detail": "Training phase; sex distribution reported for train set",
++      "confidence_rating": "High",
++      "supporting_text": "\"Sex F/M, N (%) 1893 (56.3) / 1469 (43.7)\"",
++      "location": "Vieira2025.pdf.md: Model development / Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "20 inferred",
++          "max": "80 inferred"
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "20 inferred",
++          "max": "80 inferred"
++        }
++      },
++      "detail": "Training phase; age reported as median [Q1, Q3] only; range inferred from exclusion criteria (younger than 20 and older than 80 excluded)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Age, median [Q1, Q3] 52.0 [15.2]\"; \"Participants with missing data and younger than 20 and older than 80 years old were excluded.\"",
++      "location": "Vieira2025.pdf.md: Model development / Table 1; Vieira2025.pdf.md: Model development / Training data"
+     }
+   }
+ }
+
+
+thinking
+**Providing final guidance**
+
+I'm preparing a response that explains the findings, includes relevant references, notes the absence of tests, and offers improvement suggestions.
+codex
+Filled the reference cohort info from the model development section and Table 1, including multi-site/public dataset flags, training N, sex breakdown, and inferred age range with citations in `DE_v13_Vieira2025_by_codex_20260302122918595.json`.
+
+Details and context:
+- Pulled training dataset composition and scanner count from `study_1/Vieira2025.pdf.md` to mark MSAD and EPD usage, listing HCP, UK Biobank, and IXI as EPDs.
+- Recorded training N (3362) and sex distribution from Table 1 in `study_1/Vieira2025.pdf.md`.
+- Noted age as median/IQR only, so mean/SD are `NR`; min/max inferred from exclusion criteria in `study_1/Vieira2025.pdf.md`.
+
+Next steps you may want:
+1) Review whether you want HCP Aging listed separately from HCP in `rci3_epd_name`.
+2026-03-02T03:30:43.191297Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json b/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..d7bfdd19f9218eb8f991e34f2f6175f7de7352c2
+--- a/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302122918595/./DE_v13_Vieira2025_by_codex_20260302122918595.json
+@@ -1,47 +1,86 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "Multi-site aggregated data; four public datasets with 7 scanners",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"; \"The initial total sample included 13,918 T1-weighted MRI images from 7 scanners\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "HCP (Young Adult + Aging), UK Biobank, and IXI used as training datasets",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "HCP; UK Biobank; IXI",
++      "detail": "HCP includes HCP Young Adult and HCP Aging datasets",
++      "confidence_rating": "High",
++      "supporting_text": "\"Data for training the web-based normative models used in Neurofind consisted of four publicly available datasets of healthy controls, namely the Human Connectome Project, the Human Connectome Project Aging, Biobank and IXI\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "n": 3362
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "n": 3362
++        }
++      },
++      "detail": "Training phase; same train set used for both normative models",
++      "confidence_rating": "High",
++      "supporting_text": "\"The final data for the train set comprised 3362 participants\"",
++      "location": "Vieira2025.pdf.md: Model development / Training data"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "female_n": 1893,
++          "female_pct": "56.3%",
++          "male_n": 1469,
++          "male_pct": "43.7%"
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "female_n": 1893,
++          "female_pct": "56.3%",
++          "male_n": 1469,
++          "male_pct": "43.7%"
++        }
++      },
++      "detail": "Training phase; sex distribution reported for train set",
++      "confidence_rating": "High",
++      "supporting_text": "\"Sex F/M, N (%) 1893 (56.3) / 1469 (43.7)\"",
++      "location": "Vieira2025.pdf.md: Model development / Table 1"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "outlier detection model",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "20 inferred",
++          "max": "80 inferred"
++        },
++        "model-2": {
++          "model-name": "brain age model",
++          "mean": "NR",
++          "sd": "NR",
++          "min": "20 inferred",
++          "max": "80 inferred"
++        }
++      },
++      "detail": "Training phase; age reported as median [Q1, Q3] only; range inferred from exclusion criteria (younger than 20 and older than 80 excluded)",
++      "confidence_rating": "Medium",
++      "supporting_text": "\"Age, median [Q1, Q3] 52.0 [15.2]\"; \"Participants with missing data and younger than 20 and older than 80 years old were excluded.\"",
++      "location": "Vieira2025.pdf.md: Model development / Table 1; Vieira2025.pdf.md: Model development / Training data"
+     }
+   }
+ }
+
+tokens used
+30,853
+Filled the reference cohort info from the model development section and Table 1, including multi-site/public dataset flags, training N, sex breakdown, and inferred age range with citations in `DE_v13_Vieira2025_by_codex_20260302122918595.json`.
+
+Details and context:
+- Pulled training dataset composition and scanner count from `study_1/Vieira2025.pdf.md` to mark MSAD and EPD usage, listing HCP, UK Biobank, and IXI as EPDs.
+- Recorded training N (3362) and sex distribution from Table 1 in `study_1/Vieira2025.pdf.md`.
+- Noted age as median/IQR only, so mean/SD are `NR`; min/max inferred from exclusion criteria in `study_1/Vieira2025.pdf.md`.
+
+Next steps you may want:
+1) Review whether you want HCP Aging listed separately from HCP in `rci3_epd_name`.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

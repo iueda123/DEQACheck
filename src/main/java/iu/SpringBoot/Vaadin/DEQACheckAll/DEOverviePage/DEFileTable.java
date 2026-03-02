@@ -36,14 +36,14 @@ public class DEFileTable extends VerticalLayout {
     private static final String DATA_FOLDER_NAME = "share_package/data";
     private static final String JAR_WORKING_DIR = "share_package";
     private static final String DEQACheckJar = "share_package/jar/DEQACheck-v20260107-all.jar";
-    private static final String[] SOURCES = {"human", "codex", "claude", "gemini"};
+    private static final String[] SOURCES = {"human", "codex", "claude", "gemini", "opus"};
 
     public DEFileTable() {
         getStyle().set("padding", "var(--lumo-space-m)");
         setSpacing(true);
         setWidthFull();
 
-        add(new H2("DE_v11/DE_v12 JSON (human/codex/claude/gemini) 存在一覧"));
+        add(new H2("DE_v11/DE_v12/DE_v13 JSON (human/codex/claude/gemini/opus) 存在一覧"));
 
         Path base = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME);
         if (!Files.exists(base) || !Files.isDirectory(base)) {
@@ -76,13 +76,15 @@ public class DEFileTable extends VerticalLayout {
             Row row = new Row(folderName);
             Path v11JsonDir = authorYearDir.resolve("DE_v11").resolve("json");
             Path v12JsonDir = authorYearDir.resolve("DE_v12").resolve("json");
+            Path v13JsonDir = authorYearDir.resolve("DE_v13").resolve("json");
             row.v11 = resolveExists(v11JsonDir);
             row.v12 = resolveExists(v12JsonDir);
+            row.v13 = resolveExists(v13JsonDir);
             rows.add(row);
         }
 
         if (rows.isEmpty()) {
-            add(new Paragraph("DE_v11/DE_v12 の対象フォルダが見つかりません。"));
+            add(new Paragraph("DE_v11/DE_v12/DE_v13 の対象フォルダが見つかりません。"));
             return;
         }
 
@@ -106,6 +108,9 @@ public class DEFileTable extends VerticalLayout {
         for (String source : SOURCES) {
             appendHeaderCell(trHead, "v12-" + source);
         }
+        for (String source : SOURCES) {
+            appendHeaderCell(trHead, "v13-" + source);
+        }
         thead.appendChild(trHead);
         table.appendChild(thead);
 
@@ -121,6 +126,9 @@ public class DEFileTable extends VerticalLayout {
                 appendCheckCell(tr, exists);
             }
             for (boolean exists : row.v12) {
+                appendCheckCell(tr, exists);
+            }
+            for (boolean exists : row.v13) {
                 appendCheckCell(tr, exists);
             }
             tbody.appendChild(tr);
@@ -213,6 +221,7 @@ public class DEFileTable extends VerticalLayout {
         final String authorYear;
         boolean[] v11 = new boolean[SOURCES.length];
         boolean[] v12 = new boolean[SOURCES.length];
+        boolean[] v13 = new boolean[SOURCES.length];
 
         Row(String authorYear) {
             this.authorYear = authorYear;

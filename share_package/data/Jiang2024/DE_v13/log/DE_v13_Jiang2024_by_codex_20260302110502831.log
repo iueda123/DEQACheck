@@ -1,0 +1,807 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Jiang2024_by_codex_20260302110502831.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cac4a-c06a-7503-80c9-322f0df4ab14
+--------
+user
+./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Jiang2024_by_codex_20260302110502831.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Choosing quick file read**
+
+I plan to read the instructions file directly, opting to use a simple cat command instead of ripgrep for straightforward content access.
+2026-03-02T02:05:08.205530Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 18ms:
+DE_Guide_v13.md
+DE_v13_Jiang2024_by_codex_20260302110502831.json
+DE_v13_Jiang2024_by_codex_20260302110502831.log
+study_1
+2026-03-02T02:05:11.192746Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v13.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 30ms:
+# Reference Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング研究からデータを抽出する熟練したレビューアです。本プロンプトでは、指定された1つの文献について、NM構築時に参照しているリファレンスコホート（健常者コホート）のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- **Model Build = New の研究のみ**が本項目の抽出対象。
+- Model Build = Pre-trained の研究は本項目の抽出対象外（リファレンスコホートの構築が当該論文内で行われていないため）。
+- 指定された文献が Pre-trained に該当する場合は、その旨を回答し、RCI-1〜RCI-7 の抽出は不要。
+
+-------------------
+
+## 一般的な抽出ルール
+
+
+thinking
+**Locating target paper data**
+
+I'm searching within the study_1 directory to find files containing the needed paper data.
+2026-03-02T02:05:13.575227Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 33ms:
+DE_Guide_v13.md
+DE_v13_Jiang2024_by_codex_20260302110502831.json
+DE_v13_Jiang2024_by_codex_20260302110502831.log
+study_1/S0033291724000138sup001.docx.md
+study_1/S0033291724000138sup002.docx.md
+study_1/S0033291724000138sup005.docx.md
+study_1/S0033291724000138sup004.docx.md
+study_1/S0033291724000138sup003.docx.md
+study_1/Jiang2024.pdf.md
+
+thinking
+**Extracting content from source files**
+exec
+/bin/bash -lc 'rg -n "normative|normative model|reference|healthy|controls|training|dataset|cohort|site|multi-site|multisite|HCP|ABIDE|Cam-CAN|UK Biobank|OASIS|ADNI|TOP|PNC|ABCD|IXI|NKI|HBN|COBRE|AIBL|ENIGMA|LEAP|REST-meta-MDD|FCON" study_1/Jiang2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021105028312026-03-02T02:05:18.363191Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+9:Cite this article: Jiang A, Ma X, Li S, Wang L, Yang B, Wang S, Li M, Dong G (2024). Ageatypical brain functional networks in autism spectrum disorder: a normative modeling approach. Psychological Medicine 54 , 2042 -2053. https://doi.org/10.1017/ S0033291724000138
+21:autism; functional network; heterogeneity; Neuroimaging; normative model
+33:## Age-atypical brain functional networks in autism spectrum disorder: a normative modeling approach
+45:Background. Despite extensive research into the neural basis of autism spectrum disorder (ASD), the presence of substantial biological and clinical heterogeneity among diagnosed individuals remains a major barrier. Commonly used case -control designs assume homogeneity among subjects, which limits their ability to identify biological heterogeneity, while normative modeling pinpoints deviations from typical functional network development at individual level.
+47:Methods. Using a world-wide multi-site database known as Autism Brain Imaging Data Exchange, we analyzed individuals with ASD and typically developed (TD) controls (total n = 1218) aged 5 -40 years, generating individualized whole-brain network functional connectivity (FC) maps of age-related atypicality in ASD. We then used local polynomial regression to estimate a networkwise normative model of development and explored correlations between ASD symptoms and brain networks.
+49:Results. We identified a subset exhibiting highly atypical individual-level FC, exceeding 2 standard deviation from the normative value. We also identified clinically relevant networks (mainly default mode network) at cohort level, since the outlier rates decreased with age in TD participants, but increased in those with autism. Moreover, deviations were linked to severity of repetitive behaviors and social communication symptoms.
+61:to typically developed (TD) individuals (Bai et al., 2019). ElNakieb et al., used resting-state fMRI data from the Autism Brain Imaging Data Exchange database (ABIDE) and investigated the role of connectivity dynamics of resting-state networks in the diagnosis of ASD (ElNakieb et al., 2023). They found that compared with TD individuals, those with ASD spent more time in states with weaker FC, especially within the default mode network (DMN) and between the DMN and other networks. What ' s more, researchers showed that the abnormalities of resting state FC in ASD may depend on various factors, such as age, gender, IQ, task condition, data modality, analysis technique and network definition (Hull et al., 2017). However, the heterogeneity of the disorder hampers identification of reliable biomarkers or neuroimaging-based diagnostic tools (Ecker et al., 2013). In addition, there is a need for more comprehensive and standardized assessments of ASD to improve diagnostic accuracy and aid in the identification of subtypes (Bai et al., 2019).
+65:Normative models(NM) have emerged as a powerful tool to address the limitations of traditional group comparison studies in neuroimaging research. By defining a range of values for a particular brain feature in a healthy cohort, NM can identify individuals who deviate from the expected patterns of brain development or aging. This approach can help to address issues related to heterogeneity, confounding factors, and individual variability in neuroimaging data (Fjell et al., 2015). Moreover, the method has been applied in various fields of neuroscience, including studies of ASD (Bethlehem et al., 2020; Ecker, 2019). The benefits are as follows. First, it can overcome the limitations of traditional case -control analysis methods and provide individuallevel results (Zabihi et al., 2020). Second, NM offers a flexible framework considering factors like age and gender, addressing the complex heterogeneity in resting-state FC in ASD. Third, NM allows assessment of associations between FC heterogeneity and ASD subtypes or dimensions, tied to clinical presentation, genetic risk, or treatment response, in relation to other biological or behavioral variables (Rutherford et al., 2023). Additionally, there have been some advances in the use of normative modeling in ASD research. It has been applied to brain measures such as CT, white matter integrity, and FC (Sala-Llonch, Bartrés-Faz, &amp; Junqué, 2015).
+71:FC alterations have been observed in several neurological disorders (Baggio et al., 2015; Hazlett et al., 2017), suggesting the potential use of FC as a biomarker for disease detection and monitoring. In addition, FC has not been used as a neural marker in NM research targeting ASD. Moreover, studies have shown that disruptions in the DMN play an important role in the pathogenesis of ASD (Dickie et al., 2018; von dem Hagen, Stoyanova, Baron-Cohen, &amp; Calder, 2013). However, the relationship between brain networks and the changes in FC over the lifespan remains unclear. Recent large-scale analyses combining data have revealed significant heterogeneity in CT among children with ASD (van Rooij et al., 2018). Thus, we can make the following inferences about FC in ASD: first, age is a particularly important variable in the development of autism; second, we should not focus on mean differences between all cases and all healthy controls but rather stratify subjects according to age, focusing on changes in FC and degree of variability over time, to identify extreme cases that lie on this normative variability spectrum.
+73:However, because of the large individual differences in ASD, different patients exhibit different symptoms and etiologies. Therefore, it is difficult to identify a major trend or type of change in ASD patients. Thus, we decided to use the whole-brain FC network as an indicator and focus on changes in connectivity within and between different brain networks with age. It is crucial to consider the heterogeneity in brain connectivity and morphology in individuals with ASD, particularly in relation to age, and to investigate how these differences may impact development and long-term outcomes. We aimed (1) to determine a predicted normative value of within- and between-network FC that changes with age, defining values more than two standard deviations from the predicted value as extreme; (2) to provide an individuallevel assessment of ASD with reference to the population level, describing the degree of change in connectivity with age; and (3) to elucidate the relationship between brain data and symptoms, specifically by determining the correlation between behavioral data and the strength of connectivity within and between networks, focusing on the differences between the brain regions identified through this behaviorally relevant analysis and those identified through traditional case/control methods. We constructed functional networks in each subject ' s brain and used these as raw materials for comparison (see Methods for the details). All code and data used can be found on GitHub (Bethlehem, Seidlitz, Romero-Garcia, Dumas, &amp; Lombardo, 2018).
+75:Table 1. Sample characteristics after normative modeling selection
+86:The characteristics of both cohorts are shown in the figure. Information of age, full IQ standard score, and the total score of social responsiveness scale are listed.
+92:The ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers. All the data analyzed in this study were sourced from the ABIDE dataset (see more details in online Supplementary file 1). We aimed to identify subtle changes in brain FC in ASD populations using a large dataset to achieve greater statistical power. After exclusion, the sample size was 642 for the TD group and 576 for the ASD group. The characteristics of the sample are shown in Table 1. And Fig. 1a and 1b provide an illustrative overview of the complete sample.
+94:## Constructing age-related normative models
+96:Before this section, we preprocessed functional MRI data, constructed FC matrices, and conducted multisite effect correction, please check online Supplementary file 2 for detailed instructions.
+98:An overview of the normative modeling approach is provided in Fig. 2; this approach has been described previously (Marquand, Rezek, Buitelaar, &amp; Beckmann, 2016). We used a method called the local polynomial regression fitting process (LOESS) to determine the local width or smoothing kernel of the regression model based on the minimum squared error model provided across the entire age range (see methodological details in online Supplementary file 3). With LOESS, the local width or smoothing kernel of the regression was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization across 5 -100% of the full age range using Brent ' s method as implemented in the R optim function from the stats package. We also evaluated the consistency of our outputs using percentile scoring, extensive bootstrapping, and sensitivity analyses and assessed the consistency of the NM. These methods all indicated that our results were highly consistent.
+100:NM not only yields the predicted FC for each subject but also produces the normative mean and standard deviation from the TD group. These statistical norms were then used to compute the Z ' -scores of each functional connection and the W -scores of each brain network for each patient with ASD (Bethlehem et al., 2020), reflecting the degree of deviation of their FC from the TD norm in units of standard deviation. Age groups with fewer than 2 TD individuals were not subjected to statistical analysis. The formulas for calculating Z ' -scores and W -scores are shown below:
+110:For further comparison of the TD and ASD groups, we divided the cohort into three age groups: 5 -11 years, 12 -17 years, and 18 -30 years, representing children, adolescents, and adults, respectively.
+112:Analyzing the 160 × 160 FC matrix is massively difficult due to the small overall average differences between groups and the low significance of individual FC scores, which are influenced by various random factors such as sleep status and head movement during scanning. To overcome these limitations, we applied the functional template ' Dosenbach160 ' to divide the brain into six functional networks and calculated the mean FC within and between networks for each subject, resulting in a reduced number of features from 25 800 (160 × 160) to 23(6 + C 2 6 + 2) (Dosenbach et al., 2010), among which the last two scores are summary composite scores for between and within networks. The 23 scores were named W -scores, which were then used to construct 23 NM for further analysis (see in online Supplementary file 4), represented the degree of connectivity abnormality (compared to normative values) within and between each brain network. While the last two scores are called ' overall-FC-within ' and ' overall-FC-between ' , and the former reflected the total extent of abnormality within all of the individual ' s networks, the later stood for the opposite. The calculation formula is as follows:
+128:To assess the reliability of normative Z ' -scores and W -scores, we performed permutations (1000 bootstrap with replacement) with the normative sample and calculated 1000 permutations for each individual and each FC. To evaluate the impact of age-related individual outliers on the global case -control group differences,
+
+thinking
+**Opening table section for sample characteristics**
+2026-03-02T02:05:21.712574Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '70,120p' study_1/Jiang2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 28ms:
+
+FC alterations have been observed in several neurological disorders (Baggio et al., 2015; Hazlett et al., 2017), suggesting the potential use of FC as a biomarker for disease detection and monitoring. In addition, FC has not been used as a neural marker in NM research targeting ASD. Moreover, studies have shown that disruptions in the DMN play an important role in the pathogenesis of ASD (Dickie et al., 2018; von dem Hagen, Stoyanova, Baron-Cohen, &amp; Calder, 2013). However, the relationship between brain networks and the changes in FC over the lifespan remains unclear. Recent large-scale analyses combining data have revealed significant heterogeneity in CT among children with ASD (van Rooij et al., 2018). Thus, we can make the following inferences about FC in ASD: first, age is a particularly important variable in the development of autism; second, we should not focus on mean differences between all cases and all healthy controls but rather stratify subjects according to age, focusing on changes in FC and degree of variability over time, to identify extreme cases that lie on this normative variability spectrum.
+
+However, because of the large individual differences in ASD, different patients exhibit different symptoms and etiologies. Therefore, it is difficult to identify a major trend or type of change in ASD patients. Thus, we decided to use the whole-brain FC network as an indicator and focus on changes in connectivity within and between different brain networks with age. It is crucial to consider the heterogeneity in brain connectivity and morphology in individuals with ASD, particularly in relation to age, and to investigate how these differences may impact development and long-term outcomes. We aimed (1) to determine a predicted normative value of within- and between-network FC that changes with age, defining values more than two standard deviations from the predicted value as extreme; (2) to provide an individuallevel assessment of ASD with reference to the population level, describing the degree of change in connectivity with age; and (3) to elucidate the relationship between brain data and symptoms, specifically by determining the correlation between behavioral data and the strength of connectivity within and between networks, focusing on the differences between the brain regions identified through this behaviorally relevant analysis and those identified through traditional case/control methods. We constructed functional networks in each subject ' s brain and used these as raw materials for comparison (see Methods for the details). All code and data used can be found on GitHub (Bethlehem, Seidlitz, Romero-Garcia, Dumas, &amp; Lombardo, 2018).
+
+Table 1. Sample characteristics after normative modeling selection
+
+|     | Group   |   Mean |   N |   S.D. |   Minimum |   Maximum |   Median |
+|-----|---------|--------|-----|--------|-----------|-----------|----------|
+| Age | ASD     |  15.19 | 576 |  7.786 |         5 |        40 |       13 |
+|     | TD      |  15.34 | 642 |  8.033 |         5 |        40 |       13 |
+| IQ  | ASD     | 106.1  | 576 | 16.41  |        41 |       148 |      107 |
+|     | TD      | 111.47 | 642 | 12.23  |        73 |       148 |      111 |
+| SRS | ASD     |  81.12 | 482 | 21.51  |         6 |       164 |       82 |
+|     | TD      |  38.82 | 457 | 15.15  |         0 |        85 |       41 |
+
+The characteristics of both cohorts are shown in the figure. Information of age, full IQ standard score, and the total score of social responsiveness scale are listed.
+
+## Methods and materials
+
+2026-03-02T02:05:24.539184Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "sex|male|female|gender" study_1/Jiang2024.pdf.md study_1/S0033291724000138sup*.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 33ms:
+study_1/Jiang2024.pdf.md:61:to typically developed (TD) individuals (Bai et al., 2019). ElNakieb et al., used resting-state fMRI data from the Autism Brain Imaging Data Exchange database (ABIDE) and investigated the role of connectivity dynamics of resting-state networks in the diagnosis of ASD (ElNakieb et al., 2023). They found that compared with TD individuals, those with ASD spent more time in states with weaker FC, especially within the default mode network (DMN) and between the DMN and other networks. What ' s more, researchers showed that the abnormalities of resting state FC in ASD may depend on various factors, such as age, gender, IQ, task condition, data modality, analysis technique and network definition (Hull et al., 2017). However, the heterogeneity of the disorder hampers identification of reliable biomarkers or neuroimaging-based diagnostic tools (Ecker et al., 2013). In addition, there is a need for more comprehensive and standardized assessments of ASD to improve diagnostic accuracy and aid in the identification of subtypes (Bai et al., 2019).
+study_1/Jiang2024.pdf.md:65:Normative models(NM) have emerged as a powerful tool to address the limitations of traditional group comparison studies in neuroimaging research. By defining a range of values for a particular brain feature in a healthy cohort, NM can identify individuals who deviate from the expected patterns of brain development or aging. This approach can help to address issues related to heterogeneity, confounding factors, and individual variability in neuroimaging data (Fjell et al., 2015). Moreover, the method has been applied in various fields of neuroscience, including studies of ASD (Bethlehem et al., 2020; Ecker, 2019). The benefits are as follows. First, it can overcome the limitations of traditional case -control analysis methods and provide individuallevel results (Zabihi et al., 2020). Second, NM offers a flexible framework considering factors like age and gender, addressing the complex heterogeneity in resting-state FC in ASD. Third, NM allows assessment of associations between FC heterogeneity and ASD subtypes or dimensions, tied to clinical presentation, genetic risk, or treatment response, in relation to other biological or behavioral variables (Rutherford et al., 2023). Additionally, there have been some advances in the use of normative modeling in ASD research. It has been applied to brain measures such as CT, white matter integrity, and FC (Sala-Llonch, Bartrés-Faz, &amp; Junqué, 2015).
+study_1/Jiang2024.pdf.md:226:There are some limitations to consider in this study. First, the current data are cross-sectional, and standardized age-modeling methods cannot make individual-level judgments about trajectories. Longitudinal data would extend this standardized modeling approach. Second, to remove multisite effect, researchers suggested that the hierarchical Bayesian approach may be a better alternative to ComBat because it avoids the exclusion of meaningful variance correlated with site and can improve the accuracy of normative modeling (Bayer et al., 2022). We chose this model due to its advantages in terms of computational efficiency, automatic parameter learning, and the mitigation of issues related to local optima and overfitting, subsequent studies should try to apply different models to remove site effects in normative modeling studies. Third, the calculation of W -scores was based on two mean calculations from the raw data, which inevitably led to some loss of precision; we hope to solve this problem in the future. Fourth, although this study has a large sample size, it does not encompass the very early developmental period or the very late adulthood period; it also has few female participants, with a male-to-female ratio of approximately 5:1. Conclusions regarding female participants lack corresponding evidence, and additional female data should be collected in the future to study sex differences in ASD. In addition, there are many different normalization modeling methods, each with its own advantages and disadvantages (Marquand et al., 2019). We chose to use the LOESS estimation method because it is computationally efficient and the resulting W-scores are easy to interpret. However, because it is based on an estimate of the standard deviation of the normative sample, it is potentially sensitive to small sample sizes in specific age ranges (e.g. if a particular age range has only four data points, there may be an unreliable S.D.). Therefore, we excluded age ranges (one year) containing less than or equal to two subjects. Finally, although head motion within scanners is a well-known confounding factor in resting-state studies, recent studies have shown that the same motion can also affect structural image quality and surface reconstruction (Power, Barnes, Snyder, Schlaggar, &amp; Petersen, 2012; Van Dijk, Sabuncu, &amp; Buckner, 2012). Therefore, given its impact on traditional analysis methods, we strongly encourage future research to consider motion as an important confounding factor.
+study_1/Jiang2024.pdf.md:252:- Bethlehem, R. A. I., Seidlitz, J., Romero-Garcia, R., Dumas, G., &amp; Lombardo, M. V. (2018). Normative age modelling of cortical thickness in autistic males. Neuroscience . https://doi.org/10.1101/252593
+study_1/Jiang2024.pdf.md:253:- Bethlehem, R. A. I., Seidlitz, J., Romero-Garcia, R., Trakoshis, S., Dumas, G., &amp; Lombardo, M. V. (2020). A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder. Communications Biology , 3 (1), 486. https://doi.org/10.1038/ s42003-020-01212-9
+study_1/Jiang2024.pdf.md:261:- Ecker, C. (2019). Notice of retraction and replacement: Ecker et al. association between the probability of autism spectrum disorder and normative sexrelated phenotypic diversity in brain structure. JAMA Psychiatry , 2017; 74 (4):329 -338. JAMA Psychiatry, 76(5), 549 -550. https://doi.org/10.1001/ jamapsychiatry.2018.4296
+
+thinking
+**Reviewing supplemental sex counts**
+
+I'm checking supplementary files outside the main dataset to find sex counts data needed for the analysis.
+exec
+/bin/bash -lc 'rg -n "Table|sex|male|female|gender|TD|typical|control|age|IQ|SRS" study_1/S0033291724000138sup001.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_202603021105028312026-03-02T02:05:27.547548Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+3:The ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers. It contains a wealth of demographic, behavioral, and imaging data from ASD patients, providing valuable resources for the study of this highly heterogeneous disorder, and is being widely used in ASD-related studies. All the data analyzed in this study were sourced from the ABIDE dataset. We aimed to identify subtle changes in brain FC in ASD populations using a large dataset to achieve greater statistical power. The dataset includes 659 datasets from patients with ASD and 836 datasets from TD individuals. Each dataset includes one or more resting-state fMRI scan of the individual, a volumetric MPRAGE image, and multiple autism-related behavioral questionnaire scores (such as those on the Social Responsiveness Scale developed by (Constantino et al., 2003), which measures social function, and the Vineland Adaptive Behavior Scales developed by (Sparrow &amp; Cicchetti, 1989), which measures daily function). More information about the specific behavioral measures used can be found on the ABIDE website (ABIDE (nitrc.org)). All data were completely anonymous and analyzed according to procedures approved by the Institutional Review Board at the University of Utah. All images were obtained with informed consent according to procedures established by the human subjects research committees at each participating institution. MPRAGE image data were not used in this study. To eliminate confounding effects of irrelevant variables and to address the consistent asymmetry due to handedness and lack of available data to estimate normative data in ASD, we excluded left-handed participants and those with poor scan quality. After exclusion, the sample size was 642 for the TD group and 576 for the ASD group.
+2026-03-02T02:05:30.758185Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "sex|male|female|gender|Table" study_1/S0033291724000138sup002.docx.md study_1/S0033291724000138sup003.docx.md study_1/S0033291724000138sup004.docx.md study_1/S0033291724000138sup005.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 exited 1 in 28ms:
+
+
+thinking
+**Checking possibly empty results**
+2026-03-02T02:05:33.513140Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'head -n 40 study_1/S0033291724000138sup002.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 28ms:
+### Online supplement 2 Preprocessing
+
+**Preprocessing of functional MRI data**
+
+Data preprocessing was performed using DPABI V5.1 (Dpabi.org) and SPM12 (SPM12.ucl). The preprocessing steps included 1) discarding the first 10 time points; 2) slice-timing correction; 3) head-motion correction; 4) spatial normalization to the unified segmented anatomical image using forward deformation fields and resampling to 3×3×3 mm3; 5) spatial smoothing with a 3D isotropic Gaussian kernel with a full width at half maximum of 6 mm; 6) linear trend removal; 7) nuisance covariate regression, including head-motion covariates using the Friston 24-parameter model as well as signals from white matter and cerebrospinal fluid; and 8) bandpass filtering of the data with a frequency range of 0.01-0.08 Hz.
+
+**Constructing FC matrices**
+
+All FC measurements were calculated using the Gretna toolbox (J. Wang et al., 2015). Based on previous studies on network construction methods (J. Zhang et al., 2011; Z. Zhang, Telesford, Giusti, Lim, &amp; Bassett, 2016), we applied a functional template called "Dosenbach160" (Dosenbach et al., 2010), which provides 160 functionally isolated regions of interest (ROIs) covering most of the cortical and cerebellar regions of the brain. We used the CONN toolbox (CONN.org) to compute the whole-brain networks for each participant. Specifically, BOLD signals were extracted from each ROI, and pairwise correlations between each pair of ROIs were computed to obtain the 160×160 FC matrix for each participant.
+
+**Multisite effect correction**
+
+Site effects on the modular coefficient were removed using the ComBat function available in MATLAB (ComBatHarmonization.com) to account for site, collection time, and data acquisition parameter variability across each of the data collection sites in the ABIDE data. This approach has been shown to effectively account for scanner-related variance in multisite resting-state fMRI datasets (De Rosa et al., 2023; Maltbie, Yousefi, Zhang, Kashyap, &amp; Keilholz, 2022; Yamashita et al., 2019). With the ComBat function, the diagnosis was treated as the biological variable of interest, and a parametric prior method was used in the empirical Bayes procedure.
+
+
+thinking
+**Checking for supplementary tables**
+2026-03-02T02:05:37.738564Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table|Sex|male|female|gender|Age" study_1/S0033291724000138sup003.docx.md study_1/S0033291724000138sup004.docx.md study_1/S0033291724000138sup005.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 exited 1 in 32ms:
+
+
+thinking
+**Checking head content for supplements**
+2026-03-02T02:05:40.316249Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'head -n 20 study_1/S0033291724000138sup003.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 28ms:
+### Online supplement 3 Additional methodological detail
+
+**Selection of model**
+
+We chose the polynomial regression fitting process (LOESS) due to its advantages in terms of computational efficiency, automatic parameter learning, and the mitigation of issues related to local optima and overfitting.
+
+We also tried another model based on a different article (Zabihi et al., 2019), which is a Gaussian process regression model. By comparing different models, we chose the LOESS due to the following reasons:
+
+1. The LOESS algorithm is a flexible and robust method to deal with heteroskedasticity and non-constant variance in the data, which are common features of neuroimaging data. In contrast, Gaussian process regression modeling requires the assumption that the data obey a Gaussian distribution, which may not be true of the data.
+2. The LOESS algorithm can handle outliers and missing values in the data, which are also common challenges in neuroimaging studies. In contrast, Gaussian process regression models are sensitive to outliers and missing values, which may lead to unstable or inaccurate models.
+3. The LOESS algorithm produces smooth and continuous curves that are easy to interpret and visualize. Gaussian process regression models (see figure 1), on the other hand, produce curves that can be more Rigid and difficult to understand (see figure 2).
+
+![Image](./S0033291724000138sup003_artifacts/image_000000_2e3c2a1387244860b9d21b8dea730505866eaef0212c513a279bccc093914ac9.png)
+
+
+
+thinking
+**Clarifying normative model and cohort details**
+
+The normative model is built from the TD group only (N=642), which serves as the training phase, though no explicit train/test split exists. Sex counts are not reported—only an approximate male-to-female ratio—so sex data should be marked as not reported.
+thinking
+**Finalizing cohort stats and RCI details**
+
+I'm using N=642 for the TD training group with age stats as reported (mean 15.34, SD 8.033, min 5, max 40) from the paper's table. The ABIDE dataset is confirmed as multi-site and in the EPD list, supporting RCI references. Sex counts remain not reported, noting only the approximate male-to-female ratio without estimates. Next, I'll update the output JSON accordingly.
+2026-03-02T02:05:54.485363Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v13_Jiang2024_by_codex_20260302110502831.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 29ms:
+{
+  "reference_cohort_info_part": {
+    "rci1_using_msad": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci2_using_epd": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+      "supporting_text": "",
+      "location": ""
+    },
+    "rci3_epd_name": {
+      "answer": "",
+      "detail": "",
+      "confidence_rating": "",
+
+
+thinking
+**Preparing patch responses for dataset questions**
+thinking
+**Completing patch with cohort size, sex, and age details**
+
+I'm adding responses for model size, marking sex breakdown as not reported but noting the overall ratio, and providing detailed age statistics for the TD reference cohort from the table.
+2026-03-02T02:06:25.594405Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+@@ -3,43 +3,64 @@
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE multi-site dataset; 17 data acquisition centers.",
++      "confidence_rating": "High",
++      "supporting_text": "“The ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE dataset used as the source of reference (TD) data.",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE open-access dataset used for the study sample (including TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "n": 642
++        }
++      },
++      "detail": "TD group after exclusion used as the normative reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "“After exclusion, the sample size was 642 for the TD group and 576 for the ASD group.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the TD reference cohort not reported; only an overall male-to-female ratio is mentioned without counts.",
++      "confidence_rating": "Low",
++      "supporting_text": "“it also has few female participants, with a male-to-female ratio of approximately 5:1.”",
++      "location": "Jiang2024.pdf.md: Discussion / Limitations"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "mean": "15.34",
++          "sd": "8.033",
++          "min": "5",
++          "max": "40"
++        }
++      },
++      "detail": "TD group age statistics from Table 1; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "|     | TD      |  15.34 | 642 |  8.033 |         5 |        40 |       13 |",
++      "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+     }
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json b/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..071ece66cfeda4aae56399e2bef501a0f2a7fa2d
+--- a/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE multi-site dataset; 17 data acquisition centers.",
++      "confidence_rating": "High",
++      "supporting_text": "“The ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE dataset used as the source of reference (TD) data.",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE open-access dataset used for the study sample (including TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "n": 642
++        }
++      },
++      "detail": "TD group after exclusion used as the normative reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "“After exclusion, the sample size was 642 for the TD group and 576 for the ASD group.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the TD reference cohort not reported; only an overall male-to-female ratio is mentioned without counts.",
++      "confidence_rating": "Low",
++      "supporting_text": "“it also has few female participants, with a male-to-female ratio of approximately 5:1.”",
++      "location": "Jiang2024.pdf.md: Discussion / Limitations"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "mean": "15.34",
++          "sd": "8.033",
++          "min": "5",
++          "max": "40"
++        }
++      },
++      "detail": "TD group age statistics from Table 1; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "|     | TD      |  15.34 | 642 |  8.033 |         5 |        40 |       13 |",
++      "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+     }
+   }
+ }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json b/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..071ece66cfeda4aae56399e2bef501a0f2a7fa2d
+--- a/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE multi-site dataset; 17 data acquisition centers.",
++      "confidence_rating": "High",
++      "supporting_text": "“The ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE dataset used as the source of reference (TD) data.",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE open-access dataset used for the study sample (including TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "n": 642
++        }
++      },
++      "detail": "TD group after exclusion used as the normative reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "“After exclusion, the sample size was 642 for the TD group and 576 for the ASD group.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the TD reference cohort not reported; only an overall male-to-female ratio is mentioned without counts.",
++      "confidence_rating": "Low",
++      "supporting_text": "“it also has few female participants, with a male-to-female ratio of approximately 5:1.”",
++      "location": "Jiang2024.pdf.md: Discussion / Limitations"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "mean": "15.34",
++          "sd": "8.033",
++          "min": "5",
++          "max": "40"
++        }
++      },
++      "detail": "TD group age statistics from Table 1; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "|     | TD      |  15.34 | 642 |  8.033 |         5 |        40 |       13 |",
++      "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+     }
+   }
+ }
+
+
+thinking
+**Considering JSON validation options**
+2026-03-02T02:06:28.383991Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'python -m json.tool DE_v13_Jiang2024_by_codex_20260302110502831.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v13_20260302110502831 succeeded in 63ms:
+{
+    "reference_cohort_info_part": {
+        "rci1_using_msad": {
+            "answer": "Yes",
+            "detail": "ABIDE multi-site dataset; 17 data acquisition centers.",
+            "confidence_rating": "High",
+            "supporting_text": "\u201cThe ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers.\u201d",
+            "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+        },
+        "rci2_using_epd": {
+            "answer": "Yes",
+            "detail": "ABIDE dataset used as the source of reference (TD) data.",
+            "confidence_rating": "High",
+            "supporting_text": "\u201cAll the data analyzed in this study were sourced from the ABIDE dataset.\u201d",
+            "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+        },
+        "rci3_epd_name": {
+            "answer": "ABIDE",
+            "detail": "ABIDE open-access dataset used for the study sample (including TD reference cohort).",
+            "confidence_rating": "High",
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json b/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..071ece66cfeda4aae56399e2bef501a0f2a7fa2d
+--- a/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE multi-site dataset; 17 data acquisition centers.",
++      "confidence_rating": "High",
++      "supporting_text": "“The ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE dataset used as the source of reference (TD) data.",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE open-access dataset used for the study sample (including TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "n": 642
++        }
++      },
++      "detail": "TD group after exclusion used as the normative reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "“After exclusion, the sample size was 642 for the TD group and 576 for the ASD group.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the TD reference cohort not reported; only an overall male-to-female ratio is mentioned without counts.",
++      "confidence_rating": "Low",
++      "supporting_text": "“it also has few female participants, with a male-to-female ratio of approximately 5:1.”",
++      "location": "Jiang2024.pdf.md: Discussion / Limitations"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "mean": "15.34",
++          "sd": "8.033",
++          "min": "5",
++          "max": "40"
++        }
++      },
++      "detail": "TD group age statistics from Table 1; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "|     | TD      |  15.34 | 642 |  8.033 |         5 |        40 |       13 |",
++      "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+     }
+   }
+ }
+
+
+thinking
+**Providing final summary and context**
+
+The code changes are summarized with the file path included and no tests were added or mentioned. No further suggestions or next steps are indicated per instructions.
+2026-03-02T02:06:32.473372Z ERROR codex_core::codex: needs_follow_up: false
+codex
+Filled the reference cohort extraction for Jiang2024 based on the ABIDE TD sample details and Table 1 demographics, and wrote the results into `DE_v13_Jiang2024_by_codex_20260302110502831.json`. This includes MSAD/EPD flags and ABIDE identification, TD N, and age stats; sex counts are marked NR because only an overall ratio is mentioned without TD-specific counts.
+
+File updated: `DE_v13_Jiang2024_by_codex_20260302110502831.json`
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json b/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+index b542e8458a6bc5b0041e4769e87d13dd811db293..071ece66cfeda4aae56399e2bef501a0f2a7fa2d
+--- a/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
++++ b/share_package/ai_workspace/codex_DE_v13_20260302110502831/DE_v13_Jiang2024_by_codex_20260302110502831.json
+@@ -1,47 +1,68 @@
+ {
+   "reference_cohort_info_part": {
+     "rci1_using_msad": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE multi-site dataset; 17 data acquisition centers.",
++      "confidence_rating": "High",
++      "supporting_text": "“The ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci2_using_epd": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "Yes",
++      "detail": "ABIDE dataset used as the source of reference (TD) data.",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci3_epd_name": {
+-      "answer": "",
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": "ABIDE",
++      "detail": "ABIDE open-access dataset used for the study sample (including TD reference cohort).",
++      "confidence_rating": "High",
++      "supporting_text": "“All the data analyzed in this study were sourced from the ABIDE dataset.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+-    "rci4_phase": "",
++    "rci4_phase": "Training",
+     "rci5_n": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "n": 642
++        }
++      },
++      "detail": "TD group after exclusion used as the normative reference cohort.",
++      "confidence_rating": "High",
++      "supporting_text": "“After exclusion, the sample size was 642 for the TD group and 576 for the ASD group.”",
++      "location": "Jiang2024.pdf.md: Methods and materials / Participants"
+     },
+     "rci6_sex": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "female_n": "NR",
++          "female_pct": "NR",
++          "male_n": "NR",
++          "male_pct": "NR"
++        }
++      },
++      "detail": "Sex breakdown for the TD reference cohort not reported; only an overall male-to-female ratio is mentioned without counts.",
++      "confidence_rating": "Low",
++      "supporting_text": "“it also has few female participants, with a male-to-female ratio of approximately 5:1.”",
++      "location": "Jiang2024.pdf.md: Discussion / Limitations"
+     },
+     "rci7_age": {
+-      "answer": {},
+-      "detail": "",
+-      "confidence_rating": "",
+-      "supporting_text": "",
+-      "location": ""
++      "answer": {
++        "model-1": {
++          "model-name": "TD reference cohort for FC normative model",
++          "mean": "15.34",
++          "sd": "8.033",
++          "min": "5",
++          "max": "40"
++        }
++      },
++      "detail": "TD group age statistics from Table 1; age in years.",
++      "confidence_rating": "High",
++      "supporting_text": "|     | TD      |  15.34 | 642 |  8.033 |         5 |        40 |       13 |",
++      "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+     }
+   }
+ }
+
+tokens used
+37,997
+Filled the reference cohort extraction for Jiang2024 based on the ABIDE TD sample details and Table 1 demographics, and wrote the results into `DE_v13_Jiang2024_by_codex_20260302110502831.json`. This includes MSAD/EPD flags and ABIDE identification, TD N, and age stats; sex counts are marked NR because only an overall ratio is mentioned without TD-specific counts.
+
+File updated: `DE_v13_Jiang2024_by_codex_20260302110502831.json`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
