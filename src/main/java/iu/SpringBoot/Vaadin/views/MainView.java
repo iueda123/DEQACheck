@@ -1,6 +1,6 @@
 package iu.SpringBoot.Vaadin.views;
 
-import iu.SpringBoot.Vaadin.views.DEQACheckAll.DEOverviePage.DEFileTable;
+import iu.SpringBoot.Vaadin.views.DEQACheckAll.DEOverviewPage.DEFileTable;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
