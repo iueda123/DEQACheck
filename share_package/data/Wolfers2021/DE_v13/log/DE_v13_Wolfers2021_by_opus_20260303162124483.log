@@ -1,0 +1,92 @@
+
+========== Opus via Copilot コマンド ==========
+copilot  --prompt \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Wolfers2021_by_opus_20260303162124483.json へ書き込んでください。" \
+    --model "claude-opus-4.6" \
+    --allow-all-tools \
+    --add-dir . \
+    --deny-url "*" 
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Opus via Copilot が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+
+
+
+● List directory .
+  └ 5 files found
+
+● Read DE_Guide_v13.md
+  └ 342 lines read
+
+● Read DE_v13_Wolfers2021_by_opus_20260303162124483.json
+  └ 47 lines read
+
+● List directory study_1
+  └ 4 files found
+
+● Read study_1/Wolfers2021.pdf.md
+  └ 1 line read
+
+● Read study_1/hbm25386-sup-0001-supinfo.docx.md
+  └ 1 line read
+
+● Count lines in source files
+  $ wc -l /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2
+  0260303162124483/study_1/Wolfers2021.pdf.md /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/shar
+  e_package/ai_workspace/opus_DE_v13_20260303162124483/study_1/hbm25386-sup-0001-supinfo.docx.md
+  └ 4 lines...
+
+● Read study_1/hbm25386-sup-0001-supinfo.docx.md
+  └ 116 lines read
+
+● Read study_1/Wolfers2021.pdf.md
+  └ 275 lines read
+
+Now I have all the information needed. Let me analyze the paper and construct the extraction.
+
+● Calculate sex breakdown from reported percentages
+  $ cd /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_20
+  260303162124483 && python3 -c "
+  # Verify sex N calculations from reported Male(%)
+  samples = {
+      'Discovery': {'n': 256, 'male_pct': 54.70},...
+  └ 15 lines...
+
+Now I'll write the completed JSON. Key findings from the paper:
+
+- **Wolfers et al. (2021)**: Model Build = **New** (GPR normative models built from scratch on healthy individuals)
+- **3 separate normative models** built on 3 separate scanner samples (Discovery, Replication 1, Replication 2), each single-site (Oslo University Hospital) and single-scanner
+- All participants from **TOP** (Thematically Organized Psychosis) study — TOP is in the EPD list
+- Demographics from **Table 1** represent the full healthy cohort used for model training
+
+● Edit DE_v13_Wolfers2021_by_opus_20260303162124483.json (+88 -31)
+
+● Validate JSON syntax
+  $ cd /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2026
+  0303162124483 && python3 -c "import json;
+  json.load(open('DE_v13_Wolfers2021_by_opus_20260303162124483.json')); print('Valid JSON')"
+  └ 2 lines...
+
+抽出完了。主な結果:
+
+- **RCI-1 (MSAD)**: **No** — 3つの正規モデルがそれぞれOslo University Hospitalの単一スキャナで構築（Discovery: 1.5T Siemens, Rep1: 3T GE 750, Rep2: 3T GE Signa HDxT）
+- **RCI-2 (EPD)**: **Yes** — 全参加者がTOP（Thematically Organized Psychosis）研究から募集、TOPはEPDリストに含まれる（14論文で使用）
+- **RCI-3 (EPD名)**: **TOP**
+- **RCI-4 (Phase)**: **Training** — Table 1のHealthy群人口統計が全健常者=モデル訓練データに該当
+- **RCI-5 (N)**: 3モデル — Discovery: 256, Replication 1: 400, Replication 2: 312
+- **RCI-6 (Sex)**: Table 1のMale(%)から算出（female_nはN−male_nで推定）
+- **RCI-7 (Age)**: Table 1から mean±SD取得（Discovery: 34±9.5, Rep1: 34±11.3, Rep2: 30±8.0）、min/maxは未報告
+
+
+Total usage est:        3 Premium requests
+API time spent:         2m 50s
+Total session time:     3m 4s
+Total code changes:     +88 -31
+Breakdown by AI model:
+ claude-opus-4.6         354.3k in, 9.5k out, 231.2k cached (Est. 3 Premium requests)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Opus via Copilot による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

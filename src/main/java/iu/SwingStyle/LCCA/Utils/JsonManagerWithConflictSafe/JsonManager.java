@@ -2,10 +2,12 @@ package iu.SwingStyle.LCCA.Utils.JsonManagerWithConflictSafe;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -100,11 +102,20 @@ public class JsonManager {
                 continue;
             }
 
-            if (current == null || !current.isJsonObject()) {
-                //System.err.println("current is null or current is not json object. @ JsonManager.java");
+            if (current == null || current.isJsonNull()) {
                 return null;
             }
-            current = current.getAsJsonObject().get(key);
+            if (current.isJsonObject()) {
+                current = current.getAsJsonObject().get(key);
+            } else if (current.isJsonArray()) {
+                if (!key.matches("\\d+")) return null;
+                int idx = Integer.parseInt(key);
+                JsonArray arr = current.getAsJsonArray();
+                if (idx < 0 || idx >= arr.size()) return null;
+                current = arr.get(idx);
+            } else {
+                return null;
+            }
         }
 
         if (current == null) {
@@ -139,7 +150,7 @@ public class JsonManager {
         path_key = path_key.replace("\\/", placeholder);
 
         String[] keys = path_key.split("/");
-        JsonObject current = jsonObject;
+        JsonElement current = jsonObject;
 
         for (int i = 0; i < keys.length - 1; i++) {
             String key = keys[i].replace(placeholder, "/").replace("\\ ", " ");
@@ -148,18 +159,27 @@ public class JsonManager {
             if (key.isEmpty()) {
                 continue;
             }
+            String nextKey = keys[i + 1].replace(placeholder, "/").replace("\\ ", " ");
 
-            if (!current.has(key)) {
-                current.add(key, new JsonObject());
-            }
-            JsonElement element = current.get(key);
-            if (element.isJsonObject()) {
-                current = element.getAsJsonObject();
+            if (current.isJsonObject()) {
+                JsonObject obj = current.getAsJsonObject();
+                JsonElement element = obj.get(key);
+                if (element == null || element.isJsonNull()) {
+                    element = nextKey.matches("\\d+") ? new JsonArray() : new JsonObject();
+                    obj.add(key, element);
+                }
+                current = element;
+            } else if (current.isJsonArray()) {
+                if (!key.matches("\\d+")) return false;
+                int idx = Integer.parseInt(key);
+                JsonArray arr = current.getAsJsonArray();
+                while (arr.size() <= idx) {
+                    JsonElement filler = nextKey.matches("\\d+") ? new JsonArray() : new JsonObject();
+                    arr.add(filler);
+                }
+                current = arr.get(idx);
             } else {
-                // 既存の値がオブジェクトでない場合、新しいオブジェクトで置き換え
-                JsonObject newObj = new JsonObject();
-                current.add(key, newObj);
-                current = newObj;
+                return false;
             }
         }
 
@@ -169,8 +189,19 @@ public class JsonManager {
             System.err.println("Last key is empty for path: " + path_key);
             return false;
         }
-
-        current.addProperty(lastKey, value);
+        if (current.isJsonObject()) {
+            current.getAsJsonObject().addProperty(lastKey, value);
+        } else if (current.isJsonArray()) {
+            if (!lastKey.matches("\\d+")) return false;
+            int idx = Integer.parseInt(lastKey);
+            JsonArray arr = current.getAsJsonArray();
+            while (arr.size() <= idx) {
+                arr.add("");
+            }
+            arr.set(idx, new JsonPrimitive(value));
+        } else {
+            return false;
+        }
 
         if (this.getValueAsString(path_key).equals(value)) {
             return true;

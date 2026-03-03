@@ -1,0 +1,95 @@
+
+========== Opus via Copilot コマンド ==========
+copilot  --prompt \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_OliveiraSaraiva2023_by_opus_20260303124023427.json へ書き込んでください。" \
+    --model "claude-opus-4.6" \
+    --allow-all-tools \
+    --add-dir . \
+    --deny-url "*" 
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Opus via Copilot が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+
+
+
+● List directory .
+  └ 5 files found
+
+● Read DE_Guide_v13.md
+  └ 342 lines read
+
+● Read DE_v13_OliveiraSaraiva2023_by_opus_20260303124023427.json
+  └ 47 lines read
+
+● List directory study_1
+  └ 2 files found
+
+● Read study_1/OliveiraSaraiva2023.pdf.md
+  └ 1 line read
+
+● List directory study_1/OliveiraSaraiva2023_artifacts
+  └ 12 files found
+
+● Read study_1/OliveiraSaraiva2023.pdf.md lines 1-100
+  └ 100 lines read
+
+● Read study_1/OliveiraSaraiva2023.pdf.md lines 100-200
+  └ 100 lines read
+
+Now let me check if there's additional demographic information elsewhere in the paper.
+
+● Grep "(H-Train|training.*set|train.*healthy|reference.*cohort|normative.*model.*train)"
+(/media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2026030312
+4023427/study_1/OliveiraSaraiva2023.pdf.md)
+  └ 13 lines found
+
+● Grep "(standard deviation|mean
+age|age.*SD|SD.*age|sex.*train|train.*sex|female.*male|male.*female)"
+(/media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2026030312
+4023427/study_1/OliveiraSaraiva2023.pdf.md)
+  └ 2 lines found
+
+I have all the information needed. Now let me write the extraction results to the JSON file.
+
+Key findings from the paper:
+- **New model** (autoencoder trained on healthy controls)
+- **Training set (H-Train)**: 366 healthy subjects from CoRR (9 sub-datasets, multiple sites/scanners) and UCLA
+- **Multi-site**: Yes (CoRR = 9 sites + UCLA = 10+ sites, multiple scanners)
+- **EPD**: Neither CoRR nor UCLA is in the 18 EPD list (COBRE is, but only used for testing)
+- **Table 2** provides training demographics: N=366, 47% female, age range 18-49, mean age 26, SD not reported
+
+● Edit DE_v13_OliveiraSaraiva2023_by_opus_20260303124023427.json (+52 -31)
+
+Let me validate the JSON is well-formed.
+
+● Validate JSON
+  $ cd /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2026
+  0303124023427 && python3 -c "import json;
+  json.load(open('DE_v13_OliveiraSaraiva2023_by_opus_20260303124023427.json')); print('Valid JSON')"
+  └ 2 lines...
+
+JSON is valid. Here's a summary of the extraction:
+
+| Item | Answer | Key Detail |
+|------|--------|------------|
+| **RCI-1** MSAD | **Yes** | CoRR (9 sites) + UCLA, multiple scanners (Siemens/GE) |
+| **RCI-2** EPD | **No** | CoRR and UCLA not in EPD list; COBRE is EPD but used only for testing |
+| **RCI-3** EPD Name | **NA** | RCI-2 = No |
+| **RCI-4** Phase | **Training** | H-Train row from Table 2 |
+| **RCI-5** N | **366** | Single autoencoder model, trained on CoRR+UCLA HC |
+| **RCI-6** Sex | **172F (47.0%) / 194M (53.0%)** | Estimated from Table 2 percentage |
+| **RCI-7** Age | **mean=26, SD=NR, range 18–49** | SD not reported in paper |
+
+
+Total usage est:        3 Premium requests
+API time spent:         2m 14s
+Total session time:     2m 21s
+Total code changes:     +52 -31
+Breakdown by AI model:
+ claude-opus-4.6         291.3k in, 7.3k out, 230.4k cached (Est. 3 Premium requests)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Opus via Copilot による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

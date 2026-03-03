@@ -1,0 +1,115 @@
+
+========== Opus via Copilot コマンド ==========
+copilot  --prompt \
+    "./DE_Guide_v13.md に従って作業をしてください。作業結果は ./DE_v13_Chien2022_by_opus_20260303092127461.json へ書き込んでください。" \
+    --model "claude-opus-4.6" \
+    --allow-all-tools \
+    --add-dir . \
+    --deny-url "*" 
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Opus via Copilot が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+
+
+
+● List directory .
+  └ 5 files found
+
+● Read DE_Guide_v13.md
+  └ 342 lines read
+
+● Read DE_v13_Chien2022_by_opus_20260303092127461.json
+  └ 47 lines read
+
+● List directory study_1
+  └ 8 files found
+
+● Read study_1/Chien2022.pdf.md
+  └ 1 line read
+
+● Read study_1/41380_2022_1636_MOESM1_ESM.docx.md
+  └ 1 line read
+
+● Count lines in main paper
+  $ wc -l /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2
+  0260303092127461/study_1/Chien2022.pdf.md
+  └ 2 lines...
+
+● Count lines in supplement
+  $ wc -l /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2
+  0260303092127461/study_1/41380_2022_1636_MOESM1_ESM.docx.md
+  └ 2 lines...
+
+● Read study_1/Chien2022.pdf.md lines 1-259
+  └ 126 lines read
+
+● Read study_1/Chien2022.pdf.md lines 128-259
+  └ 131 lines read
+
+Now let me read the supplementary material for more details about the TDC cohort demographics.
+
+● Read study_1/41380_2022_1636_MOESM1_ESM.docx.md lines 1-150
+  └ 142 lines read
+
+● Read study_1/41380_2022_1636_MOESM1_ESM.docx.md lines 143-300
+  └ 158 lines read
+
+Let me check the existing QA file and look for Table 1 in the main text for TDC demographics.
+
+● Grep "(?i)(table 1|TDC|typically
+developing|626|376|250|male.?female|female.?male|age.*range|20\.16|20\.2)" (/media/iu/STORAGE/__GitH
+ub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_20260303092127461/study_1)
+  └ 46 lines found
+
+● Check existing QA JSON
+  $ cd /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2026
+  0303092127461/study_1 && python3 -c "import json;
+  data=json.load(open('Chien2022_by_gemini_20260116153828_for_QA_v9.json')); print(json.dumps(data,
+  indent=2))" 2>/dev/null | head -100
+  └ 101 lines...
+
+● Read study_1/Chien2022.pdf.md lines 33-33
+  └ 1 line read
+
+Now I have all the information needed. Let me compile the extraction:
+
+**Key findings from Chien2022:**
+- **Model Build = New**: "we developed the normative model" using 626 TDCs
+- **Single site**: "single-site harmonized cross-sectional MRI data", "the same 3-Tesla Siemens TIM Trio scanner"
+- **In-house dataset**: TDC recruited from same community, schools, advertisement
+- **TDC: N=626**, Male/Female: 376/250, age range 5–40, mean 20.16 ± 8.5 yrs
+- **No train/test split** mentioned for TDC cohort
+
+● Edit DE_v13_Chien2022_by_opus_20260303092127461.json (+52 -31)
+
+● Validate JSON
+  $ cd /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v13_2026
+  0303092127461 && python3 -c "import json;
+  json.load(open('DE_v13_Chien2022_by_opus_20260303092127461.json')); print('Valid JSON')"
+  └ 2 lines...
+
+JSON is valid. Here's a summary of the extraction:
+
+| Item | Answer | Confidence |
+|------|--------|------------|
+| **RCI-1** MSAD | **No** — single-site, single 3T Siemens scanner | High |
+| **RCI-2** EPD | **No** — in-house TDC recruited from community/schools | High |
+| **RCI-3** EPD Name | **NA** (RCI-2=No) | High |
+| **RCI-4** Phase | **Overall** (no train/test split reported) | — |
+| **RCI-5** N | **626** TDCs (single model: sex-specific WM tract GFA) | High |
+| **RCI-6** Sex | **M 376 (60.1%) / F 250 (39.9%)** | High |
+| **RCI-7** Age | **mean 20.16, SD 8.5, range 5–40 years** | High |
+
+
+Total usage est:        3 Premium requests
+API time spent:         2m 7s
+Total session time:     2m 19s
+Total code changes:     +52 -31
+Breakdown by AI model:
+ claude-opus-4.6         602.0k in, 6.0k out, 519.2k cached (Est. 3 Premium requests)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Opus via Copilot による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -151,6 +151,7 @@ public class SideBySideComparisonHolder extends AbstCHolderMember implements Sub
     private File findTemplate() {
         Path templatesDir = Paths.get("./templates");
         Map<String, String> templateNames = new LinkedHashMap<>();
+        templateNames.put("DE_v14", "DE_v14_Author20XX_by_Someone_YYYYmmddHHMMSS.json");
         templateNames.put("DE_v13", "DE_v13_Author20XX_by_Someone_YYYYmmddHHMMSS.json");
         templateNames.put("DE_v12", "DE_v12_Author20XX_by_Someone_YYYYmmddHHMMSS.json");
         templateNames.put("DE_v11", "DE_v11_Author20XX_by_Someone_YYYYmmddHHMMSS.json");
@@ -170,6 +171,8 @@ public class SideBySideComparisonHolder extends AbstCHolderMember implements Sub
     private String generateHumanJsonName() {
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         switch (version) {
+            case "DE_v14":
+                return "DE_v14_" + authorYear + "_by_human_" + timestamp + ".json";
             case "DE_v13":
                 return "DE_v13_" + authorYear + "_by_human_" + timestamp + ".json";
             case "DE_v12":

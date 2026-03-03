@@ -1,0 +1,696 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bethlehem2021_by_codex_20260303180449497.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb2f1-6e1b-7e22-83af-5b4adcb1d1a0
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bethlehem2021_by_codex_20260303180449497.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning instructions file creation**
+2026-03-03T09:04:55.948085Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497 succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Bethlehem2021_by_codex_20260303180449497.json
+DE_v14_Bethlehem2021_by_codex_20260303180449497.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:05:00.660979Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出する（単一でも複数でも `clinical_cohorts` は配列で統一）。
+- もし Clinical Cohort への NM 適用が確認できない場合は、以下で回答する:
+  - `clinical_cohort_applicability`: `No`（A_Style）
+  - `clinical_cohorts`: 空配列 `[]`
+
+-------------------
+
+thinking
+**Locating source files for study**
+2026-03-03T09:05:05.191018Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497 succeeded in 39ms:
+DE_v14_Bethlehem2021_by_codex_20260303180449497.log
+DE_v14_Bethlehem2021_by_codex_20260303180449497.json
+DE_Guide_v14.md
+study_1/Table4_Distributions/Table4_7_Total_surface_area.csv
+study_1/Table4_Distributions/Table4_4_Ventricular_volume.csv
+study_1/Table4_Distributions/Table4_1_Grey_matter_volume.csv
+study_1/Table4_Distributions/Table4_5_Total_cortical_volume.csv
+study_1/Table4_Distributions/Table4_3_Subcortical_grey_matter_volume.csv
+study_1/Table4_Distributions/Table4_6_Mean_cortical_thickness.csv
+study_1/Table4_Distributions/Table4_2_White_matter_volume.csv
+study_1/Bethlehem2021.pdf.md
+study_1/Table2_Milestones/Table_2_2.csv
+study_1/Table2_Milestones/Table_2_1.csv
+study_1/Supplementary_Table_Information.md
+study_1/Table5_IQR/Table_5_2_White_matter_volume.csv
+study_1/Table5_IQR/Table_5_6_Mean_cortical_thickness.csv
+study_1/Table5_IQR/Table_5_7_Total_surface_area.csv
+study_1/Table5_IQR/Table_5_5_Total_cortical_volume.csv
+study_1/Table5_IQR/Table_5_1_Grey_matter_volume.csv
+study_1/Table5_IQR/Table_5_4_Ventricular_volume.csv
+
+thinking
+**Identifying clinical cohort extraction source**
+
+The clinical cohort NM application details should be found in Bethlehem2021.pdf.md for extraction next.
+exec
+/bin/bash -lc 'rg -n "clinical|case|patient|disorder|cohort|diagn" study_1/Bethlehem2021.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:05:10.554293Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+17:Over the past few decades, neuroimaging has become a ubiquitous tool in basic research and clinical studies of the human brain. However, no reference standards currently exist to quantify individual differences in neuroimaging metrics over time, in contrast to growth charts for anthropometric traits such as height and weight 1 . Here we assemble an interactive open resource to benchmark brain morphology derived from any current or future sample of MRI data (http://www.brainchart.io/). With the goal of basing these reference charts on the largest and most inclusive dataset available, acknowledging limitations due to known biases of MRI studies relative to the diversity of the global population, we aggregated 123,984 MRI scans, across more than 100 primary studies, from 101,457 human participants between 115 days post-conception to 100 years of age. MRI metrics were quantified by centile scores, relative to non-linear trajectories 2 of brain structural changes, and rates of change, over the lifespan. Brain charts identified previously u  nr  ep  or  ted n  eu  ro  de  ve  lopmental milestones 3 , showed high stability of individuals across longitudinal assessments, and demonstrated robustness to technical and methodological differences between primary studies. Centile scores showed increased heritability compared with non-centiled MRI phenotypes, and provided a standardized measure of atypical brain structure that revealed patterns of n  e  u  ro  a  n  at  omical v  a  r  i  a  tion across neurological and psychiatric disorders. In summary, brain charts are an essential step towards robust quantification of individual variation benchmarked to normative trajectories in multiple, commonly used neuroimaging phenotypes.
+21:The simple framework of growth charts to quantify age-related change was first published in the late eighteenth century 1 and remains a cornerstone of paediatric healthcare-an enduring example of the utility of standardized norms to benchmark individual trajectories of development. However, growth charts are currently available only for a small set of anthropometric variables, such as height, weight and head circumference, and only for the first decade of life. There are no analogous charts available for quantification of age-related changes in the human brain, although it is known to go through a prolonged and complex maturational program from pregnancy to the third decade 4 , followed by progressive senescence from approximately the sixth decade 5 . The lack of tools for standardized assessment of brain development and ageing is particularly relevant to research studies of psychiatric disorders, which are increasingly recognized as a consequence of atypical brain development 6 , and neurodegenerative diseases that cause pathological brain changes in the context of normative senescence 7 . Preterm birth and neurogenetic disorders are also associated with marked abnormalities of brain structure 8,9 that persist into adult life 9,10 and are associated with learning disabilities and mental health disorders. Mental illness and dementia collectively represent the single biggest global health burden 11 , highlighting the urgent need for normative brain charts as an anchor point for standardized quantification of brain structure over the lifespan 12 .
+23:Such standards for human brain measurement have not yet materialized from decades of neuroimaging research, probably owing to the challenges of integrating MRI data across multiple, methodologically diverse studies targeting distinct developmental epochs and clinical conditions 13 . For example, the perinatal period is rarely incorporated in analysis of age-related brain changes, despite evidence that early biophysical and molecular processes powerfully influence life-long neurodevelopmental trajectories 14,15 and vulnerability to psychiatric disorders 3 . Primary case-control studies are usually focused on a single disorder despite evidence of trans-diagnostically shared risk factors and pathogenic mechanisms, especially in psychiatry 16,17 . Harmonization of MRI data across primary studies to address these and other deficiencies in the extant literature is challenged by methodological and technical heterogeneity. Compared with relatively simple anthropometric measurements such as height or weight, brain morphometrics are known to be highly sensitive to variation in scanner platforms and sequences, data quality control, pre-processing and statistical analysis 18 , thus severely limiting the generalizability of trajectories estimated from any individual study 19 . Collaborative initiatives spurring collection of large-scale datasets 20,21 , recent advances in neuroimaging data processing 22,23 and proven statistical frameworks for modelling biological growth curves 2,24,25 provide the building blocks for a more comprehensive and generalizable approach to age-normed quantification of MRI phenotypes over the entire lifespan (see Supplementary Information 1 for details and consideration of previous work focused on the related but distinct objective of inferring brain age from MRI data). Here, we demonstrate that these convergent advances now enable the generation of brain charts that (1) robustly define normative processes of sex-stratified, age-related change in multiple MRI-derived phenotypes; (2) identify previously unreported brain growth milestones; (3) increase sensitivity to detect genetic and early life environmental effects on brain structure; and (4) provide standardized effect sizes to quantify neuroanatomical atypicality of brain scans collected across multiple clinical disorders. We do not claim to have yet reached the ultimate goal of quantitatively precise diagnosis of MRI scans from
+31:individual patients in clinical practice. However, the present work proves the principle that building normative charts to benchmark individual differences in brain structure is already achievable at global scale and over the entire life-course; and provides a suite of open science resources for the neuroimaging research community to accelerate further progress in the direction of standardized quantitative assessment of MRI data.
+49:model stability and robustness (Supplementary Information 3, 4); phenotypic validation against non-imaging metrics (Supplementary Information 3 and 5.2); inter-study harmonization (Supplementary Information 5); and assessment of cohort effects (Supplementary Information 6). See Supplementary Information 19 for details on all primary studies contributing to the reference dataset, including multiple publicly available open MRI datasets 32-42 .
+55:Fig. 3 | Neurodevelopmental milestones. Top, a graphical summary of the normative trajectories of the median (50th centile) for each global MRI phenotype, and key developmental milestones, as a function of age (log-scaled). Circles depict the peak rate of growth milestones for each phenotype (defined by the maxima of the first derivatives of the median trajectories (Fig. 1e)). Triangles depict the peak volume of each phenotype (defined by the maxima of the median trajectories); the definition of GMV:WMV differentiation is detailed in Supplementary Information 9.1. Bottom, a graphical summary of additional MRI and non-MRI developmental stages and milestones. From top to bottom: blue shaded boxes denote the age range of incidence for each of the major clinical disorders represented in the MRI dataset; black boxes denote the age at which these conditions are generally diagnosed as derived from literature 73 (Methods); brown lines
+61:represent the normative intervals for developmental milestones derived from non-MRI data, based on previous literature and averaged across males and females (Methods); grey bars depict age ranges for existing (World Health Organization (WHO) and Centers for Disease Control and Prevention (CDC)) growth charts of anthropometric and ultrasonographic variables 24 . Across both panels, light grey vertical lines delimit lifespan epochs (labelled above the top panel) previously defined by neurobiological criteria 63 . Tanner refers to the Tanner scale of physical development. AD, Alzheimer's disease; ADHD, attention deficit hyperactivity disorder; ASD, autism spectrum disorder (including high-risk individuals with confirmed diagnosis at a later age); ANX, anxiety or phobic disorders; BD, bipolar disorder; MDD, major depressive disorder; RMR, resting metabolic rate; SCZ, schizophrenia.
+67:- Median clinical centile difference to normative population a
+69:Fig. 4 | Case-control differences and heritability of centile scores. a , Centile score distributions for each diagnostic category of clinical cases relative to the control group median (depicted as a horizontal black line). The median deviation of centile scores in each diagnostic category is overlaid as a lollipop plot (white lines with circles corresponding to the median centile score for each group of cases). Pairwise tests for significance were based on Monte Carlo resampling (10,000 permutations) and P values were adjusted for multiple comparisons using the Benjamini-Hochberg false discovery rate (FDR) correction across all possible case-control differences. Only significant differences from the control group (CN) median (with corrected P &lt; 0.001) are highlighted with an asterisk. For a complete overview of all pairwise comparisons, see Supplementary Information 10, Supplementary Table 3. Groups are ordered by their multivariate distance from the CN group (see c and Supplementary Information 10.3). b , The CMD is a summary metric that quantifies the aggregate atypicality of an individual scan in terms of all global MRI phenotypes. The schematic shows segmentation of four cerebrum tissue
+75:We also found evidence for regional variability in volumetric neurodevelopmental trajectories. Compared with peak GMV at 5.9 years, the age of peak regional grey matter volume varied considerably-from approximately 2 to 10 years-across 34 cortical areas. Primary sensory regions reached peak volume earliest and showed faster post-peak declines, whereas fronto-temporal association cortical areas peaked later and showed slower post-peak declines (Fig. 2b, Supplementary Information 8.2). Notably, this spatial pattern recapitulated a gradient volumes, followed by estimation of univariate centile scores, leading to the orthogonal projection of a single participant's scan (Sub x ) onto the four respective principal components of the CN (coloured axes and arrows). The CMD for Sub x is then the sum of its distances from the CN group mean on all four dimensions of the multivariate space. c , Probability density plots of CMD across disorders. Vertical black line depicts the median CMD of the control group. Asterisks indicate an FDR-corrected significant difference from the CN group ( P &lt; 0.001). d , Heritability of raw volumetric phenotypes and their centile scores across two twin studies (Adolescent Brain Cognitive Development (ABCD) and Human Connectome Project (HCP)); Supplementary Information 19), see Supplementary Information 13 for a full overview of statistics for each individual feature in each dataset. Data are mean ± s.e.m. (although some confidence intervals are too narrow to be seen). MCI, mild cognitive impairment. See Fig. 3 for other diagnostic abbreviations. FDR-corrected significance: * P &lt; 0.05, ** P &lt; 0.01, *** P &lt; 0.001.
+91:We computed individualized centile scores that benchmarked each individual scan in the context of normative age-related trends (Methods, 'Centile scores and case-control differences' and Supplementary Information 1-6 for further details). This approach is conceptually similar to quantile rank mapping, as previously reported 26,28,29 , where
+95:the typicality or atypicality of each phenotype in each scan is quantified by its score on the distribution of phenotypic parameters in the normative or reference sample of scans, with more atypical phenotypes having more extreme centile (or quantile) scores. The clinical diversity of the aggregated dataset enabled us to comprehensively investigate casecontrol differences in individually specific centile scores across a range of conditions. Relative to the control group (CN), there were highly significant differences in centile scores across large ( N &gt; 500) groups of cases diagnosed with multiple disorders (Fig. 4a, Supplementary Information  10), with effect sizes ranging from medium (0.2 &lt; Cohen's d &lt; 0.8) to large (Cohen's d &gt; 0.8) (see Supplementary Tables 3, 4 for all false discovery rate (FDR)-corrected P values and effect sizes). Clinical case-control differences in cortical thickness and surface area generally followed the same trend as volume differences (Supplementary Information 10). Alzheimer's disease showed the greatest overall difference, with a maximum difference localized to grey matter volume in biologically female patients (median centile score = 14%, 36 percentage points difference from CN median, corresponding to Cohen's d = 0.88; Fig. 4a). In addition, we generated a cumulative deviation metric, the centile Mahalanobis distance (CMD), to summarize a comparative assessment of brain morphology across all global MRI phenotypes relative to the CN group (Fig. 4b, Supplementary Information 1.6). Notably, schizophrenia ranked third overall behind Alzheimer's disease and mild cognitive impairment (MCI) on the basis of CMD (Fig. 4c). Assessment across diagnostic groups, based on profiles of the multiple centile scores for each MRI phenotype and for CMD, highlighted shared and distinct patterns across clinical conditions (Supplementary Information 10, 11). However, when examining cross-disorder similarity of multivariate centile scores, hierarchical clustering yielded three clusters broadly comprising neurodegenerative, mood and anxiety, and neurodevelopmental disorders (Supplementary Information 11).
+97:Across all major epochs of the lifespan 63 , the CMD was consistently greater in cases relative to controls, irrespective of diagnostic category.
+99:The largest case-control differences across epochs occurred in late adulthood when risk for dementia increases and in adolescence, which is well-recognized as a period of increased incidence of mental health disorders (Supplementary Information 10.3). In five primary studies covering the lifespan, average centile scores across global tissues were related to two metrics of premature birth (gestational age at birth: t = 13.164, P &lt; 2 × 10 -16 ; birth weight: t = 36.395, P &lt; 2 × 10 -16 ; Supplementary Information 12), such that greater gestational age and birth weight were associated with higher average centile scores. Centile scores also showed increased twin-based heritability in two independent studies (total N = 913 twin pairs) compared with non-centiled phenotypes (average increase of 11.8 percentage points in narrow sense heritability ( h 2 ) across phenotypes; Fig. 4d, Supplementary Information 13). In summary, centile normalization of brain metrics reproducibly detected case-control differences and genetic effects on brain structure, as well as long-term sequelae of adverse birth outcomes even in the adult brain 10 .
+103:Owing to the relative paucity of longitudinal imaging data (about 10% of the reference dataset), normative models were estimated from cross-sectional data collected at a single time point. However, the generalizability of cross-sectional models to longitudinal assessment is important for future research. Within-subject variability of centile scores derived from longitudinally repeated scans, measured with the interquartile range (IQR) (Methods, 'Longitudinal stability', Supplementary Information 1.7), was low across both clinical and CN groups (all median IQR &lt; 0.05 centile points), indicating that centile scoring of brain structure was generally stable over time, although there was also some evidence of between-study and cross-disorder differences in within-subject variability (Supplementary Information 14). Notably, individuals who changed diagnostic categories-for example, those who progressed from mild cognitive impairment to Alzheimer's disease over the course of repeated scanning-showed small but significant increases in within-subject variability of centile scores (Supplementary Information 14, Supplementary Tables 5, 6). Within-subject variability was also slightly higher in samples from younger individuals (Supplementary Information 14), which could reflect increased noise due to the technical or data quality challenges associated with scanning younger individuals, but is also consistent with the evidence of increased variability in earlier development observed across other anthropometric traits 64 .
+107:A key challenge for brain charts is the accurate centile scoring of out-of-sample MRI data, not represented in the reference dataset used to estimate normative trajectories. We therefore carefully evaluated the reliability and validity of brain charts for centile scoring of such 'new' scans. For each new MRI study, we used maximum likelihood to estimate study-specific statistical offsets from the age-appropriate epoch of the normative trajectory; we then estimated centile scores for each individual in the new study benchmarked against the offset trajectory (Fig. 5, Methods, 'Data-sharing and out-of-sample estimation', Supplementary Information 1.8). Extensive jack-knife and leave-one-study-out analyses indicated that a study size of N &gt; 100 scans was sufficient for stable and unbiased estimation of out-of-sample centile scores (Supplementary Information 4). This study size limit is in line with the size of many contemporary brain MRI research studies. However, these results do not immediately support the use of brain charts to generate centile scores from smaller-scale research studies, or from an individual patient's scan in clinical practice-this remains a goal for future work. Out-of-sample centile scores proved highly reliable in multiple test-retest datasets and were robust to variations in image processing pipelines (Supplementary Information 4).
+111:We have aggregated the largest neuroimaging dataset to date to modernize the concept of growth charts for mapping typical and atypical human brain development and ageing. The approximately 100-year age range enabled the delineation of milestones and critical periods in maturation of the human brain, revealing an early growth epoch across its constituent tissue classes-beginning before 17 post-conception weeks, when the brain is at approximately 10% of its maximum size, and ending by age 3, when the brain is at approximately 80% of the maximum size. Individual centile scores benchmarked by normative neurodevelopmental trajectories were significantly associated with neuropsychiatric disorders as well as with dimensional phenotypes (Supplementary Information 5.2, 12). Furthermore, imaging-genetics studies 65 may benefit from the increased heritability of centile scores compared with raw volumetric data (Supplementary Information 13). Perhaps most importantly, GAMLSS modelling enabled harmonization across technically diverse studies (Supplementary Information 5), and thus unlocked the potential value of combining primary MRI studies at scale to generate normative, sex-stratified brain growth charts, and individual centile scores of typicality and atypicality.
+113:The analogy to paediatric growth charts is not meant to imply that brain charts are immediately suitable for benchmarking or quantitative diagnosis of individual patients in clinical practice. Even for traditional anthropometric growth charts (height, weight and BMI), there are still important caveats and nuances concerning their diagnostic interpretation in individual children 66 ; similarly, it is expected that considerable further research will be required to validate the clinical diagnostic utility of brain charts. However, the current results bode well for future progress towards digital diagnosis of atypical brain structure and development 67 . By providing an age- and sex-normalized metric, centile scores enable trans-diagnostic comparisons between disorders that emerge at different stages of the lifespan (Supplementary Information 10, 11). The generally high stability of centile scores across longitudinal measurements also enabled assessment of brain changes related to diagnostic transition from mild cognitive impairment to Alzheimer's disease (Supplementary Information 14), which provides one example of how centile scoring could be clinically useful in quantitatively predicting or diagnosing progressive neurodegenerative disorders in the future. Our provision of appropriate normative growth charts and online tools also creates an immediate opportunity to quantify atypical brain structure in clinical research samples, to leverage available legacy neuroimaging datasets, and to enhance ongoing studies.
+115:Several important caveats are worth highlighting. Even this large MRI dataset was biased towards European and North American populations and European ancestry groups within those populations. This bias is unfortunately common in many clinical and scientific references, including anthropometric growth charts and benchmark genetic datasets, representing an inequity that must be addressed by the global scientific community 68 . In the particular case of brain charts, further increasing ethnic, socioeconomic and demographic diversity in MRI research will enable more population-representative normative trajectories 69,70 that can be expected to improve the accuracy and strengthen the interpretation of centile scores in relation to appropriate norms 26 . The available reference data were also not equally distributed across all ages-for example, foetal, neonatal and mid-adulthood (30-40 years of age) epochs were under-represented (Supplementary Information 17-19). Furthermore, although our statistical modelling approach was designed to mitigate study- or site-specific effects on centile scores, it cannot entirely correct for limitations of primary study design, such as ascertainment bias or variability in diagnostic criteria. Our decision to stratify the lifespan models by sex followed the analogous logic of sex-stratified anthropometric growth charts. Males have larger brain-tissue volumes than females in absolute terms (Supplementary
+119:Information 16), but this is not indicative of any difference in clinical or cognitive outcomes. Future work would benefit from more detailed and dimensional self-report variables relating to sex and gender 71 . The use of brain charts also does not circumvent the fundamental requirement for quality control of MRI data. We have shown that GAMLSS modelling of global structural MRI phenotypes is in fact remarkably robust to inclusion of poor-quality scans (Supplementary Information 2), but it should not be assumed that this level of robustness will apply to future brain charts of regional MRI or functional MRI phenotypes; therefore, the importance of quality control remains paramount.
+
+thinking
+**Reviewing supplementary table for diagnosis counts**
+exec
+/bin/bash -lc 'rg -n "case|control|diagn|clinical|disorder|patients|cohort" study_1/Bethlehem2021_sup.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:05:16.283153Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 31ms:
+35:| 2. Quality control                                                                   | 23                                                                                  |
+37:| 2.2 Expert visual quality control                                                    | 25                                                                                  |
+42:| 3.1 Model diagnostics                                                                | 32                                                                                  |
+64:| 7.3 Quality control of extended global MRI phenotypes                                                                               | 72      |
+73:| 10.1 Case-control and between-disorder comparisons of centile scores on cerebrum  tissue volumes and extended global MRI phenotypes | 86      |
+74:| 10.2 Multimodality of centile distributions in clinical disorders                                                                   | 92      |
+75:| 10.3 Case-control differences on CMD                                                                                                | 95      |
+77:| 11. Cross diagnostic analyses                                                                                                       | 99      |
+78:| 11.1 Sliding window analyses of cross-disorder discriminability                                                                     | 99      |
+79:| 11.2 Cross-diagnostic clustering                                                                                                    | 100     |
+85:| 14.3 Longitudinal variability in clinical samples                                                                                   | 109     |
+86:| 14.4 Longitudinal centile score changes and diagnostic progression                                                                  | 115     |
+210:AD - Alzheimer's disease ADHD - Attention deficit hyperactivity disorder ANX - Anxiety or phobic disorders ASD - Autism spectrum disorder BD - Bipolar disorder BIC - Bayesian information criterion CDF - Cumulative density function CN - Control or cognitively normal CSF - Ventricular cerebrospinal fluid (or 'Ventricles') CMD - Centile Mahalanobis distance CT - Cortical thickness DK - Desikan-Killiany DTOP - Detrended transformed Owen's plot DX - Diagnosis (or non-CN) DZ - Dizygotic EI - Euler index Eq - Equation FDR - False discovery rate FTD - Frontotemporal dementia GAM - Generalised additive model GAMLSS - Generalised additive models for location scale and shape GEEs - Generalised Estimating Equations GG - Generalised Gamma GMV - Total cortical grey matter volume
+212:HC - Head circumference ICC - Intraclass correlation coefficient IQR - Interquartile range LBD - Lewy body dementia LOESS - Locally estimated scatterplot smoothing LOSO - Leave-one-study-out MCI - Mild cognitive impairment MDD - Major depressive disorder MRI - Magnetic resonance imaging MZ - Monozygotic OCD - Obsessive compulsive disorder OoS - Out-of-sample PD - Parkinson's disease QC - Quality control RMR - Resting metabolic rate TCV - Total cerebrum volume sGMV - Total subcortical grey matter volume SA - Surface area SCZ - Schizophrenia ST - Supplementary table SI - Supplementary information TCV - Total cerebrum volume WHO - World Health Organisation WMV - Total cortical white matter volume
+228:Our modelling aim is to obtain a reference lifespan model for cognitively normal subjects (CN), onto which we can place individuals with various diseases and conditions. Furthermore, there could  be  variability  between  studies  in  the  standards  used  for  diagnosis  of  disorders  and  for ascertainment of healthy controls, and the non-CN individuals are spread across the studies. To that end, we require study-specific estimates from our model so that we can derive study-specific CN  reference  curves.  This  requirement  excludes  many  non-parametric  outcome  distribution approaches and conditional inference approaches, for example Generalised Estimating Equations (GEEs) 13 , since they explicitly avoid or side-step estimating the random-effects terms. Although many of these methods reduce bias under model mis-specification, we require the feature they integrate  out.  Similarly,  this  excludes  approaches  like  the  recent  application  of  ComBAT 14 in neuroimaging  from  its  origins  in  the  genomics  literature  (see SI5 for  an  in-depth  comparison between  the  two  approaches).  The  principal  way  in  which  we  have  accounted  for  inter-site variability  issues  is  by  using  the  GAMLSS  modelling  framework  to  correct  for  between-study differences in all studies, and to use only data from healthy controls to estimate the normative trajectories  for  all  phenotypes.  To  demonstrate  the  robustness  to  study-specific  variability  of growth curves and the individual centiles derived from them, we conducted 'leave-one-study-out' (LOSO)  analyses  whereby  the  growth  curves  and  centiles  are  repeatedly  estimated  after exclusion  of  each  individual  study  (see SI3.2 on  model  sensitivity  analyses).  These  analyses confirm that trajectories from the total dataset are in general highly conserved after exclusion of each individual study, suggesting that study-specific differences do not materially influence model parameters.
+244:Some of the included studies were longitudinal, including multiple follow-up scans for the same individuals. This enables us to investigate the validity of the cross-sectionally derived lifespan curves  as  longitudinal  trajectories.  For  CNs,  assuming  a  reasonable  level  of  within-person variability, each individual's centile score should remain constant. This would be the equivalent of maintaining a specific centile while ageing on a growth chart. Significant changes in an individual's centile as they age, for example passing from 75th to 25th percentile in height or weight on the child growth chart is an indicator of a potential clinical issue. Our derived neuroimaging reference curves can be used in a similar fashion, using follow-up scans to assess whether an individual has crossed multiple deciles/quartiles/etc. of our lifespan curves. The utility of this approach for cases of extreme pathology may be limited, since they typically sit in an extreme part of the centile distribution (i.e., they are not uniformly distributed from zero to one). While their extreme place relative  to  the  CN  distribution  is  likely  to  be  clinically  meaningful,  their  amount  of  longitudinal variability might be compressed. To circumvent some degree of complexity we sought to quantify an  individual's  interquartile  range  of  their  position  in  the  centile  distribution  as  a  proxy  for longitudinal stability. See SI1.7 for additional information about longitudinal centiles.
+258:The WHO provides several guidelines for choosing underlying model distributions for growth chart modelling 6,36 of  anthropometrics  such  as  head  circumference,  height  and  weight.  For  these phenotypes the guidelines suggest the Box-Cox t-distribution might be an appropriate starting place. Since we did not want to assume that the trajectories obtained from in vivo neuroimaging would automatically or by extension be best captured by the same underlying distributions, we decided to evaluate all possible distribution families. In that context it is worth noting that there is no specific statistical test to determine the best outcome distribution to use within the GAMLSS model,  and  the  package  provides  a  range  of  distribution  families 8 .  Standard  practice  is  to  fit multiple distributions, each consistent with the characteristics of the outcome, and to compare the distributions using an information criterion such as the Bayesian Information Criterion (BIC) 37 . We used this approach to select the optimal outcome distribution, keeping in mind the likely need for multi-parameter outcome estimates (so we only evaluated distribution families with 3 or more parameters  for  which  GAMLSS  fitting  converged). Fig.  S1.1 shows  the  BIC  for  all  evaluated models scaled to the lowest BIC for each phenotype. In all cases a generalised gamma distribution provided the best fit.
+286:In order to motivate the specific use of GAMLSS for lifespan modelling as done here, we designed a  simulation  scenario  that  matches  our  use  case  for  a  single  outcome  or  MRI  phenotype. Specifically, we simulated data from twenty studies across the lifespan. We simulated data on both healthy controls (CN) and diagnosed cases (DX), some with longitudinal follow-up, as well as  study-specific  random-effects.  We  chose  the  generalised  gamma  for  the  true  outcome distribution with age and sex fixed-effects, random-effects within the 𝜇 -component, and constant
+290:Fig.  S1.4.1.  Simulated  data  for  baseline  observations. A  |  Female  and  male  healthy  controls  (CN) coloured according to 20 simulated studies, highlighting the coverage of the lifespan and the within- and between-study variability. These simulated observations (N=13,500) were used to estimate lifespan curves with GAMLSS in order to motivate the application to real data. B | Healthy controls (CN) and diagnosed (Dx) individuals from each study (black and red respectively) (n=20,250). This simulation posits a diverging lifespan trajectory for Dx individuals, such that at the start of the lifespan CN and Dx overlap but gradually separate, which is induced by using different true age-related quadratics. The specific functional form of the CN and Dx curves are ( (0.4 - 𝑥) ∗ (0.5 - 𝑥) + 1.8 ) and ( (0.35 - 𝑥) ∗ (0.3 - 𝑥) + 1.55 ) respectively. (values were scaled for computational stability and visualisation purposes).
+298:Fig. S1.4.2. Simulated data for longitudinal observations. An illustrative sample of individuals (250 from among 1,500 for clarity) with longitudinal follow-up within the simulated data coloured by CN (black) or cases (Dx: red). Within the simulation individuals have relatively stable longitudinal trajectories relative to the between person variation, implying longitudinal centiles will be relatively stable for both CN and Dx.
+
+thinking
+**Reviewing clinical cohort tables**
+
+I'm checking Supplementary Table 3, named Table3_CaseControl, to find diagnostic categories and sample sizes for clinical cohorts relevant to the brain charts study.
+exec
+/bin/bash -lc 'head -n 5 study_1/Table3_CaseControl/Table_3_1_Grey_matter_volume_PermDx.csv' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:05:22.035743Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 24ms:
+Group 1,Group 2,Sample size G1,Sample size G2,Median centile G1,Median centile G2,P uncorrected,Cohens D lower CI,Cohens D upper CI,Cohens D,Mean group difference,P corrected (BH-FDR),Sex,Median group difference
+CN,AD,38839,529,0.497,0.152,0.0002,0.964,0.792,0.878,0.251,0.0003,Female,0.345
+CN,ADHD,38839,329,0.497,0.518,0.34997,0.16,-0.057,0.052,0.015,0.3937,Female,-0.021
+CN,Anxiety/Phobia,38839,1039,0.497,0.484,0.31697,0.092,-0.031,0.031,0.009,0.3681,Female,0.013
+CN,ASD,38839,381,0.497,0.513,0.24838,0.044,-0.158,-0.057,-0.016,0.2981,Female,-0.016
+
+thinking
+**Checking demographics table**
+
+I'm investigating the demographic details in Table1, specifically the CSV named for acquisition and demographics, to find counts, sex, and age data.
+2026-03-03T09:05:25.812099Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'head -n 5 study_1/Table1_Demographics/Table_1_1_Acquisition_and_Demographics.csv' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497 succeeded in 30ms:
+Study,Site code,Sex,Sample size,Processing pipeline,Processed in-house,Only post QC data shared/used,Extracted QC metrics,QC Rating included,Further notes on QC,Acquisition protocol,Native resolution,Longitudinal included,Scanner,Manufacturer,Field strength,Acquisition Parameter Notes,TR,TE,TI,FA,Citation for extended description
+3R-BRAIN,1,Female,74,FS6_T1,yes,No,Euler,,Anatomical T1 images were visually inspected to exclude individuals with substantial head motion and structural abnormalities.,MPRAGE,0.7mm,Pending,Siemens 3T Prisma,Siemens,3,,2400,2.23,1000,8,https://pubmed.ncbi.nlm.nih.gov/34653938/
+3R-BRAIN,1,Male,87,FS6_T1,yes,No,Euler,,Anatomical T1 images were visually inspected to exclude individuals with substantial head motion and structural abnormalities.,MPRAGE,0.7mm,Pending,Siemens 3T Prisma,Siemens,3,,2400,2.23,1000,8,https://pubmed.ncbi.nlm.nih.gov/34653938/
+3R-BRAIN,2,Female,72,FS6_T1,yes,No,Euler,,Anatomical T1 images were visually inspected to exclude individuals with substantial head motion and structural abnormalities.,3D T1,1mm,Pending,GE 3T MR750,General Electric,3,,6.9,2.99,450,8,https://pubmed.ncbi.nlm.nih.gov/34653938/
+3R-BRAIN,2,Male,97,FS6_T1,yes,No,Euler,,Anatomical T1 images were visually inspected to exclude individuals with substantial head motion and structural abnormalities.,3D T1,1mm,Pending,GE 3T MR750,General Electric,3,,6.9,2.99,450,8,https://pubmed.ncbi.nlm.nih.gov/34653938/
+
+thinking
+**Assessing clinical cohort demographics**
+
+I'm verifying where to find clinical cohort demographic details, focusing on sample size, sex, and age by disorder, and considering Supplementary Tables 3 and 10 as potential sources while looking for a metadata map to clarify table contents.
+2026-03-03T09:05:34.436563Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat study_1/Supplementary_Table_Information.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497 succeeded in 34ms:
+# Supplementary Information
+
+This file includes common nomenclature, Supplementary Methods, sensitivity analyses, supplementary analyses, reference database details, replication/validation datasets, a note on data sharing, affiliations, Acknowledgements and supplementary references.
+
+## Supplementary Table 1
+Demographic information. SI1.1, sample size and acquisition parameters for each individual study. SI1.2–SI1.42, demographic information per study and sex for each individual brain imaging phenotype (that is, SI1.2 has demographics for all control subjects included in the GMV model, SI1.3 for all subjects included in the WMV model, etc.). Thus these contain all demographics and sample sizes related to the models presented in Figs. 1, 2.
+
+## Supplementary Table 2
+Milestones. SI2.1, information on volumetric peaks and rate of change peaks for the global neuroimaging phenotypes as presented in Figs. 1–3. SI2.2, information on volumetric peaks and rate of change peaks for the regional phenotypes as presented in Fig. 2.
+
+## Supplementary Table 3
+Case–control centile comparisons. SI3.1–3.7, statistics and sample size for case–control comparisons presented in Fig. 4a (that is, for clinical groups with N > 500) and SI10. Each table reports the sample sizes, test-statistics, effect sizes and corrected and uncorrected P-values per case–control pair and per sex. Corrected P-values represent P-values adjusted using Benjamini–Hochberg FDR correction for multiple comparisons across all case–control pairs of a specific sex within a specific feature. SI3.8–3.14, same statistics as 3.1–3.7 for all clinical groups with N > 250. SI3.15–3.21, same statistics as 3.1–3.7 for all clinical groups with N > 100. SI3.22–3.28, same statistics as 3.1–3.7 for all clinical groups with N > 50.
+
+## Supplementary Table 4
+Centile distributions. SI4.1–4.7, statistics on centile distributions of global neuroimaging phenotypes, presenting the estimated number of peaks and the accompanying Hartigan’s dip-test statistic for unimodality per sex per phenotype.
+
+## Supplementary Table 5
+Case–control IQR comparisons. SI5.1–5.7, statistics of the case–control comparisons of the interquartile range for subjects that had longitudinal data. Each table reports the sample sizes, test-statistics, effect sizes and corrected and uncorrected P-values per case–control pair and per sex. Corrected P-values represent P-values adjusted using Benjamini–Hochberg FDR correction for multiple comparisons across all case–control pairs of a specific sex within a specific feature.
+
+## Supplementary Table 6
+
+thinking
+**Extracting unique disorder groups**
+
+Planning to extract and list unique clinical cohort disorders from Table 3 using a small Python script parsing the CSV to identify relevant group 2 values.
+2026-03-03T09:05:43.544020Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import csv,glob
+from collections import Counter
+files=glob.glob('study_1/Table3_CaseControl/Table_3_1_Grey_matter_volume_PermDx.csv')
+vals=set()
+for f in files:
+    with open(f, newline='') as fh:
+        r=csv.DictReader(fh)
+        for row in r:
+            vals.add(row['Group 2'])
+print(sorted(vals))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497 succeeded in 55ms:
+['AD', 'ADHD', 'ASD', 'Anxiety/Phobia', 'LMCI', 'MCI', 'MDD', 'SCZ']
+
+thinking
+**Planning to scan all case-control tables**
+
+I'm preparing to scan all Table3_CaseControl CSVs to gather all disorders comprehensively, beyond the initial table and group2, to ensure coverage of all clinical cohorts.
+exec
+/bin/bash -lc "python - <<'PY'
+import csv,glob
+vals=set()
+for f in glob.glob('study_1/Table3_CaseControl/*.csv'):
+    with open(f, newline='') as fh:
+        r=csv.DictReader(fh)
+        for row in r:
+            vals.add(row['Group 2'])
+print(sorted(vals))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:05:51.680638Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 78ms:
+['ABNORMAL VENTRICAL', 'AD', 'ADHD', 'ASD', 'Anorexia/Bulima', 'Anxiety/Phobia', 'Attention & Learning difficulty', 'BD', 'BIPOLAR/PSYCH-RELATIVE', 'Chronic Pain', 'DEMENTIA - LBD', 'EMCI', 'LMCI', 'MCI', 'MCI-Risk', 'MDD', 'ND', 'OCD', 'OTHER', 'Other', 'Other Psychiatric', 'PD', 'SAD', 'SCZ', 'SCZ-Relative', 'SMC', 'SPECIFIC PHOBIA', 'Schizoaffective Disorder', 'Schizoaffective Disorder - Relative', 'Subacute Pain']
+
+
+thinking
+**Clarifying clinical cohort categorization**
+
+Deciding to map all clinical groups to defined minor categories, referencing the dataset's Table 3 for sample sizes, and to label aggregated multi-study data as "MULTI-DATASET (UNSPECIFIED OR N≥10)" since the data pools multiple datasets across studies.
+thinking
+**Deciding dataset labeling and sample size source**
+
+Choosing to label "MULTI-DATASET" cohorts as Non-EPD since they combine public and in-house data, and planning to extract sex-specific sample sizes from the most inclusive GMV table with N>50 to capture broader clinical cohorts for case-control analyses.
+exec
+/bin/bash -lc "python - <<'PY'
+import csv
+f='study_1/Table3_CaseControl/Table_3_22_t50_Grey_matter_volume_PermDx.csv'
+with open(f, newline='') as fh:
+    r=csv.DictReader(fh)
+    vals=set(row['Group 2'] for row in r)
+print(sorted(vals))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497 succeeded in 46ms:
+['ABNORMAL VENTRICAL', 'AD', 'ADHD', 'ASD', 'Anorexia/Bulima', 'Anxiety/Phobia', 'Attention & Learning difficulty', 'BD', 'BIPOLAR/PSYCH-RELATIVE', 'Chronic Pain', 'DEMENTIA - LBD', 'EMCI', 'LMCI', 'MCI', 'MCI-Risk', 'MDD', 'ND', 'OCD', 'OTHER', 'Other', 'Other Psychiatric', 'PD', 'SAD', 'SCZ', 'SCZ-Relative', 'SMC', 'SPECIFIC PHOBIA', 'Schizoaffective Disorder', 'Schizoaffective Disorder - Relative', 'Subacute Pain']
+2026-03-03T09:06:20.385183Z ERROR codex_core::codex: needs_follow_up: true
+
+
+thinking
+**Evaluating disorder category mapping**
+
+Many disorders encountered don't match the limited predefined categories, especially pain and ambiguous labels; considering excluding unmapped disorders or assigning a general "other" or "unknown" category only when appropriate, while focusing on the defined core disorders for consistency.
+thinking
+**Planning JSON clinical cohort extraction**
+
+I'm mapping target disorders to defined categories, excluding ambiguous or unmapped ones, and preparing to parse sample sizes by sex from the t50 GMV table to build a JSON cohort array with concise supporting text quoting relevant rows.
+exec
+/bin/bash -lc "python - <<'PY'
+import csv
+from collections import defaultdict
+f='study_1/Table3_CaseControl/Table_3_22_t50_Grey_matter_volume_PermDx.csv'
+# map disorder to minor category
+map_disorders={
+    'AD': ('Neurocognitive disorders','AD'),
+    'DEMENTIA - LBD': ('Neurocognitive disorders','DLB'),
+    'PD': ('Neurocognitive disorders','PD'),
+    'MCI': ('Neurocognitive disorders','MCI'),
+    'EMCI': ('Alzheimer spectrum','EMCI'),
+    'LMCI': ('Alzheimer spectrum','LMCI'),
+    'ADHD': ('Neurodevelopmental disorders','ADHD'),
+    'ASD': ('Neurodevelopmental disorders','ASD'),
+    'Anxiety/Phobia': ('Anxiety disorders','ANX'),
+    'SPECIFIC PHOBIA': ('Anxiety disorders','Specific'),
+    'OCD': ('Anxiety disorders','OCD'),
+    'SAD': ('Anxiety disorders','Social'),
+    'BD': ('Mood disorders','BD'),
+    'MDD': ('Mood disorders','MDD'),
+    'SCZ': ('Psychotic disorders','SCZ'),
+    'Schizoaffective Disorder': ('Psychotic disorders','SZA'),
+}
+
+rows=defaultdict(dict)
+# store sample size by sex
+with open(f, newline='') as fh:
+    r=csv.DictReader(fh)
+    for row in r:
+        d=row['Group 2']
+        if d not in map_disorders:
+            continue
+        sex=row['Sex']
+        rows[d][sex]=row
+
+# print counts
+for d,(maj,minor) in map_disorders.items():
+    if d not in rows:
+        print(d,'MISSING')
+        continue
+    female=rows[d].get('Female')
+    male=rows[d].get('Male')
+    fn=int(female['Sample size G2']) if female else None
+    mn=int(male['Sample size G2']) if male else None
+    total=(fn or 0)+(mn or 0) if fn is not None and mn is not None else None
+    print(d,fn,mn,total)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:06:50.602273Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 48ms:
+AD 529 458 987
+DEMENTIA - LBD 21 26 47
+PD 67 136 203
+MCI 253 197 450
+EMCI 139 170 309
+LMCI 216 341 557
+ADHD 329 885 1214
+ASD 381 1628 2009
+Anxiety/Phobia 1039 589 1628
+SPECIFIC PHOBIA 159 55 214
+OCD 74 84 158
+SAD 150 155 305
+BD 111 97 208
+MDD 3461 1789 5250
+SCZ 315 718 1033
+Schizoaffective Disorder 53 56 109
+
+
+thinking
+**Planning percentage calculations and JSON structure**
+
+Planning to compute male and female percentages from counts with one decimal precision, including supporting text from CSV lines for each sex, and adding a location field referencing the table file and disorder rows. Age data is missing and will be reported as "NR" with explanatory detail and low confidence, ensuring adherence to the expected structured answer format.
+thinking
+**Resolving age reporting and dataset labeling**
+
+Deciding to report age as "NR" with supporting text quoting the table header to show age absence, and labeling the dataset as "MULTI-DATASET (UNSPECIFIED OR N>=10)" with "Non-EPD" and supporting text from the main paper citing aggregation across 100+ studies. Planning to ensure clinical cohort applicability is set to yes and to check existing JSON format before generating output for consistency.
+exec
+/bin/bash -lc 'cat DE_v14_Bethlehem2021_by_codex_20260303180449497.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:07:06.907666Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 31ms:
+{
+  "paper_id": "",
+  "clinical_cohort_applicability": "",
+  "clinical_cohorts": [
+    {
+      "cc1_disorder_category": {
+        "disorder_major": "",
+        "disorder_minor": ""
+      },
+      "cc2_datasets": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "cc3_n": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+
+
+thinking
+**Planning JSON generation from clinical cohort data**
+
+I'm mapping out a Python script to produce JSON with paper ID and clinical cohorts per disorder, using CSV rows for sample sizes and sex breakdowns and quoted supporting text from the main paper file. Next, I'll fetch exact CSV rows for each disorder to compute male/female percentages and format the cohort JSON.
+thinking
+**Handling missing age data consistently**
+
+I'll use the CSV header line to indicate missing age info across all cohorts, marking it as not reported, and include this same supporting text and location for each clinical cohort in the script.
+exec
+/bin/bash -lc "python - <<'PY'
+import csv, json
+from collections import defaultdict
+
+paper_id = \"Bethlehem2021\"
+
+map_disorders={
+    'AD': ('Neurocognitive disorders','AD'),
+    'DEMENTIA - LBD': ('Neurocognitive disorders','DLB'),
+    'PD': ('Neurocognitive disorders','PD'),
+    'MCI': ('Neurocognitive disorders','MCI'),
+    'EMCI': ('Alzheimer spectrum','EMCI'),
+    'LMCI': ('Alzheimer spectrum','LMCI'),
+    'ADHD': ('Neurodevelopmental disorders','ADHD'),
+    'ASD': ('Neurodevelopmental disorders','ASD'),
+    'Anxiety/Phobia': ('Anxiety disorders','ANX'),
+    'SPECIFIC PHOBIA': ('Anxiety disorders','Specific'),
+    'OCD': ('Anxiety disorders','OCD'),
+    'SAD': ('Anxiety disorders','Social'),
+    'BD': ('Mood disorders','BD'),
+    'MDD': ('Mood disorders','MDD'),
+    'SCZ': ('Psychotic disorders','SCZ'),
+    'Schizoaffective Disorder': ('Psychotic disorders','SZA'),
+}
+
+f='study_1/Table3_CaseControl/Table_3_22_t50_Grey_matter_volume_PermDx.csv'
+rows=defaultdict(dict)
+with open(f, newline='') as fh:
+    r=csv.DictReader(fh)
+    header = ','.join(r.fieldnames)
+    for row in r:
+        d=row['Group 2']
+        if d not in map_disorders:
+            continue
+        sex=row['Sex']
+        rows[d][sex]=row
+
+clinical_cohorts=[]
+for disorder,(maj,minor) in map_disorders.items():
+    if disorder not in rows:
+        continue
+    female=rows[disorder].get('Female')
+    male=rows[disorder].get('Male')
+    fn=int(female['Sample size G2']) if female else None
+    mn=int(male['Sample size G2']) if male else None
+    total=fn+mn if fn is not None and mn is not None else None
+    male_pct=round(mn/total*100,1) if total else None
+    female_pct=round(fn/total*100,1) if total else None
+
+    supporting_lines=[]
+    if female:
+        supporting_lines.append(','.join([female[k] for k in female]))
+    if male:
+        supporting_lines.append(','.join([male[k] for k in male]))
+    supporting_text='\\n'.join(f'\"{line}\"' for line in supporting_lines)
+
+    cohort={
+        \"cc1_disorder_category\": {
+            \"disorder_major\": maj,
+            \"disorder_minor\": minor,
+        },
+        \"cc2_datasets\": {
+            \"answer\": [
+                {\"name\": \"MULTI-DATASET (UNSPECIFIED OR N>=10)\", \"label\": \"Non-EPD\"}
+            ],
+            \"detail\": \"Clinical cases aggregated across multiple primary studies\",
+            \"confidence_rating\": \"Medium\",
+            \"supporting_text\": \"\\\"we aggregated 123,984 MRI scans, across more than 100 primary studies, from 101,457 human participants\\\"\",
+            \"location\": \"Bethlehem2021.pdf.md: Introduction\"
+        },
+        \"cc3_n\": {
+            \"answer\": total,
+            \"detail\": \"Total clinical cohort N (Female + Male) from case-control centile comparisons (t50 GMV)\",
+            \"confidence_rating\": \"High\",
+            \"supporting_text\": supporting_text,
+            \"location\": \"Table_3_22_t50_Grey_matter_volume_PermDx.csv: rows for {0} (Female/Male)\".format(disorder)
+        },
+        \"cc4_sex\": {
+            \"answer\": {
+                \"male_n\": mn,
+                \"male_pct\": male_pct,
+                \"female_n\": fn,
+                \"female_pct\": female_pct
+            },
+            \"detail\": \"Sex-specific sample sizes from case-control centile comparisons (t50 GMV); percentages calculated from counts\",
+            \"confidence_rating\": \"High\",
+            \"supporting_text\": supporting_text,
+            \"location\": \"Table_3_22_t50_Grey_matter_volume_PermDx.csv: rows for {0} (Female/Male)\".format(disorder)
+        },
+        \"cc5_age\": {
+            \"answer\": \"NR\",
+            \"detail\": \"Age not reported for clinical cohorts in case-control centile comparison table\",
+            \"confidence_rating\": \"Low\",
+            \"supporting_text\": f\"\\\"{header}\\\"\",
+            \"location\": \"Table_3_22_t50_Grey_matter_volume_PermDx.csv: header\"
+        }
+    }
+    clinical_cohorts.append(cohort)
+
+out={
+    \"paper_id\": paper_id,
+    \"clinical_cohort_applicability\": \"Yes\",
+    \"clinical_cohorts\": clinical_cohorts
+}
+
+with open('DE_v14_Bethlehem2021_by_codex_20260303180449497.json','w') as f:
+    json.dump(out,f,ensure_ascii=True,indent=2)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:07:39.870427Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 47ms:
+
+2026-03-03T09:07:42.841797Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Bethlehem2021_by_codex_20260303180449497.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497 succeeded in 31ms:
+{
+  "paper_id": "Bethlehem2021",
+  "clinical_cohort_applicability": "Yes",
+  "clinical_cohorts": [
+    {
+      "cc1_disorder_category": {
+        "disorder_major": "Neurocognitive disorders",
+        "disorder_minor": "AD"
+      },
+      "cc2_datasets": {
+        "answer": [
+          {
+            "name": "MULTI-DATASET (UNSPECIFIED OR N>=10)",
+            "label": "Non-EPD"
+          }
+        ],
+        "detail": "Clinical cases aggregated across multiple primary studies",
+        "confidence_rating": "Medium",
+        "supporting_text": "\"we aggregated 123,984 MRI scans, across more than 100 primary studies, from 101,457 human participants\"",
+        "location": "Bethlehem2021.pdf.md: Introduction"
+
+thinking
+**Assessing group1 inconsistencies in supporting text**
+
+Observed that group1 entries in supporting_text aren't always CN and sometimes show other disorders, implying pairwise comparisons beyond just CN controls. This raises questions about sample size consistency and if filtering to rows where group1 is CN is preferable, especially since some disorders lack those rows. The plan is to verify presence of group1 CN rows for AD in t50 or t100 to decide the best approach.
+exec
+/bin/bash -lc "python - <<'PY'
+import csv
+f='study_1/Table3_CaseControl/Table_3_22_t50_Grey_matter_volume_PermDx.csv'
+with open(f, newline='') as fh:
+    r=csv.DictReader(fh)
+    for row in r:
+        if row['Group 2']=='AD' and row['Group 1']=='CN':
+            print('CN',row['Sex'],row['Sample size G2'])
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:07:51.885540Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 48ms:
+CN Female 529
+CN Male 458
+
+thinking
+**Refining data selection to CN rows**
+
+I'm updating the script and data to prioritize CN rows for clarity, adjusting supporting text and JSON details to reference Group1=CN where available, with a fallback to the first row.
+2026-03-03T09:08:23.061803Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import csv, json
+from collections import defaultdict
+
+paper_id = \"Bethlehem2021\"
+
+map_disorders={
+    'AD': ('Neurocognitive disorders','AD'),
+    'DEMENTIA - LBD': ('Neurocognitive disorders','DLB'),
+    'PD': ('Neurocognitive disorders','PD'),
+    'MCI': ('Neurocognitive disorders','MCI'),
+    'EMCI': ('Alzheimer spectrum','EMCI'),
+    'LMCI': ('Alzheimer spectrum','LMCI'),
+    'ADHD': ('Neurodevelopmental disorders','ADHD'),
+    'ASD': ('Neurodevelopmental disorders','ASD'),
+    'Anxiety/Phobia': ('Anxiety disorders','ANX'),
+    'SPECIFIC PHOBIA': ('Anxiety disorders','Specific'),
+    'OCD': ('Anxiety disorders','OCD'),
+    'SAD': ('Anxiety disorders','Social'),
+    'BD': ('Mood disorders','BD'),
+    'MDD': ('Mood disorders','MDD'),
+    'SCZ': ('Psychotic disorders','SCZ'),
+    'Schizoaffective Disorder': ('Psychotic disorders','SZA'),
+}
+
+f='study_1/Table3_CaseControl/Table_3_22_t50_Grey_matter_volume_PermDx.csv'
+rows=defaultdict(list)
+with open(f, newline='') as fh:
+    r=csv.DictReader(fh)
+    header = ','.join(r.fieldnames)
+    for row in r:
+        d=row['Group 2']
+        if d not in map_disorders:
+            continue
+        rows[d].append(row)
+
+clinical_cohorts=[]
+for disorder,(maj,minor) in map_disorders.items():
+    if disorder not in rows:
+        continue
+    # pick rows where Group 1 == CN if available
+    candidates=[row for row in rows[disorder] if row['Group 1']=='CN']
+    if not candidates:
+        candidates=rows[disorder]
+    female=next((r for r in candidates if r['Sex']=='Female'), None)
+    male=next((r for r in candidates if r['Sex']=='Male'), None)
+    # fallback to any row by sex if CN not present
+    if female is None:
+        female=next((r for r in rows[disorder] if r['Sex']=='Female'), None)
+    if male is None:
+        male=next((r for r in rows[disorder] if r['Sex']=='Male'), None)
+
+    fn=int(female['Sample size G2']) if female else None
+    mn=int(male['Sample size G2']) if male else None
+    total=fn+mn if fn is not None and mn is not None else None
+    male_pct=round(mn/total*100,1) if total else None
+    female_pct=round(fn/total*100,1) if total else None
+
+    supporting_lines=[]
+    if female:
+        supporting_lines.append(','.join([female[k] for k in female]))
+    if male:
+        supporting_lines.append(','.join([male[k] for k in male]))
+    supporting_text='\\n'.join(f'\"{line}\"' for line in supporting_lines)
+
+    cohort={
+        \"cc1_disorder_category\": {
+            \"disorder_major\": maj,
+            \"disorder_minor\": minor,
+        },
+        \"cc2_datasets\": {
+            \"answer\": [
+                {\"name\": \"MULTI-DATASET (UNSPECIFIED OR N>=10)\", \"label\": \"Non-EPD\"}
+            ],
+            \"detail\": \"Clinical cases aggregated across multiple primary studies\",
+            \"confidence_rating\": \"Medium\",
+            \"supporting_text\": \"\\\"we aggregated 123,984 MRI scans, across more than 100 primary studies, from 101,457 human participants\\\"\",
+            \"location\": \"Bethlehem2021.pdf.md: Introduction\"
+        },
+        \"cc3_n\": {
+            \"answer\": total,
+            \"detail\": \"Total clinical cohort N (Female + Male) from case-control centile comparisons (t50 GMV)\",
+            \"confidence_rating\": \"High\",
+            \"supporting_text\": supporting_text,
+            \"location\": \"Table_3_22_t50_Grey_matter_volume_PermDx.csv: rows for {0} (Female/Male, Group 1 = CN when available)\".format(disorder)
+        },
+        \"cc4_sex\": {
+            \"answer\": {
+                \"male_n\": mn,
+                \"male_pct\": male_pct,
+                \"female_n\": fn,
+                \"female_pct\": female_pct
+            },
+            \"detail\": \"Sex-specific sample sizes from case-control centile comparisons (t50 GMV); percentages calculated from counts\",
+            \"confidence_rating\": \"High\",
+            \"supporting_text\": supporting_text,
+            \"location\": \"Table_3_22_t50_Grey_matter_volume_PermDx.csv: rows for {0} (Female/Male, Group 1 = CN when available)\".format(disorder)
+        },
+        \"cc5_age\": {
+            \"answer\": \"NR\",
+            \"detail\": \"Age not reported for clinical cohorts in case-control centile comparison table\",
+            \"confidence_rating\": \"Low\",
+            \"supporting_text\": f\"\\\"{header}\\\"\",
+            \"location\": \"Table_3_22_t50_Grey_matter_volume_PermDx.csv: header\"
+        }
+    }
+    clinical_cohorts.append(cohort)
+
+out={
+    \"paper_id\": paper_id,
+    \"clinical_cohort_applicability\": \"Yes\",
+    \"clinical_cohorts\": clinical_cohorts
+}
+
+with open('DE_v14_Bethlehem2021_by_codex_20260303180449497.json','w') as f:
+    json.dump(out,f,ensure_ascii=True,indent=2)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260303180449497 succeeded in 51ms:
+
+exec
+/bin/bash -lc "python - <<'PY'
+import json
+with open('DE_v14_Bethlehem2021_by_codex_20260303180449497.json') as f:
+    data=json.load(f)
+print(data['clinical_cohorts'][0]['cc3_n']['supporting_text'])
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:08:32.312602Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 38ms:
+"CN,AD,38839,529,0.497,0.152,0.0002,0.964,0.792,0.878,0.251,0.0008,Female,0.345"
+"CN,AD,38318,458,0.491,0.228,0.0002,0.742,0.558,0.65,0.185,0.001,Male,0.263"
+
+thinking
+**Checking CN rows for MDD disorder**
+exec
+/bin/bash -lc "python - <<'PY'
+import csv
+f='study_1/Table3_CaseControl/Table_3_22_t50_Grey_matter_volume_PermDx.csv'
+for row in csv.DictReader(open(f)):
+    if row['Group 2']=='MDD' and row['Group 1']=='CN':
+        print(row)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603031804494972026-03-03T09:08:36.458823Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 35ms:
+{'Group 1': 'CN', 'Group 2': 'MDD', 'Sample size G1': '38839', 'Sample size G2': '3461', 'Median centile G1': '0.497', 'Median centile G2': '0.481', 'P uncorrected': '0.045', 'Cohens D lower CI': '0.07', 'Cohens D upper CI': '0.001', 'Cohens D': '0.035', 'Mean group difference': '0.01', 'P corrected (BH-FDR)': '0.084', 'Sex': 'Female', 'Median group difference': '0.016'}
+{'Group 1': 'CN', 'Group 2': 'MDD', 'Sample size G1': '38318', 'Sample size G2': '1789', 'Median centile G1': '0.491', 'Median centile G2': '0.526', 'P uncorrected': '0.0006', 'Cohens D lower CI': '-0.036', 'Cohens D upper CI': '-0.131', 'Cohens D': '-0.083', 'Mean group difference': '-0.024', 'P corrected (BH-FDR)': '0.0026', 'Sex': 'Male', 'Median group difference': '-0.035'}
+
+thinking
+**Confirming data source consistency**
+
+Verified supporting_text and sexual percentages derive from CN rows per disorder, trusting LBD and DEMENTIA-LBD mappings despite possible small sample caveats; final response will note file updated, mention age data limitations, and propose no immediate next steps.
+codex
+Wrote the clinical cohort extraction into `DE_v14_Bethlehem2021_by_codex_20260303180449497.json`, using Supplementary Table 3 (t50 GMV case-control) for disorder-specific N/sex and the main paper for the multi-dataset source. Age is marked NR because those tables do not report age.
+
+Details
+- Clinical cohorts extracted for AD, DLB, PD, MCI, EMCI, LMCI, ADHD, ASD, ANX, Specific phobia, OCD, Social (SAD), BD, MDD, SCZ, SZA.
+- N/sex counts come from `study_1/Table3_CaseControl/Table_3_22_t50_Grey_matter_volume_PermDx.csv` (CN vs disorder rows where available).
+- Dataset labeled as multi-dataset across primary studies per `study_1/Bethlehem2021.pdf.md`.
+
+If you want additional diagnoses included (e.g., non-mapped categories like pain or “Other”), tell me how you’d like them mapped to the predefined disorder taxonomy.
+2026-03-03T09:08:45.354649Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+63,778
+Wrote the clinical cohort extraction into `DE_v14_Bethlehem2021_by_codex_20260303180449497.json`, using Supplementary Table 3 (t50 GMV case-control) for disorder-specific N/sex and the main paper for the multi-dataset source. Age is marked NR because those tables do not report age.
+
+Details
+- Clinical cohorts extracted for AD, DLB, PD, MCI, EMCI, LMCI, ADHD, ASD, ANX, Specific phobia, OCD, Social (SAD), BD, MDD, SCZ, SZA.
+- N/sex counts come from `study_1/Table3_CaseControl/Table_3_22_t50_Grey_matter_volume_PermDx.csv` (CN vs disorder rows where available).
+- Dataset labeled as multi-dataset across primary studies per `study_1/Bethlehem2021.pdf.md`.
+
+If you want additional diagnoses included (e.g., non-mapped categories like pain or “Other”), tell me how you’d like them mapped to the predefined disorder taxonomy.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
