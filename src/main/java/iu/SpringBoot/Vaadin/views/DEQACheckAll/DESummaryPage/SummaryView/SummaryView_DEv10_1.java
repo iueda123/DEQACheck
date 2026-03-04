@@ -189,6 +189,8 @@ public class SummaryView_DEv10_1 extends VerticalLayout {
         scrollWrapper = new Div();
         scrollWrapper.getStyle().set("max-height", "70vh");
         scrollWrapper.getStyle().set("overflow", "auto");
+        scrollWrapper.getStyle().set("width", "100%");
+        scrollWrapper.getStyle().set("max-width", "100%");
         scrollWrapper.getStyle().set("border", "1px solid var(--lumo-contrast-20pct)");
 
         // テーブルを構築
@@ -272,7 +274,7 @@ public class SummaryView_DEv10_1 extends VerticalLayout {
         // 列幅・整列などのスタイルは CSS ファイル（frontend/styles/summary-table.css）に分離
 
         Element table = new Element("table");
-        table.setAttribute("style", "border-collapse: collapse; width: 100%; font-size: var(--lumo-font-size-m);");
+        table.setAttribute("style", "border-collapse: collapse; width: max-content; min-width: 100%; font-size: var(--lumo-font-size-m);");
         table.setAttribute("class", "summary-table");
 
         // thead
@@ -280,7 +282,7 @@ public class SummaryView_DEv10_1 extends VerticalLayout {
         Element trHead = new Element("tr");
 
         // 先頭列: AuthorYear（クリックでJARランチャー）
-        appendHeaderCell(trHead, "AuthorYear");
+        appendFirstHeaderCell(trHead, "AuthorYear");
 
         // Study Name (SI3) は最終列の一つ前に配置するため、ここでは追加しない
 
@@ -447,6 +449,13 @@ public class SummaryView_DEv10_1 extends VerticalLayout {
     private void appendHeaderCell(Element tr, String text) {
         Element th = new Element("th");
         th.setAttribute("style", "position: sticky; top: 0; z-index: 1; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-line;");
+        th.setText(text == null ? "" : text);
+        tr.appendChild(th);
+    }
+
+    private void appendFirstHeaderCell(Element tr, String text) {
+        Element th = new Element("th");
+        th.setAttribute("style", "position: sticky; top: 0; left: 0; z-index: 2; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-line;");
         th.setText(text == null ? "" : text);
         tr.appendChild(th);
     }
@@ -984,7 +993,7 @@ public class SummaryView_DEv10_1 extends VerticalLayout {
     // ランチャーセル：クリックでVaadin Dialogを開き、YesでJAR起動＆Notification表示
     private void appendLauncherCell(Element tr, String text, String authorYear) {
         Element td = new Element("td");
-        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+        td.setAttribute("style", "position: sticky; left: 0; z-index: 1; background: inherit; border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
 
         Button launcher = new Button(text == null ? "" : text);
         launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);

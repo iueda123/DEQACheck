@@ -1,0 +1,226 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Gimbel2025_by_codex_20260304133738895.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133738895/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb723-2e29-72e1-93d1-dc7124d47e78
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Gimbel2025_by_codex_20260304133738895.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to check agent instructions**
+
+I'm locating the AGENTS file and DE_Guide using ripgrep to confirm instructions and guidelines relevant to the user's input.
+2026-03-04T04:37:44.633740Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133738895 succeeded in 25ms:
+DE_v14_Gimbel2025_by_codex_20260304133738895.log
+DE_Guide_v14.md
+DE_v14_Gimbel2025_by_codex_20260304133738895.json
+study_1/Gimbel2025.pdf.md
+
+thinking
+**Planning to read DE_Guide**
+2026-03-04T04:37:47.132813Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133738895 succeeded in 29ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Starting to review paper markdown**
+2026-03-04T04:37:51.177962Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat study_1/Gimbel2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133738895 succeeded in 22ms:
+![Image](./Gimbel2025_artifacts/image_000000_6b1b8625b769f27703e2e60f691cf84d823d04dc257b3fbf0d5df7bb15a8e342.png)
+
+## Contents lists available at ScienceDirect
+
+## NeuroImage: Clinical
+
+journal homepage: www.elsevier.com/locate/ynicl
+
+## Normative modeling of brain MRI data identifies small subcortical volumes and associations with cognitive function in youth with fetal alcohol spectrum disorder (FASD)
+
+Blake A. Gimbel a , Donovan J. Roediger b , Mary E. Anthony b , Abigail M. Ernst b , Kent A. Tuominen b , Bryon A. Mueller b , Erik de Water c , Madeline N. Rockhold d , CIFASD, Jeffrey R. Wozniak b,*
+
+- a The Ohio State University and Nationwide Children ' s Hospital, United States
+- b University of Minnesota Twin Cities, United States
+- c Great Lakes Neurobehavioral Center, United States
+- d University of Rochester, United States
+
+## A R T I C L E  I N F O
+
+Keywords: FASD Structural MRI Subcortical gray matter Neurodevelopment
+
+thinking
+**Searching clinical cohort details**
+
+I'm focusing on extracting clinical cohort characteristics and demographics, specifically checking for FASD representation and its normative model application, by locating relevant tables or text detailing age, sex, and disorder subcategories.
+exec
+/bin/bash -lc 'rg -n "Table|Demographic|demographic|Age|sex|male|female|participants" study_1/Gimbel2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041337388952026-03-04T04:37:57.125688Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+30:Method: Participants: 47 children with FASD and 39 typically-developing comparison participants, ages 8 -17 years, who completed physical evaluations, cognitive and behavioral testing, and an MRI brain scan. A large normative MRI dataset that controlled for sex, age, and intracranial volume was used to quantify the developmental status of 7 bilateral subcortical regional volumes. Z-scores were calculated based on volumetric differences from the normative sample. T-tests compared subcortical volumes across groups. Percentages of atypical volumes are reported as are sensitivity and specificity in discriminating groups. Lastly, Pearson  correlations examined the relationships between subcortical volumes and neurocognitive performance.
+56:Recently  published  normative  modeling  tools  based  on  large numbers of individuals provide a novel approach to quantifying variation in health-related variables (e.g., brain volumes) at the individual level (Bethlehem et al., 2022; Ge et al., 2024; Rutherford et al., 2023). These normative modeling tools have led to novel methods for quantifying intra- and inter-individual brain atypicality for whole-brain and regional  volumes  using ' brain  growth  charts. ' This  approach  offers benefits  over  using  small,  potentially  unrepresentative  comparison groups and case-control methodologies that assume within-group homogeneity (Rutherford et al., 2022). In a recent study of an overlapping sample of youth with FASD and typically-developing comparison participants age 8 to 17 years (Gimbel et al., 2024), we computed (per) centiles for total cortical gray matter, total cortical white matter, and total  subcortical  gray  matter  and  found  that  each  was  significantly smaller  in  youth  with  FASD  relative  to  comparison  participants.  In addition, brain volume centiles accounted for a greater proportion of variance in IQ than occipito-frontal head circumference (HC), which is typically used as a proxy of brain anomalies in FASD diagnosis (Hoyme et al. 2016). Brain volume centiles also demonstrated increased relative sensitivity  to  discriminating  youth  with  FASD  from  the  comparison group, demonstrating that direct measurement of the brain using MRI could potentially be used to improve FASD diagnosis. In addition, FASD participants  with  at  least  one  whole-brain  volume  anomaly  ( ≤ 10th centile,  which  mirrors  the  Institute  of  Medicine  criteria  for  HC  and growth anomalies (Hoyme et al., 2016) had significantly lower performance on measures of IQ and executive function than FASD participants with ' typical ' brain volumes ( &gt; 10th centile), demonstrating the clinical relevance of MRI-derived volumetric measures.
+58:In the current study, we extend this approach by examining regional subcortical volume anomalies in youth with FASD. Using a sample of youth with FASD and typically-developing comparisons ages 8 -17 years, we calculated z-scores adjusted for age, sex, and total intracranial volume (ICV) for volumes of 7 bilateral subcortical regions including the amygdala, caudate, hippocampus, pallidum, putamen, thalamus, and accumbens area. We hypothesized: 1) regional subcortical volume zscores would be lower for youth with FASD compared to participants in the comparison group, 2) youth with FASD would demonstrate betweengroup regional variability in subcortical volume anomalies, and 3) larger subcortical  volume  z-scores  would  be  associated  with  better  neurocognitive and neurobehavioral functioning.
+68:Exclusion  criteria  (both  FASD  and  comparison  groups)  included neurological and developmental disorders (e.g., seizure disorders and autism).  Primary  visual  impairment  and  hearing  impairment  were exclusionary  as  these  conditions  would  have  interfered  significantly with  neuropsychological  testing.  Participants  were  also  excluded  for drug/alcohol use, severe psychiatric disabilities preventing participation (e.g., psychotic illness), very low birth weight ( &lt; 1500 g), and MRI contraindications (e.g., braces, non-MR-safe medical devices, claustrophobia). Attention deficit/hyperactivity disorder was not exclusionary for the FASD group. Prenatal polysubstance exposure (including substances other than alcohol) was not exclusionary for the FASD group as this is common. Prenatal alcohol and other drug exposure (excluding tobacco and caffeine) were exclusionary for participants in the comparison group.
+72:Prior to enrollment, phone screening and record review were conducted to determine PAE history. To be eligible for the FASD group, documented evidence of heavy PAE was required (i.e., ≥ 13 drinks per week or ≥ 4 drinks in succession at least once per week during pregnancy).  However,  individuals  who  did  not  meet  this  criterion  were included if they met diagnostic criteria for fetal alcohol syndrome (FAS) or partial fetal alcohol syndrome (PFAS) based on dysmorphology and growth characteristics because these are relatively specific indicators of PAE. All participants completed a physical assessment conducted by one of two trained investigators (Kenneth Lyons Jones or JRW) to obtain ratings of the upper lip and philtrum, measurements of palpebral fissure length  (PFL),  height,  weight,  and  HC.  Diagnostic  classification  was completed in accordance with The Modified Institute of Medicine (IOM) criteria for FASD (Hoyme et al., 2016). For HC measurements, normative  data  were  taken  from  (Nellhaus,  1968).  Growth  deficiency  was classified by ≤ 10th percentile in height or weight based on CDC Growth Charts  (Grummer-Strawn  et  al.,  2010).  In  accordance  with  the  IOM diagnostic criteria, neurobehavioral impairment was defined by global intellectual  impairment  (IQ ≤ 78,  equivalent  to ≥ 1.5  standard  deviations [SD] below the mean) or standard scores ≥ 1.5 SD below the mean  on ≥ 2  neuropsychological  and  parent-rated  assessments  in different domains (e.g. memory, executive function, etc.). All participants  in  the  FASD  group  met  IOM  criteria  for  neurobehavioral impairment.
+76:Participants completed evaluations at the University of Minnesota and were administered the following assessments: Wechsler Intelligence Scale  for  Children,  5th  Edition  (WISC-V)  (Wechsler  et  al.,  2014)  or Wechsler  Adult  Intelligence  Scale  4th  Edition  (WAIS-IV)  (Wechsler, 2008)  for  participants  age  17  years  (measuring  general  intelligence [FSIQ, hereafter IQ]) (M = 100, SD = 15); NIH Toolbox (Weintraub et al., 2013)  Picture  Sequence  Memory  subtest  T-score  (PSMT; measuring visual memory) (M = 50, SD = 10); and the Delis-Kaplan Executive  Functioning  System  (Delis  et  al.  2001)  Trail-Making  Test and Color-Word Interference Test (D-KEFS; measuring inhibitory control, attention, sequencing, and cognitive flexibility) (M = 10, SD = 3). In order to minimize the number of comparisons, the following variables were examined in the current study: IQ, working memory (WISC-V/ WAIS-IV Digit Span), visual memory (NIH Toolbox PSMT), and executive  functioning  (D-KEFS  Trail-Making  Test  Number-Letter  Switching and  D-KEFS  Color-Word  Interference  Test  Inhibition-Switching).  All standard scores were converted to z-scores (M = 0, SD = 1) for ease of comparison.
+80:MRI data were acquired on a Siemens 3T Prisma scanner (Siemens, Erlangen, Germany) equipped with a standard 32-channel head coil at the University of Minnesota ' s Center for Magnetic Resonance Research. Custom pulse sequences with automatic real-time motion detection and k-space  line  rejection  and  replacement  were  used  to  acquire  T1weighted  and  T2-weighted  scans  chosen  to  match  those  used  in  the Lifespan Human Connectome Project Development sub-project (HCP-D) (Harms et al.,  2018).  Processing  of  structural  images  was  completed using the PreFreeSurfer and FreeSurfer (version 6.0) stages of the HCP Minimal Preprocessing Pipeline (v4.0.1) (Glasser et al., 2013). Notably, the training data used in creating the CentileBrain model were primarily collected  from  the  Enhancing  Neuroimaging  Genetics  through  MetaAnalysis (ENIGMA) Consortium (Ge et al., 2024). The ENIGMA group shares tools and guidelines for visual quality inspection of FreeSurfer outputs. Data were visually inspected by a trained operator (DJR) and research staff (KAT) to ensure accuracy. The ENIGMA quality control protocols were also used (Thompson et al., 2020). Three participants (comparison  group)  demonstrated  significantly  aberrant  FreeSurfer processing  (such  as  failed  boundary  identification)  and  they  were excluded from analyses. Five additional participants (three comparison, two FASD) were excluded on the basis of motion during the visual inspection of the images or for being an extreme outlier in regional volume metrics. To assess for group differences in within-scanner motion in the remaining  participants,  we  used  the  Euler  value  (Dale  et  al.,  1999) averaged across hemispheres. Measurements were obtained for regional subcortical  gray  matter  volumes  of  the  bilateral  amygdala,  caudate, hippocampus,  pallidum,  putamen,  thalamus,  and  accumbens  area (Fig. 1 a ). These 7 regions were chosen based on prior literature showing selective  impacts  from  PAE  (Archibald et  al.,  2001;  Bookstein  et  al., 2001; Gautam et al., 2015; Krueger et al., 2020; Mattson et al., 1996, 1994; Nardelli et al., 2011; Roussotte et al., 2012).
+84:Individual regional volumetric z-scores were generated using CentileBrain (Ge et al., 2024), an open source online software tool that leverages an aggregated neuroimaging dataset with a large number of individuals (37,407 comparison brains). Z-scores (M = 0, SD = 1) were calculated for each of the 7 bilateral subcortical regions (Fig. 1 a ). These scores  represent the degree of each participant ' s  regional  volumetric (dis)similarity to typically-developing individuals of the same age and sex, adjusted for total intracranial volume (ICV). As a result of extensive modeling of possible covariates completed during development of the tool, CentileBrain uses ICV, which includes white matter, gray matter, cerebrospinal fluid, vasculature, blood, and other tissue (Ge et al. 2024). We examined both right and left subcortical regions separately because of  well-known  asymmetries  in  brain  structure  that  are  present  in childhood and that are associated with brain function and dysfunction (Toga and Thompson 2003; Kong et al. 2022). For example, subcortical volume  asymmetries were atypically pronounced  in youth with attention-deficit hyperactivity disorder (ADHD) compared to a typicallydeveloping  group  (Douglas  et  al.  2018).  Similarly,  pediatric  obsessive -compulsive  disorder  was  associated  with  abnormal  subcortical asymmetries  (Kong  et  al.  2022).  Most  relevant  to  the  current  study,
+96:Statistical  analyses  were  completed  with  R  version  4.1.1  (R  Core Team,  n.d.).  As  a  first  step  in  determining  the  appropriateness  of examining both right and left subcortical volumes, mean differences in regional volume z-scores for each left and right hemisphere region were examined across the entire sample with paired samples t -test. Participant characteristics and group differences in subcortical volume z-scores were examined using chi-square tests and independent samples t -tests. Independent samples ttests were used to examine group differences in within-scanner motion (Euler values). In supplemental analyses, independent samples t -tests and chi-square tests were used to examine demographic differences between included participants and those excluded  on  the  basis  of  visual  inspection  for  excess  within-scanner motion/poor image quality. Regional volume anomalies were characterized as ' small ' (z-scores ≤ -1.3, equivalent to the 10th percentile) and ' large ' (z-scores ≥ 1.3,  equivalent  to  the  90th  percentile).  These thresholds for volumetric anomalies were selected in order to mirror IOM (Hoyme et al., 2016) diagnostic criteria for FASD with regard to head circumference and growth anomalies (e.g., height and weight) in which a threshold of ≤ 10th percentile is used. To test for potential confounding  effects  of  prenatal  substance  exposures  in  addition  to alcohol  (cannabis,  opioids,  cocaine,  and/or  methamphetamine  were reported), we used independent samples t -tests to compare subcortical volumes for two subgroups of the PAE group (those with other substance exposure [n = 12] vs. those without other exposure [n = 35]). For the primary analyses, we compared the relative frequencies of anomalous subcortical  volumes  across  groups  using  sensitivity  and  specificity metrics strictly for the convenience of conveying results. It is important to note that, here, we only use these metrics for relative comparisons and are not suggesting that these measures would be used as a screening or diagnostic tool (for which the terms sensitivity and specificity are most often used). Using the total number of small regions, sensitivity (true positive rate), specificity (true negative rate), positive predictive value (probability of condition being present with a positive test), negative predictive  value  (probability  of  condition  not  being  present  with  a negative test), and accuracy (overall probability of correct classification) were examined with regard to discriminating FASD and comparison participants. These metrics were also calculated for the total number of large regions in an identical manner. Sensitivity and specificity (for relative comparisons) were also calculated for small volumes across each subcortical region. In exploratory analyses, Pearson correlations (uncorrected for multiple comparisons given the exploratory nature of these analyses) were used to examine the relationship between the 7 subcortical  region  z-scores  and  neurocognitive  function  standard  scores (Wechsler IQ, Wechsler Digit Span, NIH Toolbox PSMT, D-KEFS TrailMaking  Test  Number-Letter  Switching,  D-KEFS  Color-Word  Interference  Test  Inhibition-Switching).  Given  previous  work  identifying  relationships  between  facial  dysmorphology  and  subcortical  anomalies (Roussotte et al., 2012; Suttie et al., 2018), within the FASD group, independent samples t -tests were used to compare subcortical volume zscores for participants with and without a dysmorphic face (i.e., at least two of the following: palpebral fissure length ≤ 10 %ile, thin vermillion border, smooth philtrum [4 or 5 on lipometer scale]). Pearson correlations (uncorrected for multiple comparisons given the exploratory nature of these analyses) were used to examine the relationship between subcortical volume z-scores and height and weight percentile. Lastly, within  the  FASD  group,  a  difference  by  sex  in  the  total  number  of extreme  volumes  (i.e.,  regions  classified  as ' small ' or ' large ' )  was examined with an independent sample t-test.
+102:A total of 100 participants were enrolled. Six comparison participants were excluded for not completing an MRI. Eight participants (6 comparison, 2 FASD) were excluded due to excess head motion (based on visual inspection), poor image quality (also based on visual inspection), or being an extreme outlier in regional volume metrics. Therefore, a total of 86 participants were included in the analyses (FASD = 47, comparison = 39). Participant demographic information is summarized in  Table  1.  Within  the  FASD  group,  there  were  35  participants  with
+106:Table 1 Demographic characteristics of participants.
+110:| Age [M(SD)]                      | 12.30  (2.36)     | 12.82 (2.50)            | t (79)  = 0.98,  p  = 0.330 |
+112:| Sex [n(%Female)]                 | 25 (53 %)         | 21 (54 %)               | χ 2  = 0.00,  p  = 0.952    |
+129:* Chi square tests reflect comparisons of each racial group to the proportion of participants  who  identified  as  White  (e.g.,  proportion  of  participants  who identified as Multiracial to proportion of those who identified as White).
+131:† Handedness  information  was  not  available  for  5  participants  (4  PAE,  1 comparison).
+136:c At  least  two  of  the  following:  Palpebral  fissure  length ≤ 10  %ile,  thin vermillion border, smooth philtrum (4 or 5 on lipometer scale). The two comparison participants who had ' dysmorphic faces ' had scores of 4 on the philtrum and  4  on  the  vermillion  border;  neither  had  any  other  facial  features  nor abnormal growth parameters.
+138:alcohol-related neurodevelopmental disorder (ARND), 11 with partial fetal alcohol syndrome (PFAS), and 1 with fetal alcohol syndrome (FAS). FASD and comparison groups did not differ significantly regarding age, sex,  ethnicity,  handedness,  or  growth  deficiency.  Significantly  more FASD  participants  had  microcephaly  and  dysmorphic  facial  features than the comparison group. As expected, the FASD group had lower IQ scores compared to the comparison group. Groups differed significantly in terms of racial identity with more FASD participants than participants in the comparison group identifying as American Indian/Alaska Native, Black  or  African  American,  and  Multiracial.  A  greater  proportion  of participants in the comparison group identified as White compared to the FASD group. There was no significant group difference in withinscanner  motion  as  estimated  with  Euler  values, t (56) = 1.39, p = 0.171. In supplemental analyses, there were no significant differences between included participants and those excluded due to excess withinscanner motion or poor MRI image quality with regard to age, t (8) = 0.29, p = 0.779, sex, χ 2 (1) = 2.38, p = 0.123, IQ, t (8) = 0.79, p = 0.453, race (White vs. non-White), 2 (1) = 1.25, p = 0.264, ethnicity, 2 (1) = 0.90, p = 0.344, or handedness, 2 (2) = 0.244, p = 0.885. Tests for the potential confounding effects of other substance exposure
+140:(comparing subcortical volumes for participants in the PAE group with other  substance exposure vs.  participants in  the  PAE  group  without) revealed no significant differences (Cohen ' s d ' s ranged from 0.002 to 0.58; all p ' s &gt; 0.05). Because it was not a confounding variable, other substance exposure was not included in any subsequent analyses. Across the entire sample, volume z-scores were significantly smaller in the left compared to the right hemisphere for the caudate, t (85) = -6.32, p = 0.000, accumbens, t (85) = 8.30, p = 0.000, and at the trend-level for the hippocampus, t (85) = -1.89, p = 0.063. Volume z-scores were significantly  smaller  in  the  right  hemisphere  compared  to  the  left  for  the thalamus, t (85) = 2.59, p = 0.011, and the pallidum, t (85) = 9.20, p = 0.000. These findings provide justification for examining left and right hemisphere volume z-scores separately (rather than averaging the two) in diagnostic group comparisons (FASD vs comparison).
+144:Participants in the FASD group demonstrated lower mean z-scores than the comparison group across 6 of the 7 subcortical regions (Fig. 1b and Table 2) including the bilateral thalami, bilateral caudate, left putamen, bilateral hippocampi, left amygdala, and right accumbens area. No significant  group  difference  was  observed  for  the  right  putamen, bilateral pallidum, right amygdala, and left accumbens area. Effect sizes were largest for the bilateral caudate and bilateral hippocampi. A total of 89 % of participants in the FASD group demonstrated one or more small subcortical volume compared to 72 % of the comparison group. A total of 9 % of participants in the FASD group and 15 % of the comparison group showed one or more large volume. Participants in the FASD group demonstrated a greater mean number of small subcortical volumes (M = 4.53, SD = 3.13) compared to the comparison group (M = 2.46, SD = 2.30; t [83] = GLYPH&lt;0&gt; 3.53, p &lt; 0.001, d = GLYPH&lt;0&gt; 0.74). There was no significant  difference  in  the  mean  number  of  large  volumes  between participants in the FASD group (M = 0.19; SD = 0.74) and the comparison group (M = 0.15, SD = 0.37; t [70] = GLYPH&lt;0&gt; 0.31, p = 0.760, d = GLYPH&lt;0&gt; 0.06).
+148:Small volumes (z-score ≤ GLYPH&lt;0&gt; 1.3) of the bilateral putamen, bilateral hippocampi, right pallidum, and right accumbens area had the highest relative sensitivity, each correctly identifying 40 to 50 percent of FASD participants (Table 3). Smaller volumes in the bilateral caudate, right thalamus, and left amygdala, while relatively less sensitive, were relatively specific to the FASD group, each identifying approximately 20 to 30 percent of FASD participants. Relative specificity for smaller volumes across a majority of regions was generally high reflecting that fewer comparison group participants demonstrate small volumes.
+
+thinking
+**Planning to extract table content**
+
+I'm considering using sed to extract the content of Table 1 from the specified lines into markdown format.
+exec
+/bin/bash -lc "sed -n '100,140p' study_1/Gimbel2025.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041337388952026-03-04T04:38:03.433909Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+## 3.1. Subject characteristics
+
+A total of 100 participants were enrolled. Six comparison participants were excluded for not completing an MRI. Eight participants (6 comparison, 2 FASD) were excluded due to excess head motion (based on visual inspection), poor image quality (also based on visual inspection), or being an extreme outlier in regional volume metrics. Therefore, a total of 86 participants were included in the analyses (FASD = 47, comparison = 39). Participant demographic information is summarized in  Table  1.  Within  the  FASD  group,  there  were  35  participants  with
+
+B.A. Gimbel et al.
+
+Table 1 Demographic characteristics of participants.
+
+|                                  | FASD ( n  = 47)   | Comparison ( n  = 39)   | Statistical Test            |
+|----------------------------------|-------------------|-------------------------|-----------------------------|
+| Age [M(SD)]                      | 12.30  (2.36)     | 12.82 (2.50)            | t (79)  = 0.98,  p  = 0.330 |
+| Intelligence Quotient [M(SD)]    | 93.11  (15.03)    | 115.39 (12.61)          | t (83)  = 7.43,  p  < 0.001 |
+| Sex [n(%Female)]                 | 25 (53 %)         | 21 (54 %)               | χ 2  = 0.00,  p  = 0.952    |
+| Ethnicity [n(%Hispanic)]         | 2 (4 %)           | 2 (5 %)                 | χ 2  = 0.04,  p  = 0.848    |
+| Race *                           |                   |                         |                             |
+| [n(%American Indian/             | 4 (9 %)           | 0                       | χ 2  = 6.77,  p  = 0.009    |
+| Alaska Native)] [n(%Asian)]      | 2 (4 %)           | 1 (3 %)                 | χ 2  = 1.28,  p  = 0.258    |
+| 1[n(%Black or  AfricanAmerican)] | 12 (26 %)         | 0                       | χ 2  = 17.20,  p  < 0.001   |
+| [n(%Native Hawaiian/Other        | 1                 | 0                       | χ 2  = 1.84,  p  = 0.175    |
+| Pacific Islander)] [n(%White)]   | 21 (45 %)         | 38 (97 %)               | χ 2  = 25.54,  p  < 0.001   |
+
+
+thinking
+**Preparing clinical cohort data**
+
+I'm defining the clinical cohort as FASD only, including age mean/SD with min/max marked NR, sex counts and percentages correctly calculated and formatted, and confirming that NM applies to this cohort with supporting text and citations for dataset origin and disorder. I'll also structure the JSON with disorder as FASD and include paper metadata before writing to the output file.
+thinking
+**Finalizing clinical cohort JSON details**
+
+I'm setting min and max age as the string "NR" while including mean 12.30 and SD 2.36, citing exact table locations and quotes for age, sex, disorder, and dataset origin. I'll note male counts and percentages as inferred, clarify disorder as FASD with high confidence, and prepare the JSON output with all these structured details.
+2026-03-04T04:38:32.430221Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "cat <<'EOF' > /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133738895/DE_v14_Gimbel2025_by_codex_20260304133738895.json
+{
+  \"paper_id\": {
+    \"answer\": \"Gimbel2025\"
+  },
+  \"disorders\": [
+    {
+      \"disorder-name\": {
+        \"answer\": \"FASD\",
+        \"detail\": \"Clinical cohort with fetal alcohol spectrum disorder.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"47 children with FASD and 39 typically-developing comparison participants\\\"\",
+        \"location\": \"study_1/Gimbel2025.pdf.md: Abstract\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [
+          \"CIFASD\"
+        ],
+        \"detail\": \"Participants were part of a Collaborative Initiative on FASD (CIFASD) study.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Participants were children and adolescents, ages 8-17, who were part of a Collaborative Initiative on FASD (CIFASD) study\\\"\",
+        \"location\": \"study_1/Gimbel2025.pdf.md: Methods / Participants\"
+      },
+      \"age\": {
+        \"answer\": {
+          \"unit\": \"years\",
+          \"min\": \"NR\",
+          \"max\": \"NR\",
+          \"mean\": 12.30,
+          \"sd\": 2.36
+        },
+        \"detail\": \"FASD group; mean(SD) reported; min/max not reported.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Age [M(SD)] 12.30 (2.36)\\\"\",
+        \"location\": \"study_1/Gimbel2025.pdf.md: Table 1\"
+      },
+      \"sex\": {
+        \"answer\": {
+          \"male_n\": 22,
+          \"male_pct\": 46.8,
+          \"female_n\": 25,
+          \"female_pct\": 53.2
+        },
+        \"detail\": \"FASD group; male count and percentages calculated from total N=47 and female n=25.\",
+        \"confidence_rating\": \"Medium\",
+        \"supporting_text\": \"\\\"Sex [n(%Female)] 25 (53 %)\\\"\",
+        \"location\": \"study_1/Gimbel2025.pdf.md: Table 1\"
+      }
+    }
+  ]
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133738895 succeeded in 23ms:
+
+
+thinking
+**Providing final response**
+
+The implementation is done in the specified file path. It’s recommended to verify functionality and add tests where needed next.
+codex
+Wrote the extracted clinical cohort info to `DE_v14_Gimbel2025_by_codex_20260304133738895.json`, using CIFASD as dataset-of-origin and FASD demographics from Table 1 in `study_1/Gimbel2025.pdf.md`.
+
+If you want, I can 1) validate the JSON schema against other DE_v14 outputs, or 2) add comparison-group info in a separate note for cross-checking.
+2026-03-04T04:38:35.987851Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+35,359
+Wrote the extracted clinical cohort info to `DE_v14_Gimbel2025_by_codex_20260304133738895.json`, using CIFASD as dataset-of-origin and FASD demographics from Table 1 in `study_1/Gimbel2025.pdf.md`.
+
+If you want, I can 1) validate the JSON schema against other DE_v14 outputs, or 2) add comparison-group info in a separate note for cross-checking.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

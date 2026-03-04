@@ -1,0 +1,568 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bethlehem2020_by_codex_20260304124507764.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304124507764/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb6f3-192d-7613-add9-50b5f7f18a15
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bethlehem2020_by_codex_20260304124507764.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Locating usage instructions**
+
+Planning to read usage instructions in DE_Guide_v14.md by searching with ripgrep or viewing the file contents directly.
+2026-03-04T03:45:14.136803Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304124507764 succeeded in 15ms:
+DE_Guide_v14.md
+DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+DE_v14_Bethlehem2020_by_codex_20260304124507764.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:18.375695Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 16ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Listing study_1 files**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:22.047765Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+DE_Guide_v14.md
+DE_v14_Bethlehem2020_by_codex_20260304124507764.log
+study_1/Bethlehem2020_sup1.pdf.md
+study_1/Bethlehem2020.pdf.md
+
+thinking
+**Preparing to read relevant paper**
+exec
+/bin/bash -lc 'rg -n "normative|clinical|patient|cohort|schizo|psych|bipolar|depress|AD|autism|ASD|epilepsy|cohort" study_1/Bethlehem2020.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:27.039503Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+11:## A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder
+15:Understanding heterogeneity is an important goal on the path to precision medicine for autism spectrum disorders (ASD). We examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms. Across a large sample ( n = 870 per group) and wide age range (5 -40 years), we applied normative modelling resulting in individualized whole-brain maps of agerelated CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT. Agenormed CT scores also highlights on-average differentiation, and associations with behavioural symptomatology that is separate from insights gleaned from traditional case-control approaches. This work showcases an individualized approach for understanding ASD heterogeneity that could potentially further prioritize work on a subset of individuals with cortical pathophysiology represented in age-related CT atypicality. Only a small subset of ASD individuals are actually highly atypical relative to age-norms. driving small on-average casecontrol differences.
+21:A utism spectrum disorder (ASD) is a clinical behavioural consensus label we give to a diverse collection of patients with social-communication dif /uniFB01 culties and pronounced repetitive, restricted, and stereotyped behaviours 1 . Beyond the single label of ASD, patients are in fact widely heterogeneous in phenotype, but also with regards to the diversity of different aetiologies 2 . Even within mesoscopic levels of analysis such as examining brain endophenotypes, heterogeneity is the rule rather than the exception 3 . At the level of structural brain variation, neuroimaging studies have identi /uniFB01 ed various neuroanatomical features that might help identify individuals with autism or reveal elements of a common underlying biology 3 . However, the vast neuroimaging literature is also inconsistent, with reports of hypoor hyper-connectivity, cortical thinning versus increased grey or white matter, brain overgrowth, arrested growth, or even lack of morphological difference altogether, etc. 4 -13 , leaving stunted progress towards understanding mechanisms driving cortical pathophysiology in ASD and translating neuroimaging into clinical utility.
+23:Multiple explanations could be behind this inconsistency across the literature. Methodology widely differs across studies (e.g., low statistical power, different ways of estimating morphology or volume) and is likely a very important factor 9,14 . Initiatives such as the autism brain imaging data exchange (ABIDE 15 ); have made it possible to boost sample size by pooling together data from several different studies. However, withingroup heterogeneity in the autism population also immediately stands out as another factor obscuring consistency in the literature, especially when the dominant approach of case-control models largely ignores heterogeneity within the ASD population. In particular, some autism-related heterogeneity reported in literature might be explained by factors such as age 16,17 . Indeed, with regards to structural brain features of interest for study in ASD (e.g., volume, cortical thickness (CT), surface area), these features change markedly over development and may follow altogether different trajectories in ASD 18 -20 . Typical approaches towards dealing with age revolve around group statistical modelling of age as the variable of interest or removing age as a covariate and then parametrically modelling on-average differences between cases versus controls. While these are common approaches in the literature, they do not immediately provide individualized estimates of age-related atypicality nor do they account for individual variation in developmental trajectories. In contrast, normative models of age-related variation may likely be an important alternative to these approaches and may mesh better with some conceptual views of atypicality in ASD as being an extreme of typical population norms 21 . In contrast to the canonical case-control model, normative age modelling allows for computation of individualized metrics that can hone in on the precision information we are interested in -that is, atypicality of development expressed in speci /uniFB01 c ASD individuals relative to non-ASD norms. Such an approach may be a fruitful way forward in isolating individuals who are ' statistical outliers ' . The reasons behind why these individuals are outliers relative to non-ASD norms may be of potential clinical and/or mechanistic importance. Furthermore, conventional case-control analyses may obscure more subtle individual differences as they assume onaverage group differences. This is especially important in light of previously reported null/uniFB01 ndings 14 . Indeed, if we are to move forward towards strati /uniFB01 ed psychiatry and precision medicine for ASD 22 , we must go beyond case-control approaches and employ dimensional approaches that can tell us information about which individuals are atypical and how or why they express such atypicality. Thus, this approach aims to provide more than a mere statistical advance, it aims to better conceptualize and capture personalized inferences that may ultimately result in more meaningful and targeted clinical inference.
+25:In the present study, we employ normative modelling on agerelated variability as a means to individualize our approach to isolate speci /uniFB01 c subsets of patients with very different neural features. Here we focus speci /uniFB01 cally on a neural feature of cortical morphology known as CT. CT is a well-studied neuroanatomical feature thought to be differentially affected in autism and has received increasing attention in recent years 23 -27 . Recent work from our group also identi /uniFB01 ed a genetic correlate for autismspeci /uniFB01 c CT variation despite considerable heterogeneity in groupspeci /uniFB01 c CT in children with autism 28 . A study examining ABIDE I cohort data discovered case-control differences in CT, albeit very small in effect size 14 . Similarly, the most recent and largest study to date, a mega-analysis combining data from ABIDE and the ENIGMA consortium, also indicated very small on-average case-control differences in CT restricted predominantly to areas of frontal and temporal cortices, and indicate very subtle agerelated between-group differences and substantial within-group age-related variability 27 . Another recent study also highlighted widespread differences in CT and several differences that were sex-speci /uniFB01 c 7 . Overall, these studies emphasize three general points of importance. First, age or developmental trajectory is extremely important 16,29 -31 . Second, given the considerable within-group age-related variability and the presence of a large majority of null and/or very small between-group effects, rather than attempting to /uniFB01 nd on-average differences between all cases versus all controls, we should shift our focus to capitalize on this dimension of large age-related variability and isolate autism cases that are at the extremes of this dimension of normative variability. Third, biological sex is likely to be an important modulator of ASD-speci /uniFB01 c morphological differences 7 .
+27:Given our approach of age-related normative CT modelling, we /uniFB01 rst compare the utility of age-related normative modelling directly against more traditional case-control models. We then describe the prevalence of ASD cases that show meaningful agerelated deviance in CT (i.e. &gt;2 standard deviations from agerelated norms or outside the 95% population con /uniFB01 dence bounds) and show how a metric of continuous variability in age-related atypicality in CT is expressed across the cortex in autism. Finally, we explore age -atypical CT -behaviour associations and assess whether such dimensional analyses associated with behaviour identify similar or different regions than typical case-control analyses. To show applicability of this approach we also applied the same method to other measures of neuroanatomy; gyri /uniFB01 cation, volume and surface area. Results and analyses of these metrics can be found in the supplementary materials and all code and data used are available on GitHub 32 .
+31:Age-related normative modelling . Normative modelling of agerelated CT effects was done utilizing male-only data from the typically developing group (TD) (see ' Methods ' section for full sample description, Fig. 1 for a schematic overview and Supplementary Figs. 1 and 2 for more demographics information). All analyses were done on CT averaged within 308 cortical regions 33 . We used a local polynomial regression /uniFB01 tting procedure (LOESS) 34,35 , where the local width or smoothing kernel of the regression was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization across 5 -100% of the full age range using Brent ' s method 36 as implemented in the R optim function from the stats package. We also assessed consistency of our output using centiles scoring and consistency of the normative model using extensive bootstrapping and sensitivity analyses, both showed high outcome consistency (see ' Methods ' section and Supplementary Materials; Supplementary Figs. 3 -5). To align the TD and ASD groups,
+37:Fig. 1 Demographics and descriptive statistics. a Histogram of age distribution per sex. Females were excluded from further analyses due to known sex differential effects in autism and the lack of available data to estimate population norms (see ' Methods ' section for details). b Schematic overview of normative modelling. In the /uniFB01 rst instance LOESS regression is used to estimate the developmental trajectory on CT for every individual brain region to obtain an agespeci /uniFB01 c mean and standard deviation. Then we computed median for each one-year age-bin for these mean and median neurotypical estimates to align them with the ASD group. Next, for each individual with autism and each brain region the normative mean and standard deviation are used to compute a w-score relative to their neurotypical age-bin. Contrary to conventional boxplots, the second panel shows mean, 1 sd and 2 sd for the neurotypical group (in yellow) and individuals with an autism diagnosis in purple.
+41:Fig. 2 Case control difference analysis with linear mixed effect model. Panel a shows effect sizes for regions passing FDR correction for linear mixed effect modelling of conventional case control difference analysis. Cohen ' s d values represent ASD -control, thus blue denotes ASD&lt;control and red denotes ASD&gt;control. Panel b shows effect sizes for regions passing FDR correction after outlier removal for the same linear mixed effect modelling of conventional case control difference analysis.
+45:both were binned into one-year age bins. For each age bin and every brain region we computed a normative mean and standard deviation from the TD group. This was done separately for each sex, given known sex differential developmental trajectories. These statistical norms were then used to compute a w-score (analogous to a z -score) for every individual with autism and every brain region as follows:
+49:The w-score for an individual thus re /uniFB02 ects how far away their CT is from TD norms in units of standard deviation. Because wscores are computed for every brain region, we get a w-score map for each ASD participant showing how each brain region for that individual is atypical relative to TD norms. Age bins that contained fewer than /uniFB01 ve data-points in the TD group were excluded from subsequent analysis as the standard deviations for these bins would essentially be zero (and thus the w-score could not be computed). With the inclusion of motion we also excluded individuals for which no resting-state fMRI was available. The characteristics of the /uniFB01 nal autism sample are listed in Table 1.
+51:Case-control differences versus age-normative modelling . Our /uniFB01 rst analysis examined conventional case-control differences using linear mixed effect modelling including site, sex, age, inscanner head motion 37 and Euler index 38 as covariates. As expected from prior papers utilizing large-scale datasets for casecontrol analysis 14,27 , a small subset of regions (8.7%, 27/308 regions) pass FDR correction. Of these regions, most are of small effect size, with 26 of the detected 27 regions showing an effect &lt;0.2 standard deviations of difference (Fig. 2a). We suspected that such small effects could be largely driven by a few ASD patients 39 with highly age-atypical CT. Because we also had computed wscores from our normative age-modelling approach, we identi /uniFB01 ed speci /uniFB01 c ' statistical outlier ' patients for each individual region with w-scores &gt;2 standard deviations from typical norms and excluded them from the case-control analysis. This analysis guards against the in /uniFB02 uence of these extreme outliers, and if there are true onaverage differences in ASD, the removal of these outlier patient * regions should have little effect on our ability to detect case-control differences. However, removal of outlier patients now revealed only 14 signi /uniFB01 cant regions instead of 27 regions with small case-control differences -a 1.9-fold decrease in the number of regions detected. Indeed, the majority of case-control differences identifying small on-average effects were primarily driven by this small subset of highly atypical patients (Fig. 2b). These remaining 14 regions with small on-average effects were restricted to areas near the posterior cingulate cortex, temporoparietal cortex and areas of visual cortex.
+53:In contrast to a canonical case-control model, we computed normative models of age which resulted in individualized wscores that indicate how atypical CT is for an individual compared to typical norms for that age. This modelling approach allows for computation of w-scores for every region and in every patient, thus resulting in a w-score map that can then itself be tested for differences from a null hypothesis of w-score = 0,
+57:| Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   |
+67:indicating no signi /uniFB01 cant on-average ASD atypicality in agenormed CT. These hypothesis tests on normative w-score maps revealed no regions surviving FDR correction.
+69:## Isolating ASD individuals with age-related CT atypicality .
+71:While the normative modelling approach can be sensitive to different pathology than traditional case-control models, another strength of the approach is the ability to isolate individuals expressing high CT-atypicality. We operationalized ' signi /uniFB01 cant ' atypicality in statistical terms as w-scores &gt;2 SD away from TD norms. By applying this cut-off, we can then describe what proportion of the ASD population falls into this CT subgroup category for each individual brain region. Over all brain regions the median prevalence of these patients is around 7.6% (Fig. 3). Meaning that in each brain region there are ~7.6% of individuals that would be considered an outlier. This difference from an expected proportion of 5% in the present sample corresponds to a X 2 of 3.85 (with Yates continuity correction 40 ) that is signi /uniFB01 cant at p = 0.049 (without continuity correction: X 2 = 4.32, p = 0.038). The distribution of prevalence across brain regions also has a positive tail indicating that for a small number of brain regions the prevalence can jump up to more than 10%. Expressed back into sample size numbers, if 10% of the ASD population had signi /uniFB01 cant CT abnormalities, with a sample size of n = 699, this means that n = 70 patients possess such atypicality. Underscoring the prevalence of these cases is important since as shown earlier, it is likely that primarily these ' statistical outlier ' patients drive most of the tiny case-control differences observed.
+73:There are other interesting attributes about this subset of brain regions. With regard to age, these patients were almost always in the age range of 6 -20, and were much less prevalent beyond age 20 (Supplementary Figs. 6 and 7). The median age of outliers across brain regions ranged from [10.6 -20.2] years old, with an overall skewed distribution towards the younger end of the spectrum (Supplementary Fig. 7), showing that CT atypicality potentially normalizes with increasing age in ASD, though it should be noted that this may partially be explained by the overall skewed age distribution in the overall dataset.
+77:Fig. 4 Phenotype -w-score correlations. Spearman correlations between ADOS and w-score in the top panel. The lower panel shows the same for the SRS.
+81:Figs. 6 and 7) that helps us isolate patients that show globally atypical CT across most brain regions. The small number of patients with a ratio indicating a global difference (ratio &gt; 0.5, n = 14) were those that had globally thinner cortices. This small subset of individuals was much smaller than the number of region-wise outliers as shown in Fig. 3. Upon visual inspection of the raw data for these participants, it is clear that the global thinning effect is not likely a true biological difference but rather one likely driven by the quality of the raw images, even though the Euler index did not indicate failure in reconstruction. Unfortunately, we did not have enough complete phenotypic data on these subjects to warrant further in-depth phenotypic analysis.
+
+thinking
+**Identifying demographics table location**
+
+I'm locating the demographics table in the PDF markdown file by searching for 'table1' to find the relevant data.
+exec
+/bin/bash -lc 'rg -n "Table 1|Sample age|Age" -n study_1/Bethlehem2020.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:30.691264Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+15:Understanding heterogeneity is an important goal on the path to precision medicine for autism spectrum disorders (ASD). We examined how cortical thickness (CT) in ASD can be parameterized as an individualized metric of atypicality relative to typically-developing (TD) age-related norms. Across a large sample ( n = 870 per group) and wide age range (5 -40 years), we applied normative modelling resulting in individualized whole-brain maps of agerelated CT atypicality in ASD and isolating a small subgroup with highly age-atypical CT. Agenormed CT scores also highlights on-average differentiation, and associations with behavioural symptomatology that is separate from insights gleaned from traditional case-control approaches. This work showcases an individualized approach for understanding ASD heterogeneity that could potentially further prioritize work on a subset of individuals with cortical pathophysiology represented in age-related CT atypicality. Only a small subset of ASD individuals are actually highly atypical relative to age-norms. driving small on-average casecontrol differences.
+31:Age-related normative modelling . Normative modelling of agerelated CT effects was done utilizing male-only data from the typically developing group (TD) (see ' Methods ' section for full sample description, Fig. 1 for a schematic overview and Supplementary Figs. 1 and 2 for more demographics information). All analyses were done on CT averaged within 308 cortical regions 33 . We used a local polynomial regression /uniFB01 tting procedure (LOESS) 34,35 , where the local width or smoothing kernel of the regression was determined by the model that provided the overall smallest sum of squared errors using hyperparameter optimization across 5 -100% of the full age range using Brent ' s method 36 as implemented in the R optim function from the stats package. We also assessed consistency of our output using centiles scoring and consistency of the normative model using extensive bootstrapping and sensitivity analyses, both showed high outcome consistency (see ' Methods ' section and Supplementary Materials; Supplementary Figs. 3 -5). To align the TD and ASD groups,
+33:## A| Age distribution
+49:The w-score for an individual thus re /uniFB02 ects how far away their CT is from TD norms in units of standard deviation. Because wscores are computed for every brain region, we get a w-score map for each ASD participant showing how each brain region for that individual is atypical relative to TD norms. Age bins that contained fewer than /uniFB01 ve data-points in the TD group were excluded from subsequent analysis as the standard deviations for these bins would essentially be zero (and thus the w-score could not be computed). With the inclusion of motion we also excluded individuals for which no resting-state fMRI was available. The characteristics of the /uniFB01 nal autism sample are listed in Table 1.
+57:| Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   |
+83:Exploratory analysis of brain -behaviour relationships . An additional advantage of the use of normative modelling over the traditional case-control modelling is that we can use the individualized atypicality as a novel metric for /uniFB01 nding associations with phenotypic features. Here we used w-scores to compute Spearman correlations for the most commonly shared phenotypic features in the ABIDE dataset: ADOS, SRS, SCQ, AQ, FIQ and Age. After correcting for multiple comparisons across phenotype and region (6 phenotypic measures * 308 regions = 1848 tests) we identi /uniFB01 ed a number of brain regions that survive multiple comparison corrections for the SRS and ADOS scores (Fig. 4, Supplementary Fig. 8). SRS is associated with w-scores primarily in areas of lateral frontal and parietal cortex, while ADOS is associated with w-scores primarily in lateral and inferior temporal cortex. Notably, these regions are largely different from regions that appear to show on-average differentiation in case-control and w-score analyses.
+145:Fig. 5 Explained variance in cortical thickness for each covariate. Age age at the time of scanning, FIQ functional intelligent quotient, VIQ verbal intelligence quotient, SRS total score of the social responsive scale, Diagnosis diagnostic group, i.e. ASD or TD.
+163:Exploratory analyses . In addition to assessing the effect of normative outlier on conventional case-control analyses we also conducted some exploratory analysis on the normative w-scores. First, to explore whether the w-scores re /uniFB02 ect a potentially meaningful phenotypic feature we also computed Spearman correlations for each brain region between the most commonly shared phenotypic features in ABIDE: ADOS, SRS, SCQ, AQ, FIQ and Age. Resulting p -values matrices were corrected for multiple comparisons using Benjamini -Hochberg FDR correction and only regions surviving and FDR-corrected p -value of &lt; 0.05 are reported.
+
+thinking
+**Locating table in markdown PDF source**
+exec
+/bin/bash -lc "sed -n '52,90p' study_1/Bethlehem2020.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:33.807449Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+
+In contrast to a canonical case-control model, we computed normative models of age which resulted in individualized wscores that indicate how atypical CT is for an individual compared to typical norms for that age. This modelling approach allows for computation of w-scores for every region and in every patient, thus resulting in a w-score map that can then itself be tested for differences from a null hypothesis of w-score = 0,
+
+A| Region specific prevalence
+
+| Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   | Table 1 Sample age characteristics after normative modelling selection.   |
+|---------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| Dx                                                                        | Mean                                                                      | SD                                                                        | N                                                                         | Median                                                                    | Min                                                                       | Max                                                                       |
+| Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2                                                                      |
+| TD                                                                        | 15.35                                                                     | 6.37                                                                      | 624                                                                       | 13.34                                                                     | 5.89                                                                      | 39.4                                                                      |
+
+Fig. 3 Region speci /uniFB01 c prevalence of atypical w-scores. Panel a shows the by region prevalence of individuals with a w-score of greater than ±2SD. For visualization purposes these images are thresholded at the median prevalence of 0.076. Panel b shows the overall distribution of prevalence across all brain regions.
+
+![Image](./Bethlehem2020_artifacts/image_000005_cbc951413429aa8a4c6d7ad81bb4df8c8f2a21bff62827862785b6d2f60a4899.png)
+
+indicating no signi /uniFB01 cant on-average ASD atypicality in agenormed CT. These hypothesis tests on normative w-score maps revealed no regions surviving FDR correction.
+
+## Isolating ASD individuals with age-related CT atypicality .
+
+While the normative modelling approach can be sensitive to different pathology than traditional case-control models, another strength of the approach is the ability to isolate individuals expressing high CT-atypicality. We operationalized ' signi /uniFB01 cant ' atypicality in statistical terms as w-scores &gt;2 SD away from TD norms. By applying this cut-off, we can then describe what proportion of the ASD population falls into this CT subgroup category for each individual brain region. Over all brain regions the median prevalence of these patients is around 7.6% (Fig. 3). Meaning that in each brain region there are ~7.6% of individuals that would be considered an outlier. This difference from an expected proportion of 5% in the present sample corresponds to a X 2 of 3.85 (with Yates continuity correction 40 ) that is signi /uniFB01 cant at p = 0.049 (without continuity correction: X 2 = 4.32, p = 0.038). The distribution of prevalence across brain regions also has a positive tail indicating that for a small number of brain regions the prevalence can jump up to more than 10%. Expressed back into sample size numbers, if 10% of the ASD population had signi /uniFB01 cant CT abnormalities, with a sample size of n = 699, this means that n = 70 patients possess such atypicality. Underscoring the prevalence of these cases is important since as shown earlier, it is likely that primarily these ' statistical outlier ' patients drive most of the tiny case-control differences observed.
+
+thinking
+**Confirming dataset origin**
+
+The text indicates normative modeling was applied to ASD using the ABIDE dataset; I'll check the supplement file next to verify demographic details and confirm the use of ABIDE I and II.
+exec
+/bin/bash -lc 'rg -n "ABIDE|dataset|sample|Nautism|autism" study_1/Bethlehem2020_sup1.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:38.904492Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+1:Supplementary information for: A normative modeling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder
+40:To assess quality of Freesurfer reconstructions we computed the Euler index (Rosen et al., 2018). The Euler number is a quantitative index of segmentation quality and has shown high overlap  with  manual  quality  control  labelling.  In  the  full  sample  we  found  a  small  but significant difference in both hemispheres (Figure S2) with the autism group having overall worse scan quality (d = 0.176 and d = 0.187 for left and right hemisphere respectively). We excluded  all  subjects  with  a  Euler  score  of  300  or  higher  in  either  hemisphere.  After thresholding  based  on  Euler  indices  and  after  re-running  the  sample  consisted  of  870 individuals with autism and 870 neurotypical individual, matched on Age, Euler and IQ.
+46:Panels A and B list  the  Euler  indices  for  both  left  and  right  hemisphere,  p-values  for  group  differences  were established with two-sided permutation testing (20000 permutations), Cohen's d was computed using custom R code  https://github.com/mvlombardo/utils/blob/master/cohens\_d.R.  Panels  C  and  D  show  the  left  and  right hemisphere Euler distribution across the different sites included in ABIDE. Panel E shows 3 example scans for Euler indices of 50, 300 and 800 respectively. Raincloud plots were created using: https://micahallen.org/2018/03/15/introducing-raincloud-plots/
+52:Then, to systematically evaluate whether either motion or reconstruction quality impacted any of our outcome measures we conducted a cross-validation analysis by systematically excluding the top 5% of motion subject and top 5% of Euler subjects and assessed the spatial correlation in resulting Cohen's D maps (Figure S3.D). Resulting maps were highly consistent, with the lowest correlation (r = 0.7) between the sample with 95% and 75% of Euler subjects included, which is reflective of a decrease in sample size. We also assess the effect on the resulting onesample assessment of the w-score between a model including motion as a confound and a model not including the motion confound (Figure S3.E). This showed near perfect consistency in  spatial  topology  (r  =  1.00,  p  &lt;  .0001).  In  similar  fashion  we  assessed  the  case-control differences in a model with and without motion (Figure S3.F) and again found high consistency in spatial topology (r = 0.96, p &lt; .0001).
+54:To more specifically assess the relation between w-score ratios and head-motion we visualised their individuals correlations and observed that despite the small correlations there was little indication that high w-score ratio individuals (ratio &gt; .5) were also the individuals with high motion (Figure S3G-I). To systematically assess their influence, we removed the top 5% of motion autism individuals. We then reassessed the correlation (Figure S3.J), the absolute wscore ratio (Figure S3.K) and the spatial prevalence (Figure S3.L) and found this exclusion did not impact our original results. In the same manner we excluded the top percentage of autism individuals with a high Euler index from the analysis (Figure S3M-O) and again found no impact on our original results.
+64:Panel A shows the case-control difference in mean framewise displacement, indicating a significantly higher mean framewise displacement in the autism group t(1125.68)= 5.07, p &lt; .001. Panel B shows the Pearson r correlations between age and the confound variables included in our models. Correlations not passing FDR correction of p &lt;.05 are marked with a cross. Panel C shows the spatial correlation of each ROI with the three included confound regressors in our model, all three show small correlations ranging from r = -.18 to r = .14 and were thus included in all subsequent analyses. Panel D shows the spatial correlation between Cohen's D maps from analyses where subject with either high motion (upper triangle) or high Euler indices (lower triangle) were iteratively excluded. The fold refers to the cohorts of exclusion ranging from 1 = 5% exclusion to 5 = 25% excluded. Panel E shows the correspondence in the one-sample model with and without motion included. Models show highly similar spatial topology (r = 1.00, p &lt; .001, BF =  Inf). Panel F shows the significant spatial correspondence for the between group linear mixed effects model (r = 0.96, p &lt; .001, BF = Inf). Panel G shows the small relation between the absolute wscore and mean framewise displacement (r = 0.15, p &lt; .001, BF -4.89). Panels H and J shows the same for the positive (r = 0.09, p &lt; .05, BF = 0.13) and negative (r = 0.16, p &lt; .001, BF = -6.67) ratio's respectively. Panel J shows the residual correlation between motion and the absolute ration after excluding the top 5% of motion subjects from the ASD sample (r = 0.10, p &lt;.05, BF = - 0.43). Panel K shows the absolute w-score ratio with the dotted line indicating the cut-off of 0.5 after excluding the top 5% of motion individuals from the ASD sample. Panel L replicates the main figure 3 of this thresholded sample. Panel M shows the residual correlation between the absolute w-score ratio and the Euler index after thresholding the ASD sample at 5% of Euler scores (r = -0.07, p = .08, BF = 1.33). Panel N shows the absolute w-score in the thresholded sample with the dotted line indicating the 0.5 cut-off. Panel O replicated main figure 3 in this thresholded sample.
+68:To  assess  the  reliability  of  this  w-score  we  bootstrapped  the  normative  sample  (1000 bootstraps, with replacement) and computed 1000 bootstrapped w-scores for each individual and each brain region. To subsequently quantify the reliability of the w-score we computed an FDR corrected analogous p-value for each subject by computing the absolute position of the real w-score in the distribution of bootstrapped w-scores. The rationale being that if a real wscore would be in the top 5% of the bootstrapped distribution it would likely not be a reliable score (e.g. the score would be influenced by only a small subset of the normative data). The median number of brain regions per subject with a significant p-value was 1 (out of 308), indicating that the w-score provides a robust measure of atypicality.
+78:In  order  to  assess  the  sensitivity  of  our  approach  in  the  present  data  we  implemented  the aforementioned bootstrapping procedure to identify robustness of outlier detection. In addition, we also conducted a centiles estimation that is relatively standard in for example epidemiology (Visser  et  al.,  2009),  similar  to  quantile  rank  maps  (Chen  et  al.,  2015)  and  arguably  less sensitive to small sample uncertainty. Both approaches showed high significant correlation in determining whole-brain w-score ratios (r=0.87, p=4e-119 and r=0.66, p=5.7e-39 for ABIDE I and ABIDE II respectively).
+84:Scatterplot  of  the  absolute  ration  of  atypical  regions  in  both  ABIDE  I  and  ABIDE  II  as computed using LOESS regression and centiles estimation.
+88:To isolate subsets of individuals with significant age-related CT deviance, we used a cut-off score of 2 standard deviations (i.e. w &gt;= 2 or w&lt;=2). This cut-off allows us to isolate specific ASD patients  with  markedly  abnormal  CT  relative  to  age-norms  for  each  individual  brain region. We then calculated sample prevalence (percentage of all ASD patients with atypical wscores), in order to describe how frequent such individuals are in the ASD population and for each brain region individually. A sample prevalence map can then be computed to show the frequency of these patients across each brain region. We also wanted to assess how many patients have markedly atypical w-scores (beyond 2SD) across a majority of brain regions. This was achieved by computing an individual global w-score ratio as follows:
+108:An additional advantage of the use of normative modelling over the traditional case-control modelling  is  that  we  can  use  the  individualized  deviation  as  a  novel  metric  for  finding associations  with  phenotypic  features.  Here  we  used  w-scores  to  compute  Spearman correlations for the most commonly shared phenotypic features in the ABIDE dataset: ADOS, SRS, SCQ, AQ, FIQ and Age. After correcting for multiple comparisons across phenotype and region (6 phenotypic measures * 308 regions = 1848 tests) we identified a number of brain regions  that  survive  multiple  comparison  corrections  for  the  SRS  and  ADOS  scores (supplementary figure S8). SRS is associated with w-scores primarily in areas of lateral frontal and parietal cortex, while ADOS is associated with w-scores primarily in lateral and inferior temporal cortex. Notably, these regions are largely different from regions that appear to show on-average differentiation in case-control and w-score analyses.
+132:The top panel shows the canonical case-control output. No regions passed FDR when regionwise outliers were removed nor on the one sample w-score test.
+138:The top panel shows the canonical case-control output. No regions pass FDR when region-wise outliers are removed however in the w-score one sample test (lower panel) there are a number of regions that show significantly smaller LGI in ASD.
+146:The top panel shows the canonical case-control output. No regions pass FDR when region-wise outliers are removed however in the w-score one sample test (lower panel) there are a number of regions that show significantly smaller surface area in ASD.
+165:- Lombardo, M. V, Lai, M.-C., Auyeung, B., Holt, R.J., Allison, C., Smith, P., Chakrabarti, B., Ruigrok, A.N. V, Suckling, J., Bullmore, E.T., MRC AIMS Consortium, Ecker, C., Craig, M.C., Murphy, D.G.M., Happé, F., Baron-Cohen, S., 2016. Unsupervised data-driven stratification of mentalizing heterogeneity in autism. Sci. Rep. 6, 35333. https://doi.org/10.1038/srep35333
+
+thinking
+**Searching for dataset confirmation**
+
+I'm verifying the dataset name by searching for "ABIDE I" and "ABIDE II" in the main paper's markdown or PDF to support using "ABIDE (I+II)" as the dataset-of-origin label.
+exec
+/bin/bash -lc 'rg -n "ABIDE I|ABIDE II|ABIDE" study_1/Bethlehem2020.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:43.335655Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+23:Multiple explanations could be behind this inconsistency across the literature. Methodology widely differs across studies (e.g., low statistical power, different ways of estimating morphology or volume) and is likely a very important factor 9,14 . Initiatives such as the autism brain imaging data exchange (ABIDE 15 ); have made it possible to boost sample size by pooling together data from several different studies. However, withingroup heterogeneity in the autism population also immediately stands out as another factor obscuring consistency in the literature, especially when the dominant approach of case-control models largely ignores heterogeneity within the ASD population. In particular, some autism-related heterogeneity reported in literature might be explained by factors such as age 16,17 . Indeed, with regards to structural brain features of interest for study in ASD (e.g., volume, cortical thickness (CT), surface area), these features change markedly over development and may follow altogether different trajectories in ASD 18 -20 . Typical approaches towards dealing with age revolve around group statistical modelling of age as the variable of interest or removing age as a covariate and then parametrically modelling on-average differences between cases versus controls. While these are common approaches in the literature, they do not immediately provide individualized estimates of age-related atypicality nor do they account for individual variation in developmental trajectories. In contrast, normative models of age-related variation may likely be an important alternative to these approaches and may mesh better with some conceptual views of atypicality in ASD as being an extreme of typical population norms 21 . In contrast to the canonical case-control model, normative age modelling allows for computation of individualized metrics that can hone in on the precision information we are interested in -that is, atypicality of development expressed in speci /uniFB01 c ASD individuals relative to non-ASD norms. Such an approach may be a fruitful way forward in isolating individuals who are ' statistical outliers ' . The reasons behind why these individuals are outliers relative to non-ASD norms may be of potential clinical and/or mechanistic importance. Furthermore, conventional case-control analyses may obscure more subtle individual differences as they assume onaverage group differences. This is especially important in light of previously reported null/uniFB01 ndings 14 . Indeed, if we are to move forward towards strati /uniFB01 ed psychiatry and precision medicine for ASD 22 , we must go beyond case-control approaches and employ dimensional approaches that can tell us information about which individuals are atypical and how or why they express such atypicality. Thus, this approach aims to provide more than a mere statistical advance, it aims to better conceptualize and capture personalized inferences that may ultimately result in more meaningful and targeted clinical inference.
+25:In the present study, we employ normative modelling on agerelated variability as a means to individualize our approach to isolate speci /uniFB01 c subsets of patients with very different neural features. Here we focus speci /uniFB01 cally on a neural feature of cortical morphology known as CT. CT is a well-studied neuroanatomical feature thought to be differentially affected in autism and has received increasing attention in recent years 23 -27 . Recent work from our group also identi /uniFB01 ed a genetic correlate for autismspeci /uniFB01 c CT variation despite considerable heterogeneity in groupspeci /uniFB01 c CT in children with autism 28 . A study examining ABIDE I cohort data discovered case-control differences in CT, albeit very small in effect size 14 . Similarly, the most recent and largest study to date, a mega-analysis combining data from ABIDE and the ENIGMA consortium, also indicated very small on-average case-control differences in CT restricted predominantly to areas of frontal and temporal cortices, and indicate very subtle agerelated between-group differences and substantial within-group age-related variability 27 . Another recent study also highlighted widespread differences in CT and several differences that were sex-speci /uniFB01 c 7 . Overall, these studies emphasize three general points of importance. First, age or developmental trajectory is extremely important 16,29 -31 . Second, given the considerable within-group age-related variability and the presence of a large majority of null and/or very small between-group effects, rather than attempting to /uniFB01 nd on-average differences between all cases versus all controls, we should shift our focus to capitalize on this dimension of large age-related variability and isolate autism cases that are at the extremes of this dimension of normative variability. Third, biological sex is likely to be an important modulator of ASD-speci /uniFB01 c morphological differences 7 .
+83:Exploratory analysis of brain -behaviour relationships . An additional advantage of the use of normative modelling over the traditional case-control modelling is that we can use the individualized atypicality as a novel metric for /uniFB01 nding associations with phenotypic features. Here we used w-scores to compute Spearman correlations for the most commonly shared phenotypic features in the ABIDE dataset: ADOS, SRS, SCQ, AQ, FIQ and Age. After correcting for multiple comparisons across phenotype and region (6 phenotypic measures * 308 regions = 1848 tests) we identi /uniFB01 ed a number of brain regions that survive multiple comparison corrections for the SRS and ADOS scores (Fig. 4, Supplementary Fig. 8). SRS is associated with w-scores primarily in areas of lateral frontal and parietal cortex, while ADOS is associated with w-scores primarily in lateral and inferior temporal cortex. Notably, these regions are largely different from regions that appear to show on-average differentiation in case-control and w-score analyses.
+89:In the present study, we /uniFB01 nd that with a highly powered dataset, conventional case-control analyses reveal small differences in CT in autism and are restricted to a small subset of regions. In general, this idea about subtle effect sizes for case-control comparisons is compatible with other recent papers utilizing partially overlapping data -Haar and colleagues utilized only ABIDE I data 14 , while van Rooji and colleagues 27 utilized both ABIDE I and II dataset combined with further data from the ENIGMA consortium. While these statements about small effect sizes are not novel, our /uniFB01 ndings suggest that even these small effect sizes may be misleading and over-optimistic. Utilizing normative modelling as a way of identifying and removing CT-atypical outlier patients, we /uniFB01 nd here that most small case-control differences are driven by a small subgroup of patients with high CTatypicality for their age, which indeed begs the question of the existence of on-average atypical cortical morphology in autism 14 . In contrast, we further showed that analysis of CT-normed scores (i.e. w-scores) themselves reveals a completely different set of regions that are on-average atypical in ASD. The directionality of such differences also reverses in some cases. For instance, Haar and colleagues discovered that areas of the visual cortex are thicker in ASD compared to TD in ABIDE I 14 . Our case-control analyses here largely mirror that /uniFB01 nding. However, re-analysis after w-score outlier removal totally removes the effects previously reported in the visual cortex. Thus, here is a clear case whereby our normative age modelling approach identi /uniFB01 es effects that are likely driven by only a small subset of individuals. New insights via normative age modelling, alongside cleaning up interpretations behind case-control models, both highlight the meaningful utility of this approach. The presence of small regiondependent outlier effects in ASD misleadingly drives on-average inferences from case-control models. Thus, it is important for the /uniFB01 eld to better understand how prevalent this atypicality is for a given brain region (i.e. our analyses did not reveal a consistent brain region or group of individuals with spatially overlapping patterns of extreme w-scores).
+97:We also conducted exploratory analyses to relate the w-scores back to phenotypic information more broadly, insofar as this was available in ABIDE. Here, we /uniFB01 nd collections of areas that are largely different from regions normally detected with on-average case-control or on-average non-zero w-score differences. Interestingly, the associations with ADOS and SRS show somewhat differential spatial topography which may suggest that the overall scores are related to different underlying neurobiological mechanisms. Overall, these results could suggest that the normative model is sensitive to signal related to behavioural variability. However, it should be emphasized that ADOS and SRS scores are not available for the full dataset and the reported effects were small and should thus be considered exploratory. In addition, ADOS and SRS are often only collected on individuals with a diagnosis already, which makes the general inference of this brain -behaviour relationship potentially biased. Based on present results however we expect future studies, with more comprehensive phenotypic information such as EU-AIMS2-trials (https://www.aims-2-trials.eu), to be able to con /uniFB01 rm this brain -behaviour relationship. It will be interesting to see whether in a larger more comprehensive sample the same topological dissociation becomes apparent as well.
+99:The current results can be contrasted with a recent study on the EU-AIMS LEAP cohort 44 . This study differs from the current work in being based on a completely independent dataset (EUAIMS LEAP vs. ABIDE). The studies also differ in how normative models are estimated -LOESS and centiles vs. Gaussian process regression. This study applied normative modelling only to males to reduce sex-related heterogeneity whereas Zahibi et al. utilized both males and females and used sex as a factor in the model. The current study also utilizes a larger sample size (autism n = 699, TD n = 624; autism n = 321, TD n = 206 in ref. 44 ). Despite these differences, some important consistencies emerge. In particular, our map of prevalence of the CT outlier group (Fig. 3) is somewhat consistent with the spatial topology Zahibi and colleagues report for negative deviations from the normative model (e.g., Fig. 4 of ref. 44 ). Furthermore, while our analyses of brain -behavioural relationships is limited, there is some consistency across this study and Zahibi et al. with the correlation between ADOS total scores and left inferior frontal gyrus. Thus, despite the methodological differences, the overall consistency suggests that many of the inferences from these works generalize to the autism population.
+101:There are a number of caveats to consider in the present study. First and foremost, the present data are cross-sectional and the normative age modelling approach cannot make claims about trajectories at an individual level. With longitudinal data, this normative modelling approach could be extended. However, at the moment the classi /uniFB01 cations of highly age-atypical CT individuals are limited to static normative statistics within discrete agebins rather than based on statistics from robust normative trajectories. The dataset also represents ASD within an age range that misses very early developmental and also very late adulthood periods. Second, the dataset also presents a post-hoc collection of sites accumulated through the ABIDE initiative, whereby scanners, imaging acquisition sequences and parameters, sample ascertainment, etc., are highly heterogeneous. As a result, we observed that site had a large effect on explaining variance in CT and this is compatible with observations made by other studies 14 . Furthermore, it is likely that there may be systematic interactions between scanner site and some variables of interest such as age (e.g. different scanning sites will likely have recruited speci /uniFB01 c age cohorts). Third, there are a number of different approaches to normative modelling that all have pros and cons (see ref. 45 for an excellent review). We chose to use LOESS estimation as it is computationally ef /uniFB01 cient and the resulting w-scores are easily interpretable. However, since it is based on estimation of standard deviation from a normative sample it is potentially sensitive to small samples in a given age-bin (e.g. if there are only four datapoints for a given age-bin there is likely to be a less reliable sd). Hence in situations where data is spare the LOESS approach may allow for less reliable normative scores. In order to assess the sensitivity of our approach in the present data we implemented the aforementioned bootstrapping procedure to identify robustness of outlier detection. In addition, we also conducted a centiles estimation that is relatively standard in for example epidemiology 46 , similar to quantile rank maps 47 and arguably less sensitive to small sample uncertainty. Both approaches showed highly signi /uniFB01 cant correlation in determining whole-brain w-score ratios ( r = 0.87, p = 4e -119 and r = 0.66, p = 5.7e -39 for ABIDE I and ABIDE II, respectively; see supplementary materials, Supplementary Fig. 5). Fourth, our current sample was matched on IQ and as a result excluded individuals with low IQ scores (&lt;70). While higher IQ does not automatically imply higher overall functioning 48 it does limit the generalisability of our /uniFB01 ndings to individuals with normal to high IQ. Finally, although in-scanner head motion is a well-known confounder in resting-state connectivity studies 49,50 it has recently been shown that the same motion may also affect structural image quality and surface reconstruction, especially in clinical cohorts 37 . To address this issue in the present analysis we included mean framewise displacement in our models. In this line, Savalia et al. 51 recently showed that framewise displacement is a sensitive proxy of motion-related bias in structural images. We /uniFB01 nd that, while this severely impacted the conventional case control analysis (e.g. reducing the number of signi /uniFB01 cant ROI ' s from 38 to 27), it did not impact the outlier thresholded analysis to the same extent. To further assess the sensitivity of motion on the present approach we include sensitivity analyses based on systematic removal of high motion subjects and /uniFB01 nd that the spatial topology of effects
+109:Participants . In this study, we /uniFB01 rst sought to leverage large neuroimaging datasets to yield greater statistical power for identifying subtle effects. To achieve this, we utilized the ABIDE datasets (ABIDE I and II; 15) (see Supplementary Fig. 1). Informed consent was given at each site included in the ABIDE studies, see the website for more details: http://fcon\_1000.projects.nitrc.org/indi/abide/. Given that the normalized modelling approach gives us individual level measures we chose to also include sites with limited numbers of subjects. Groups were subsequently matched on age using the non-parametric nearest neighbour matching procedure implemented in the Matchit package in R (https://cran.r-project.org/web/packages/ MatchIt/index.html) 52 . After matching case and control groups and excluding scans of poorer quality (see supplementary materials) we were left with a sample size N = 870 per group (Tables 2 and 3).
+111:Imaging processing and quanti /uniFB01 cation . Cortical surface reconstruction was performed using the MPRAGE (T1) image of each participant with FreeSurfer (http://surfer.nmr.mgh.harvard.edu/) version (v5.3.0, to ensure comparability with previous ABIDE publications). The reconstruction pipeline performed by FreeSurfer ' recon-all ' involved intensity normalization, registration to Talairach space, skull stripping, WM segmentation, tessellation of the WM boundary, and automatic correction of topological defects. Brie /uniFB02 y, non-uniformity intensity correction algorithms were applied before skull stripping 53 , resulting in resampled isotropic images of 1 mm. An initial segmentation of the white matter tissue was performed to generate a tessellated representation of the WM/GM boundary. The resulting surface was deformed outwards to the volume that maximizes the intensity contrast between GM and cerebrospinal /uniFB02 uid, generating the pial surface 54 . Resulting surfaces were constrained to a spherical topology and corrected for geometrical and topological abnormalities. CT of each vertex was de /uniFB01 ned as the shortest distance between vertices of the GM/WM boundary and the pial surface 55 . We chose to not conduct manual segmentations and excluded failed subjects from any subsequent analysis (and these subjects were removed prior to the matching and QC procedures). To assess the quality of Freesurfer reconstructions we computed the Euler index 38 . The Euler number is a quantitative proxy index of segmentation quality
+139:Across both ABIDE I and ABIDE II CT was extracted for each subject using two different parcellations schemes: an approximately equally sized parcellation of 308 regions (~500 mm 2 each parcel) 33,56,57 and a parcellation of 360 regions derived from multi-modal features extracted from the Human Connectome Project (HCP) dataset 58 . The 308-region parcellation was constructed in the FreeSurfer fsaverage template by subdividing the 68 regions de /uniFB01 ned in the Desikan -Killiany atlas 59 . Thus, each of the 68 regions was sequentially sub-parcellated by a backtracking algorithm into regions of ~500 mm 2 , resulting in a high-resolution parcellation that preserved the original anatomical boundaries de /uniFB01 ned in the original atlas 33 . Surface reconstructions of each individual were co-registered to the fsaverage subject. The inverse transformation was used to map both parcellation schemes into the native space of each participant.
+143:There are likely many variables that contribute to variability in CT between individuals and across the brain. In order to visually assess the contribution of some prominent sources of variance we adopted a visualization framework derived from gene expression analysis (http://bioconductor.org/packages/variancePartition) 61 and included the most commonly available covariates in the ABIDE dataset: age, sex, diagnosis, scanner site, full-scale IQ, verbal IQ, handedness and SRS. Given that ABIDE was not designed as an integrated dataset from the outset, it seems plausible that the scanner site might be related to autism or autism-related variables (e.g., some sites might have different case-control ratios or only recruited speci /uniFB01 c subgroups). Figure 5 shows the ranked contribution of those covariates. Perhaps unsurprisingly, scanner site and age proved to be the most dominant sources of variance (each explaining on average around 15% of the total variance). Our initial conventional analysis was aimed to delineate potential broad case-control differences, as has been done in previous studies 14,27 . We used a linear mixed effects model with scanner site
+163:Exploratory analyses . In addition to assessing the effect of normative outlier on conventional case-control analyses we also conducted some exploratory analysis on the normative w-scores. First, to explore whether the w-scores re /uniFB02 ect a potentially meaningful phenotypic feature we also computed Spearman correlations for each brain region between the most commonly shared phenotypic features in ABIDE: ADOS, SRS, SCQ, AQ, FIQ and Age. Resulting p -values matrices were corrected for multiple comparisons using Benjamini -Hochberg FDR correction and only regions surviving and FDR-corrected p -value of &lt; 0.05 are reported.
+171:All data is openly available on GitHub 32 , this includes all measures extracted from the raw imaging data alongside the relevant phenotypic and quality control measures. Original unprocessed neuroimaging data is openly available through the ABIDE consortium: http://fcon\_1000.projects.nitrc.org/indi/abide/abide\_I.html.
+
+thinking
+**Confirming male-only ASD sample**
+
+I'm verifying that females were excluded from the ASD group by searching around line 34–40 near Figure 1, looking for explicit statements about female exclusion and male-only counts.
+exec
+/bin/bash -lc "sed -n '34,45p' study_1/Bethlehem2020.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:48.666170Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+
+![Image](./Bethlehem2020_artifacts/image_000002_59aee869f44d3d9ae738ff2714f82c8c18fe5385d176f206cc4606325fe312fd.png)
+
+Fig. 1 Demographics and descriptive statistics. a Histogram of age distribution per sex. Females were excluded from further analyses due to known sex differential effects in autism and the lack of available data to estimate population norms (see ' Methods ' section for details). b Schematic overview of normative modelling. In the /uniFB01 rst instance LOESS regression is used to estimate the developmental trajectory on CT for every individual brain region to obtain an agespeci /uniFB01 c mean and standard deviation. Then we computed median for each one-year age-bin for these mean and median neurotypical estimates to align them with the ASD group. Next, for each individual with autism and each brain region the normative mean and standard deviation are used to compute a w-score relative to their neurotypical age-bin. Contrary to conventional boxplots, the second panel shows mean, 1 sd and 2 sd for the neurotypical group (in yellow) and individuals with an autism diagnosis in purple.
+
+![Image](./Bethlehem2020_artifacts/image_000003_6022d27c34b824c781486c2a6b47563b1bfde3e57f8fa71f5946f39977f74b5c.png)
+
+Fig. 2 Case control difference analysis with linear mixed effect model. Panel a shows effect sizes for regions passing FDR correction for linear mixed effect modelling of conventional case control difference analysis. Cohen ' s d values represent ASD -control, thus blue denotes ASD&lt;control and red denotes ASD&gt;control. Panel b shows effect sizes for regions passing FDR correction after outlier removal for the same linear mixed effect modelling of conventional case control difference analysis.
+
+![Image](./Bethlehem2020_artifacts/image_000004_e81a5a40a47231b28b3e75ef8ce874af5c4b84ad258753e47da809b76af00d8e.png)
+
+both were binned into one-year age bins. For each age bin and every brain region we computed a normative mean and standard deviation from the TD group. This was done separately for each sex, given known sex differential developmental trajectories. These statistical norms were then used to compute a w-score (analogous to a z -score) for every individual with autism and every brain region as follows:
+
+
+thinking
+**Summarizing clinical cohort details**
+
+The autism clinical cohort includes only males (N=699, 100% male, 0 females) after normative modeling selection, based on exclusion of females in the figure and Table 1. The dataset originates from ABIDE (I+II), and the age statistics are mean 14.93 years, SD 5.97, median 13.40, range 5.53 to 39.2 years.
+thinking
+**Confirming male-only cohort and disorder labeling**
+
+I'm inferring the sample is male-only with 699 males and 0 females based on female exclusion and total N; the clinical cohort underwent normative modeling for ASD. Next, I'll update the JSON with the disorder name "ASD" and confirm details against the existing file.
+exec
+/bin/bash -lc 'cat DE_v14_Bethlehem2020_by_codex_20260304124507764.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041245077642026-03-04T03:45:59.576410Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Planning detailed patch for structured answers and supporting text**
+
+I'm preparing to apply a patch that edits fields to structured objects or arrays as needed and adds precise supporting text quotes with corresponding document locations formatted as section references rather than line numbers.
+thinking
+**Defining combined supporting text and confidence levels**
+
+I'm incorporating combined quoted supporting texts with semicolon separation for inferred fields like sex, assigning confidence ratings (Medium for sex due to inference, High for others), and preparing to apply these structured updates via patch.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bethlehem2020"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder\"",
++        "location": "Bethlehem2020.pdf.md: Title"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE (I+II)"
++        ],
++        "detail": "Clinical cohort drawn from ABIDE I and II datasets.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we utilized the ABIDE datasets (ABIDE I and II; 15)\"",
++        "location": "Bethlehem2020.pdf.md: Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5.53,
++          "max": 39.2,
++          "mean": 14.93,
++          "sd": 5.97
++        },
++        "detail": "Autism sample age characteristics after normative modelling selection (male-only sample).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2\"",
++        "location": "Bethlehem2020.pdf.md: Table 1 Sample age characteristics after normative modelling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 699,
++          "male_pct": 100.0,
++          "female_n": 0,
++          "female_pct": 0.0
++        },
++        "detail": "Females were excluded; male-only cohort inferred from total N=699.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Females were excluded from further analyses due to known sex differential effects in autism and the lack of available data to estimate population norms\"; \"Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2\"",
++        "location": "Bethlehem2020.pdf.md: Fig. 1 Demographics and descriptive statistics; Bethlehem2020.pdf.md: Table 1 Sample age characteristics after normative modelling selection"
+       }
+2026-03-04T03:46:23.786942Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 6ms:
+Success. Updated the following files:
+M DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json b/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..766866925414afd3826ea8021cc5e95da4de51ae
+--- a/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bethlehem2020"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder\"",
++        "location": "Bethlehem2020.pdf.md: Title"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE (I+II)"
++        ],
++        "detail": "Clinical cohort drawn from ABIDE I and II datasets.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we utilized the ABIDE datasets (ABIDE I and II; 15)\"",
++        "location": "Bethlehem2020.pdf.md: Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5.53,
++          "max": 39.2,
++          "mean": 14.93,
++          "sd": 5.97
++        },
++        "detail": "Autism sample age characteristics after normative modelling selection (male-only sample).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2\"",
++        "location": "Bethlehem2020.pdf.md: Table 1 Sample age characteristics after normative modelling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 699,
++          "male_pct": 100.0,
++          "female_n": 0,
++          "female_pct": 0.0
++        },
++        "detail": "Females were excluded; male-only cohort inferred from total N=699.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Females were excluded from further analyses due to known sex differential effects in autism and the lack of available data to estimate population norms\"; \"Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2\"",
++        "location": "Bethlehem2020.pdf.md: Fig. 1 Demographics and descriptive statistics; Bethlehem2020.pdf.md: Table 1 Sample age characteristics after normative modelling selection"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json b/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..766866925414afd3826ea8021cc5e95da4de51ae
+--- a/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bethlehem2020"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder\"",
++        "location": "Bethlehem2020.pdf.md: Title"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE (I+II)"
++        ],
++        "detail": "Clinical cohort drawn from ABIDE I and II datasets.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we utilized the ABIDE datasets (ABIDE I and II; 15)\"",
++        "location": "Bethlehem2020.pdf.md: Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5.53,
++          "max": 39.2,
++          "mean": 14.93,
++          "sd": 5.97
++        },
++        "detail": "Autism sample age characteristics after normative modelling selection (male-only sample).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2\"",
++        "location": "Bethlehem2020.pdf.md: Table 1 Sample age characteristics after normative modelling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 699,
++          "male_pct": 100.0,
++          "female_n": 0,
++          "female_pct": 0.0
++        },
++        "detail": "Females were excluded; male-only cohort inferred from total N=699.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Females were excluded from further analyses due to known sex differential effects in autism and the lack of available data to estimate population norms\"; \"Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2\"",
++        "location": "Bethlehem2020.pdf.md: Fig. 1 Demographics and descriptive statistics; Bethlehem2020.pdf.md: Table 1 Sample age characteristics after normative modelling selection"
+       }
+     }
+   ]
+
+
+thinking
+**Providing final summary and next steps**
+
+The implementation is complete with no immediate next steps required. I suggest reviewing the changes for accuracy and consistency. If desired, I can cross-check supplemental tables or related data to ensure completeness.
+codex
+Filled the JSON with the ASD clinical cohort details from Bethlehem2020, including ABIDE I/II origin, age stats, and male-only sex breakdown derived from the paper’s demographics and Table 1. Updated `DE_v14_Bethlehem2020_by_codex_20260304124507764.json` with ADCSL-style fields and direct supporting quotes from `Bethlehem2020.pdf.md`.
+
+Suggestions:
+1) I can double-check the supplement for any additional sex-specific counts or site-level breakdowns if you want higher confidence on sex.
+2026-03-04T03:46:31.707320Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json b/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..766866925414afd3826ea8021cc5e95da4de51ae
+--- a/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304124507764/./DE_v14_Bethlehem2020_by_codex_20260304124507764.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bethlehem2020"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder\"",
++        "location": "Bethlehem2020.pdf.md: Title"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE (I+II)"
++        ],
++        "detail": "Clinical cohort drawn from ABIDE I and II datasets.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we utilized the ABIDE datasets (ABIDE I and II; 15)\"",
++        "location": "Bethlehem2020.pdf.md: Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5.53,
++          "max": 39.2,
++          "mean": 14.93,
++          "sd": 5.97
++        },
++        "detail": "Autism sample age characteristics after normative modelling selection (male-only sample).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2\"",
++        "location": "Bethlehem2020.pdf.md: Table 1 Sample age characteristics after normative modelling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 699,
++          "male_pct": 100.0,
++          "female_n": 0,
++          "female_pct": 0.0
++        },
++        "detail": "Females were excluded; male-only cohort inferred from total N=699.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Females were excluded from further analyses due to known sex differential effects in autism and the lack of available data to estimate population norms\"; \"Autism                                                                    | 14.93                                                                     | 5.97                                                                      | 699                                                                       | 13.40                                                                     | 5.53                                                                      | 39.2\"",
++        "location": "Bethlehem2020.pdf.md: Fig. 1 Demographics and descriptive statistics; Bethlehem2020.pdf.md: Table 1 Sample age characteristics after normative modelling selection"
+       }
+     }
+   ]
+
+tokens used
+35,417
+Filled the JSON with the ASD clinical cohort details from Bethlehem2020, including ABIDE I/II origin, age stats, and male-only sex breakdown derived from the paper’s demographics and Table 1. Updated `DE_v14_Bethlehem2020_by_codex_20260304124507764.json` with ADCSL-style fields and direct supporting quotes from `Bethlehem2020.pdf.md`.
+
+Suggestions:
+1) I can double-check the supplement for any additional sex-specific counts or site-level breakdowns if you want higher confidence on sex.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -166,15 +166,15 @@ public class One_ADCSL_Style_Pane extends One_DEQAResult_Pane_Abs {
         String detailText = tArea_Detail.getText();
         String supportingText = tArea_SupportingText.getText();
         String pageLineText = tArea_Location.getText();
+        String basePath = sectionName + "/" + subSectionName;
 
-        // JSONへ書き込み
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/answer", answerText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/detail", detailText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/confidence_rating", confidenceRatingText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/supporting_text", supportingText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/location", pageLineText);
-
-        jsonManager.doSave(false);
+        jsonManager.doSaveAsync(false, () -> {
+            jsonManager.setValue(basePath + "/answer", answerText);
+            jsonManager.setValue(basePath + "/detail", detailText);
+            jsonManager.setValue(basePath + "/confidence_rating", confidenceRatingText);
+            jsonManager.setValue(basePath + "/supporting_text", supportingText);
+            jsonManager.setValue(basePath + "/location", pageLineText);
+        });
 
     }
 

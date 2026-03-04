@@ -1,0 +1,125 @@
+
+========== Opus via Copilot コマンド ==========
+copilot  --prompt \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bayer2022_by_opus_20260304125508753.json へ書き込んでください。" \
+    --model "claude-opus-4.6" \
+    --allow-all-tools \
+    --add-dir . \
+    --deny-url "*" 
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Opus via Copilot が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+
+
+
+● Read DE_Guide_v14.md
+  └ 1 line read
+
+● List directory .
+  └ 5 files found
+
+● Read DE_v14_Bayer2022_by_opus_20260304125508753.json
+  └ 37 lines read
+
+● List directory study_1
+  └ 4 files found
+
+● Read DE_Guide_v14.md lines 1-80
+  └ 79 lines read
+
+● Read DE_Guide_v14.md lines 80-200
+  └ 121 lines read
+
+● Read study_1/Bayer2022.pdf.md lines 1-80
+  └ 79 lines read
+
+● Read DE_Guide_v14.md lines 200-350
+  └ 131 lines read
+
+● Count lines in paper
+  $ wc -l /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_2
+  0260304125508753/study_1/Bayer2022.pdf.md
+  └ 2 lines...
+
+Now let me read the rest of the paper to find clinical cohort information.
+
+● Read study_1/Bayer2022.pdf.md lines 80-250
+  └ 72 lines read
+
+● Read study_1/Bayer2022.pdf.md lines 250-450
+  └ 78 lines read
+
+● Read study_1/Bayer2022.pdf.md lines 329-500
+  └ 86 lines read
+
+Now let me check the supplementary material and Table 1 for demographic details.
+
+● Read study_1/Bayer2022.pdf.md lines 415-500
+  └ 86 lines read
+
+● Search for demographic info
+  $ grep -n -i "table 1\|Table 1\|age.*autism\|autism.*age\|male.*female\|482.*autism\|430.*male\|me
+  an.*age\|age.*mean\|range.*age\|age.*range\|6.*40\|6-40\|sex.*autism\|autism.*sex"
+  /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_202603041
+  25508753/study_1/Bayer2022.pdf.md | head -60
+  └ 6 lines...
+
+Now let me also look at the supplementary material and Table 1 for more demographic detail.
+
+● Read study_1/Bayer2022.pdf.md lines 500-705
+  └ 206 lines read
+
+● Search for Table 1
+  $ grep -n -i "table 1\|Table1\|n_controls\|n_autism\|n control\|sample size\|N =\|n="
+  /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_202603041
+  25508753/study_1/Bayer2022.pdf.md | head -30
+  └ 7 lines...
+
+Now let me check the supplementary material for more detailed demographic information about the autism sample.
+
+● Check supplementary material
+  $ wc -l /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_2
+  0260304125508753/study_1/1-s2.0-S1053811922008205-mmc1.pdf.md && head -100
+  /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_202603041
+  25508753/study_1/1-s2.0-S1053811922008205-mmc1.pdf.md
+  └ 102 lines...
+
+Now I have all the information needed. Let me compute the demographics and write the JSON.
+
+● Compute demographics
+  $ python3 -c "
+  # Autism clinical cohort: N=482, males=430, females=52
+  n = 482
+  m_n = 430
+  f_n = n - m_n...
+  └ 20 lines...
+
+● Edit DE_v14_Bayer2022_by_opus_20260304125508753.json (+21 -21)
+
+● Validate JSON
+  $ python3 -c "import json;
+  json.load(open('/media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_
+  DE_v14_20260304125508753/DE_v14_Bayer2022_by_opus_20260304125508753.json')); print('Valid JSON')"
+  └ 2 lines...
+
+JSON is valid. Here's a summary of the extraction:
+
+- **Paper ID**: Bayer2022
+- **Disorder**: ASD (Autism Spectrum Disorder) — 482 individuals with autism from ABIDE-I applied to hierarchical Bayesian normative models
+- **Dataset**: ABIDE-I (Di Martino et al., 2014)
+- **Age**: range 8–39 years, weighted mean 16.71, pooled SD 6.42 (computed from sex-stratified values: males M=16.9/SD=6.5, females M=15.1/SD=5.8)
+- **Sex**: 430 males (89.2%), 52 females (10.8%) — female count estimated from total N minus males
+
+
+Total usage est:        3 Premium requests
+API time spent:         2m 10s
+Total session time:     2m 23s
+Total code changes:     +21 -21
+Breakdown by AI model:
+ claude-opus-4.6         602.3k in, 6.3k out, 468.4k cached (Est. 3 Premium requests)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Opus via Copilot による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

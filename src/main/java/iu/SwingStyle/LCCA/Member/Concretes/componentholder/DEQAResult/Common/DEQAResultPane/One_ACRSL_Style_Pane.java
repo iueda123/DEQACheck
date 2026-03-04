@@ -173,16 +173,16 @@ public class One_ACRSL_Style_Pane extends One_DEQAResult_Pane_Abs {
         String reasonText = tArea_Reason.getText();
         String supportingText = tArea_SupportingText.getText();
         String pageLineText = tArea_Location.getText();
+        String basePath = sectionName + "/" + subSectionName;
 
-        // JSONへ書き込み
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/answer", answerText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/confidence_rating", confidenceRatingText);
-        //jsonManager.setValue(sectionName + "/" + subSectionName + "/negative_answer_category", negativeAnswerCategoryText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/reason", reasonText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/supporting_text", supportingText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/location", pageLineText);
-
-        jsonManager.doSave(false);
+        jsonManager.doSaveAsync(false, () -> {
+            jsonManager.setValue(basePath + "/answer", answerText);
+            jsonManager.setValue(basePath + "/confidence_rating", confidenceRatingText);
+            //jsonManager.setValue(basePath + "/negative_answer_category", negativeAnswerCategoryText);
+            jsonManager.setValue(basePath + "/reason", reasonText);
+            jsonManager.setValue(basePath + "/supporting_text", supportingText);
+            jsonManager.setValue(basePath + "/location", pageLineText);
+        });
 
     }
 

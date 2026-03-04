@@ -1,4 +1,7 @@
 #!/bin/bash
+if [[ -z "${BASH_VERSION:-}" ]]; then
+    exec /bin/bash "$0" "$@"
+fi
 
 # スクリプト情報の取得
 this_script_path="$(readlink -f "${BASH_SOURCE[0]}")"
@@ -54,7 +57,7 @@ AIエージェント（Gemini, Claude, Codex, Copilot等）を使用して、
 データ抽出（DE）または品質評価（QA）を自動実行するスクリプトです。
 
 オプション:
-  -a, --agent AGENT      AIエージェント名を指定 (gemini|claude|codex)
+  -a, --agent AGENT      AIエージェント名を指定 (gemini|claude|codex|cgemini|opus|sonnet)
   -n, --name NAME        処理名を指定（結果ファイル名に使用、例: DE, QA）
   -l, --list FILE        処理すべき研究名が1行ずつ記載されたファイルのパス
   -s, --study STUDY      単一の研究のみ処理 (互換目的)
@@ -181,9 +184,9 @@ if [[ -n "${EnsureJsonStructureBy}" ]]; then
 fi
 
 # AIエージェント名の検証
-if [[ ! "${AiAgentName}" =~ ^(gemini|claude|codex|cgemini|opus)$ ]]; then
+if [[ ! "${AiAgentName}" =~ ^(gemini|claude|codex|cgemini|opus|sonnet)$ ]]; then
     echo "エラー: 無効なAIエージェント名: ${AiAgentName}"
-    echo "有効な値: gemini, claude, codex"
+    echo "有効な値: gemini, claude, codex, cgemini, opus, sonnet"
     exit 1
 fi
 
@@ -392,6 +395,36 @@ if [[ ${_ai_agent_name} == "opus" ]]; then
 
             techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
             techo "Gemini via Copilot による作業が完了しました"
+            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+        fi
+
+    elif [[ ${_ai_agent_name} == "sonnet" ]]; then
+        techo ""
+        techo "========== Sonnet via Copilot コマンド =========="
+        techo "copilot  --prompt \\"
+        techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
+        techo "    --model \"claude-sonnet-4.6\" \\"
+        techo "    --allow-all-tools \\"
+        techo "    --add-dir . \\"
+        techo "    --deny-url \"*\" "
+        techo "===================================="
+        techo ""
+
+        if [[ ${_actual_run} == true ]]; then
+            sleep 3
+            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+            techo "Sonnet via Copilot が作業を実行中..."
+            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+
+            copilot --prompt "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
+                --model "claude-sonnet-4.6" \
+                --allow-all-tools \
+                --add-dir . \
+                --deny-url "*" \
+                2>&1 | tee -a ${_log_file_name}
+
+            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            techo "Sonnet via Copilot による作業が完了しました"
             techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
         fi
 

@@ -1,0 +1,460 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Han2023_by_codex_20260304134038128.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134038128/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb725-ea5f-7921-805f-b4c7adaef627
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Han2023_by_codex_20260304134038128.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read the guide**
+2026-03-04T04:40:44.237359Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134038128 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Han2023_by_codex_20260304134038128.json
+DE_v14_Han2023_by_codex_20260304134038128.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041340381282026-03-04T04:40:46.603463Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Listing study_1 files**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041340381282026-03-04T04:40:51.903865Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+DE_v14_Han2023_by_codex_20260304134038128.json
+DE_v14_Han2023_by_codex_20260304134038128.log
+DE_Guide_v14.md
+study_1/Han2023.pdf.md
+study_1/supplementary_results_bhad149.docx.md
+2026-03-04T04:40:54.683182Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Han2023.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134038128 succeeded in 25ms:
+![Image](./Han2023_artifacts/image_000000_838425db54c0988c13075c239e3af7292d94fa37538f803f3efcd5de81f6d473.png)
+
+Original Article
+
+## Mapping the neuroanatomical heterogeneity of OCD using a framework integrating normative model and non-negative matrix factorization
+
+Shaoqiang Han 1,2,3,4,5,6,7,8, * , Yinhuan Xu 1,2,3,4,5,6,7,8 , Keke Fang 9 , Hui-Rong Guo 10 , Yarui Wei 1,2,3,4,5,6,7,8 , Liang Liu 1,2,3,4,5,6,7,8 , Baohong Wen 1,2,3,4,5,6,7,8 , Hao Liu 1,2,3,4,5,6,7,8 , Yong Zhang 1,2,3,4,5,6,7,8, * , Jingliang Cheng 1,2,3,4,5,6,7,8, *
+
+1 Department of Magnetic Resonance Imaging, The First Affiliated Hospital of Zhengzhou University,
+
+2 Key Laboratory for Functional Magnetic Resonance Imaging and Molecular Imaging of Henan Province,
+
+3 Engineering Technology Research Center for Detection and Application of Brain Function of Henan Province,
+
+4 Engineering Research Center of Medical Imaging Intelligent Diagnosis and Treatment of Henan Province,
+
+5 Key Laboratory of Magnetic Resonance and Brain Function of Henan Province,
+
+6 Key Laboratory of Brain Function and Cognitive Magnetic Resonance Imaging of Zhengzhou,
+
+
+thinking
+**Extracting clinical cohort details**
+
+Identified the dataset as a single-site cohort from the First Affiliated Hospital of Zhengzhou University focusing on OCD, which should be included under Anxiety disorders in the disorders array. I'll also pull age and sex data from Table 1 and verify demographic details in the supplement.
+2026-03-04T04:40:59.019739Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/supplementary_results_bhad149.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134038128 succeeded in 24ms:
+**Supplementary results for mapping the neuroanatomical heterogeneity of OCD using a framework integrating the normative model and non-negative matrix factorization**
+
+**Figure S1** . Stability values vary with number of disease factors. The optimal number of disease factors is determined when the corresponding stability value reaches the maximum.
+
+
+thinking
+**Populating existing JSON file**
+2026-03-04T04:41:01.699293Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Han2023_by_codex_20260304134038128.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134038128 succeeded in 27ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Computing sex percentages and age stats**
+
+Calculated male/female percentages with one decimal place from counts, aligning closely with table values; age stats formatted with mean and SD to three decimals, min/max marked as "NR" per instructions. Included dataset origin from Methods and precise source location in the specified format.
+thinking
+**Assigning dataset keyword and disorder name**
+
+Set dataset keyword to ["SINGLE-SITE"] with clinical cohort detail from First Affiliated Hospital of Zhengzhou University; confirmed disorder name as "OCD" with supporting text from sample description. Preparing to edit JSON with the paper ID "Han2023" and apply patch.
+2026-03-04T04:41:23.123765Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Han2023"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "OCD",
++        "detail": "First-episode, drug-naive patients with obsessive-compulsive disorder (clinical cohort).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Ninety-eight first-episode and drug-naive patients with OCD were recruited from outpatient services of the Department of Psychiatry, the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "study_1/Han2023.pdf.md: Methods / Sample"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site clinical cohort from the First Affiliated Hospital of Zhengzhou University.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Ninety-eight first-episode and drug-naive patients with OCD were recruited from outpatient services of the Department of Psychiatry, the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "study_1/Han2023.pdf.md: Methods / Sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 22.429,
++          "sd": 8.704
++        },
++        "detail": "OCD clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, mean (SD) [range], y | 22.429 (8.704)\"",
++        "location": "study_1/Han2023.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 52,
++          "male_pct": 53.1,
++          "female_n": 46,
++          "female_pct": 46.9
++        },
++        "detail": "Percentages calculated from counts in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Male, no. (%) | 52 (53.060)\"",
++        "location": "study_1/Han2023.pdf.md: Results / Table 1"
+       }
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M DE_v14_Han2023_by_codex_20260304134038128.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json b/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..00bffe41723980625b22b77b1726e194ac976aef
+--- a/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Han2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "OCD",
++        "detail": "First-episode, drug-naive patients with obsessive-compulsive disorder (clinical cohort).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Ninety-eight first-episode and drug-naive patients with OCD were recruited from outpatient services of the Department of Psychiatry, the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "study_1/Han2023.pdf.md: Methods / Sample"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site clinical cohort from the First Affiliated Hospital of Zhengzhou University.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Ninety-eight first-episode and drug-naive patients with OCD were recruited from outpatient services of the Department of Psychiatry, the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "study_1/Han2023.pdf.md: Methods / Sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 22.429,
++          "sd": 8.704
++        },
++        "detail": "OCD clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, mean (SD) [range], y | 22.429 (8.704)\"",
++        "location": "study_1/Han2023.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 52,
++          "male_pct": 53.1,
++          "female_n": 46,
++          "female_pct": 46.9
++        },
++        "detail": "Percentages calculated from counts in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Male, no. (%) | 52 (53.060)\"",
++        "location": "study_1/Han2023.pdf.md: Results / Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json b/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..00bffe41723980625b22b77b1726e194ac976aef
+--- a/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Han2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "OCD",
++        "detail": "First-episode, drug-naive patients with obsessive-compulsive disorder (clinical cohort).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Ninety-eight first-episode and drug-naive patients with OCD were recruited from outpatient services of the Department of Psychiatry, the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "study_1/Han2023.pdf.md: Methods / Sample"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site clinical cohort from the First Affiliated Hospital of Zhengzhou University.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Ninety-eight first-episode and drug-naive patients with OCD were recruited from outpatient services of the Department of Psychiatry, the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "study_1/Han2023.pdf.md: Methods / Sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 22.429,
++          "sd": 8.704
++        },
++        "detail": "OCD clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, mean (SD) [range], y | 22.429 (8.704)\"",
++        "location": "study_1/Han2023.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 52,
++          "male_pct": 53.1,
++          "female_n": 46,
++          "female_pct": 46.9
++        },
++        "detail": "Percentages calculated from counts in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Male, no. (%) | 52 (53.060)\"",
++        "location": "study_1/Han2023.pdf.md: Results / Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Finalizing with file path**
+
+The implementation is done; changes are in the specified file path without additional tests.
+codex
+Updated the extraction JSON with OCD cohort details and demographics from Han2023. File: `DE_v14_Han2023_by_codex_20260304134038128.json`.
+
+If you want, I can also add a brief note in the log or cross-check any other sections.
+2026-03-04T04:41:25.808248Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json b/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..00bffe41723980625b22b77b1726e194ac976aef
+--- a/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304134038128/./DE_v14_Han2023_by_codex_20260304134038128.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Han2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "OCD",
++        "detail": "First-episode, drug-naive patients with obsessive-compulsive disorder (clinical cohort).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Ninety-eight first-episode and drug-naive patients with OCD were recruited from outpatient services of the Department of Psychiatry, the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "study_1/Han2023.pdf.md: Methods / Sample"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site clinical cohort from the First Affiliated Hospital of Zhengzhou University.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Ninety-eight first-episode and drug-naive patients with OCD were recruited from outpatient services of the Department of Psychiatry, the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "study_1/Han2023.pdf.md: Methods / Sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 22.429,
++          "sd": 8.704
++        },
++        "detail": "OCD clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, mean (SD) [range], y | 22.429 (8.704)\"",
++        "location": "study_1/Han2023.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 52,
++          "male_pct": 53.1,
++          "female_n": 46,
++          "female_pct": 46.9
++        },
++        "detail": "Percentages calculated from counts in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Male, no. (%) | 52 (53.060)\"",
++        "location": "study_1/Han2023.pdf.md: Results / Table 1"
+       }
+     }
+   ]
+
+tokens used
+17,739
+Updated the extraction JSON with OCD cohort details and demographics from Han2023. File: `DE_v14_Han2023_by_codex_20260304134038128.json`.
+
+If you want, I can also add a brief note in the log or cross-check any other sections.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

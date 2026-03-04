@@ -55,10 +55,10 @@ public class JsonManagerWithConflictSafe extends JsonManager {
         this.compWithReloadFunc = compWithReloadFunc;
         if (this.jsonObject != null) {
             initializeMetadata();
-            compWithReloadFunc.actionAfterSuccessfullyOpeningJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterSuccessfullyOpeningJson(this));
         } else {
             logLastLoadError("open");
-            compWithReloadFunc.actionAfterFailingToOpenJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterFailingToOpenJson(this));
         }
     }
 
@@ -67,15 +67,15 @@ public class JsonManagerWithConflictSafe extends JsonManager {
         this.jsonObject = loadJsonObject(this.jsonFile);
         if (this.jsonObject != null) {
             initializeMetadata();
-            compWithReloadFunc.actionAfterSuccessfullyOpeningJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterSuccessfullyOpeningJson(this));
         } else {
             logLastLoadError("open");
-            compWithReloadFunc.actionAfterFailingToOpenJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterFailingToOpenJson(this));
         }
     }
 
     private void showError(String msg) {
-        JOptionPane.showMessageDialog(compWithReloadFunc.getFrame(), msg, "Error", JOptionPane.ERROR_MESSAGE);
+        runOnEdt(() -> JOptionPane.showMessageDialog(compWithReloadFunc.getFrame(), msg, "Error", JOptionPane.ERROR_MESSAGE));
     }
 
     private void initializeMetadata() {
@@ -90,7 +90,7 @@ public class JsonManagerWithConflictSafe extends JsonManager {
     public boolean doSave(boolean forceOverwrite) {
         if (jsonFile == null) {
             System.err.println("jsonFile is null.");
-            compWithReloadFunc.actionAfterFailingToSaveJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterFailingToSaveJson(this));
             return false;
         }
 
@@ -98,25 +98,25 @@ public class JsonManagerWithConflictSafe extends JsonManager {
             if (!forceOverwrite && hasConflict()) {
                 //return handleConflict();
                 if (handleConflict()) {
-                    compWithReloadFunc.actionAfterSuccessfullySavingJson(this);
+                    runOnEdt(() -> compWithReloadFunc.actionAfterSuccessfullySavingJson(this));
                     return true;
                 } else {
-                    compWithReloadFunc.actionAfterFailingToSaveJson(this);
+                    runOnEdt(() -> compWithReloadFunc.actionAfterFailingToSaveJson(this));
                     return false;
                 }
 
             }
             //return saveAndUpdateMetadata();
             if (saveAndUpdateMetadata()) {
-                compWithReloadFunc.actionAfterSuccessfullySavingJson(this);
+                runOnEdt(() -> compWithReloadFunc.actionAfterSuccessfullySavingJson(this));
                 return true;
             } else {
-                compWithReloadFunc.actionAfterFailingToSaveJson(this);
+                runOnEdt(() -> compWithReloadFunc.actionAfterFailingToSaveJson(this));
                 return false;
             }
         } catch (IOException ex) {
             showError("Save failed: " + ex.getMessage());
-            compWithReloadFunc.actionAfterFailingToSaveJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterFailingToSaveJson(this));
             return false;
         }
     }
@@ -180,18 +180,18 @@ public class JsonManagerWithConflictSafe extends JsonManager {
 
     public boolean reloadFromDisk() {
         if (this.jsonFile == null) {
-            compWithReloadFunc.actionAfterFailingToReloadJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterFailingToReloadJson(this));
             return false;
         }
 
         this.jsonObject = loadJsonObject(this.jsonFile);
         if (this.jsonObject != null) {
             initializeMetadata();
-            compWithReloadFunc.actionAfterSuccessfullyReloadingJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterSuccessfullyReloadingJson(this));
             return true;
         } else {
             logLastLoadError("reload");
-            compWithReloadFunc.actionAfterFailingToReloadJson(this);
+            runOnEdt(() -> compWithReloadFunc.actionAfterFailingToReloadJson(this));
             return false;
         }
     }
@@ -203,9 +203,23 @@ public class JsonManagerWithConflictSafe extends JsonManager {
                 "  ディスク上更新時刻: " + formatTimeInJST(diskMtime) + "\n" +
                 "  どうしますか？";
         String[] options = {"キャンセル", "上書き", "リロード", "別名保存"};
-        return JOptionPane.showOptionDialog(compWithReloadFunc.getFrame(), msg, "競合の検出",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                null, options, options[0]);
+        if (SwingUtilities.isEventDispatchThread()) {
+            return JOptionPane.showOptionDialog(compWithReloadFunc.getFrame(), msg, "競合の検出",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]);
+        }
+
+        final int[] result = new int[]{-1};
+        try {
+            SwingUtilities.invokeAndWait(() -> result[0] = JOptionPane.showOptionDialog(
+                    compWithReloadFunc.getFrame(), msg, "競合の検出",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return result[0];
     }
 
     public long getLastModifiedTime() {
@@ -255,6 +269,34 @@ public class JsonManagerWithConflictSafe extends JsonManager {
 
     public void showLoadedContent() {
         SwingUtilities.invokeLater(() -> compWithReloadFunc.getFrame().setVisible(true));
+    }
+
+    public void doSaveAsync(boolean forceOverwrite) {
+        doSaveAsync(forceOverwrite, null);
+    }
+
+    public void doSaveAsync(boolean forceOverwrite, Runnable beforeSave) {
+        Thread worker = new Thread(() -> {
+            try {
+                if (beforeSave != null) {
+                    beforeSave.run();
+                }
+                doSave(forceOverwrite);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                runOnEdt(() -> compWithReloadFunc.actionAfterFailingToSaveJson(this));
+            }
+        }, "JsonSaveWorker");
+        worker.setDaemon(true);
+        worker.start();
+    }
+
+    private void runOnEdt(Runnable task) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            task.run();
+        } else {
+            SwingUtilities.invokeLater(task);
+        }
     }
 
 }

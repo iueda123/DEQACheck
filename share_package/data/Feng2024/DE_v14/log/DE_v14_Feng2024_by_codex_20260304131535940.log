@@ -1,0 +1,520 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Feng2024_by_codex_20260304131535940.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131535940/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb70e-fe86-7361-ba41-8dd094e5b962
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Feng2024_by_codex_20260304131535940.json へ書き込んでください。
+mcp startup: no servers
+2026-03-04T04:15:41.722328Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131535940 succeeded in 18ms:
+DE_Guide_v14.md
+DE_v14_Feng2024_by_codex_20260304131535940.json
+DE_v14_Feng2024_by_codex_20260304131535940.log
+study_1
+
+thinking
+**Requesting guide details**
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041315359402026-03-04T04:15:45.774600Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Inspecting study_1 paper info**
+2026-03-04T04:15:48.476274Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131535940 succeeded in 18ms:
+Feng2024.pdf.md
+Feng2024_artifacts
+
+thinking
+**Identifying target file**
+
+I recognized that the next step is to read the 'pdf.md' file to gather details for the task.
+exec
+/bin/bash -lc 'cat study_1/Feng2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041315359402026-03-04T04:15:52.295850Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+## Deep Normative Tractometry for Identifying Joint White Matter Macro- and Micro-structural Abnormalities in Alzheimer's Disease
+
+Yixue Feng ∗ , Bramsh Q. Chandio ∗ , Julio E. Villalon-Reina ∗ , Sebastian Benavidez ∗ , Tamoghna Chattopadhyay ∗ , Sasha Chehrzadeh ∗ , Emily Laltoo ∗ , Sophia I. Thomopoulos ∗ , Himanshu Joshi † , † † ∗ ∗
+
+Ganesan Venkatasubramanian , John P. John , Neda Jahanshad , and Paul M. Thompson
+
+Email: yixuefen, pthomp@usc.edu; jpj, gvs@nimhans.ac.in
+
+∗ Imaging Genetics Center, Mark and Mary Stevens Neuroimaging and Informatics Institute, Keck School of Medicine,
+
+University of Southern California, Marina del Rey, CA, United States
+
+† Multimodal Brain Image Analysis Laboratory, Translational Psychiatry Laboratory,
+
+National Institute of Mental Health and Neuro Sciences (NIMHANS), Bengaluru, Karnataka, India
+
+Abstract -This study introduces the Deep Normative Tractometry (DNT) framework, that encodes the joint distribution of both macrostructural and microstructural profiles of the brain white matter tracts through a variational autoencoder (VAE). By training on data from healthy controls, DNT learns the normative distribution of tract data, and can delineate along-tract microand macro-structural abnormalities. Leveraging a large sample size via generative pre-training, we assess DNT's generalizability using transfer learning on data from an independent cohort acquired in India. Our findings demonstrate DNT's capacity to detect widespread diffusivity abnormalities along tracts in mild cognitive impairment and Alzheimer's disease, aligning closely with results from the Bundle Analytics (BUAN) tractometry pipeline. By incorporating tract geometry information, DNT may be able to distinguish disease-related abnormalities in anisotropy from tract macrostructure, and shows promise in enhancing fine-scale mapping and detection of white matter alterations in neurodegenerative conditions.
+
+Index Terms -tractometry, normative modeling, deep generative model, tractography, diffusion MRI
+
+
+
+thinking
+**Clarifying clinical cohort details**
+
+Confirmed the normative model is trained on CN and applied to MCI and AD disorders from the NIMHANS dataset; however, age and sex details by diagnosis are not provided, so these will be marked as "NR" while providing cohort counts and dataset citations.
+thinking
+**Preparing JSON output with disorder details**
+
+I'm consolidating JSON entries for MCI and AD disorders, citing the NIMHANS cohort and noting age/sex as not reported by diagnosis but available overall in the table.
+2026-03-04T04:16:08.560016Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Feng2024_by_codex_20260304131535940.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131535940 succeeded in 18ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Preparing dataset details for disorders**
+
+I'm drafting data entries for mild cognitive impairment and Alzheimer's using the NIMHANS dataset, noting age/sex as not reported per diagnosis but only overall by scanner, citing the relevant table for clarity before applying the update.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Feng2024"
+   },
+@@ -7,28 +7,58 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort in the NIMHANS dataset; NM applied to MCI vs CN.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
++      },
++      "dataset-of-origin": {
++        "answer": ["NIMHANS"],
++        "detail": "NIMHANS cohort in India.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
++      },
++      "age": {
++        "answer": "NR",
++        "detail": "Age by diagnosis not reported; only overall/scanner-level ages are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
++      },
++      "sex": {
++        "answer": "NR",
++        "detail": "Sex by diagnosis not reported; only overall/scanner-level counts are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Clinical cohort in the NIMHANS dataset; NM applied to AD vs CN.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["NIMHANS"],
++        "detail": "NIMHANS cohort in India.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Age by diagnosis not reported; only overall/scanner-level ages are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Sex by diagnosis not reported; only overall/scanner-level counts are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
+       }
+2026-03-04T04:16:35.079805Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 6ms:
+Success. Updated the following files:
+M DE_v14_Feng2024_by_codex_20260304131535940.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json b/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..09e631da1f4e26d89419a9cbe02cad92984480c7
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
+@@ -1,36 +1,66 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Feng2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort in the NIMHANS dataset; NM applied to MCI vs CN.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
++      },
++      "dataset-of-origin": {
++        "answer": ["NIMHANS"],
++        "detail": "NIMHANS cohort in India.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
++      },
++      "age": {
++        "answer": "NR",
++        "detail": "Age by diagnosis not reported; only overall/scanner-level ages are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
++      },
++      "sex": {
++        "answer": "NR",
++        "detail": "Sex by diagnosis not reported; only overall/scanner-level counts are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Clinical cohort in the NIMHANS dataset; NM applied to AD vs CN.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["NIMHANS"],
++        "detail": "NIMHANS cohort in India.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Age by diagnosis not reported; only overall/scanner-level ages are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Sex by diagnosis not reported; only overall/scanner-level counts are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json b/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..09e631da1f4e26d89419a9cbe02cad92984480c7
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
+@@ -1,36 +1,66 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Feng2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort in the NIMHANS dataset; NM applied to MCI vs CN.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
++      },
++      "dataset-of-origin": {
++        "answer": ["NIMHANS"],
++        "detail": "NIMHANS cohort in India.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
++      },
++      "age": {
++        "answer": "NR",
++        "detail": "Age by diagnosis not reported; only overall/scanner-level ages are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
++      },
++      "sex": {
++        "answer": "NR",
++        "detail": "Sex by diagnosis not reported; only overall/scanner-level counts are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Clinical cohort in the NIMHANS dataset; NM applied to AD vs CN.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["NIMHANS"],
++        "detail": "NIMHANS cohort in India.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Age by diagnosis not reported; only overall/scanner-level ages are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Sex by diagnosis not reported; only overall/scanner-level counts are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
+       }
+     }
+   ]
+
+
+thinking
+**Summarizing final response**
+
+Preparing a concise summary referencing the relevant file and optionally suggesting next steps based on the gathered information.
+codex
+Filled in the clinical cohort extraction for MCI and AD from the NIMHANS cohort and set paper ID. Wrote results to `DE_v14_Feng2024_by_codex_20260304131535940.json`.  
+
+If you want, I can also add a brief note about the total cohort age/sex being overall only in a separate field, but the current entries follow the guide strictly.
+2026-03-04T04:16:38.554410Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json b/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..09e631da1f4e26d89419a9cbe02cad92984480c7
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131535940/./DE_v14_Feng2024_by_codex_20260304131535940.json
+@@ -1,36 +1,66 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Feng2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort in the NIMHANS dataset; NM applied to MCI vs CN.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
++      },
++      "dataset-of-origin": {
++        "answer": ["NIMHANS"],
++        "detail": "NIMHANS cohort in India.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
++      },
++      "age": {
++        "answer": "NR",
++        "detail": "Age by diagnosis not reported; only overall/scanner-level ages are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
++      },
++      "sex": {
++        "answer": "NR",
++        "detail": "Sex by diagnosis not reported; only overall/scanner-level counts are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Clinical cohort in the NIMHANS dataset; NM applied to AD vs CN.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The dataset consists of neuroimaging data from 123 cognitively normal participants (CN), 89 diagnosed with mild cognitive impairment (MCI) and 90 with AD.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["NIMHANS"],
++        "detail": "NIMHANS cohort in India.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed 3T diffusion MRI (dMRI) data in a sample of 302 participants from two scanners from the NIMHANS (National Institute of Mental Health and Neuro Sciences) cohort (see Table I) in India.\"",
++        "location": "Feng2024.pdf.md: II. DATA"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Age by diagnosis not reported; only overall/scanner-level ages are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Sex by diagnosis not reported; only overall/scanner-level counts are provided.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"TABLE I NIMHANS DATASET DESCRIPTION, BY SCANNER.\"",
++        "location": "Feng2024.pdf.md: II. DATA / Table I"
+       }
+     }
+   ]
+
+tokens used
+23,191
+Filled in the clinical cohort extraction for MCI and AD from the NIMHANS cohort and set paper ID. Wrote results to `DE_v14_Feng2024_by_codex_20260304131535940.json`.  
+
+If you want, I can also add a brief note about the total cohort age/sex being overall only in a separate field, but the current entries follow the guide strictly.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

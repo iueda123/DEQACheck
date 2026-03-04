@@ -18,6 +18,8 @@ import java.util.ArrayList;
  */
 public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
 
+    private static final String MISSING_INDEX_PREFIX = Integer.MAX_VALUE + "/";
+
     private final ColorChangeableTextArea tArea_Answer = new ColorChangeableTextArea("");
     private final ColorChangeableTextArea tArea_Detail = new ColorChangeableTextArea("");
     private final ColorChangeableTextArea tArea_ConfidenceRating = new ColorChangeableTextArea("");
@@ -29,16 +31,27 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
     private boolean isObjectValue = false;
     /** Whether "reason" key is used instead of "detail" (QA_v9, DE_v10_1 style) */
     private boolean usesReasonKey = false;
+    private final String desiredDisorderName;
 
     public ComparisonColumnPane(
             String jsonFolderPathStr,
             String jsonName,
             String sectionName,
             String subSectionName) {
+        this(jsonFolderPathStr, jsonName, sectionName, subSectionName, null);
+    }
+
+    public ComparisonColumnPane(
+            String jsonFolderPathStr,
+            String jsonName,
+            String sectionName,
+            String subSectionName,
+            String desiredDisorderName) {
 
         super(jsonFolderPathStr, jsonName, sectionName, subSectionName);
 
         this.aiName = extractAiName(jsonName);
+        this.desiredDisorderName = desiredDisorderName;
 
         // Configure text areas
         configureTextArea(tArea_Answer);
@@ -158,28 +171,49 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
 
     @Override
     public void saveJson() {
-        // Determine if this is an object-value subsection
-        String answerPath = sectionName + "/" + subSectionName + "/answer";
-        String directPath = sectionName + "/" + subSectionName;
-
-        if (isObjectValue) {
-            // Save answer - may be JSON array/object or simple string
-            saveFieldValue(answerPath, tArea_Answer.getText());
-            // Save detail or reason
-            String detailKey = usesReasonKey ? "reason" : "detail";
-            jsonManager.setValue(sectionName + "/" + subSectionName + "/" + detailKey,
-                    tArea_Detail.getText());
-            jsonManager.setValue(sectionName + "/" + subSectionName + "/confidence_rating",
-                    tArea_ConfidenceRating.getText());
-            jsonManager.setValue(sectionName + "/" + subSectionName + "/supporting_text",
-                    tArea_SupportingText.getText());
-            jsonManager.setValue(sectionName + "/" + subSectionName + "/location",
-                    tArea_Location.getText());
-        } else {
-            // Simple string value
-            jsonManager.setValue(directPath, tArea_Answer.getText());
+        String effectiveSubSection = subSectionName;
+        if (isMissingDisorderSlot()) {
+            int createdIndex = ensureDisorderSlot();
+            if (createdIndex < 0) {
+                JOptionPane.showMessageDialog(
+                        SwingUtilities.getWindowAncestor(this),
+                        "disorder-name が未設定のため自動追加できませんでした。",
+                        "保存できません",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+            String fieldKey = extractFieldKey(subSectionName);
+            effectiveSubSection = createdIndex + "/" + fieldKey;
         }
-        jsonManager.doSave(false);
+
+        final boolean objectValue = isObjectValue;
+        final boolean reasonKey = usesReasonKey;
+        final String answerText = tArea_Answer.getText();
+        final String detailText = tArea_Detail.getText();
+        final String confidenceText = tArea_ConfidenceRating.getText();
+        final String supportingText = tArea_SupportingText.getText();
+        final String locationText = tArea_Location.getText();
+
+        // Determine if this is an object-value subsection
+        String answerPath = sectionName + "/" + effectiveSubSection + "/answer";
+        String directPath = sectionName + "/" + effectiveSubSection;
+
+        jsonManager.doSaveAsync(false, () -> {
+            if (objectValue) {
+                // Save answer - may be JSON array/object or simple string
+                saveFieldValue(answerPath, answerText);
+                // Save detail or reason
+                String detailKey = reasonKey ? "reason" : "detail";
+                jsonManager.setValue(sectionName + "/" + subSectionName + "/" + detailKey, detailText);
+                jsonManager.setValue(sectionName + "/" + subSectionName + "/confidence_rating", confidenceText);
+                jsonManager.setValue(sectionName + "/" + subSectionName + "/supporting_text", supportingText);
+                jsonManager.setValue(sectionName + "/" + subSectionName + "/location", locationText);
+            } else {
+                // Simple string value
+                jsonManager.setValue(directPath, answerText);
+            }
+        });
     }
 
     /**
@@ -261,7 +295,7 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
 
     @Override
     public Component getFrame() {
-        return null;
+        return SwingUtilities.getWindowAncestor(this);
     }
 
     @Override
@@ -347,5 +381,70 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
 
     public String getAiName() {
         return aiName;
+    }
+
+    private boolean isMissingDisorderSlot() {
+        return subSectionName != null && subSectionName.startsWith(MISSING_INDEX_PREFIX);
+    }
+
+    private String extractFieldKey(String subSectionPath) {
+        if (subSectionPath == null) return "";
+        int slash = subSectionPath.indexOf('/');
+        if (slash < 0 || slash == subSectionPath.length() - 1) return "";
+        return subSectionPath.substring(slash + 1);
+    }
+
+    private int ensureDisorderSlot() {
+        if (!"disorders".equals(sectionName)) {
+            return -1;
+        }
+        if (desiredDisorderName == null || desiredDisorderName.isBlank()) {
+            return -1;
+        }
+        com.google.gson.JsonObject root = jsonManager.getJsonObject();
+        if (root == null) {
+            return -1;
+        }
+        com.google.gson.JsonElement element = root.get(sectionName);
+        com.google.gson.JsonArray arr;
+        if (element == null || !element.isJsonArray()) {
+            arr = new com.google.gson.JsonArray();
+            root.add(sectionName, arr);
+        } else {
+            arr = element.getAsJsonArray();
+        }
+
+        for (int i = 0; i < arr.size(); i++) {
+            com.google.gson.JsonElement e = arr.get(i);
+            if (e != null && e.isJsonObject()) {
+                String name = readDisorderName(e.getAsJsonObject());
+                if (desiredDisorderName.equals(name)) {
+                    return i;
+                }
+            }
+        }
+
+        com.google.gson.JsonObject disorder = new com.google.gson.JsonObject();
+        com.google.gson.JsonObject nameObj = new com.google.gson.JsonObject();
+        nameObj.addProperty("answer", desiredDisorderName);
+        disorder.add("disorder-name", nameObj);
+        arr.add(disorder);
+        return arr.size() - 1;
+    }
+
+    private String readDisorderName(com.google.gson.JsonObject disorder) {
+        if (disorder == null) return null;
+        com.google.gson.JsonElement nameEl = disorder.get("disorder-name");
+        if (nameEl == null || nameEl.isJsonNull()) return null;
+        if (nameEl.isJsonPrimitive()) {
+            return nameEl.getAsString();
+        }
+        if (nameEl.isJsonObject()) {
+            com.google.gson.JsonElement ans = nameEl.getAsJsonObject().get("answer");
+            if (ans != null && ans.isJsonPrimitive()) {
+                return ans.getAsString();
+            }
+        }
+        return null;
     }
 }

@@ -1,0 +1,290 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Georgiadis2024_by_codex_20260304133007934.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133007934/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb71c-4cb1-7cc1-8d74-f4fa54bae485
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Georgiadis2024_by_codex_20260304133007934.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Opening guide file**
+2026-03-04T04:30:13.345778Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133007934 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Georgiadis2024_by_codex_20260304133007934.json
+DE_v14_Georgiadis2024_by_codex_20260304133007934.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041330079342026-03-04T04:30:16.187284Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Identifying study list source**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133007934/study_12026-03-04T04:30:19.063551Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+Georgiadis2024.pdf.md
+exec
+/bin/bash -lc 'rg -n "normative|clinical|patient|cohort|schiz|psych|bipolar|depress|MDD|ADHD|autism|ASD|epilepsy|dementia|MCI" Georgiadis2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133007934/study_12026-03-04T04:30:23.017800Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+5:## Detecting  accelerated  retinal  decline  in  mental  disorders through normative modeling
+29:Objective: Several studies have found thinner retinal tissue in mental disorders compared to healthy controls. Because the retina is part of the human brain, this suggests that informative brain structure readouts can be obtained efficiently through retinal imaging. Instead of focusing on group-level case-control differences, we used normative modeling to estimate age-related decline of the human retina (and its expected variation) and compared it to the decline seen in schizophrenia (SZ), bipolar disorder (BD), and major depression (MDD). We hypothesized accelerated  retinal  decline  in  mental  disorders  compared  to  controls,  with  SZ  being  most affected, followed by BD, then MDD. Methods: Using UK Biobank data, we estimated agerelated  retinal  decline  in  healthy  controls  (HC,  N  =  56,545)  for  total  macular  thickness (including coronal subfields) and two sublayers (retinal nerve fiber layer; RNFL; and ganglion cell-inner plexiform layer; GC-IPL). We then compared the decline in SZ (N = 171), BD (N = 256), and MDD (N = 102) to the normative decline in HC. Results: For HC, the pattern of agerelated decline for total macular thickness, RNFL, and GC-IPL was curve-like rather than linear and more pronounced in males compared to females. For mental disorders, the decline-pattern was generally faster, driven by SZ and disorder-specific macular subfields. There was also an enrichment  of  individuals  with  extremely  low  (infranormal)  values.  These  results  were confirmed  in  robustness  checks  that  ruled  out  unspecific  confounders. Conclusion: These findings suggest that mental disorders, particularly SZ, involve accelerated neurodegenerative decline that can be detected in the human retina.
+33:The human retina is an extension of brain tissue that directly connects with the outside world 1 and as such can be non-invasively imaged to provide structural readouts of the central nervous system. Mirroring deficits found in central gray  matter 2-6 the  retina  has  been  found  to  be thinner  compared  to  healthy  controls  in  neurologic 7-9 and  psychiatric  disorders,  including schizophrenia  (SZ),  bipolar  disorder  (BD)  and  major  depression (MDD) 10-19 .  Yet  previous studies  have  mostly  focused  on  group-level  case-control  differences  which  may  mask  the biological  heterogeneity  often  seen  in  mental  disorders  and  even  healthy  controls 20,21 For example, just as the brain 22 , the retina shows marked variability associated with age and sex already in the healthy population 23,24 . When this healthy (or normative) variability is estimated with reasonable precision, charts of normative variability, akin to growth charts known from pediatrics, can be obtained through which individual disease cases can be compared to the expected  normative  variability.  In  other  words,  this  approach,  also  known  as  normative modeling 22,25-28 ,  is  well-suited  to  provide  a  more  personalized  and  dimensionally  accurate view of mental disorders 26,28-30 . Accordingly, normative modeling has been used to quantify normative  and  disease-related  variability  as  well  as  accelerated  brain-aging  in  large-scale structural MRI studies 31-34 .
+35:Here, we estimated such normative variability for the macular region, the area with the highest density of neurons in the retina 1 , using the largest OCT sample of healthy control individuals to date (N = 56,545) from the UK Biobank. Our aim was to quantify the expected macular thickness decline 23 for the typical UK Biobank age-range (i.e., mid to late age), including its coronal subfields and two of its cellular sublayers, the retinal nerve fiber layer (RNFL) and the ganglion cell-inner plexiform layer (GC-IPL). Equipped with such normative retinal decline charts, we then located each of N = 538 individuals who were diagnosed with one of three major mental disorders (SZ, N = 171; BD, N = 265; and MDD, N = 102) in these charts, and measured their respective deviation from the norm. We hypothesized that age-related retinal decline would be more pronounced in mental disorders, with a gradient from SZ to BD to MDD 19 .
+45:and exclusion criteria and quality control metrics have been previously described 35 .  Briefly, optical coherence tomography images were acquired using a spectral domain optical coherence tomography  device,  with  a  raster  scan  protocol  of  6×6mm  area  centered  on  the  fovea, consisting  of  128  B-scans  each  with  512  A-scans,  completed  in  3.7  seconds.  Automated analysis  of  retinal  thickness  was  performed  using  custom  software  developed  by  Topcon Advanced Biomedical Imaging Laboratory, which used dual-scale gradient information for rapid segmentation of nine intraretinal boundaries, processing the images in approximately 120 seconds each. Here, we focused on retinal measurements of total macular thickness (Figure 1B),  including  the  segregated  macular  subfields  in  the  coronal  plane,  as  well  as  macular sublayers; the retinal nerve fiber layer (RNFL, Figure 1B) and ganglion cell-inner plexiform layer (GC-IPL, Figure 1B). To estimate normative retinal decline, we used these measurements from N = 56,545 healthy individuals from the UK Biobank who had complete OCT imaging data for  all  retinal  metrics  (54.8%  female;  see Table 1 for demographics), including image quality  control  measurements  (data  fields  28552,  28553:  OCT  image  quality)  and  without diagnosed  eye  disorders  (data  field  6148).  To  relate  disease-related  retinal  decline  to  the normative decline (Figure 1C), we then included N = 538 separate individuals from the UK Biobank with a mental disorder (Table 1), including SZ (N = 171), BD (N = 265), and MDD (N  =  102),  according  to  ICD-10  primary  or  secondary  diagnoses  (F20,  F31  and  F33 respectively).  As  a  robustness  check,  and  because  of  the  high  prevalence  of  depressive symptoms in the UK Biobank, we subsequently also included individuals with a history of depressive symptoms, based on self-report of ever having experienced depressive symptoms for more than a week (Code 100349, see Supplementary Results).
+51:as  outliers.  Lastly,  to  exclude  the  possibility  that  increased  variability  of  patients'  retinal measurements  (as  compared  to  controls)  would  result  in  an  overrepresentation  and  thus exclusion of 'false-positive' outliers in the patient group, an enrichment analysis (using chisquared statistics) of outlier data points in each group (HC, MDD, BD, SZ) was performed which was non-significant for differences in outlier observation rate (all χ2 &lt; 1.86, all p&gt; 0.17). Hence, we did not find evidence that the four groups differed significantly in the proportion of outliers per group.
+57:To model decline in macular thickness, its coronal subfields, as well as RNFL and GC-IPL, we used  GAMLSS  in  R 36 ,  a  flexible  statistical  framework  modeling  non-linear  relationships between predictors and outcomes. We built sex- and laterality-specific models for each metric similar  to  previous  work 22,30 .  For  all  downstream  analyses,  such  as  the  description  of  the normative curves, as well as the analyses on z-scores, z-scores from the left and right eye were averaged,  according  to  literature  standards 22,30,37 (Figure  2A).  To  ensure  robustness,  we repeated the comparison of each patient group to the norm with a mixed model accounting for repeated  measures  (Participant  ID  as  a  random  effect)  with  the  non-averaged  z-scores (Supplementary  Results).  Interaction  effects  of  laterality  with  age  and  sex  were  further explored in a separate mixed model analysis (Supplementary Results, Figure S2).
+61:To model the effects of age on retinal thickness, which are known to be non-linear 23,38 , we used fractional polynomials which have been shown to provide an accurate method to model nonlinear  effects 22,30 .  Image  quality  and  reported  ethnic  background  were  also  included  as covariates, since they have been shown  to influence retinal parameters 38 .  Although cardiovascular risk factors are also well known to have an effect on retinal thickness, most previous studies on retinal thickness deviations in patients with mental disorders did not have access to the phenotyping depth of the UKBB, and did not take them into account 10-19 Thus, we include cardiovascular  risk  factors  and  other  covariates  in  our  robustness  analysis  (see Supplementary Results), and not in our main analysis in order to be able to compare our main findings with the existing literature. Similar to previous work on retinal parameters in the UK Biobank 12 we considered the following variables as cardiovascular risk factors, including body
+71:To interpret the non-linear sex by age interaction patterns which can be observed from our normative  curves  (Figure  2A),  we  compared  the  right  and  left  tail  of  the  age  distribution (younger  than  45  and  older  than  65  years),  for  descriptive  purposes.  We  described  the normative curves of macular thickness, RNFL and GC-IPL by using the raw measurements (averaged left and right) as dependent variables, and age, sex and their interaction as predictors, while adjusting for ethnicity and image quality. In our Supplementary Results, we additionally explored laterality with a more complex mixed model with each individual's eyes as repeated measures (lmer in R 39 ) which measured interaction effects between the extremes of the age range (&lt;45 years and &gt;65 years), sex and laterality (see Supplementary results, Figure S3).
+75:Our normative models result in age-specific predictions for each retinal metric, adjusting for covariates.  Individual  deviation  scores  (z-scores)  from  these  normative  predictions  were subsequently computed for all individuals using the actual value and predicted μ and σ of the normal distribution for each data point ( pNO, qNO functions from gamlss in R). Subsequently, for  each  individual,  the  z-scores  for  left  and  right  eye  were  averaged  into  a  single  z-score,
+81:All  statistical  analyses  were  carried  out  with  the  R-software  version  4.3.0.  To  assess  the statistical  significance  of  differences  in  z-scores  ( Δ z)  between  patients  and  controls  and between diagnostic groups, we used linear models (lm) with the respective retinal thickness metric (macular thickness including subfields, RNFL, GC-IPL) deviations as the dependent variable and diagnostic group and sex as predictor variables. The alpha was set at 0.05. We report nominal p-values.
+85:In the framework of normative modeling, the interest is placed not only on the average z-score, but also on the extreme values of the distribution 31 . Therefore, based on the z-scores, for each of the HC, SZ, BP, MDD as well as the combined patient group, we estimated the percentage of  individuals  above  and  below  1.96  standard  deviations,  representing  extreme  values (infranormal and supranormal variability). To assess the statistical significance of difference in rate of occurrence (percentages) of extreme values in each of the groups, we used chi-squared tests.
+91:To  exclude  the  possibility  that  our  normative  model  was  overfitting  the  training  data,  we performed a permutation analysis. A random 80% sample of the HC population was chosen at each iteration to train the normative models for each metric. Thereafter, normative deviations were compared between the remaining 20% of the healthy control population and the patient population; this circumvents any influence of overfitting since the HC sample compared to the patients has not been used to train the model.
+93:## Agreement of normative modeling results with linear modeling
+95:We additionally confirmed our findings using a permutation approach with the simple linear model over 250 permutations (see Supplementary Results). Because of the large discrepancy in sample size we chose a random HC sample, ensuring a 3:1 HC to patient ratio (1614 HC: 538 patients), ensuring the same subsample of HC was used across the 3 metrics. We included
+101:## Description of normative decline
+103:As  seen  in  Figure  2A,  we  observed  age-related  thickness  decline  for  all  3  retinal  metrics (macular  thickness,  RNFL  and  GC-IPL),  with  female  individuals  qualitatively  showing  an attenuated  slope  compared  to  males  for  macular  thickness  and  GC-IPL,  but  not  RNFL.  In macular  thickness  and  GC-IPL  thickness,  higher  values  were  found,  on  average,  in  male individuals,  although  the  curves  seemed  to  converge  in  late  life,  as  a  consequence  of  the attenuated age-related thickness decline in female individuals described  above. In contrast, RNFL thickness was higher in female individuals across the lifespan. To quantify the non-linear interaction patterns described above, we compared the right and left tail of the age bins of our sample, i.e. individuals younger than 45 years and older than 65 years, as well as the interaction of age group with biological sex. More complex interaction effects between laterality, age and sex and were also explored with a linear mixed model and are detailed in the Supplement Results (see description of laterality effects in normative retinal trajectories).
+119:## Disease-related deviations from normative retinal decline
+123:As  shown  in  Figure  2B,  we  found  that  age-related  macular  decline  was  generally  more pronounced for mental disorders compared to the normative decline seen in controls, reflected by significantly negative deviations from the norm on average for macular thickness (z = -0.29, CI = [-0.35, 0.22], P &lt; 0.0001) . Sex-specific differences in these retinal thickness deviations did not reach statistical significance (all P &gt; 0.3). The negative macular thickness deviations were driven by SZ (z = -0.47, CI = [-0.59, -0 .35], P &lt; 0.0001) and BD (z = -0.23, CI = [-0.33, -0.14], P &lt; 0.0001), with a significant group difference between the two (Δ z = 0.24, CI = [0.14, 0.33], P = 0.0001).
+125:To investigate macular effects in more detail, we also looked at macular subfields (Figure 3A). Across mental disorders, we found that the age-related decline was generally more pronounced for the inner compared to the central ( Δ zavg = -0.13, CI = [-0.06, -0.19], P = 0.0005; Figure 3B) and outer subfields ( Δ zavg = -0.08, CI = [-0.02, -0.14], P = 0.01; Figure 3B).  As shown in Figure 3C, disorder specific variability for SZ vs. BD was evident for the outer temporal subfield ( Δ z = -0.26, CI = [-0.41, -0.11], P = 0.0022) and the outer inferior subfield ( Δ z = -0.19, CI = [-0.35, -0.03], P = 0.0288); and for BD vs MDD for the inner inferior subfield ( Δ z = -0.21, CI = [0.38, -0.03], P = 0.0253), inner nasal subfield ( Δ z = -0.21, CI = [-0.39, -0.03], P = 0.0288), and inner temporal subfield ( Δ z = -0.19, CI = [-0.36, -0.01], P = 0.0384).
+
+thinking
+**Searching for clinical cohort demographics**
+2026-03-04T04:30:26.732282Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "rg -n \"Table 1|Table\\s+1|demographics|Age|Sex|female|male\" Georgiadis2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133007934/study_1 succeeded in 31ms:
+29:Objective: Several studies have found thinner retinal tissue in mental disorders compared to healthy controls. Because the retina is part of the human brain, this suggests that informative brain structure readouts can be obtained efficiently through retinal imaging. Instead of focusing on group-level case-control differences, we used normative modeling to estimate age-related decline of the human retina (and its expected variation) and compared it to the decline seen in schizophrenia (SZ), bipolar disorder (BD), and major depression (MDD). We hypothesized accelerated  retinal  decline  in  mental  disorders  compared  to  controls,  with  SZ  being  most affected, followed by BD, then MDD. Methods: Using UK Biobank data, we estimated agerelated  retinal  decline  in  healthy  controls  (HC,  N  =  56,545)  for  total  macular  thickness (including coronal subfields) and two sublayers (retinal nerve fiber layer; RNFL; and ganglion cell-inner plexiform layer; GC-IPL). We then compared the decline in SZ (N = 171), BD (N = 256), and MDD (N = 102) to the normative decline in HC. Results: For HC, the pattern of agerelated decline for total macular thickness, RNFL, and GC-IPL was curve-like rather than linear and more pronounced in males compared to females. For mental disorders, the decline-pattern was generally faster, driven by SZ and disorder-specific macular subfields. There was also an enrichment  of  individuals  with  extremely  low  (infranormal)  values.  These  results  were confirmed  in  robustness  checks  that  ruled  out  unspecific  confounders. Conclusion: These findings suggest that mental disorders, particularly SZ, involve accelerated neurodegenerative decline that can be detected in the human retina.
+45:and exclusion criteria and quality control metrics have been previously described 35 .  Briefly, optical coherence tomography images were acquired using a spectral domain optical coherence tomography  device,  with  a  raster  scan  protocol  of  6×6mm  area  centered  on  the  fovea, consisting  of  128  B-scans  each  with  512  A-scans,  completed  in  3.7  seconds.  Automated analysis  of  retinal  thickness  was  performed  using  custom  software  developed  by  Topcon Advanced Biomedical Imaging Laboratory, which used dual-scale gradient information for rapid segmentation of nine intraretinal boundaries, processing the images in approximately 120 seconds each. Here, we focused on retinal measurements of total macular thickness (Figure 1B),  including  the  segregated  macular  subfields  in  the  coronal  plane,  as  well  as  macular sublayers; the retinal nerve fiber layer (RNFL, Figure 1B) and ganglion cell-inner plexiform layer (GC-IPL, Figure 1B). To estimate normative retinal decline, we used these measurements from N = 56,545 healthy individuals from the UK Biobank who had complete OCT imaging data for  all  retinal  metrics  (54.8%  female;  see Table 1 for demographics), including image quality  control  measurements  (data  fields  28552,  28553:  OCT  image  quality)  and  without diagnosed  eye  disorders  (data  field  6148).  To  relate  disease-related  retinal  decline  to  the normative decline (Figure 1C), we then included N = 538 separate individuals from the UK Biobank with a mental disorder (Table 1), including SZ (N = 171), BD (N = 265), and MDD (N  =  102),  according  to  ICD-10  primary  or  secondary  diagnoses  (F20,  F31  and  F33 respectively).  As  a  robustness  check,  and  because  of  the  high  prevalence  of  depressive symptoms in the UK Biobank, we subsequently also included individuals with a history of depressive symptoms, based on self-report of ever having experienced depressive symptoms for more than a week (Code 100349, see Supplementary Results).
+103:As  seen  in  Figure  2A,  we  observed  age-related  thickness  decline  for  all  3  retinal  metrics (macular  thickness,  RNFL  and  GC-IPL),  with  female  individuals  qualitatively  showing  an attenuated  slope  compared  to  males  for  macular  thickness  and  GC-IPL,  but  not  RNFL.  In macular  thickness  and  GC-IPL  thickness,  higher  values  were  found,  on  average,  in  male individuals,  although  the  curves  seemed  to  converge  in  late  life,  as  a  consequence  of  the attenuated age-related thickness decline in female individuals described  above. In contrast, RNFL thickness was higher in female individuals across the lifespan. To quantify the non-linear interaction patterns described above, we compared the right and left tail of the age bins of our sample, i.e. individuals younger than 45 years and older than 65 years, as well as the interaction of age group with biological sex. More complex interaction effects between laterality, age and sex and were also explored with a linear mixed model and are detailed in the Supplement Results (see description of laterality effects in normative retinal trajectories).
+107:Compared to individuals younger than 45 years, the older age group's (65+ years) macula was on average 7.42 µm thinner (CI = [-8.11, 6.73] µm, p &lt; 0.001). Female individuals' macula was thinner compared to males, with an average difference of 3.65 µm (CI = [-4.36, -2.96] µm, p  &lt;  0.001).    The  interaction  effect between sex  and  age  group  was  significant  (estimate  = 2.69µm, CI = [1.75, 3.64] µm, p &lt; 0.001) and suggests that the reduction in macular thickness with  age  was  less  pronounced  in  females  with  female  individuals  in  the  older  age  group experienced a 2.69µm smaller reduction compared to males of the same age.
+111:The older age group demonstrated lower values, with an average of 1.27 µm in RNFL thickness compared to the younger age group (CI = [-1.51, 1.04] µm, p &lt; 0.001). Female individuals
+113:showed thicker RNFL compared to males, with an average difference of 0.75 µm (CI = [0.50, 1.01] µm, p &lt; 0.001). The interaction between sex and age group was non-significant (estimate = -0.25 µm, CI = [-0.58, 0.08] µm, p = 0.143), indicating that the age-related RNFL decline did not differ significantly between males and females.
+117:The older age group showed lower values, with an average difference of 3.65 µm compared to the younger group (CI = [-4.12, 3.19] µm, p &lt; 0.001). Female individuals had lower values compared to males, with an average difference of 1.10 µm (CI = [-1.38, 0.83] µm, p &lt; 0.001). Additionally, a significant interaction between sex and age group was found, with females in the older age group showing on average 1.45 µm smaller values in GC-IPL thickness compared to males in the same group (CI = [1.04, 1.87] µm, p &lt; 0.001), suggesting an attenuated age -related decline in GC-IPL thickness for females.
+123:As  shown  in  Figure  2B,  we  found  that  age-related  macular  decline  was  generally  more pronounced for mental disorders compared to the normative decline seen in controls, reflected by significantly negative deviations from the norm on average for macular thickness (z = -0.29, CI = [-0.35, 0.22], P &lt; 0.0001) . Sex-specific differences in these retinal thickness deviations did not reach statistical significance (all P &gt; 0.3). The negative macular thickness deviations were driven by SZ (z = -0.47, CI = [-0.59, -0 .35], P &lt; 0.0001) and BD (z = -0.23, CI = [-0.33, -0.14], P &lt; 0.0001), with a significant group difference between the two (Δ z = 0.24, CI = [0.14, 0.33], P = 0.0001).
+129:Age-related macular decline was also more pronounced across mental disorders for GC-IPL (z = -0.18, CI = [-0.25, 0.11], P &lt; 0.0001) , and again driven by SZ (z = -0.24, CI = [-0.36, -0.12], P = 0.001) and BD (z = -0.16, CI = [-0.26, -0.06], P = 0.004), with no significant difference between these two groups.
+153:Based on largescale data from 56,545 healthy UK Biobank individuals, this study provided a benchmark for comparing mental disorder-specific retinal decline to the normative age-related decline that one would expect in a healthy population. To this end, we estimated normative decline over the mid to late life span for several retinal parameters and showed that the retina declines curve-like and less pronounced in females compared to males. In a second step, we then used these retinal decline benchmarks for a comparison with the retinal decline seen in three major mental disorders (SZ, BD and MDD). We found that mental disorders generally deviated negatively from the norm, in line with the idea of an accelerated neuronal decline that is evident event in the most outward facing part of the central nervous system, which is the retina.
+155:Our findings provide notable evidence of why variability should already be considered for healthy reference populations. The interactions of sex with age-related decline that we have found are a good example. As we've shown, while male individuals had higher macular and GC-IPL  thickness  in  midlife,  they  demonstrated  a  steeper  age-related  thickness  decline compared to female individuals, leading to a convergence of thickness measurements in later life. In contrast, RNFL thickness was on average higher in female individuals across the entire mid- to late lifespan, with age-related reductions following a similar trajectory in both sexes. While sex differences in metrics of retinal thickness have been shown before 38,40,41 , here we show  that  macular  thickness  trajectories  across  the  lifespan  are  modulated  by  sex.  These findings  are  consistent  with  the  idea  that  neural  structures  of  the  retina  reflect  structural properties of the central nervous system. Indeed, while male individuals have been found to
+157:show higher absolute brain gray matter volumes in young and mid- adulthood, they also show a faster rate of decline 22,42 .  Notably, both the absolute and the rate of change differences of these  gray  matter  changes  disappear  once  adjusting  for  total  brain  size 42 .  Similarly,  male individuals  have  higher  axials  lengths  on  average  which  could  explain  the  differences  we observe here since axial length has a known effect on retinal thickness measures 41 .
+218:24. Nunes A, Serranho P, Quental H, et al. Sexual dimorphism of the adult human retina assessed by optical coherence tomography. Health Technol (Berl) 2020; 10: 913-924.
+238:41. Roy A. Variation of Axial Ocular Dimensions with Age, Sex, Height, BMI -and Their Relation to Refractive Status. JOURNAL  OF  CLINICAL  AND  DIAGNOSTIC RESEARCH . 2015. DOI: 10.7860/jcdr/2015/10555.5445.
+251:Table 1. Sample characteristics
+258:| Age                                                 |                          | 56545 | 56.26   (8.13)        | 102  | 54.80   (8.28)        | 265  | 54.83   (8.28)        | 171  | 54.88   (8.70)        |
+259:| Sex:                                                | Male                     | 25574 | 45.23                 | 30   | 29.41                 | 104  | 39.25                 | 100  | 58.48                 |
+260:|                                                     | Female                   | 30971 | 54.77                 | 72   | 70.59                 | 161  | 60.75                 | 71   | 41.52                 |
+292:Figure 1. A. The UK Biobank has collected and standardized OCT measurements of more than  50  000  individuals  providing  an  ideal  resource  for  modeling  the  trajectory  of    retinal thickness  across  the  mid-  to  late  lifespan,  as  well  as  its  variation;  among  the  participating individuals, a small subset have been diagnosed with psychiatric disorders B. Left:  Sagittal  cross-section  of  the  eye  showing  the  localization  of  the  lens  and  retina, including a magnification of the macula. In this study, we examine total macular thickness (macular thickness) as a single measurement, as well as segregated coronal subfields (see also Figure 3A); Right: schematic illustrations of the synaptic and cellular sublayers of the macula; in this study we also examine two outermost sublayers, namely the retinal nerve fiber layer (RNFL) and the combined ganglion cell and inner plexiform layers (GC-IPL). C. Normative curves of macular thickness across the mid- to late lifespan for female (red) and male  (blue)  individuals;  solid  lines  represent  the  normative  median  (50 th centile),  whereas dotted lines represent the 2.5 th (above) and 97.5 th (below) normative centiles. The individuals of the UK Biobank without ocular morbidities or a mental disorder diagnosis were used to develop normative models of retinal thickness (macular thickness, its coronal subfields, as well as the outermost sublayers: RNFL and GC-IPL). D. In a second step, patients with a diagnosis of SZ, BD or MDD were compared to their age- and sex-matched population norm, based on the  normative  curves;  deviations  from  the  age-adjusted  normative  values  (solid  lines)  are quantified as z-scores, which are interpreted as the number of SDs each individual deviates from the norm. In a normal distribution, 95% of the population, have values between the 2.5 th and 97.5 th centile, or 1.96 SDs away from the norm. A z-score greater than 1.96 (in absolute value) is classified as an 'extreme' deviation
+296:Figure 2. A. Normative age curves, estimated for healthy control females (red) and males (blue) and averaged across the left and right eye for macular thickness, retinal nerve fiber layer (RNFL) thickness and ganglion cell-inner plexiform layer (GC-IPL) thickness. The patient data points (raw values) are plotted on top of the normative curves. The normative mean for healthy females and males is shown in solid red and blue lines, respectively, with the extreme value boundaries (mean and 1.96 SD) indicated by dotted lines of the corresponding color. To enable a bivariate visualization, estimation of the mean (solid lines) and SD (dotted lines) of the HC assumed the mode and median values for ethnic background and image quality respectively B. Sex-stratified  average  deviations  from  the  normative  mean  (z-score  =  0),  with  error  bars indicating 95% confidence intervals, for macular thickness, retinal nerve fiber layer thickness, and ganglion cell-inner plexiform layer thickness, for the combined transdiagnostic sample and for schizophrenia (SZ), bipolar disorder (BD), and major depressive disorder (MD) as separate groups.  Error  bars  not  touching  the  zero  line  indicate  an  average  group  z-score  that  is significantly different from zero.
+
+thinking
+**Reviewing demographics in Table 1**
+
+I'm checking Table 1 lines to extract full demographic details like age and sex for SZ, BD, and MDD groups. Next, I'll locate and capture the complete table for precise data.
+exec
+/bin/bash -lc "sed -n '240,270p' Georgiadis2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133007934/study_12026-03-04T04:30:29.881408Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+43. Curcio CA, Allen KA. Topography of Ganglion Cells i n HumanRetina . 1990.
+44. Smeland OB, Bahrami S, Frei O, et al. Genome-wide analysis reveals extensive genetic overlap between schizophrenia, bipolar disorder, and intelligence. Molecular Psychiatry 2019 25:4 2019; 25: 844-853.
+45. Ivleva EI, Clementz BA, Dutcher AM, et al. Brain Structure Biomarkers in the Psychosis Biotypes: Findings From the Bipolar-Schizophrenia Network for Intermediate Phenotypes. Biol Psychiatry 2017; 82: 26-39.
+46. Pearlson GD. Etiologic, Phenomenologic, and Endophenotypic Overlap of Schizophrenia and Bipolar Disorder. http://dx.doi.org/101146/annurev-clinpsy-032814112915 2015; 11: 251-281.
+47. Patel Y,  Parker  N,  Shin  J,  et  al. Virtual  Histology  of  Cortical Thickness  and  Shared Neurobiology in 6 Psychiatric Disorders. JAMA Psychiatry 2021; 78: 47-63.
+48. Anttila  V ,  Bulik-Sullivan  B,  Finucane  HK,  et  al.  Analysis  of  shared  heritability  in common disorders of the brain. Science ; 360. 6 June 2018. DOI: 10.1126/SCIENCE.AAP8757.
+
+It is made available under a CC-BY-NC-ND 4.0 International license . perpetuity. is the author/funder, who has granted medRxiv a license to display the preprint in (which was not certified by peer review) preprint medRxiv preprint doi: https://doi.org/10.1101/2024.06.11.24308654; this version posted November 7, 2024. The copyright holder for this
+
+49. Boudriot E, Gabriel V, Popovic D, et al. Signature of altered retinal microstructures and electrophysiology  in  schizophrenia  spectrum  disorders  is  associated  with  disease severity and polygenic risk. Biol Psychiatry . 27 April 2024. DOI: 10.1016/J.BIOPSYCH.2024.04.014.
+
+Table 1. Sample characteristics
+
+![Image](./Georgiadis2024_artifacts/image_000000_8f3c6e41127b34903f5c7c28806c38b7f78815c104a8786bc8e68b18dad7a862.png)
+
+| Variable                                            |                          | HC    |                       | MD   |                       | BD   |                       | SZ   |                       |
+|-----------------------------------------------------|--------------------------|-------|-----------------------|------|-----------------------|------|-----------------------|------|-----------------------|
+|                                                     |                          | N     | Mean (SD)/ Percentage | N    | Mean (SD)/ Percentage | N    | Mean (SD)/ Percentage | N    | Mean (SD)/ Percentage |
+| Age                                                 |                          | 56545 | 56.26   (8.13)        | 102  | 54.80   (8.28)        | 265  | 54.83   (8.28)        | 171  | 54.88   (8.70)        |
+| Sex:                                                | Male                     | 25574 | 45.23                 | 30   | 29.41                 | 104  | 39.25                 | 100  | 58.48                 |
+
+thinking
+**Confirming clinical cohort and data sources**
+
+I'm clarifying that the clinical cohort includes schizophrenia, bipolar disorder, and major depressive disorder (noted as MD in the table) from UK Biobank data; age stats use mean and SD only, and sex counts with provided percentages; I'll map disorders to D-1/2/3/4 with ICD codes and output detailed JSON using existing or placeholder files, referencing table 1 lines and file location for supporting text.
+exec
+/bin/bash -lc 'cat DE_v14_Georgiadis2024_by_codex_20260304133007934.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041330079342026-03-04T04:30:35.663988Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 16ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Structuring disorder entries with detailed metrics**
+
+I'm preparing three disorder entries (SCZ, BD, MDD) each with age as an object (unit, mean, sd, min/max as "NR") and sex as object (male/female counts and percentages rounded to one decimal). I'll source supporting text from specified table and methods lines, referencing ICD-10 codes and UK Biobank data accordingly.
+thinking
+**Choosing simple overwrite for JSON update**
+2026-03-04T04:31:24.106519Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "cat <<'EOF' > DE_v14_Georgiadis2024_by_codex_20260304133007934.json
+{
+  \"paper_id\": {
+    \"answer\": \"Georgiadis2024\"
+  },
+  \"disorders\": [
+    {
+      \"disorder-name\": {
+        \"answer\": \"SCZ\",
+        \"detail\": \"ICD-10 schizophrenia (F20) clinical cohort from UK Biobank.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"we then included N = 538 separate individuals from the UK Biobank with a mental disorder (Table 1), including SZ (N = 171), BD (N = 265), and MDD (N  =  102),  according  to  ICD-10  primary  or  secondary  diagnoses  (F20,  F31  and  F33 respectively).\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Methods / Participants\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"UK BIOBANK\"],
+        \"detail\": \"Clinical cohort drawn from UK Biobank.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"we then included N = 538 separate individuals from the UK Biobank with a mental disorder (Table 1), including SZ (N = 171), BD (N = 265), and MDD (N  =  102)\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Methods / Participants\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"min\": \"NR\", \"max\": \"NR\", \"mean\": 54.88, \"sd\": 8.70 },
+        \"detail\": \"Schizophrenia group age from Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Age                                                 |                          | 56545 | 56.26   (8.13)        | 102  | 54.80   (8.28)        | 265  | 54.83   (8.28)        | 171  | 54.88   (8.70)        |\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Table 1. Sample characteristics\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 100, \"male_pct\": 58.5, \"female_n\": 71, \"female_pct\": 41.5 },
+        \"detail\": \"Schizophrenia group sex counts and percentages from Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Sex:                                                | Male                     | 25574 | 45.23                 | 30   | 29.41                 | 104  | 39.25                 | 100  | 58.48                 |\\\"\\n\\\"                                                     | Female                   | 30971 | 54.77                 | 72   | 70.59                 | 161  | 60.75                 | 71   | 41.52                 |\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Table 1. Sample characteristics\"
+      }
+    },
+    {
+      \"disorder-name\": {
+        \"answer\": \"BD\",
+        \"detail\": \"ICD-10 bipolar disorder (F31) clinical cohort from UK Biobank.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"we then included N = 538 separate individuals from the UK Biobank with a mental disorder (Table 1), including SZ (N = 171), BD (N = 265), and MDD (N  =  102),  according  to  ICD-10  primary  or  secondary  diagnoses  (F20,  F31  and  F33 respectively).\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Methods / Participants\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"UK BIOBANK\"],
+        \"detail\": \"Clinical cohort drawn from UK Biobank.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"we then included N = 538 separate individuals from the UK Biobank with a mental disorder (Table 1), including SZ (N = 171), BD (N = 265), and MDD (N  =  102)\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Methods / Participants\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"min\": \"NR\", \"max\": \"NR\", \"mean\": 54.83, \"sd\": 8.28 },
+        \"detail\": \"Bipolar disorder group age from Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Age                                                 |                          | 56545 | 56.26   (8.13)        | 102  | 54.80   (8.28)        | 265  | 54.83   (8.28)        | 171  | 54.88   (8.70)        |\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Table 1. Sample characteristics\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 104, \"male_pct\": 39.3, \"female_n\": 161, \"female_pct\": 60.8 },
+        \"detail\": \"Bipolar disorder group sex counts and percentages from Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Sex:                                                | Male                     | 25574 | 45.23                 | 30   | 29.41                 | 104  | 39.25                 | 100  | 58.48                 |\\\"\\n\\\"                                                     | Female                   | 30971 | 54.77                 | 72   | 70.59                 | 161  | 60.75                 | 71   | 41.52                 |\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Table 1. Sample characteristics\"
+      }
+    },
+    {
+      \"disorder-name\": {
+        \"answer\": \"MDD\",
+        \"detail\": \"ICD-10 major depressive disorder (F33) clinical cohort from UK Biobank.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"we then included N = 538 separate individuals from the UK Biobank with a mental disorder (Table 1), including SZ (N = 171), BD (N = 265), and MDD (N  =  102),  according  to  ICD-10  primary  or  secondary  diagnoses  (F20,  F31  and  F33 respectively).\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Methods / Participants\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"UK BIOBANK\"],
+        \"detail\": \"Clinical cohort drawn from UK Biobank.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"we then included N = 538 separate individuals from the UK Biobank with a mental disorder (Table 1), including SZ (N = 171), BD (N = 265), and MDD (N  =  102)\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Methods / Participants\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"min\": \"NR\", \"max\": \"NR\", \"mean\": 54.80, \"sd\": 8.28 },
+        \"detail\": \"Major depressive disorder group age from Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Age                                                 |                          | 56545 | 56.26   (8.13)        | 102  | 54.80   (8.28)        | 265  | 54.83   (8.28)        | 171  | 54.88   (8.70)        |\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Table 1. Sample characteristics\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 30, \"male_pct\": 29.4, \"female_n\": 72, \"female_pct\": 70.6 },
+        \"detail\": \"Major depressive disorder group sex counts and percentages from Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Sex:                                                | Male                     | 25574 | 45.23                 | 30   | 29.41                 | 104  | 39.25                 | 100  | 58.48                 |\\\"\\n\\\"                                                     | Female                   | 30971 | 54.77                 | 72   | 70.59                 | 161  | 60.75                 | 71   | 41.52                 |\\\"\",
+        \"location\": \"Georgiadis2024.pdf.md: Table 1. Sample characteristics\"
+      }
+    }
+  ]
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304133007934 succeeded in 24ms:
+
+
+thinking
+**Confirming completion**
+codex
+Wrote the extracted clinical cohort info to `DE_v14_Georgiadis2024_by_codex_20260304133007934.json` based on `study_1/Georgiadis2024.pdf.md` (Table 1 + Methods). Let me know if you want any adjustments to confidence ratings or added computed fields.
+2026-03-04T04:31:27.005581Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+38,382
+Wrote the extracted clinical cohort info to `DE_v14_Georgiadis2024_by_codex_20260304133007934.json` based on `study_1/Georgiadis2024.pdf.md` (Table 1 + Methods). Let me know if you want any adjustments to confidence ratings or added computed fields.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

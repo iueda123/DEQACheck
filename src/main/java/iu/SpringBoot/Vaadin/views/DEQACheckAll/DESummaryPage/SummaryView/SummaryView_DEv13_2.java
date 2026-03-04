@@ -9,6 +9,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -53,6 +54,7 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
     private Div scrollWrapper;
     private ComboBox<String> sourceFilter;
     private ComboBox<String> columnCopySelect;
+    private Paragraph saveMessagePara;
 
     public SummaryView_DEv13_2() {
         getStyle().set("padding", "var(--lumo-space-m)");
@@ -166,9 +168,18 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
 
         add(controlLayout);
 
+        saveMessagePara = new Paragraph();
+        saveMessagePara.getStyle().set("color", "var(--lumo-success-color)");
+        saveMessagePara.getStyle().set("font-weight", "bold");
+        saveMessagePara.getStyle().set("margin", "0");
+        saveMessagePara.setVisible(false);
+        add(saveMessagePara);
+
         scrollWrapper = new Div();
         scrollWrapper.getStyle().set("max-height", "70vh");
         scrollWrapper.getStyle().set("overflow", "auto");
+        scrollWrapper.getStyle().set("width", "100%");
+        scrollWrapper.getStyle().set("max-width", "100%");
         scrollWrapper.getStyle().set("border", "1px solid var(--lumo-contrast-20pct)");
 
         applySourceFilter();
@@ -189,10 +200,12 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
             mergeModelSex(modelRows, root);
             mergeModelAge(modelRows, root);
 
+            String note = loadNote(authorYear);
             for (ModelRow row : modelRows.values()) {
                 row.authorYear = authorYear;
                 row.phase = phase;
                 row.source = source;
+                row.note = note;
                 rows.add(row);
             }
         } catch (IOException e) {
@@ -387,12 +400,12 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         scrollWrapper.getElement().removeAllChildren();
 
         Element table = new Element("table");
-        table.setAttribute("style", "border-collapse: collapse; width: 100%; font-size: var(--lumo-font-size-m);");
+        table.setAttribute("style", "border-collapse: collapse; width: max-content; min-width: 100%; font-size: var(--lumo-font-size-m);");
         table.setAttribute("class", "summary-table");
 
         Element thead = new Element("thead");
         Element trHead = new Element("tr");
-        appendHeaderCell(trHead, "AuthorYear");
+        appendFirstHeaderCell(trHead, "AuthorYear");
         appendHeaderCell(trHead, "ModelName");
         appendHeaderCell(trHead, "Phase");
         appendHeaderCell(trHead, "n");
@@ -404,6 +417,7 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         appendHeaderCell(trHead, "age_sd");
         appendHeaderCell(trHead, "age_min");
         appendHeaderCell(trHead, "age_max");
+        appendHeaderCell(trHead, "Note");
         thead.appendChild(trHead);
         table.appendChild(thead);
 
@@ -426,6 +440,7 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
             appendCell(tr, row.ageSd);
             appendCell(tr, row.ageMin);
             appendCell(tr, row.ageMax);
+            appendNoteCell(tr, row);
             tbody.appendChild(tr);
             even = !even;
         }
@@ -440,6 +455,13 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         tr.appendChild(th);
     }
 
+    private void appendFirstHeaderCell(Element tr, String text) {
+        Element th = new Element("th");
+        th.setAttribute("style", "position: sticky; top: 0; left: 0; z-index: 2; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-line;");
+        th.setText(text == null ? "" : text);
+        tr.appendChild(th);
+    }
+
     private void appendCell(Element tr, String text) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s); white-space: pre-wrap; word-break: break-word;");
@@ -449,7 +471,7 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
 
     private void appendLauncherCell(Element tr, String authorYear) {
         Element td = new Element("td");
-        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
+        td.setAttribute("style", "position: sticky; left: 0; z-index: 1; background: inherit; border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
 
         Button launcher = new Button(normalizeNewlines(authorYear));
         launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
@@ -464,6 +486,58 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
 
         td.appendChild(launcher.getElement());
         tr.appendChild(td);
+    }
+
+    private void appendNoteCell(Element tr, ModelRow row) {
+        Element td = new Element("td");
+        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s); min-width: 220px; vertical-align: top;");
+
+        TextArea textArea = new TextArea();
+        textArea.setValue(row.note != null ? row.note : "");
+        textArea.setWidth("200px");
+        textArea.getStyle().set("font-size", "var(--lumo-font-size-s)");
+
+        Button saveButton = new Button("保存", e -> {
+            String content = textArea.getValue();
+            Path notePath = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME,
+                    row.authorYear, "DE_v13", "note", "summary-view-5.txt");
+            try {
+                Files.createDirectories(notePath.getParent());
+                Files.writeString(notePath, content);
+                for (ModelRow r : rows) {
+                    if (r.authorYear.equals(row.authorYear)) {
+                        r.note = content;
+                    }
+                }
+                showSaveMessage("保存しました → " + notePath.toAbsolutePath());
+            } catch (IOException ex) {
+                showSaveMessage("保存に失敗しました: " + ex.getMessage());
+            }
+        });
+        saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SMALL);
+
+        td.appendChild(textArea.getElement());
+        td.appendChild(saveButton.getElement());
+        tr.appendChild(td);
+    }
+
+    private String loadNote(String authorYear) {
+        Path notePath = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME,
+                authorYear, "DE_v13", "note", "summary-view-5.txt");
+        if (Files.exists(notePath)) {
+            try {
+                return Files.readString(notePath);
+            } catch (IOException e) {
+                return "";
+            }
+        }
+        return "";
+    }
+
+    private void showSaveMessage(String message) {
+        saveMessagePara.setText(message);
+        saveMessagePara.setVisible(true);
+        saveMessagePara.getElement().executeJs("setTimeout(() => { this.style.display = 'none'; }, 10000)");
     }
 
     private String normalizeNewlines(String text) {
@@ -485,5 +559,6 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         String ageSd = "";
         String ageMin = "";
         String ageMax = "";
+        String note = "";
     }
 }

@@ -187,26 +187,34 @@ public class SideBySideComparisonHolderV14 extends AbstCHolderMember implements 
 
     private JPanel createDisordersPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout(0, 4));
-        int disorderCount = getMaxDisorderCount();
-        if (disorderCount <= 0) {
+
+        Map<File, Map<String, Integer>> indexMap = buildDisorderIndexMap();
+        List<String> disorderNames = getAllDisorderNamesOrdered(indexMap);
+
+        if (disorderNames.isEmpty()) {
             mainPanel.add(new JLabel("No disorders found."), BorderLayout.CENTER);
             return mainPanel;
         }
 
         JTabbedPane disorderTabPane = new JTabbedPane();
-        for (int i = 0; i < disorderCount; i++) {
-            String disorderLabel = "disorder-" + (i + 1);
-            String name = getDisorderNameFromAny(i);
-            if (name != null && !name.isEmpty()) {
-                disorderLabel = name + " (" + (i + 1) + ")";
+        for (int i = 0; i < disorderNames.size(); i++) {
+            String name = disorderNames.get(i);
+            String disorderLabel = name + " (" + (i + 1) + ")";
+
+            Map<File, Integer> perFileIndex = new LinkedHashMap<>();
+            for (File f : jsonFiles) {
+                Map<String, Integer> fileMap = indexMap.get(f);
+                if (fileMap != null && fileMap.containsKey(name)) {
+                    perFileIndex.put(f, fileMap.get(name));
+                }
             }
 
             JPanel disorderPanel = new JPanel(new BorderLayout(0, 4));
             JTabbedPane fieldTabs = new JTabbedPane();
-            fieldTabs.addTab("disorder-name", createFieldPanel(i, "disorder-name", "d-1"));
-            fieldTabs.addTab("dataset-of-origin", createFieldPanel(i, "dataset-of-origin", "d-2"));
-            fieldTabs.addTab("age", createFieldPanel(i, "age", "d-3"));
-            fieldTabs.addTab("sex", createFieldPanel(i, "sex", "d-4"));
+            fieldTabs.addTab("disorder-name",     createFieldPanel(perFileIndex, name, "disorder-name",     "d-1"));
+            fieldTabs.addTab("dataset-of-origin", createFieldPanel(perFileIndex, name, "dataset-of-origin", "d-2"));
+            fieldTabs.addTab("age",               createFieldPanel(perFileIndex, name, "age",               "d-3"));
+            fieldTabs.addTab("sex",               createFieldPanel(perFileIndex, name, "sex",               "d-4"));
 
             disorderPanel.add(fieldTabs, BorderLayout.CENTER);
             disorderTabPane.addTab(disorderLabel, disorderPanel);
@@ -216,21 +224,90 @@ public class SideBySideComparisonHolderV14 extends AbstCHolderMember implements 
         return mainPanel;
     }
 
-    private JPanel createFieldPanel(int disorderIndex, String fieldKey, String headingId) {
+    private String getDisorderNameAt(File jsonFile, int index) {
+        JsonElement el = getElementAtPath(jsonFile, SECTION_NAME + "/" + index + "/disorder-name/answer");
+        if (el != null && el.isJsonPrimitive()) {
+            String v = el.getAsString();
+            if (v != null && !v.isEmpty()) return v;
+        }
+        el = getElementAtPath(jsonFile, SECTION_NAME + "/" + index + "/disorder-name");
+        if (el != null && el.isJsonPrimitive()) {
+            String v = el.getAsString();
+            if (v != null && !v.isEmpty()) return v;
+        }
+        return null;
+    }
+
+    private Map<File, Map<String, Integer>> buildDisorderIndexMap() {
+        Map<File, Map<String, Integer>> result = new LinkedHashMap<>();
+        for (File jsonFile : jsonFiles) {
+            Map<String, Integer> nameToIndex = new LinkedHashMap<>();
+            JsonArray arr = getArrayAtPath(jsonFile, SECTION_NAME);
+            if (arr != null) {
+                for (int i = 0; i < arr.size(); i++) {
+                    String name = getDisorderNameAt(jsonFile, i);
+                    if (name != null && !name.isEmpty() && !nameToIndex.containsKey(name)) {
+                        nameToIndex.put(name, i);
+                    }
+                }
+            }
+            result.put(jsonFile, nameToIndex);
+        }
+        return result;
+    }
+
+    private List<String> getAllDisorderNamesOrdered(Map<File, Map<String, Integer>> indexMap) {
+        List<String> ordered = new ArrayList<>();
+        for (Map<String, Integer> nameToIndex : indexMap.values()) {
+            for (String name : nameToIndex.keySet()) {
+                if (!ordered.contains(name)) {
+                    ordered.add(name);
+                }
+            }
+        }
+        return ordered;
+    }
+
+    private JPanel createFieldPanel(Map<File, Integer> perFileIndex, String disorderName, String fieldKey, String headingId) {
         JPanel mainPanel = new JPanel(new BorderLayout(0, 4));
         String promptText = promptMap.get(headingId);
         if (promptText != null && !promptText.isEmpty()) {
             mainPanel.add(createPromptPane(promptText), BorderLayout.NORTH);
         }
 
-        String subSectionPath = disorderIndex + "/" + fieldKey;
-        JPanel columnsPanel = createColumnsPanelForPath(SECTION_NAME, subSectionPath, fieldKey, null);
+        JPanel columnsPanel = createColumnsPanelForDisorderField(perFileIndex, disorderName, fieldKey);
         JScrollPane columnsScrollPane = new JScrollPane(columnsPanel,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         columnsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         mainPanel.add(columnsScrollPane, BorderLayout.CENTER);
         return mainPanel;
+    }
+
+    private JPanel createColumnsPanelForDisorderField(Map<File, Integer> perFileIndex, String disorderName, String fieldKey) {
+        JPanel columnsPanel = new JPanel(new GridLayout(1, jsonFiles.length, 4, 0));
+
+        ManagerOfSubTabBasePane manager = new ManagerOfSubTabBasePane(
+                "RC", fieldKey, SECTION_NAME, fieldKey, sectionTabPane);
+        manager.registerSubTabsHolder(this);
+        allManagers.add(manager);
+
+        for (File jsonFile : jsonFiles) {
+            Integer idx = perFileIndex.get(jsonFile);
+            String subSectionPath = (idx != null)
+                    ? idx + "/" + fieldKey
+                    : Integer.MAX_VALUE + "/" + fieldKey;
+            ComparisonColumnPane columnPane = new ComparisonColumnPane(
+                    jsonFolderPathStr,
+                    jsonFile.getName(),
+                    SECTION_NAME,
+                    subSectionPath,
+                    disorderName);
+            manager.addToTheDePaneArray(columnPane);
+            columnsPanel.add(columnPane);
+        }
+
+        return columnsPanel;
     }
 
     private JPanel createPaperIdPanel() {
@@ -284,31 +361,6 @@ public class SideBySideComparisonHolderV14 extends AbstCHolderMember implements 
         }
 
         return columnsPanel;
-    }
-
-    private int getMaxDisorderCount() {
-        int max = 0;
-        for (File jsonFile : jsonFiles) {
-            JsonArray arr = getArrayAtPath(jsonFile, SECTION_NAME);
-            if (arr != null && arr.size() > max) {
-                max = arr.size();
-            }
-        }
-        return max;
-    }
-
-    private String getDisorderNameFromAny(int disorderIndex) {
-        for (File jsonFile : jsonFiles) {
-            JsonElement element = getElementAtPath(jsonFile,
-                    SECTION_NAME + "/" + disorderIndex + "/disorder-name/answer");
-            if (element != null && element.isJsonPrimitive()) {
-                String value = element.getAsString();
-                if (value != null && !value.isEmpty()) {
-                    return value;
-                }
-            }
-        }
-        return null;
     }
 
     private JsonArray getArrayAtPath(File jsonFile, String path) {

@@ -1,0 +1,689 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bhome2024_by_codex_20260304124631738.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304124631738/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb6f4-6130-7c73-8e9f-57df26b0ff4a
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bhome2024_by_codex_20260304124631738.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Loading README for context**
+2026-03-04T03:46:37.401157Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304124631738 succeeded in 21ms:
+DE_Guide_v14.md
+DE_v14_Bhome2024_by_codex_20260304124631738.json
+DE_v14_Bhome2024_by_codex_20260304124631738.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041246317382026-03-04T03:46:39.459721Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Listing paper files needed**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041246317382026-03-04T03:46:41.964330Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+DE_Guide_v14.md
+study_1/Bhome2024.pdf.md
+study_1/1-s2.0-S2213158224000354-mmc1.docx.md
+study_1/1-s2.0-S2213158224000354-mmc1.md
+DE_v14_Bhome2024_by_codex_20260304124631738.log
+DE_v14_Bhome2024_by_codex_20260304124631738.json
+
+thinking
+**Locating AGENTS.md for instructions**
+exec
+/bin/bash -lc "rg --files -g 'AGENTS.md'" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041246317382026-03-04T03:46:45.490502Z ERROR codex_core::codex: needs_follow_up: true
+ exited 1 in 21ms:
+
+
+thinking
+**Preparing to extract cohort info from PDF**
+exec
+/bin/bash -lc 'rg -n "clinical" -n study_1/Bhome2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041246317382026-03-04T03:46:49.250749Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+33:Introduction: Parkinson ' s disease (PD) and Dementia with Lewy bodies (DLB) show heterogeneous brain atrophy patterns which group-average analyses fail to capture. Neuroanatomical normative modelling overcomes this by comparing individuals to a large reference cohort. Patient-specific atrophy patterns are measured objectively and summarised to index overall neurodegeneration (the 'total outlier count ' ).  We aimed to quantify patterns of neurodegenerative dissimilarity in participants with PD and DLB and evaluate the potential clinical relevance of total outlier count by testing its association with key clinical measures in PD and DLB.
+39:Conclusions: Neuroanatomical normative modelling shows promise as a clinically informative technique in PD and DLB, where patterns of atrophy are variable.
+83:Clinical assessment, performed on the same day as the MRI scan, included  detailed  neuropsychology  and  disease-specific  measures  of clinical severity. For cognition, we used the Mini-Mental State Examination (MMSE) (Folstein et al., 1975), the Montreal Cognitive Assessment (MoCA) (Nasreddine et al., 2005), which is a widely-used measure of global cognitive function in PD (Dalrymple-Alford et al., 2010) and a composite cognitive score (Zarkali et al., 2021; Hannaway et al., 2023). This combines measures across five cognitive subdomains: Stroop colour (Stroop, 1935) (attention); letter fluency (Lezak et al., 2004) (language); category fluency (Lezak et al., 2004) (executive function); word recognition (Warrington, 1984) (memory); Hooper Visual Organisation Test (Hooper,  1958)  (visuo-perceptual  ability),  plus  MoCA,  averaging  zscores  for  each,  thus  providing  a  more  comprehensive  assessment  of cognition. Additionally, as visuo-perceptual ability is usually affected early in DLB (McKeith et al., 2017), we specifically examined visuoperceptual  performance  using  the  Hooper  Visual  Organisation  Test (Hooper, 1958).
+95:The ' recon-all ' function  in  FreeSurfer  v6.0.0  (http://www.frees urfer.net) was used to process all UCL and NACC MRI data. Cortical thickness values (Destrieux parcellation; lh.aparc.a2009s.stats, rh. aparc.a2009s.stats)  (Destrieux  et  al.,  2010)  and  subcortical  volumes (aseg.stats) were extracted. Processed images were quality controlled by visually inspecting grey and white matter boundaries, and subcortical segmentation boundaries superimposed on the corresponding structural T1-weighted image by a researcher blind to clinical status. Particular attention was paid to atrophied scans which can sometimes affect robust segmentation of brain structures.
+119:## 2.6.3. Associations between total outlier count and clinical features
+121:Linear regressions adjusting for age and sex were used to test associations  between  total  outlier  count  and  composite  cognitive  score, MoCA and visuo-perception, measured using the Hooper Visual Organisation  Test.  In  exploratory  analyses,  we  tested  associations  with disease-specific measures including global measure of severity (MDSUPDRS), motor severity (MDS-UPDRS-III), hallucination severity (UMPDHQ) and depression score (HADS). Associations were tested in PD and DLB groups separately. For the DLB group we only included data from UCL where clinical severity data had been comprehensively collected.
+127:One PD participant and two DLB participants (one from UCL and one from NACC) had, on data visualisation, much higher total outlier counts (45,  50  and  53,  respectively)  than  other  participants  (PD  range excluding outlier: 0 -24; DLB: 0 -38). Their brain imaging was carefully quality controlled by three authors (RB, RSW, JHC), but did not show significant  structural  abnormalities,  acquisition,  or  processing  errors; and  clinical  assessment  of  the  UCL  participants  was  consistent  with unambiguous diagnoses (see Supplementary Table 1). We present results with and without these participants below.
+141:dataset  models  to  the  study  data  (see  Table  1  for  demographic  and clinical information, for further details of clinical measures in PD high and low visual performers see Supplementary Table 2).
+149:Demographics, clinical characteristics and total outlier counts.
+663:There were significant differences in several clinical measures between  PD  and  DLB  groups,  with  the  latter  more  severely  affected ( Supplementary Table 4 ).
+705:We observed differences in total outlier count in patients at different stages in progression to dementia: in a PD dementia at-risk group (where patients did not yet have dementia); as well as in DLB. This suggests that neuroanatomical  normative  modelling  may  have  clinical  utility  as  a prognostic neuroimaging measure of disease progression in Lewy body disorders, as has been shown in Alzheimer ' s disease previously (Verdi et al., 2023; Verdi et al., 2023). Importantly for its clinical application, total outlier count can be calculated based on cortical thicknesses and subcortical volume read-outs from freely-available automated pipelines for commonly acquired T1w-MRI scans.
+727:A further limitation is the differences between sites from which DLB participant  data  were  collected.  DLB  data  from  the  UCL  site  were collected prospectively with our study aims in mind, whereas NACC is a large  relational  database,  where  neuropsychological  and  clinical  features  information was limited. Although participants at the UCL and NACC sites did not differ in age and sex, NACC participants had longer disease duration, which may partly account for the observed increased total outlier count in that group. Alternative explanations are differences in study inclusion criteria, and testing demands on participants at the UCL site, leading to possible selection bias of less functionally impaired participants. MRI scans from the NACC site were performed on a 1.5 T scanner, and those at UCL on a 3 T scanner. However, the normative modelling pipeline is designed to help account for such differences in input  data  (Bayer  et  al.,  2022)  and  the  adapted  transfer  learning approach  (Kia  et  al.,  2022)  allowed  us  to  recalibrate  the  reference normative model based on site differences, including scanner parameters.
+733:We showed that neuroanatomical normative modelling provides a new perspective on PD and DLB, which show more variable atrophy patterns between patients; and the total outlier count has potential as a clinically-useful measure of disease severity. This methodology yields personalised rather than more traditional case-control group average
+836:- Marquand, A.F., Rezek, I., Buitelaar, J., Beckmann, C.F., 2016. Understanding heterogeneity in clinical cohorts using normative models: beyond case-control studies. Biol. Psychiatry 80 (7), 552 -561.
+
+thinking
+**Searching for demographics table**
+
+I'm looking for "Table 1" in PDFs or markdown files to locate the demographics table.
+exec
+/bin/bash -lc 'rg -n "Table 1|Demographics|Participants" study_1/Bhome2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041246317382026-03-04T03:46:52.230563Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+71:## 2.1. Participants
+75:Alzheimer ' s Coordinating Center (NACC) database (Beekly et al., 2007), and included 25 participants with DLB and 127 controls. Participants from  the  UCL  site  were  recruited  from  the  National  Hospital  for Neurology and Neurosurgery outpatient clinics and affiliated hospitals, or from national patient support groups (Lewy Body Society and Rare Dementia Support). They were diagnosed as having PD or probable DLB if they satisfied Queen Square Brain Bank PD diagnostic criteria (Daniel and Lees, 1993) and the Dementia with Lewy Bodies Consortium Criteria (McKeith et al., 2017) respectively. Exclusions were a history of traumatic  brain  injury,  or  major  co-morbid  psychiatric  or  confounding neurological disorders; and for participants with PD, presence of dementia was also an exclusion criterion, defined using Movement Disorder  Society  criteria  (Emre  et  al.,  2007).  All  UCL  participants  were assessed by a neurologist (RSW) to ascertain the diagnosis of PD or DLB. Controls  were  recruited  from  spouses  of  patients  and  UCL  volunteer databases. Inclusion criteria were being aged 50 -80 and exclusions were the  presence  of  past  neurological  or  psychiatric  history,  or  cognitive impairment on history or neuropsychological testing.
+77:Participants from site ' 8361 ' were included if they had a structural MRI scan and met the following criteria based on descriptors available in the NACC data file (06/2022 data freeze): 1) dementia diagnosis; 2) primary  or  contributing  cause  of  cognitive  impairment:  Lewy  body disease;  3)  not  classed  as  MCI;  and  4)  absence  of  a  diagnosis  of  PD. Controls in the NACC dataset had no evidence of cognitive impairment or history of neurological illness.
+115:Hamming distance is widely used in information theory and reflects the dissimilarity between two strings of equal length. At each point on the strings, a distance of 1 is assigned if the symbols are different, 0 if the symbols are the same. This is summed across the length of the strings to give the Hamming distance (Hamming, 2018). Hamming distance was calculated using the vector of binarised z-scores for outliers across 169 brain regions. Participants were compared pairwise within groups, so had n-1 Hamming distance scores ranging from 0 to 169, where n is their group size. Median Hamming distance scores for each participant were calculated  (rather  than  mean,  as  distributions  were  skewed)  and between-group  comparisons  for  the  median  Hamming  distances  run, using Mann-Whitney U tests.
+127:One PD participant and two DLB participants (one from UCL and one from NACC) had, on data visualisation, much higher total outlier counts (45,  50  and  53,  respectively)  than  other  participants  (PD  range excluding outlier: 0 -24; DLB: 0 -38). Their brain imaging was carefully quality controlled by three authors (RB, RSW, JHC), but did not show significant  structural  abnormalities,  acquisition,  or  processing  errors; and  clinical  assessment  of  the  UCL  participants  was  consistent  with unambiguous diagnoses (see Supplementary Table 1). We present results with and without these participants below.
+135:## 3.1. Participants
+147:Table 1
+149:Demographics, clinical characteristics and total outlier counts.
+651:Mean  cortical  thickness  z-scores,  derived  from  the  normative modelling, showed a similar pattern of group differences as the total outlier score metric, except for DLB compared to PD group at the UCL site,  where  mean  z-score  was  significantly  lower  in  the  DLB  group, reflecting greater atrophy overall (Table 1).
+
+thinking
+**Locating specific table in document**
+exec
+/bin/bash -lc "sed -n '135,190p' study_1/Bhome2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041246317382026-03-04T03:46:57.010190Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+## 3.1. Participants
+
+We included 108 participants with PD (all from the UCL site); and 61 people with DLB (36 from UCL, 25 from the NACC site), plus 165 controls (38 from UCL, 127 from NACC), used to calibrate the reference
+
+R. Bhome et al.
+
+dataset  models  to  the  study  data  (see  Table  1  for  demographic  and clinical information, for further details of clinical measures in PD high and low visual performers see Supplementary Table 2).
+
+## 3.2. Differences in total outlier count between DLB and PD
+
+Mean total outlier count was significantly higher in DLB (n = 61; mean = 8.7 (SD = 11.3)) compared to PD (n = 108; mean = 3.60 (SD = 6.0)) when adjusting for age and sex (PD versus DLB: β = -5.60 (SE = 1.74); t = -3.23; p &lt; 0.01) and also higher in the PD low (n = 34; mean = 5.4 (SD = 8.7)) compared to high visual performers (n = 62; mean = 2.3 (SD = 3.5)), when adjusting for age and sex ( β = -4.73 (SE = 1.30); t =
+
+Table 1
+
+Demographics, clinical characteristics and total outlier counts.
+
+| PD vs DLB               | PD (n  =              | DLB (n  = 61)        | Statistic                             |
+|-------------------------|-----------------------|----------------------|---------------------------------------|
+| Age, y                  | 64.1 (7.8)            | 73.8 (6.5)           | t  ¼ -9.2;  p  <  0.01                |
+| Male, n (%)             | 51 (48)               | 55 (90)              | χ 2  ¼ 27.9;  p  <  0.01              |
+
+
+thinking
+**Detailing sex counts and dataset origins**
+
+I'm calculating precise male and female percentages from cohort counts for PD and DLB and noting these are derived values; I'll assign dataset origin arrays with PD linked only to UCL and DLB to both UCL and NACC.
+thinking
+**Extracting age stats and reference details**
+
+I'm capturing age means and standard deviations for PD and DLB from Table 1, linking them with the paper ID, and planning to confirm participant counts from supporting text or supplement; results will be saved to an existing JSON file.
+exec
+/bin/bash -lc 'cat DE_v14_Bhome2024_by_codex_20260304124631738.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041246317382026-03-04T03:47:07.591278Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Planning detailed JSON patch with disorder data**
+
+I'm structuring a JSON patch to include two disorders with age answer objects using string "NR" for nonreported min/max, plus mean and sd. Supporting text quotes for disorder names, participant counts, locations, and dataset origins will draw from the participants section and Table 1 references, covering PD and DLB accordingly.
+thinking
+**Refining participant origin quotes**
+
+I'm confirming participant counts and site origins from section 3.1 to ensure quotes accurately reflect numbers for PD and DLB groups before patching JSON.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bhome2024"
+   },
+@@ -7,28 +7,85 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We included 108 participants with PD (all from the UCL site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCL"
++        ],
++        "detail": "All PD participants were from the UCL site.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We included 108 participants with PD (all from the UCL site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 64.1,
++          "sd": 7.8
++        },
++        "detail": "PD group age from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, y                  | 64.1 (7.8)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 51,
++          "male_pct": 47.2,
++          "female_n": 57,
++          "female_pct": 52.8
++        },
++        "detail": "Percentages calculated from counts; female count inferred from total n=108.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, n (%)             | 51 (48)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "DLB",
++        "detail": "Dementia with Lewy bodies clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"61 people with DLB (36 from UCL, 25 from the NACC site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCL",
++          "NACC"
++        ],
++        "detail": "DLB participants were drawn from UCL and NACC.",
++        "confidence_rating": "High",
++        "supporting_text": "\"61 people with DLB (36 from UCL, 25 from the NACC site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.8,
++          "sd": 6.5
++        },
++        "detail": "DLB group age from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, y                  | 73.8 (6.5)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 55,
++          "male_pct": 90.2,
++          "female_n": 6,
++          "female_pct": 9.8
++        },
++        "detail": "Percentages calculated from counts; female count inferred from total n=61.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, n (%)             | 55 (90)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
+       }
+2026-03-04T03:47:43.775155Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json b/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..451e15f455e692e28dcb5fd450624b109f1ad1b8
+--- a/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
+@@ -1,36 +1,93 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bhome2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We included 108 participants with PD (all from the UCL site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCL"
++        ],
++        "detail": "All PD participants were from the UCL site.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We included 108 participants with PD (all from the UCL site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 64.1,
++          "sd": 7.8
++        },
++        "detail": "PD group age from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, y                  | 64.1 (7.8)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 51,
++          "male_pct": 47.2,
++          "female_n": 57,
++          "female_pct": 52.8
++        },
++        "detail": "Percentages calculated from counts; female count inferred from total n=108.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, n (%)             | 51 (48)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "DLB",
++        "detail": "Dementia with Lewy bodies clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"61 people with DLB (36 from UCL, 25 from the NACC site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCL",
++          "NACC"
++        ],
++        "detail": "DLB participants were drawn from UCL and NACC.",
++        "confidence_rating": "High",
++        "supporting_text": "\"61 people with DLB (36 from UCL, 25 from the NACC site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.8,
++          "sd": 6.5
++        },
++        "detail": "DLB group age from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, y                  | 73.8 (6.5)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 55,
++          "male_pct": 90.2,
++          "female_n": 6,
++          "female_pct": 9.8
++        },
++        "detail": "Percentages calculated from counts; female count inferred from total n=61.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, n (%)             | 55 (90)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json b/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..451e15f455e692e28dcb5fd450624b109f1ad1b8
+--- a/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
+@@ -1,36 +1,93 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bhome2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We included 108 participants with PD (all from the UCL site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCL"
++        ],
++        "detail": "All PD participants were from the UCL site.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We included 108 participants with PD (all from the UCL site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 64.1,
++          "sd": 7.8
++        },
++        "detail": "PD group age from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, y                  | 64.1 (7.8)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 51,
++          "male_pct": 47.2,
++          "female_n": 57,
++          "female_pct": 52.8
++        },
++        "detail": "Percentages calculated from counts; female count inferred from total n=108.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, n (%)             | 51 (48)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "DLB",
++        "detail": "Dementia with Lewy bodies clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"61 people with DLB (36 from UCL, 25 from the NACC site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCL",
++          "NACC"
++        ],
++        "detail": "DLB participants were drawn from UCL and NACC.",
++        "confidence_rating": "High",
++        "supporting_text": "\"61 people with DLB (36 from UCL, 25 from the NACC site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.8,
++          "sd": 6.5
++        },
++        "detail": "DLB group age from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, y                  | 73.8 (6.5)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 55,
++          "male_pct": 90.2,
++          "female_n": 6,
++          "female_pct": 9.8
++        },
++        "detail": "Percentages calculated from counts; female count inferred from total n=61.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, n (%)             | 55 (90)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming text formatting and disorder naming**
+codex
+Clinical cohort extraction completed for PD and DLB and written to `DE_v14_Bhome2024_by_codex_20260304124631738.json`, using participant/site info from 3.1 and demographics from Table 1.
+
+Details and locations:
+- PD: UCL-only cohort, age/sex from Table 1 with female counts inferred from total n=108.
+- DLB: UCL+NACC cohort, age/sex from Table 1 with female counts inferred from total n=61.
+
+Next steps if you want:
+1) I can add min/max age if you want me to compute them from any supplemental tables.
+2) I can cross-check supplemental files for any site-specific PD/DLB demographics.
+2026-03-04T03:47:48.456163Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json b/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..451e15f455e692e28dcb5fd450624b109f1ad1b8
+--- a/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304124631738/DE_v14_Bhome2024_by_codex_20260304124631738.json
+@@ -1,36 +1,93 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bhome2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We included 108 participants with PD (all from the UCL site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCL"
++        ],
++        "detail": "All PD participants were from the UCL site.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We included 108 participants with PD (all from the UCL site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 64.1,
++          "sd": 7.8
++        },
++        "detail": "PD group age from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, y                  | 64.1 (7.8)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 51,
++          "male_pct": 47.2,
++          "female_n": 57,
++          "female_pct": 52.8
++        },
++        "detail": "Percentages calculated from counts; female count inferred from total n=108.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, n (%)             | 51 (48)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "DLB",
++        "detail": "Dementia with Lewy bodies clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"61 people with DLB (36 from UCL, 25 from the NACC site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCL",
++          "NACC"
++        ],
++        "detail": "DLB participants were drawn from UCL and NACC.",
++        "confidence_rating": "High",
++        "supporting_text": "\"61 people with DLB (36 from UCL, 25 from the NACC site)\"",
++        "location": "Bhome2024.pdf.md: 3.1. Participants"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.8,
++          "sd": 6.5
++        },
++        "detail": "DLB group age from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, y                  | 73.8 (6.5)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 55,
++          "male_pct": 90.2,
++          "female_n": 6,
++          "female_pct": 9.8
++        },
++        "detail": "Percentages calculated from counts; female count inferred from total n=61.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, n (%)             | 55 (90)\"",
++        "location": "Bhome2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+tokens used
+17,429
+Clinical cohort extraction completed for PD and DLB and written to `DE_v14_Bhome2024_by_codex_20260304124631738.json`, using participant/site info from 3.1 and demographics from Table 1.
+
+Details and locations:
+- PD: UCL-only cohort, age/sex from Table 1 with female counts inferred from total n=108.
+- DLB: UCL+NACC cohort, age/sex from Table 1 with female counts inferred from total n=61.
+
+Next steps if you want:
+1) I can add min/max age if you want me to compute them from any supplemental tables.
+2) I can cross-check supplemental files for any site-specific PD/DLB demographics.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

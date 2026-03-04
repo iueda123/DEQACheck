@@ -177,13 +177,13 @@ public class One_ASL_Style_Pane extends One_DEQAResult_Pane_Abs {
         String answerText = tArea_Answer.getText();
         String supportingText = tArea_SupportingText.getText();
         String pageLineText = tArea_Location.getText();
+        String basePath = sectionName + "/" + subSectionName;
 
-        // JSONへ書き込み
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/answer", answerText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/supporting_text", supportingText);
-        jsonManager.setValue(sectionName + "/" + subSectionName + "/location", pageLineText);
-
-        jsonManager.doSave(false);
+        jsonManager.doSaveAsync(false, () -> {
+            jsonManager.setValue(basePath + "/answer", answerText);
+            jsonManager.setValue(basePath + "/supporting_text", supportingText);
+            jsonManager.setValue(basePath + "/location", pageLineText);
+        });
 
     }
 

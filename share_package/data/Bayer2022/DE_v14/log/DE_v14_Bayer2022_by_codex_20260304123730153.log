@@ -1,0 +1,589 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bayer2022_by_codex_20260304123730153.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304123730153/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb6ec-1d81-7912-99e8-49ee1fecb6c9
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Bayer2022_by_codex_20260304123730153.json へ書き込んでください。
+mcp startup: no servers
+2026-03-04T03:37:38.384143Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304123730153 succeeded in 18ms:
+DE_Guide_v14.md
+DE_v14_Bayer2022_by_codex_20260304123730153.json
+DE_v14_Bayer2022_by_codex_20260304123730153.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041237301532026-03-04T03:37:47.142795Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Identifying study-related files**
+
+I'm searching the codebase with ripgrep to locate files containing study information for targeted review.
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041237301532026-03-04T03:37:50.298191Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+DE_v14_Bayer2022_by_codex_20260304123730153.log
+DE_v14_Bayer2022_by_codex_20260304123730153.json
+DE_Guide_v14.md
+study_1/Bayer2022.pdf.md
+study_1/1-s2.0-S1053811922008205-mmc1.pdf.md
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Bayer2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041237301532026-03-04T03:37:53.545260Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+![Image](./Bayer2022_artifacts/image_000000_876e409a1479a52aaa8b96ff0b8c4e117d5a142689ec8833f76de155321fc800.png)
+
+![Image](./Bayer2022_artifacts/image_000001_ba297df0780536f8c49999502ecc6871b460ea8f6469bd14dd0c5a24c047fcb9.png)
+
+## Europe PMC Funders Group
+
+Author Manuscript
+
+## Neuroimage . Author manuscript; available in PMC 2023 July 17.
+
+Published in final edited form as:
+
+Neuroimage. 2022 December 01; 264: 119699. doi:10.1101/2021.02.09.430363.
+
+## Accommodating Site Variation In Neuroimaging Data Using Normative And Hierarchical Bayesian Models
+
+## Johanna M. M. Bayer ,
+
+Orygen, Parkville, Australia, Centre for Youth mental Health, The University of Melbourne, Australia
+
+
+thinking
+**Searching for autism sample demographics**
+
+I'm planning to locate age, sex, and dataset info for the autism clinical cohort, likely in the ABIDE data or supplementary materials like mmc1, using targeted searches for "autism" or "Table" to find demographics.
+exec
+/bin/bash -lc 'rg -n "autism|ASD|age|sex|male|female|Table" study_1/Bayer2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041237301532026-03-04T03:37:58.356979Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 36ms:
+1:![Image](./Bayer2022_artifacts/image_000000_876e409a1479a52aaa8b96ff0b8c4e117d5a142689ec8833f76de155321fc800.png)
+3:![Image](./Bayer2022_artifacts/image_000001_ba297df0780536f8c49999502ecc6871b460ea8f6469bd14dd0c5a24c047fcb9.png)
+9:## Neuroimage . Author manuscript; available in PMC 2023 July 17.
+13:Neuroimage. 2022 December 01; 264: 119699. doi:10.1101/2021.02.09.430363.
+61:![Image](./Bayer2022_artifacts/image_000002_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png)
+63:![Image](./Bayer2022_artifacts/image_000003_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png)
+67:The potential of normative modeling to make individualized predictions from neuroimaging data has enabled inferences that go beyond the case-control approach. However, site effects are often confounded with variables of interest in a complex manner and can bias estimates of normative models, which has impeded the application of normative models to large multi-site neuroimaging data sets. In this study, we suggest accommodating for these site effects by including them as random effects in a hierarchical Bayesian model. We compared the performance of a linear and a non-linear hierarchical Bayesian model in modeling the effect of age on cortical thickness. We used data of 570 healthy individuals from the ABIDE (autism brain imaging data exchange) data set in our experiments. In addition, we used data from individuals with autism to test whether our models are able to retain clinically useful information while removing site effects. We compared the proposed single stage hierarchical Bayesian method to several harmonization techniques commonly used to deal with additive and multiplicative site effects using a two stage regression, including regressing out site and harmonizing for site with ComBat, both with and without explicitly preserving variance related to age and sex as biological variation of interest. In addition, we made predictions from raw data, in which site has not been accommodated for. The proposed hierarchical Bayesian method showed the best predictive performance according to multiple metrics. Beyond that, the resulting z-scores showed little to no residual site effects, yet still retained clinically useful information. In contrast, performance was particularly poor for the regression model and the ComBat model in which age and sex were not explicitly modeled. In all two stage harmonization models, predictions were poorly scaled, suffering from a loss of more than 90 % of the original variance. Our results show the value of hierarchical Bayesian regression methods for accommodating site variation in neuroimaging data, which provides an alternative to harmonization techniques. While the approach we propose may have broad utility, our approach is particularly well suited to normative modelling where the primary interest is in accurate modelling of inter-subject variation and statistical quantification of deviations from a reference model.
+75:The most prominent paradigm in clinical neuroimaging research has for a long time been case-control approaches which compare averages of groups of individuals on brain imaging measures. Case-control inferences can be clinically meaningful under some circumstances when the group mean is a good representation of each individual in the group. However, this pre-condition has been challenged recently, demonstrating that the biological heterogeneity within clinical groups can be substantial (Marquand et al., 2016). For example, the structure and morphology of the brain have been found to vary between individuals in dynamic phases like adolescence (Foulkes and Blakemore, 2018) and within clinical groups, such as bipolar disorder and schizophrenia (Wolfers et al., 2018a) and attention deficit disorder (Wolfers et al., 2019). In addition, inter-individual differences have shown to not necessarily be in line with results obtained via the group comparison approach (Wolfers et al., 2019). Such
+77:![Image](./Bayer2022_artifacts/image_000004_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png)
+79:![Image](./Bayer2022_artifacts/image_000005_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png)
+83:This shift has been accompanied by a trend towards approaches that go beyond comparing averages of distinctly labeled groups (Insel et al., 2010; Insel, 2014). Among them, normative modeling has been successfully used to capture inter-individual variability and make predictions at the individual level. The strength of normative modeling lies within the ability to map variation across one or more biological response variables (e.g., brain volume) onto one or more covariates or predictor variables (e.g., age), redefining the variation in the first dimension as explained by this new covariate(s) of interest. This concept allows to describe the normative variation, thus the range containing e.g., 95 % of all individuals, as a function of the covariates. As a consequence, each individual's score in considered relation to the variation in the reference group defined by the covariates, allowing to calculate a z-score of deviation from the norm at the level of the individual. The concept is similar to the use of growth charts in pediatric medicine, in which height and weight are expressed as a function of age. Hence, in this setting, an individual's height or weight is not considered by its absolute value, but expressed as a percentile score of deviation fluctuating with age, with the median line corresponding to the 50% percentile and defining the norm, or average height.
+85:In neuroimaging, normative models have been applied to clinical and non-clinical problems using various covariates, statistical modeling approaches (for an overview see (Marquand et al., 2019, 2016)) and targeting a variety of response variables. In general, any variable can be used as a covariate in a normative model targeting neuroimaging measures, as long as the variation along the co-varying dimension is not zero. However, normative models with age and sex as covariates and brain volume as response variable are currently more frequently found in the literature (Wolfers et al., 2020, 2018b; Zabihi et al., 2019a; Kessler et al., 2016). These implement the growth charting idea applied to high dimensional brain imaging data. For example, a normative model of a brain structure can be created based on the variation of individuals in population based cohorts. The estimated norm can be used to infer where individuals with clinical symptoms can be placed with respect to the reference defined by the normative model. This has been the recipe of many recently published studies using the normative modeling framework (Wolfers et al., 2020; Bethlehem et al., 2018; Wolfers et al., 2019; Lv et al., 2020). Underlying this approach is the assumption that the individually derived patterns of deviation uncover associations to clinical/behavioral variables that would be obscured by averaging across groups of individuals. However, the amount of data necessary to create normative models poses a challenge to normative modeling in neuroimaging, as the cost and time factor associated with neuroimaging data impedes the collection of large neuroimaging samples in a harmonized way. One exceptional example, where large scale data collection succeeded and included both harmonized scanners and scanning protocols, is
+87:![Image](./Bayer2022_artifacts/image_000006_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png)
+89:![Image](./Bayer2022_artifacts/image_000007_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png)
+91:the UK Biobank initiative. When launched in 2006, it aimed to scan 100,000 individuals at four different scanning locations [https://www.ukbiobank.ac.uk/explore-your-participation/ contribute-further/imaging-study](Miller et al., 2016). Other neuroimaging initiatives have also taken on the challenge to collect neuroimaging data in large scale quantities and have relied on harmonized scanning protocols, but did not collect the data using harmonized scanners (i.e., ADNI (Mueller et al., 2005) and the ABCD study (Volkow et al., 2018)). Nonetheless, the restricted age ranges (e.g., 40-69 years in UK Biobank (Miller et al., 2016)), or focus on a particular (clinical) cohort (e.g., Alzheimer's in ADNI, (Mueller et al., 2005)) limit their utility for estimating normative models mapping the normative association between, for example, age and brain structure or function.
+93:An alternative way to obtain large neuroimaging datasets and assess data from a large number of subjects is by pooling or sharing data that has already been collected. One example is the Enhancing NeuroImaging and Genetics through Meta-Analysis (ENIGMA) consortium (Thompson et al., 2020). ENIGMA succeeded in pooling neuroimaging and genetics data of thousands of individuals, including healthy individuals and individuals with psychiatric or neurological disorders. The strategy of data sharing initiatives like ENIGMA is to collect already collected data from different cohorts and different scanning sites and harmonize preprocessing and statistical analysis with standardized protocols. However, a major disadvantage is the presence of confounding 'scanner effects' (Fortin et al., 2017, 2018) (e.g., differences in field strength, scanner manufacturer etc. (Han et al., 2006))). These confounding effects present as site correlated biases that cannot be explained by biological heterogeneity between samples. An example of those effects on derived measures of cortical thickness can be found in Fig. 1a. They result from a potentially complex interaction between site and variables of interest, manifesting in biases on lower and higher order properties of the distribution of interest, such as differences in mean and standard deviations, skewness and spatial biases Fig. (1a, 1b), and cannot be explained by e.g., differences in age or sex Fig. (1c). As the origin of these effects might not only be related to the scanner per se, but extend to various factors related to a single acquisition site (Gronenschild et al., 2012), we will refer to them as site effects from here on.
+95:As outlined in the previous paragraph, the effort to create large samples to capture between subject variability often induces site-driven variability. This issue of site-driven variability in shared neuroimaging data has been acknowledged and has led to the development of harmonization methods at a statistical level. A common approach to deal with site effects is through 'harmonizing' by, e.g., confound regression. One example of this approach is a set of algorithms summarized under the name 'ComBat' (Fortin et al., 2017). The method had originally been developed by Johnson et al. (2007), who used empirical Bayes to estimate 'batch effects', referring to non-biological variation in micro-array experiments for gene expression data. Fortin and colleagues adapted the framework to apply to neuroimaging data (Fortin et al., 2017). In ComBat, additive and multiplicative site effects on a particular target unit (e.g., a particular brain voxel for one participant) are estimated using empirical Bayes and by placing a prior distribution over estimates for these units. The estimate of the scanner effect is then used to adjust the prediction. Newer versions also allow to preserve variance of interest in the model, for example for age, sex or diagnosis (Fortin et al., 2017, 2018). ComBat has been applied to several types of neuroimaging data, including diffusion tensor
+97:![Image](./Bayer2022_artifacts/image_000008_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png)
+99:![Image](./Bayer2022_artifacts/image_000009_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png)
+103:The estimation and interpretation of data harmonization strategies is relatively straightforward if site effects are orthogonal to the effect of interest and uncorrelated with other covariates in the model (Chen et al., 2014). However, this is often not the case in neuroimaging cohorts containing data pooled from several sites. For example, many individual neuroimaging samples are restricted to a specific age range, leading to age being correlated with site effects. In this scenario, removing an estimate of the scanner effect can also remove (biological) variation that would be of interest. This is undesirable from the point of view of normative modelling, where analysis focuses on deviations from a reference model because the deviations from a model where scanner effects have been regressed out in a two stage procedure may be different from a model that integrates site information in a single regression. Data harmonisation also has other features that make it suboptimal for normative modelling: first, many implementations pool estimates over voxels or parcels, which means that the centiles of population variation at a particular brain region are influenced by other regions. Second, a problem that is not widely appreciated in the neuroimaging field is that data harmonisation strategies can yield overly optimistic inferences in downstream analyses due to an under-estimation of the uncertainty of model coefficients Nygaard et al. (2016)
+
+thinking
+**Planning weighted mean and pooled SD computation**
+
+I'm preparing to calculate the overall age mean and pooled standard deviation for the autism sample by combining male and female stats using their means, SDs, and sample sizes. This will provide a complete age summary beyond sex-specific stats.
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n_m=430
+n_f=52
+mean_m=16.9
+mean_f=15.1
+sd_m=6.5
+sd_f=5.8
+n=n_m+n_f
+mean=(n_m*mean_m+n_f*mean_f)/n
+# pooled SD: sqrt(((n_m-1)*sd_m"'^2+(n_f-1)*sd_f''^2 + n_m*(mean_m-mean)''^2 + n_f*(mean_f-mean)**2)/(n-1))
+# but for combined sample with different means, use overall variance with group means
+var=((n_m-1)*sd_m**2 + (n_f-1)*sd_f**2 + n_m*(mean_m-mean)**2 + n_f*(mean_f-mean)**2)/(n-1)
+sd=math.sqrt(var)
+print(mean, sd)
+PY' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041237301532026-03-04T03:38:08.605508Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+16.705809128630705 6.446839018901724
+
+thinking
+**Calculating sex distribution percentage**
+
+The sample includes 430 males and 52 females, totaling 482 individuals; males constitute about 89% and females about 11%. The mean age and standard deviation likely represent a weighted or pooled estimate across sexes.
+2026-03-04T03:38:14.078444Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+ n_m=430
+ n_f=52
+ n=n_m+n_f
+ print(n_m/n*100, n_f/n*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304123730153 exited 1 in 40ms:
+  File "<stdin>", line 1
+    n_m=430
+IndentationError: unexpected indent
+
+thinking
+**Correcting formatting error**
+exec
+/bin/bash -lc "python - <<'PY'
+n_m=430
+n_f=52
+n=n_m+n_f
+print(n_m/n*100, n_f/n*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041237301532026-03-04T03:38:17.596376Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 42ms:
+89.21161825726142 10.78838174273859
+
+thinking
+**Extracting dataset details and clinical cohort info**
+
+I'm gathering dataset origin (ABIDE), clinical cohort inclusion (NM applied), and autism sample counts with ages from specified text and figure 2 lines near 120-130 to provide precise supporting citations.
+exec
+/bin/bash -lc "sed -n '120,160p' study_1/Bayer2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041237301532026-03-04T03:38:24.246727Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+
+## 3.1 Data
+
+The following sub-section aims to give a description of the ABIDE data set, including a study on the scope of site effects in the data.
+
+3.1.1 ABIDE data setThe ABIDE consortium (http://preprocessed-connectomesproject.org/abide/) was founded to facilitate research and collaboration on autism spectrum disorders by data aggregation and sharing. The consortium provides a publicly available structural magnetic resonance imaging (MRI) data set and corresponding phenotypic information of 539 individuals with autism spectrum disorder and 573 age-matched typical controls. For this study, we used 569 controls for development and performance testing of the models, out of which 470 were male. In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male. The data were processed using a standardized protocol (Craddock et al., 2013) of the FreeSurfer standard pipeline (Desikan-Kiliany Atlas) as part of the Preprocessed Connectomes Project (Craddock et al., 2013) and has been made available for download on the preprocessed section of the ABIDE initiative. For the current study, we focused on cortical thickness measures of the 34 bilateral regions (averaged between left and right hemisphere) of the Desikian Killiany atlas parcellation (Desikan et al., 2006) as a part of the FreeSurfer (Fischl et al., 2004) output and the average cortical thickness across all 34 regions. We chose to include only cortical thickness measures since they show a strong
+
+![Image](./Bayer2022_artifacts/image_000012_70c31f935bf0cc3c77edec546c4c0f0fde92809838a24a96781d86ae2419113e.png)
+
+![Image](./Bayer2022_artifacts/image_000013_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png)
+
+(negative) association with age (unlike measures of surface area, which remain more stable across the lifespan (Storsve et al., 2014)).
+
+3.1.2 Site effects in the ABIDE data setThe ABIDE data set has been obtained by aggregating data from 20 independent samples collected at 17 different scanning locations (Di Martino et al., 2014). Although all data has been collected with 3 Tesla scanners and preprocessed in a harmonized way (Craddock et al., 2013), sequence parameters for anatomical and functional data, as well as type of scanner varied across sites (Di Martino et al., 2014). In addition, sites differ in distribution of age and sex and in sample size. An overview of site-specific data is provided in Table 1 and in (Di Martino et al., 2014).
+
+The ABIDE data set is affected by site specific effects that are unlikely to be explained by biological variation. They manifest as linear and non-linear interactions between scanning site, covariates (for example age and sex), and cortical measures. Similar to batch effects in genomics (Leek et al., 2010), those effects lead to a clustering of the data caused by external factors related to the scanning and analysis process. With the aim to estimate to which extent the ABIDE data set is affected by site effects, we calculated an ANCOVA with age as covariate in the healthy control sample of the data set. It revealed that average cortical thickness differed between site (main effect site: F(19, 516) = 4.4, p &lt; 0.1 × 10 -8 , sum contrast). In addition we tested for differences in variance between sites. Bartlett's sphericity test Bartlett (1937) showed a difference in variance between sites even after regressing out variance that could be explained by age and sex (p &lt; 0.001). The site effects in the healthy control sample of the ABIDE data set are visualized in Fig. 1.
+
+## 3.2 Pre-processing of the ABIDE data set
+
+Measures of cortical thickness were extracted from the arpac.stats files as part of the Freesurfer output of 1051 individuals in the ABIDE data set, separately for left and right hemisphere. As a first step, the measures were scanned for outliers. The criterion applied to mark a value as an outlier was if it was above or beyond 2 inter quartile ranges from the mean of all values for that region and hemisphere. This quite liberal criterion was applied with the aim to detect not outliers in a mathematical sense (+/- 95 % confidence interval), but to detect impossible values. This leads to the removal of 1055 out of 162905 data points (0.006%) of all values. After this step, the values of right and left hemisphere for each region were averaged (in case the value of one hemisphere was missing, the value of the remaining hemisphere was considered to be the average.) This procedure was preformed including all participants (control sample and autism sample, per region).
+
+thinking
+**Planning figure 2 age line**
+
+I'm preparing to adjust the age line in figure 2 by editing lines around 470-490 using sed.
+exec
+/bin/bash -lc "sed -n '470,490p' study_1/Bayer2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041237301532026-03-04T03:38:27.366349Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+\_
+
+![Image](./Bayer2022_artifacts/image_000047_f3dedf6e5ab3cf23f08758f6f6db5d4a84b4b7f44f930626136c3e34d0b1f4d1.png)
+
+- (d) Distribution of all 34 cortical regions &amp; average cortical thickness per individual, summarized as boxplot (each boxplot represents one individual). Boxplots are colored by site and ordered by age within site.
+
+Figure 1. Site effects in 573 healthy individuals from the ABIDE data set.
+
+![Image](./Bayer2022_artifacts/image_000048_8e293391f6631803edc8d92b271a579878604f515757876b153707ef3f2f4af3.png)
+
+![Image](./Bayer2022_artifacts/image_000049_033ce2d52cad200c2f75933682077a3ada0112ead7d7b32310ea20f8cbf51c05.png)
+
+Figure 2. Overview over phenotypic information in the ABIDE data set. Controls : Age male subjects: M = 17.5., SD = 8.3. Age female subjects: M = 15.6, SD = 7.0., range = 6.5-40; Autism sample : Age male subjects: M = 16.9., SD = 6.5. Age female subjects: M = 15.1, SD = 5.8., range = 8-39;
+
+![Image](./Bayer2022_artifacts/image_000050_0f6e65073375765c0dc1ce98462896b2905df1401331514933e04381e94e184e.png)
+
+![Image](./Bayer2022_artifacts/image_000051_f91e487a346531ced3b3a6c8b37a76e6b566e15836c2ba2f72278f632273c379.png)
+
+![Image](./Bayer2022_artifacts/image_000052_69743116ab74546525752bdd2bac4e0ce7313a35ea123f3a9612bf6ac8cd3642.png)
+
+
+thinking
+**Extracting dataset details for autism cohort**
+
+I'm including that the clinical cohort NM was applied to 482 individuals with ASD using hierarchical Bayesian models, with the dataset sourced from ABIDE as described in section 3.1.1, and updating the existing JSON output accordingly.
+2026-03-04T03:38:32.056724Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Bayer2022_by_codex_20260304123730153.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304123730153 succeeded in 26ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Calculating weighted age stats**
+
+I'm preparing to compute weighted mean and pooled SD for age using male/female stats from the clinical cohort, referencing figure data and specifying units in years with medium confidence due to derivation. Next, I'll detail sex counts and age ranges with supporting text and note the pooling method in the answer and detail fields.
+thinking
+**Adding dataset and disorder details**
+
+I'm incorporating ABIDE as the dataset of origin with supporting text referencing the ABIDE consortium from the specified section, linking the disorder to autism spectrum disorder using text about individuals with autism. Next, I'll update the JSON accordingly.
+2026-03-04T03:38:54.415981Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bayer2022"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism sample clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Autism cohort drawn from the ABIDE data set.",
++        "confidence_rating": "High",
++        "supporting_text": "The ABIDE consortium (http://preprocessed-connectomesproject.org/abide/) was founded to facilitate research and collaboration on autism spectrum disorders by data aggregation and sharing.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 8,
++          "max": 39,
++          "mean": 16.71,
++          "sd": 6.45
++        },
++        "detail": "Weighted mean and pooled SD calculated from male/female subgroup statistics; range reported for autism sample.",
++        "confidence_rating": "Medium",
++        "supporting_text": "Autism sample : Age male subjects: M = 16.9., SD = 6.5. Age female subjects: M = 15.1, SD = 5.8., range = 8-39;",
++        "location": "Bayer2022.pdf.md: Figure 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 430,
++          "male_pct": 89.2,
++          "female_n": 52,
++          "female_pct": 10.8
++        },
++        "detail": "Female count and percentages calculated from total N=482 and male N=430.",
++        "confidence_rating": "Medium",
++        "supporting_text": "In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       }
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Bayer2022_by_codex_20260304123730153.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json b/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..803ce960d76560d32510b68ff09dbea7c540947c
+--- a/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bayer2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism sample clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Autism cohort drawn from the ABIDE data set.",
++        "confidence_rating": "High",
++        "supporting_text": "The ABIDE consortium (http://preprocessed-connectomesproject.org/abide/) was founded to facilitate research and collaboration on autism spectrum disorders by data aggregation and sharing.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 8,
++          "max": 39,
++          "mean": 16.71,
++          "sd": 6.45
++        },
++        "detail": "Weighted mean and pooled SD calculated from male/female subgroup statistics; range reported for autism sample.",
++        "confidence_rating": "Medium",
++        "supporting_text": "Autism sample : Age male subjects: M = 16.9., SD = 6.5. Age female subjects: M = 15.1, SD = 5.8., range = 8-39;",
++        "location": "Bayer2022.pdf.md: Figure 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 430,
++          "male_pct": 89.2,
++          "female_n": 52,
++          "female_pct": 10.8
++        },
++        "detail": "Female count and percentages calculated from total N=482 and male N=430.",
++        "confidence_rating": "Medium",
++        "supporting_text": "In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json b/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..803ce960d76560d32510b68ff09dbea7c540947c
+--- a/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bayer2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism sample clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Autism cohort drawn from the ABIDE data set.",
++        "confidence_rating": "High",
++        "supporting_text": "The ABIDE consortium (http://preprocessed-connectomesproject.org/abide/) was founded to facilitate research and collaboration on autism spectrum disorders by data aggregation and sharing.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 8,
++          "max": 39,
++          "mean": 16.71,
++          "sd": 6.45
++        },
++        "detail": "Weighted mean and pooled SD calculated from male/female subgroup statistics; range reported for autism sample.",
++        "confidence_rating": "Medium",
++        "supporting_text": "Autism sample : Age male subjects: M = 16.9., SD = 6.5. Age female subjects: M = 15.1, SD = 5.8., range = 8-39;",
++        "location": "Bayer2022.pdf.md: Figure 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 430,
++          "male_pct": 89.2,
++          "female_n": 52,
++          "female_pct": 10.8
++        },
++        "detail": "Female count and percentages calculated from total N=482 and male N=430.",
++        "confidence_rating": "Medium",
++        "supporting_text": "In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       }
+     }
+   ]
+
+
+thinking
+**Preparing final response**
+
+I'm consolidating the explanation to confirm disorder inclusion only when NM is applied to the clinical cohort and noting the presence of NM details in the disorder section; no tests are needed, and I'll mention the relevant file path.
+codex
+Filled the clinical cohort extraction for Bayer2022 using the ABIDE autism sample, including derived overall age and sex stats from the reported male/female subgroup values. Updated `DE_v14_Bayer2022_by_codex_20260304123730153.json` with ASD, ABIDE dataset, age (weighted/pooled), and sex counts/percentages, plus citations from `study_1/Bayer2022.pdf.md`.
+
+Next steps (optional):
+1. Run a quick sanity check for JSON formatting/values.
+2. Review the derived age/sex calculations if you prefer alternative rounding.
+2026-03-04T03:38:58.891045Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json b/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..803ce960d76560d32510b68ff09dbea7c540947c
+--- a/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304123730153/./DE_v14_Bayer2022_by_codex_20260304123730153.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Bayer2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism sample clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Autism cohort drawn from the ABIDE data set.",
++        "confidence_rating": "High",
++        "supporting_text": "The ABIDE consortium (http://preprocessed-connectomesproject.org/abide/) was founded to facilitate research and collaboration on autism spectrum disorders by data aggregation and sharing.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 8,
++          "max": 39,
++          "mean": 16.71,
++          "sd": 6.45
++        },
++        "detail": "Weighted mean and pooled SD calculated from male/female subgroup statistics; range reported for autism sample.",
++        "confidence_rating": "Medium",
++        "supporting_text": "Autism sample : Age male subjects: M = 16.9., SD = 6.5. Age female subjects: M = 15.1, SD = 5.8., range = 8-39;",
++        "location": "Bayer2022.pdf.md: Figure 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 430,
++          "male_pct": 89.2,
++          "female_n": 52,
++          "female_pct": 10.8
++        },
++        "detail": "Female count and percentages calculated from total N=482 and male N=430.",
++        "confidence_rating": "Medium",
++        "supporting_text": "In a subsequent step, we applied the hierarchical Bayesian models to 482 individuals with autism from the same data set, out of which 430 were male.",
++        "location": "Bayer2022.pdf.md: 3.1.1 ABIDE data set"
+       }
+     }
+   ]
+
+tokens used
+34,104
+Filled the clinical cohort extraction for Bayer2022 using the ABIDE autism sample, including derived overall age and sex stats from the reported male/female subgroup values. Updated `DE_v14_Bayer2022_by_codex_20260304123730153.json` with ASD, ABIDE dataset, age (weighted/pooled), and sex counts/percentages, plus citations from `study_1/Bayer2022.pdf.md`.
+
+Next steps (optional):
+1. Run a quick sanity check for JSON formatting/values.
+2. Review the derived age/sex calculations if you prefer alternative rounding.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

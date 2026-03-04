@@ -81,9 +81,8 @@ public class One_A_Style_Pane extends One_DEQAResult_Pane_Abs {
     @Override
     public void saveJson() {
         String answerText = tArea_Answer.getText();
-        //System.out.println("answerText: " + answerText);
-        jsonManager.setValue(sectionName + "/" + subSectionName, answerText);
-        jsonManager.doSave(false);
+        String path = sectionName + "/" + subSectionName;
+        jsonManager.doSaveAsync(false, () -> jsonManager.setValue(path, answerText));
     }
 
     @Override

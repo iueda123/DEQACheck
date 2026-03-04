@@ -1,0 +1,2091 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Ebadi2024_by_codex_20260304130350378.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb704-3a92-7623-aaf7-9d7b12436005
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Ebadi2024_by_codex_20260304130350378.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read guide**
+
+Planning to read the guide file directly using shell commands without extra tools or special skills.
+2026-03-04T04:03:57.357903Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378 succeeded in 20ms:
+DE_Guide_v14.md
+DE_v14_Ebadi2024_by_codex_20260304130350378.json
+DE_v14_Ebadi2024_by_codex_20260304130350378.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041303503782026-03-04T04:03:59.596397Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Listing files for study data**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041303503782026-03-04T04:04:03.319156Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+DE_v14_Ebadi2024_by_codex_20260304130350378.json
+DE_v14_Ebadi2024_by_codex_20260304130350378.log
+DE_Guide_v14.md
+study_1/Ebadi2024_sup.docx.md
+study_1/Ebadi2024.pdf.md
+
+thinking
+**Preparing to read paper**
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patients|schiz|bipolar|depress|disorder|autism|epilepsy|Parkinson|Alzheimer|MCI|ADHD|ASD|psychosis|MS|dementia|tumor" study_1/Ebadi2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041303503782026-03-04T04:04:09.430514Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+13:Electroencephalography (EEG) has been thoroughly studied for decades in neurodevelopmental and psychiatric research. Yet its integration into clinical practice as a diagnostic/prognostic tool remains unachieved. We hypothesize that a key reason is the underlying patient ' s heterogeneity, overlooked in EEG research relying on a case-control approach. We combine high-density EEG with normative modeling to quantify this heterogeneity using two well-established and extensively investigated EEG characteristics -spectral power and functional connectivity- across a cohort of 1674 patients with attention-de /uniFB01 cit/hyperactivity disorder, autism spectrum disorder, learning disorder, or anxiety, and 560 matched controls. Normative models showed that deviations from population norms among patients were highly heterogeneous and frequency-dependent. Deviation spatial overlap across patients did not exceed 40% and 24% for spectral and connectivity, respectively. Considering individual deviations in patients has signi /uniFB01 cantly enhanced comparative analysis, and the identi /uniFB01 cation of patient-speci /uniFB01 c markers has demonstrated a correlation with clinical assessments, representing a crucial step towards attaining precision psychiatry through EEG.
+19:Electroencephalography (EEG) has been extensively studied in neurodevelopmental and psychiatric research to identify electrophysiological correlates of various disorders [1 -4], disease severity [5], subtypes [6 -8], and treatment response [9 -12]. The noninvasive nature of EEG, its cost-effectiveness, and its capacity to capture rapid spontaneous brain activity make it a highly appealing tool for clinical psychiatry. Nonetheless, despite considerable research efforts, the pathophysiological mechanisms of neurodevelopmental and psychiatric disorders are still poorly understood and the progress in establishing clinically applicable EEG-based biomarkers has fallen short of expectations. This is evidenced by the pronounced inconsistencies observed across studies [13 -17].
+21:A key factor contributing to this issue is the reliance, in EEG research, on statistical designs that fail to account for the inherent heterogeneous nature of neurodevelopmental and psychiatric disorders [18, 19]. Typically, these designs rely on comparisons of average differences between groups (e.g. patient versus control or treatment versus placebo), presupposing uniformity within groups, as well as distinct separations between cases and healthy controls [18 -21]. However, such assumptions signi /uniFB01 cantly misrepresent the reality of disorders, which exhibit profound heterogeneity and overlap in symptoms, severity levels, developmental course, biological underpinnings, and response to treatment [22].
+23:To more effectively capture the nuanced heterogeneity of neurodevelopmental and psychiatric disorders, research methodologies should go beyond conventional case-control paradigms to more sophisticated statistical techniques that can accommodate the variability within and across patient and healthy populations [19, 20]. An emerging powerful approach in neuroimaging is normative modeling (NM), which involves estimating normative trajectories of a reference population and assessing the degree to which individuals deviate from these norms [19 -21]. A well-known example of NM is pediatric growth charts, by which a child ' s height and weight are compared to those of children of the same age and sex [23]. Recent MRI studies combined with NM have endeavored to chart analogous trajectories for brain phenotypes (e.g., grey and white matter volumes, mean cortical thickness, total surface area, etc.) to map lifespan age-related changes in brain structure [24 -26] and characterize structural heterogeneity in neurodevelopmental and psychiatric disorders [22] such as Attention De /uniFB01 cit Hyperactivity Disorder (ADHD) [27], Autism Spectrum Disorder (ASD) [28], Schizophrenia and Bipolar disorder [29], as well as in neurodegenerative disease as Alzheimer ' s disease [30]. Additionally, there
+25:1 MINDIG, F-35000 Rennes, France. 2 Service des Troubles du Spectre de l ' Autisme et apparentés, Département de psychiatrie, Lausanne University Hospital (CHUV), Lausanne, Switzerland. 3 Faculty of science, Lebanese International University, Tripoli, Lebanon. 4 Pôle de Psychiatrie Hospitalo-Universitaire de Psychiatrie Adulte, Centre Hospitalier Guillaume Régnier, Rennes, France. 5 U1228 Empenn UMR 6074 IRISA, Rennes, France. 6 Paris Saclay University, Neurospin, CEA Saclay, Service Avis et Expertise TND, Fondation Vallée, Gif-sur-Yvette, France. 7 Université Paris Cité, Institute of Psychiatry and Neuroscience of Paris (IPNP), INSERM U1266, Team ' Pathophysiology of psychiatric disorders ' , GDR 3557-Institut de Psychiatrie, Paris, France. 8 GHU Paris Psychiatrie et Neurosciences, Pôle hospitalo-universitaire d ' évaluation, prévention, et innovation thérapeutique (PEPIT), Paris, France. 9 School of Science and Engineering, Reykjavik University, Reykjavik, Iceland. ✉ email: mahmoud.hassan.work@gmail.com
+29:Fig. 1 Normative modeling of electrophysiological features across age and individual deviation assessment. a Illustration of the normative trajectory of a given feature across different ages, with the solid line representing the median trajectory derived from a healthy reference population (the healthy reference subjects (or healthy controls) are strati /uniFB01 ed into training and test sets, with the model being trained solely on the training set). b Tabulation of deviation scores for individual subjects across multiple features including power spectral densities and functional connectivity. Red and blue values denote negative and positive deviations (i.e., below/above the median), respectively. c Individual deviation maps showing spectral (upper panel) and network-based (lower panel) deviations.
+33:has been a development of normative models for functional MRI, although to a lesser extent [31, 32]. However, to our knowledge, similar research focusing on the electrophysiological aspects of neurodevelopmental disorders and the underlying substrates of heterogeneity remains largely unexplored, although the idea of EEG-based normative modeling could be traced back to neurometric qEEG analyses [33, 34].
+35:Here, we address this gap by combining high-density EEG (HDEEG) with NM to elucidate the electrophysiological heterogeneity of neurodevelopmental and psychiatric disorders. We perform our investigation at two levels, the scalp (the level of electrode) and the sources (the level of cortical brain sources), thanks to the availability of high channel density. We develop an end-to-end NM framework of a normative HD-EEG cohort comprising 560 healthy subjects (age 5 -18 yo), see Fig. 1a for illustrative explanation. We then systematically quantify the heterogeneity observed in the HD-EEG power spectrum and functional connectivity among a clinical group of 1674 age-matched patients diagnosed with ASD, ADHD, anxiety (ANX), and learning disorders (LD), Fig. 1b, c. Inspired by MRI-based studies, we hypothesize that those disorders exhibit substantial electrophysiological heterogeneity and that individual patient deviations are likely to demonstrate low spatial homogeneity across both channels and cortical regions.
+41:Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets (Methods, Fig. S1). Models were trained on 448 (52% M) healthy controls (HC) and 112 (55% M) healthy subjects were held out as a comparison group against the clinical cohort. The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).
+45:EEG power spectra (i.e., EEG power in the prede /uniFB01 ned frequency band: delta, theta, alpha, beta, and gamma) have been the most used features in clinical EEG research [14]. More recently and with the availability of HD-EEG, source-space functional connectivity analysis has emerged as a highly promising approach, establishing a framework for the electrophysiological circuit-level differentiation of healthy and diseased brains [35]. Here, we have developed models for the normative trajectories of these two wellestablished sets of features and assessed the heterogeneity in neurodevelopmental and psychiatric disorders based on subject deviations from the normative trajectories. For each feature, we split our reference population (HC) into training and test sets, and trained a Generalized Additive Model for Location, Scale, and Shape (GAMLSS) on the training set. For the spectral features, a GAMLSS was /uniFB01 tted to the relative power (Welch ' s method) of each channel and each frequency band. Functional connectivity was estimated between 68 prede /uniFB01 ned brain regions from the DesikanKilliany atlas using Amplitude Envelope Correlation -AEC- [36, 37], corrected for source leakage using an orthogonalization approach [38]. A GAMLSS was /uniFB01 tted to the connectivity values at each connection and each frequency band.
+47:Subsequently, subjects with ASD, ADHD, ANX, and LD, along with an HC(test) group were projected on these models to calculate their deviation scores ( z -scores, z ). These deviations can be negative (lower than normative values) or positive (higher than normative values), Fig. 2a1, b1. Extreme deviations were de /uniFB01 ned as | z | &gt; 2 [22, 24, 26 -31], Fig. 2a2, b2.
+49:First, we computed the percentage of subjects with at least one extremely deviated channel/connection, as well as the number of extremely deviated channels/connections per subject in each group. Next, we evaluated the spatial overlap of extreme deviations (among the subjects with at least one extreme deviation) by computing the percentage of extremely deviated subjects per channel/connection within each group, (Fig. 2a3, b3). A group-based permutation test [22] was used to compare clinical groups and HCs overlap maps (all results were corrected for multiple comparisons using FDR), Fig. 2a4, b4.
+51:The distribution of the number of extremely deviated channels/ connections across groups is depicted in Fig. S19 -S28 in Supplementary Materials. Range and median values are reported in Tables S7 -S11 and S13 -S17. The number of negatively deviated channels per subject in all clinical groups were signi /uniFB01 cantly different as compared to HC(test) in delta band ( p &lt; 0.03, MannWhitney test). For the positive deviations, all groups showed signi /uniFB01 cant differences compared to HC(test) at alpha and beta bands ( p &lt; 0.01 ). Regarding functional connectivity features, ADHD and ASD showed signi /uniFB01 cantly fewer numbers of negative extreme deviations compared to HCs, particularly in the beta and gamma bands ( p &lt; 0.01 ). Conversely, ANX and LD demonstrate signi /uniFB01 cant differences only in the alpha band ( p &lt; 0.05 ). However,
+55:Fig. 2 Overview of the quanti /uniFB01 cation of heterogeneity in spectral and connectivity features based on normative model-inferred deviation scores. a1 individualized deviation maps scores for spectral power, a2 extreme deviation maps displaying both positive (top) and negative (bottom) deviations, identi /uniFB01 ed for deviation scores &gt;2 and &lt; -2, respectively, a3 spatial overlap maps, calculated as the percentage of subjects showing extreme deviation at each channel, among those with at least one extreme deviation, to identify common areas of deviation. a4 group-based permutation tests to evaluate group differences (HC(test) vs clinical group) in channel-level overlap ( p &lt; 0.05 , FDR corrected) b1-b4 same methodological approach applied for functional connectivity.
+59:connections displaying positive deviations are signi /uniFB01 cant across all clinical groups and frequency bands ( p &lt; 0.01 ). Interestingly, while we observed signi /uniFB01 cant differences in most cases, our results did not reveal a uniform trend. In some instances, clinical cohorts exhibited higher numbers of extreme deviations compared to the HC group; conversely, in other instances, the HC group showed more extreme deviations than clinical groups.
+63:The percentages of subjects having at least one negative deviation were relatively low with the highest values occurring in the theta (ASD: 44%), alpha (ADHD: 29%, LD: 25%, ANX: %23), and beta (HC(test): %35) bands (These percentages are detailed across all frequency bands and disorders in Table S7 -S11 in the Supplementary Materials). Thus, a substantial proportion of participants exhibit signi /uniFB01 cant similarities with the healthy population. Then, we quanti /uniFB01 ed the spatial overlap of these extreme deviations across subjects. Figure 3a illustrates examples of the overlap maps across groups (detailed results /uniFB01 gures can be found in Supplementary Materials, Fig. S29 -S33). Interestingly, the overlap values -calculated only among subjects with at least one deviation- were low and did not exceed 40% (delta: ADHD: 31%, ANX: 32%; beta: ASD: 28%, HC(test): 31%; gamma: LD: 40%; Table S12) re /uniFB02 ecting an inconsistency in the spatial location of extreme deviations. Notably, LD and ADHD exhibited the highest consistency (i.e., overlap) across subjects, mainly in the delta band. Overall, similar results were obtained for positive deviations. The ASD group exhibited the highest percentage of subjects having at least one extreme deviation (41% in theta band) and the spatial overlap that did not exceed 40% (HC(test), alpha; Table S12).
+65:To investigate if the obtained overlap may differentiate patients from HCs, we compared the channel-wise overlap maps between clinical groups and healthy controls. The result of group-based permutations (see Methods) varies greatly between frequency bands (Fig. 3b). Out of 124 channels (remained after data preprocessing), the highest number of channels showing signi /uniFB01 cant difference with HC(test) for negative extreme deviation
+67:Fig. 3 Spectral features heterogeneity. a Overlap maps of deviation scores for clinical groups and the held-out healthy control group (HC(test)), illustrating areas of common deviation. b channels showing signi /uniFB01 cant differences between HC(test) and clinical groups, determined through group-based permutation tests ( p &lt; 0.05 , FDR corrected ).
+71:overlap was 41 (delta: ADHD: 26; beta: ASD: 19, LD: 41; ANX: 22; uncorrected ). Only 15 channels survive FDR correction for LD in beta band mainly in the occipital-parietal region. For ANX in the beta band, none survive the FDR correction, instead in the gamma band 11 channels remain mostly in the frontal area (Fig. 3b). For positive extreme deviations, ADHD has the highest number of signi /uniFB01 cant channels in gamma (delta: ANX: 50; alpha: ASD: 57; gamma: ADHD: 86, LD: 63, uncorrected ), of which 74 channels remain after FDR correction. For the ASD group after FDR correction there are no signi /uniFB01 cant channels in the alpha band, only 3 channels in the frontal region survive in the delta band (Fig. 3b). This low overlap and weak differentiation between cases and HC con /uniFB01 rm the absence of consistent characteristic patterns among a whole group. Instead, the patterns seem to be subjectspeci /uniFB01 c. All the results for cases and frequency bands are presented in the supplementary materials (Fig. S29 to S33).
+75:Next, we quanti /uniFB01 ed the heterogeneity at the level of functional brain connections. Unlike the /uniFB01 ndings from spectral analysis, we observed an increase in the number of subjects exhibiting at least one negative/positive extreme deviation. Detailed percentages across all frequency bands and disorders are provided in Table S13 -S17 in the Supplementary Materials. For negative extreme deviations, the highest observed percentage was 87% (delta: HC(test): 87%, ASD: 71%; theta: ADHD: 82%, ANX: 83%, LD: 82%). Among subjects with at least one extreme deviation, the spatial overlap of these deviations was notably low, not exceeding 14% (alpha: HC(test): 14%, ASD: 9%, ADHD: 10%, LD: 10%, gamma: ANX: 12%; Table S18), Fig. 4b. For positive deviations, the percentage of subjects with at least one extremely deviant connection is modestly lower (the highest value (73%) obtained for ASD in beta band). Conversely, the within-groups overlap percentages slightly increased (delta: ADHD: 15%; theta: ANX: 19%; alpha: HC(test): 23%, beta: LD: 24%, gamma: ASD: 21%; Table S18) with LD exhibiting the highest overlap values, Fig. 4a.
+
+thinking
+**Searching supplement for demographics**
+
+I'll look through the supplement and PDF markdown for clinical cohort demographics like counts, sex percentages, and age ranges to extract relevant details.
+exec
+/bin/bash -lc 'rg -n "age|years|mean|sd|male|female|% M|%F|sex" study_1/Ebadi2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041303503782026-03-04T04:04:23.019464Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+5:![Image](./Ebadi2024_artifacts/image_000000_13dfb26697adfdb16dc09bf6e5cca434b539c29be4227bdd21905c13a01aeb3f.png)
+21:A key factor contributing to this issue is the reliance, in EEG research, on statistical designs that fail to account for the inherent heterogeneous nature of neurodevelopmental and psychiatric disorders [18, 19]. Typically, these designs rely on comparisons of average differences between groups (e.g. patient versus control or treatment versus placebo), presupposing uniformity within groups, as well as distinct separations between cases and healthy controls [18 -21]. However, such assumptions signi /uniFB01 cantly misrepresent the reality of disorders, which exhibit profound heterogeneity and overlap in symptoms, severity levels, developmental course, biological underpinnings, and response to treatment [22].
+23:To more effectively capture the nuanced heterogeneity of neurodevelopmental and psychiatric disorders, research methodologies should go beyond conventional case-control paradigms to more sophisticated statistical techniques that can accommodate the variability within and across patient and healthy populations [19, 20]. An emerging powerful approach in neuroimaging is normative modeling (NM), which involves estimating normative trajectories of a reference population and assessing the degree to which individuals deviate from these norms [19 -21]. A well-known example of NM is pediatric growth charts, by which a child ' s height and weight are compared to those of children of the same age and sex [23]. Recent MRI studies combined with NM have endeavored to chart analogous trajectories for brain phenotypes (e.g., grey and white matter volumes, mean cortical thickness, total surface area, etc.) to map lifespan age-related changes in brain structure [24 -26] and characterize structural heterogeneity in neurodevelopmental and psychiatric disorders [22] such as Attention De /uniFB01 cit Hyperactivity Disorder (ADHD) [27], Autism Spectrum Disorder (ASD) [28], Schizophrenia and Bipolar disorder [29], as well as in neurodegenerative disease as Alzheimer ' s disease [30]. Additionally, there
+29:Fig. 1 Normative modeling of electrophysiological features across age and individual deviation assessment. a Illustration of the normative trajectory of a given feature across different ages, with the solid line representing the median trajectory derived from a healthy reference population (the healthy reference subjects (or healthy controls) are strati /uniFB01 ed into training and test sets, with the model being trained solely on the training set). b Tabulation of deviation scores for individual subjects across multiple features including power spectral densities and functional connectivity. Red and blue values denote negative and positive deviations (i.e., below/above the median), respectively. c Individual deviation maps showing spectral (upper panel) and network-based (lower panel) deviations.
+31:![Image](./Ebadi2024_artifacts/image_000001_057a1a2fd9106eedca9838849e70f6f32c7bc843613e0da00fcf47d19f5dc8d4.png)
+35:Here, we address this gap by combining high-density EEG (HDEEG) with NM to elucidate the electrophysiological heterogeneity of neurodevelopmental and psychiatric disorders. We perform our investigation at two levels, the scalp (the level of electrode) and the sources (the level of cortical brain sources), thanks to the availability of high channel density. We develop an end-to-end NM framework of a normative HD-EEG cohort comprising 560 healthy subjects (age 5 -18 yo), see Fig. 1a for illustrative explanation. We then systematically quantify the heterogeneity observed in the HD-EEG power spectrum and functional connectivity among a clinical group of 1674 age-matched patients diagnosed with ASD, ADHD, anxiety (ANX), and learning disorders (LD), Fig. 1b, c. Inspired by MRI-based studies, we hypothesize that those disorders exhibit substantial electrophysiological heterogeneity and that individual patient deviations are likely to demonstrate low spatial homogeneity across both channels and cortical regions.
+41:Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets (Methods, Fig. S1). Models were trained on 448 (52% M) healthy controls (HC) and 112 (55% M) healthy subjects were held out as a comparison group against the clinical cohort. The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).
+45:EEG power spectra (i.e., EEG power in the prede /uniFB01 ned frequency band: delta, theta, alpha, beta, and gamma) have been the most used features in clinical EEG research [14]. More recently and with the availability of HD-EEG, source-space functional connectivity analysis has emerged as a highly promising approach, establishing a framework for the electrophysiological circuit-level differentiation of healthy and diseased brains [35]. Here, we have developed models for the normative trajectories of these two wellestablished sets of features and assessed the heterogeneity in neurodevelopmental and psychiatric disorders based on subject deviations from the normative trajectories. For each feature, we split our reference population (HC) into training and test sets, and trained a Generalized Additive Model for Location, Scale, and Shape (GAMLSS) on the training set. For the spectral features, a GAMLSS was /uniFB01 tted to the relative power (Welch ' s method) of each channel and each frequency band. Functional connectivity was estimated between 68 prede /uniFB01 ned brain regions from the DesikanKilliany atlas using Amplitude Envelope Correlation -AEC- [36, 37], corrected for source leakage using an orthogonalization approach [38]. A GAMLSS was /uniFB01 tted to the connectivity values at each connection and each frequency band.
+49:First, we computed the percentage of subjects with at least one extremely deviated channel/connection, as well as the number of extremely deviated channels/connections per subject in each group. Next, we evaluated the spatial overlap of extreme deviations (among the subjects with at least one extreme deviation) by computing the percentage of extremely deviated subjects per channel/connection within each group, (Fig. 2a3, b3). A group-based permutation test [22] was used to compare clinical groups and HCs overlap maps (all results were corrected for multiple comparisons using FDR), Fig. 2a4, b4.
+55:Fig. 2 Overview of the quanti /uniFB01 cation of heterogeneity in spectral and connectivity features based on normative model-inferred deviation scores. a1 individualized deviation maps scores for spectral power, a2 extreme deviation maps displaying both positive (top) and negative (bottom) deviations, identi /uniFB01 ed for deviation scores &gt;2 and &lt; -2, respectively, a3 spatial overlap maps, calculated as the percentage of subjects showing extreme deviation at each channel, among those with at least one extreme deviation, to identify common areas of deviation. a4 group-based permutation tests to evaluate group differences (HC(test) vs clinical group) in channel-level overlap ( p &lt; 0.05 , FDR corrected) b1-b4 same methodological approach applied for functional connectivity.
+57:![Image](./Ebadi2024_artifacts/image_000002_93fd097229a321da7d6fd4bd1dc15928b15e3c3bff7bbc05f1e8f81d936a04d6.png)
+63:The percentages of subjects having at least one negative deviation were relatively low with the highest values occurring in the theta (ASD: 44%), alpha (ADHD: 29%, LD: 25%, ANX: %23), and beta (HC(test): %35) bands (These percentages are detailed across all frequency bands and disorders in Table S7 -S11 in the Supplementary Materials). Thus, a substantial proportion of participants exhibit signi /uniFB01 cant similarities with the healthy population. Then, we quanti /uniFB01 ed the spatial overlap of these extreme deviations across subjects. Figure 3a illustrates examples of the overlap maps across groups (detailed results /uniFB01 gures can be found in Supplementary Materials, Fig. S29 -S33). Interestingly, the overlap values -calculated only among subjects with at least one deviation- were low and did not exceed 40% (delta: ADHD: 31%, ANX: 32%; beta: ASD: 28%, HC(test): 31%; gamma: LD: 40%; Table S12) re /uniFB02 ecting an inconsistency in the spatial location of extreme deviations. Notably, LD and ADHD exhibited the highest consistency (i.e., overlap) across subjects, mainly in the delta band. Overall, similar results were obtained for positive deviations. The ASD group exhibited the highest percentage of subjects having at least one extreme deviation (41% in theta band) and the spatial overlap that did not exceed 40% (HC(test), alpha; Table S12).
+69:![Image](./Ebadi2024_artifacts/image_000003_a67da2bdecc3227df7d988c3470c17b9df7f5ffddccae4d0992b8b9849151055.png)
+75:Next, we quanti /uniFB01 ed the heterogeneity at the level of functional brain connections. Unlike the /uniFB01 ndings from spectral analysis, we observed an increase in the number of subjects exhibiting at least one negative/positive extreme deviation. Detailed percentages across all frequency bands and disorders are provided in Table S13 -S17 in the Supplementary Materials. For negative extreme deviations, the highest observed percentage was 87% (delta: HC(test): 87%, ASD: 71%; theta: ADHD: 82%, ANX: 83%, LD: 82%). Among subjects with at least one extreme deviation, the spatial overlap of these deviations was notably low, not exceeding 14% (alpha: HC(test): 14%, ASD: 9%, ADHD: 10%, LD: 10%, gamma: ANX: 12%; Table S18), Fig. 4b. For positive deviations, the percentage of subjects with at least one extremely deviant connection is modestly lower (the highest value (73%) obtained for ASD in beta band). Conversely, the within-groups overlap percentages slightly increased (delta: ADHD: 15%; theta: ANX: 19%; alpha: HC(test): 23%, beta: LD: 24%, gamma: ASD: 21%; Table S18) with LD exhibiting the highest overlap values, Fig. 4a.
+83:Second, we explored the potential of NM to provide a framework for generating subject-speci /uniFB01 c markers that may correlate with clinical assessments of patients. For this purpose, we calculated a global deviation score for each subject, de /uniFB01 ned as the average z values of the extremely deviated channels/ connections. This score was then correlated with the patients ' clinical assessments. Figure 5b shows a signi /uniFB01 cant, but relatively low, Spearman correlation (average p ≈ 0.2, p &lt; 0.05) between total ADOS scores (a standard clinical assessment in ASD) and both positive and negative patient-speci /uniFB01 c global deviation scores. As ADOS scores increased, positive global deviations also increased, while negative global deviations decreased. These /uniFB01 ndings are a /uniFB01 rst step into developing EEG-based patient-speci /uniFB01 c markers that can be used for objectively quantifying personalized treatment such as medication or neurostimulation.
+91:![Image](./Ebadi2024_artifacts/image_000004_f0a5a7c56455ca771ed1097431c175f7514bfed9a48b6e643500b4bacc4d2ad8.png)
+105:![Image](./Ebadi2024_artifacts/image_000005_da1d28b782e2c2d58c6aa80318c5a363314226f5d3b5eb9132231fc662c39c7e.png)
+119:beyond merely elucidating sample heterogeneity. Deviation scores obtained from these models also can be used as inputs for downstream analyses. Instead of using the raw features (i.e. relative power, functional connectivity, etc.), group average, classi /uniFB01 cation, and prediction analyses can be run using the deviation scores inferred from the models that can serve as inputs. For instance, Rutherford et al. [26] found minor (regression) to strong (group difference testing) advantages of using deviation scores over raw features. We have indeed tested this in the current paper and showed that NM can indeed improve group-level comparison between HC and cases. As such, normative models can contribute to the development of more personalized electrophysiological approaches.
+127:One potential limitation is that the population included in the study has a restricted age range (5 -18 years), encompassing only younger, developmental stages. This may contribute to the observed heterogeneity, potentially due to varying developmental trajectories. However, in our recent study involving healthy controls and patients with neurodegenerative diseases [41], we observed similar patterns of heterogeneity in a population aged over 40. We therefore speculate that, although age may moderate certain features, the observed heterogeneity is not solely attributable to age differences. A more comprehensive understanding could be achieved through lifespan models highlighting developmental and non-developmental phases.
+129:Another challenge of the study stems from the inherent heterogeneity that may exist within each group of patients who present multiple psychiatric diagnoses. This comorbidity (Table S1) introduces a layer of complexity. The presence of comorbidities poses challenges in isolating the unique contributions of each condition. This complexity is re /uniFB02 ective of the clinical reality where patients frequently exhibit overlapping symptomatology, necessitating a comprehensive approach to diagnosis and treatment. We were aware of this key point when quantifying heterogeneity and we provided an additional control analysis by investigating heterogeneity among patients who have only one diagnosis (according to the HBN dataset). The overlap results of the functional connectivity were always low and did not exceed 30%. This con /uniFB01 rms that the observed heterogeneity is indeed intrinsic to the disorder and not driven by the possible comorbidity. In addition, we have controlled for some available parameters such as IQ (Fig. S12 -S14) and sex (Fig. S2 -S11, Table S2, S3).
+
+thinking
+**Checking supplementary demographics**
+
+I'm considering looking at supplementary documents like tables S1 for demographic details per disorder to augment the data.
+exec
+/bin/bash -lc 'rg -n "Table S|age|mean|SD|sex|male|female|ASD|ADHD|ANX|LD" study_1/Ebadi2024_sup.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378 succeeded in 20ms:
+9:Our cohort consisted of 2234 individuals, subdivided into a group of healthy controls (n=448 in the training set, n=112 in the held-out testing set) and a group of 1674 participants clinically diagnosed with psychiatric disorders, including ADHD (n=650), ASD (n=576), anxiety disorder (n=216), and learning disorder (n=232). The data were aggregated from five distinct studies, each detailed subsequently.
+11:![Image](./Ebadi2024_sup_artifacts/image_000000_8ff24393bc1cd284f7aa8e543f015b03d5779505e47e7d3899f721cc001394ad.png)
+13:Figure. S1 | Age distributions. (a) Age distribution across all groups. (b) Age distribution for the HC training and test sets. (c) Age distribution for HC training and test sets across different sites. (d) Age distribution for HC training and test sets stratified by sex.
+17:***Participants.*** The Healthy Brain Network ( *HBN* ) project ( [https://fcon\_1000.projects.nitrc.org/indi/cmi\_healthy\_brain\_network/index.html](https:/fcon_1000.projects.nitrc.org/indi/cmi_healthy_brain_network/index.html) ) [(Alexander et al. 2017; Langer et al. 2017)](https:/paperpile.com/c/dLho4L/xBbVL+SHLjK) , initiated by the Child Mind Institute, enrolled children and adolescents aged 5–21 from four study sites in the New York City area. Inclusion criteria required participants to possess adequate verbal communication skills, with assistance from parents or guardians when needed. Exclusion criteria encompassed severe neurological disorders, significant cognitive impairment (IQ&lt;66), acute encephalopathy, known neurodegenerative disorders, or other abnormalities hindering complete participation in the protocol. A comprehensive set of neuropsychological assessments was administered (for details, see Ref). The dataset encompasses 3234 participants (~36% M), categorized into healthy controls and clinical groups predominantly associated with neurodevelopmental disorders, including ADHD, ASD, learning disorders, anxiety, and obsessive-compulsive disorder, among others. Participants were instructed to refrain from stimulant medications on study days; however, those who were unable or chose not to stop were still included in the study.
+23:***Participants*** *.* The *MIPDB* dataset ( [https://fcon\_1000.projects.nitrc.org/indi/cmi\_eeg/index.html](https:/fcon_1000.projects.nitrc.org/indi/cmi_eeg/index.html) ) [(Langer et al. 2017)](https:/paperpile.com/c/dLho4L/SHLjK) included 101 healthy controls and 31 patients with neurodevelopmental disorders (ADHD, ASD, learning disorders, anxiety) aged 6-44 (54.8% M). Participants underwent a 10-minute screening via phone or in person, during which information on psychiatric history, current treatments, medications, diagnoses, and any neurological disorders, including epilepsy, was collected. If they were deemed eligible for EEG, they were invited to participate in the task. This information is available upon signing a data usage agreement.
+29:***Participants.*** The *ABC-CT* dataset ( [https://nda.nih.gov/edit\_collection.html?id=2288](https:/nda.nih.gov/edit_collection.html?id=2288) ), included a total of 280 children diagnosed with Autism Spectrum Disorder (ASD) and 119 typically developing (TD) children, aged between 6 and 11 years (~75% M). The diagnosis of ASD was established using the Autism Diagnostic Observation Schedule (ADOS). The Full-Scale Intelligence Quotient (FSIQ) of the subjects ranged from 60 to 150, as assessed by the Differential Ability Scales. Exclusion criteria encompassed known genetic syndromes, neurological conditions causally linked to ASD, recognized metabolic disorders, and mitochondrial dysfunction. Medications were permitted to ensure the sample's representativeness for individuals undergoing treatment, promoting the generalizability of biomarker measurements. However, a stable medication regimen (maintained for at least 8 weeks prior to enrollment) was a prerequisite for inclusion in the study. (See [(McPartland et al. 2020)](https:/paperpile.com/c/dLho4L/kg26) for more details).
+33:**Dataset 4: Multimodal Developmental Neurogenetics of Females with ASD (** ***femaleASD*** **)**
+35:***Participants.*** A sex-balanced cohort of ASD, matched typically developing participants, and unaffected siblings, all aged between 8 and 17 years (~49% M) were recruited as part of the Autism Center for Excellence (ACE) project Multimodal Developmental Neurogenetics of Females with ASD [(Pelphrey 2014)](https:/paperpile.com/c/dLho4L/CiEO) , focusing on sex differences in children with ASD ( [https://nda.nih.gov/edit\_collection.html?id=2021](https:/nda.nih.gov/edit_collection.html?id=2021) ). Of the enrolled children, 339 participated in the EEG protocol.
+39:**Dataset 5:** ***LausanneASD***
+41:***Participants.*** This study enlisted a sample of 139 children (75 males and 64 females), comprising 58 participants diagnosed with ASD and 81 typically developing (TD) participants. All participants were aged between 2 and 10 years (~65% M). TD children were recruited from the general population via an online form. Inclusion criteria were the following: being enrolled in the regular school system and having no known NDD or learning disabilities. Children with ASD were all recruited in the Service des Troubles du Spectre de l'Autisme et apparentés at Lausanne University Hospital, Switzerland (STSA-a). Trained psychologists and child psychiatrists established the diagnosis of ASD according to the Diagnostic and Statistical Manual of Mental Disorders, fifth edition (American Psychiatric Association, 2013). This included a review of patients' medical and developmental history, an assessment with the ADI-R, and the Autism Diagnosis Observation Scale-2 (ADOS-2; [(Lord et al. 2012)](https:/paperpile.com/c/dLho4L/0Zff) ). In both cohorts, parents or legal guardians responding to caregiver-report questionnaires were required to be native or fluent French speakers. The study was reviewed and approved by the local Ethics committee and signed consent forms were obtained from participants or legal representatives.
+51:| Primary Diagnosis   |   ADHD |   ADHD+ANX |   ADHD+ANX+LD |   ADHD+LD |   ANX |   ANX+LD |   ASD |   ASD+ADHD |   ASD+ADHD+ANX |   ASD+ADHD+ANX+LD |   ASD+ADHD+LD |   ASD+ANX |   ASD+ANX+LD |   ASD+LD |   LD |
+53:| ADHD                |    677 |        182 |            60 |       202 |     0 |        0 |     0 |        107 |             31 |                10 |            24 |         0 |            0 |        0 |    0 |
+54:| ANX                 |      0 |         74 |            26 |         0 |   156 |       27 |     0 |          0 |              9 |                 4 |             0 |        10 |            2 |        0 |    0 |
+55:| ASD                 |      0 |          0 |             0 |         0 |     0 |        0 |    48 |         74 |             29 |                 9 |            15 |         6 |            2 |        7 |    0 |
+56:| LD                  |      0 |          0 |            27 |        27 |     0 |       29 |     0 |          0 |              0 |                 3 |             0 |         0 |            0 |        3 |  147 |
+60:![Image](./Ebadi2024_sup_artifacts/image_000001_f2658b9290ebd3ecb9824203f66c159f6e13679dd0e00af3045aea5b0a661479.png)
+62:We performed the Wilcoxon Rank-Sum test, also known as the Mann-Whitney U test,  to check for any significant differences in the EEG spectral power/functional connectivity distribution between male and female participants within each diagnostic group. The effect sizes of these differences were quantified using Cohen’s d.
+64:**Figure. S2 | Sex differences in averaged relative power of EEG frequency bands in HC group.** (*) denote statistically significant differences between sexes within each frequency band.
+66:![Image](./Ebadi2024_sup_artifacts/image_000002_4fd785d65972bbdd74be46dab0d662f14e2f5f9ae9fb9239549a55ef569440d3.png)
+68:**Figure. S3 | Sex differences in averaged relative power of EEG frequency bands in ASD group.** (*) denote statistically significant differences between sexes within each frequency band.
+2026-03-04T04:04:37.635230Z ERROR codex_core::codex: needs_follow_up: true
+
+
+thinking
+**Deciding on clinical cohort age usage**
+
+The supplement lacks per-disorder clinical cohort age data, only providing overall cohort age (5-18 years, mean 9.99±3.06). I'll likely use the overall age range for clinical groups with a note, as separate clinical-specific data isn't available.
+thinking
+**Deriving clinical cohort sex counts and dataset origins**
+
+I'm deciding to estimate male/female counts by rounding N times reported male percentages per disorder, noting these as estimates. I'll assign all five datasets as the clinical cohort origin since disorder-specific mappings aren't reported, and use age range 5–18 years with mean and SD as not reported for clinical groups.
+2026-03-04T04:05:03.413932Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Ebadi2024_by_codex_20260304130350378.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378 succeeded in 16ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Planning detailed data patch**
+
+I'm preparing to fill the disorders array with four entries using structured objects for age, sex, and dataset. I'll compute male and female percentages and estimate counts with rounding, citing supporting text from line 41 and line 141 for age ranges and dataset origin, referencing "Ebadi2024.pdf.md: Results / Methods" for location.
+thinking
+**Finalizing data details and locations**
+
+I'm finalizing supporting text and locations using line-specific references without ranges, assigning disorder counts and male/female percentages with rounding, and referencing overall cohort and dataset origins consistently for all disorders before applying the patch.
+2026-03-04T04:06:09.918963Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ebadi2024"
+   },
+@@ -7,28 +7,189 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical group diagnosed with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 300,
++          "male_pct": 52.0,
++          "female_n": 276,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "Clinical group diagnosed with attention-deficit/hyperactivity disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 176,
++          "male_pct": 27.0,
++          "female_n": 474,
++          "female_pct": 73.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Clinical group diagnosed with anxiety disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 112,
++          "male_pct": 52.0,
++          "female_n": 104,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "LD",
++        "detail": "Clinical group diagnosed with learning disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 46.0,
++          "female_n": 125,
++          "female_pct": 54.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       }
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b9eb605f6691fb1e7482d9ff507edf1917024a97
+--- a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -1,36 +1,197 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ebadi2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical group diagnosed with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 300,
++          "male_pct": 52.0,
++          "female_n": 276,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "Clinical group diagnosed with attention-deficit/hyperactivity disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 176,
++          "male_pct": 27.0,
++          "female_n": 474,
++          "female_pct": 73.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Clinical group diagnosed with anxiety disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 112,
++          "male_pct": 52.0,
++          "female_n": 104,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "LD",
++        "detail": "Clinical group diagnosed with learning disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 46.0,
++          "female_n": 125,
++          "female_pct": 54.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b9eb605f6691fb1e7482d9ff507edf1917024a97
+--- a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -1,36 +1,197 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ebadi2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical group diagnosed with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 300,
++          "male_pct": 52.0,
++          "female_n": 276,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "Clinical group diagnosed with attention-deficit/hyperactivity disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 176,
++          "male_pct": 27.0,
++          "female_n": 474,
++          "female_pct": 73.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Clinical group diagnosed with anxiety disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 112,
++          "male_pct": 52.0,
++          "female_n": 104,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "LD",
++        "detail": "Clinical group diagnosed with learning disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 46.0,
++          "female_n": 125,
++          "female_pct": 54.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       }
+     }
+   ]
+
+
+thinking
+**Fixing invalid JSON commas**
+
+The current JSON has invalid trailing commas after objects; I'll remove these preceding commas and reformat the file to ensure valid JSON syntax.
+2026-03-04T04:06:15.736343Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Ebadi2024_by_codex_20260304130350378.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378 succeeded in 19ms:
+{
+  "paper_id": {
+    "answer": "Ebadi2024"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "ASD",
+        "detail": "Clinical group diagnosed with autism spectrum disorder.",
+        "confidence_rating": "High",
+        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
+        "location": "Ebadi2024.pdf.md: Results / L41"
+      },
+      "dataset-of-origin": {
+        "answer": [
+          "HBN",
+          "MIPDB",
+          "ABCCT",
+          "femaleASD",
+          "Lausanne-ASD"
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b9eb605f6691fb1e7482d9ff507edf1917024a97
+--- a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -1,36 +1,197 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ebadi2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical group diagnosed with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 300,
++          "male_pct": 52.0,
++          "female_n": 276,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "Clinical group diagnosed with attention-deficit/hyperactivity disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 176,
++          "male_pct": 27.0,
++          "female_n": 474,
++          "female_pct": 73.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Clinical group diagnosed with anxiety disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 112,
++          "male_pct": 52.0,
++          "female_n": 104,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    }
++    ,
++    {
++      "disorder-name": {
++        "answer": "LD",
++        "detail": "Clinical group diagnosed with learning disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 46.0,
++          "female_n": 125,
++          "female_pct": 54.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       }
+     }
+   ]
+
+
+thinking
+**Fixing leading commas with patch**
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -51,4 +51,3 @@
+       }
+-    }
+-    ,
++    },
+     {
+@@ -99,4 +98,3 @@
+       }
+-    }
+-    ,
++    },
+     {
+@@ -147,4 +145,3 @@
+       }
+-    }
+-    ,
++    },
+     {
+2026-03-04T04:06:19.439555Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 6ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b1d3a82eb6f69b962839fd8959c8720a12749bd2
+--- a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -1,36 +1,194 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ebadi2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical group diagnosed with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 300,
++          "male_pct": 52.0,
++          "female_n": 276,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "Clinical group diagnosed with attention-deficit/hyperactivity disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 176,
++          "male_pct": 27.0,
++          "female_n": 474,
++          "female_pct": 73.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Clinical group diagnosed with anxiety disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 112,
++          "male_pct": 52.0,
++          "female_n": 104,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LD",
++        "detail": "Clinical group diagnosed with learning disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 107,
++          "male_pct": 46.0,
++          "female_n": 125,
++          "female_pct": 54.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b1d3a82eb6f69b962839fd8959c8720a12749bd2
+--- a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -1,36 +1,194 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ebadi2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical group diagnosed with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 300,
++          "male_pct": 52.0,
++          "female_n": 276,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "Clinical group diagnosed with attention-deficit/hyperactivity disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 176,
++          "male_pct": 27.0,
++          "female_n": 474,
++          "female_pct": 73.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Clinical group diagnosed with anxiety disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 112,
++          "male_pct": 52.0,
++          "female_n": 104,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LD",
++        "detail": "Clinical group diagnosed with learning disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 107,
++          "male_pct": 46.0,
++          "female_n": 125,
++          "female_pct": 54.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       }
+     }
+   ]
+
+
+thinking
+**Reviewing JSON content**
+2026-03-04T04:06:23.741821Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'python -m json.tool DE_v14_Ebadi2024_by_codex_20260304130350378.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304130350378 succeeded in 43ms:
+{
+    "paper_id": {
+        "answer": "Ebadi2024"
+    },
+    "disorders": [
+        {
+            "disorder-name": {
+                "answer": "ASD",
+                "detail": "Clinical group diagnosed with autism spectrum disorder.",
+                "confidence_rating": "High",
+                "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
+                "location": "Ebadi2024.pdf.md: Results / L41"
+            },
+            "dataset-of-origin": {
+                "answer": [
+                    "HBN",
+                    "MIPDB",
+                    "ABCCT",
+                    "femaleASD",
+                    "Lausanne-ASD"
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b1d3a82eb6f69b962839fd8959c8720a12749bd2
+--- a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -1,36 +1,194 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ebadi2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical group diagnosed with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 300,
++          "male_pct": 52.0,
++          "female_n": 276,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "Clinical group diagnosed with attention-deficit/hyperactivity disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 176,
++          "male_pct": 27.0,
++          "female_n": 474,
++          "female_pct": 73.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Clinical group diagnosed with anxiety disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 112,
++          "male_pct": 52.0,
++          "female_n": 104,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LD",
++        "detail": "Clinical group diagnosed with learning disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 107,
++          "male_pct": 46.0,
++          "female_n": 125,
++          "female_pct": 54.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       }
+     }
+   ]
+
+
+thinking
+**Finalizing response without tests**
+
+The JSON is validated and no non-ASCII issues were found in the inspected file path. I'll provide a concise summary and respond without adding tests, as none are explicitly requested or necessary here.
+codex
+Extracted clinical cohort details for Ebadi2024 and filled out the four disorder entries, with dataset sources and derived sex counts; wrote results to `DE_v14_Ebadi2024_by_codex_20260304130350378.json`.
+
+Details:
+- Populated `paper_id` and four disorders (ASD, ADHD, ANX, LD) with clinical cohort sizes, sex percentages, and age range from `study_1/Ebadi2024.pdf.md`.
+- Dataset-of-origin uses the five named datasets, with note that disorder-specific origins aren’t reported.
+- Sex counts are estimated from reported male percentages; age mean/SD are marked `NR` when not disorder-specific.
+
+If you want, I can also:
+1) incorporate the overall mean age (9.99 ± 3.06) as a separate note, or  
+2) adjust dataset-of-origin per disorder if you have mapping details.
+2026-03-04T04:06:29.689447Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b1d3a82eb6f69b962839fd8959c8720a12749bd2
+--- a/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304130350378/DE_v14_Ebadi2024_by_codex_20260304130350378.json
+@@ -1,36 +1,194 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ebadi2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical group diagnosed with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 300,
++          "male_pct": 52.0,
++          "female_n": 276,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "Clinical group diagnosed with attention-deficit/hyperactivity disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 176,
++          "male_pct": 27.0,
++          "female_n": 474,
++          "female_pct": 73.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M)\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Clinical group diagnosed with anxiety disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 112,
++          "male_pct": 52.0,
++          "female_n": 104,
++          "female_pct": 48.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LD",
++        "detail": "Clinical group diagnosed with learning disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "HBN",
++          "MIPDB",
++          "ABCCT",
++          "femaleASD",
++          "Lausanne-ASD"
++        ],
++        "detail": "Clinical cohort aggregated from five datasets; disorder-specific dataset origin not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The data were aggregated from five distinct studies: the Healthy Brain Network Dataset ( HBN ) ... Multimodal Resource for Studying Information Processing in the Developing Brain ( MIPDB ) ... Autism Biomarker Consortium for Clinical Trials Dataset ( ABCCT ) ... Multimodal Developmental Neurogenetics of Females with ASD ( femaleASD ) ... and LausanneASD.\"",
++        "location": "Ebadi2024.pdf.md: Methods / L141"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 18,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for subjects across datasets; disorder-specific age stats not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Resting-state HD-EEG (128 channels) data was collected from subjects aged between 5 and 18 years old across multiple datasets\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 107,
++          "male_pct": 46.0,
++          "female_n": 125,
++          "female_pct": 54.0
++        },
++        "detail": "Male/female counts estimated from reported male percentage and N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"The clinical groups comprised 576 subjects diagnosed with ASD (52% M), 650 with ADHD (27% M), 216 with ANX (52% M), and 232 with LD (46% M).\"",
++        "location": "Ebadi2024.pdf.md: Results / L41"
+       }
+     }
+   ]
+
+tokens used
+50,526
+Extracted clinical cohort details for Ebadi2024 and filled out the four disorder entries, with dataset sources and derived sex counts; wrote results to `DE_v14_Ebadi2024_by_codex_20260304130350378.json`.
+
+Details:
+- Populated `paper_id` and four disorders (ASD, ADHD, ANX, LD) with clinical cohort sizes, sex percentages, and age range from `study_1/Ebadi2024.pdf.md`.
+- Dataset-of-origin uses the five named datasets, with note that disorder-specific origins aren’t reported.
+- Sex counts are estimated from reported male percentages; age mean/SD are marked `NR` when not disorder-specific.
+
+If you want, I can also:
+1) incorporate the overall mean age (9.99 ± 3.06) as a separate note, or  
+2) adjust dataset-of-origin per disorder if you have mapping details.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

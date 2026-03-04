@@ -1,0 +1,954 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Chan2025B_by_codex_20260304125103814.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304125103814/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb6f8-8808-7573-b20a-ac96e4cd6571
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Chan2025B_by_codex_20260304125103814.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Locating read guide**
+2026-03-04T03:51:09.948406Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304125103814 succeeded in 20ms:
+DE_Guide_v14.md
+DE_v14_Chan2025B_by_codex_20260304125103814.json
+DE_v14_Chan2025B_by_codex_20260304125103814.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041251038142026-03-04T03:51:12.232078Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating study file**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041251038142026-03-04T03:51:14.847611Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+DE_v14_Chan2025B_by_codex_20260304125103814.log
+DE_v14_Chan2025B_by_codex_20260304125103814.json
+DE_Guide_v14.md
+study_1/imag_a_00456-supp.pdf.md
+study_1/Chan2025B.pdf.md
+exec
+/bin/bash -lc 'cat study_1/Chan2025B.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041251038142026-03-04T03:51:17.890762Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+![Image](./Chan2025B_artifacts/image_000000_04c6df3716045fec665acbe067e79b187341a5f2307ce6e924bed8b7879169dc.png)
+
+## Normative trajectories of R 1 , R 2 *, and magnetic susceptibility in basal ganglia on healthy ageing
+
+Kwok-  Shing Chan a,b,c,d , Marcel P . Zwiers a , Michelle G. Jansen a , Martin E. Johansson a,e , Rick C. Helmich a,e , Joukje M. Oosterman a , David G. Norris a,f,g , Christian F. Beckmann a,b , José P . Marques a
+
+a Donders Institute for Brain, Cognition and Behaviour, Radboud University, Nijmegen, The Netherlands
+
+b Department of Cognitive Neuroscience, Radboud University Medical Center, Nijmegen, The Netherlands
+
+c Athinoula A. Martinos Center for Biomedical Imaging, Massachusetts General Hospital, Charlestown, MA, United States
+
+d Department of Radiology, Harvard Medical School, Boston, MA, United States
+
+e Neurology Department, Donders Institute for Brain, Cognition and Behaviour, Radboud University Medical Centre, Nijmegen, The Netherlands
+
+f The Erwin L. Hahn Institute, University of Duisburg-  Essen, Essen, Germany
+
+g MIRA Institute for Biomedical Technology and Technical Medicine, University of Twente, Twente, The Netherlands
+
+
+thinking
+**Identifying clinical cohort details**
+
+I'm verifying that the study includes a clinical Parkinson's disease cohort, so I’ll extract the PPP dataset and locate demographic details in Table 2 or supplemental files, searching for "Parkinson" to confirm relevant information.
+exec
+/bin/bash -lc 'rg -n "Parkinson|patient|PPP" study_1/Chan2025B.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041251038142026-03-04T03:51:23.942644Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+25:Quantitative MRI (qMRI) techniques, including R 1 , R 2 *, and magnetic susceptibility mapping, have emerged as promising tools for generating surrogate imaging markers of brain tissue microstructure, enabling non-  invasive in vivo measurements associated with myelination and iron deposition. Gaining insights into how these quantitative measurements evolve throughout a normal lifespan can enhance our understanding of brain maturation processes and facilitate studies of disease-  related microstructural changes by distinguishing pathological alterations from normal brain development. In this study, we established the normative trajectories of R 1 , R 2 *, and magnetic susceptibility in the basal ganglia at 3T. We used a healthy ageing cohort comprising 260 subjects with an evenly distributed age range (from 18 to 80 years) and sex ratio throughout adulthood. Utilising the non-  parametric Gaussian Process Regression model to derive the normative trajectories, we found that R 1 in these structures predominantly exhibits a quadratic shape over age, while R 2 * and magnetic susceptibility are primarily linear. We validated the normative trajectories of R 2 * and magnetic susceptibility using an independent cohort. This result reinforces existing findings on the association between age and qMRI. Additionally, we demonstrated that the spatial distributions of the qMRI parameters also change with age in the putamen and caudate nucleus. Finally, the utility of normative modelling of qMRI in the basal ganglia is validated using an independent cohort comprising both healthy participants and individuals with Parkinson's disease, with comparable data acquisition protocols.
+27:Keywords: quantitative  MRI,  normative  modelling,  ageing  trajectories,  magnetic  susceptibility,  relaxometry,  iron, myelin, Parkinson disease
+59:Studying brain development across the lifespan is crucial for  understanding  brain  maturation  and  establishing  a standard  framework  to  help  us  evaluate  neurological disorder-  induced deviations from  typical quantitative phenotypes at an individual level. Traditional studies often involve  group  comparisons,  such  as  between  healthy individuals and  patients, to distinguish pathological features  from  normal  brain  development,  necessitating matching  group  demographic  characteristics.  Factors such as age and sex are known to influence various brain (micro)structures (  Gur    et  al.,    2002;    J ä ncke   et  al.,    2015; Persson   et  al.,    2015;    Xu    et  al.,    2000).  However,  simply matching demographic characteristics may not be sufficient, as this overlooks how these factors might influence the  effect  of  interest.  The  development  of  normative models allows for the exploration of deviations related to diseases  from  what  is  considered  normal  (  Marquand, Rezek,   et al.,   2016;   Rutherford   et al.,   2023), considering their dependence on these factors. This approach transcends classical case-  control designs, allowing researchers  to  better  comprehend  disease  progression and the effects  of  medical  interventions  without  the  need  for acquiring prohibitively large control datasets due to cost and logistical constraints.
+63:Quantitative MRI parameters, including the longitudinal relaxation rate R 1 , apparent transverse relaxation rate R 2 *,  and  tissue  magnetic  susceptibility χ ,  are  gaining prominence  as  surrogate  biomarkers  for  myelin  (  Lutti et al.,   2014;   Rooney   et al.,   2007) and iron (  Ghadery   et al., 2015;    Langkammer    et  al.,    2012;    Pontillo    et  al.,    2022; St ü ber    et  al.,    2014)  concentrations.  Quantitative  MRI offers direct and quantitative assessments of tissue MR properties. This approach not only holds the promise of furnishing  more  precise  information  about  brain  tissue composition but also of generating metrics that are reproducible across sessions and scanners (  Deh   et al.,   2015; K ö rzd ö rfer    et  al.,    2019;    Leutritz    et  al.,    2020;    Lin    et  al., 2015;   Teixeira   et al.,   2020). These methods are becoming more readily available in MRI scanners and cohort datasets. Their reproducibility and sensitivity have prompted various  studies  demonstrating  that  R 1 ,  R 2 *,  and χ vary throughout the lifespan (  K ü hne   et al.,   2021;   G.   Li   et al., 2023;   W.   Li   et al.,   2014;   Mileti ć et al.,   2022), with these changes being specific to regions of interest (ROI). In traditional age-  matched case-  control studies, these metrics are significantly affected in various brain regions depending  on  the  diseases,  reflecting,  for  example,  increased iron  deposition  in  the  putamen  and  substantia  nigra  in Alzheimer's and Parkinson's diseases (  Acosta-  Cabronero et al.,   2013;   Pyatigorskaya   et al.,   2020), respectively.
+67:In  this  work,  we  aimed  to  explore  both  the  crosssectional  median  and  spatial  effects  of  age  on  qMRI parameters  R 1 ,  R 2 *,  and χ in  the  basal  ganglia  at  3T, utilising  a  healthy  ageing  cohort  characterised  by  a broad age distribution. Our focus on subcortical nuclei stems from their robustness in χ measurements and the well-  established  association  with  iron  accumulation. Our objectives were threefold: (1) to delineate normative  trajectories  across  subcortical  grey  matter  nuclei throughout  the  lifespan  using  a  Gaussian  Process Regression  model  along  with  conventional  volumetric analysis; (2) to investigate the independence of deviations  from  normative  values  within  each  subcortical nucleus,  as  measured  by  different  qMRI  parameters; and (3) to examine the independence of variations from normative values across the subcortical nuclei, aiming to  elucidate  networks  of  co-  variation  from  the  norm. Lastly, we tested the utility of the normative trajectories in a validation dataset consisting of both healthy participants and people with Parkinson's disease, a disorder that has been associated with increased iron deposition in the substantia nigra (  Biondetti   et al.,   2021;   Mitchell et al.,   2021).
+85:To study the applicability of the R 2 * and χ normative models derived from the ABRIM datasets, an independent  cohort  with  a  similar  imaging  protocol,  which  is part of the 'Personalized Parkinson Project' (PPP) data collection  (  Bloem    et  al.,    2019),  was  used.  Briefly,  the PPP study followed 520 patients who were diagnosed with  Parkinson's  disease  for  2  years,  aiming  to  gain insight into the course of Parkinson's disease, as well as 60 healthy age- and sex-  matched controls. All patients
+99:were within 5 years of diagnosis and full clinical characteristics can be found in   Johansson,   Toni,   et al.   (2023) and Johansson,   van   Lier,   et al.   (2023). During the study, two MRI scans were made for each participant, both at baseline and after 2 years. The same visual data curation process used for the ABRIM dataset was applied to assess the quality of the PPP dataset. For the patient data, only the  first  scan  was  included  in  the  subsequent  analysis. Similarly,  for  the  healthy  volunteer  data,  only  one  scan from the two MRI visits was included. If the first scan did not  meet  the  inclusion  criteria,  the  second  scan  was included, provided it fulfilled the visual inspection criteria and we assumed there is no disease-  related progression between the two scans for the healthy control data. In this analysis, data from 44 healthy volunteers and 316 patients were used. The demographics are shown in Table 2 and Supplementary  Figure  S1.  Data  acquisition  was  performed at 3T (Siemens, Erlangen, Germany). The imaging protocol of the data analysed here consisted of
+110:SynthStrip (  Hoopes   et al.,   2022) was used for skull stripping on the second inversion time of the R 1 data (INV2, proton  density  contrast)  with  the  ABRIM  cohort  or  the MPRAGE image with the PPP cohort, and the first echo of the GRE data (GRE1). For χ processing, the GRE brain masks were first refined by excluding voxels with high R 2 * values  on  the  brain  mask  edge  to  improve  estimation robustness. χ maps were derived using SEPIA v1.2.2.4 (  Chan   &amp;   Marques,   2021) with the following pipeline: bipolar gradient phase correction (  J.   Li   et al.,   2015), ROMEO
+112:Table 2. Demographics of the PPP datasets used in this work.
+114:| PPP         | Control                     | Patient                     |
+146:Step 4: As a final step, subcortical grey matter structure  parcellation  was  performed  by  using  a  nonlinear image transformation to register the atlas hybrid template to the group hybrid template (Fig. 1a). For the PPP cohort, the  same  registration  procedures  were  repeated  within the cohort datasets to obtain the subcortical grey matter parcellation,  with  the  only  change  being  using  the  T 1 -weighted  MPRAGE  image  instead  of  the  R 1 map  for image registration. Examples of parcellation quality can be found in Supplementary Figure S4.
+180:## 2.2.6. Validation using the PPP dataset
+182:Validation of the normative models derived from the ABRIM data was performed by applying the normative models to the PPP cohort. Both R 2 * and χ in the PPP dataset were first  corrected  for  the  sex  and  hemispheric  differences based  on  the  GLM  results  of  the  ABRIM  cohort,  from which the z-  statistics were computed using the GPR normative models. Two-  sample t-  tests were also performed to  compare  the  z-  scores  and  the  median  qMRI  values of  each  structure  between  the  healthy    controls  and Parkinson's disease patients as a confirmatory analysis of previous  findings  where  significantly  higher  values  were found in substantia nigra (both R 2 *  and χ )  and in globus pallidus (only χ ) (  Langkammer   et al.,   2016;   Pyatigorskaya et al.,   2020). The Benjamini and Hochberg procedure was used  to  control  the  false  discovery  rate  (FDR)  of  0.05 (  Benjamini   &amp;   Hochberg,   1995;   Benjamini   &amp;   Y ekutieli,   2001). An adjusted p -  value  of  0.05  after  the  FDR  correction  is considered statistically significant. Furthermore, we computed the normative trajectories using only the PPP healthy individual  data  following  the  same  processing  steps  to evaluate whether the normative trajectories were comparable when data with a narrower age range were used.
+236:## 3.6. Validation of normative trajectories on the PPP dataset
+238:Finally, we explored the applicability of the R 2 * and χ normative trajectories using another dataset comprising both healthy  individuals  and  Parkinson's  disease  patients, characterised  by  a  narrower  age  range  in  this  cohort. When plotting the healthy individual data together with the normative  models  shown  in  Figure  3,  most  of  the  data points  visually  aligned  with  the  normative  trajectories (Fig. 7a). Yet, the normative models derived from this narrower  range  of  data  (orange  lines,  Fig.  7a)  were  less smooth when compared with having the wider age range data (blue lines, Fig. 7a), particularly for the putamen, VP , and STN, suggesting the models may be overfitted and not account for the true age dependence. The robust fits of our normative models to the new data were highlighted by the distribution of the z-  scores for all ROIs. The median z-  scores  were  close  to  zero  for  almost  all  subcortical nuclei,  and the z-  score distributions of the PPP healthy controls fell within the range of |z| ≤ 1.96 (~95% CI) for both R 2 * (light yellow boxes, Fig. 7b) and χ (light yellow boxes, Fig. 7c), though relatively stronger deviations were observed on R 2 *  of  the  caudate nucleus, and χ of  GPe, RN, and VP . When examining Parkinson's disease patients, it  is  notable  that  most  distributions  remained  centred around  zeros,  with  exceptions  noted  for  SNc  and  SNr (green boxes, Fig. 7b, c). Two-  sample t-  test results indicated that  the  z-  scores  of  both  R 2 *  and χ in  SNc  were significantly  higher  in  the  Parkinson's  disease  patients
+244:than in the healthy controls (adjusted p -  values = 6.8 x 10 -  7 and  1.5  x  10 -  3 for  R 2 *  and χ ,  respectively)  and  in  SNr (adjusted p -  values = 5.8 x 10 -  3   and 0.018 for R 2 * and χ , respectively).  Similarly,  these  two  structures  also  exhibited significant differences between the two groups when comparing the R 2 * and χ values directly (adjusted p -  values of SNc = 2.6 x 10 -  7 and 1.5 x 10 -  4  for R 2 * and χ , respectively; adjusted p -  values of SNr = 4.8 x 10 -  3 and 6.6 x 10 -  3 for R 2 * and χ ,  respectively; Fig. 7d, e). When comparing the Parkinson's disease patients of the PPP dataset with the ABRIM dataset comprising more healthy control subjects, NAcc, SNc, SNr, and RN showed highly significant differences (adjusted p -  value &lt; 0.001) on both R 2 * and χ (dark  yellow,  Fig.  7b,  c).  Additionally,  VP  and  thalamus also showed highly significant differences on χ (adjusted p -  value  &lt;  0.001)  between  the  two  populations.  In  contrast, only VP showed a highly significant difference in χ when  comparing  the  ABRIM  population  with  the  PPP healthy control group.
+250:Fig. 7. (a) Scatter plots of R 2 * (top row) and χ (bottom row) values as a function of age in an independent sample of healthy controls (N=44) obtained from the PPP (Johansson, Toni, et al., 2023). Blue and orange lines represent the normative models derived from the ABRIM study (as shown in Fig. 3) and derived from the new control data. Panels (b) and (c) show the derived z-  scores on the PPP and ABRIM data using the ABRIM normative models for R 2 * and χ , respectively. Panels (d) and (e) show the sex and interhemispheric-  corrected qMRI values on the PPP data for R 2 * and χ , respectively. Within each panel, whisker plots are used to characterize the distribution (25, 50, and 75 percentile) of the controls (dark and light yellow) and Parkinson's disease patients (green). * p -  value &lt; 0.05; ** p -  value &lt; 0.01; *** p -  value &lt; 0.001.
+264:Spatial variation in R 1 and χ within the putamen and caudate  nucleus  has  been  previously  documented  by other research teams, with variation observed between young and elderly individuals in both R 1 and χ (  Keuken et al.,   2017). This spatial gradient may hold significance in  the  context  of  Parkinson's  disease  (  Keuken    et  al., 2017), as alterations in the anterior-  posterior (A-  P) gradient in the R 1 maps have been observed in Parkinson's disease  patients  compared  with  age-  matched  healthy individuals  (  Drori    et  al.,    2022).  Furthermore,  the  tails  of
+266:the putamen in χ maps have been found to be significantly associated with decreased motor performance in Parkinson's disease patients (  Drori   et al.,   2022). Extending this analysis to other subcortical nuclei may provide further insights into age-  related maturation that are more specific to localised spatial changes, though higher spatial resolution data might be required to accurately capture the spatial variation for small structures. The thalamus could be another structure of interest to study the changes in spatial variation across age, and previous studies  have  demonstrated  gradient  changes  of  MR properties from outer to inner thalamic layers in multiple sclerosis (  Rubin   et al.,   2024). Nonetheless, careful consideration of how to classify the thalamus into different subparts is needed since the thalamic nuclei have various  developmental  trajectories  and  median  values  as demonstrated in Figure 4.
+272:When we applied the normative models to study the R 2 * and χ differences between healthy controls and Parkinson's disease patients, we were able to reproduce previously  reported  group  differences  in  both  substantia nigra subregions, where significant increases of R 2 * and susceptibility values were observed (  Biondetti   et al.,   2021; Mitchell    et  al.,    2021),  particularly  in  SNc  (Fig.  7b,  c).  In contrast  to  comparing  the  median  R 2 *  and χ values between the two groups (Fig. 7d, e), the p -  values in the z-  score comparison were higher in the substantia nigra. One possible explanation is that although the two groups had a similar mean and SD of age, there were still differences in  the  age  distributions  between  the  two  groups (see  Supplementary  Fig.  S1),  which  would  introduce  a bias when comparing the two groups using the quantitative  MRI  values  uncorrected  for  age.  It  is  also  possible that we may not have sufficient data in the ABRIM dataset to accurately capture the true variance for all ages using the Gaussian Process Regression in the normative modelling (as suggested by the zig-  zag pattern of the 95% CI between  successive  ages  in  Fig.  3).  Methods  such  as Bayesian linear regression (  Rutherford   et al.,   2023) or hierarchical Bayesian regression (  de   Boer   et al.,   2024) combined with cubic beta spline basis sets with a reduced number of knots should also be evaluated in future studies to find a better compromise between normative trajectory flexibility and robustness to data outliers. Finally, we evaluated the use of the ABRIM dataset as our control cohort (despite the acquisition and segmentation proto-
+
+
+thinking
+**Extracting PPP clinical cohort demographics**
+
+I'm gathering Parkinson's disease patient counts, age mean and SD, and sex distribution from Table 2 of the PPP dataset, using overall age statistics and calculating sex percentages from provided counts. I'll cite the source as "Chan2025B.pdf.md: Table 2" and include supporting text from the methods section for context.
+thinking
+**Gathering PPP cohort supporting text**
+
+I'm collecting exact supporting quotes on Parkinson's disease patient demographics and study description from the methods section, noting dataset origin as PPP, to include with the JSON output. Next, I'll integrate this into the target JSON file.
+2026-03-04T03:51:34.794132Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Chan2025B_by_codex_20260304125103814.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304125103814 succeeded in 19ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Planning detailed age and sex answer structure**
+
+I'm defining age answers as objects with units, mean, and standard deviation, using min/max as needed, and structuring sex answers as objects with detailed notes from the table. Next, I'll compute these values accordingly.
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+male=175
+female=141
+total=316
+print(male/total*100, female/total*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041251038142026-03-04T03:51:44.785246Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+55.379746835443036 44.620253164556964
+
+
+thinking
+**Extracting exact cohort details**
+
+I'm gathering precise quotes from the methods and Table 2 about Parkinson's patients' demographics and dataset origin to ensure accurate attribution and consistent ID naming with "Chan2025B".
+thinking
+**Defining source locations for quotes**
+
+I'm standardizing citation locations as "Chan2025B.pdf.md: Table 2" for tables and "Chan2025B.pdf.md: Methods / Data acquisition" for method sections to ensure consistent referencing in the JSON data.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Patient                     |\" \"316 (175; 141)\" \"60.9  ±  9.0 (60.8  ±  9.1;\" \"60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Patient                     |\" \"316 (175; 141)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+2026-03-04T03:52:06.998681Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 4ms:
+Success. Updated the following files:
+M DE_v14_Chan2025B_by_codex_20260304125103814.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..148cb43a5b56464cfcba4560a75ec4bfed7eb8ee
+--- a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Patient                     |\" \"316 (175; 141)\" \"60.9  ±  9.0 (60.8  ±  9.1;\" \"60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Patient                     |\" \"316 (175; 141)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..148cb43a5b56464cfcba4560a75ec4bfed7eb8ee
+--- a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Patient                     |\" \"316 (175; 141)\" \"60.9  ±  9.0 (60.8  ±  9.1;\" \"60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Patient                     |\" \"316 (175; 141)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+
+thinking
+**Deciding on ASCII normalization for supporting text**
+
+The supporting text includes non-ASCII characters like non-breaking spaces and "±", which conflicts with the default ASCII preference; since it's a direct quote, preserving "±" may be justified, but special spaces should likely be replaced with normal ASCII spaces for consistency.
+thinking
+**Ensuring supporting text is a single direct-quote string**
+
+The supporting text currently spans multiple quoted fragments and lines, so I'll consolidate it into a single string preserving newlines for directness, keeping table pipes and exact text including special characters to maintain fidelity.
+2026-03-04T03:52:27.586999Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -32,3 +32,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"Patient                     |\" \"316 (175; 141)\" \"60.9  ±  9.0 (60.8  ±  9.1;\" \"60.9  ±  8.9)\"",
++        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\" \"SD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
+         "location": "Chan2025B.pdf.md: Table 2"
+@@ -44,3 +44,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"Patient                     |\" \"316 (175; 141)\"",
++        "supporting_text": "\"Patient                     | 316 (175; 141)\"",
+         "location": "Chan2025B.pdf.md: Table 2"
+apply_patch(auto_approved=true) exited 0 in 4ms:
+Success. Updated the following files:
+M DE_v14_Chan2025B_by_codex_20260304125103814.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..8f031cd61060e803725411b881cc0cdd5bd729fa
+--- a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\" \"SD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Patient                     | 316 (175; 141)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..8f031cd61060e803725411b881cc0cdd5bd729fa
+--- a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\" \"SD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Patient                     | 316 (175; 141)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+
+thinking
+**Correcting supporting text formatting**
+
+The age supporting text should be a single string with embedded newline characters rather than two separate quoted strings. Also, the sex supporting text currently isn't an exact direct quote from the table row and needs adjustment to match the original markdown content precisely.
+thinking
+**Aligning supporting text with exact table lines**
+
+I'll update the supporting text to quote the full exact table rows for both age (mean and SD) and the N (Male; ...) line to ensure precise matching with the source markdown.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -32,3 +32,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\" \"SD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
++        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\\nSD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
+         "location": "Chan2025B.pdf.md: Table 2"
+@@ -44,3 +44,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"Patient                     | 316 (175; 141)\"",
++        "supporting_text": "\"N (Male;    | 44 (20; 24)                 | 316 (175; 141)              |\"",
+         "location": "Chan2025B.pdf.md: Table 2"
+2026-03-04T03:52:40.862701Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 152ms:
+Success. Updated the following files:
+M DE_v14_Chan2025B_by_codex_20260304125103814.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..49d14bf9abb9c4c5b14e04de16afea7e0ff35f59
+--- a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\\nSD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"N (Male;    | 44 (20; 24)                 | 316 (175; 141)              |\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..49d14bf9abb9c4c5b14e04de16afea7e0ff35f59
+--- a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\\nSD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"N (Male;    | 44 (20; 24)                 | 316 (175; 141)              |\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming data support and JSON validity**
+
+The supporting text for disorder name, dataset origin, and age details is adequate, including cohort size and source description. Next, I'll verify JSON formatting and validity using Python for accuracy.
+2026-03-04T03:52:46.431150Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import json,sys
+path='DE_v14_Chan2025B_by_codex_20260304125103814.json'
+with open(path,'r',encoding='utf-8') as f:
+    json.load(f)
+print('ok')
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304125103814 succeeded in 37ms:
+ok
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..49d14bf9abb9c4c5b14e04de16afea7e0ff35f59
+--- a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\\nSD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"N (Male;    | 44 (20; 24)                 | 316 (175; 141)              |\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+thinking
+**Providing concise final summary**
+
+Summarizing key findings and decisions with brief explanations and relevant file references; recommending a review of the implemented changes to confirm alignment and consider any further refinements.
+codex
+Clinical cohort extraction for Parkinson’s disease patients in the PPP validation dataset is filled in, with demographics and dataset origin quoted from the paper’s methods table and text, and the paper ID set to the study identifier. Details are written to `DE_v14_Chan2025B_by_codex_20260304125103814.json` following `DE_Guide_v14.md` with PD as the disorder, PPP as the dataset-of-origin, age mean/SD from Table 2, and sex counts/percentages computed from the reported counts.
+
+- Updated: `DE_v14_Chan2025B_by_codex_20260304125103814.json`
+
+If you want, I can also extract any additional clinical cohort details from `study_1/imag_a_00456-supp.pdf.md` for cross-checking or add a second disorder entry if you want controls included.
+2026-03-04T03:52:52.122519Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..49d14bf9abb9c4c5b14e04de16afea7e0ff35f59
+--- a/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304125103814/./DE_v14_Chan2025B_by_codex_20260304125103814.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Chan2025B"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Parkinson's disease patients in the PPP cohort used for validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"the PPP study followed 520 patients who were diagnosed with Parkinson's disease\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "PPP"
++        ],
++        "detail": "Personalized Parkinson Project dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"part of the 'Personalized Parkinson Project' (PPP) data collection\"",
++        "location": "Chan2025B.pdf.md: 2.1. Data acquisition"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 60.9,
++          "sd": 9.0
++        },
++        "detail": "PPP Parkinson's disease patients.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age mean  ± | 58.2  ±  9.2 (60.3  ±  8.7; | 60.9  ±  9.0 (60.8  ±  9.1;\\nSD (years)  | 56.4  ±  9.5)               | 60.9  ±  8.9)\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 175,
++          "male_pct": 55.4,
++          "female_n": 141,
++          "female_pct": 44.6
++        },
++        "detail": "PPP Parkinson's disease patients; percentages calculated from counts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"N (Male;    | 44 (20; 24)                 | 316 (175; 141)              |\"",
++        "location": "Chan2025B.pdf.md: Table 2"
+       }
+     }
+   ]
+
+tokens used
+49,208
+Clinical cohort extraction for Parkinson’s disease patients in the PPP validation dataset is filled in, with demographics and dataset origin quoted from the paper’s methods table and text, and the paper ID set to the study identifier. Details are written to `DE_v14_Chan2025B_by_codex_20260304125103814.json` following `DE_Guide_v14.md` with PD as the disorder, PPP as the dataset-of-origin, age mean/SD from Table 2, and sex counts/percentages computed from the reported counts.
+
+- Updated: `DE_v14_Chan2025B_by_codex_20260304125103814.json`
+
+If you want, I can also extract any additional clinical cohort details from `study_1/imag_a_00456-supp.pdf.md` for cross-checking or add a second disorder entry if you want controls included.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

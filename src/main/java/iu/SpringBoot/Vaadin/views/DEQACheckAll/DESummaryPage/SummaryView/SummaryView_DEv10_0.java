@@ -94,15 +94,17 @@ public class SummaryView_DEv10_0 extends VerticalLayout {
         Div scrollWrapper = new Div();
         scrollWrapper.getStyle().set("max-height", "70vh");
         scrollWrapper.getStyle().set("overflow", "auto");
+        scrollWrapper.getStyle().set("width", "100%");
+        scrollWrapper.getStyle().set("max-width", "100%");
         scrollWrapper.getStyle().set("border", "1px solid var(--lumo-contrast-20pct)");
 
         Element table = new Element("table");
-        table.setAttribute("style", "border-collapse: collapse; width: 100%; font-size: var(--lumo-font-size-m);");
+        table.setAttribute("style", "border-collapse: collapse; width: max-content; min-width: 100%; font-size: var(--lumo-font-size-m);");
 
         // thead
         Element thead = new Element("thead");
         Element trHead = new Element("tr");
-        appendHeaderCell(trHead, "AuthorYear");
+        appendFirstHeaderCell(trHead, "AuthorYear");
         appendHeaderCell(trHead, "DEQACheck.jar");
 
         int subSectionSize = rows.get(0).valueList_SI.size();
@@ -146,7 +148,7 @@ public class SummaryView_DEv10_0 extends VerticalLayout {
             if (even) {
                 tr.setAttribute("style", "background: var(--lumo-contrast-5pct);");
             }
-            appendNormalCell(tr, row.authorYear);
+            appendFirstNormalCell(tr, row.authorYear);
             appendLauncherCell(tr, "open", row.authorYear);
 
             subSectionSize = row.valueList_SI.size();
@@ -242,10 +244,24 @@ public class SummaryView_DEv10_0 extends VerticalLayout {
         tr.appendChild(th);
     }
 
+    private void appendFirstHeaderCell(Element tr, String text) {
+        Element th = new Element("th");
+        th.setAttribute("style", "position: sticky; top: 0; left: 0; z-index: 2; text-align: left; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+        th.setText(text == null ? "" : text);
+        tr.appendChild(th);
+    }
+
     // 通常セル（Element API）
     private void appendNormalCell(Element tr, String text) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
+        td.setText(text == null ? "" : text);
+        tr.appendChild(td);
+    }
+
+    private void appendFirstNormalCell(Element tr, String text) {
+        Element td = new Element("td");
+        td.setAttribute("style", "position: sticky; left: 0; z-index: 1; background: inherit; border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m);");
         td.setText(text == null ? "" : text);
         tr.appendChild(td);
     }

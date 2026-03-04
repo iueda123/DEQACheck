@@ -1,0 +1,2086 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Fang2024_by_codex_20260304131036232.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb70a-6bc8-7761-bfc0-9933ba5e1e7b
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Fang2024_by_codex_20260304131036232.json へ書き込んでください。
+mcp startup: no servers
+2026-03-04T04:10:43.353286Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232 succeeded in 21ms:
+DE_Guide_v14.md
+DE_v14_Fang2024_by_codex_20260304131036232.json
+DE_v14_Fang2024_by_codex_20260304131036232.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041310362322026-03-04T04:10:45.313809Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating paper info in study data**
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041310362322026-03-04T04:10:48.712061Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+Fang2024.pdf.md
+Fang2024_artifacts
+Fang2024_sup.docx.md
+Fang2024_sup_artifacts
+
+thinking
+**Identifying clinical cohort references**
+
+Planning to search for clinical cohort mentions in Fang2024.pdf.md and related files using ripgrep to locate relevant sections.
+2026-03-04T04:10:52.338740Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical|patient|cohort|schiz|depress|bipolar|autism|ADHD|MDD|AD|MCI|MS|epilep|psych" Fang2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232 exited 2 in 22ms:
+rg: Fang2024.pdf.md: IO error for operation on Fang2024.pdf.md: No such file or directory (os error 2)
+
+thinking
+**Requesting specific path**
+2026-03-04T04:10:55.488124Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical|patient|cohort|schiz|depress|bipolar|autism|ADHD|MDD|AD|MCI|MS|epilep|psych" study_1/Fang2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232 succeeded in 18ms:
+30:In  contemporary diagnostic  practices,  individuals  presenting  with psychiatric symptom profiles are typically assigned distinct clinical diagnoses. However, accumulating multifactorial evidence suggests that psychiatric  disorders,  including  schizophrenia,  bipolar  disorder  (BD), depression, and attention deficit hyperactivity disorder (ADHD), share a common neuropathology (Anon, 2013; Anttila et al., 2018; Barch and Sheffield,  2014;  Patel  et  al.,  2021).  For  instance,  over  50  %  of  individuals meeting criteria for one psychiatric disorder also meet criteria for another (Grisanzio et al., 2018). Moreover, many medications and psychotherapies  have  demonstrated  efficacy  in  reducing  symptoms
+42:Psychiatric disorders exhibit a shared neuropathology, yet the diverse presentations among patients necessitate the identification of transdiagnostic subtypes to enhance diagnostic and treatment strategies. This study aims to unveil  potential  transdiagnostic  subtypes  based  on  personalized  gray  matter  morphological  abnormalities.  A total of 496 patients with psychiatric disorders and 255 healthy controls (HCs) from three distinct datasets (one for discovery and two for validation) were enrolled. Individualized gray matter morphological abnormalities were determined using normative modeling to identify transdiagnostic subtypes. In the discovery dataset, two transdiagnostic subtypes with contrasting patterns of structural abnormalities compared to HCs were identified. Reproducibility and generalizability analyses  demonstrated that these  subtypes could be generalized to  new patients and even to new disorders in the validation datasets. These subtypes were characterized by distinct disease epicenters. The gray matter abnormal pattern in subtype 1 was mainly linked to excitatory receptors, whereas subtype 2 showed a predominant association with inhibitory receptors. Furthermore, we observed that the gray matter abnormal pattern in subtype 2 was correlated with transcriptional profiles of inflammationrelated genes, while subtype 1 did not show this association. Our findings reveal two robust transdiagnostic biotypes, offering novel insights into psychiatric nosology.
+44:across various psychiatric disorders (Lahey et al., 2012; Lahey et al., 2017).  This  trend  highlights  a  growing  recognition  that  traditional diagnostic  classifications  may  not  fully  capture  the  complexity  and heterogeneity of psychiatric presentations. The identification of transdiagnostic subtypes has emerged as a promising framework to refine our understanding  of  psychiatric  disorders  and  improve  diagnostic  and treatment strategies.
+46:Neuroimaging  studies  employing  case-control  designs  and  metaanalyses  consistently  identify  shared  and  disorder-specific  structural abnormalities  in  psychiatric  disorders  (Thompson  et  al.,  2020).  For example, patients with psychiatric disorders commonly exhibit decreased gray matter volume in paralimbic and heteromodal cortical
+62:regions (Chang et al., 2018). However, psychiatric disorders are highly heterogeneous syndromes and this variability among cases results in inconsistent or conflicting findings (Chen et al., 2016). Even within a single diagnosis, neuroimaging studies have reported reduced, increased, or even no differential gray matter volumes (L ´ azaro et al., 2011; Okasha et al., 2000). These results suggest the existence of distinct neuroanatomical subtypes in psychiatric disorders. Indeed, studies have identified subtypes with opposing patterns of structural abnormalities within a single diagnosis, such  as schizophrenia and  obsessivecompulsive  disorder  (Chand  et  al.,  2020;  Han  et  al.,  2022b).  To address this heterogeneity, normative modeling has been proposed to characterize structural abnormalities at the individual level by assessing deviations from the normal distribution (Marquand et al., 2016). Using these  individualized  structural  deviations  as  features,  a  recent  study successfully identified two depression biotypes with distinct patterns of cortical thinning and treatment responses (Li et al., 2024). However, whether individualized structural deviations could reveal transdiagnostic subtypes remains unknown.
+64:Recent neuroimaging studies suggest that neuropsychiatric disorders target intrinsic brain networks. Pathological perturbations, measured by structural  abnormalities,  typically  originate  in  focal  brain  regions (known  as  'disease  epicenters ' )  and  spread  to  other  brain  regions following  normal  brain  network  architecture,  supporting  a  networkbased  spreading  hypothesis  (Shafiei  et  al.,  2020b;  Wannan  et  al., 2019; Yau et al., 2018; Zhou et al., 2012). A recent study further proposes that regional structural abnormalities could be inferred from topologically  connected  neighbors  (Shafiei  et  al.,  2020a).  Psychiatric disorders and their subtypes are characterized by distinct disease epicenters, reflecting their diverse biological underpinnings and progression trajectories (Hansen et al., 2022; Li et al., 2024). Moreover, with the availability  of  whole-brain  transcriptional  atlas  (Hawrylycz  et  al., 2012a) and neurotransmitter receptors/transporters atlas (Hansen and Shafiei, 2022b), researchers have investigated the transcriptional and molecular substrates underlying structural and functional abnormalities in psychiatric disorders. For instance, the inflammation hypothesis in psychiatric  disorders  posits  that  an  elevated  inflammatory  response induced by factors such as stress exerts direct neurotoxic effects on the brain,  leading  to  structural  and  functional  changes  in  patients  (Berk et al., 2013; Eisenberger et al., 2010; Han and Ham, 2021; Troubat et al., 2021). In this context, a prior study found that transcriptional profiles of inflammation-related  genes  are  associated  with  cortical  thickness decrease in schizophrenia (Cui et al., 2023). Additionally, neurotransmitter dysfunction contributes to cortical abnormalities in psychiatric disorders (Hansen et al., 2022). Investigating the transcriptional and molecular bases  of  structural  abnormalities  helps  bridge  the  gap  between neuroimaging findings and biological mechanisms in psychiatric disorders.
+66:In this study, we aimed to identify distinct transdiagnostic subtypes based  on  individualized  gray  matter  morphological  abnormalities compared to normal expectations. We included a total of 496 patients with psychiatric disorders and 255 healthy controls from three independent datasets (one discovery dataset and two validation datasets). First,  we  derived  individualized  deviation  maps  (individualized  gray matter  morphological  abnormalities)  using  normative  modeling  and used  them  to  determine  transdiagnostic  subtypes  in  the  discovery dataset. We then conducted a series of sensitivity analyses to examine the  reproducibility  and  generalizability  of  the  identified  subtypes  in unseen patients and even in unseen disorders in the validation datasets. Subsequently, we investigated the disease epicenters of the identified subtypes. To gain deeper insights into the molecular and genetic underpinnings of the subtypes, we further investigated the associations between structural abnormalities in these subtypes and the distribution of neurotransmitter receptors/transporters, as well as the transcriptional profiles of inflammation-related genes. The workflow of this study is shown in Fig. 1.
+72:This study was approved by the research ethics committee of the First Affiliated Hospital of Zhengzhou University (2018-KY-88). A total of 496 patients with psychiatric disorders and 255 heathy controls from three independent datasets (one discovery dataset and two validation datasets) were included in this study. Additionally, another extensive dataset comprising 492 healthy individuals aged 19 -80 was included to construct a normal structural covariance network (see Methods). The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI (Poldrack et al., 2016).
+74:Fig. 1. The workflow of this study. For each brain region, individualized gray matter volume/morphological (GMV) abnormalities are obtained using normative modeling and used to identify transdiagnostic subtypes. A series of sensitivity analyses are conducted to assess the reproducibility and generalizability of clustering outcomes. To gain deeper insights into the subtypes, we investigate their disease epicenters, and molecular and genetic underpinnings.
+80:The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130). Diagnoses were based on the Structured Clinical Interview for DSM-IV-Text Revision (Poldrack et al., 2016). The validation  dataset  1  was  obtained  from  the  Centre  for  Biomedical Research  Excellence  (COBRE)  and  is  available  at  http://fcon\_1000. projects.nitrc.org/indi/retro/cobre.html (Collin et al., 2014). The COBRE group comprised 72 patients with schizophrenia and matched 74 HCs. The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT) (Chen et al., 2022; Yan et al., 2019). The single-site dataset with the largest sample size (site 20) was  used  to  prevent  multi-site  effects  on  the  results.  This  dataset comprised data from 282 patients with depression and 251 matched HCs. All study procedures were in accordance with the Declaration of Helsinki of 1975 and approved by the local Research Ethics Committees. More  details  regarding  the  datasets,  data  acquisition,  and  data  preprocessing are described in the Supplementary Methods.
+84:First,  we  estimated  individualized  gray  matter  morphological  abnormalities using the normative modeling. Following methods used in previous  studies  (Han  et  al.,  2023a;  Marquand  et  al.,  2016;  Wolfers et al., 2018), we trained a Gaussian process regression model to estimate the normative range of regional gray matter volumes (GMVs) based on age and sex in HCs. This trained model was then applied to each patient, generating predicted GMVs. Subsequently, Z scores (representing individualized abnormalities) were calculated to quantify deviations of the predicted GMVs from normal distributions. Positive Z scores indicated higher GMVs in patients compared to HCs, and vice versa. This process resulted in a Z -score vector (246 × 1) for each patient, representing their individualized gray matter morphological abnormalities.
+90:A series of reproducibility and generalizability analyses were conducted to assess the reproducibility and generalizability of the clustering outcomes. Firstly, to ensure that our results were not influenced by a small subset of patients, we randomly selected 90 % of the patients and performed k-means clustering on this subsample, as done previously. We then calculated the Adjusted Rand Index (ARI) between the subtyping results based on this subsample and those based on all patients. This process was repeated 1000 times. Secondly, we validated the subtyping results  using  a  different  clustering  algorithm  called  heterogeneity through  discriminative  analysis  (HYDRA),  which  uses  regional  gray matter volumes (GMVs) as features. HYDRA is a semi-supervised method that identifies distinct subtypes in psychiatric disorders based on differences  between  patients  and  HCs  rather  than  clustering  patients directly  (Varol  et  al.,  2017).  It  adaptively  determines  the  optimal number of subtypes based on the ARI, which quantifies the similarity between  clustering  results  of  cross-validation  (Varol  et  al.,  2017). Thirdly, we assessed whether the identified subtypes could be replicated in independent datasets. We used the cluster centroids of the two subtypes  to  infer  subtype  labels  for  patients  with  schizophrenia  from another independent dataset. Each patient was assigned to one of the two subtypes based on its Euclidean distance to the cluster centroids. We then calculated the ARI between the predicted subtype labels and the true labels obtained using the aforementioned procedures. Furthermore, although  the  subtypes  were  based  on  patients  with  schizophrenia, ADHD, and BD, we investigated whether they could inform subtypes in unseen psychiatric disorders, such as depression. In another dataset of depression,  we  predicted  subtype  labels  for  patients  based  on  their Euclidean distance to the cluster centroids of the two identified subtypes. We then calculated the ARI between the predicted subtype labels and the true labels obtained using the aforementioned procedures.
+94:Neuroimaging research has shed light on the impact of psychiatric disorders on brain networks. Gray matter morphological abnormalities, signaling  pathological  progression,  are  bounded  by  the  underlying normal brain network (Shafiei et al., 2020a; Wannan et al., 2019).
+96:In our study, we aimed to investigate whether structural abnormalities of the identified subtypes were also influenced by the normal brain network, as assessed through the structural covariance network. This network delineates the coordination of regional volumes among various brain  regions,  potentially  reflecting  shared  developmental  pathways (Alexander-Bloch et al., 2013a; Han et al., 2023c; Yun et al., 2015) and its dysfunction was implicated in the pathology of depression (Kaiser et al., 2015; Lima-Ojeda et al., 2018; Sotiras et al., 2017; Yun et al., 2020). Importantly, previous research has indicated that the structural covariance  network  exhibits  a  stronger  association  with  gray  matter morphological abnormalities in depression compared to the functional network (Han et al., 2023b).
+126:The clinical and demographic information of datasets used in this study was included in Table S1.
+130:In our discovery dataset, analysis of subtyping results (illustrated in Fig. 2A) revealed the presence of two distinct transdiagnostic subtypes characterized by individualized gray matter morphological abnormalities. Specifically, subtype 1 encompassed 70 patients (schizophrenia, n = 14; BD, n = 35; ADHD, n = 31), while subtype 2 included 44 patients (schizophrenia, n = 23; BD, n = 15; ADHD, n = 6). Disorder composition for each subtype was depicted in Fig. 2B.
+136:A series of analyses were conducted to validate the reproducibility and generalizability of our subtyping results. Firstly, the average ARI values (Fig. S2) between subtyping results obtained using all patients and  those  derived  from  randomly  selected  subsets  were  0.96  ( ± 0.25e GLYPH&lt;0&gt; 2 ).  This  finding  mitigated  concerns  regarding  potential  biases introduced by a few patients. Secondly, the optimal number of subtypes as determined by HYDRA remained consistent at 2 when ARI values peaked (Fig. S2). Moreover, the ARI between subtyping results obtained using HYDRA and those reported by us was 0.42. Thirdly, within the validation dataset 1, individualized gray matter morphological abnormalities also revealed two distinct subtypes of schizophrenia exhibiting differential  patterns  relative  to  healthy  controls  (uncorrected  results displayed in Fig. 3, and FDR-corrected results in Fig. S3). Furthermore, these subtypes could be inferred by the cluster centroids obtained from the subtypes identified in the discovery dataset, with an ARI of 0.64 between true subtype labels and inferred ones. These findings confirmed the reproducibility of the identified transdiagnostic subtypes. Fourthly, we investigated whether these identified subtypes could extend to other psychiatric disorders such as depression. Our framework identified two depressive subtypes with contrasting patterns of gray matter morphological  abnormalities  relative  to  HCs  (uncorrected  results  shown  in Fig.  3,  and  FDR-corrected  results  in  Fig.  S3).  The  ARI  between  true subtyping  results  and  those  inferred  by  the  cluster  centroids  of  the identified transdiagnostic subtypes obtained using the discovery dataset was 0.30. These results underscored the generalizability of the identified transdiagnostic subtypes to unseen psychiatric disorders.
+172:Using subject-level gray matter volume deviations as features, we successfully identified two robust transdiagnostic subtypes. These subtypes  demonstrated  resilience  across  different  subtyping  algorithms, were replicated  in  independent  datasets,  and  extended  to  previously unseen psychiatric disorders, thereby affirming their reproducibility and generalizability. Notably, they exhibited opposite differential patterns relative  to  healthy  controls  (HCs)  and  distinct  structural  covariance network-informed disease epicenters. Moreover, we observed that gray matter morphological abnormalities in these subtypes were distinctly associated  with  neurotransmitter  receptors/transporters.  Specifically, the abnormal pattern in subtype 1 was predominantly linked to excitatory  receptors,  while  that  in  subtype  2  was  mainly  associated  with inhibitory  receptors,  thereby  providing  insights  into  the  underlying molecular mechanisms of these subtypes. Additionally, we found that the gray matter differential pattern in subtype 2 correlated with transcriptional profiles of inflammation-related genes, whereas such correlation  was  not  evident  in  subtype  1.  This  highlights  the  complex interplay between neurobiological processes and molecular pathways in psychiatric  disorders.  Overall,  our  findings  unveil  two  reproducible transdiagnostic subtypes characterized by distinct gray matter morphological differential patterns and underlying transcriptional and molecular bases. These insights offer valuable contributions to psychiatric nosology, furthering our understanding of the heterogeneous nature of psychiatric disorders.
+174:Psychiatric disorders exhibit significant heterogeneity, manifesting in  diverse  symptoms,  disease  trajectories,  treatment  responses,  and neuroimaging profiles among patients (Bondar et al., 2020; Drysdale et  al.,  2017;  Krishnan  and  Nestler,  2008;  Nguyen  et  al.,  2022).  This heterogeneity poses a substantial challenge and often leads to conflicting findings in research (Chen et al., 2016). For instance, Chand et al. identified  two  subtypes  of  schizophrenia:  subtype  1  displayed  widespread decreased gray matter volume across the brain, whereas subtype 2 exhibited increased gray matter volume in the basal ganglia and internal capsule (Chand et al., 2020). Similar subtypes have been reported in  other  psychiatric disorders  as  well  (Han et  al.,  2022b;  Han  et  al., 2023e). In our study, we addressed this heterogeneity by identifying two replicated transdiagnostic subtypes with opposing abnormal gray matter morphological patterns. This reconciliation helps to clarify contradictory findings from previous neuroimaging studies (Bondar et al., 2020; Drysdale et al., 2017; Krishnan and Nestler, 2008; L ´ azaro et al., 2011; Okasha et al., 2000). Although structural abnormalities in subtype 1 were  not  significant  in  the  discovery  dataset,  likely  due  to  its  small sample size, the validation datasets consistently replicated the opposite differential patterns. Furthermore, sensitivity analyses underscored the
+182:reproducibility  of  these  identified  subtypes.  Moreover,  despite  being derived from patients with schizophrenia, BD, and ADHD, the cluster centroids of these subtypes successfully generalized to predict subtypes of unseen psychiatric disorders, such as depression. This finding further validates the generalizability of our identified subtypes across various psychiatric conditions.
+
+thinking
+**Checking supplementary materials**
+
+I'm locating clinical cohort details in Table S1 within the supplement to gather necessary data.
+2026-03-04T04:10:59.199892Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table S1|demographic|age|sex|male|female|years|schizophrenia|bipolar|ADHD|depression|patients|HC" study_1/Fang2024_sup.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232 succeeded in 25ms:
+7:The discovery dataset was sourced from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP), accessible via the public database OpenfMRI  [1]. This dataset comprises 142 individuals diagnosed with psychiatric disorders (schizophrenia, n = 50; bipolar disorder (BD), n = 49; attention-deficit/hyperactivity disorder (ADHD), n = 43), alongside 130 healthy controls (HCs). Ethical approval for this study was obtained from the Institutional Review Boards at UCLA and the Los Angeles County Department of Mental Health, and all participants provided informed consent before participation. Diagnoses were established using the Structured Clinical Interview for DSM-IV-Text Revision [1]. Inclusion criteria for all participants mandated a minimum of eight years of formal education, absence of significant medical illness, and negative urinalysis results for drugs of abuse (e.g., cocaine and morphine). HCs had no lifetime diagnoses of psychotic/mental disorders or substance abuse. Participants with missing behavioral scores/images or signal dropouts in the cerebellum were excluded, resulting in a final cohort of 224 participants [2]. Further details about the dataset can be found elsewhere [1, 2].
+9:Validation dataset 1 was obtained from the Center for Biomedical Research Excellence (COBRE), accessible at http://fcon\_1000.projects.nitrc.org/indi/retro/cobre.html [3]. This dataset comprises 61 patients diagnosed with schizophrenia and 73 matched healthy controls (HCs) after excluding participants with poor image quality or missing data. Patients met diagnostic criteria for schizophrenia according to the Diagnostic and Statistical Manual of Mental Disorders (DSM-IV, Fourth Edition) and were on stable antipsychotic medication for at least one month. Exclusion criteria included active substance dependence or abuse (except for nicotine) within the past year and a history of neurological disorders. HCs were evaluated using the DSM-IV Axis I disorders-non-patient edition. None of the HCs had a history of depression or antidepressant use within the last six months, a history of lifetime antidepressant use exceeding one year, recent substance abuse or dependence, head trauma with a loss of consciousness exceeding five minutes, or a family history of psychotic disorder in a first-degree relative.
+11:Validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT) [4, 5], consisting of 282 patients diagnosed with depression and 251 HCs. Patients were recruited from the First Affiliated Hospital of Chongqing Medical School, Chongqing, China. Two psychiatrists independently assessed diagnoses using the Structured Clinical Interview for DSM-IV. Patients had no comorbidities with other psychiatric disorders, and symptom severity was assessed using the Hamilton Rating Scale for Depression (HAMD) [6]. HCs did not meet DSM-IV criteria for any psychiatric disorders and had not used any drugs affecting brain structure or function. Exclusion criteria for all participants included current neurological disorders, history of substance abuse, and serious encephalopathy. The study procedures were approved by the Research Ethics Committee of the Brain Imaging Center of Southwest University and the First Affiliated Hospital of Chongqing Medical School, and all participants provided informed consent.
+17:T1-weighted anatomical images were acquired using the following parameters: TR = 1.9 s, TE = 2.26 ms, FOV = 250 mm, matrix = 256 × 256, sagittal plane, slice thickness = 1 mm, 176 slices.
+21:T1-weighted anatomical images were acquired using Siemens Trio scanner. Scanning parameters were as follow: repetition time = 2530 ms, echo time = 1.64 ms, flip angle = 7 degrees, voxel size = 1 × 1 × 1 mm3, inversion time = 1200ms, field of view = 256 mm, resolution matrix = 256 × 256, thickness = 1.0 mm, 256 slices.
+25:T1-weighted anatomical images were scanned on a 3.0-T Siemens Trio MRI scanner using a 16-channel whole-brain coil (Siemens Medical, Erlangen, Germany). Scanning parameters were as follow: repetition time = 1900 ms, echo time = 2.52 ms, flip angle = 9 degrees, inversion time = 900 ms, resolution matrix = 256 × 256, slice thickness = 1.0 mm, 176 slices.
+29:The T1-weighted anatomical images underwent preprocessing using the CAT12 toolbox (http://dbm.neuro.uni-jena.de/cat12/) to derive voxel-level gray matter voxel-based morphometry [7]. We followed the recommended pipeline provided by CAT12, with detailed procedures outlined elsewhere [8]. Subsequently, the obtained gray matter maps underwent smoothing using a 6-mm full width at half maximum Gaussian kernel. Total intracranial volume (TIV) was also recorded for subsequent analyses [9, 10].
+31:**Table S1.** Clinical and demographic information for participants
+35:|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |
+36:| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |
+37:| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |
+38:| Education, years, mean (SD) | 15.19 (1.59)        | 12.78 (1.55)        | 14.43 (1.91)        | 14.57 (1.85)        | <0.001a             | -                      | -                      | -                      | 10.94(3.39)            | 13.07(3.78)            | <0.001c                |
+41:Note, HC, healthy control; Sch, schizophrenia; BD, bipolar disorder; ADHD, attention-deficit/hyperactivity disorder; SUB, Substance Use including substance abuse and/or dependence for nicotine, alcohol, cannabis, cocaine, amphetamine, sedatives/hypnotics/anxiolytics, inhalants, opioids and hallucinogens; a one-way ANOVA; b Chi-square test; ctwo sample t test.
+45:![Image](./Fang2024_sup_artifacts/image_000000_82a696c1492b44960a8cc63535d4519c1db81b6e74cf89b454586c2a4b2f065d.png)
+47:**Figure S2** . Reproducibility analysis results. (A). ARI values between subtyping results obtained using all patients and those using randomly selected subsets. (B). ARI values of HYDRA for each number of subtypes. This result suggests the optimal number of subtypes is 2 when ARI values reach the maximum.
+49:![Image](./Fang2024_sup_artifacts/image_000001_bd908c9701b5bdf11c8880e8ab76a4767f6742ebf2555a82ab4e9eb275feb230.png)
+53:![Image](./Fang2024_sup_artifacts/image_000002_121a8f2661942df964c41a74b6a4f3b8a9475aaae480670b3e10a369c89bd82d.png)
+59:3.	Collin, G., et al., *Impaired rich club connectivity in unaffected siblings of schizophrenia patients.* Schizophr Bull, 2014. **40** (2): p. 438-48.
+61:4.	Yan, C.G., et al., *Reduced default mode network functional connectivity in patients with recurrent major depressive disorder.* 2019. **116** (18): p. 9078-9083.
+65:6.	Hamilton, M., *A rating scale for depression.* J Neurol Neurosurg Psychiatry, 1960. **23** (1): p. 56-62.
+
+
+thinking
+**Clarifying dataset origins and cohort stats**
+
+Identified dataset origins for discovery (UCLA-LA5c) and validation (COBRE for schizophrenia, DIRECT for depression). Planning to aggregate age and sex stats per disorder by combining cohorts (e.g., SCZ from CNP and COBRE) using weighted means and pooled SDs for overall clinical cohort representation.
+thinking
+**Calculating weighted stats and counts**
+
+Gathered sample sizes, means, SDs, and male percentages for each disorder dataset to compute weighted means, pooled SDs, and aggregate male/female counts, especially combining schizophrenia cohorts (CNP and COBRE). Planning to document detailed derivations referencing Table S1 and dataset origins with proper citations.
+2026-03-04T04:11:23.562699Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+# SCZ combine CNP (n=37, mean=35.54, sd=9.08) and COBRE (n=61, mean=36.57, sd=12.97)
+ns=[37,61]
+means=[35.54,36.57]
+sds=[9.08,12.97]
+N=sum(ns)
+weighted_mean=sum(n*m for n,m in zip(ns,means))/N
+# pooled SD (assuming sample SD); formula sqrt(((n1-1)s1"'^2+(n2-1)s2''^2 + n1*(m1-mean)''^2 + n2*(m2-mean)''^2)/(N-1))? Actually pooled for combined data using means.
+# Use combined variance: (sum((n-1)*sd''^2) + sum(n*(mean - overall)''^2)) / (N-1)
+var=sum((n-1)*(sd**2) for n,sd in zip(ns,sds)) + sum(n*(m-weighted_mean)**2 for n,m in zip(ns,means))
+var/=(N-1)
+pooled_sd=math.sqrt(var)
+print(N, weighted_mean, pooled_sd)
+# sex counts
+male_pct=[57.50,78.69]
+male_n=[round(n*p/100) for n,p in zip(ns,male_pct)]
+print(male_n)
+# but rounding maybe; compute exact with one decimal?
+# compute exact male_n as n*p/100
+male_n_exact=[n*p/100 for n,p in zip(ns,male_pct)]
+print(male_n_exact, sum(male_n_exact))
+# we'"'ll compute combined male pct
+male_total=sum(male_n_exact)
+female_total=N-male_total
+male_pct_total=male_total/N*100
+female_pct_total=female_total/N*100
+print(male_total,female_total,male_pct_total,female_pct_total)
+# BD male/female
+n=40; male_pct=54.05
+male=n*male_pct/100
+female=n-male
+print('BD',male,female,male_pct,100-male_pct)
+# ADHD
+n=37; male_pct=51.82
+male=n*male_pct/100
+female=n-male
+print('ADHD',male,female, male_pct, 100-male_pct)
+# Depression
+n=282; male_pct=35.11
+male=n*male_pct/100
+female=n-male
+print('MDD',male,female, male_pct, 100-male_pct)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232 succeeded in 27ms:
+98 36.18112244897959 11.614848999613416
+[21, 48]
+[21.275, 48.0009] 69.27590000000001
+69.27590000000001 28.724099999999993 70.68969387755104 29.31030612244897
+BD 21.62 18.38 54.05 45.95
+ADHD 19.1734 17.8266 51.82 48.18
+MDD 99.0102 182.9898 35.11 64.89
+
+
+thinking
+**Deciding rounding for estimated counts**
+
+I'll compute counts from total N and given percentages, round to nearest whole number, and note these counts as estimated while keeping percentages at one decimal place.
+thinking
+**Estimating counts and compiling dataset details**
+
+I'll note all counts as estimated from male percentages per dataset and record age statistics with units and sources from Table S1, citing supplement lines. I'll also gather dataset origin and diagnosis details from main/pdf text for accurate referencing and prepare to edit the existing output JSON accordingly.
+exec
+/bin/bash -lc 'cat DE_v14_Fang2024_by_codex_20260304131036232.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041310362322026-03-04T04:11:41.514916Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Computing and rounding disorder statistics**
+
+I'm calculating weighted means, pooled SDs, and sex breakdowns for multiple disorders using dataset-specific male percentages rounded to nearest integers; dataset origins are assigned accordingly.
+thinking
+**Extracting dataset origin and demographics text**
+
+I'm gathering and preparing quoted supporting text on dataset origins and disorder counts from Fang2024 sources, plus detailed age and sex info from supplementary Table S1 for accurate documentation.
+exec
+/bin/bash -lc "sed -n '31,39p' study_1/Fang2024_sup.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041310362322026-03-04T04:11:54.158742Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+**Table S1.** Clinical and demographic information for participants
+
+|                             | Discovery dataset   | Discovery dataset   | Discovery dataset   | Discovery dataset   | Discovery dataset   | Validation dataset 1   | Validation dataset 1   | Validation dataset 1   | Validation dataset 2   | Validation dataset 2   | Validation dataset 2   |
+|-----------------------------|---------------------|---------------------|---------------------|---------------------|---------------------|------------------------|------------------------|------------------------|------------------------|------------------------|------------------------|
+|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |
+| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |
+| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |
+| Education, years, mean (SD) | 15.19 (1.59)        | 12.78 (1.55)        | 14.43 (1.91)        | 14.57 (1.85)        | <0.001a             | -                      | -                      | -                      | 10.94(3.39)            | 13.07(3.78)            | <0.001c                |
+| Lifetime SUB, No. (%)       | 41 (37)             | 26 (70)             | 34 (85)             | 22 (59)             |                     |                        |                        |                        |                        |                        |                        |
+
+thinking
+**Extracting dataset description**
+
+I'm capturing lines 72-80 from the PDF to obtain the dataset description needed for further analysis.
+2026-03-04T04:11:56.953080Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '72,82p' study_1/Fang2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232 succeeded in 17ms:
+This study was approved by the research ethics committee of the First Affiliated Hospital of Zhengzhou University (2018-KY-88). A total of 496 patients with psychiatric disorders and 255 heathy controls from three independent datasets (one discovery dataset and two validation datasets) were included in this study. Additionally, another extensive dataset comprising 492 healthy individuals aged 19 -80 was included to construct a normal structural covariance network (see Methods). The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI (Poldrack et al., 2016).
+
+Fig. 1. The workflow of this study. For each brain region, individualized gray matter volume/morphological (GMV) abnormalities are obtained using normative modeling and used to identify transdiagnostic subtypes. A series of sensitivity analyses are conducted to assess the reproducibility and generalizability of clustering outcomes. To gain deeper insights into the subtypes, we investigate their disease epicenters, and molecular and genetic underpinnings.
+
+![Image](./Fang2024_artifacts/image_000007_b29363b7f044e0df0a14da99b241b54048b875aa125152bbb952470868bbf1b2.png)
+
+K. Fang et al.
+
+The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130). Diagnoses were based on the Structured Clinical Interview for DSM-IV-Text Revision (Poldrack et al., 2016). The validation  dataset  1  was  obtained  from  the  Centre  for  Biomedical Research  Excellence  (COBRE)  and  is  available  at  http://fcon\_1000. projects.nitrc.org/indi/retro/cobre.html (Collin et al., 2014). The COBRE group comprised 72 patients with schizophrenia and matched 74 HCs. The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT) (Chen et al., 2022; Yan et al., 2019). The single-site dataset with the largest sample size (site 20) was  used  to  prevent  multi-site  effects  on  the  results.  This  dataset comprised data from 282 patients with depression and 251 matched HCs. All study procedures were in accordance with the Declaration of Helsinki of 1975 and approved by the local Research Ethics Committees. More  details  regarding  the  datasets,  data  acquisition,  and  data  preprocessing are described in the Supplementary Methods.
+
+## 2.2. Subtyping analysis based on individualized gray matter morphological abnormalities
+
+
+thinking
+**Drafting disorder entries for JSON**
+
+Planning to create four disorder entries (SCZ, BD, ADHD, MDD) using study order and sample sizes from Table S1; details will reference dataset names, supporting text from the PDF, and age/sex info with weighted means from both discovery and validation datasets.
+thinking
+**Defining numeric answer formats with annotations**
+
+Deciding to use string values for mean and SD with "weighted" and "pooled" annotations included, while retaining numeric counts and percentages for sex fields with notes on estimation and confidence levels labeled appropriately for age, sex, disorder, and dataset origin.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Fang2024"
+   },
+@@ -7,28 +7,171 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes multimodal imaging from 142 patients with psychiatric disorders, including schizophrenia ( n = 50)\"; \"The COBRE group comprised 72 patients with schizophrenia\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCLA-LA5c",
++          "COBRE"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"; \"The validation dataset 1 was obtained from the Centre for Biomedical Research Excellence (COBRE)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "36.18 (weighted)",
++          "sd": "11.61 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across Sch in discovery dataset (n=37, mean 35.54, SD 9.08) and Sch in validation dataset 1 (n=61, mean 36.57, SD 12.97).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sch (n = 37)\"; \"Age, years, mean (SD) ... 35.54 (9.08)\"; \"Sch (n = 61)\"; \"Age, years, mean (SD) ... 36.57(12.97)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 69,
++          "male_pct": 70.7,
++          "female_n": 29,
++          "female_pct": 29.3
++        },
++        "detail": "Estimated counts from male % in Table S1 for Sch (CNP n=37, 57.50%) and Sch (COBRE n=61, 78.69%), then aggregated and rounded.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sch (n = 37)\"; \"Sex (male %) ... 57.50%\"; \"Sch (n = 61)\"; \"Sex (male %) ... 78.69%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes ... bipolar disorder (BD, n = 49)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 34.78,
++          "sd": 9.24
++        },
++        "detail": "Discovery dataset BD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"BD (n = 40)\"; \"Age, years, mean (SD) ... 34.78 (9.24)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 22,
++          "male_pct": 54.1,
++          "female_n": 18,
++          "female_pct": 45.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for BD (n=40, 54.05%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"BD (n = 40)\"; \"Sex (male %) ... 54.05%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes ... attention  deficit  hyperactivity  disorder  (ADHD, n = 43)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.22,
++          "sd": 10.11
++        },
++        "detail": "Discovery dataset ADHD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"ADHD (n = 37)\"; \"Age, years, mean (SD) ... 31.22 (10.11)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 19,
++          "male_pct": 51.8,
++          "female_n": 18,
++          "female_pct": 48.2
++        },
++        "detail": "Estimated counts from male % in Table S1 for ADHD (n=37, 51.82%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"ADHD (n = 37)\"; \"Sex (male %) ... 51.82%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MDD",
++        "detail": "Depression patients in validation dataset 2 (DIRECT, site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"This dataset comprised data from 282 patients with depression\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "DIRECT"
++        ],
++        "detail": "Validation dataset 2 from DIRECT (site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 38.74,
++          "sd": 13.65
++        },
++        "detail": "Validation dataset 2 depression cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Depression (N=282)\"; \"Age, years, mean (SD) ... 38.74(13.65)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 99,
++          "male_pct": 35.1,
++          "female_n": 183,
++          "female_pct": 64.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for Depression (N=282, 35.11%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Depression (N=282)\"; \"Sex (male %) ... 35.11%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       }
+2026-03-04T04:12:54.444528Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Fang2024_by_codex_20260304131036232.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..2f8da2037aeb6acfdb48f07cafc14302697c5477
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -1,36 +1,179 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Fang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes multimodal imaging from 142 patients with psychiatric disorders, including schizophrenia ( n = 50)\"; \"The COBRE group comprised 72 patients with schizophrenia\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCLA-LA5c",
++          "COBRE"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"; \"The validation dataset 1 was obtained from the Centre for Biomedical Research Excellence (COBRE)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "36.18 (weighted)",
++          "sd": "11.61 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across Sch in discovery dataset (n=37, mean 35.54, SD 9.08) and Sch in validation dataset 1 (n=61, mean 36.57, SD 12.97).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sch (n = 37)\"; \"Age, years, mean (SD) ... 35.54 (9.08)\"; \"Sch (n = 61)\"; \"Age, years, mean (SD) ... 36.57(12.97)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 69,
++          "male_pct": 70.7,
++          "female_n": 29,
++          "female_pct": 29.3
++        },
++        "detail": "Estimated counts from male % in Table S1 for Sch (CNP n=37, 57.50%) and Sch (COBRE n=61, 78.69%), then aggregated and rounded.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sch (n = 37)\"; \"Sex (male %) ... 57.50%\"; \"Sch (n = 61)\"; \"Sex (male %) ... 78.69%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes ... bipolar disorder (BD, n = 49)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 34.78,
++          "sd": 9.24
++        },
++        "detail": "Discovery dataset BD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"BD (n = 40)\"; \"Age, years, mean (SD) ... 34.78 (9.24)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 22,
++          "male_pct": 54.1,
++          "female_n": 18,
++          "female_pct": 45.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for BD (n=40, 54.05%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"BD (n = 40)\"; \"Sex (male %) ... 54.05%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes ... attention  deficit  hyperactivity  disorder  (ADHD, n = 43)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.22,
++          "sd": 10.11
++        },
++        "detail": "Discovery dataset ADHD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"ADHD (n = 37)\"; \"Age, years, mean (SD) ... 31.22 (10.11)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 19,
++          "male_pct": 51.8,
++          "female_n": 18,
++          "female_pct": 48.2
++        },
++        "detail": "Estimated counts from male % in Table S1 for ADHD (n=37, 51.82%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"ADHD (n = 37)\"; \"Sex (male %) ... 51.82%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MDD",
++        "detail": "Depression patients in validation dataset 2 (DIRECT, site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"This dataset comprised data from 282 patients with depression\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "DIRECT"
++        ],
++        "detail": "Validation dataset 2 from DIRECT (site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 38.74,
++          "sd": 13.65
++        },
++        "detail": "Validation dataset 2 depression cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Depression (N=282)\"; \"Age, years, mean (SD) ... 38.74(13.65)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 99,
++          "male_pct": 35.1,
++          "female_n": 183,
++          "female_pct": 64.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for Depression (N=282, 35.11%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Depression (N=282)\"; \"Sex (male %) ... 35.11%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..2f8da2037aeb6acfdb48f07cafc14302697c5477
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -1,36 +1,179 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Fang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes multimodal imaging from 142 patients with psychiatric disorders, including schizophrenia ( n = 50)\"; \"The COBRE group comprised 72 patients with schizophrenia\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCLA-LA5c",
++          "COBRE"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"; \"The validation dataset 1 was obtained from the Centre for Biomedical Research Excellence (COBRE)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "36.18 (weighted)",
++          "sd": "11.61 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across Sch in discovery dataset (n=37, mean 35.54, SD 9.08) and Sch in validation dataset 1 (n=61, mean 36.57, SD 12.97).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sch (n = 37)\"; \"Age, years, mean (SD) ... 35.54 (9.08)\"; \"Sch (n = 61)\"; \"Age, years, mean (SD) ... 36.57(12.97)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 69,
++          "male_pct": 70.7,
++          "female_n": 29,
++          "female_pct": 29.3
++        },
++        "detail": "Estimated counts from male % in Table S1 for Sch (CNP n=37, 57.50%) and Sch (COBRE n=61, 78.69%), then aggregated and rounded.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sch (n = 37)\"; \"Sex (male %) ... 57.50%\"; \"Sch (n = 61)\"; \"Sex (male %) ... 78.69%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes ... bipolar disorder (BD, n = 49)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 34.78,
++          "sd": 9.24
++        },
++        "detail": "Discovery dataset BD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"BD (n = 40)\"; \"Age, years, mean (SD) ... 34.78 (9.24)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 22,
++          "male_pct": 54.1,
++          "female_n": 18,
++          "female_pct": 45.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for BD (n=40, 54.05%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"BD (n = 40)\"; \"Sex (male %) ... 54.05%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes ... attention  deficit  hyperactivity  disorder  (ADHD, n = 43)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.22,
++          "sd": 10.11
++        },
++        "detail": "Discovery dataset ADHD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"ADHD (n = 37)\"; \"Age, years, mean (SD) ... 31.22 (10.11)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 19,
++          "male_pct": 51.8,
++          "female_n": 18,
++          "female_pct": 48.2
++        },
++        "detail": "Estimated counts from male % in Table S1 for ADHD (n=37, 51.82%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"ADHD (n = 37)\"; \"Sex (male %) ... 51.82%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MDD",
++        "detail": "Depression patients in validation dataset 2 (DIRECT, site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"This dataset comprised data from 282 patients with depression\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "DIRECT"
++        ],
++        "detail": "Validation dataset 2 from DIRECT (site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 38.74,
++          "sd": 13.65
++        },
++        "detail": "Validation dataset 2 depression cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Depression (N=282)\"; \"Age, years, mean (SD) ... 38.74(13.65)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 99,
++          "male_pct": 35.1,
++          "female_n": 183,
++          "female_pct": 64.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for Depression (N=282, 35.11%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Depression (N=282)\"; \"Sex (male %) ... 35.11%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       }
+     }
+   ]
+
+
+thinking
+**Checking SCZ age/sex answer handling**
+
+I'm verifying that SCZ age and sex answer fields accept "NR" strings and ensuring JSON validity since mean weighted/pooled strings might not be ideal but are noted as required.
+exec
+/bin/bash -lc 'cat DE_v14_Fang2024_by_codex_20260304131036232.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041310362322026-03-04T04:12:58.021645Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+{
+  "paper_id": {
+    "answer": "Fang2024"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "SCZ",
+        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
+        "confidence_rating": "High",
+        "supporting_text": "\"The CNP dataset ... includes multimodal imaging from 142 patients with psychiatric disorders, including schizophrenia ( n = 50)\"; \"The COBRE group comprised 72 patients with schizophrenia\"",
+        "location": "Fang2024.pdf.md: Methods / Datasets"
+      },
+      "dataset-of-origin": {
+        "answer": [
+          "UCLA-LA5c",
+          "COBRE"
+        ],
+        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
+        "confidence_rating": "High",
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..2f8da2037aeb6acfdb48f07cafc14302697c5477
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -1,36 +1,179 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Fang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes multimodal imaging from 142 patients with psychiatric disorders, including schizophrenia ( n = 50)\"; \"The COBRE group comprised 72 patients with schizophrenia\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCLA-LA5c",
++          "COBRE"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"; \"The validation dataset 1 was obtained from the Centre for Biomedical Research Excellence (COBRE)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "36.18 (weighted)",
++          "sd": "11.61 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across Sch in discovery dataset (n=37, mean 35.54, SD 9.08) and Sch in validation dataset 1 (n=61, mean 36.57, SD 12.97).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sch (n = 37)\"; \"Age, years, mean (SD) ... 35.54 (9.08)\"; \"Sch (n = 61)\"; \"Age, years, mean (SD) ... 36.57(12.97)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 69,
++          "male_pct": 70.7,
++          "female_n": 29,
++          "female_pct": 29.3
++        },
++        "detail": "Estimated counts from male % in Table S1 for Sch (CNP n=37, 57.50%) and Sch (COBRE n=61, 78.69%), then aggregated and rounded.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sch (n = 37)\"; \"Sex (male %) ... 57.50%\"; \"Sch (n = 61)\"; \"Sex (male %) ... 78.69%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes ... bipolar disorder (BD, n = 49)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 34.78,
++          "sd": 9.24
++        },
++        "detail": "Discovery dataset BD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"BD (n = 40)\"; \"Age, years, mean (SD) ... 34.78 (9.24)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 22,
++          "male_pct": 54.1,
++          "female_n": 18,
++          "female_pct": 45.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for BD (n=40, 54.05%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"BD (n = 40)\"; \"Sex (male %) ... 54.05%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset ... includes ... attention  deficit  hyperactivity  disorder  (ADHD, n = 43)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.22,
++          "sd": 10.11
++        },
++        "detail": "Discovery dataset ADHD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"ADHD (n = 37)\"; \"Age, years, mean (SD) ... 31.22 (10.11)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 19,
++          "male_pct": 51.8,
++          "female_n": 18,
++          "female_pct": 48.2
++        },
++        "detail": "Estimated counts from male % in Table S1 for ADHD (n=37, 51.82%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"ADHD (n = 37)\"; \"Sex (male %) ... 51.82%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MDD",
++        "detail": "Depression patients in validation dataset 2 (DIRECT, site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"This dataset comprised data from 282 patients with depression\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "DIRECT"
++        ],
++        "detail": "Validation dataset 2 from DIRECT (site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 38.74,
++          "sd": 13.65
++        },
++        "detail": "Validation dataset 2 depression cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Depression (N=282)\"; \"Age, years, mean (SD) ... 38.74(13.65)\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 99,
++          "male_pct": 35.1,
++          "female_n": 183,
++          "female_pct": 64.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for Depression (N=282, 35.11%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Depression (N=282)\"; \"Sex (male %) ... 35.11%\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       }
+     }
+   ]
+
+
+
+thinking
+**Adjusting supporting text to exact quotes**
+
+Deciding to replace ellipses with exact verbatim substrings from source files for supporting text, preserving spacing and avoiding paraphrase to meet direct quote requirements. Next, I'll extract precise quote segments and apply patches accordingly.
+thinking
+**Preparing exact multi-line table quotes**
+
+Planning supporting_text updates to include exact header and data rows from tables with full pipes and spacing for age and sex across disorders, carefully escaping JSON quotes to preserve verbatim multi-line excerpts. Next, I'll craft and patch these exact strings into supporting_text fields.
+2026-03-04T04:14:27.995890Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -10,3 +10,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"The CNP dataset ... includes multimodal imaging from 142 patients with psychiatric disorders, including schizophrenia ( n = 50)\"; \"The COBRE group comprised 72 patients with schizophrenia\"",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"; \"The COBRE group comprised 72 patients with schizophrenia and matched 74 HCs.\"",
+         "location": "Fang2024.pdf.md: Methods / Datasets"
+@@ -20,3 +20,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"; \"The validation dataset 1 was obtained from the Centre for Biomedical Research Excellence (COBRE)\"",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"; \"The validation  dataset  1  was  obtained  from  the  Centre  for  Biomedical Research  Excellence  (COBRE)\"",
+         "location": "Fang2024.pdf.md: Methods / Datasets"
+@@ -33,3 +33,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": "\"Sch (n = 37)\"; \"Age, years, mean (SD) ... 35.54 (9.08)\"; \"Sch (n = 61)\"; \"Age, years, mean (SD) ... 36.57(12.97)\"",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
+         "location": "Fang2024_sup.docx.md: Table S1"
+@@ -45,3 +45,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": "\"Sch (n = 37)\"; \"Sex (male %) ... 57.50%\"; \"Sch (n = 61)\"; \"Sex (male %) ... 78.69%\"",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
+         "location": "Fang2024_sup.docx.md: Table S1"
+@@ -54,3 +54,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"The CNP dataset ... includes ... bipolar disorder (BD, n = 49)\"",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
+         "location": "Fang2024.pdf.md: Methods / Datasets"
+@@ -63,3 +63,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
+         "location": "Fang2024.pdf.md: Methods / Datasets"
+@@ -76,3 +76,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"BD (n = 40)\"; \"Age, years, mean (SD) ... 34.78 (9.24)\"",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
+         "location": "Fang2024_sup.docx.md: Table S1"
+@@ -88,3 +88,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": "\"BD (n = 40)\"; \"Sex (male %) ... 54.05%\"",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
+         "location": "Fang2024_sup.docx.md: Table S1"
+@@ -97,3 +97,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"The CNP dataset ... includes ... attention  deficit  hyperactivity  disorder  (ADHD, n = 43)\"",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
+         "location": "Fang2024.pdf.md: Methods / Datasets"
+@@ -106,3 +106,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP)\"",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
+         "location": "Fang2024.pdf.md: Methods / Datasets"
+@@ -119,3 +119,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"ADHD (n = 37)\"; \"Age, years, mean (SD) ... 31.22 (10.11)\"",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
+         "location": "Fang2024_sup.docx.md: Table S1"
+@@ -131,3 +131,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": "\"ADHD (n = 37)\"; \"Sex (male %) ... 51.82%\"",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
+         "location": "Fang2024_sup.docx.md: Table S1"
+@@ -140,3 +140,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"This dataset comprised data from 282 patients with depression\"",
++        "supporting_text": "\"This  dataset comprised data from 282 patients with depression and 251 matched HCs.\"",
+         "location": "Fang2024.pdf.md: Methods / Datasets"
+@@ -162,3 +162,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"Depression (N=282)\"; \"Age, years, mean (SD) ... 38.74(13.65)\"",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
+         "location": "Fang2024_sup.docx.md: Table S1"
+@@ -174,3 +174,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": "\"Depression (N=282)\"; \"Sex (male %) ... 35.11%\"",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
+         "location": "Fang2024_sup.docx.md: Table S1"
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Fang2024_by_codex_20260304131036232.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..4db151c99377f3382b002ca9b782efeca2e89dcb
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -1,36 +1,179 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Fang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"; \"The COBRE group comprised 72 patients with schizophrenia and matched 74 HCs.\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCLA-LA5c",
++          "COBRE"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"; \"The validation  dataset  1  was  obtained  from  the  Centre  for  Biomedical Research  Excellence  (COBRE)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "36.18 (weighted)",
++          "sd": "11.61 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across Sch in discovery dataset (n=37, mean 35.54, SD 9.08) and Sch in validation dataset 1 (n=61, mean 36.57, SD 12.97).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 69,
++          "male_pct": 70.7,
++          "female_n": 29,
++          "female_pct": 29.3
++        },
++        "detail": "Estimated counts from male % in Table S1 for Sch (CNP n=37, 57.50%) and Sch (COBRE n=61, 78.69%), then aggregated and rounded.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 34.78,
++          "sd": 9.24
++        },
++        "detail": "Discovery dataset BD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 22,
++          "male_pct": 54.1,
++          "female_n": 18,
++          "female_pct": 45.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for BD (n=40, 54.05%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.22,
++          "sd": 10.11
++        },
++        "detail": "Discovery dataset ADHD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 19,
++          "male_pct": 51.8,
++          "female_n": 18,
++          "female_pct": 48.2
++        },
++        "detail": "Estimated counts from male % in Table S1 for ADHD (n=37, 51.82%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MDD",
++        "detail": "Depression patients in validation dataset 2 (DIRECT, site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"This  dataset comprised data from 282 patients with depression and 251 matched HCs.\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "DIRECT"
++        ],
++        "detail": "Validation dataset 2 from DIRECT (site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 38.74,
++          "sd": 13.65
++        },
++        "detail": "Validation dataset 2 depression cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 99,
++          "male_pct": 35.1,
++          "female_n": 183,
++          "female_pct": 64.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for Depression (N=282, 35.11%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..4db151c99377f3382b002ca9b782efeca2e89dcb
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -1,36 +1,179 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Fang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"; \"The COBRE group comprised 72 patients with schizophrenia and matched 74 HCs.\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCLA-LA5c",
++          "COBRE"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"; \"The validation  dataset  1  was  obtained  from  the  Centre  for  Biomedical Research  Excellence  (COBRE)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "36.18 (weighted)",
++          "sd": "11.61 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across Sch in discovery dataset (n=37, mean 35.54, SD 9.08) and Sch in validation dataset 1 (n=61, mean 36.57, SD 12.97).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 69,
++          "male_pct": 70.7,
++          "female_n": 29,
++          "female_pct": 29.3
++        },
++        "detail": "Estimated counts from male % in Table S1 for Sch (CNP n=37, 57.50%) and Sch (COBRE n=61, 78.69%), then aggregated and rounded.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 34.78,
++          "sd": 9.24
++        },
++        "detail": "Discovery dataset BD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 22,
++          "male_pct": 54.1,
++          "female_n": 18,
++          "female_pct": 45.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for BD (n=40, 54.05%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.22,
++          "sd": 10.11
++        },
++        "detail": "Discovery dataset ADHD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 19,
++          "male_pct": 51.8,
++          "female_n": 18,
++          "female_pct": 48.2
++        },
++        "detail": "Estimated counts from male % in Table S1 for ADHD (n=37, 51.82%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MDD",
++        "detail": "Depression patients in validation dataset 2 (DIRECT, site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"This  dataset comprised data from 282 patients with depression and 251 matched HCs.\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "DIRECT"
++        ],
++        "detail": "Validation dataset 2 from DIRECT (site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 38.74,
++          "sd": 13.65
++        },
++        "detail": "Validation dataset 2 depression cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 99,
++          "male_pct": 35.1,
++          "female_n": 183,
++          "female_pct": 64.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for Depression (N=282, 35.11%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       }
+     }
+   ]
+
+
+thinking
+**Verifying supporting_text formatting**
+
+I'm double-checking the JSON to confirm the supporting_text field accurately preserves spacing and special characters like double spaces, ensuring no formatting errors exist.
+2026-03-04T04:14:32.515483Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import json
+path='DE_v14_Fang2024_by_codex_20260304131036232.json'
+json.load(open(path))
+print('ok')
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304131036232 succeeded in 38ms:
+ok
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..4db151c99377f3382b002ca9b782efeca2e89dcb
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -1,36 +1,179 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Fang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"; \"The COBRE group comprised 72 patients with schizophrenia and matched 74 HCs.\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCLA-LA5c",
++          "COBRE"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"; \"The validation  dataset  1  was  obtained  from  the  Centre  for  Biomedical Research  Excellence  (COBRE)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "36.18 (weighted)",
++          "sd": "11.61 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across Sch in discovery dataset (n=37, mean 35.54, SD 9.08) and Sch in validation dataset 1 (n=61, mean 36.57, SD 12.97).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 69,
++          "male_pct": 70.7,
++          "female_n": 29,
++          "female_pct": 29.3
++        },
++        "detail": "Estimated counts from male % in Table S1 for Sch (CNP n=37, 57.50%) and Sch (COBRE n=61, 78.69%), then aggregated and rounded.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 34.78,
++          "sd": 9.24
++        },
++        "detail": "Discovery dataset BD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 22,
++          "male_pct": 54.1,
++          "female_n": 18,
++          "female_pct": 45.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for BD (n=40, 54.05%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.22,
++          "sd": 10.11
++        },
++        "detail": "Discovery dataset ADHD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 19,
++          "male_pct": 51.8,
++          "female_n": 18,
++          "female_pct": 48.2
++        },
++        "detail": "Estimated counts from male % in Table S1 for ADHD (n=37, 51.82%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MDD",
++        "detail": "Depression patients in validation dataset 2 (DIRECT, site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"This  dataset comprised data from 282 patients with depression and 251 matched HCs.\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "DIRECT"
++        ],
++        "detail": "Validation dataset 2 from DIRECT (site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 38.74,
++          "sd": 13.65
++        },
++        "detail": "Validation dataset 2 depression cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 99,
++          "male_pct": 35.1,
++          "female_n": 183,
++          "female_pct": 64.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for Depression (N=282, 35.11%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       }
+     }
+   ]
+
+
+thinking
+**Summarizing final updates**
+
+The user performed Python checks but no tests were run. Changes involve verifying code syntax or style with no substantial code modifications. There are no immediate next steps specified.
+codex
+Filled the clinical cohort extraction for Fang2024 and wrote the results to `DE_v14_Fang2024_by_codex_20260304131036232.json`, including disorder-specific dataset origins, age stats, and sex breakdowns (with weighted/pooled calculations and noted estimates where only male % was reported).
+
+Notes
+- SCZ age/sex aggregates combine CNP and COBRE using weighted mean and pooled SD; counts derived from male %.
+- BD/ADHD/MDD age/sex pulled from Table S1; counts derived from male % and rounded.
+
+Next steps (optional)
+1. If you want the sex counts left as non-rounded decimals instead of rounded integers, tell me your preference and I’ll adjust.
+2026-03-04T04:14:37.312184Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..4db151c99377f3382b002ca9b782efeca2e89dcb
+--- a/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304131036232/./DE_v14_Fang2024_by_codex_20260304131036232.json
+@@ -1,36 +1,179 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Fang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patients in the discovery (CNP) and validation dataset 1 (COBRE) cohorts.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"; \"The COBRE group comprised 72 patients with schizophrenia and matched 74 HCs.\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UCLA-LA5c",
++          "COBRE"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI) plus validation cohort from COBRE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"; \"The validation  dataset  1  was  obtained  from  the  Centre  for  Biomedical Research  Excellence  (COBRE)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "36.18 (weighted)",
++          "sd": "11.61 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across Sch in discovery dataset (n=37, mean 35.54, SD 9.08) and Sch in validation dataset 1 (n=61, mean 36.57, SD 12.97).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 69,
++          "male_pct": 70.7,
++          "female_n": 29,
++          "female_pct": 29.3
++        },
++        "detail": "Estimated counts from male % in Table S1 for Sch (CNP n=37, 57.50%) and Sch (COBRE n=61, 78.69%), then aggregated and rounded.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 34.78,
++          "sd": 9.24
++        },
++        "detail": "Discovery dataset BD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 22,
++          "male_pct": 54.1,
++          "female_n": 18,
++          "female_pct": 45.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for BD (n=40, 54.05%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD patients in the discovery (CNP) cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The CNP dataset, approved by the Institutional Review Boards at UCLA and  the  Los  Angeles  County  Department  of  Mental  Health,  includes multimodal  imaging  from  142  patients  with  psychiatric  disorders, including schizophrenia ( n = 50), bipolar disorder (BD, n = 49), and attention  deficit  hyperactivity  disorder  (ADHD, n = 43),  as  well  as healthy controls (HCs, n = 130).\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "UCLA-LA5c"
++        ],
++        "detail": "Discovery cohort from UCLA CNP (OpenfMRI).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The discovery dataset was obtained from the University of California, Los Angeles (UCLA) Consortium for Neuropsychiatric Phenomics (CNP) and is available on the public database OpenfMRI\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.22,
++          "sd": 10.11
++        },
++        "detail": "Discovery dataset ADHD cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 19,
++          "male_pct": 51.8,
++          "female_n": 18,
++          "female_pct": 48.2
++        },
++        "detail": "Estimated counts from male % in Table S1 for ADHD (n=37, 51.82%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MDD",
++        "detail": "Depression patients in validation dataset 2 (DIRECT, site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"This  dataset comprised data from 282 patients with depression and 251 matched HCs.\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "DIRECT"
++        ],
++        "detail": "Validation dataset 2 from DIRECT (site 20).",
++        "confidence_rating": "High",
++        "supporting_text": "\"The validation dataset 2 was obtained from site 20 of the Depression Imaging Research Consortium (DIRECT)\"",
++        "location": "Fang2024.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 38.74,
++          "sd": 13.65
++        },
++        "detail": "Validation dataset 2 depression cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Age, years, mean (SD)       | 31.26 (8.66)        | 35.54 (9.08)        | 34.78 (9.24)        | 31.22 (10.11)       | 0.026a              | 36.57(12.97)           | 36.07(13.08)           | 0.882c                 | 38.74(13.65)           | 39.64(15.87)           | 0.480c                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 99,
++          "male_pct": 35.1,
++          "female_n": 183,
++          "female_pct": 64.9
++        },
++        "detail": "Estimated counts from male % in Table S1 for Depression (N=282, 35.11%), rounded to whole numbers.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"|                             | HC (n = 110)        | Sch (n = 37)        | BD (n = 40)         | ADHD (n = 37)       | p                   | Sch (n = 61)           | HC (n = 73)            | p                      | Depression (N=282)     | HC (N=251)             | p                      |\"; \"| Sex (male %)                | 78.38%              | 57.50%              | 54.05%              | 51.82%              | 0.041b              | 78.69%                 | 68.49%                 | 0.321b                 | 35.11%                 | 34.66%                 | 0.914b                 |\"",
++        "location": "Fang2024_sup.docx.md: Table S1"
+       }
+     }
+   ]
+
+tokens used
+44,733
+Filled the clinical cohort extraction for Fang2024 and wrote the results to `DE_v14_Fang2024_by_codex_20260304131036232.json`, including disorder-specific dataset origins, age stats, and sex breakdowns (with weighted/pooled calculations and noted estimates where only male % was reported).
+
+Notes
+- SCZ age/sex aggregates combine CNP and COBRE using weighted mean and pooled SD; counts derived from male %.
+- BD/ADHD/MDD age/sex pulled from Table S1; counts derived from male % and rounded.
+
+Next steps (optional)
+1. If you want the sex counts left as non-rounded decimals instead of rounded integers, tell me your preference and I’ll adjust.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

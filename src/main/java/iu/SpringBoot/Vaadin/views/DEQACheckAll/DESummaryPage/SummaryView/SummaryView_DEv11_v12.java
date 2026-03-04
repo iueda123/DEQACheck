@@ -202,6 +202,8 @@ public class SummaryView_DEv11_v12 extends VerticalLayout {
         scrollWrapper = new Div();
         scrollWrapper.getStyle().set("max-height", "70vh");
         scrollWrapper.getStyle().set("overflow", "auto");
+        scrollWrapper.getStyle().set("width", "100%");
+        scrollWrapper.getStyle().set("max-width", "100%");
         scrollWrapper.getStyle().set("border", "1px solid var(--lumo-contrast-20pct)");
 
         applySourceFilter();
@@ -657,12 +659,12 @@ public class SummaryView_DEv11_v12 extends VerticalLayout {
         scrollWrapper.getElement().removeAllChildren();
 
         Element table = new Element("table");
-        table.setAttribute("style", "border-collapse: collapse; width: 100%; font-size: var(--lumo-font-size-m);");
+        table.setAttribute("style", "border-collapse: collapse; width: max-content; min-width: 100%; font-size: var(--lumo-font-size-m);");
         table.setAttribute("class", "summary-table");
 
         Element thead = new Element("thead");
         Element trHead = new Element("tr");
-        appendHeaderCellWithTooltip(trHead, "SI1",
+        appendFirstHeaderCellWithTooltip(trHead, "SI1",
                 "study_identification_part/si1_study_id (si_1_study_id)");
         appendHeaderCellWithTooltip(trHead, "SI2",
                 "study_identification_part/si2_reference_file_names (si_2_reference_file_names)");
@@ -764,6 +766,16 @@ public class SummaryView_DEv11_v12 extends VerticalLayout {
         tr.appendChild(th);
     }
 
+    private void appendFirstHeaderCellWithTooltip(Element tr, String text, String tooltip) {
+        Element th = new Element("th");
+        th.setAttribute("style", "position: sticky; top: 0; left: 0; z-index: 2; text-align: center; background: var(--lumo-contrast-10pct); border-bottom: 1px solid var(--lumo-contrast-20pct); padding: var(--lumo-space-s) var(--lumo-space-m); white-space: pre-line;");
+        if (tooltip != null && !tooltip.isBlank()) {
+            th.setAttribute("title", tooltip);
+        }
+        th.setText(text == null ? "" : text);
+        tr.appendChild(th);
+    }
+
     private void appendCell(Element tr, String text, String rawJson) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s); white-space: pre-wrap; word-break: break-word;");
@@ -782,7 +794,7 @@ public class SummaryView_DEv11_v12 extends VerticalLayout {
 
     private void appendLauncherCell(Element tr, String text, String authorYear) {
         Element td = new Element("td");
-        td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
+        td.setAttribute("style", "position: sticky; left: 0; z-index: 1; background: inherit; border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
 
         Button launcher = new Button(normalizeNewlines(text));
         launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);

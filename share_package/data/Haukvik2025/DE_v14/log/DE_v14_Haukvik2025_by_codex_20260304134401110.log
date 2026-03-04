@@ -1,0 +1,586 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Haukvik2025_by_codex_20260304134401110.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb729-0331-7820-b87b-837ccf7ff094
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Haukvik2025_by_codex_20260304134401110.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Listing project files**
+
+I'm listing files in the project to locate the instructions file before reading its contents.
+2026-03-04T04:44:06.642384Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110 succeeded in 15ms:
+DE_Guide_v14.md
+DE_v14_Haukvik2025_by_codex_20260304134401110.json
+DE_v14_Haukvik2025_by_codex_20260304134401110.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041344011102026-03-04T04:44:09.423830Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Identifying required source paper**
+
+I need to locate the source paper referenced in study_1 and prepare a list related to it.
+2026-03-04T04:44:11.961608Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110 succeeded in 19ms:
+41398_2025_3343_MOESM1_ESM.pdf.md
+41398_2025_3343_MOESM1_ESM_artifacts
+Haukvik2025.pdf.md
+Haukvik2025_artifacts
+
+thinking
+**Planning PDF extraction**
+
+I'm preparing to extract relevant content from the Haukvik2025.pdf.md file and possibly supplement it with additional information.
+2026-03-04T04:44:17.236259Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical" -i Haukvik2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110 exited 2 in 19ms:
+rg: Haukvik2025.pdf.md: IO error for operation on Haukvik2025.pdf.md: No such file or directory (os error 2)
+
+thinking
+**Setting working directory to study_1**
+2026-03-04T04:44:19.897954Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical" -i study_1/Haukvik2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110 succeeded in 29ms:
+7:## Individual-level deviations from normative brain morphology in violence, psychosis, and psychopathy
+13:Neuroimaging research has shown brain morphological abnormalities associated with violence and psychosis, but individual differences are substantial and results not consistent across studies. Normative modeling of brain MRI-features facilitates a systematic mapping of individual brain characteristics of complex phenotypes also in small samples but has not yet been applied to forensic psychiatry populations. We explored brain heterogeneity in persons with a history of severe violence with a comorbid schizophrenia spectrum disorder (SSD-V; n = 38), non-violent persons with schizophrenia spectrum disorders (SSD-NV; n = 138), persons with a history of severe violence without comorbid schizophrenia spectrum disorder (nonSSD-V; n = 20), and healthy nonviolent participants (HC; n = 196) from lifetime normative trajectories of cortical thickness, surface area, and subcortical volumes. Normative models based on Freesurfer derived regions of interest from 58,836 individuals were used to investigate individual deviances, group differences, and associations to psychopathy traits. We found overall heterogeneous patterns of individual deviations from the norm, which were most prominent for regions within the collateral transverse sulcus, lingual gyrus, and cerebellum among SSD-V, a pattern that differed from SSD-NV (parieto-occipital and suborbital sulci), and nonSSD-V (paracentral and middle frontal regions). We found no signi /uniFB01 cant associations to psychopathy traits. By applying normative modeling, we demonstrate heterogeneous patterns of brain morphometry deviations associated with violence and psychosis. While the results warrant replication, studies addressing individual brain deviations may contribute to improved understanding of the neurobiological underpinnings of comorbid violence and psychosis, which ultimately may have clinical impact on treatment and forensic psychiatric evaluations.
+21:1 Adult Psychiatry Department, Division of Mental Health and Addiction, Institute of Clinical Medicine, University of Oslo, Oslo, Norway. 2 Centre for Research and Education in Forensic Psychiatry (SIFER), Oslo University Hospital, Oslo, Norway. 3 Department of Psychiatry and Psychotherapy, University of Tübingen, Tübingen, Germany. 4 German Center for Mental Health, Tübingen, Germany. 5 Norwegian Centre for Mental Disorders Research (NORMENT), Division of Mental Health and Addiction, Oslo University Hospital, and Institute of Clinical Medicine, University of Oslo, Oslo, Norway. 6 Department of Psychiatry, Oslo University Hospital, Oslo, Norway. 7 Department of Psychiatry, Østfold Hospital Trust, Graalum, Norway. 8 Vestre Viken Hospital Trust, Division of Mental health and Addiction, Drammen, Norway. 9 St.Olavs Hospital, Centre for research and education in forensic psychiatry, Trondheim, Norway. 10 Norwegian University of Science and Technology (NTNU), Department of Mental Health, Trondheim, Norway. 11 Section for Clinical Psychosis Research, Division of Mental Health and Addiction, Oslo University Hospital, Oslo, Norway. 12 Centre for Precision Psychiatry, Division of Mental Health and Addiction, Oslo University Hospital, and University of Oslo, Oslo, Norway. 13 Division of Mental Health and Substance Abuse, Diakonhjemmet Hospital, Oslo, Norway. 14 Centre for Psychiatry Research, Department of Clinical Neuroscience, Karolinska Institutet &amp; Stockholm Health Care Services, Stockholm Region, Stockholm, Sweden. 15 Division of Mental Health and Addiction, Institute of Clinical Medicine, University of Oslo, Oslo, Norway. 16 Department of Psychology, University of Oslo, Oslo, Norway. 17 University College of Norwegian Correctional Service, Lillestrøm, Norway. ✉ email: unn.haukvik@medisin.uio.no
+25:Following recent advances in computational neuroscience, neuroimaging research has moved towards analyzing datasets from large publicly available databases or collaborative megaanalyses of data from individual research centers worldwide, which facilitates the disentanglement of neurobiological underpinnings of psychopathology on a large scale [18]. However, while most of the current research is conducted on the group level, clinicians and forensic experts must make decisions on the individual level ( n = 1). Moreover, neuroimaging studies show great heterogeneity and associations to psychopathology are subtle [19]. To supplement conventional group-based analyses, statistical methods have been developed to model deviations from the norm to address this heterogeneity, and the subtle brain abnormalities that have been associated with mental health disorders, on the individual level. The core concept of these models is based on pediatric growth charts, where individual variation is quanti /uniFB01 ed against the growth information from a large reference population [20]. This approach has been translated into mapping individual brain characteristics to reference maps of agerelated brain anatomy [21], which provides an alternative to the classical case-control or cluster analyses in neuroimaging research [22]. By using normative models, heterogeneous patterns of brain deviations have been mapped in schizophrenia and bipolar disorder [23], in antipsychotic naïve /uniFB01 rst episode psychosis patients [24], and associated with negative symptoms longitudinally [19]. Moreover, aggression has been linked to agerelated brain deviations speci /uniFB01 cally in the amygdala in youth with disruptive behavior disorders [25] and trait impulsivity and reward-related brain responses, to individual brain deviations associated with clinical symptoms [26]. As such, using normative modeling in forensic psychiatry neuroimaging studies may overcome inherent challenges related to the small subject samples (due to concerns related to severe psychopathology, ability to consent, and security measures) and serve as a powerful tool not only to investigate underlying mechanisms of violent behavior in psychosis, but also to provide clinicians with individual level neurobiological information that together with other clinical information/characteristics may inform treatment selection and targeted interventions at the individual level.
+27:The objective of this study is to assess the potential of normative modeling in forensic psychiatry neuroimaging research by investigating individual patterns of deviations from the norm in persons with a history of severe violence and schizophrenia spectrum disorder (SSD-V), in persons with a schizophrenia spectrum disorder but no history of violence (SSD-NV), persons with a history of severe violence without schizophrenia spectrum disorder (nonSSD-V), and healthy controls with no history of violence (HC). We hypothesize that there will be high interindividual anatomical variability in persons with SSD-V, but with more extreme deviations in regions previously associated with violence in severe mental disorders such as the amygdala, hippocampus, orbito-frontal cortex, and anterior cingulate cortex ([2] for review). Moreover, we expect the pattern of deviations in SSD-V to differ from SSD-NV, where we expect more extreme deviations in regions previously associated with schizophrenia, such as the prefrontal cortices, hippocampus, and the basal ganglia [23, 27, 28]. Finally, we hypothesize that psychopathy traits will be associated with speci /uniFB01 c patterns of extreme deviations in both SSD-V and nonSSD-V [29].
+41:## Clinical assessment
+43:Clinical characterization was performed by specially trained psychiatrists, medical doctors, and psychologists. Structured diagnostic assessment was performed with the SCID-I [34] (18 years or above), and the KIDDIE-SADS present and lifetime version [35] (below 18 years). The positive and negative symptom scale (PANSS) [36] was used to assess psychosis symptoms, the Wechsler Abbreviated Scale of Intelligence (WASI) for IQ [37], and substance use with AUDIT [38] and DUDIT [39]. Psychopathy traits were assessed with the Psychopathy Checklist Revised (PCL-R) supplemented by hospital records and court documents [40]. The HC were assessed for mental disorders using the Primary Care Evaluation of Mental Disorders [41]. Use of antipsychotic medication was calculated based on daily de /uniFB01 ned doses according to the World Health Organization (https:// www.whocc/atc\_ddd\_index/).
+53:The quality of the area and thickness of cortical maps was assessed in a comprehensive visual evaluation of lateral and medial snapshots of all maps. If the surface values had negative values, unusual patterns, or a signi /uniFB01 cant value imbalance across hemispheres, the individual was removed. Freesurfer v7.1 was used to process data that passed quality control. Cortical thickness and area was summarized using the Destrieux atlas parcellation scheme [43]. Subcortical volume segmentation was based on a probabilistic atlas with priors for 31 brain structures [44, 45]. The ROIs used to train the initial normative models determined the selection of parcellation atlases for cortical and subcortical regions.
+55:## Normative models
+57:We used pretrained normative models from https://github.com/predictiveclinical-neuroscience/braincharts. Brie /uniFB02 y, models were trained using data of 58835 individuals aged 2 -100 from 82 sites. To model non-linear effects accurately, normative models were trained using Bayesian linear regression with likelihood warping using sinarcsinsh function [46]. The dependent variable was set to the ROI values of volume, area, or thickness, while the independent variables were age and scanner. To summarize the cortical area and thickness, we used the regions described in a high-resolution Destrieux atlas [43]. Models were both trained and applied to our data using python 3.8 and PCNtoolkit package (version 0.20). Further details on normative models are described in [20]. To account for the absence of scanner data used to acquire data in the model, an additional harmonization step was implemented. An unmatched group of healthy controls ( n = 998) was utilized to /uniFB01 ne-tune model parameters, enabling the application of normative models to unseen sites.
+85:In summary, we found that 89.5% of SSD-V and 65% of nonSSDV had at least one extreme deviation from the normative range, but the percentage of extreme deviations for any given region did not exceed 13.2% for SSD-V and 20% for nonSSD-V (Supplementary Tables S3, S4, for negative and positive deviations respectively). While all groups exhibit deviations in the prefrontal cortex, both SSD-V and SSD-NV additionally demonstrate notable negative deviations in regions of the occipital lobe. Within SSDV, the regions exhibiting the highest proportion of subjects with extreme negative deviations (Fig. 2) include: the left anterior (13.2%) and the right posterior (10.5%) segments of the collateral transverse sulcus area, the medial area of the lingual gyrus in the left occipito-temporal region (10.5%), and the volume of the right cerebellar cortex (10.5%). The 15 regions with the highest proportion of negative deviations are listed in Supplementary Table S5. Conversely, in the SSD-NV group, the regions that were most associated with extreme negative deviations were found in the right hemisphere ' s parieto-occipital and suborbital sulcus areas, each affecting 7.2% of individuals (Supplementary Table S6). Among the nonSSD-V, the highest percentages of extreme negative deviations were noted in the left hemisphere ' s paracentral lobule and sulcus, and the middle frontal gyrus, impacting 20 and 15% of subjects, respectively (Supplementary Table S5).
+99:| Table 1. Demographic and clinical characteristics. SSD-NV ( n = 138) | Age (years) Mean (SD, min-max) 29.0 (8.7, 15.1 - 57.8) | Wechsler abbreviated scale of intelligence (WASI-IQ) | Mean (SD) n128/19/17/152 102 (14.4) Positive and negative syndrome scale total (PANSS) | Mean (SD) n = 137/34/20/0 60.8 (17.1) | Psychopathy Checklist Revised (PCL-R) Mean (SD) n = 0/34/x/0 N/A | Use of antipsychotic medication (DDD) Mean (SD) n = 123/34/0/0 1.06 (0.834) | Drug use disorders identi /uniFB01 cation test (DUDIT) Mean (SD) n = 124/30/0/129 5.56 (8.88) | Mean (SD) n = 122/31/0/129 6.60 (6.35) |
+101:( pc-fwe = 0.0085, t = 4.2, d = 0.61) and in pallidum volume ( pc-fwe = 0.025, t = 4.0, d = 0.57) when compared to HC. Among the 332 regions tested across 8 contrasts (2656 tests in total) these regions remained signi /uniFB01 cant after multiple comparison adjustment (Fig. 3, Supplementary Table S8). Differences between clinical groups were observed at the level of correction for number of ROIs only, with nonSSD-V showing signi /uniFB01 cantly more deviations in the left superior medial and lingual thickness and anterior transversal collateral area compared to SSD-V, and SSD-V compared to SSD-NV in the choroid plexus. For completeness, the analyses were repeated with the whole healthy sample as a control group rather than the (1:1) matching (Supplementary Table S9, Supplementary Fig. S3).
+109:In the present study, we used brain imaging and normative modeling to map individual brain morphological deviations in persons with a history of violence and comorbid schizophrenia spectrum disorder (SSD-V), non-violent persons with a schizophrenia spectrum disorder (SSD-NV), persons with a history of violence but no comorbid schizophrenia spectrum disorder (nonSSD-V), and non-violent healthy participants (HC). The main /uniFB01 ndings were (I) an overall heterogeneous pattern of deviations on the individual level, with a (II) a higher number of extreme negative deviations in SSD-V, SSD-NV, and nonSSD-V than HC, (III) which were most frequent in regions within the collateral transverse sulcus, lingual gyrus, and the cerebellum in SSD-V, a pattern that differed from SSD-NV and nonSSD-V. The study demonstrates the use of normative modeling to map individual brain morphological heterogeneity in forensic psychiatry populations, which has potential to serve as a powerful tool to investigate underlying mechanisms of violent behavior in schizophrenia spectrum disorders and provide clinicians with individual level information that may inform targeted treatment choices.
+111:We report heterogeneous patterns of both extreme and subtle brain deviations associated with violence and schizophrenia spectrum disorders, which is in line with previous studies applying normative models to study brain heterogeneity at the individual level in schizophrenia [23], /uniFB01 rst episode psychosis [24], and conduct disorder [25]. SSD-V showed more extreme negative deviations in the area of regions within the collateral sulci bilaterally and the adjacent left lingual gyrus [43]. These regions are all located in the basal temporal-occipital lobes, show heritable and sex-speci /uniFB01 c morphology [50], and are involved in visual processing, including visual perception, object recognition, memory, and integration [51]. A recent meta-analysis showed aberrant task-based functional connectivity in the lingual gyrus associated with violence and psychosis [52] and smaller volume of speci /uniFB01 cally the left lingual gyrus has been associated with aggression in persons with /uniFB01 rst episode or high risk for psychosis [53]. Moreover, the SSD-V also showed more extreme deviations in the cerebellar cortex. The cerebellum is important to motor control, cognition, and executive control [54], but has also been linked to aggressive behavior [55, 56]. Taken together, the pattern of deviations in SSD-V point towards regions already
+117:Fig. 2 Z-scores indicating deviations from the normative curve for regions with at least 10% of extreme negative deviations in the SSDV group. The threshold denoting extremely negative deviations is represented by a black vertical line (Z &lt; -2). SSD-NV schizophrenia spectrum disorder patients without history of violence, SSD-V schizophrenia spectrum disorder patients with a history of violence, nonSSD-V participants with history of violence and no schizophrenia spectrum disorder, HC healthy participants.
+123:Notably, the SSD-V deviation patterns differed from SSD-NV who showed a higher number of extreme negative deviations in the parieto-occipital area involved in spatial navigation, analysis of visual motor cues and visuomotor limb action control [59], and the suborbital sulci area whose function is less clear, as is its role in schizophrenia psychopathology [60]. While the percentages of patients with extreme deviations were similar to a recent /uniFB01 rst episode psychosis study applying normative models to cortical thickness [19], the regional patterns differed. This illustrates the inter-individual heterogeneity between modalities (cortical area vs thickness) and study cohorts, and the propensity of the normative models to capture this variance and heterogeneity from a prede /uniFB01 ned norm [22, 61] without having ' failed ' to replicate results from earlier studies. Accordingly, the present results are not overlapping with our hypotheses (based on earlier studies), which illustrates that the normative modeling indeed provides an alternative to the traditional case-control group-based studies.
+137:The study has some limitations. The relatively small number of subjects with a history of violence, as well as the male only sample (which re /uniFB02 ects the predominance of men in the study group of interest), might limit the generalizability of the current study. However, the normative models are developed to assess exactly the individual brain characteristics in relation to prede /uniFB01 ned sexspeci /uniFB01 c charts. Although the Freesurfer Destrieux atlas comprises 148 cortical ROIs, atlas de /uniFB01 ned cortical parcellations have shown lower representations of true associations and prediction accuracy than vertex-wise analyses [67]. Moreover, the models were not corrected for substance use which could affect brain morphological characteristics, and although persons in the preventive detention facilities and security psychiatry hospital wards should not have access to un-prescribed and illegal substances and alcohol, we cannot exclude potential effects of earlier or nonregulation use. Further, we did not control for cumulative effects
+139:of antipsychotic medication which may also affect brain morphology but are also overlapping with clinical groups and their associated psychopathological characteristics. The most severely ill or aggressive persons in the forensic psychiatry wards or prisons were not eligible for participation due to lack of ability to consent or/and safety concerns. Violence was de /uniFB01 ned as a lifetime binary variable which was narrower than the WHO de /uniFB01 nition. Despite being narrower, the de /uniFB01 nition we used is both rigorous and unambiguous, ensuring clear inclusion criteria to groups with a history of violence. Finally, an inherent limitation in all crosssectional neuroimaging studies is the inability to distinguish between speci /uniFB01 c disease mechanisms and the effects of early-life in /uniFB02 uences and developmental trajectories. Cross-sectional normative modeling has shown lower individual level prediction propensity than longitudinal models [68], which should be investigated in future studies of violence and psychosis.
+141:A strength of the current study is that the normative charts are derived from &gt;50 000 individuals based on this Freesurfer standard atlas [20] which ensures that the results are reproducible and easy to compare and facilitates replication studies. The forensic psychiatry patients, prisoners, and regular patients all underwent thorough clinical and socio-demographic characterization, and the prisoners represent almost 20% of all persons serving preventive detention in Norway. The study encompassed a broad age range providing comprehensive coverage across a signi /uniFB01 cant fraction of the lifespan.
+
+thinking
+**Locating cohort demographics**
+
+Planning to extract clinical cohort information by parsing the demographics table, starting with examining the PDF.md file for the relevant table content.
+exec
+/bin/bash -lc "sed -n '1,140p' study_1/Haukvik2025.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041344011102026-03-04T04:44:22.777873Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+1234567890();,:
+
+## ARTICLE OPEN
+
+![Image](./Haukvik2025_artifacts/image_000000_7526ad624168f843f92ee1d06aaefefd23806678ee5a17f7e847523a7f980b32.png)
+
+## Individual-level deviations from normative brain morphology in violence, psychosis, and psychopathy
+
+Unn K. Haukvik 1,2 ✉ , Thomas Wolfers 3,4,5 , Natalia Tesli 2,5 , Christina Bell 5,6 , Gabriela Hjell 5,7 , Thomas Fischer-Vieler 5,8 , Nina Bang 9,10 , Ingrid Melle 1,11 , Ole A. Andreassen 12 , Kirsten Rasmussen 9,10 , Ingrid Agartz 13,14,15 , Lars T. Westlye 5,16 , Christine Friestad 2,17 and Jaroslav Rokicki 2
+
+© The Author(s) 2025
+
+Neuroimaging research has shown brain morphological abnormalities associated with violence and psychosis, but individual differences are substantial and results not consistent across studies. Normative modeling of brain MRI-features facilitates a systematic mapping of individual brain characteristics of complex phenotypes also in small samples but has not yet been applied to forensic psychiatry populations. We explored brain heterogeneity in persons with a history of severe violence with a comorbid schizophrenia spectrum disorder (SSD-V; n = 38), non-violent persons with schizophrenia spectrum disorders (SSD-NV; n = 138), persons with a history of severe violence without comorbid schizophrenia spectrum disorder (nonSSD-V; n = 20), and healthy nonviolent participants (HC; n = 196) from lifetime normative trajectories of cortical thickness, surface area, and subcortical volumes. Normative models based on Freesurfer derived regions of interest from 58,836 individuals were used to investigate individual deviances, group differences, and associations to psychopathy traits. We found overall heterogeneous patterns of individual deviations from the norm, which were most prominent for regions within the collateral transverse sulcus, lingual gyrus, and cerebellum among SSD-V, a pattern that differed from SSD-NV (parieto-occipital and suborbital sulci), and nonSSD-V (paracentral and middle frontal regions). We found no signi /uniFB01 cant associations to psychopathy traits. By applying normative modeling, we demonstrate heterogeneous patterns of brain morphometry deviations associated with violence and psychosis. While the results warrant replication, studies addressing individual brain deviations may contribute to improved understanding of the neurobiological underpinnings of comorbid violence and psychosis, which ultimately may have clinical impact on treatment and forensic psychiatric evaluations.
+
+Translational Psychiatry (2025) 15:118  ; https://doi.org/10.1038/s41398-025-03343-1
+
+## INTRODUCTION
+
+Violence committed by persons with severe mental disorders is a tragedy for the people involved, the treating health services, and the society at large. A key to prevent such events is to understand the complex biopsychosocial underpinnings of violence associated with severe mental disorders and their interaction with each other [1]. Over the last decades, neuroimaging research has tried to map the anatomy and functional characteristics associated with violence committed by persons with severe mental disorders (see [2] for review). Magnetic resonance imaging (MRI) studies have shown volumetric reductions of the orbitofrontal [3] and anterior cingulate [4] cortex, the amygdala and hippocampus [5], including their sub /uniFB01 elds and nuclei [6, 7], as well as cortical folding and thickness abnormalities [8 -10] in persons with psychosis and a history of severe violence. This pattern of brain deviations aligns with regions and circuits involved in fear [11], reward [12], empathy [13], the processing of visual stimuli [14], and the formation of positive psychosis symptoms including hallucinations [15] and delusions [16]. The /uniFB01 ndings vary across studies, which is expected considering the diversity of the violence and psychosis phenotypes [17], but the traditional neuroimaging research statistical methodology comparing group averages does not account for this heterogeneity. As such, putative individual brain deviations and patterns pointing toward distinct phenotypic neurobiological underpinnings might remain undiscovered.
+
+
+thinking
+**Considering demographics table placement**
+
+I'm noting the demographics table may be unclear in the main PDF markdown and contemplating moving it to a supplement focusing on sexes for clarity.
+2026-03-04T04:44:26.191539Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/41398_2025_3343_MOESM1_ESM.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110 succeeded in 30ms:
+## Supplementary material
+
+## Supplementary figures
+
+![Image](./41398_2025_3343_MOESM1_ESM_artifacts/image_000000_2ffe342ccc5061a251f8094fd92eeff04f213e01ec2047ea3dfea2563763906f.png)
+
+Supplemental figure 1. Association between the percentage of individuals as and the frequency of extreme negative (left) or positive (right) deviations in diagnostic categories. Notably, in the SSD-V group, the prevalence of extreme negative deviations approaches that of HC when the number of outliers reaches 15, whereas in the SSD-NV and nonSSD-V groups, it remains elevated.
+
+Supplementary figure 2. Extreme negative (left) and positive (right) deviations of cortical thickness (top), area (middle) and subcortical volumes (bottom). Color fill represents percentage of participants from total in the group in given ROI. Diagnostic groups (DX, bottom row within each shaded rectangle) are compared against age matched HC (top row) with ratio 1:1. Extreme deviation is defined as | Z |&gt;2.
+
+![Image](./41398_2025_3343_MOESM1_ESM_artifacts/image_000001_9e00ef88daede3198da8fb6d222329dc8597adcd08e680195df6a1bb4fd64a90.png)
+
+![Image](./41398_2025_3343_MOESM1_ESM_artifacts/image_000002_d39ad43cb2c5143f21d1d604e78f37da5c29e2ac5b6dbce6def699086e9b6340.png)
+
+Supplementary figure 3. Pairwise difference in Z-scores between diagnostic groups and age matched to all healthy controls ( n =196). ROIs with significant results are marked with contour lines: yellow (uncp) - uncorrected, orange (fwep) - FDR corrected for the number of ROIs, red (cfwep) - FDR corrected for the number of ROIs and number of contrasts and crimson (mcwep) - p-value FDR corrected for number of ROIs, contrast and modalities. Shades presents Cohen's d of group differences on the deviation scores.
+
+## Supplementary tables
+
+Supplemental table 1. For each group, we calculated the percentage of extreme negative and positive deviations, defined as | Z |&gt;2, for each ROI. The header of each modality indicates the total number of ROIs. Our results showed that all three diagnostic groups exhibited a higher frequency of negative outliers in area and volume, as compared to healthy controls, but not in cortical thickness. Moreover, these diagnostic groups had either fewer or similar instances of extreme positive deviations across all three modalities. Abbreviations: DX - diagnosis, SSD-NV schizophrenia spectrum disorder patients without history of violence, SSD-V - schizophrenia spectrum disorder patients with a history of violence, nonSSD-V - participants with history of violence and no schizophrenia spectrum disorder, HC - healthy controls.
+
+
+
+thinking
+**Clarifying clinical group categories**
+
+The cohort is entirely male with sample sizes given; clinical groups include SSD with violence, SSD without violence, and a non-SSD violence group. The clinical groups map to a minor disorder category "SSD" for schizophrenia spectrum disorders, but the non-SSD violence group lacks a clear disorder label and may require a placeholder or "psychopathology" category.
+thinking
+**Deciding disorder categorization and age aggregation**
+
+I'm confirming to assign only SSD as the disorder minor category for SSD-V and SSD-NV clinical cohorts, excluding nonSSD-V due to lack of a defined disorder. Next, I'll combine SSD-V and SSD-NV age stats using weighted mean and pooled SD per guidelines for disorder-level aggregation.
+2026-03-04T04:44:55.595324Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n1=38; mean1=34.7; sd1=8.9
+n2=138; mean2=29.0; sd2=8.7
+n=n1+n2
+weighted_mean=(n1*mean1+n2*mean2)/n
+# pooled SD for two groups
+var1=sd1**2; var2=sd2**2
+pooled_var=((n1-1)*var1+(n2-1)*var2 + n1*(mean1-weighted_mean)**2 + n2*(mean2-weighted_mean)**2)/ (n-1)
+pooled_sd=math.sqrt(pooled_var)
+print(weighted_mean, pooled_sd)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110 succeeded in 34ms:
+30.23068181818182 9.02958765651861
+
+
+thinking
+**Summarizing demographic and disorder data**
+
+I'm preparing age and sex statistics from Table 1, highlighting all individuals as male (100%) due to no females, and quoting mean, SD, and ranges separately for SSD-V and SSD-NV groups. I'll cite this data location as "Haukvik2025.pdf.md: Results / Table 1" without line numbers.
+thinking
+**Clarifying disorder and cohort inclusion**
+
+I'm deciding to include only SSD as the disorder category from the clinical cohort, excluding nonSSD-V since it lacks a psychosis diagnosis and doesn't fit defined categories. For dataset origin, all clinical participants were recruited from four studies without specific mapping to SSD subgroups, so I'll list all four studies and note this ambiguity.
+2026-03-04T04:45:18.676594Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Haukvik2025_by_codex_20260304134401110.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110 succeeded in 19ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Structuring SSD sex and age summary**
+
+I'm organizing sex counts for combined SSD groups showing all males (176 total) and no females, with percentages reflected. Age stats aggregate SSD-V and SSD-NV using pooled means and SDs, with ranges, and include dataset origin details listing TOP, uTOP, sTOP, and STROKEMRI.
+thinking
+**Composing detailed SSD metadata JSON**
+
+I'm preparing a JSON answer including disorder name with detailed group descriptions, dataset origin, sex, and age supporting texts each with precise locations and confidence ratings. I'll format supporting texts with relevant quotes and provide proper field structure for patch application.
+2026-03-04T04:45:46.444228Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Haukvik2025"
+   },
+@@ -7,28 +7,28 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SSD",
++        "detail": "Schizophrenia spectrum disorder clinical cohorts (SSD-V and SSD-NV).",
++        "confidence_rating": "High",
++        "supporting_text": "\"persons with a history of severe violence and comorbid schizophrenia spectrum disorder (SSD-V, n = 38; i.e. schizophrenia n = 35, schizoaffective disorder n = 1, schizophreniform disorder n = 1, other psychosis n = 1), ... persons with no history of violence but with a schizophrenia spectrum disorder (SSD-NV n = 138; i.e. schizophrenia n = 87, schizoaffective disorder n = 17, schizophreniform disorder n = 7, other psychosis n = 27)\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["TOP", "STROKEMRI", "uTOP", "sTOP"],
++        "detail": "Participants were recruited from four Oslo-area studies; mapping of SSD-V/SSD-NV to specific studies not specified.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Participants ... were recruited from the Oslo area as part of four studies: the Thematically Organized Psychosis study (TOP) [30], the STROKEMRI study [31], The Youth-TOP study (uTOP) [32], and The Forensic Psychiatry study (sTOP) [33].\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 15.1, "max": 57.8, "mean": 30.23, "sd": 9.03 },
++        "detail": "Weighted mean and pooled SD across SSD-V (n=38) and SSD-NV (n=138); min/max taken from reported group ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"SSD-V ( n = 38) 34.7 (8.9, 19.2 - 54.1)\"; \"SSD-NV ( n = 138) | Age (years) Mean (SD, min-max) 29.0 (8.7, 15.1 - 57.8)\"",
++        "location": "Haukvik2025.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 176, "male_pct": 100.0, "female_n": 0, "female_pct": 0.0 },
++        "detail": "All participants in the clinical groups were male; SSD-V (n=38) + SSD-NV (n=138).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All individuals were male due to the scarcity of eligible women within the participating forensic psychiatry units and prisons.\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       }
+apply_patch(auto_approved=true) exited 0 in 4ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json b/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cc6eb686b6743ac94a65fbe5540e0a764367559c
+--- a/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+@@ -1,36 +1,36 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Haukvik2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SSD",
++        "detail": "Schizophrenia spectrum disorder clinical cohorts (SSD-V and SSD-NV).",
++        "confidence_rating": "High",
++        "supporting_text": "\"persons with a history of severe violence and comorbid schizophrenia spectrum disorder (SSD-V, n = 38; i.e. schizophrenia n = 35, schizoaffective disorder n = 1, schizophreniform disorder n = 1, other psychosis n = 1), ... persons with no history of violence but with a schizophrenia spectrum disorder (SSD-NV n = 138; i.e. schizophrenia n = 87, schizoaffective disorder n = 17, schizophreniform disorder n = 7, other psychosis n = 27)\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["TOP", "STROKEMRI", "uTOP", "sTOP"],
++        "detail": "Participants were recruited from four Oslo-area studies; mapping of SSD-V/SSD-NV to specific studies not specified.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Participants ... were recruited from the Oslo area as part of four studies: the Thematically Organized Psychosis study (TOP) [30], the STROKEMRI study [31], The Youth-TOP study (uTOP) [32], and The Forensic Psychiatry study (sTOP) [33].\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 15.1, "max": 57.8, "mean": 30.23, "sd": 9.03 },
++        "detail": "Weighted mean and pooled SD across SSD-V (n=38) and SSD-NV (n=138); min/max taken from reported group ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"SSD-V ( n = 38) 34.7 (8.9, 19.2 - 54.1)\"; \"SSD-NV ( n = 138) | Age (years) Mean (SD, min-max) 29.0 (8.7, 15.1 - 57.8)\"",
++        "location": "Haukvik2025.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 176, "male_pct": 100.0, "female_n": 0, "female_pct": 0.0 },
++        "detail": "All participants in the clinical groups were male; SSD-V (n=38) + SSD-NV (n=138).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All individuals were male due to the scarcity of eligible women within the participating forensic psychiatry units and prisons.\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json b/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cc6eb686b6743ac94a65fbe5540e0a764367559c
+--- a/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+@@ -1,36 +1,36 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Haukvik2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SSD",
++        "detail": "Schizophrenia spectrum disorder clinical cohorts (SSD-V and SSD-NV).",
++        "confidence_rating": "High",
++        "supporting_text": "\"persons with a history of severe violence and comorbid schizophrenia spectrum disorder (SSD-V, n = 38; i.e. schizophrenia n = 35, schizoaffective disorder n = 1, schizophreniform disorder n = 1, other psychosis n = 1), ... persons with no history of violence but with a schizophrenia spectrum disorder (SSD-NV n = 138; i.e. schizophrenia n = 87, schizoaffective disorder n = 17, schizophreniform disorder n = 7, other psychosis n = 27)\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["TOP", "STROKEMRI", "uTOP", "sTOP"],
++        "detail": "Participants were recruited from four Oslo-area studies; mapping of SSD-V/SSD-NV to specific studies not specified.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Participants ... were recruited from the Oslo area as part of four studies: the Thematically Organized Psychosis study (TOP) [30], the STROKEMRI study [31], The Youth-TOP study (uTOP) [32], and The Forensic Psychiatry study (sTOP) [33].\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 15.1, "max": 57.8, "mean": 30.23, "sd": 9.03 },
++        "detail": "Weighted mean and pooled SD across SSD-V (n=38) and SSD-NV (n=138); min/max taken from reported group ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"SSD-V ( n = 38) 34.7 (8.9, 19.2 - 54.1)\"; \"SSD-NV ( n = 138) | Age (years) Mean (SD, min-max) 29.0 (8.7, 15.1 - 57.8)\"",
++        "location": "Haukvik2025.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 176, "male_pct": 100.0, "female_n": 0, "female_pct": 0.0 },
++        "detail": "All participants in the clinical groups were male; SSD-V (n=38) + SSD-NV (n=138).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All individuals were male due to the scarcity of eligible women within the participating forensic psychiatry units and prisons.\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming exact text formatting for table quotes**
+
+I'm verifying that the quoted table text matches exactly, including spacing and pipe characters, as seen in the source markdown to ensure accuracy before JSON validation.
+exec
+/bin/bash -lc "python - <<'PY'
+import json,sys
+path='DE_v14_Haukvik2025_by_codex_20260304134401110.json'
+with open(path) as f:
+    json.load(f)
+print('ok')
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041344011102026-03-04T04:45:53.551914Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 49ms:
+ok
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json b/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cc6eb686b6743ac94a65fbe5540e0a764367559c
+--- a/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+@@ -1,36 +1,36 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Haukvik2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SSD",
++        "detail": "Schizophrenia spectrum disorder clinical cohorts (SSD-V and SSD-NV).",
++        "confidence_rating": "High",
++        "supporting_text": "\"persons with a history of severe violence and comorbid schizophrenia spectrum disorder (SSD-V, n = 38; i.e. schizophrenia n = 35, schizoaffective disorder n = 1, schizophreniform disorder n = 1, other psychosis n = 1), ... persons with no history of violence but with a schizophrenia spectrum disorder (SSD-NV n = 138; i.e. schizophrenia n = 87, schizoaffective disorder n = 17, schizophreniform disorder n = 7, other psychosis n = 27)\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["TOP", "STROKEMRI", "uTOP", "sTOP"],
++        "detail": "Participants were recruited from four Oslo-area studies; mapping of SSD-V/SSD-NV to specific studies not specified.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Participants ... were recruited from the Oslo area as part of four studies: the Thematically Organized Psychosis study (TOP) [30], the STROKEMRI study [31], The Youth-TOP study (uTOP) [32], and The Forensic Psychiatry study (sTOP) [33].\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 15.1, "max": 57.8, "mean": 30.23, "sd": 9.03 },
++        "detail": "Weighted mean and pooled SD across SSD-V (n=38) and SSD-NV (n=138); min/max taken from reported group ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"SSD-V ( n = 38) 34.7 (8.9, 19.2 - 54.1)\"; \"SSD-NV ( n = 138) | Age (years) Mean (SD, min-max) 29.0 (8.7, 15.1 - 57.8)\"",
++        "location": "Haukvik2025.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 176, "male_pct": 100.0, "female_n": 0, "female_pct": 0.0 },
++        "detail": "All participants in the clinical groups were male; SSD-V (n=38) + SSD-NV (n=138).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All individuals were male due to the scarcity of eligible women within the participating forensic psychiatry units and prisons.\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       }
+     }
+   ]
+
+
+thinking
+**Summarizing findings with next steps**
+
+The key takeaway is that the nonSSD-V category is excluded because it lacks a disorder grouping in the data. The main implementation and analysis cover only categories with defined disorder labels. Next steps may include reviewing the data source for completeness or considering how to handle categories without disorder groupings.
+codex
+Filled the clinical cohort extraction for SSD (SSD-V + SSD-NV), including weighted/pooled age and all-male sex counts, and captured the recruitment datasets in `DE_v14_Haukvik2025_by_codex_20260304134401110.json`.
+
+Notes: the nonSSD-V group lacks a matching disorder minor category in the provided taxonomy, so it was not encoded as a separate disorder entry. If you want it mapped to a specific category (e.g., `psychopathology`), tell me which one.
+
+Next steps if useful:
+1) Add a separate disorder entry for nonSSD-V with your preferred category.
+2) Recompute age/sex separately for SSD-V and SSD-NV instead of pooled.
+2026-03-04T04:45:59.003186Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json b/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cc6eb686b6743ac94a65fbe5540e0a764367559c
+--- a/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304134401110/DE_v14_Haukvik2025_by_codex_20260304134401110.json
+@@ -1,36 +1,36 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Haukvik2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SSD",
++        "detail": "Schizophrenia spectrum disorder clinical cohorts (SSD-V and SSD-NV).",
++        "confidence_rating": "High",
++        "supporting_text": "\"persons with a history of severe violence and comorbid schizophrenia spectrum disorder (SSD-V, n = 38; i.e. schizophrenia n = 35, schizoaffective disorder n = 1, schizophreniform disorder n = 1, other psychosis n = 1), ... persons with no history of violence but with a schizophrenia spectrum disorder (SSD-NV n = 138; i.e. schizophrenia n = 87, schizoaffective disorder n = 17, schizophreniform disorder n = 7, other psychosis n = 27)\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["TOP", "STROKEMRI", "uTOP", "sTOP"],
++        "detail": "Participants were recruited from four Oslo-area studies; mapping of SSD-V/SSD-NV to specific studies not specified.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Participants ... were recruited from the Oslo area as part of four studies: the Thematically Organized Psychosis study (TOP) [30], the STROKEMRI study [31], The Youth-TOP study (uTOP) [32], and The Forensic Psychiatry study (sTOP) [33].\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 15.1, "max": 57.8, "mean": 30.23, "sd": 9.03 },
++        "detail": "Weighted mean and pooled SD across SSD-V (n=38) and SSD-NV (n=138); min/max taken from reported group ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"SSD-V ( n = 38) 34.7 (8.9, 19.2 - 54.1)\"; \"SSD-NV ( n = 138) | Age (years) Mean (SD, min-max) 29.0 (8.7, 15.1 - 57.8)\"",
++        "location": "Haukvik2025.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 176, "male_pct": 100.0, "female_n": 0, "female_pct": 0.0 },
++        "detail": "All participants in the clinical groups were male; SSD-V (n=38) + SSD-NV (n=138).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All individuals were male due to the scarcity of eligible women within the participating forensic psychiatry units and prisons.\"",
++        "location": "Haukvik2025.pdf.md: Methods / Participants"
+       }
+     }
+   ]
+
+tokens used
+41,688
+Filled the clinical cohort extraction for SSD (SSD-V + SSD-NV), including weighted/pooled age and all-male sex counts, and captured the recruitment datasets in `DE_v14_Haukvik2025_by_codex_20260304134401110.json`.
+
+Notes: the nonSSD-V group lacks a matching disorder minor category in the provided taxonomy, so it was not encoded as a separate disorder entry. If you want it mapped to a specific category (e.g., `psychopathology`), tell me which one.
+
+Next steps if useful:
+1) Add a separate disorder entry for nonSSD-V with your preferred category.
+2) Recompute age/sex separately for SSD-V and SSD-NV instead of pooled.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

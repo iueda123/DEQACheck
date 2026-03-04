@@ -1,0 +1,485 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Ge2024_by_codex_20260304132711287.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304132711287/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cb719-9ab7-7b52-bf95-b3f631db5439
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Ge2024_by_codex_20260304132711287.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Reading usage guide**
+2026-03-04T04:27:16.739337Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304132711287 succeeded in 139ms:
+DE_Guide_v14.md
+DE_v14_Ge2024_by_codex_20260304132711287.json
+DE_v14_Ge2024_by_codex_20260304132711287.log
+study_1
+2026-03-04T04:27:19.946785Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304132711287 succeeded in 21ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Searching for study documents**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041327112872026-03-04T04:27:22.571495Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 24ms:
+DE_v14_Ge2024_by_codex_20260304132711287.json
+DE_v14_Ge2024_by_codex_20260304132711287.log
+DE_Guide_v14.md
+study_1/Ge2024_sup6.pdf.md
+study_1/Ge2024_sup2.xlsx.md
+study_1/Ge2024_sup4.xlsx.md
+study_1/Ge2024_sup3.xlsx.md
+study_1/Ge2024_sup5.xlsx.md
+study_1/Ge2024_sup1.xlsx.md
+study_1/Ge2024.pdf.md
+
+thinking
+**Opening main PDF markdown for extraction**
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patients|controls|schiz|bipolar|depress|MCI|AD|autism|ADHD|epile|psych" study_1/Ge2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041327112872026-03-04T04:27:26.062112Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+5:The value of normative models in research and clinical practice relies on their robustness and a systematic comparison of di/uniFB00erent modelling algorithms and parameters; however, this has not been done to date. We aimed to identify the optimal approach for normative modelling of brain morphometric data through systematic empirical benchmarking, by quantifying the accuracy of di/uniFB00erent algorithms and identifying parameters that optimised model performance. We developed this framework with regional morphometric data from 37 407 healthy individuals (53% female and 47% male; aged 3-90 years) from 87 datasets from Europe, Australia, the USA, South Africa, and east Asia following a comparative evaluation of eight algorithms and multiple covariate combinations pertaining to image acquisition and quality, parcellation software versions, global neuroimaging measures, and longitudinal stability. The multivariate fractional polynomial regression (MFPR) emerged as the preferred algorithm, optimised with non-linear polynomials for age and linear e/uniFB00ects of global measures as covariates. The MFPR models showed excellent accuracy across the lifespan and within distinct age-bins and longitudinal stability over a 2-year period. The performance of all MFPR models plateaued at sample sizes exceeding 3000 study participants. This model can inform about the biological and behavioural implications of deviations from typical age-related neuroanatomical changes and support future study designs. The model and scripts described here are freely available through CentileBrain.
+9:Normative modelling is a class of statistical methods to quantify the degree to which an individual-level measure deviates  from  the  pattern  observed  in  a  normative reference  population.  Normative  modelling  of  neuroimaging phenotypes has mostly focused on brain morphometry  given  the  wide  availability  of  structural MRI data, 1-4 with  extensions  into  di/uniFB00usion  MRI  in  the past couple of years. 5 Normative modelling is emerging as  a  promising  new  approach  to  the  investigation  of brain alternations in neuropsychiatric disorders. 6-11 However, the value of normative models as research, and potentially  clinical,  tools  relies  on  their  methodological robustness, which has yet to be empirically investigated.
+11:Available normative modelling studies employ a range of linear, non-linear, and Bayesian algorithms that reflect  researchers'  preferences. 1-13 At  present,  there  is no systematic comparative evaluation of the performance of  these  algorithms  and  no  empirical  determination  of the key parameters that could influence model performance.  For  example,  the  minimum  sample  size necessary for reliable normative  estimates  of brain morphometric measures has not been established and, with few exceptions, 1-3,13 the size of the samples used for the  normative  reference  population  is  small  to  modest (range 145-870 people). 6-10,14,15
+13:To address this important knowledge gap, the aim of this study was to identify the optimal approach for  the  normative  modelling  of  brain  morphometric data through systematic empirical benchmarking. Specifically, the aim was to quantify the accuracy of the di/uniFB00erent  algorithms  and  identify  those  parameters  that optimise model performance.
+19:We  collated  de-identified  data  from  87  datasets  from Europe, Australia, the USA, South Africa, and east Asia (appendix 1 p 2; appendix 2). Data use aligned with the policies  of  the  ENIGMA Lifespan Working Group, and the policies of individual studies and national repositories. On the basis of the information provided in each dataset, data were further selected to include highquality  neuroimaging  measures  (appendix  1  p  3)  from participants who did not have psychiatric, medical, and neurological  morbidity  and  cognitive  impairment  at the  time  of  scanning.  Only  scans  acquired  at  baseline were  included  from  datasets  with  multiple  scanning assessments. The study design conformed with STROBE guidelines.  Normative  models  are  distinguished  into reference  models,  derived  from  a  sample  considered representative of a population in a geographical region at a  specific  period,  and  standard  models,  derived  from healthy individuals aiming to represent a healthy pattern of age-related changes. Given the nature of our samples, the models developed are standard models.
+33:Djavad Mowafaghian Centre for Brain Health, University of British Columbia, Vancouver, BC, Canada (R Ge PhD, Y Yu BSc, Y X Qi BSc, Y-n Fan BSc, S Chen BSc, C Gao BSc, Prof S Frangou MD) ; Department of Psychiatry, Icahn School of Medicine at Mount Sinai, New York, NY, USA (Prof S Frangou, S S Haas PhD, F New MA) ; Netherlands Twin Register, Department of Biological Psychology, Vrije Universiteit, Amsterdam, Netherlands (Prof D I Boomsma PhD) ; Centre for Healthy Brain Ageing, University of New South Wales, Sydney, NSW, Australia (Prof H Brodaty DSc) ; Department of Complex Trait Genetics, Center for Neurogenomics and Cognitive Research, Vrije Universiteit, Amsterdam, Netherlands (R M Brouwer PhD) ; Center for Brain Science, Harvard University, Cambridge, MA, USA (Prof R Buckner PhD) ; Centre for Neuropsychiatric Genetics and Genomics, Cardiff University, Cardiff, Wales, UK (X Caseras PhD) ; Groupe d'Imagerie NeurofonctionnelleInstitut des Maladies Neurodégénératives, Université de Bordeaux, CNRS UMR 5293, Bordeaux, France (F Crivello PhD) ; Erasmus School of Social and Behavioural Sciences, Erasmus University Rotterdam, Rotterdam, Netherlands ; Division of (Prof S Erk MD, and Genetics Department, Max
+37:Nijmegen, Netherlands (Prof S E Fisher Dphil) ; Departments of Human Genetics, Psychiatry and Cognitive Neuroscience, Donders Institute for Brain, Cognition and Behaviour, Radboud University Medical Center, Nijmegen, Netherlands (Prof B Franke PhD) ; Department of Psychiatry and Behavioral Sciences, Boston Children's Hospital, Boston, MA, USA (Prof D C Glahn PhD) ; Department of Psychiatry and Psychotherapy, University of Münster, Münster, Germany (Prof U Dannlowski MD, D Grotegerd PhD) ; Section for Experimental Psychopathology and Neuroimaging, Department of General Psychiatry, Heidelberg University, Heidelberg, Germany (Prof O Gruber MD) ; Department of Experimental Psychology, Helmholtz Institute, Utrecht University, Utrecht, Netherlands (Prof H E Hulshoff Pol PhD) ; Centre for Population Neuroscience and Stratified Medicine, Institute for Science and Technology of Braininspired Intelligence, Fudan University, Shanghai, China (Prof G Schumann MD) ; PONS Centre, Department of analysis suite (appendix 2) to yield global measures of total intracranial  volume,  mean  cortical  thickness,  and  total surface area, as well as measures of cortical thickness and cortical  surface  area  from  the  68  Desikan-Killiany  atlas regions and 14 subcortical volumetric measures based on the Aseg atlas. Sex-specific normative models were developed separately for each of the 150 regional morphometry measures to accommodate sex di/uniFB00erences in  brain  morphometry. 16 Sex  (ie,  male  or  female)  was determined by self-report. We explored the clustering of the brain morphometry data by geographical regions and did not identify region-specific clusters (appendix 1 p 2).
+39:## Optimisation of normative models
+51:Figure 1: Flowchart of normative model optimisation
+69:Across regional morphometric measures (and separately in males and females), the MAEs and RMSEs of  the  optimised  models  generated  by  each  algorithm were concatenated as a single vector to enable pairwise comparisons  between  algorithms.  False  discovery  rate (FDR)  correction  for  multiple  testing  was  used  and results  were  considered  significant  at  p fdr &lt;0·05  across comparisons.  Upon  completion  of  data  preparation, algorithm selection, and model optimisation, optimised sex-specific and region-specific models were defined on the basis of the best-performing algorithm and covariate combination.  The  normative  deviation  score  for  each region 4,11 was defined as:
+83:As the  GAMLSS  algorithm  is  particularly  popular for  normative  modelling, 21 we  did  additional  sensitivity analyses  for  di/uniFB00erent  GAMLSS  models  and  software packages (appendix 1 pp 16-20).
+85:The Southwest Longitudinal Imaging Multimodal Study  (SLIM)  and  the  Queensland  Twin  Adolescent Brain Study (QTAB) were used to test the longitudinal stability  of  the  optimal  normative  models.  There  is  no participant overlap between the SLIM and QTAB studies and between either dataset and the sample used for  model  development.  The  SLIM  dataset  includes 118  healthy  individuals  (59  females  and  59  males;  age range 17-22 years for the baseline scans and 19-25 years at  follow-up  scans)  who  were  rescanned  with  a  mean interval  of  2·35  years.  The  QTAB  dataset  includes 259  healthy  individuals  (129  females  and  130  males; sample age range 9-14 years for the baseline scans and 10-16 years at follow-up scans) who were rescanned with a  mean  interval  of  1·76  years.  In  these  datasets,  sex (ie, male or female) was also determined by self-report.
+87:## Relevance of normative models of brain morphometry for mental illness
+89:We  tested  whether  normative  brain  regional  Z-scores have  an  advantage  over  the  observed  morphometric measures in predicting diagnostic status and symptom severity using psychosis as an example. For this test, we downloaded and parcellated (with FreeSurfer version 7 .1.0) T1 -weighted  images  from  the  repository  of  the  Human Connectome  Project-Early  Psychosis  Study  (HCP-EP). The HCP-EP cohort comprises 91 individuals with early psychosis and 57 healthy individuals (total sample 48 females and 100 males; age range 16·67-35·67 years). Sex (ie, male or female) was determined by self-report. 22 Each of the algorithms examined here were then applied to generate brain regional Z-scores in the HCP-EP cohort.
+123:humanconnectome.org/study/ human-connectome-project-forearly-psychosis
+131:following  established  procedures. 23 The  area  under  the receiver  operating  characteristic  curve  (AUC),  averaged across  all  folds  within  a  5F-CV  framework  repeated 100 times, was used to evaluate the classification accuracy of each SVC model. Statistical significance was established  by  comparing  the  averaged  AUC  of  each model  to  a  null  distribution  generated  from  a  model trained on 1000 random permutations of the diagnostic labels (ie, a patient or healthy individual in the HCP-EP cohort).  To  compare  the  classification  accuracy  of  the SVC models using the regional Z-scores with the SVC model using the observed neuromorphometric data, we calculated  pairwise  ∆ AUC and  we  tested  whether  they exceeded chance probability compared  with a null distribution using permutation.
+133:For  the  prediction  of  symptom  severity,  and  for  each algorithm, regional Z-scores and the observed neuromorphometric  data  were  entered  into  separate ridge  regression  models  with  100  repeats  of  5F-CV  to predict the psychosis score of the Positive and Negative Syndrome  Scale 24 in  the  HCP-EP  study  patients.  The MAE of each model, averaged across folds, was used as the performance metric. Within each fold, we applied  principal  component  analysis  to  reduce  the dimensionality of the brain regional measures to the first ten principal components that explained at least 90% of the variance. To compare the predictive accuracy of the regression models using the Z-scores to the model using the  observed  neuromorphometric  data,  we  calculated pairwise  ∆ MAE and followed the same procedures as for the classification models.  In  the case of predictive accuracy,  permutations  involved  shu/uniFB04ing  the  Positive and  Negative  Syndrome  Scale  scores  of  the  HCP-EP cohort.
+189:Figure 7: Stability of the normative deviation scores (Z-scores) in longitudinal neuroimaging data average interval of 2 years in data from the SLIM and QTAB study samples using the left thalamic volume (A), the left medial orbitofrontal cortical thickness (B), and surface area (C) as exemplars. Within each panel, the left-hand figure shows
+199:In the HCP-EP cohort, the accuracy of the diagnostic classification  of  the  SVCs  that  used  regional  Z-scores performed similarly regardless of the normative model and  outperformed  the  SVC  with  the  observed  data.  In figure 8, we illustrate these findings by showing that the SVC  that  used  Z-scores  from  the  optimised  MFPR models achieved an AUC of 0·63 (p&lt;0·001) whereas the accuracy of the  SVC  that  used  observed  data  was indistinguishable from chance (AUC 0·49). Information on other models is in appendix 1 (p 22).
+201:The predictive accuracy for psychotic symptom severity of the ridge regression models using the Z-scores from the  di/uniFB00erent  normative  models  performed  similarly  to each other and to the model using observed data; none achieved an above chance performance (appendix 1 p 22). In figure 8, we illustrate these findings by showing the predictive accuracy of the  regression  models  using optimised MFPR-derived Z-scores or observed data.
+
+thinking
+**Searching for clinical cohort details**
+
+I'm checking the appendix for information on the HCP-EP early psychosis cohort and reviewing supplements to decide if demographics or other data can support the NM application.
+2026-03-04T04:27:29.623021Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "HCP-EP|early psychosis|psychosis" -S study_1/Ge2024_sup*.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304132711287 succeeded in 19ms:
+study_1/Ge2024_sup6.pdf.md:75:| Supplementary Figure S19. Comparative accuracy of diagnostic classification and symptom severity prediction in psychosis using either brain regional Z-scores or observed                                                                  |    |
+study_1/Ge2024_sup6.pdf.md:225:We tested the relative advantage of the brain regional normative deviation scores (Z-scores) compared to observed neuromorphometric data for the discrimination of healthy individuals from those with early onset psychosis and for the prediction of psychotic symptom severity. To achieve this, we used data from the Human Connectome Project (HCP) Early Psychosis Study which comprises cross-sectional neuroimaging data from 91 individuals with early psychosis and 57 healthy individuals (total sample: 48 females/100  males;  age  range  16.67-35.67  years).  T1-weighted  images  were  downloaded  from  the  HCP  repository  (https://www.humanconnectome.org/study/humanconnectome-project-for-early-psychosis) and preprocessed using FreeSurfer (version 7.1.0) to generate regional brain morphometric data. Then brain regional Z-scores were derived from each of the algorithms examined here. As described in the main manuscript, the classification accuracy of support vector classifiers (SVC) using brain regional Z-scores were compared to that of the classifier using observed data. Predictive accuracy for psychotic symptom severity was assessed using ridge regression models using brain regional Z-scores compared to that of the classifier using observed data.
+study_1/Ge2024_sup6.pdf.md:227:Supplementary Figure S19. Comparative accuracy of diagnostic classification and symptom severity prediction in psychosis using either brain regional Z-scores or observed neuromorphometric data of the Human Connectome Project-Early Psychosis cohort. Left panel: Receiver Operating Characteristic Curves (ROC) of support vector  classifiers  (SCV)  using  brain  regional  Z-scores  from  each  of  the  algorithms  examined  here.  Middle  Panel:  Comparative  performance  in  accuracy  of  diagnostic classification of the SVC using either Z-scores (red) or observed data (blue). Right panel: Predictive accuracy for psychotic symptom severity of ridge regression models using either Z-scores (red) or observed data (blue). In both these panels, two null distributions from the permutation tests are presented: one that illustrates the performance of models using the observed data (distributions with blue outlines) and the other illustrating the performance of models using Z-scores (distributions with red outlines). AUC=area under the  curve;  MAE=mean  absolute  error;  OLSR=Ordinary  Least  Squares  Regression;  BLR=Bayesian  Linear  Regression;  HBR=Hierarchical  Bayesian  Regression; GAMLSS=Generalized Additive Models for Location, Scale, and Shape; GPR=Gaussian Process Regression; WBLR=Warped  Bayesian  Linear Regression; MFPR=Multivariable Fractional Polynomial Regression.
+study_1/Ge2024_sup6.pdf.md:238:2. Jalbrzikowski M, Hayes RA, Wood SJ, Nordholm D, Zhou JH, Fusar-Poli P, et al. Association of structural magnetic resonance imaging measures with psychosis onset in individuals at clinical high risk for developing psychosis: an ENIGMA working group mega-analysis. JAMA Psychiatry 2021; 78 : 753-66.
+study_1/Ge2024_sup6.pdf.md:241:5. Sun D, Ching CRK, Lin A, et al. Large-scale mapping of cortical alterations in 22q11.2 deletion syndrome: convergence with idiopathic psychosis and effects of deletion size. Mol Psychiatry 2020; 25 : 1822-34.
+
+
+thinking
+**Clarifying cohort demographic data availability**
+
+The age and sex breakdowns are only given for the entire HCP-EP sample including patients and controls, not specifically for the early psychosis clinical cohort, so I'll mark clinical cohort demographics as not reported or approximate with a note on the mixed sample origin.
+thinking
+**Confirming demographic data absence**
+
+Age and sex details for the clinical cohort remain not reported since patient-specific counts can't be derived, but I'll check the appendix next for any hidden demographic info.
+2026-03-04T04:27:40.162858Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "early psychosis|psychosis" study_1/Ge2024_sup6.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304132711287 succeeded in 24ms:
+75:| Supplementary Figure S19. Comparative accuracy of diagnostic classification and symptom severity prediction in psychosis using either brain regional Z-scores or observed                                                                  |    |
+225:We tested the relative advantage of the brain regional normative deviation scores (Z-scores) compared to observed neuromorphometric data for the discrimination of healthy individuals from those with early onset psychosis and for the prediction of psychotic symptom severity. To achieve this, we used data from the Human Connectome Project (HCP) Early Psychosis Study which comprises cross-sectional neuroimaging data from 91 individuals with early psychosis and 57 healthy individuals (total sample: 48 females/100  males;  age  range  16.67-35.67  years).  T1-weighted  images  were  downloaded  from  the  HCP  repository  (https://www.humanconnectome.org/study/humanconnectome-project-for-early-psychosis) and preprocessed using FreeSurfer (version 7.1.0) to generate regional brain morphometric data. Then brain regional Z-scores were derived from each of the algorithms examined here. As described in the main manuscript, the classification accuracy of support vector classifiers (SVC) using brain regional Z-scores were compared to that of the classifier using observed data. Predictive accuracy for psychotic symptom severity was assessed using ridge regression models using brain regional Z-scores compared to that of the classifier using observed data.
+227:Supplementary Figure S19. Comparative accuracy of diagnostic classification and symptom severity prediction in psychosis using either brain regional Z-scores or observed neuromorphometric data of the Human Connectome Project-Early Psychosis cohort. Left panel: Receiver Operating Characteristic Curves (ROC) of support vector  classifiers  (SCV)  using  brain  regional  Z-scores  from  each  of  the  algorithms  examined  here.  Middle  Panel:  Comparative  performance  in  accuracy  of  diagnostic classification of the SVC using either Z-scores (red) or observed data (blue). Right panel: Predictive accuracy for psychotic symptom severity of ridge regression models using either Z-scores (red) or observed data (blue). In both these panels, two null distributions from the permutation tests are presented: one that illustrates the performance of models using the observed data (distributions with blue outlines) and the other illustrating the performance of models using Z-scores (distributions with red outlines). AUC=area under the  curve;  MAE=mean  absolute  error;  OLSR=Ordinary  Least  Squares  Regression;  BLR=Bayesian  Linear  Regression;  HBR=Hierarchical  Bayesian  Regression; GAMLSS=Generalized Additive Models for Location, Scale, and Shape; GPR=Gaussian Process Regression; WBLR=Warped  Bayesian  Linear Regression; MFPR=Multivariable Fractional Polynomial Regression.
+238:2. Jalbrzikowski M, Hayes RA, Wood SJ, Nordholm D, Zhou JH, Fusar-Poli P, et al. Association of structural magnetic resonance imaging measures with psychosis onset in individuals at clinical high risk for developing psychosis: an ENIGMA working group mega-analysis. JAMA Psychiatry 2021; 78 : 753-66.
+241:5. Sun D, Ching CRK, Lin A, et al. Large-scale mapping of cortical alterations in 22q11.2 deletion syndrome: convergence with idiopathic psychosis and effects of deletion size. Mol Psychiatry 2020; 25 : 1822-34.
+
+
+thinking
+**Clarifying clinical cohort age and sex data**
+
+I'm setting the clinical cohort age as unknown but including total sample age range 16.67–35.67 years with a note that it includes healthy subjects, indicating low confidence this applies strictly to the clinical group. For sex, I'll mark unknown for patients but note totals of 48 females and 100 males in the full sample.
+thinking
+**Preparing detailed clinical cohort data with low confidence**
+
+I'm planning to include total sample age and sex data with computed percentages, clearly noting they combine patients and healthy subjects and have low confidence for clinical-only use. I'll extract supporting quotes from supplementary material to document the disorder and demographic info, then update the target JSON file accordingly.
+exec
+/bin/bash -lc 'cat DE_v14_Ge2024_by_codex_20260304132711287.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603041327112872026-03-04T04:27:53.115432Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Preparing patch with detailed totals**
+
+I'll construct a JSON patch that includes the total HCP-EP cohort details, clarifies clinical-only exclusions, mentions computed percentages, and ensures age is represented as a numeric object.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ge2024"
+   },
+@@ -7,28 +7,39 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EP",
++        "detail": "Early psychosis clinical cohort within HCP-EP.",
++        "confidence_rating": "High",
++        "supporting_text": "\"91 individuals with early psychosis\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["HCP-EP"],
++        "detail": "Human Connectome Project Early Psychosis Study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Human Connectome Project (HCP) Early Psychosis Study\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 16.67,
++          "max": 35.67,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for total HCP-EP cohort (patients + healthy); early psychosis-only age not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"total sample: 48 females/100  males;  age  range  16.67-35.67  years\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 100,
++          "male_pct": 67.6,
++          "female_n": 48,
++          "female_pct": 32.4
++        },
++        "detail": "Counts and percentages calculated from total HCP-EP cohort (patients + healthy); early psychosis-only sex not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"total sample: 48 females/100  males\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       }
+2026-03-04T04:28:07.698926Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 7ms:
+Success. Updated the following files:
+M DE_v14_Ge2024_by_codex_20260304132711287.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json b/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e8396d4a587810821ee03fdfc8857111e272fb57
+--- a/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ge2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EP",
++        "detail": "Early psychosis clinical cohort within HCP-EP.",
++        "confidence_rating": "High",
++        "supporting_text": "\"91 individuals with early psychosis\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["HCP-EP"],
++        "detail": "Human Connectome Project Early Psychosis Study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Human Connectome Project (HCP) Early Psychosis Study\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 16.67,
++          "max": 35.67,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for total HCP-EP cohort (patients + healthy); early psychosis-only age not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"total sample: 48 females/100  males;  age  range  16.67-35.67  years\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 100,
++          "male_pct": 67.6,
++          "female_n": 48,
++          "female_pct": 32.4
++        },
++        "detail": "Counts and percentages calculated from total HCP-EP cohort (patients + healthy); early psychosis-only sex not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"total sample: 48 females/100  males\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json b/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e8396d4a587810821ee03fdfc8857111e272fb57
+--- a/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ge2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EP",
++        "detail": "Early psychosis clinical cohort within HCP-EP.",
++        "confidence_rating": "High",
++        "supporting_text": "\"91 individuals with early psychosis\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["HCP-EP"],
++        "detail": "Human Connectome Project Early Psychosis Study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Human Connectome Project (HCP) Early Psychosis Study\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 16.67,
++          "max": 35.67,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for total HCP-EP cohort (patients + healthy); early psychosis-only age not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"total sample: 48 females/100  males;  age  range  16.67-35.67  years\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 100,
++          "male_pct": 67.6,
++          "female_n": 48,
++          "female_pct": 32.4
++        },
++        "detail": "Counts and percentages calculated from total HCP-EP cohort (patients + healthy); early psychosis-only sex not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"total sample: 48 females/100  males\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       }
+     }
+   ]
+
+
+thinking
+**Preparing final update**
+
+Updated the relevant file; suggest reviewing changes and possibly adding tests or documentation next.
+codex
+Updated `DE_v14_Ge2024_by_codex_20260304132711287.json` with the HCP-EP early psychosis cohort info and noted where demographics are only reported for the total cohort.
+
+If you want, I can:
+1) Recheck other supplements for patient-only demographics.
+2) Split out healthy controls if you’d prefer `disorders` to include only clinical-only fields with `NR` elsewhere.
+2026-03-04T04:28:10.878409Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json b/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e8396d4a587810821ee03fdfc8857111e272fb57
+--- a/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260304132711287/./DE_v14_Ge2024_by_codex_20260304132711287.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Ge2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EP",
++        "detail": "Early psychosis clinical cohort within HCP-EP.",
++        "confidence_rating": "High",
++        "supporting_text": "\"91 individuals with early psychosis\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["HCP-EP"],
++        "detail": "Human Connectome Project Early Psychosis Study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Human Connectome Project (HCP) Early Psychosis Study\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 16.67,
++          "max": 35.67,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported for total HCP-EP cohort (patients + healthy); early psychosis-only age not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"total sample: 48 females/100  males;  age  range  16.67-35.67  years\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 100,
++          "male_pct": 67.6,
++          "female_n": 48,
++          "female_pct": 32.4
++        },
++        "detail": "Counts and percentages calculated from total HCP-EP cohort (patients + healthy); early psychosis-only sex not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"total sample: 48 females/100  males\"",
++        "location": "Ge2024_sup6.pdf.md: Supplementary Figure S19 description, L225"
+       }
+     }
+   ]
+
+tokens used
+21,954
+Updated `DE_v14_Ge2024_by_codex_20260304132711287.json` with the HCP-EP early psychosis cohort info and noted where demographics are only reported for the total cohort.
+
+If you want, I can:
+1) Recheck other supplements for patient-only demographics.
+2) Split out healthy controls if you’d prefer `disorders` to include only clinical-only fields with `NR` elsewhere.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
