@@ -249,20 +249,21 @@ public class SummaryView_DEv14 extends VerticalLayout {
                 // dataset-of-origin
                 JsonNode datasetNode = disorder.get("dataset-of-origin");
                 if (datasetNode != null) {
+                    if (datasetNode.isTextual()) {
+                        datasetNode = parseStringifiedJson(datasetNode);
+                    }
                     if (datasetNode.isObject() && datasetNode.has("answer")) {
-                        JsonNode ans = parseStringifiedJson(datasetNode.get("answer"));
-                        if (ans != null && ans.isArray()) {
-                            List<String> parts = new ArrayList<>();
-                            for (JsonNode elem : ans) {
-                                if (elem != null && !elem.isNull()) {
-                                    parts.add(elem.isTextual() ? elem.asText() : elem.toString());
-                                }
+                        datasetNode = parseStringifiedJson(datasetNode.get("answer"));
+                    }
+                    if (datasetNode != null && datasetNode.isArray()) {
+                        List<String> parts = new ArrayList<>();
+                        for (JsonNode elem : datasetNode) {
+                            if (elem != null && !elem.isNull()) {
+                                parts.add(elem.isTextual() ? elem.asText() : elem.toString());
                             }
-                            row.datasets = String.join(", ", parts);
-                        } else if (ans != null) {
-                            row.datasets = ans.asText();
                         }
-                    } else if (datasetNode.isTextual()) {
+                        row.datasets = String.join(", ", parts);
+                    } else if (datasetNode != null) {
                         row.datasets = datasetNode.asText();
                     }
                 }
@@ -307,6 +308,10 @@ public class SummaryView_DEv14 extends VerticalLayout {
     private void extractAge(JsonNode disorder, DisorderRow row) {
         JsonNode ageNode = disorder.get("age");
         if (ageNode == null || ageNode.isNull()) return;
+
+        if (ageNode.isTextual()) {
+            ageNode = parseStringifiedJson(ageNode);
+        }
 
         if (ageNode.isObject() && ageNode.has("answer")) {
             ageNode = parseStringifiedJson(ageNode.get("answer"));
@@ -572,6 +577,7 @@ public class SummaryView_DEv14 extends VerticalLayout {
 
     private void showSaveMessage(String message) {
         saveMessagePara.setText(message);
+        saveMessagePara.getStyle().remove("display");
         saveMessagePara.setVisible(true);
         saveMessagePara.getElement().executeJs("setTimeout(() => { this.style.display = 'none'; }, 10000)");
     }

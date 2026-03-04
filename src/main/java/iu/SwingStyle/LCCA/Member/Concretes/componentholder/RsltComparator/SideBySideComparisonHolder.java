@@ -12,6 +12,8 @@ import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.Man
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.Common.SubTabsHolderItrfc;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -43,6 +45,8 @@ public class SideBySideComparisonHolder extends AbstCHolderMember implements Sub
     private final JTabbedPane sectionTabPane = new JTabbedPane();
 
     private final ArrayList<ManagerOfSubTabBasePane> allManagers = new ArrayList<>();
+    private final Map<JTabbedPane, Integer> lastTabIndex = new HashMap<>();
+    private boolean suppressTabChangePrompt = false;
 
     // セクション構造: sectionName -> List<subSectionName>
     private final LinkedHashMap<String, List<String>> sectionStructure = new LinkedHashMap<>();
@@ -391,9 +395,11 @@ public class SideBySideComparisonHolder extends AbstCHolderMember implements Sub
             }
 
             sectionTabPane.addTab(formatSectionTabName(sectionName), subSectionTabPane);
+            attachUnsavedPrompt(subSectionTabPane);
         }
 
         panel.add(sectionTabPane, BorderLayout.CENTER);
+        attachUnsavedPrompt(sectionTabPane);
     }
 
     /**
@@ -509,6 +515,83 @@ public class SideBySideComparisonHolder extends AbstCHolderMember implements Sub
         for (ManagerOfSubTabBasePane manager : allManagers) {
             for (One_DEQAResult_Pane_Abs pane : manager.getDeqaPaneArray()) {
                 pane.loadJson();
+            }
+        }
+    }
+
+    private void attachUnsavedPrompt(JTabbedPane tabPane) {
+        if (tabPane == null) return;
+        lastTabIndex.put(tabPane, tabPane.getSelectedIndex());
+        tabPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                handleTabChange(tabPane);
+            }
+        });
+    }
+
+    private void handleTabChange(JTabbedPane tabPane) {
+        if (suppressTabChangePrompt) {
+            lastTabIndex.put(tabPane, tabPane.getSelectedIndex());
+            return;
+        }
+
+        Integer last = lastTabIndex.get(tabPane);
+        int current = tabPane.getSelectedIndex();
+        if (last != null && last == current) {
+            return;
+        }
+
+        if (!hasUnsavedChanges()) {
+            lastTabIndex.put(tabPane, current);
+            return;
+        }
+
+        String[] options = {"保存", "保存しない", "キャンセル"};
+        int choice = JOptionPane.showOptionDialog(
+                panel,
+                "未保存の変更があります。保存しますか？",
+                "未保存の変更",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        if (choice == 0) {
+            saveAllUpdatedPanes();
+            lastTabIndex.put(tabPane, current);
+        } else if (choice == 1) {
+            lastTabIndex.put(tabPane, current);
+        } else {
+            int fallback = last != null ? last : 0;
+            suppressTabChangePrompt = true;
+            try {
+                tabPane.setSelectedIndex(fallback);
+            } finally {
+                suppressTabChangePrompt = false;
+            }
+        }
+    }
+
+    private boolean hasUnsavedChanges() {
+        for (ManagerOfSubTabBasePane manager : allManagers) {
+            for (One_DEQAResult_Pane_Abs pane : manager.getDeqaPaneArray()) {
+                if (pane.isUpdated()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void saveAllUpdatedPanes() {
+        for (ManagerOfSubTabBasePane manager : allManagers) {
+            for (One_DEQAResult_Pane_Abs pane : manager.getDeqaPaneArray()) {
+                if (pane.isUpdated()) {
+                    pane.saveJson();
+                }
             }
         }
     }
