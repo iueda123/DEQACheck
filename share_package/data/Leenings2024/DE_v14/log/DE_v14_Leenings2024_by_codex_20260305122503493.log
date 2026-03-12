@@ -1,0 +1,513 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Leenings2024_by_codex_20260305122503493.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122503493/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc07-14fd-74a2-95b8-ef9a501a03f8
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Leenings2024_by_codex_20260305122503493.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning guide reading**
+
+I'm preparing to read the guide file to gather necessary details, likely using ripgrep or cat to access its contents.
+2026-03-05T03:25:10.857833Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122503493 succeeded in 14ms:
+DE_Guide_v14.md
+DE_v14_Leenings2024_by_codex_20260305122503493.json
+DE_v14_Leenings2024_by_codex_20260305122503493.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051225034932026-03-05T03:25:14.920852Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating study_1 files**
+
+I'm searching the codebase to find relevant files for extracting data from study_1.
+2026-03-05T03:25:17.606075Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122503493 succeeded in 30ms:
+Leenings2024.pdf.md
+Leenings2024_artifacts
+Supplementary information.txt
+
+thinking
+**Checking main file**
+2026-03-05T03:25:21.293328Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patients|disorder|diagn" Leenings2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122503493 exited 2 in 29ms:
+rg: Leenings2024.pdf.md: IO error for operation on Leenings2024.pdf.md: No such file or directory (os error 2)
+
+thinking
+**Requesting specific path info**
+
+I need the exact path named study_1 to proceed.
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patients|disorder|diagn" study_1/Leenings2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051225034932026-03-05T03:25:24.565238Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+7:b Data used in the preparation of this article were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu). The ADNI was launched in 2003 as a public-private partnership, led by Principal Investigator Michael W. Weiner, MD. The primary goal of ADNI has been to test whether serial magnetic resonance imaging (MRI), positron emission tomography (PET), other biological markers, and clinical and neuropsychological assessment can be combined to measure the progression of mild cognitive impairment (MCI) and early Alzheimer's disease (AD).
+49:Despite their promise, current neuroimaging biomarkers often fail to capture the full spectrum of inter-individual variability in brain structure and aging effects. This limits their ability to detect subtle norm deviations and impacts their utility for personalized care. We introduce Nearest Neighbor Normativity (N ³ ), a novel framework designed to resolve the confound between natural diversity and subtle pathological patterns. It evaluates individual brain structures from several meaningful viewpoints, accommodates a variety of co-existing normative prototypes and accounts for individually varying progression rates of brain structural decline. Using MRI data of 36,896 individuals, we provide empirical evidence that the N ³ biomarker effectively disentangles natural inter-individual variability from pathological alterations, significantly outperforming brain age models and traditional normative modeling approaches in the detection of neurodegenerative diseases. The N ³ framework is easily adaptable to various medical domains, fostering individualized and context-rich biomarkers and paving the way for more targeted and personalized therapeutic strategies.
+61:It is made available under a CC-BY-NC 4.0 International license . is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity. (which was not certified by peer review) medRxiv preprint doi: https://doi.org/10.1101/2024.12.24.24319598; this version posted June 18, 2025. The copyright holder for this preprint biomarker assessments heavily rely on population averages and inherently exclude 6 the possibility of multiple, equally viable normative patterns. The pursue of precision 7 medicine requires to shift away from group averages and tailor medical interventions 8 to individual physiology [7, 8]. In fact, finding (subtle) individual anomalies moder9 ates our ability to diagnose and treat diseases effectively and is a practical necessity 10 for the personalization of patient care. Redefining neuroimaging biomarkers to better 11 account for the population-inherent diversity is thus not merely an academic exercise, 12 but holds profound implications for medical practice. 13
+129:However, the BAG's ability to capture individual norm deviations is naturally limited due to the multifaceted nature of individual aging processes. How quickly aging effects progress in individuals is highly variable and a complex interplay of genetic predisposition, behavioral choices and cumulative impact of various adverse or protective exposures [16-20]. This unique combination of factors inevitably results in different aging effects seen among same-aged individuals. Using chronological age to assess normative neurodegeneration thus inherently lacks precision. Consequently, the resolution of the BAG as a personalized brain structural assessment tool is limited and its utility mainly constrained to group comparisons.
+131:The second prominent approach towards a brain structural biomarker emerges from so-called normative modeling [21]. Normative modeling uses statistical distributions to quantify brain structural measures in relation to the population average and the variance around it [22]. It has been successfully applied to detect brain structural norm deviations in various psychiatric disorders [23]. By design, normative models interpolate natural variability into a single reference distribution, centered around the population average. This mean-centric framework neglects the heterogeneity of physiological manifestations and does not account for biologically valid alternative norms. Thus, these population-wide, and often univariate, models risk masking subtle details that are critical for obtaining nuanced individual clinical insights [24].
+145:- Second, the N ³ framework avoids comparisons to the population average and instead 51 accommodates a variety of normative brain structural prototypes per age-group. 52 Methodologically, this can be expressed with straightforward and distribution-free 53 local density estimation techniques such as the Nearest Neighbor Algorithm [25]. 54
+155:- tivity profile appears in relation to a particular clinical subgroup. In this work, we use 64
+161:Fig. 1 Our proposed N ³ framework entails methodological innovations that refine normativity assessments in large and diverse medical datasets. Here, we apply it to brain structure to foster the detection of pathological norm deviations amidst neuroanatomical variablility and individual progression rates in aging-related decline. The N ³ entails four key strategies. First, we propose to use several carefully tailored control groups to promote the detection of subtle and nuanced anomalies that may escape broader comparative models. Second, we refrain from comparisons to a single normative tendency such as the population average. Instead, we propose to quantify normativity assessment with local density estimation algorithms, which effectively embraces diversity and acknowledges the possibility of multiple, equally viable health states in the population. Third, we introduce global context to the normativity assessments and join multiple comparative normativity estimations per individual into a so-called normativity profile. This normativity profile acts as a holistic representation of a patient's health status and provides a multifaceted contextualization to the complex and heterogeneous nature of medical observations. Fourth, we convert the normativity profile into a singular, actionable metric, which we call N ³ . It synthesizes the accumulated information of prior steps and can be adapted to a variety of clinical inquiries. For example, the final N ³ normativity assessment can be fine-tuned to express normativity in relation to specific clinical outcomes. In the example of brain structure, normativity profiles can for example be compared to those of patients who exhibit high treatment response. The N ³ approach is universally applicable, and we see great potential that its application will advance normativity assessments and contribute to personalized patient care.
+167:Fig. 2 Individual brain structural normativity profiles of three exemplary individuals of the training sample (see Methods 1 and 2). The normativity profile shows a brain structure's level of coherence with different reference samples along the age continuum (blue). Chronological age is depicted in green. The N ³ framework compares aging effects of a particular brain structure to expected aging patterns of different age groups along the age continuum. Moreover, the use of local density estimation technique enables several normative prototypical brain structures per age bin and is able to capture varying, yet normative rates of aging-related decline. a) An individual's brain structure aligns with younger brain structures, indicating fewer aging effects as commonly seen in same-aged individuals b) An individual brain structure aligns with older brain structures, indicating premature neurodegeneration processes. c) A brain structure exhibits high alignment within its own age group and shows deprecating alignment within other age groups.
+175:All normative models are trained with neuroimaging data from T1-weighted MRI 81 scans of 29,883 individuals of a large population-based study and evaluated in 7,013 82 individuals with varying levels of neurodegeneration from different study populations 83 (see Methods 2). Our analysis focuses on gray matter (GM), white matter (WM), 84 hyperintense white matter (WMH), total intracranial volume (TIV) and cerebrospinal 85 fluid (CSF) volumes. These global measures provide a comprehensive overview of 86 brain structure[26]. We use these broad aggregates of complex physiological features 87 to represent typical clinical measurements, and verify the algorithm's efficacy to derive 88 meaningful disease indicators from these global parameters. 89 We evaluate the N ³ marker efficacy against conventional normative modeling 90 approaches. Using classical normative modeling [21, 23], we derive two normativity 91 scores, the first being the sum of the absolute z-scores (NM-S), the second counting 92 the number of z-scores whose magnitude deviates beyond a threshold of ± 1.96 (NM93 C). We also benchmark our approach against the Brain Age paradigm, which utilizes a 94
+191:Applying the normative models to evaluate brain structure of both cognitively healthy and diseased individuals, we validate the ability of each biomarker to differentiate between healthy inter-individual variability and (early) states of pathological decline. To this end, instances of Mild Cognitive Impairment (MCI), Alzheimer's Disease (AD) and Frontotemporal Dementia (FTD) serve as model diseases to represent brain structural alterations and pathological norm deviations.
+239:For AD, the N ³ biomarker showed the largest effect size ( η 2 = 0.29), signifying that approximately 29% of the variability can be explained by differences in the N ³ marker levels between the AD group and controls. In the context of FTD, all markers demonstrated large effect sizes, while the N ³ stood out with an effect size of η 2 = 0.38. The results for Mild Cognitive Impairment (MCI) differed, as all markers showed generally lower explanatory power. Nonetheless, the N ³ marker displayed a relative advantage, with an effect size of η 2 = 0.07, compared to η 2 = 0.05 for the Brain Age Gap (BAG) and η 2 = 0.02 for the normative modeling scores. Overall, the results suggest N ³ 's enhanced capability of discerning the subtle and complex neurostructural alterations associated with different stages of pathological decline in group level analysis.
+243:Second, we conduct machine learning analyses to evaluate each biomarker's util126 ity in predicting the occurrence of a neurodegenerative disease on a single-subject 127 level. Machine learning models transcend conventional statistical models by handling 128 multivariate and non-linear relationships and shifting the focus from group average 129 comparisons to predictions on an individual level[27]. We employ cross-validation 130 strategies, which systematically tests each marker against new, unseen data to verify 131 the accuracy, robustness, and generalizability of the models. Such validation is imper132 ative to ensure reliability when these markers are applied in clinical environments [28]. 133 The performance of the machine learning models is quantitatively evaluated using met134 rics such as sensitivity, precision, balanced accuracy, and the F1-score -each providing 135 a different lens through which to assess clinical utility. Balanced accuracy provides a 136
+245:Fig. 3 Top : The top panel shows the results of the statistical analyses. Statistical effect sizes (partial eta squared η 2 ) are given for the different biomarkers (N ³ - our approach, NM-S - the sum of the absolute z-scores, NM-C - the number of z-scores whose magnitude deviates beyond a threshold of ± 1.96, and the BAG - Brain Age Gap). We evaluate each normative modeling approach's ability to parse inter-individual variability and detect pathological alterations. For each marker, we test the ability to differentiate between controls and diseased individuals in group-level analyses, using neurodegenerative diseases as representative models of adverse norm deviations and pathological patterns. Results are given for Mild Cognitive Impairment (MCI), Alzheimer's Disease (AD), and Frontotemporal Dementia (FTD), respectively. Post-hoc comparisons of the effect sizes revealed larger explained variance of our N ³ marker in all neurodegenerative conditions. The level of significance in the differences between the η 2 of N ³ and η 2 of the other normativity estimation approaches is indicated above. Significance was confirmed through permutation testing using 1000 random permutations. The distribution plots below show each marker's value distributions for healthy controls (black) and diseased individuals (gray). Bottom : We use machine learning to evaluate the expressiveness of each biomarker on a single-subject level. The N ³ marker demonstrated increased accuracy in predicting the occurrence of pathological norm deviations, in this case the presence of neurodegenerative diseases for individual patients. We show the different marker's performance metrics [balanced accuracy (B.Acc), F1-Score, Recall and Precision] and the performance advantage of the best marker in relation to the second best marker in percentage (above).
+249:holistic view, ensuring that both the presence and absence of disease are accurately 137 identified. Sensitivity is particularly critical in a clinical setting as it measures the 138 model's capability to capture as many diseased patients as possible, thus effectively 139 measuring a biomarker's utility as a screening tool. Complementary precision ensures 140 that the majority of patients identified by the model as having a disease truly have 141 the disease. The F1-score is crucial for its balance of precision and sensitivity-a vital 142 feature to avoid unnecessary interventions or over-treatment or unnecessary expensive 143 screening programs. 144
+297:The findings, as presented in Figure 3 and Table 1, elucidate the efficacy of the N ³ marker across various disorders. In the specific cases of AD and FTD, the N ³ marker demonstrated notable improvements in balanced accuracy scores-surpassing the second-best markers by 5.8% for AD and 7.5% for FTD. However, in alignment with the small effect sizes observed in statistical analysis, the efficacy of all markers notably declined in predicting the presence of MCI from the given variables. Here, the N ³ reached an 1.1% improvement to the next best marker, the BAG. With regard to the F1-scores, the N ³ marker achieved the highest performance in all neurodegenerative diseases, demonstrating its adeptness at balancing sensitivity and precision in detecting disease cases. While N ³ 's precision for MCI was 0.5% behind the normative modeling marker (NM-S) and by 5.0% in AD (NM-C), it was superior by 5.2% for FTD compared to the second best result (NM-C). Moreover, the N ³ marker displayed superior sensitivity rates in all conditions (+1.6%, +11.0% and +2.9%), highlighting its sensitivity in identifying (subtle) neurodegenerative patterns. Given the overlap to normative aging patterns and the individuality in disease manifestations, particularly in MCI, this is a notable performance increase and indicates the N ³ approach's utility in decoding sparse associations. Overall, N ³ 's relative superiority over other markers emphasizes its efficacy in differentiating inter-individual variability from pathological variations in unseen individuals. The results provide evidence for the expressiveness of the proposed N ³ normative modeling approach, indicating its ability to parse interindividual heterogeneity effectively to evaluate individual measurements intricately within the broader landscape of diverse medical data.
+333:The calculation of the N ³ marker relies on local density estimation. As such it is highly dependent on the composition of the reference sample. Therefore, we investigate how changes to the sample composition and sample size affect the stability of the N ³ model. We retrained N ³ models with downsampled subsets of varying size, thereby mimicking smaller studies and different study participants. We then apply the different normativity models and predict normativity on an external dataset. Particularly, we evaluate if predictions remain consistent across different sample sizes and sample compositions. We quantify the stability of the normativity estimates by calculating the Intraclass Correlation Coefficient (ICC) 18 (see Methods Section 5). Results are visualized in Figure 4. We see that random samples of 200 individuals and above show consistently high stability (ICC of 0.75 and above). Moreover, the ICC converges to excellent levels (0.9 and above) in larger sample sizes, starting at 300 participants. While the results are calculated for the use case of brain structural normativity estimation, they are a first indication density-estimation based normative models can be realized by dividing larger samples into subgroups of a few hundred samples and above.
+335:Furthermore, it is essential for normativity estimations to remain consistent and 183 interpretable along the aging continuum, i.e., across different age groups, to avoid age 184 biases that could complicate both research and clinical interpretations. An analysis of 185 the age correlation of the N ³ marker (presented in Figure 4a) indicates its stability 186 over the age range, showing no significant association to age. In comparison, tradi187 tional normative models show a significant but smaller correlation to age ( ρ =0.11-0.16, 188
+339:Table 1 Overview of the results achieved in statistical and machine learning analyses. To quantify the expressiveness of the different methodologial approaches, we evaluate the different biomarkers' ability in distinguishing between normative inter-individual variability and pathological alterations. We report the effect size η 2 , representing the amount of variance explained by each of the different normativity markers in statistical group comparisons. We compare N ³ - our approach, NM-S - the sum of the absolute z-scores, NM-C - the number of z-scores whose magnitude deviates beyond a threshold of ± 1.96, and the BAG - Brain Age Gap for Mild Cognitive Impairment (MCI), Alzheimer's Disease (AD), and Frontotemporal Dementia (FTD), respectively. Moreover, we report the F-statistic, reflecting the relation of the marker variance between cognitive unimpaired and diseased individuals in relation to the respective intra-group variance, further indicating its ability to identify pathology in group-level analyses. All F-statistics and effect sizes η 1 are significant (p &lt; 0.001). The performance results of the machine learning analyses are given, where the normativity markers are used to predict the occurrence of the neurodegenerative diseases in individual cases. The metrics provide insights into each marker's clinical utility, and overall efficacy in handling inter-individual variability and pathological variations across different neurodegenerative conditions on a single subject level. Highest performance is indicated in bold. We see that the N ³ brain structural normativity marker shows relative superiority in relation to the other biomarkers, indicating the approach's efficacy in processing inter-individual variability and delineating potential anomalies.
+361:In terms of inter-marker relationships (detailed in Figure 4), the correlation analysis shows generally weak associations (0.19 &lt; | ρ | &lt; 0.25) among the various markers. Two exceptions were noted: a strong correlation ( ρ =0.79) between the two normative modeling markers - expected due to their derivation from the same normative models - and a moderate to strong correlation ( ρ =0.65) between the BAG and the N ³ marker. The correlations indicate underlying differences in what these markers are measuring about brain structural normativity, suggesting a potential for a combined utility in clinical settings.
+
+thinking
+**Planning demographic data extraction**
+
+I'm aiming to gather clinical cohort demographics like age and sex counts from datasets such as ADNI, AIBL, OASIS, and NIFD by checking the methods and supplemental sections for cohort details. Next, I'll search using terms like "MCI" near numbers to pinpoint relevant data.
+exec
+/bin/bash -lc 'rg -n "MCI|Alzheimer|FTD|Frontotemporal|dementia|cognitively unimpaired|CU" study_1/Leenings2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051225034932026-03-05T03:25:28.962056Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 32ms:
+3:Ramona Leenings 1,2,3* , Nils R. Winter 3 , Jan Ernsting 3,4 , Maximilian Konowski 3 , Vincent Holstein 5,6,7 , Susanne Meinert 3 , Jennifer Spanagel 3 , Carlotta Barkhau 3 , Lukas Fisch 3 , Janik Goltermann 3 , Malte F. Gerdes 3 , Dominik Grotegerd 3 , Elisabeth J. Leehr 3 , Annette Peters 8,9,10,11 , Lilian Krist 12 , Stefan N. Willich 12 , Tobias Pischon 13 , Henry V¨ olzke 14,15 , Johannes Haubold 16,17 , Hans-Ulrich Kauczor 18 , Thoralf Niendorf 19 , Maike Richter 20 , Udo Dannlowski 3 , Klaus Berger 21 , Xiaoyi Jiang 1 , James Cole 22,24 , Nils Opel 2,24,25 † , Tim Hahn 3 † , for the NAKO consortium a , the ADNI consortium b , the Frontotemporal Lobar Degeneration Neuroimaging Initiative c , the Australian Imaging Biomarkers and Lifestyle flagship study of ageing d
+7:b Data used in the preparation of this article were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu). The ADNI was launched in 2003 as a public-private partnership, led by Principal Investigator Michael W. Weiner, MD. The primary goal of ADNI has been to test whether serial magnetic resonance imaging (MRI), positron emission tomography (PET), other biological markers, and clinical and neuropsychological assessment can be combined to measure the progression of mild cognitive impairment (MCI) and early Alzheimer's disease (AD).
+9:c Data used in preparation of this article were obtained from the Frontotemporal Lobar Degeneration Neuroimaging Initiative (FTLDNI) database. The investigators at NIFD/FTLDNI contributed to the design and implementation of FTLDNI and/or provided data, but did not participate in analysis or writing of this report (unless otherwise listed). FTLDNI researchers are further listed in the acknowledgment section.
+81:Two prominent approaches have emerged in the search for reliable neuroimaging biomarkers in brain structure thus far. The first approach, called Brain Age [9, 10], trains machine learning models to predict chronological age from brain structure using examples of a healthy reference sample. The goal is to detect unusual brain structural decline in unseen samples. The resulting biomarker, the Brain Age Gap (BAG), is defined as the difference between chronological and predicted age and has been statistically associated with numerous neurological and psychiatric conditions, such as Alzheimer's Disease (+5-10 years), Mild Cognitive Impairment, (+1-10 years), Major Depressive Disorder (BAG 1-4 years), Schizophrenia (+3-12 years). [11-15].
+191:Applying the normative models to evaluate brain structure of both cognitively healthy and diseased individuals, we validate the ability of each biomarker to differentiate between healthy inter-individual variability and (early) states of pathological decline. To this end, instances of Mild Cognitive Impairment (MCI), Alzheimer's Disease (AD) and Frontotemporal Dementia (FTD) serve as model diseases to represent brain structural alterations and pathological norm deviations.
+237:First, we assessed the statistical power of each biomarker, specifically examining the extent to which the marker detects unusual pattern deviations in group-level analyses. We calculated the effect size (partial eta squared, η 2 ) for the classification of healthy individuals from those affected by disease (MCI, AD or FTD, respectively; see Methods 5.5). Post-hoc comparisons then enabled us to evaluate which biomarker was able to provide the most statistical power. The N ³ marker consistently showed higher discriminative ability across all neurodegenerative conditions compared to other markers used in the study (see Figure 3 and Table 1).
+239:For AD, the N ³ biomarker showed the largest effect size ( η 2 = 0.29), signifying that approximately 29% of the variability can be explained by differences in the N ³ marker levels between the AD group and controls. In the context of FTD, all markers demonstrated large effect sizes, while the N ³ stood out with an effect size of η 2 = 0.38. The results for Mild Cognitive Impairment (MCI) differed, as all markers showed generally lower explanatory power. Nonetheless, the N ³ marker displayed a relative advantage, with an effect size of η 2 = 0.07, compared to η 2 = 0.05 for the Brain Age Gap (BAG) and η 2 = 0.02 for the normative modeling scores. Overall, the results suggest N ³ 's enhanced capability of discerning the subtle and complex neurostructural alterations associated with different stages of pathological decline in group level analysis.
+245:Fig. 3 Top : The top panel shows the results of the statistical analyses. Statistical effect sizes (partial eta squared η 2 ) are given for the different biomarkers (N ³ - our approach, NM-S - the sum of the absolute z-scores, NM-C - the number of z-scores whose magnitude deviates beyond a threshold of ± 1.96, and the BAG - Brain Age Gap). We evaluate each normative modeling approach's ability to parse inter-individual variability and detect pathological alterations. For each marker, we test the ability to differentiate between controls and diseased individuals in group-level analyses, using neurodegenerative diseases as representative models of adverse norm deviations and pathological patterns. Results are given for Mild Cognitive Impairment (MCI), Alzheimer's Disease (AD), and Frontotemporal Dementia (FTD), respectively. Post-hoc comparisons of the effect sizes revealed larger explained variance of our N ³ marker in all neurodegenerative conditions. The level of significance in the differences between the η 2 of N ³ and η 2 of the other normativity estimation approaches is indicated above. Significance was confirmed through permutation testing using 1000 random permutations. The distribution plots below show each marker's value distributions for healthy controls (black) and diseased individuals (gray). Bottom : We use machine learning to evaluate the expressiveness of each biomarker on a single-subject level. The N ³ marker demonstrated increased accuracy in predicting the occurrence of pathological norm deviations, in this case the presence of neurodegenerative diseases for individual patients. We show the different marker's performance metrics [balanced accuracy (B.Acc), F1-Score, Recall and Precision] and the performance advantage of the best marker in relation to the second best marker in percentage (above).
+297:The findings, as presented in Figure 3 and Table 1, elucidate the efficacy of the N ³ marker across various disorders. In the specific cases of AD and FTD, the N ³ marker demonstrated notable improvements in balanced accuracy scores-surpassing the second-best markers by 5.8% for AD and 7.5% for FTD. However, in alignment with the small effect sizes observed in statistical analysis, the efficacy of all markers notably declined in predicting the presence of MCI from the given variables. Here, the N ³ reached an 1.1% improvement to the next best marker, the BAG. With regard to the F1-scores, the N ³ marker achieved the highest performance in all neurodegenerative diseases, demonstrating its adeptness at balancing sensitivity and precision in detecting disease cases. While N ³ 's precision for MCI was 0.5% behind the normative modeling marker (NM-S) and by 5.0% in AD (NM-C), it was superior by 5.2% for FTD compared to the second best result (NM-C). Moreover, the N ³ marker displayed superior sensitivity rates in all conditions (+1.6%, +11.0% and +2.9%), highlighting its sensitivity in identifying (subtle) neurodegenerative patterns. Given the overlap to normative aging patterns and the individuality in disease manifestations, particularly in MCI, this is a notable performance increase and indicates the N ³ approach's utility in decoding sparse associations. Overall, N ³ 's relative superiority over other markers emphasizes its efficacy in differentiating inter-individual variability from pathological variations in unseen individuals. The results provide evidence for the expressiveness of the proposed N ³ normative modeling approach, indicating its ability to parse interindividual heterogeneity effectively to evaluate individual measurements intricately within the broader landscape of diverse medical data.
+339:Table 1 Overview of the results achieved in statistical and machine learning analyses. To quantify the expressiveness of the different methodologial approaches, we evaluate the different biomarkers' ability in distinguishing between normative inter-individual variability and pathological alterations. We report the effect size η 2 , representing the amount of variance explained by each of the different normativity markers in statistical group comparisons. We compare N ³ - our approach, NM-S - the sum of the absolute z-scores, NM-C - the number of z-scores whose magnitude deviates beyond a threshold of ± 1.96, and the BAG - Brain Age Gap for Mild Cognitive Impairment (MCI), Alzheimer's Disease (AD), and Frontotemporal Dementia (FTD), respectively. Moreover, we report the F-statistic, reflecting the relation of the marker variance between cognitive unimpaired and diseased individuals in relation to the respective intra-group variance, further indicating its ability to identify pathology in group-level analyses. All F-statistics and effect sizes η 1 are significant (p &lt; 0.001). The performance results of the machine learning analyses are given, where the normativity markers are used to predict the occurrence of the neurodegenerative diseases in individual cases. The metrics provide insights into each marker's clinical utility, and overall efficacy in handling inter-individual variability and pathological variations across different neurodegenerative conditions on a single subject level. Highest performance is indicated in bold. We see that the N ³ brain structural normativity marker shows relative superiority in relation to the other biomarkers, indicating the approach's efficacy in processing inter-individual variability and delineating potential anomalies.
+343:| Mild Cognitive Impairment (MCI) | Mild Cognitive Impairment (MCI) | Mild Cognitive Impairment (MCI) | Mild Cognitive Impairment (MCI) | Mild Cognitive Impairment (MCI) | Mild Cognitive Impairment (MCI) | Mild Cognitive Impairment (MCI) |
+348:| Alzheimer's Disease (AD)        | Alzheimer's Disease (AD)        | Alzheimer's Disease (AD)        | Alzheimer's Disease (AD)        | Alzheimer's Disease (AD)        | Alzheimer's Disease (AD)        | Alzheimer's Disease (AD)        |
+353:| Frontotemporal Dementia (FTD)   | Frontotemporal Dementia (FTD)   | Frontotemporal Dementia (FTD)   | Frontotemporal Dementia (FTD)   | Frontotemporal Dementia (FTD)   | Frontotemporal Dementia (FTD)   | Frontotemporal Dementia (FTD)   |
+737:Neuroimaging data from six different studies were provided by the respective con405 sortia. Our study includes data from the German National Cohort (NAKO)[61-63], 406 the Alzheimer's Disease Neuroimaging Initiative (ADNI) [64], the M¨ unster-Marburg 407 Affective Disorder Cohort (MACS) [65], the Australian Imaging, Biomarker Lifestyle 408 Study of Aging (AIBL) [66], the Frontotemporal Lobar Degeneration Neuroimaging 409 Initiative (NIFD), and the Open Access Series of Imaging Studies 3 (OASIS3) [67, 68]. 410 We give a short overview of our approach to integrate these resources in our analyses, 411 before we introduce each study population in detail below. 412
+785:To investigate each normativity marker's effectiveness in identifying brain structural 431 anomalies and (early) signs of neurodegeneration, additional data involving 5,857 432 participants were utilized, sourced from ADNI, AIBL, OASIS and NIFD datasets 433 (for details see section 5.2.2). The collective samples include cognitively unimpaired 434 individuals as well as those diagnosed with Mild Cognitive Impairment, Alzheimer's 435 Disease and Frontotemporal Dementia. 436
+817:## Alzheimer's Disease Neuroimaging Initiative (ADNI)
+819:ADNI is a major multicenter study started in 2003, designed to develop clinical, 453 imaging, genetic, and biochemical biomarkers for the early detection and tracking of 454 Alzheimer's disease. The ADNI was launched as a public-private partnership, led by 455 Principal Investigator Michael W. Weiner, MD. The primary goal of ADNI has been 456 to test whether serial MRI, positron emission tomography (PET), other biological 457 markers, and clinical and neuropsychological assessment can be combined to measure 458 the progression of neurodegeneration. We included 1.5 and 3.0-Tesla T1w-MPRAGE 459 MRI scans adhering to the ADNI sequence protocol, for scanner specific details 460 please see https://adni.loni.usc.edu/data-samples/adni-data/neuroimaging/mri/mri461 scanner-protocols/) 462
+825:AIBL is an Australian study launched in 2006 focusing on understanding the pathways 464 to Alzheimer's disease. The cohort includes participants diagnosed with Alzheimer's 465 disease, mild cognitive impairment, and cognitively unimpaired elderly participants, 466 providing insights into the aging process and the development of neurodegenerative 467 diseases. AIBL study methodology has been reported previously [69]. MRI scans were 468 performed using a 3D MPRAGE image (voxel size 1.2 × 1 × 1 mm3, repetition time/echo 469 time=2300/ 2.98, flip angle=8 ° )[66]. 470
+831:The Frontotemporal Lobar Degeneration Neuroimaging Initiative (FTLDNI) was 472 funded through the National Institute of Aging, and started in 2010. The primary 473 goals of FTLDNI were to identify neuroimaging modalities and methods of analy474 sis for tracking frontotemporal lobar degeneration (FTLD) and to assess the value 475 of imaging versus other biomarkers in diagnostic roles. The Principal Investigator of 476
+867:| ADNI    | HC MCI AD | 1073 1529 588 | 68 . 36 ± 3 . 3 66 . 71 ± 4 . 25 67 . 2 ± 4 . 65   | 634 females (59.09%) 729 females (47.67%) 291 females (49.48%) |
+
+thinking
+**Planning clinical cohort aggregation**
+
+The clinical cohorts span MCI, AD, and FTD across specific datasets, requiring combined weighted means and pooled standard deviations along with total and female counts. Next, I'll extract actual values from relevant table rows and structure an open section around this data.
+exec
+/bin/bash -lc "sed -n '840,900p' study_1/Leenings2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051225034932026-03-05T03:25:33.889921Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 24ms:
+
+484
+
+485
+
+486
+
+487
+
+488
+
+489
+
+490
+
+## Open Access Series of Imaging Studies 3 (OASIS3)
+
+OASIS3 serves as a comprehensive digital repository for MRI brain data that supports longitudinal studies of normal aging and cognitive decline [67, 68]. The project is distinguished by its wide age range of participants, providing diverse datasets that enhance the understanding of late-life brain diseases alongside physiological aging processes. We include 3D MPRAGE T1-weighted images (voxel size 1.0 or 1.2 × 1 × 1 mm3, repetition time/echo time=2300/2.95 or 2400/3.16 (depending on the scanner), flip angle=9 ° , FoV=240 or 256mm)
+
+## Marburg-M¨ unster Affective Disorder Cohort Study (MACS)
+
+thinking
+**Preparing weighted mean and pooled SD calculations**
+
+I'm gathering counts, means, and SDs for MCI and AD across datasets to compute combined weighted means and pooled SDs using Python, including sex breakdowns to find male counts and percentages.
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+
+def weighted_mean(ns, means):
+    return sum(n*m for n,m in zip(ns,means))/sum(ns)
+
+def pooled_sd(ns, sds, means):
+    # pooled sample SD for combined groups
+    N=sum(ns)
+    mean=weighted_mean(ns,means)
+    # sum of squares within + between
+    ss_within=sum((n-1)*(sd**2) for n,sd in zip(ns,sds))
+    ss_between=sum(n*(m-mean)**2 for n,m in zip(ns,means))
+    # total sample variance
+    var=(ss_within+ss_between)/(N-1)
+    return math.sqrt(var)
+
+# MCI
+ns=[1529,78,63]
+means=[66.71,68.05,66.67]
+sds=[4.25,3.54,4.85]
+mean=weighted_mean(ns,means)
+psd=pooled_sd(ns,sds,means)
+print('MCI mean',mean,'sd',psd,'N',sum(ns))
+# AD
+ns=[588,28,228]
+means=[67.2,66.89,66.54]
+sds=[4.65,4.44,4.94]
+mean=weighted_mean(ns,means)
+psd=pooled_sd(ns,sds,means)
+print('AD mean',mean,'sd',psd,'N',sum(ns))
+# female pct
+for label, N, f in [('MCI',1670,799),('AD',844,404),('FTD',317,120)]:
+    print(label, f/N*100, (N-f)/N*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051225034932026-03-05T03:25:50.125718Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 40ms:
+MCI mean 66.77107784431138 sd 4.250736083994167 N 1670
+AD mean 67.01142180094787 sd 4.726980858369964 N 844
+MCI 47.84431137724551 52.15568862275449
+AD 47.867298578199055 52.13270142180095
+FTD 37.85488958990536 62.14511041009464
+
+
+thinking
+**Summarizing dataset stats with sources**
+
+I'm compiling rounded means and SDs for MCI, AD, and FTD and identifying their datasets of origin (ADNI, AIBL, OASIS-3 for MCI/AD; NIFD for FTD) using exact dataset naming conventions. I'll include supporting text quoting relevant table rows for subject counts, ages, and female percentages from the study summary table.
+thinking
+**Confirming disorder names and preparing JSON output**
+
+I'm verifying disorder names exactly as in the paper and locating their quote for reference. Next, I'll check the existing JSON output file to update or add this information accordingly.
+2026-03-05T03:26:02.011152Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Leenings2024_by_codex_20260305122503493.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122503493 succeeded in 23ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Preparing JSON data for disorders**
+
+I'm planning to create JSON entries for three disorders with demographics and dataset details, using different paper styles for the main and other papers. I'll include age as an object with numeric means and SDs plus "NR" string placeholders for min/max as needed, and compute sex distribution percentages with source annotations. The data will note dataset origins distinctly for multi- and single-dataset disorders, referencing the source location in the markdown.
+thinking
+**Confirming supporting text and source location**
+
+I'll use the same supporting quote referencing the Results section of the source for all three disorders, ensuring consistent attribution in the JSON while crafting it manually with Python to minimize errors.
+exec
+/bin/bash -lc "python - <<'PY'
+import json
+
+paper_id = \"Leenings2024\"
+
+# Precomputed values
+mci = {
+    \"n\": 1670,
+    \"mean\": 66.77,
+    \"sd\": 4.25,
+    \"female_n\": 799,
+    \"female_pct\": 47.8,
+    \"male_n\": 871,
+    \"male_pct\": 52.2,
+}
+
+ad = {
+    \"n\": 844,
+    \"mean\": 67.01,
+    \"sd\": 4.73,
+    \"female_n\": 404,
+    \"female_pct\": 47.9,
+    \"male_n\": 440,
+    \"male_pct\": 52.1,
+}
+
+ftd = {
+    \"n\": 317,
+    \"mean\": 63.26,
+    \"sd\": 5.66,
+    \"female_n\": 120,
+    \"female_pct\": 37.9,
+    \"male_n\": 197,
+    \"male_pct\": 62.1,
+}
+
+support_disorder = (
+    '\"instances of Mild Cognitive Impairment (MCI), Alzheimer\\'s Disease (AD) and '
+    'Frontotemporal Dementia (FTD) serve as model diseases\"'
+)
+
+support_table_adni = (
+    '\"ADNI    | HC MCI AD | 1073 1529 588 | 68 . 36 ± 3 . 3 66 . 71 ± 4 . 25 67 . 2 ± 4 . 65   | '
+    '634 females (59.09%) 729 females (47.67%) 291 females (49.48%)\"'
+)
+
+support_table_aibl = (
+    '\"AIBL    | HC MCI AD | 368 78 28     | 68 . 00 ± 2 . 77 68 . 05 ± 3 . 54 66 . 89 ± 4 . 44 | '
+    '217 females (58.97%) 33 females (42.31%) 16 females (57.14%)\"'
+)
+
+support_table_oasis3 = (
+    '\"OASIS3  | HC MCI AD | 1643 63 228   | 63 . 36 ± 6 . 85 66 . 67 ± 4 . 85 66 . 54 ± 4 . 94 | '
+    '1028 females (62.57%) 37 females (58.73%) 97 females (42.54%)\"'
+)
+
+support_table_nifd = (
+    '\"NIFD    | HC FTD    | 263 317       | 62 . 71 ± 6 . 41 63 . 26 ± 5 . 66                  | '
+    '148 females (56.27%) 120 females (37.85%)\"'
+)
+
+location_disorder = \"Leenings2024.pdf.md: Methods / Normative model evaluation\"
+location_table = \"Leenings2024.pdf.md: Table 2 Study Data Summary\"
+
+out = {
+    \"paper_id\": {\"answer\": paper_id},
+    \"disorders\": [
+        {
+            \"disorder-name\": {
+                \"answer\": \"MCI\",
+                \"detail\": \"Clinical cohort used to evaluate normativity markers\",
+                \"confidence_rating\": \"High\",
+                \"supporting_text\": support_disorder,
+                \"location\": location_disorder,
+            },
+            \"dataset-of-origin\": {
+                \"answer\": [\"ADNI\", \"AIBL\", \"OASIS-3\"],
+                \"detail\": \"Combined clinical cohort across ADNI, AIBL, and OASIS-3\",
+                \"confidence_rating\": \"High\",
+                \"supporting_text\": f\"{support_table_adni} {support_table_aibl} {support_table_oasis3}\",
+                \"location\": location_table,
+            },
+            \"age\": {
+                \"answer\": {\"unit\": \"years\", \"min\": \"NR\", \"max\": \"NR\", \"mean\": mci[\"mean\"], \"sd\": mci[\"sd\"], \"note\": \"weighted mean; pooled SD\"},
+                \"detail\": \"Weighted mean and pooled SD across ADNI, AIBL, and OASIS-3 MCI groups\",
+                \"confidence_rating\": \"Medium\",
+                \"supporting_text\": f\"{support_table_adni} {support_table_aibl} {support_table_oasis3}\",
+                \"location\": location_table,
+            },
+            \"sex\": {
+                \"answer\": {
+                    \"male_n\": mci[\"male_n\"],
+                    \"male_pct\": mci[\"male_pct\"],
+                    \"female_n\": mci[\"female_n\"],
+                    \"female_pct\": mci[\"female_pct\"],
+                },
+                \"detail\": \"Female counts pooled across ADNI/AIBL/OASIS-3; male counts computed from total N\",
+                \"confidence_rating\": \"Medium\",
+                \"supporting_text\": f\"{support_table_adni} {support_table_aibl} {support_table_oasis3}\",
+                \"location\": location_table,
+            },
+        },
+        {
+            \"disorder-name\": {
+                \"answer\": \"AD\",
+                \"detail\": \"Clinical cohort used to evaluate normativity markers\",
+                \"confidence_rating\": \"High\",
+                \"supporting_text\": support_disorder,
+                \"location\": location_disorder,
+            },
+            \"dataset-of-origin\": {
+                \"answer\": [\"ADNI\", \"AIBL\", \"OASIS-3\"],
+                \"detail\": \"Combined clinical cohort across ADNI, AIBL, and OASIS-3\",
+                \"confidence_rating\": \"High\",
+                \"supporting_text\": f\"{support_table_adni} {support_table_aibl} {support_table_oasis3}\",
+                \"location\": location_table,
+            },
+            \"age\": {
+                \"answer\": {\"unit\": \"years\", \"min\": \"NR\", \"max\": \"NR\", \"mean\": ad[\"mean\"], \"sd\": ad[\"sd\"], \"note\": \"weighted mean; pooled SD\"},
+                \"detail\": \"Weighted mean and pooled SD across ADNI, AIBL, and OASIS-3 AD groups\",
+                \"confidence_rating\": \"Medium\",
+                \"supporting_text\": f\"{support_table_adni} {support_table_aibl} {support_table_oasis3}\",
+                \"location\": location_table,
+            },
+            \"sex\": {
+                \"answer\": {
+                    \"male_n\": ad[\"male_n\"],
+                    \"male_pct\": ad[\"male_pct\"],
+                    \"female_n\": ad[\"female_n\"],
+                    \"female_pct\": ad[\"female_pct\"],
+                },
+                \"detail\": \"Female counts pooled across ADNI/AIBL/OASIS-3; male counts computed from total N\",
+                \"confidence_rating\": \"Medium\",
+                \"supporting_text\": f\"{support_table_adni} {support_table_aibl} {support_table_oasis3}\",
+                \"location\": location_table,
+            },
+        },
+        {
+            \"disorder-name\": {
+                \"answer\": \"FTD\",
+                \"detail\": \"Clinical cohort used to evaluate normativity markers\",
+                \"confidence_rating\": \"High\",
+                \"supporting_text\": support_disorder,
+                \"location\": location_disorder,
+            },
+            \"dataset-of-origin\": {
+                \"answer\": [\"NIFD\"],
+                \"detail\": \"Clinical cohort from NIFD/FTLDNI\",
+                \"confidence_rating\": \"High\",
+                \"supporting_text\": support_table_nifd,
+                \"location\": location_table,
+            },
+            \"age\": {
+                \"answer\": {\"unit\": \"years\", \"min\": \"NR\", \"max\": \"NR\", \"mean\": ftd[\"mean\"], \"sd\": ftd[\"sd\"]},
+                \"detail\": \"NIFD FTD group\",
+                \"confidence_rating\": \"High\",
+                \"supporting_text\": support_table_nifd,
+                \"location\": location_table,
+            },
+            \"sex\": {
+                \"answer\": {
+                    \"male_n\": ftd[\"male_n\"],
+                    \"male_pct\": ftd[\"male_pct\"],
+                    \"female_n\": ftd[\"female_n\"],
+                    \"female_pct\": ftd[\"female_pct\"],
+                },
+                \"detail\": \"Male counts computed from total N\",
+                \"confidence_rating\": \"Medium\",
+                \"supporting_text\": support_table_nifd,
+                \"location\": location_table,
+            },
+        },
+    ],
+}
+
+with open(\"DE_v14_Leenings2024_by_codex_20260305122503493.json\", \"w\") as f:
+    json.dump(out, f, ensure_ascii=True, indent=2)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051225034932026-03-05T03:26:50.385555Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 48ms:
+
+2026-03-05T03:26:53.342381Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Leenings2024_by_codex_20260305122503493.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122503493 succeeded in 27ms:
+{
+  "paper_id": {
+    "answer": "Leenings2024"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "MCI",
+        "detail": "Clinical cohort used to evaluate normativity markers",
+        "confidence_rating": "High",
+        "supporting_text": "\"instances of Mild Cognitive Impairment (MCI), Alzheimer's Disease (AD) and Frontotemporal Dementia (FTD) serve as model diseases\"",
+        "location": "Leenings2024.pdf.md: Methods / Normative model evaluation"
+      },
+      "dataset-of-origin": {
+        "answer": [
+          "ADNI",
+          "AIBL",
+          "OASIS-3"
+        ],
+        "detail": "Combined clinical cohort across ADNI, AIBL, and OASIS-3",
+
+thinking
+**Adjusting location fields with consistency**
+
+I'm settling on using "Leenings2024.pdf.md: Main text" for location entries to avoid inaccuracies and will update three occurrences via a Python script to maintain consistent metadata formatting.
+2026-03-05T03:27:03.378456Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import json
+path=\"DE_v14_Leenings2024_by_codex_20260305122503493.json\"
+with open(path) as f:
+    data=json.load(f)
+for d in data[\"disorders\"]:
+    d[\"disorder-name\"][\"location\"]=\"Leenings2024.pdf.md: Main text\"
+with open(path,\"w\") as f:
+    json.dump(data,f,ensure_ascii=True,indent=2)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122503493 succeeded in 38ms:
+
+2026-03-05T03:27:05.927215Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Leenings2024_by_codex_20260305122503493.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122503493 succeeded in 18ms:
+{
+  "paper_id": {
+    "answer": "Leenings2024"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "MCI",
+        "detail": "Clinical cohort used to evaluate normativity markers",
+        "confidence_rating": "High",
+        "supporting_text": "\"instances of Mild Cognitive Impairment (MCI), Alzheimer's Disease (AD) and Frontotemporal Dementia (FTD) serve as model diseases\"",
+        "location": "Leenings2024.pdf.md: Main text"
+      },
+      "dataset-of-origin": {
+        "answer": [
+          "ADNI",
+          "AIBL",
+          "OASIS-3"
+        ],
+        "detail": "Combined clinical cohort across ADNI, AIBL, and OASIS-3",
+
+thinking
+**Confirming dataset identification approach**
+
+Planning to include a normalized keyword array for dataset origin, using "OASIS-3" as a key reference, and verifying normative modeling applies to the clinical cohort. Preparing the final response with explanation and file path.
+codex
+Wrote the clinical cohort extraction to `DE_v14_Leenings2024_by_codex_20260305122503493.json`, including pooled MCI/AD demographics across ADNI/AIBL/OASIS-3 and FTD from NIFD with weighted/pooled age stats and computed sex totals.
+
+If you want, I can also add a short calculation appendix or update locations to more specific section labels.
+2026-03-05T03:27:11.078290Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+39,430
+Wrote the clinical cohort extraction to `DE_v14_Leenings2024_by_codex_20260305122503493.json`, including pooled MCI/AD demographics across ADNI/AIBL/OASIS-3 and FTD from NIFD with weighted/pooled age stats and computed sex totals.
+
+If you want, I can also add a short calculation appendix or update locations to more specific section labels.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

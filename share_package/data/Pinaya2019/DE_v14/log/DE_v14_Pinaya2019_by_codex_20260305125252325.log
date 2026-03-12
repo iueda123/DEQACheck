@@ -1,0 +1,926 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Pinaya2019_by_codex_20260305125252325.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc20-8bcf-7631-b566-b100ac445072
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Pinaya2019_by_codex_20260305125252325.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Reading DE Guide**
+2026-03-05T03:52:58.841588Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325 succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Pinaya2019_by_codex_20260305125252325.json
+DE_v14_Pinaya2019_by_codex_20260305125252325.log
+study_1
+2026-03-05T03:53:04.278588Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325 succeeded in 17ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating paper in study_1 directory**
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051252523252026-03-05T03:53:07.137075Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+HBM-40-944-s001.docx.md
+HBM-40-944-s001_artifacts
+Pinaya2019.pdf.md
+Pinaya2019_artifacts
+
+thinking
+**Locating agent instructions**
+
+I'm looking for AGENTS.md or similar files to find instructions related to AGENTS.
+exec
+/bin/bash -lc "rg --files -g 'AGENTS.md'" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051252523252026-03-05T03:53:10.908759Z ERROR codex_core::codex: needs_follow_up: true
+ exited 1 in 22ms:
+
+
+thinking
+**Starting to process Pinaya2019 file**
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patient|disorder|schiz|bipolar|autism|depress|AD|MCI|psych" Pinaya2019.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325/study_12026-03-05T03:53:14.090399Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+3:## Using deep autoencoders to identify abnormal brain structural patterns in neuropsychiatric disorders: A large-scale multi-sample study
+27:Structural magnetic resonance imaging (sMRI) enables the in vivo investigation of the morphological features of the human brain. There is much hope that this tool will help elucidate the neuroanatomical correlates of neuropsychiatric disease, leading to improved detection and treatment (Abou-Saleh, 2006; Klöppel et al., 2012). However, despite the very large number of scientific publications in this area over the past two decades, the use of sMRI in real-world clinical decision-making remains very limited. One of the reasons is that the vast majority of existing studies have used traditional mass-univariate analytical methods which are sensitive to gross and localized differences in the brain. These techniques are not optimal for detecting
+31:Machine learning is becoming an increasingly popular approach for investigating spatially distributed and subtle neuroanatomical alterations in brain-based disorders. However, some machine learning models have been criticized for requiring a large number of cases in each experimental group, and for resembling a ' black box ' that provides little or no insight into the nature of the data. In this article, we propose an alternative conceptual and practical approach for investigating brain-based disorders which aim to overcome these limitations. We used an artificial neural network known as ' deep autoencoder ' to create a normative model using structural magnetic resonance imaging data from 1,113 healthy people. We then used this model to estimate total and regional neuroanatomical deviation in individual patients with schizophrenia and autism spectrum disorder using two independent data sets ( n = 263). We report that the model was able to generate different values of total neuroanatomical deviation for each disease under investigation relative to their control group ( p &lt; .005). Furthermore, the model revealed distinct patterns of neuroanatomical deviations for the two diseases, consistent with the existing neuroimaging literature. We conclude that the deep autoencoder provides a flexible and promising framework for assessing total and regional neuroanatomical deviations in neuropsychiatric populations.
+35:autism spectrum disorder, computational psychiatry, deep autoencoder, deep learning, schizophrenia, structural MRI
+37:neuroanatomical alterations in neuropsychiatric disorders which tend to be subtle and spatially distributed (Durston, 2003; Ellison-Wright, Glahn, Laird, Thelen, &amp; Bullmore, 2008).
+47:perform accurate mapping of the input data to the desired output in most of the possible space of new samples. Due to the high dimensionality of the data, this usually demands a large number of cases in each experimental group (Nieuwenhuis et al., 2012; Whelan &amp; Garavan, 2014). In practice, this can be challenging, for example when comparing specific clinical sub-groups who are difficult to recruit in large numbers (e.g., patients with schizophrenia who did and did not respond to a specific treatment). Besides this limitation, some machine learning algorithms (e.g., deep neural networks) have been criticized for resembling a ' black box ' due to the difficulty of interpreting their inner workings. For example, even when an algorithm allows detection of patients and controls with high levels of accuracy, it can be difficult to establish which specific features of the data informed the categorization decision. Therefore, even in the presence of a successful algorithm, we may gain little or no mechanistic understanding of the disease under investigation. This limits the translational applicability of the findings, since the development of new treatments is normally informed by the underlying mechanisms.
+49:In this article, we adopt an alternative conceptual and practical approach for investigating neuropsychiatric disorders which try to overcome the above limitations. Instead of developing a system for classifying individuals into different groups (e.g., psychiatric patients and healthy subjects), we use neuroimaging data from disease-free individuals to define the normal range of neuroanatomical variability in the absence of illness. Patients with patterns of brain anatomy which fall outside this normal range would then be identified as outliers (Marquand, Rezek, Buitelaar, &amp; Beckmann, 2016; MourãoMiranda et al., 2011; Sato, Rondina, &amp; Mourão-Miranda, 2012). A further advantage of this approach, which is often referred to as ' anomaly detection ' , is that it allows the identification of the pathological patterns which underlie the disease under investigation.
+57:In this study, we used neuroimaging data from disease-free individuals to create a deep autoencoder for detecting and elucidating neuroanatomical deviations in individual patients. First, we trained a model with morphometric data from healthy controls from a largescale data set: the Human Connectome Project (HCP; Van Essen et al., 2013). The resulting model learns to encode the healthy patterns from the input data and then, from the encoded representation, tries to reconstruct the input data as close as possible to the original. After training this model, we used it to encode and reconstruct the data from two public data sets with psychiatry patients. These data sets composed of patients with schizophrenia (SCZ) and autism spectrum disorder (ASD); in addition, each data set included a healthy control (HC) group composing of disease-free individuals. The difference between the original input data and the reconstructed output was captured by a ' deviation metric ' which provided a measure of neuroanatomical alteration in a given individual. For each data set, we compared the mean deviation metric of the patient and the respective healthy control groups. Next, we compared the performance of the normative model against a traditional classifier, using support vector machines. Finally, we analyzed the regional distribution of the reconstruction error and derived the most altered regions for each patient group. We hypothesized that (a) the autoencoder would generate different deviation metrics in patients and controls, with higher mean deviation metrics in the former relative to the latter, and that (b) the autoencoder would reveal different patterns of neuroanatomical deviations for SCZ and ASD, consistent with the existing neuroimaging literature on these disorders.
+63:The data used in this study were obtained from three public data sets: Human Connectome Project (HCP) data set, Northwestern University Schizophrenia Data and Software Tool (NUSDAST) data set, and Autism Brain Imaging Data Exchange (ABIDE) data set. The NUSDAST data set was obtained using the SchizoConnect (http://schizconnect. org/), a virtual database for public schizophrenia neuroimaging data. The ABIDE data set was acquired from the Neuroimaging Informatics Tools and Resources Clearinghouse (NITRC) image repository (http:// www.nitrc.org/). Finally, the HCP data set was acquired from the data management platform called ConnectomeDB (https://db. humanconnectome.org). Detailed information about these data sets and their acquisition parameters is presented in the Supporting Information.
+71:sMRI data from two further clinical data sets including the NUSDAST data set, which composed of healthy controls and patients with SCZ, and the ABIDE data set (http://fcon\_1000.projects.nitrc.org/indi/abide/ abide\_I.html), which composed of HC subjects and ASD patients balanced for age and sex. From these two clinical data sets, we identified and selected those subjects within the same age range of the HCP data set (from 22 to 37 years old). This resulted in 40 healthy controls and 35 patients with SCZ from the NUSDAST data set and 105 healthy controls and 83 subjects with ASD from the ABIDE data set, who were included in the present investigation.
+103:## 2.5 | Analysis of data sets with psychiatry patients
+111:Then, we used the model to measure the quantity of deviation of the brain data from the NUSDAST and ABIDE data sets based on what was learned from the HCP sample. Since the deviation metric (based on mean squared error) did not follow a normal distribution and presented a number of outliers, we used a nonparametric test, known as two-tailed Mann -Whitney U test, to verify whether the medians of deviation metric are significantly different between healthy controls and patients for each clinical group. To avoid the effects of different sites, scanners, and populations, we restricted statistical comparisons to patient and control groups from the same data set.
+117:Normative methods differ from traditional machine learning classification in several aspects. For example, the data used to train the model are different. In normative models, subjects' categories are not necessary (unsupervised learning), while in traditional classification, it is necessary to specify the classes of each participant (supervised learning). Another difference is what the model learns during training. In traditional classification, the model learns about the values of the features that best discriminate the categories. On the other hand, normative approaches learn the values of features that are considered a typical observation. Even with these distinct characteristics, the normative approach can be adapted to perform classification once assuming patients as outliers (Mourão-Miranda et al., 2011). Once we set a limit value in the normative deviation metric, we can categorize subjects in HC and patient groups, and, finally, use performance metrics, like accuracy, to compare methods.
+119:In our study, to compare the performance of our normative model against a traditional classification approach, we performed a machine learning analysis of both clinical data sets using Support Vector Machines (SVM; Cortes &amp; Vapnik, 1995). First, we used the data from the ABIDE and NUSDAST data sets as input to the SVM model with the features normalized using the mean and SD from the Human Connectome Project. The rationale for using these normalized features was to ensure the consistency of the input data between the autoencoder and the traditional classification model. Also, we used a bootstrap resampling method to estimate the performance of the classifier and quantify its uncertainty using confidence intervals (CI) (DiCiccio &amp; Efron, 1996; Jain, Duin, &amp; Mao, 2000). This involved (a) determining the size of the training set as 70% of the total number of subjects in the data set (resulting in 53 training samples in NUSDAST and 132 training samples in ABIDE); (b) randomly sampling (with replacement) the subjects to create a bootstrap training set; and (c) using all subjects not included in the training set to create a test set.
+121:Having defined the training and test sets, we trained a linear SVM classifier to discriminate between the HC and patient categories. The first step of the training was to define the soft margin (C) hyperparameter, which controls the trade-off between having zero training errors and allowing misclassifications. In our study, we chose the value of C by performing a grid search using a cross-validation scheme based on the training set. In brief, using stratified 10-fold cross-validation, we divided the training set into 10 parts with the same proportion of HC subjects and patients. We then used nine parts to compose a new training set, and the remaining part was used as the validation set. With these sets defined, we chose one C value from the search space, which was defined as {2 -15 , 2 -13 , 2 -11 , 2 -13 , … , 2 11 , 2 13 , 2 15 } consistent with previous studies (Hsu, Chang, &amp; Lin, 2003). Next, we trained the model on the new training set and computed its balanced accuracy using the validation set. This process was performed 10 times using the same C value across all possible different choices of validation set. Then, we performed this process again with all other possible C values. In the end, we selected the C value
+125:that had the higher cross-validated mean balanced accuracy. With this C value, we trained a linear SVM model again using the whole training data set and, finally, we computed the probabilities of each subject in the test set to belong to the patient group. This approach, including the use of stratified 10-fold cross-validation to minimize bias, is consistent with recommended practice (Salvador et al., 2017). The implementation of the SVM classifiers was performed in Python (version 3.6) using the Scikit-learn library (version 0.19.2; Pedregosa &amp; Varoquaux, 2011).
+127:In the final step, the probabilities of each subject in the test set to belong to the patient group were used to estimate the performance of the classifier. In the present study, we used the area under the receiver operating characteristic curve (AUC-ROC) as a performance metric for the comparison with the normative approach. With the AUC-ROC, it is possible to estimate how well the classifier performs without having to explicitly define a threshold value for deciding whether a subject should be classified as HC subject or patient. After obtaining the AUC-ROC, we repeated the whole process but this time with a new bootstrap training set and test set. This process was repeated 1,000 times to create a distribution of the performance of the classifier. From this distribution, we reported the median performance of the SVM and its CI.
+129:Similar to the classifier evaluation, we computed the AUC-ROC and its CI for the normative method. In this case, we created bootstrap training sets from the HCP data set, sampling (with replacement) 1,113 subjects to train the normative model. After training, we normalized the clinical data sets using the mean and the SD from the original HCP data set (to ensure consistency between autoencoder and the traditional classification). Then, we calculated the deviation metric of all subjects, using these deviation metrics and the actual label of the subjects, we computed the AUC-ROC. This process was repeated 1,000 times to create a distribution of the performance of the normative approach. From this distribution, we reported the median performance and its CI.
+133:We investigated the reconstruction error of each brain region in the two clinical samples (SCZ and ASD) using the deep autoencoder. We compared the values of the reconstruction error in patients against HC subjects using the Mann -Whitney U test to check for statistically significant regional deviations. A Bonferroni correction for multiple comparisons would have been inappropriate because statistical inferences in homotopic or adjacent regions were most likely to be correlated rather than independent. In the absence of any established procedure, we controlled for false positive rates by using a conservative statistical threshold of p &lt; .01 which yield an expected false positive rate of 1%. Finally, we calculated Cliff's delta (Cliff, 1993) absolute value to measure the magnitude of neuroanatomical deviations. Here Cliff's delta value measures how often the deviation metric values in one distribution (i.e., patient group) are larger than the values in a second distribution (i.e., HC group).
+149:## 3.2 | Comparison of deviation metrics for patients and healthy controls
+
+thinking
+**Locating demographic info section**
+
+I'm searching around line 179 to find Table 1 containing demographic information for review and extraction.
+exec
+/bin/bash -lc "sed -n '160,210p' Pinaya2019.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325/study_12026-03-05T03:53:17.618292Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+
+Figure 3 shows the boxplot indicating the median deviation metric of each group; violin plots are also presented in the Supporting Information. As expected, in the NUSDAST data set, the deviation metric was significantly higher for the SCZ groups than the corresponding HC groups with the Mann -Whitney U test presenting a statistically significant difference ( p = .001). Likewise, the ASD group presented a higher mean deviation metric than the corresponding HC group with the Mann -Whitney U test presenting a statistically significant difference ( p &lt; .001).
+
+## 3.3 | Prediction of age and sex for patients and healthy controls
+
+In addition to the estimation of deviation metrics, the trained model predicts the age and sex of each individual using a semi-supervised framework (see ' Deep autoencoder training ' section for detail). For the NUSDAST data set, the model predicted age with a mean absolute error (MAE) of 3.40 years in the HC group and 3.57 years in the SCZ group. For the same data set, the model also predicted sex with accuracies of 75.00% in the HC group and 62.28% in the patient group. For the ABIDE data set, the model predicted the age with an MAE of 4.02 years in the HC group and 3.83 years in the
+
+ASD group. Here the model also predicted sex with accuracies of 79.04% in the HC group and 78.31% in the patient group, respectively.
+
+## 3.4 | Comparison with traditional classifiers
+
+In the NUSDAST data set, the linear SVM obtained a median AUC-ROC = 0.637 (95% CI = [0.486, 0.766]), whereas using the
+
+FIGURE 3 Boxplot of the deviation metric (mean squared reconstruction error) from the patients with schizophrenia group and the healthy controls subjects (NUSDAST data set) and from patients with autism spectrum disorder and the corresponding healthy control group (ABIDE data set). ASD = autism spectrum disorder; HC = healthy controls; SCZ = schizophrenia [Color figure can be viewed at wileyonlinelibrary.com]
+
+![Image](./Pinaya2019_artifacts/image_000008_4a3511391c9e561cb99aaabc4e8242f5cc0fa781132de405d498d64fcaddd854.png)
+
+![Image](./Pinaya2019_artifacts/image_000009_43e12238f0691ee2fff9d0a370eb7e05a50308ac4873897af495e05b1f8ef138.png)
+
+TABLE 1 Demographic information for the subjects from the Human Connectome Project, Northwestern University schizophrenia data and software tool and Autism Brain Imaging Data Exchange data sets
+
+thinking
+**Summarizing cohort demographics**
+
+I'm compiling a table and text for SCZ and ASD cohorts from NUSDAST and ABIDE, including age (mean, SD, range) and sex distributions with precise percentages, normalized dataset and disorder names, plus referencing paper_id Pinaya2019. Next, I'll open the existing JSON to update it with these details.
+exec
+/bin/bash -lc 'cat DE_v14_Pinaya2019_by_codex_20260305125252325.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051252523252026-03-05T03:53:25.496685Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Preparing detailed JSON patch with disorder data**
+
+I'm composing a JSON patch adding two entries for schizophrenia and autism spectrum disorder with age, sex demographics, supporting text quotes from methods and Table 1 in Pinaya2019.pdf.md, specifying dataset origins and high confidence; next, I'll apply this patch to the target file.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2019"
+   },
+@@ -7,28 +7,84 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patient group from NUSDAST clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "NUSDAST"
++        ],
++        "detail": "Clinical cohort drawn from the NUSDAST dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 25.5,
++          "sd": 3.92
++        },
++        "detail": "NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Mean /C6 SD\" \"25.5 /C6 3.92\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 26,
++          "male_pct": 74.3,
++          "female_n": 9,
++          "female_pct": 25.7
++        },
++        "detail": "Percentages calculated from counts for NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Men\" \"26 (74%)\"; \"Women\" \"9 (26%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder patient group from ABIDE clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set ... which composed of HC subjects and ASD patients\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Clinical cohort drawn from the ABIDE dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set ... which composed of HC subjects and ASD patients\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 27.3,
++          "sd": 4.1
++        },
++        "detail": "ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Mean /C6 SD\" \"27.3 /C6 4.1\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 74,
++          "male_pct": 89.2,
++          "female_n": 9,
++          "female_pct": 10.8
++        },
++        "detail": "Percentages calculated from counts for ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Men\" \"74 (89%)\"; \"Women\" \"9 (11%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       }
+2026-03-05T03:53:52.419513Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cf645718573b51cd57af7cb607b555571a3b5fd3
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+@@ -1,36 +1,92 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2019"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patient group from NUSDAST clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "NUSDAST"
++        ],
++        "detail": "Clinical cohort drawn from the NUSDAST dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 25.5,
++          "sd": 3.92
++        },
++        "detail": "NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Mean /C6 SD\" \"25.5 /C6 3.92\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 26,
++          "male_pct": 74.3,
++          "female_n": 9,
++          "female_pct": 25.7
++        },
++        "detail": "Percentages calculated from counts for NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Men\" \"26 (74%)\"; \"Women\" \"9 (26%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder patient group from ABIDE clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set ... which composed of HC subjects and ASD patients\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Clinical cohort drawn from the ABIDE dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set ... which composed of HC subjects and ASD patients\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 27.3,
++          "sd": 4.1
++        },
++        "detail": "ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Mean /C6 SD\" \"27.3 /C6 4.1\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 74,
++          "male_pct": 89.2,
++          "female_n": 9,
++          "female_pct": 10.8
++        },
++        "detail": "Percentages calculated from counts for ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Men\" \"74 (89%)\"; \"Women\" \"9 (11%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cf645718573b51cd57af7cb607b555571a3b5fd3
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+@@ -1,36 +1,92 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2019"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patient group from NUSDAST clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "NUSDAST"
++        ],
++        "detail": "Clinical cohort drawn from the NUSDAST dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 25.5,
++          "sd": 3.92
++        },
++        "detail": "NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Mean /C6 SD\" \"25.5 /C6 3.92\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 26,
++          "male_pct": 74.3,
++          "female_n": 9,
++          "female_pct": 25.7
++        },
++        "detail": "Percentages calculated from counts for NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Men\" \"26 (74%)\"; \"Women\" \"9 (26%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder patient group from ABIDE clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set ... which composed of HC subjects and ASD patients\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Clinical cohort drawn from the ABIDE dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set ... which composed of HC subjects and ASD patients\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 27.3,
++          "sd": 4.1
++        },
++        "detail": "ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Mean /C6 SD\" \"27.3 /C6 4.1\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 74,
++          "male_pct": 89.2,
++          "female_n": 9,
++          "female_pct": 10.8
++        },
++        "detail": "Percentages calculated from counts for ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Men\" \"74 (89%)\"; \"Women\" \"9 (11%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Correcting supporting text quotes**
+
+Planning to replace ellipsis-based quotes in methods' supporting text with exact text snippets, preserving original formatting like semicolons and special characters, especially for the ABIDE and NUSDAST dataset descriptions.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+@@ -53,3 +53,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"the ABIDE data set ... which composed of HC subjects and ASD patients\"",
++        "supporting_text": "\"the ABIDE data set (http://fcon_1000.projects.nitrc.org/indi/abide/ abide_I.html), which composed of HC subjects and ASD patients balanced for age and sex\"",
+         "location": "Pinaya2019.pdf.md: Methods / Datasets"
+@@ -62,3 +62,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "\"the ABIDE data set ... which composed of HC subjects and ASD patients\"",
++        "supporting_text": "\"the ABIDE data set (http://fcon_1000.projects.nitrc.org/indi/abide/ abide_I.html), which composed of HC subjects and ASD patients balanced for age and sex\"",
+         "location": "Pinaya2019.pdf.md: Methods / Datasets"
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cb37a1928a0d106bf94e1c07b86f99ba549516cc
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+@@ -1,36 +1,92 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2019"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patient group from NUSDAST clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "NUSDAST"
++        ],
++        "detail": "Clinical cohort drawn from the NUSDAST dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 25.5,
++          "sd": 3.92
++        },
++        "detail": "NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Mean /C6 SD\" \"25.5 /C6 3.92\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 26,
++          "male_pct": 74.3,
++          "female_n": 9,
++          "female_pct": 25.7
++        },
++        "detail": "Percentages calculated from counts for NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Men\" \"26 (74%)\"; \"Women\" \"9 (26%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder patient group from ABIDE clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set (http://fcon_1000.projects.nitrc.org/indi/abide/ abide_I.html), which composed of HC subjects and ASD patients balanced for age and sex\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Clinical cohort drawn from the ABIDE dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set (http://fcon_1000.projects.nitrc.org/indi/abide/ abide_I.html), which composed of HC subjects and ASD patients balanced for age and sex\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 27.3,
++          "sd": 4.1
++        },
++        "detail": "ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Mean /C6 SD\" \"27.3 /C6 4.1\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 74,
++          "male_pct": 89.2,
++          "female_n": 9,
++          "female_pct": 10.8
++        },
++        "detail": "Percentages calculated from counts for ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Men\" \"74 (89%)\"; \"Women\" \"9 (11%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       }
+     }
+   ]
+
+2026-03-05T03:54:08.553905Z ERROR codex_core::codex: needs_follow_up: true
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cb37a1928a0d106bf94e1c07b86f99ba549516cc
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+@@ -1,36 +1,92 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2019"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patient group from NUSDAST clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "NUSDAST"
++        ],
++        "detail": "Clinical cohort drawn from the NUSDAST dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 25.5,
++          "sd": 3.92
++        },
++        "detail": "NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Mean /C6 SD\" \"25.5 /C6 3.92\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 26,
++          "male_pct": 74.3,
++          "female_n": 9,
++          "female_pct": 25.7
++        },
++        "detail": "Percentages calculated from counts for NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Men\" \"26 (74%)\"; \"Women\" \"9 (26%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder patient group from ABIDE clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set (http://fcon_1000.projects.nitrc.org/indi/abide/ abide_I.html), which composed of HC subjects and ASD patients balanced for age and sex\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Clinical cohort drawn from the ABIDE dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set (http://fcon_1000.projects.nitrc.org/indi/abide/ abide_I.html), which composed of HC subjects and ASD patients balanced for age and sex\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 27.3,
++          "sd": 4.1
++        },
++        "detail": "ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Mean /C6 SD\" \"27.3 /C6 4.1\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 74,
++          "male_pct": 89.2,
++          "female_n": 9,
++          "female_pct": 10.8
++        },
++        "detail": "Percentages calculated from counts for ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Men\" \"74 (89%)\"; \"Women\" \"9 (11%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+
+thinking
+**Verifying exact quote and data details**
+
+Confirmed the NUSDAST quote is an exact contiguous substring excluding the comma after "SCZ," which is acceptable. Keeping the age standard deviation as 4.1 matches the source sufficiently.
+thinking
+**Confirming demographic detail and preparing summary**
+
+Verified NUSDAST SCZ subgroup shows 9 women (26%) in Table 1; HC female count is irrelevant here. Preparing a concise final response and next steps.
+codex
+Completed the clinical cohort extraction for Pinaya2019 and filled in SCZ and ASD entries with dataset origins, age, and sex details from Table 1 and Methods. The results are written to `DE_v14_Pinaya2019_by_codex_20260305125252325.json`.
+
+Next steps you might want:
+1. Validate the JSON format with any local checker you use.
+2. Run your usual pipeline on `DE_v14_Pinaya2019_by_codex_20260305125252325.json`.
+2026-03-05T03:54:19.013834Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..cb37a1928a0d106bf94e1c07b86f99ba549516cc
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125252325/DE_v14_Pinaya2019_by_codex_20260305125252325.json
+@@ -1,36 +1,92 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2019"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "SCZ",
++        "detail": "Schizophrenia patient group from NUSDAST clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "NUSDAST"
++        ],
++        "detail": "Clinical cohort drawn from the NUSDAST dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the NUSDAST data set, which composed of healthy controls and patients with SCZ\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 25.5,
++          "sd": 3.92
++        },
++        "detail": "NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Mean /C6 SD\" \"25.5 /C6 3.92\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 26,
++          "male_pct": 74.3,
++          "female_n": 9,
++          "female_pct": 25.7
++        },
++        "detail": "Percentages calculated from counts for NUSDAST SCZ group",
++        "confidence_rating": "High",
++        "supporting_text": "\"SCZ ( n = 35)\"; \"Men\" \"26 (74%)\"; \"Women\" \"9 (26%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder patient group from ABIDE clinical dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set (http://fcon_1000.projects.nitrc.org/indi/abide/ abide_I.html), which composed of HC subjects and ASD patients balanced for age and sex\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "Clinical cohort drawn from the ABIDE dataset",
++        "confidence_rating": "High",
++        "supporting_text": "\"the ABIDE data set (http://fcon_1000.projects.nitrc.org/indi/abide/ abide_I.html), which composed of HC subjects and ASD patients balanced for age and sex\"",
++        "location": "Pinaya2019.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 36,
++          "mean": 27.3,
++          "sd": 4.1
++        },
++        "detail": "ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Mean /C6 SD\" \"27.3 /C6 4.1\"; \"Range\" \"22 - 36\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 74,
++          "male_pct": 89.2,
++          "female_n": 9,
++          "female_pct": 10.8
++        },
++        "detail": "Percentages calculated from counts for ABIDE ASD group",
++        "confidence_rating": "High",
++        "supporting_text": "\"ASD ( n = 83)\"; \"Men\" \"74 (89%)\"; \"Women\" \"9 (11%)\"",
++        "location": "Pinaya2019.pdf.md: Table 1"
+       }
+     }
+   ]
+
+tokens used
+44,219
+Completed the clinical cohort extraction for Pinaya2019 and filled in SCZ and ASD entries with dataset origins, age, and sex details from Table 1 and Methods. The results are written to `DE_v14_Pinaya2019_by_codex_20260305125252325.json`.
+
+Next steps you might want:
+1. Validate the JSON format with any local checker you use.
+2. Run your usual pipeline on `DE_v14_Pinaya2019_by_codex_20260305125252325.json`.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

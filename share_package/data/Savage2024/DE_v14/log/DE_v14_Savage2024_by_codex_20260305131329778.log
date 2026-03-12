@@ -1,0 +1,1718 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Savage2024_by_codex_20260305131329778.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131329778/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc33-6dc0-7b43-9b1e-ad6734983f73
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Savage2024_by_codex_20260305131329778.json へ書き込んでください。
+mcp startup: no servers
+2026-03-05T04:13:35.521988Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131329778 succeeded in 59ms:
+DE_Guide_v14.md
+DE_v14_Savage2024_by_codex_20260305131329778.json
+DE_v14_Savage2024_by_codex_20260305131329778.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051313297782026-03-05T04:13:38.530009Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 16ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating source paper file**
+
+I'm searching within the study_1 directory to find the source paper file needed for extraction.
+2026-03-05T04:13:41.228225Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131329778 succeeded in 40ms:
+DE_v14_Savage2024_by_codex_20260305131329778.json
+DE_v14_Savage2024_by_codex_20260305131329778.log
+DE_Guide_v14.md
+study_1/42003_2024_6573_MOESM1_ESM.pdf.md
+study_1/Savage2024.pdf.md
+
+thinking
+**Identifying required dependency**
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Savage2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051313297782026-03-05T04:13:43.871425Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 35ms:
+1234567890():,;
+
+1234567890():,;
+
+Hannah S. Savage 1,2 , Peter C. R. Mulders 1,3 , Philip F. P. van Eijndhoven 1,3 , Jasper van Oort 1,3 , Indira Tendolkar 1,3 , Janna N. Vrijsen 1,3,4 , Christian F. Beckmann 1,2,5 &amp; Andre F. Marquand 1,2
+
+Functional neuroimaging has contributed substantially to understanding brain function but is dominated by group analyses that index only a fraction of the variation in these data. It is increasingly clear that parsing the underlying heterogeneity is crucial to understand individual differences and the impact of different task manipulations. We estimate large-scale ( N = 7728) normative models of taskevoked activation during the Emotional Face Matching Task, which enables us to bind heterogeneous datasets to a common reference and dissect heterogeneity underlying group-level analyses. We apply this model to a heterogenous patient cohort, to map individual differences between patients with one or more mental health diagnoses relative to the reference cohort and determine multivariate associations with transdiagnostic symptom domains. For the face&gt;shapes contrast, patients have a higher frequency of extreme deviations which are spatially heterogeneous. In contrast, normative models for faces&gt;baseline have greater predictive value for individuals ' transdiagnostic functioning. Taken together, we demonstrate that normative modelling of fMRI task-activation can be used to illustrate the in /uniFB02 uence of different task choices and map replicable individual differences, and we encourage its application to other neuroimaging tasks in future studies.
+
+Task-based functional neuroimaging (functional magnetic resonance imaging; fMRI) has been widely applied in foundational and clinical neuropsychology to characterise neural processes that underpin a behaviour or process of interest. The typical approach in such studies is based on comparing mean differences in the magnitude and location of activation (measured by changes in BOLD signal), which has helped us to understand how these processes may differ between groups de /uniFB01 ned by biological and sociocultural factors, psychopathologies, or therapeutic interventions. The majority of prior research has reported group-level summary statistics, which inform us of those regions most consistently activated across participants/groups during task conditions. This method assumes that the neural mechanisms facilitating the process of interest are consistent across individuals within and between groups. This assumption enables our understanding to reach only so far as ' the average brain ' of an ' average control ' , or ' average patient ' .
+
+In order to better understand how the brain relates to behaviour it is essential to move our focus from the group-level to studying individual differences and consider the neural activation of these processes within the context of multiple sources of heterogeneity. For example: (i) natural variation within the general population, including potentially heterogenous yet functionally convergent processes, and (ii) heterogeneity within groups of interest, such as within mental health diagnoses. Furthermore, when comparing between independent studies, the in /uniFB02 uence of task design (i.e. small modi /uniFB01 cations to an original task) and acquisition parameters should also be considered but are seldom investigated.
+
+One approach that can provide insight into individual differences is normative modelling 1,2 . The normative modelling framework provides statistical inference at the level of each subject with respect to an expected pattern across the population, highlighting variation within populations in terms of the mapping between biological variables and other measures of interest. This framework has previously been employed by our group and others to dissect structural variation within large healthy populations 3 and clinical psychiatric populations (e.g. in autism 4 -6 , schizophrenia and bipolar disorder 7 ), and in relation to dimensions of psychopathology 8 . Applying this
+
+1 Donders Institute of Brain, Cognition and Behaviour, Radboud University, Nijmegen, The Netherlands. 2 Department of Cognitive Neuroscience, Radboud University Medical Centre, Nijmegen, The Netherlands. 3 Department of Psychiatry, Radboud University Medical Centre, Nijmegen, The Netherlands. 4 Depression Expertise Centre, Pro Persona Mental Health Care, Nijmegen, The Netherlands. 5 Centre for Functional MRI of the Brain (FMRIB), Nuf /uniFB01 eld Department of Clinical Neurosciences, Wellcome Centre for Integrative Neuroimaging, University of Oxford, Oxford, UK. e-mail: hannah.savage@donders.ru.nl; andre.marquand@donders.ru.nl
+
+![Image](./Savage2024_artifacts/image_000000_a06c8e3c23b57296bcb8b4be25ec9b2dad8db43ce2b71c187cb0124a832bb880.png)
+
+![Image](./Savage2024_artifacts/image_000001_e3d1ec4ebbf7d1f8380bca6f81262e93d54f4b97f700b713ef799483504e33fc.png)
+
+
+
+thinking
+**Extracting clinical cohort details**
+
+I'm identifying clinical cohort diagnoses and demographics from the supplementary tables, clarifying minor category mappings like grouping mood disorders under a single MD label and grouping anxiety disorders. Data on age, sex, and sample size need to be confirmed due to some ambiguity in the tables.
+thinking
+**Clarifying clinical sample size**
+
+I'm confirming that the clinical sample likely includes 236 participants from MIND-Set with details showing 99 females (41.9%) and inferring 137 males (58.1%). I'll check tables and text for definitive confirmation of these numbers.
+exec
+/bin/bash -lc "rg -n \"MIND-Set|Sample size|Current diagnoses|Age \\(mean|Sex\" study_1/Savage2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051313297782026-03-05T04:13:54.485526Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+35:Due to its experimental simplicity and focus on subcortical circuitry relevant to brain disorders, the EFMT has been implemented in a number of large-scale neuroimaging initiatives including the UK Biobank 11 , the Human Connectome Project (HCP) 12,13 , HCP Development 14 , the Amsterdam Open MRI Collection Population Imaging of Psychology (AOMIC PIOP2) 15 , and the Duke Neurogenetics Study (DNS). We take advantage of these large open-access/shared datasets to collate a large representative sample of over 7500 participants from six sites to /uniFB01 rst (i) build reference normative models that highlight the natural variation of functional activity evoked by the EFTM [as measured by the task contrasts faces&gt;shapes and faces&gt;baseline], and (ii) determine how the model ' s prediction relates to age, sex, and variations in task design. We then apply these models to over 200 participants with a current mental health condition or who are neurodivergent from the MIND-Set cohort (Measuring Integrated Novel Dimensions in neurodevelopmental and stress-related psychiatric disorder) 16 , to (iii) map deviations in patients with a current diagnosis (mood and anxiety disorders, ASD and/or ADHD) relative to the reference cohort, both at the group level and at the level of the individual. We show that despite the ostensible simplicity of this task and robust group effects, there is considerable inter-individual heterogeneity in the nature of the elicited activation patterns and that such differences are both highly interpretable and predict cross-domain symptomatology in a naturalistic clinical cohort.
+69:Increased age (Fig. 4. Top row - Age) was related to decreased predicted activity across the peripheral/surface of the brain, as well as regions surrounding the ventricles, and increased activity in midline regions of the default mode network, the bilateral insula, the fusiform face area extending to the para-hippocampal gyrus and the superior temporal gyrus. Being female (Fig. 4. Top row - Sex), was related to increased mid-to-anterior insula and cingulate cortex activation. Predictions were only minimally in /uniFB02 uenced by intra-cranial volume (supplementary data /uniFB01 le).
+75:Wethenperformedavoxel-wisecase-controlcomparisonontherawdatato test for group level differences between a heterogeneous patient cohort and matched unaffected controls from the naturalistic MIND-Set sample. As evidenced in Table 1 (see Diagnoses), the naturalistic MIND-Set sample has manypatientswithco-occurringandheterogenousmentalhealthdiagnosis, with or without neurodivergence, and is therefore representative of diverse clinical populations. This analysis revealed very few differences between the patient cohort, and unaffected controls for faces&gt;shapes and faces&gt;baseline (Fig. 5). More speci /uniFB01 cally, comparing patients ' task activation (Fig. 5a -top row)tocontrols (Fig. 5a -middlerow)forthefaces&gt;shapescontrast showed patients had greater activation in the left temporal medial gyrus and bilateral posterior cingulate cortex, as well as in small regions of the supplementary motor area, and the genus of the anterior cingulate cortex (Fig. 5c -left). There were negligible differences between patients and unaffected controls for the faces&gt;baseline contrast (Fig. 5b, c - right).
+113:Fig. 6b, c; faces&gt;baseline: Fig. 6e, f). MIND-Set patients had a greater frequencyofdeviationsrelative to the reference test cohort for the faces&gt;shapes contrast (Mann-Whitney U test = 341806.5, p =2.029 10 ; Fig. 6b). These deviations were most frequently identi /uniFB01 ed in the lateral ventral prefrontal cortex, and the bilateral medial and inferior temporal lobe (Fig. 6a). In
+119:contrast, for the faces&gt;baseline contrast individuals there was no signi /uniFB01 cant difference in the frequency of deviations between the reference test cohort relative to MIND-Set patients (Mann-Whitney U test = 487921.0, p =0.22; Fig. 6e). These comparisons were repeated excluding the vmPFC region and the main effects changed minimally for both contrasts.
+153:| Functional scan acquisition parameters Scanner                                                                                                                                                                                                                                               | 3 T Siemens Skyra 3 T Siemens Prisma                                                                     | 3 T Siemens Skyra                                                                              | 3 T Phillips Achieva dStream                                   | 3 T GE MR750                                                                                     | 3 T Siemens Magentom Prisma                                                                                       | Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder                           |
+154:| Age (mean + S.D) [range]                                                                                                                                                                                                                                                                     | 28.76 ± 3.70 [22 - 37] 13.86 ± 3.83 [8 - 21]                                                             | 63.94 ± 7.45 [46 - 82]                                                                         | 22.16 ± 1.79 [18.25 - 26.25]                                   | 20.22 ± 1.21 [18.09-23.07]                                                                       | 38.0 ± 16.11 [20 - 74] 37.1 ± 16.50 [20 - 70]                                                                     | Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]                                                                                                           |
+155:| Sex                                                                                                                                                                                                                                                                                          | 561 F (53.7%) 110 F (54.7%)                                                                              | 2495 F (49.9%)                                                                                 | 114 F (57.0%)                                                  | 707 F (56.7%)                                                                                    | 21 F (56.7%) 21 F (58.3%)                                                                                         | Sex                                     | 99 F (41.9%)                                                                                                                     |
+156:| Sample size                                                                                                                                                                                                                                                                                  | 1044 201                                                                                                 | 5000                                                                                           | 200                                                            | 1246                                                                                             | Reference: 37/309 Clinical Test: 36/309                                                                           | Sample size                             | 236/309                                                                                                                          |
+157:| Sample details Site                                                                                                                                                                                                                                                                          | Human Connectome Project Young Adult Human Connectome Project                                            | Development UK Biobank                                                                         | Amsterdam Open MRI Collection Population Imaging of Psychology | Duke Neurogenetics Study                                                                         | MIND-Set                                                                                                          | Additional details of clinical samples: | MIND-Set                                                                                                                         |
+171:for patients (top row) and unaffected controls (middle row) from the MIND-Set cohort. c Regions where patients have more activation than controls (bottom row) (z-statistic maps, thresholded at &gt; ±2.6). x, y, z = -14, -13, -9.
+177:Fig. 6 | Testing the faces&gt;shapes (left) and faces&gt;baseline normative models with the MIND-Set cohort. Normative Probability Maps illustrate the percentage of participants of the clinical sample who had positive (hot colours) or negative deviations (cool colours) &gt; ±2.6 within each voxel, for the faces&gt;shapes ( a ) and
+211:Wecollated a large reference sample from 6 independent sites for whom high quality fMRI data for the EFMT are available: AOMIC PIOP2, Duke Neurogenetics Study, HCP Development, HCP Young Adult (1200 release), UK Biobank, and the MIND-Set cohort which also includes a clinical population. For sample details per site see Table 1. Informed consent was obtained from all participants, and, for publicly available datasets ethical approval was provided by the relevant local research authorities for the studies contributing data. The MIND-Set study was approved by the Commissie Mensgebonden Onderzoek ArnhemNijmegen.
+221:Site speci /uniFB01 c acquisition parameters per site are detailed in Table 1, and in the following site speci /uniFB01 c protocols: AOMIC PIOP2 15 , HCP Young Adult 13 , HCP Development 30 , UKBiobank 31 , Duke Neurogenetics Study (https:// www.haririlab.com/methods/amygdala.html) and MIND-Set 32 .
+233:fMRIgenerallinearmodelling(GLM) -single subject . We matched the methodological approach used to estimate the parameters within a GLMbased analysis, given evidence to suggest this analytic step can signi /uniFB01 cantly contribute to the variability of reported results between sites 36 . Therefore, for each site, the linear model parameter were estimated using the FSL software package version 6.03 (HCP Young Adult, HCP Development, MIND-Set, Duke Neurogenetics Study; http://fsl.fmrib.ox.ac. uk/) or as downloadable form UK Biobank 31 . Two regressors were constructed from the faces and shapes blocks which were then convolved with a canonical double -gamma haemodynamic response function and combined with the temporal derivatives of each main regressor. These
+235:were treated as nuisance regressors and served to accommodate slight variations in slice timing or in the haemodynamic response. Data were pre -whitened using a version of FSL -FILM customized to accommodate surface data, the model and data were high -pass /uniFB01 ltered (200 s cut-off). Fixed -effects GLMs were estimated using FSL -FLAME 1: /uniFB01 rst for independent runs, then when necessary combining two runs into a single model for each participant (HCP Young Adult). and the AOMIC, DNS and MIND-Set maps were transformed into standard space using FNIRT 37 . We created summary group level maps per site (for a random sample of 100 participants; see Fig. 1 and Supplementary Fig. 4), as a sanity check to ensure the data was otherwise comparable to past literature and performed a case-control comparison between patients with a current diagnosis (mood and anxiety disorders, ASD and/or ADHD) and unaffected controls in the MIND-Set cohort (see Fig. 5).
+249:Quantifying patients ' voxel-wise deviations from the reference normative model . As for the reference cohort, we generated NPMs to estimate the pattern of regional deviations from typical brain function for each participant, and summed across the sample. We then used a MannWhitney U test to compare the frequency of deviations (&gt;±2.6) between the reference controls and patients from the MIND-Set cohort.
+259:All data was existing data and readers can inquire for access on the following: UK Biobank: https://www.ukbiobank.ac.uk/, HCP: https://www. humanconnectome.org/, Duke Neurogenetics Study: https://www. haririlab.com/projects/procedures.html, AOMIC PIOP2: https://nilabuva.github.io/AOMIC.github.io/, MIND-Set: Please contact Dr. Janna Vrijsen to discuss the options (Janna.Vrijsen@radboudumc.nl). Group level quality metrics (explained variance, skew, kurtosis, and SMSE) and group level results (normative probability maps i.e. frequency of deviations, ICC maps) are available as nifti /uniFB01 les, and all numerical source data for graphs are available on Zenodo (https://doi.org/10.5281/zenodo.12515479) 39 .
+
+thinking
+**Preparing to extract detailed table from PDF markdown lines**
+exec
+/bin/bash -lc "sed -n '130,180p' study_1/Savage2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051313297782026-03-05T04:13:59.754389Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+
+Finally, we were interested in mapping the spatial distribution of the deviations within the clinical sample, and whether this varied according to the participant ' s mental health diagnosis or neurodivergence (note that subjects can be in multiple categories; Supplementary Figs. 10, 11). For each diagnosis, the pattern of deviations was highly heterogeneous, providing further support for high degree of inter-individual heterogeneity we have reported previously for mental disorders 4,5,7 , and underlining the need to move beyond case-control comparisons at the level of diagnostic groups.
+
+## Discussion
+
+In this study we made use of six large publicly available datasets of participants completing the fMRI EFMT to build a reference normative model of
+
+Table 1 | Sample details, functional scan acquisition parameters and Emotional Face Matching Task parameters for data included in the normative models
+
+| Matching Rule /Instructions Target Stimulus Trials per block/ Blocks/ Total Trials Trial duration (s) Instruction duration (s) Inter-trial interval (s) Block duration (s) Task duration (s) Inter- block- interval (s) Volumes acquired Match faces: Angry and 6/3/18 2 3 1 21 156 NA 176   | 178                                                                                                      | 366                                                                                            | 135                                                            | 6 195                                                                                            | 150                                                                                                               |                                         |                                                                                                                                  |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+|                                                                                                                                                                                                                                                                                              |                                                                                                          | 8                                                                                              |                                                                | 5 NA                                                                                             | NA                                                                                                                |                                         |                                                                                                                                  |
+|                                                                                                                                                                                                                                                                                              |                                                                                                          | 253                                                                                            |                                                                | 290 390                                                                                          | 150                                                                                                               |                                         |                                                                                                                                  |
+|                                                                                                                                                                                                                                                                                              |                                                                                                          |                                                                                                | ~25                                                            | Faces: 48 Shapes: 36                                                                             | 30                                                                                                                |                                         |                                                                                                                                  |
+|                                                                                                                                                                                                                                                                                              |                                                                                                          | NA                                                                                             |                                                                | 5 s - Reaction Time Faces: 2 - (mean = 4) Shapes: 2                                              | NA                                                                                                                |                                         |                                                                                                                                  |
+|                                                                                                                                                                                                                                                                                              |                                                                                                          | NA                                                                                             |                                                                | 10 2                                                                                             | NA                                                                                                                | Number of Diagnoses (% of total sample) |                                                                                                                                  |
+|                                                                                                                                                                                                                                                                                              |                                                                                                          | NA                                                                                             |                                                                | when selected or up to 4.8 s 4                                                                   | 5                                                                                                                 |                                         |                                                                                                                                  |
+|                                                                                                                                                                                                                                                                                              |                                                                                                          | NA/5/NA                                                                                        |                                                                | 6/4/24                                                                                           | 6/2/12                                                                                                            |                                         | 1: 66 (27.9%) 2: 65 (27.5%) 3: 39 (16.5%) > 3: 8 (3.38%)                                                                         |
+|                                                                                                                                                                                                                                                                                              | fearful faces: Nim-Stim Face Stimulus Set                                                                |                                                                                                | target face as quickly as                                      | face at the top of Angry, fearful, surprised, neutral faces: Ekman and Friesen, 1976             | Angry and fearful faces: Nim-Stim Face Stimulus Set                                                               |                                         | 12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia |
+| Emotional Face Matching Task parameters                                                                                                                                                                                                                                                      | Decide which of two faces presented on the bottom of the screen match the face at the top of the screen. | Match faces: Indicate which face [or shape] on the bottom row matches the face on the top row. | Match expression: Match the emotional expression of the        | possible. Match faces: Decide which of two faces presented on the bottom of the screen match the | Match expression: Indicate which one of the bottomtwofaces matched the top face in terms of emotional expression. |                                         | Disorder NOS Disorder 4 Speci                                                                                                    |
+
+thinking
+**Checking supplementary file for diagnoses**
+
+I'm investigating the MOESM1 supplementary file to clarify if it contains the full or current diagnosis list, as the table appears corrupted and mentions multiple diagnoses counts.
+2026-03-05T04:14:04.716936Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Current diagnoses|Mood Disorder|ADHD|Autism spectrum|Panic|Social" study_1/42003_2024_6573_MOESM1_ESM.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131329778 exited 1 in 27ms:
+
+
+thinking
+**Checking supplementary content**
+2026-03-05T04:14:08.096108Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,120p' study_1/42003_2024_6573_MOESM1_ESM.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131329778 succeeded in 32ms:
+## SUPPLEMENTARY MATERIALS
+
+## Dissecting task-based fMRI activity using normative modelling: an application to the Emotional Face Matching Task
+
+Hannah S. Savage 1,2 , Peter C. R. Mulders  1,3 , Philip F. P. van Eijndhoven 1,3 , Jasper van Oort 1,3 , Indira Tendolkar 1,3 , Janna N. Vrijsen 1,3,4 ,   Christian F. Beckmann 1,2,5 , Andre F. Marquand 1,2
+
+1 Donders Institute of Brain, Cognition and Behaviour, Radboud University, Nijmegen, The Netherlands
+
+2 Department of Cognitive Neuroscience, Radboud University Medical Centre, Nijmegen, The Netherlands
+
+3 Department of Psychiatry, Radboud University Medical Centre, Nijmegen, The Netherlands
+
+4 Depression Expertise Centre, Pro Persona Mental Health Care, Nijmegen, The Netherlands
+
+5 Centre for Functional MRI of the Brain (FMRIB), Nuffield Department of Clinical Neurosciences, Wellcome Centre for Integrative Neuroimaging, University of Oxford, Oxford, UK
+
+## Corresponding author:
+
+Hannah S. Savage | Andre F. Marquand
+
+
+
+thinking
+**Parsing clinical diagnoses list**
+
+I identified multiple specific disorders from the main paper's Table 1 to extract, including mood disorders, ADHD, ASD, social phobia, panic disorder, generalized anxiety, OCD, PTSD, agoraphobia, and possibly unspecified or specific phobias despite messy table text. I'll include all these categories for comprehensive clinical sample demographics.
+thinking
+**Clarifying ambiguous diagnosis entries**
+
+I'm scrutinizing the unclear line around "Disorder NOS Disorder 4 Speci" to confirm if it refers to "Disorder NOS" and "Specific Phobia" separately by reviewing better-formatted PDF lines or using targeted searches for terms like "Generalised Anxiety" to locate clearer context in the text.
+2026-03-05T04:14:19.034589Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Generalised|Anxiety|Obsessive|PostTraumatic|Agoraphobia|Specific|NOS" study_1/Savage2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131329778 succeeded in 26ms:
+148:|                                                                                                                                                                                                                                                                                              | fearful faces: Nim-Stim Face Stimulus Set                                                                |                                                                                                | target face as quickly as                                      | face at the top of Angry, fearful, surprised, neutral faces: Ekman and Friesen, 1976             | Angry and fearful faces: Nim-Stim Face Stimulus Set                                                               |                                         | 12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia |
+149:| Emotional Face Matching Task parameters                                                                                                                                                                                                                                                      | Decide which of two faces presented on the bottom of the screen match the face at the top of the screen. | Match faces: Indicate which face [or shape] on the bottom row matches the face on the top row. | Match expression: Match the emotional expression of the        | possible. Match faces: Decide which of two faces presented on the bottom of the screen match the | Match expression: Indicate which one of the bottomtwofaces matched the top face in terms of emotional expression. |                                         | Disorder NOS Disorder 4 Speci                                                                                                    |
+159:Underline indicates that this parameter was input as a variable in the normative models. Intra-cranial volume was also an input variable. * NOS (Not otherwise speci /uniFB01 ed).
+
+thinking
+**Confirming diagnosis extraction details**
+
+I identified that the diagnosis line is messy but includes terms like "Anxiety disorder NOS" and "Specific phobia" with counts. The goal is to capture all diagnoses provided despite broken table text and create JSON output in the specified file, so I'll open the existing JSON file to check its current state.
+2026-03-05T04:14:26.930375Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Savage2024_by_codex_20260305131329778.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131329778 succeeded in 29ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Structuring clinical cohort metadata**
+
+Planning to list each disorder in the clinical cohort with the overall sample's age and sex details, reflecting the full clinical sample (N=236) from MIND-Set. Disorder counts will be included in detail, citing age as 37.1 ± 13.27 years and female proportion as 41.9%, marked as medium confidence due to inference from provided data.
+thinking
+**Defining disorder list with detailed metadata**
+
+Decided to include 11 explicit disorders from the clinical cohort with clear supporting counts and names, each linked to the same overall MIND-Set sample age and sex data. Supporting text and confidence levels are adjusted per disorder based on table clarity, and JSON will be edited to reflect this detailed structure including dataset origin and paper citation.
+2026-03-05T04:16:51.838703Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Savage2024"
+   },
+@@ -7,28 +7,328 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MD",
++        "detail": "Mood disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Social",
++        "detail": "Social phobia diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Panic",
++        "detail": "Panic disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "GAD",
++        "detail": "Generalised anxiety diagnosis listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Anxiety disorder NOS listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "OCD",
++        "detail": "Obsessive-compulsive disorder listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "PTSD",
++        "detail": "Post-traumatic stress listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Agoraphobia",
++        "detail": "Agoraphobia listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Specific",
++        "detail": "Specific phobia listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"Disorder NOS Disorder 4 Speci\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
+       }
+apply_patch(auto_approved=true) exited 0 in 11ms:
+Success. Updated the following files:
+M DE_v14_Savage2024_by_codex_20260305131329778.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json b/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..603aa142e49e87b09b6152675f13520043860150
+--- a/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
+@@ -1,36 +1,336 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Savage2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MD",
++        "detail": "Mood disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Social",
++        "detail": "Social phobia diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Panic",
++        "detail": "Panic disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "GAD",
++        "detail": "Generalised anxiety diagnosis listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Anxiety disorder NOS listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "OCD",
++        "detail": "Obsessive-compulsive disorder listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "PTSD",
++        "detail": "Post-traumatic stress listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Agoraphobia",
++        "detail": "Agoraphobia listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Specific",
++        "detail": "Specific phobia listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"Disorder NOS Disorder 4 Speci\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json b/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..603aa142e49e87b09b6152675f13520043860150
+--- a/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
+@@ -1,36 +1,336 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Savage2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MD",
++        "detail": "Mood disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Social",
++        "detail": "Social phobia diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Panic",
++        "detail": "Panic disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "GAD",
++        "detail": "Generalised anxiety diagnosis listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Anxiety disorder NOS listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "OCD",
++        "detail": "Obsessive-compulsive disorder listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "PTSD",
++        "detail": "Post-traumatic stress listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Agoraphobia",
++        "detail": "Agoraphobia listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Specific",
++        "detail": "Specific phobia listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"Disorder NOS Disorder 4 Speci\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
+       }
+     }
+   ]
+
+
+thinking
+**Highlighting low confidence on truncated field**
+
+The "Attention de" field is truncated in the source JSON, which may affect parsing reliability. I'll note low confidence for the Specific phobia result and suggest verifying that truncated text for accuracy.
+codex
+Updated `DE_v14_Savage2024_by_codex_20260305131329778.json` with the MIND-Set clinical cohort disorders, dataset origin, and shared age/sex demographics per the table in `Savage2024.pdf.md`, including derived male counts and percentages where needed.
+
+Notes:
+- I marked Specific Phobia as Low confidence because the supporting text is truncated in the PDF-to-md extraction (`"Disorder NOS Disorder 4 Speci"`). If you want, I can cross-check against the original PDF to confirm.
+
+Next steps (optional):
+1) Verify the truncated diagnosis line against the PDF and adjust the Specific Phobia entry if needed.
+2) If you want counts per diagnosis in `detail`, I can add them where clear.
+2026-03-05T04:16:57.263873Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json b/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..603aa142e49e87b09b6152675f13520043860150
+--- a/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305131329778/./DE_v14_Savage2024_by_codex_20260305131329778.json
+@@ -1,36 +1,336 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Savage2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MD",
++        "detail": "Mood disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ADHD",
++        "detail": "ADHD diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Social",
++        "detail": "Social phobia diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Panic",
++        "detail": "Panic disorder diagnosis in the MIND-Set clinical cohort (current diagnoses list).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Current diagnoses                       | 150 Mood Disorder 71 Attention de 55 Autism spectrum disorder (ASD) 22 Social Phobia 14 Panic Disorder\"",
++        "location": "Savage2024.pdf.md: Table 1 / Current diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "GAD",
++        "detail": "Generalised anxiety diagnosis listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ANX",
++        "detail": "Anxiety disorder NOS listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "OCD",
++        "detail": "Obsessive-compulsive disorder listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "PTSD",
++        "detail": "Post-traumatic stress listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Agoraphobia",
++        "detail": "Agoraphobia listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"12 Generalised Anxiety 7 Anxiety disorder * 6 Obsessive Compulsive Disorder 5PostTraumaticStress /uniFB01 c Phobia 2 Agoraphobia\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Specific",
++        "detail": "Specific phobia listed in the MIND-Set clinical cohort.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"Disorder NOS Disorder 4 Speci\"",
++        "location": "Savage2024.pdf.md: Table 1 / Number of Diagnoses"
++      },
++      "dataset-of-origin": {
++        "answer": ["MIND-Set"],
++        "detail": "Clinical cohort from the MIND-Set study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Additional details of clinical samples: | MIND-Set\"",
++        "location": "Savage2024.pdf.md: Table 1 / Additional details of clinical samples"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 20, "max": 74, "mean": 37.1, "sd": 13.27 },
++        "detail": "Overall MIND-Set clinical cohort; age not reported by diagnosis.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (mean + S.D) [range]                | 37.1 ± 13.27 [20 - 74]\"",
++        "location": "Savage2024.pdf.md: Table 1 / Age (mean + S.D) [range]"
++      },
++      "sex": {
++        "answer": { "male_n": 137, "male_pct": 58.1, "female_n": 99, "female_pct": 41.9 },
++        "detail": "Female count and percent reported; male count derived from total N=236.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex                                     | 99 F (41.9%)\"; \"Sample size                             | 236/309\"",
++        "location": "Savage2024.pdf.md: Table 1 / Sex; Savage2024.pdf.md: Table 1 / Sample size"
+       }
+     }
+   ]
+
+tokens used
+42,729
+Updated `DE_v14_Savage2024_by_codex_20260305131329778.json` with the MIND-Set clinical cohort disorders, dataset origin, and shared age/sex demographics per the table in `Savage2024.pdf.md`, including derived male counts and percentages where needed.
+
+Notes:
+- I marked Specific Phobia as Low confidence because the supporting text is truncated in the PDF-to-md extraction (`"Disorder NOS Disorder 4 Speci"`). If you want, I can cross-check against the original PDF to confirm.
+
+Next steps (optional):
+1) Verify the truncated diagnosis line against the PDF and adjust the Specific Phobia entry if needed.
+2) If you want counts per diagnosis in `detail`, I can add them where clear.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

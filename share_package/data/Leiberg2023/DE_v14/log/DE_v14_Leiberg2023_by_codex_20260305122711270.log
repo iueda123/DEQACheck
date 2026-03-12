@@ -1,0 +1,739 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Leiberg2023_by_codex_20260305122711270.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc09-0818-7350-92cd-1eb8222657c9
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Leiberg2023_by_codex_20260305122711270.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Deciding how to read guide**
+
+Considering whether to use a search tool or directly open the guide file to read its contents.
+2026-03-05T03:27:16.741488Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270 succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Leiberg2023_by_codex_20260305122711270.json
+DE_v14_Leiberg2023_by_codex_20260305122711270.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051227112702026-03-05T03:27:18.966887Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Searching for study papers**
+
+I'm locating and listing papers within the study_1 directory to understand the process details.
+2026-03-05T03:27:21.808873Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270 succeeded in 31ms:
+1-s2.0-S0010945223001351-mmc1.pdf.md
+1-s2.0-S0010945223001351-mmc1_artifacts
+Leiberg2023.pdf.md
+Leiberg2023_artifacts
+
+thinking
+**Opening paper markdown file**
+2026-03-05T03:27:24.896049Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patient|schiz|depress|bipolar|autism|ADHD|MDD|BD|psych" study_1/Leiberg2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270 succeeded in 29ms:
+41:We studied 101 individuals with TLE (55 left, 46 right onset) who underwent ATLR. For each individual we considered one pre-surgical MRI and one follow-up MRI 2 e 13 months after surgery. We used a surface-based method to locally compute traditional morphological variables, and the independent measures K , I , and S , where K measures white matter tension, I captures isometric scaling, and S contains the remaining information about cortical shape. A normative model trained on data from 924 healthy controls was used to debias the data and account for healthy ageing effects occurring during scans. A SurfStat random field theory clustering approach assessed changes across the cortex caused by ATLR.
+81:Here, k is a constant that is relatively preserved across species compared to the range of variation in the traditional morphological measures T , At , and Ae , but shows consistent changes across age groups and between cohorts of healthy and diseased subjects (Mota &amp; Herculano-Houzel, 2015; Wang et al., 2016, 2019). This interdependence of the traditional morphological measures means that their interaction must be considered when studying effects in this framework. We use
+103:We used 3T T1-weighted structural magnetic resonance images (MRIs) of 101 individuals with TLE who underwent ATLRattheNational Hospital for Neurology and Neurosurgery (NHNN). The analysis was carried out under approval by the Newcastle University Ethics Committee (8841/2020). No part of the study procedures or analyses were pre-registered prior to the research being conducted. We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy. For each subject we analysed an image acquired up to three years before surgery and one follow-up scan 2 e 13 months (median ¼ 3.6 months) after surgery. If patients had more than one follow-up scan, we used the one closest to surgery. MRI scans were taken under two different scanning protocols: 52 subjects were scanned with a resolution of .94 /C2 0.94 /C2 1.1 mm (scanning protocol 1; for detailed acquisition parameters see Nowell et al. (2016)) and the remaining 49 with 1 /C2 1x1mm (scanning protocol 2; for detailed acquisition parameters see Vos et al. (2020)). Surgery outcomes were recorded 12 months after surgery according to the ILAE classification of seizure outcome (Wieser et al., 2001). We also used MR images of crosssectional cohorts of 924 healthy controls, 91 of which were taken together with patients. Specifically, 22 were taken with scanning protocol 1 and 69 with scanning protocol 2 at the NHNN. The remaining 833 controls are subjects from the Nathan Kline Institute (NKI) data set (Nooner et al., 2012). 96 other subjects of the NKI data set were rejected prior to the analysis due to inadequate image quality and motion artifacts. Table 1 shows the demographics of the data used.
+141:After registering all subjects to the FreeSurfer fsaverage surface and performing a log transform of the three traditional morphological measures p T , p A 0 t , and p A 0 e , we performed a correction of these measures based on a normative model of the controls using generalised additive mixed models (GAMM) for each patch on the cortical surface. This correction accounts for differences due to age, sex, and scanning protocol. Wedid this with the R package mgcv (https://CRAN.R-project. org/package ¼ mgcv). We trained a model with the formula
+151:restricted maximum likelihood as the method for smoothing parameter estimation. We used the controls to provide a normative model of age and sex with scanning protocol as a random effect. Even though the large NKI data set did not match the patients in scanning protocol, we used them for training to ensure we had robust models for the entire age range, given that the site-specific control data sets were relatively small (Rutherford et al., 2023). The site-specific controls matching the patients then informed effects for the specific scanning protocols. We used the control data processed without/with the temporal lobes for correcting the ipsilateral/ contralateral sides respectively by predicting the values of individuals with TLE both in pre- and postoperative data and using those predictions for correcting the individuals ' data. Note how this automatically accounts for changes to the brain's morphology that occur due to healthy ageing between the time points of the pre- and postoperative scans.
+189:We first verified that the local folding in individuals with TLE follows the universal scaling law. As shown in Fig. 3, the slopes of each subject's hemispheres are distributed around a mean of 1.246, indicating that the scaling law also applies to our cohort of individuals with TLE.
+303:Foldvary-Schaefer, N., &amp; Wyllie, E. (2007). In C. G. Goetz (Ed.) (3rd ed., Textbook of clinical neurologyChapter 52 - epilepsy (pp. 1213 e 1244). W.B. Saunders. https://doi.org/10.1016/B978141603618-0.10052-9.
+307:Garcia-Ramos, C., Nair, V., Maganti, R., Mathis, J., Conant, L. L., Prabhakaran, V., &amp; Struck, A. F. (2022). Network phenotypes and their clinical significance in temporal lobe epilepsy using machine learning applications to morphological and functional graph theory metrics. aug Scientific Reports, 12 (1), 1 e 12. https://doi.org/10.1038/s41598-022-18495-z.
+319:- Nooner, K. B., Colcombe, S. J., Tobe, R. H., Mennes, M., Benedict, M. M., Moreno, A. L., … Milham, M. P. (2012). The NKI-rockland sample: A model for accelerating the pace of discovery science in psychiatry. The Florida Nurse, 6 . https:// doi.org/10.3389/fnins.2012.00152
+326:- Rutherford, S., Barkema, P., Tso, I. F., Sripada, C., Beckmann, C., Ruhe, H. G., &amp; Marquand, A. F. (2023). Evidence for embracing normative modeling. eLife, 12 , 1 e 24. https://doi.org/10.7554/ eLife.85082
+
+thinking
+**Preparing demographics table**
+2026-03-05T03:27:27.958476Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table 1|Demographics|age|sex|female|male" study_1/Leiberg2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270 succeeded in 24ms:
+1:![Image](./Leiberg2023_artifacts/image_000000_e8931b0ca04a0fb407e342a12e8eeba11bf4526ce69b46b73c250dd4614cea10.png)
+21:g Centre for Medical Image Computing, University College London, London, UK
+41:We studied 101 individuals with TLE (55 left, 46 right onset) who underwent ATLR. For each individual we considered one pre-surgical MRI and one follow-up MRI 2 e 13 months after surgery. We used a surface-based method to locally compute traditional morphological variables, and the independent measures K , I , and S , where K measures white matter tension, I captures isometric scaling, and S contains the remaining information about cortical shape. A normative model trained on data from 924 healthy controls was used to debias the data and account for healthy ageing effects occurring during scans. A SurfStat random field theory clustering approach assessed changes across the cortex caused by ATLR.
+51:Journal homepage: www.elsevier.com/locate/cortex
+53:![Image](./Leiberg2023_artifacts/image_000001_f0f49b0b6b7d1bc56e1fe1e8feb8e7c944c23834db6b04d7e1d704050d8b167e.png)
+55:![Image](./Leiberg2023_artifacts/image_000002_964463f689a126101f49683a65d487c6cae2c2b8ca0a30e2df53fe96975b22ad.png)
+61:The effect of surgery on the cortical morphology of the remaining brain could inform how neighbouring, or connected regions affect each other's morphology, and the processes of postoperative plasticity. Previous studies found widespread, bilateral changes to cortical thickness (Elias et al., 2021; Galovic et al., 2020; Li et al., 2022; Zhao et al., 2021) or volume (Pajkert et al., 2020). However, these studies had relatively small sample sizes (between 12 and 56 subjects), and there is little overlap in regions identified as affected by morphological changes between the studies. In fact, some of these studies found conflicting effects, such as increased (Elias et al., 2021) or decreased (Galovic et al., 2020) cortical thickness in the contralateral anterior and middle cingulate cortex. ATLR has also been associated with altered white matter tract properties (Concha et al., 2007; da Silva et al., 2020; Faber et al., 2013; McDonald et al., 2010; Pustina et al., 2014; Winston et al., 2013), particularly the ipsilateral uncinate fasciculus, inferior longitudinal, inferior fronto-occipital fasciculi, optic radiation, cingulum, fornix, and the corpus callosum; these alterations may also differ in individuals rendered seizure free and those experiencing seizures after surgery (da Silva et al., 2020). Other studies have found widespread reductions in functional connectivity after surgery compared to healthy controls in connections that were not different to controls before surgery (Morgan et al., 2020), as well as dissimilar functional reorganisation for individuals rendered seizure free and individuals with recurrent seizures (Liao et al., 2016). Finally, 25 e 50% of individuals with TLE experience significant declines in memory and language functions after ATLR (Davies et al., 1998; Martin et al., 1998), and postoperative changes in white matter are reported to be associated with recovery of language function (Winston et al., 2013; Yogarajah et al., 2010). However, in terms of brain morphology, the spatial characteristics of postoperative changes and their relationship with seizure and cognitive outcomes are currently not clear.
+69:(Panizzon et al., 2009). Further, the measures of average cortical thickness ( T ), total surface area ( At ), and exposed surface area ( Ae ) covary tightly across species, individuals, and regions (Mota &amp; Herculano-Houzel, 2015; Wang et al., 2016, 2019) according to a scaling law of cortical folding. More recently developed morphological measures were presented by Wang et al., (2021). That study showed that traditional morphological measures can miss substantial information about cortical shape, and suggested alternative morphological measures of tension ( K ), isometric size ( I ), and shape ( S ). These morphological measures are theoretically and statistically independent, capture all morphological information in T , At and Ae , and can detect morphological changes that might otherwise not be detected due to the covariance of the traditional variables.
+77:We performed a morphological analysis in the recently developed framework (Wang et al., 2021) to study cortical morphology based on the universal scaling law of cortical folding. This law states that across mammalian species (Mota &amp; Herculano-Houzel, 2015), individual human brains (Wang et al., 2016), their lobes (Wang et al., 2019), and small local areas (Leiberg et al., 2021), the average cortical thickness T , the total surface area At , and the exposed surface area Ae covary according to the equation
+81:Here, k is a constant that is relatively preserved across species compared to the range of variation in the traditional morphological measures T , At , and Ae , but shows consistent changes across age groups and between cohorts of healthy and diseased subjects (Mota &amp; Herculano-Houzel, 2015; Wang et al., 2016, 2019). This interdependence of the traditional morphological measures means that their interaction must be considered when studying effects in this framework. We use
+89:![Image](./Leiberg2023_artifacts/image_000003_c35f16c45930030c942f3a91910bbccb25f955f1a2e3669f847a5416c637922f.png)
+103:We used 3T T1-weighted structural magnetic resonance images (MRIs) of 101 individuals with TLE who underwent ATLRattheNational Hospital for Neurology and Neurosurgery (NHNN). The analysis was carried out under approval by the Newcastle University Ethics Committee (8841/2020). No part of the study procedures or analyses were pre-registered prior to the research being conducted. We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy. For each subject we analysed an image acquired up to three years before surgery and one follow-up scan 2 e 13 months (median ¼ 3.6 months) after surgery. If patients had more than one follow-up scan, we used the one closest to surgery. MRI scans were taken under two different scanning protocols: 52 subjects were scanned with a resolution of .94 /C2 0.94 /C2 1.1 mm (scanning protocol 1; for detailed acquisition parameters see Nowell et al. (2016)) and the remaining 49 with 1 /C2 1x1mm (scanning protocol 2; for detailed acquisition parameters see Vos et al. (2020)). Surgery outcomes were recorded 12 months after surgery according to the ILAE classification of seizure outcome (Wieser et al., 2001). We also used MR images of crosssectional cohorts of 924 healthy controls, 91 of which were taken together with patients. Specifically, 22 were taken with scanning protocol 1 and 69 with scanning protocol 2 at the NHNN. The remaining 833 controls are subjects from the Nathan Kline Institute (NKI) data set (Nooner et al., 2012). 96 other subjects of the NKI data set were rejected prior to the analysis due to inadequate image quality and motion artifacts. Table 1 shows the demographics of the data used.
+107:Table 1 e Demographics of individuals with TLE and controls. * ILAE scale for classification of outcome of epilepsy surgery.
+125:We employed our previously published pipeline (Fig. 2) (Leiberg et al., 2021). In summary: we first downsampled the FreeSurfer pial surface to 5% of its original density. We then defined a contiguous surface patch of 3 cm radius surrounding each point in the pial. We closed potential holes in the patch which can arise at the top of gyri or the bottom of sulci. We computed the pointwise average cortical thickness ð p T Þ and total surface area ð p At Þ from this patch around each point.
+139:## 2.5. Age, sex and scanning protocol correction
+141:After registering all subjects to the FreeSurfer fsaverage surface and performing a log transform of the three traditional morphological measures p T , p A 0 t , and p A 0 e , we performed a correction of these measures based on a normative model of the controls using generalised additive mixed models (GAMM) for each patch on the cortical surface. This correction accounts for differences due to age, sex, and scanning protocol. Wedid this with the R package mgcv (https://CRAN.R-project. org/package ¼ mgcv). We trained a model with the formula
+147:Fig. 2 e Method to extract local morphological measures. a) Definition of neighbourhood of connected vertices within 3 cm around each point. b) Computation of average thickness p T and total area p At of patch. c) Computation of exposed area p Ae of the patch.
+149:![Image](./Leiberg2023_artifacts/image_000004_c7f0468e953985227240da0e2018d731f61e2a153ccbc724fa1648aeed599fd9.png)
+151:restricted maximum likelihood as the method for smoothing parameter estimation. We used the controls to provide a normative model of age and sex with scanning protocol as a random effect. Even though the large NKI data set did not match the patients in scanning protocol, we used them for training to ensure we had robust models for the entire age range, given that the site-specific control data sets were relatively small (Rutherford et al., 2023). The site-specific controls matching the patients then informed effects for the specific scanning protocols. We used the control data processed without/with the temporal lobes for correcting the ipsilateral/ contralateral sides respectively by predicting the values of individuals with TLE both in pre- and postoperative data and using those predictions for correcting the individuals ' data. Note how this automatically accounts for changes to the brain's morphology that occur due to healthy ageing between the time points of the pre- and postoperative scans.
+155:The traditional measures p T , p A 0 t , and p A 0 e were then converted to a set of independent morphological measures (section 2.1) in each patch, to account for the covariance in the traditional measures. We transformed the data, which had been corrected for the covariates age, sex, and scanning protocol, to the independent morphological measures K , I , and S according to their formulae
+
+thinking
+**Planning demographic extraction from table image**
+
+I'm targeting the image file named with "image_000000" that likely contains the demographics table and will use a view image function to analyze and extract the relevant data.
+2026-03-05T03:27:31.614603Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/study_1/Leiberg2023_artifacts/image_000000_e8931b0ca04a0fb407e342a12e8eeba11bf4526ce69b46b73c250dd4614cea10.png
+
+thinking
+**Noting image table usage**
+
+Identified the need to use the image_000001 table or similar and confirmed the use of the view_image for this purpose.
+2026-03-05T03:27:35.725718Z ERROR codex_core::codex: needs_follow_up: true
+
+thinking
+**Requesting artifact list**
+2026-03-05T03:27:38.198263Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1/Leiberg2023_artifacts' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270 succeeded in 26ms:
+image_000000_e8931b0ca04a0fb407e342a12e8eeba11bf4526ce69b46b73c250dd4614cea10.png
+image_000001_f0f49b0b6b7d1bc56e1fe1e8feb8e7c944c23834db6b04d7e1d704050d8b167e.png
+image_000002_964463f689a126101f49683a65d487c6cae2c2b8ca0a30e2df53fe96975b22ad.png
+image_000003_c35f16c45930030c942f3a91910bbccb25f955f1a2e3669f847a5416c637922f.png
+image_000004_c7f0468e953985227240da0e2018d731f61e2a153ccbc724fa1648aeed599fd9.png
+image_000005_d529864419463d4a91945a684a8f822ef491238311c264b38c437242d37cd439.png
+image_000006_9bc58c3316eb8907cce21a2ce6d669c00c2d43625fbf1a3b6b2d90ffe11af44e.png
+image_000007_7b793447dbd0ba5ef2922209b64ea2649dc5b6569127f5031c3a0ab98602e75e.png
+
+thinking
+**Reusing image view approach**
+2026-03-05T03:27:41.647268Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/study_1/Leiberg2023_artifacts/image_000001_f0f49b0b6b7d1bc56e1fe1e8feb8e7c944c23834db6b04d7e1d704050d8b167e.png
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/study_1/Leiberg2023_artifacts/image_000002_964463f689a126101f49683a65d487c6cae2c2b8ca0a30e2df53fe96975b22ad.png
+2026-03-05T03:27:44.753390Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table 1" -n study_1/Leiberg2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051227112702026-03-05T03:27:47.261915Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+103:We used 3T T1-weighted structural magnetic resonance images (MRIs) of 101 individuals with TLE who underwent ATLRattheNational Hospital for Neurology and Neurosurgery (NHNN). The analysis was carried out under approval by the Newcastle University Ethics Committee (8841/2020). No part of the study procedures or analyses were pre-registered prior to the research being conducted. We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy. For each subject we analysed an image acquired up to three years before surgery and one follow-up scan 2 e 13 months (median ¼ 3.6 months) after surgery. If patients had more than one follow-up scan, we used the one closest to surgery. MRI scans were taken under two different scanning protocols: 52 subjects were scanned with a resolution of .94 /C2 0.94 /C2 1.1 mm (scanning protocol 1; for detailed acquisition parameters see Nowell et al. (2016)) and the remaining 49 with 1 /C2 1x1mm (scanning protocol 2; for detailed acquisition parameters see Vos et al. (2020)). Surgery outcomes were recorded 12 months after surgery according to the ILAE classification of seizure outcome (Wieser et al., 2001). We also used MR images of crosssectional cohorts of 924 healthy controls, 91 of which were taken together with patients. Specifically, 22 were taken with scanning protocol 1 and 69 with scanning protocol 2 at the NHNN. The remaining 833 controls are subjects from the Nathan Kline Institute (NKI) data set (Nooner et al., 2012). 96 other subjects of the NKI data set were rejected prior to the analysis due to inadequate image quality and motion artifacts. Table 1 shows the demographics of the data used.
+107:Table 1 e Demographics of individuals with TLE and controls. * ILAE scale for classification of outcome of epilepsy surgery.
+2026-03-05T03:27:50.444727Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/study_1/Leiberg2023_artifacts/image_000003_c35f16c45930030c942f3a91910bbccb25f955f1a2e3669f847a5416c637922f.png
+
+thinking
+**Checking for needed table images**
+2026-03-05T03:27:53.765658Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/study_1/Leiberg2023_artifacts/image_000004_c7f0468e953985227240da0e2018d731f61e2a153ccbc724fa1648aeed599fd9.png
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/study_1/Leiberg2023_artifacts/image_000005_d529864419463d4a91945a684a8f822ef491238311c264b38c437242d37cd439.png
+2026-03-05T03:27:59.740385Z ERROR codex_core::codex: needs_follow_up: true
+2026-03-05T03:28:05.444077Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/study_1/Leiberg2023_artifacts/image_000006_9bc58c3316eb8907cce21a2ce6d669c00c2d43625fbf1a3b6b2d90ffe11af44e.png
+2026-03-05T03:28:09.026863Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/study_1/Leiberg2023_artifacts/image_000007_7b793447dbd0ba5ef2922209b64ea2649dc5b6569127f5031c3a0ab98602e75e.png
+
+thinking
+**Locating demographics in supplement**
+
+Planning to check the supplement mmc1 PDF markdown for the required table on demographics.
+exec
+/bin/bash -lc 'rg -n "Table 1|Demographics|Age|Sex|Female|Male|TLE" study_1/1-s2.0-S0010945223001351-mmc1.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051227112702026-03-05T03:28:13.860932Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 32ms:
+18:Table 1: Average effect sizes f 2 . Decreases are shown as negative effects. Bold font indicates the cluster effect was statistically significant at 5%.
+
+
+thinking
+**Determining dataset origin and demographics status**
+
+Demographics like age/sex likely aren't extracted since they may be only in a PDF image; we'll mark them as not reported. The dataset is from two sites (NHNN and Chalfont Centre), so we'll tag dataset origin as MULTI-SITE (N≥2). The disorder is TLE, confirmed applied with normative modeling on clinical cohort data.
+thinking
+**Checking markdown for demographics data**
+
+I'm inspecting the markdown near line 107 around the table area to see if demographics text is present or missing.
+exec
+/bin/bash -lc "sed -n '90,130p' study_1/Leiberg2023.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051227112702026-03-05T03:28:28.341194Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+
+shape that is not captured in K or I , and is a measure of complexity in cortical folding. The three new measures span orthogonal vectors in the three-dimensional morphological space of T 2 , At , and Ae , and hence using K , I , and S is simply a change of coordinate systems:
+
+<!-- formula-not-decoded -->
+
+<!-- formula-not-decoded -->
+
+<!-- formula-not-decoded -->
+
+## 2.2. Data &amp; preprocessing
+
+We report how we determined our sample size, all data exclusions, all inclusion/exclusion criteria, whether inclusion/ exclusion criteria were established prior to data analysis, all manipulations, and all measures in the study.
+
+We used 3T T1-weighted structural magnetic resonance images (MRIs) of 101 individuals with TLE who underwent ATLRattheNational Hospital for Neurology and Neurosurgery (NHNN). The analysis was carried out under approval by the Newcastle University Ethics Committee (8841/2020). No part of the study procedures or analyses were pre-registered prior to the research being conducted. We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy. For each subject we analysed an image acquired up to three years before surgery and one follow-up scan 2 e 13 months (median ¼ 3.6 months) after surgery. If patients had more than one follow-up scan, we used the one closest to surgery. MRI scans were taken under two different scanning protocols: 52 subjects were scanned with a resolution of .94 /C2 0.94 /C2 1.1 mm (scanning protocol 1; for detailed acquisition parameters see Nowell et al. (2016)) and the remaining 49 with 1 /C2 1x1mm (scanning protocol 2; for detailed acquisition parameters see Vos et al. (2020)). Surgery outcomes were recorded 12 months after surgery according to the ILAE classification of seizure outcome (Wieser et al., 2001). We also used MR images of crosssectional cohorts of 924 healthy controls, 91 of which were taken together with patients. Specifically, 22 were taken with scanning protocol 1 and 69 with scanning protocol 2 at the NHNN. The remaining 833 controls are subjects from the Nathan Kline Institute (NKI) data set (Nooner et al., 2012). 96 other subjects of the NKI data set were rejected prior to the analysis due to inadequate image quality and motion artifacts. Table 1 shows the demographics of the data used.
+
+MRI scans were preprocessed with the FreeSurfer (Fischl, 2012) 6.0 recon-all pipeline, which produces a mesh representation of the grey matter surface, along with the grey matter thickness for each point on the grey matter surface. We manually corrected the grey- and white matter segmentation by using control points and corrected grey matter boundaries where necessary. The local gyrification index processing stream (https://surfer.nmr.mgh.harvard.edu/ fswiki/LGI) was then used to acquire the smooth pial
+
+Table 1 e Demographics of individuals with TLE and controls. * ILAE scale for classification of outcome of epilepsy surgery.
+
+|                                                                       | Left TLE   | Right TLE    | Controls   |
+
+thinking
+**Calculating and summarizing sex distribution**
+
+I'm totaling male and female counts across left/right TLE groups to find combined percentages and noting age data is not reported; next, I'll update the JSON output with these derived statistics and include dataset and paper metadata.
+exec
+/bin/bash -lc 'cat DE_v14_Leiberg2023_by_codex_20260305122711270.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051227112702026-03-05T03:28:36.973107Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Detailing answer object structure and supporting text**
+
+I'm defining answer objects for age and sex with units or "NR" for no response and including exact supporting text from Table 1 and methods section. I'll locate references precisely in Leiberg2023.pdf.md and edit with apply_patch.
+2026-03-05T03:28:57.673349Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Leiberg2023"
+   },
+@@ -7,28 +7,35 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "TLE",
++        "detail": "Temporal lobe epilepsy clinical cohort (left/right onset) undergoing ATLR.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied 101 individuals with TLE (55 left, 46 right onset) who underwent ATLR.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Participants scanned at NHNN or Chalfont Centre for Epilepsy (two sites).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Age statistics for the TLE cohort not reported in accessible text/table.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"Table 1 e Demographics of individuals with TLE and controls.\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 40,
++          "male_pct": 39.6,
++          "female_n": 61,
++          "female_pct": 60.4
++        },
++        "detail": "Counts summed across left/right TLE from Table 1 (M/F: 24/31 and 16/30). Percentages calculated from total N=101.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Sex (M/F)                                                             | 24/31      | 16/30        | 362/562\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..312ec8a56fb473d8304746604fa31cc8ee04d380
+--- a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+@@ -1,36 +1,43 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Leiberg2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "TLE",
++        "detail": "Temporal lobe epilepsy clinical cohort (left/right onset) undergoing ATLR.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied 101 individuals with TLE (55 left, 46 right onset) who underwent ATLR.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Participants scanned at NHNN or Chalfont Centre for Epilepsy (two sites).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Age statistics for the TLE cohort not reported in accessible text/table.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"Table 1 e Demographics of individuals with TLE and controls.\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 40,
++          "male_pct": 39.6,
++          "female_n": 61,
++          "female_pct": 60.4
++        },
++        "detail": "Counts summed across left/right TLE from Table 1 (M/F: 24/31 and 16/30). Percentages calculated from total N=101.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Sex (M/F)                                                             | 24/31      | 16/30        | 362/562\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..312ec8a56fb473d8304746604fa31cc8ee04d380
+--- a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+@@ -1,36 +1,43 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Leiberg2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "TLE",
++        "detail": "Temporal lobe epilepsy clinical cohort (left/right onset) undergoing ATLR.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied 101 individuals with TLE (55 left, 46 right onset) who underwent ATLR.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Participants scanned at NHNN or Chalfont Centre for Epilepsy (two sites).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Age statistics for the TLE cohort not reported in accessible text/table.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"Table 1 e Demographics of individuals with TLE and controls.\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 40,
++          "male_pct": 39.6,
++          "female_n": 61,
++          "female_pct": 60.4
++        },
++        "detail": "Counts summed across left/right TLE from Table 1 (M/F: 24/31 and 16/30). Percentages calculated from total N=101.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Sex (M/F)                                                             | 24/31      | 16/30        | 362/562\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Refining age info with exact text**
+
+I'm confirming the cohort age range is exactly 19-60 years as stated, so I'll update the age data to include min=19, max=60, and specify the unit as years, using the supporting text from line 255 to ensure accuracy.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+@@ -23,7 +23,13 @@
+       "age": {
+-        "answer": "NR",
+-        "detail": "Age statistics for the TLE cohort not reported in accessible text/table.",
+-        "confidence_rating": "Low",
+-        "supporting_text": "\"Table 1 e Demographics of individuals with TLE and controls.\"",
+-        "location": "Leiberg2023.pdf.md: Table 1"
++        "answer": {
++          "unit": "years",
++          "min": 19,
++          "max": 60,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported in text; mean/SD not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"subjects in our study were in an age range of 19 e 60 years\"",
++        "location": "Leiberg2023.pdf.md: Discussion"
+       },
+2026-03-05T03:29:06.789132Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..0ed9b94f743b669d98b454b18228b6ef57b1b93d
+--- a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Leiberg2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "TLE",
++        "detail": "Temporal lobe epilepsy clinical cohort (left/right onset) undergoing ATLR.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied 101 individuals with TLE (55 left, 46 right onset) who underwent ATLR.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Participants scanned at NHNN or Chalfont Centre for Epilepsy (two sites).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 19,
++          "max": 60,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported in text; mean/SD not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"subjects in our study were in an age range of 19 e 60 years\"",
++        "location": "Leiberg2023.pdf.md: Discussion"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 40,
++          "male_pct": 39.6,
++          "female_n": 61,
++          "female_pct": 60.4
++        },
++        "detail": "Counts summed across left/right TLE from Table 1 (M/F: 24/31 and 16/30). Percentages calculated from total N=101.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Sex (M/F)                                                             | 24/31      | 16/30        | 362/562\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..0ed9b94f743b669d98b454b18228b6ef57b1b93d
+--- a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Leiberg2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "TLE",
++        "detail": "Temporal lobe epilepsy clinical cohort (left/right onset) undergoing ATLR.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied 101 individuals with TLE (55 left, 46 right onset) who underwent ATLR.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Participants scanned at NHNN or Chalfont Centre for Epilepsy (two sites).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 19,
++          "max": 60,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported in text; mean/SD not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"subjects in our study were in an age range of 19 e 60 years\"",
++        "location": "Leiberg2023.pdf.md: Discussion"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 40,
++          "male_pct": 39.6,
++          "female_n": 61,
++          "female_pct": 60.4
++        },
++        "detail": "Counts summed across left/right TLE from Table 1 (M/F: 24/31 and 16/30). Percentages calculated from total N=101.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Sex (M/F)                                                             | 24/31      | 16/30        | 362/562\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming discussion section location**
+
+The discussion is likely within the main text around line 255, possibly in results or discussion sections. I'll note the edited file and suggest validating as an optional next step with brief explanation and context.
+codex
+TLE clinical cohort info extracted and filled into the output JSON, including dataset origin, age range, and sex counts with computed percentages based on Table 1. Updated clinical cohort context and citations from `Leiberg2023.pdf.md` in the output file.
+
+- Updated `DE_v14_Leiberg2023_by_codex_20260305122711270.json` with paper ID, TLE disorder details, dataset origin, age range, and sex breakdown.
+- Sex counts aggregated across left/right TLE groups with percentages calculated from total N=101.
+- Age range sourced from the discussion text since mean/SD were not reported.
+
+Next steps you may want:
+1. Verify the age range statement in `study_1/Leiberg2023.pdf.md` for any more precise demographics.
+2. Run any downstream validation script if your pipeline expects strict schema checks.
+2026-03-05T03:29:14.874008Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..0ed9b94f743b669d98b454b18228b6ef57b1b93d
+--- a/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305122711270/DE_v14_Leiberg2023_by_codex_20260305122711270.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Leiberg2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "TLE",
++        "detail": "Temporal lobe epilepsy clinical cohort (left/right onset) undergoing ATLR.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied 101 individuals with TLE (55 left, 46 right onset) who underwent ATLR.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Participants scanned at NHNN or Chalfont Centre for Epilepsy (two sites).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We included individuals with TLE in our study that received a preoperative and postoperative T1-weighted MRI scan between 2010 and 2018 at NHNN or Chalfont Centre for Epilepsy.\"",
++        "location": "Leiberg2023.pdf.md: 2.2. Data & preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 19,
++          "max": 60,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "Age range reported in text; mean/SD not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"subjects in our study were in an age range of 19 e 60 years\"",
++        "location": "Leiberg2023.pdf.md: Discussion"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 40,
++          "male_pct": 39.6,
++          "female_n": 61,
++          "female_pct": 60.4
++        },
++        "detail": "Counts summed across left/right TLE from Table 1 (M/F: 24/31 and 16/30). Percentages calculated from total N=101.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Sex (M/F)                                                             | 24/31      | 16/30        | 362/562\"",
++        "location": "Leiberg2023.pdf.md: Table 1"
+       }
+     }
+   ]
+
+tokens used
+53,197
+TLE clinical cohort info extracted and filled into the output JSON, including dataset origin, age range, and sex counts with computed percentages based on Table 1. Updated clinical cohort context and citations from `Leiberg2023.pdf.md` in the output file.
+
+- Updated `DE_v14_Leiberg2023_by_codex_20260305122711270.json` with paper ID, TLE disorder details, dataset origin, age range, and sex breakdown.
+- Sex counts aggregated across left/right TLE groups with percentages calculated from total N=101.
+- Age range sourced from the discussion text since mean/SD were not reported.
+
+Next steps you may want:
+1. Verify the age range statement in `study_1/Leiberg2023.pdf.md` for any more precise demographics.
+2. Run any downstream validation script if your pipeline expects strict schema checks.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,493 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Laidi2022_by_codex_20260305121945996.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121945996/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc02-3cd1-76e2-b15d-1b245bd8af67
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Laidi2022_by_codex_20260305121945996.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Choosing file reading method**
+
+Considering between using ripgrep or simply reading the instructions file directly with cat for efficiency and simplicity.
+2026-03-05T03:19:51.898678Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121945996 succeeded in 21ms:
+DE_Guide_v14.md
+DE_v14_Laidi2022_by_codex_20260305121945996.json
+DE_v14_Laidi2022_by_codex_20260305121945996.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051219459962026-03-05T03:19:55.373393Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Listing project files**
+
+I'm listing all files in the project to identify any related to "study" for further investigation.
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051219459962026-03-05T03:20:01.777740Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+DE_v14_Laidi2022_by_codex_20260305121945996.json
+DE_Guide_v14.md
+study_1/Laidi2022.pdf.md
+study_1/1-s2.0-S0006322322012781-mmc2.xlsx.md
+study_1/1-s2.0-S0006322322012781-mmc1.pdf.md
+DE_v14_Laidi2022_by_codex_20260305121945996.log
+
+thinking
+**Reviewing source file for extraction**
+exec
+/bin/bash -lc 'cat study_1/Laidi2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051219459962026-03-05T03:20:05.406483Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+## Archival Report
+
+## Cerebellar Atypicalities in Autism?
+
+Charles Laidi, Dorothea L. Floris, Julian Tillmann, Yannis Elandaloussi, Mariam Zabihi, Tony Charman, Thomas Wolfers, Sarah Durston, Carolin Moessnang, Flavio Dell ' Acqua, Christine Ecker, Eva Loth, Declan Murphy, Simon Baron-Cohen, Jan K. Buitelaar, Andre F. Marquand, Christian F. Beckmann, Vincent Frouin, Marion Leboyer, Edouard Duchesnay, Pierrick Coupé, Josselin Houenou, and the EU-AIMS LEAP Group
+
+## ABSTRACT
+
+BACKGROUND: The cerebellum contains more than 50% of the brain ' s neurons and is involved in social cognition. Cerebellar anatomical atypicalities have repeatedly been reported in individuals with autism. However, studies have yielded inconsistent /uniFB01 ndings, likely because of a lack of statistical power, and did not capture the clinical and neuroanatomical diversity of autism. Our aim was to better understand cerebellar anatomy and its diversity in autism. METHODS: We studied cerebellar gray matter morphology in 274 individuals with autism and 219 control subjects of a multicenter European cohort, EU-AIMS LEAP (European Autism Interventions -A Multicentre Study for Developing New Medications; Longitudinal European Autism Project). To ensure the robustness of our results, we conducted lobular parcellation of the cerebellum with 2 different pipelines in addition to voxel-based morphometry. We performed statistical analyses with linear, multivariate (including normative modeling), and meta-analytic approaches to capture the diversity of cerebellar anatomy in individuals with autism and control subjects. Finally, we performed a dimensional analysis of cerebellar anatomy in an independent cohort of 352 individuals with autism-related symptoms.
+
+RESULTS: We did not /uniFB01 nd any signi /uniFB01 cant difference in the cerebellum when comparing individuals with autism and control subjects using linear models. In addition, there were no signi /uniFB01 cant deviations in our normative models in the cerebellum in individuals with autism. Finally, we found no evidence of cerebellar atypicalities related to age, IQ, sex, or social functioning in individuals with autism.
+
+CONCLUSIONS: Despite positive results published in the last decade from relatively small samples, our results suggest that there is no striking difference in cerebellar anatomy of individuals with autism.
+
+https://doi.org/10.1016/j.biopsych.2022.05.020
+
+The cerebellum contains more than 50% of the neurons of the brain (1), has almost 80% of the surface area of the neocortex (2), and is known to be involved in a broad range of cognitive functions including social cognition (3,4).
+
+A large body of literature, including preclinical (5,6), histopathology, genetic, and neuroimaging studies [see (7,8) for a full review], has established the involvement of the cerebellar circuits in social cognition and the physiopathology of autism spectrum disorder (hereafter, autism).
+
+
+thinking
+**Locating detailed demographics near Table 1**
+
+I'm focusing on extracting age and sex data for the autism clinical cohort from Table 1, which may be partially truncated in the main text, so I'll check supplemental files—specifically MMC1 or related tables—to get the complete cohort demographics.
+2026-03-05T03:20:12.190522Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table 1" -n study_1/Laidi2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121945996 succeeded in 30ms:
+97:Demographics of the study population are reported in Table 1. There was no signi /uniFB01 cant difference in age between patients and control subjects; however, there were more male than female patients compared with control subjects and a higher FSIQ in control subjects than in patients. Thus, FSIQ and sex were included as covariates in our statistical analyses.
+121:Table 1. Study Population
+exec
+/bin/bash -lc "sed -n '121,170p' study_1/Laidi2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051219459962026-03-05T03:20:16.007826Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 15ms:
+Table 1. Study Population
+
+| Sample Characteristics               | Patients With ASD, n = 274                                                            | Control Subjects, n = 219                | Statistics   | p Value   |
+|--------------------------------------|---------------------------------------------------------------------------------------|------------------------------------------|--------------|-----------|
+| Site of Inclusion (C, K, M, N, R, U) | C: 45, K: 78, M: 21, N: 77, R: 20, U: 33                                              | C: 32, K: 55, M: 18, N: 57, R: 18, U: 39 | c 2          | NS        |
+| Age, Years, Mean (SD) [Range]        | 17 (5) [7 - 30]                                                                       | 17 (5) [6 - 30]                          | t test       | NS        |
+| Sex Ratio (% of Males)               | 73%                                                                                   | 64%                                      | c 2          | , .05     |
+| Full Scale IQ, Mean (SD) [Range]     | 103 (19) [70 - 148]                                                                   | 108 (18) [70 - 142]                      | t test       | , .05     |
+| Verbal IQ, Mean (SD) [Range]         | 102 (20) [70 - 160]                                                                   | 104 (18) [70 - 158]                      | t test       | , .05     |
+| Performance IQ, Mean (SD) [Range]    | 104 (19) [70 - 150]                                                                   | 105 (20) [70 - 147]                      | t test       | , .05     |
+| ADOS-2, Mean (SD) [Range]            | Social affect: 6 (2) [1 - 10] Communication: 4 (2) [1 - 10] CSS total: 4 (3) [1 - 10] | NA                                       | NA           | NA        |
+| ADI-R, Mean (SD) [Range]             | Social affect: 16 (6) [1 - 28] Communication: 12 (5) [0 - 25] RRB: 4 (2) [0 - 12]     | NA                                       | NA           | NA        |
+| SRS-2 Score, Mean (SD) [Range] a     | 70 (12) [43 - 90]                                                                     | NA                                       | NA           | NA        |
+| Diagnosis of ADHD, Yes/No, n b       | 98/144                                                                                | NA                                       | NA           | NA        |
+| RBS-R Score, Mean (SD) [Range] c     | 15 (13) [0 - 73]                                                                      | NA                                       | NA           | NA        |
+| SSP Score, Mean (SD) [Range] d       | 130 (36) [4 - 189]                                                                    | NA                                       | NA           | NA        |
+
+ADI-R, Autism Diagnostic Interview -Revised; ADOS-2, Autism Diagnostic Observation Schedule, Second Edition; ASD, autism spectrum disorder; C, Cambridge; CSS, calibrated severity score; K, King ' s College London; M, Mannheim; N, Nijmegen; NA, not applicable; NS, nonsigni /uniFB01 cant; R, Rome; RBS-R, Restricted Behavior Scale-Revised; RRB, restrictive and repetitive behaviors; SRS-2, Social Responsiveness Scale, Second Edition; SSP, Short Sensory Pro /uniFB01 le; U, Utrecht.
+
+a Data missing for 50 individuals.
+
+thinking
+**Computing sex counts and confirming cohort details**
+
+I'm deriving male and female counts from total subjects and given male percentage, confirming the dataset as "LEAP" and disorder category as ASD, and ensuring normative modeling applies to the clinical autism cohort before filling the output JSON.
+exec
+/bin/bash -lc 'cat DE_v14_Laidi2022_by_codex_20260305121945996.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051219459962026-03-05T03:20:32.736770Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Extracting detailed sample characteristics**
+
+Gathering age stats with units and range as reported, using original precision; computing estimated male/female counts and percentages from provided totals, marking confidence levels and noting derivation; sourcing dataset origin and referencing its location in methods participants section.
+thinking
+**Quoting key source text**
+
+Identified precise quotes for sample size and group description from abstract and table header, and confirmed dataset origin as LEAP to update JSON accordingly with source locations and direct citations.
+2026-03-05T03:20:56.613840Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Laidi2022"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied cerebellar gray matter morphology in 274 individuals with autism and 219 control subjects\"",
++        "location": "Laidi2022.pdf.md: ABSTRACT"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "LEAP"
++        ],
++        "detail": "EU-AIMS LEAP cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed data from the EU-AIMS LEAP (18).\"",
++        "location": "Laidi2022.pdf.md: Methods and Materials / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 7,
++          "max": 30,
++          "mean": 17,
++          "sd": 5
++        },
++        "detail": "Patients with ASD",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, Years, Mean (SD) [Range] 17 (5) [7 - 30]\"",
++        "location": "Laidi2022.pdf.md: Table 1. Study Population"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 200,
++          "male_pct": 73.0,
++          "female_n": 74,
++          "female_pct": 27.0
++        },
++        "detail": "Percent male reported; counts inferred from total n=274 and rounded to nearest whole number.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex Ratio (% of Males) 73%\"",
++        "location": "Laidi2022.pdf.md: Table 1. Study Population"
+       }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json b/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..ded846dba33e2948e3c6407c0768d4f7ff1aafbb
+--- a/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Laidi2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied cerebellar gray matter morphology in 274 individuals with autism and 219 control subjects\"",
++        "location": "Laidi2022.pdf.md: ABSTRACT"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "LEAP"
++        ],
++        "detail": "EU-AIMS LEAP cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed data from the EU-AIMS LEAP (18).\"",
++        "location": "Laidi2022.pdf.md: Methods and Materials / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 7,
++          "max": 30,
++          "mean": 17,
++          "sd": 5
++        },
++        "detail": "Patients with ASD",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, Years, Mean (SD) [Range] 17 (5) [7 - 30]\"",
++        "location": "Laidi2022.pdf.md: Table 1. Study Population"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 200,
++          "male_pct": 73.0,
++          "female_n": 74,
++          "female_pct": 27.0
++        },
++        "detail": "Percent male reported; counts inferred from total n=274 and rounded to nearest whole number.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex Ratio (% of Males) 73%\"",
++        "location": "Laidi2022.pdf.md: Table 1. Study Population"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json b/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..ded846dba33e2948e3c6407c0768d4f7ff1aafbb
+--- a/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Laidi2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied cerebellar gray matter morphology in 274 individuals with autism and 219 control subjects\"",
++        "location": "Laidi2022.pdf.md: ABSTRACT"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "LEAP"
++        ],
++        "detail": "EU-AIMS LEAP cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed data from the EU-AIMS LEAP (18).\"",
++        "location": "Laidi2022.pdf.md: Methods and Materials / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 7,
++          "max": 30,
++          "mean": 17,
++          "sd": 5
++        },
++        "detail": "Patients with ASD",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, Years, Mean (SD) [Range] 17 (5) [7 - 30]\"",
++        "location": "Laidi2022.pdf.md: Table 1. Study Population"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 200,
++          "male_pct": 73.0,
++          "female_n": 74,
++          "female_pct": 27.0
++        },
++        "detail": "Percent male reported; counts inferred from total n=274 and rounded to nearest whole number.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex Ratio (% of Males) 73%\"",
++        "location": "Laidi2022.pdf.md: Table 1. Study Population"
+       }
+     }
+   ]
+
+
+thinking
+**Providing final concise response**
+codex
+Filled the extraction JSON for Laidi2022 using the EU-AIMS LEAP autism cohort demographics and NM context in `DE_v14_Laidi2022_by_codex_20260305121945996.json`, with ASD as the disorder, LEAP as dataset-of-origin, and age/sex from Table 1 (sex counts inferred from % and total N).
+
+No tests were run.
+
+If you want, I can also add an explicit note about the inference rounding in `detail` for age/sex or cross-check the supplemental files for any alternative demographic breakdowns.
+2026-03-05T03:21:02.410676Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json b/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..ded846dba33e2948e3c6407c0768d4f7ff1aafbb
+--- a/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305121945996/DE_v14_Laidi2022_by_codex_20260305121945996.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Laidi2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"We studied cerebellar gray matter morphology in 274 individuals with autism and 219 control subjects\"",
++        "location": "Laidi2022.pdf.md: ABSTRACT"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "LEAP"
++        ],
++        "detail": "EU-AIMS LEAP cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"We analyzed data from the EU-AIMS LEAP (18).\"",
++        "location": "Laidi2022.pdf.md: Methods and Materials / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 7,
++          "max": 30,
++          "mean": 17,
++          "sd": 5
++        },
++        "detail": "Patients with ASD",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, Years, Mean (SD) [Range] 17 (5) [7 - 30]\"",
++        "location": "Laidi2022.pdf.md: Table 1. Study Population"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 200,
++          "male_pct": 73.0,
++          "female_n": 74,
++          "female_pct": 27.0
++        },
++        "detail": "Percent male reported; counts inferred from total n=274 and rounded to nearest whole number.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex Ratio (% of Males) 73%\"",
++        "location": "Laidi2022.pdf.md: Table 1. Study Population"
+       }
+     }
+   ]
+
+tokens used
+24,580
+Filled the extraction JSON for Laidi2022 using the EU-AIMS LEAP autism cohort demographics and NM context in `DE_v14_Laidi2022_by_codex_20260305121945996.json`, with ASD as the disorder, LEAP as dataset-of-origin, and age/sex from Table 1 (sex counts inferred from % and total N).
+
+No tests were run.
+
+If you want, I can also add an explicit note about the inference rounding in `detail` for age/sex or cross-check the supplemental files for any alternative demographic breakdowns.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

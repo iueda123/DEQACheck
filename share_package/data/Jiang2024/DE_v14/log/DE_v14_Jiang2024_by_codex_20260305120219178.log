@@ -1,0 +1,894 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Jiang2024_by_codex_20260305120219178.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbbf2-43a0-78b3-ae3a-1d7297dff224
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Jiang2024_by_codex_20260305120219178.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to follow instructions**
+
+I'm planning to carefully read the guide and decide whether to use ripgrep or simple shell commands to proceed.
+2026-03-05T03:02:25.635236Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Jiang2024_by_codex_20260305120219178.json
+DE_v14_Jiang2024_by_codex_20260305120219178.log
+study_1
+exec
+/bin/bash -lc "sed -n '1,200p' DE_Guide_v14.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:02:29.140106Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Listing study files**
+
+I'm gathering files related to studies to extract paper information and dataset instructions next.
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:02:32.125534Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 36ms:
+DE_v14_Jiang2024_by_codex_20260305120219178.json
+DE_Guide_v14.md
+DE_v14_Jiang2024_by_codex_20260305120219178.log
+study_1/S0033291724000138sup005.docx.md
+study_1/S0033291724000138sup004.docx.md
+study_1/S0033291724000138sup002.docx.md
+study_1/S0033291724000138sup003.docx.md
+study_1/S0033291724000138sup001.docx.md
+study_1/Jiang2024.pdf.md
+
+thinking
+**Searching for output instructions**
+
+I'm looking for sections near the end of the guide that describe the expected JSON output format to clarify the instructions.
+exec
+/bin/bash -lc 'rg -n "Output|json|format|disorders" DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:02:35.174156Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 33ms:
+15:- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+16:- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+104:| Psychotic disorders            | SCZ                          | Schizophrenia                                        |
+105:| Psychotic disorders            | SZA                          | Schizoaffective disorder                             |
+106:| Psychotic disorders            | SZF                          | Schizophreniform disorder                            |
+107:| Psychotic disorders            | BrPD                         | Brief psychotic disorder                             |
+108:| Psychotic disorders            | ATPD                         | Acute/transient psychotic disorder                   |
+109:| Psychotic disorders            | NOS                          | Unspecified psychosis (Psychosis NOS)                |
+110:| Psychotic disorders            | SSD                          | Schizophrenia spectrum disorder                      |
+111:| Psychotic disorders            | PSD                          | Psychosis spectrum disorders                         |
+112:| Psychotic disorders            | AP                           | Affective psychosis                                  |
+113:| Psychotic disorders            | NAP                          | Non-affective psychosis                              |
+114:| Psychotic disorders            | ESZ                          | Early-illness schizophrenia                          |
+115:| Psychotic disorders            | CHR-P                        | Clinical high risk for psychosis                     |
+116:| Psychotic disorders            | FEP                          | First episode psychosis                              |
+117:| Psychotic disorders            | EP                           | Early psychosis                                      |
+118:| Psychotic disorders            | PE                           | Psychotic experiences                                |
+119:| Psychotic disorders            | Psychosis                    | Psychosis                                            |
+120:| Mood disorders                 | BD                           | Bipolar disorder                                     |
+121:| Mood disorders                 | MDD                          | Major depressive disorder                            |
+exec
+/bin/bash -lc "sed -n '260,360p' DE_Guide_v14.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:02:37.534524Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+| OPTiMiSE | OPTiMiSE | the Optimization of Treatment and Management of Schizophrenia in Europe |  |
+| OpenBHB | OpenBHB | Open Brain Health Benchmark |  |
+| OpenMSLong | OpenMSLong | OpenMS Longitudinal dataset |  |
+| PNC | PNC | Philadelphia Neurodevelopmental Cohort |  |
+| PPP | PPP | Personalized Parkinson Project |  |
+| REST | REST-meta-MDD | REST-meta-MDD consortium |  |
+| SAED | SAED | Shanghai Autism Early Developmental Cohort |  |
+| STROKEMRI | STROKEMRI | Stroke MRI study |  |
+| SVIP | SVIP | Simons VIP (Variation in Individuals Project) |  |
+| StratiBip | StratiBip | Stratification of Bipolar Disorder |  |
+| TractoInferno | TractoInferno | TractoInferno challenge |  |
+| UCL | UCL | University College London |  |
+| UCLA | UCLA-LA5c | University of California Los Angeles Consortium for Neuropsychiatric Phenomics LA5c Study | UCLA,  Consortium for Neuropsychiatric Phenomics (CNP) |
+| UCLA | UCLA-NGD | UCLA 22Q11.2 CNV/NEUROGENETIC DATASET | UCLA |
+| UK BIOBANK | UK BIOBANK | UK BIOBANK |  |
+| UMICH | UMICH | UNIVERSITY OF MICHIGAN | UMICH |
+| Utrecht | Utrecht | The dataset from Utrecht Schizophrenia project |  |
+| devCCNP | devCCNP | developing Chinese Color Nest Project |  |
+| TOP | TOP | Thematically Organized Psychosis |  |
+| TOP | sTOP | Forensic Psychiatry study (sTOP) |  |
+
+thinking
+**Planning to extract Jiang2024 study details**
+2026-03-05T03:02:40.888805Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Jiang2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 succeeded in 27ms:
+## Psychological Medicine
+
+cambridge.org/psm
+
+## Original Article
+
+*Co-first authors.
+
+Cite this article: Jiang A, Ma X, Li S, Wang L, Yang B, Wang S, Li M, Dong G (2024). Ageatypical brain functional networks in autism spectrum disorder: a normative modeling approach. Psychological Medicine 54 , 2042 -2053. https://doi.org/10.1017/ S0033291724000138
+
+Received: 25 April 2023
+
+Revised: 19 October 2023
+
+Accepted: 10 January 2024
+
+First published online: 2 April 2024
+
+## Keywords:
+
+
+thinking
+**Identifying clinical cohort details**
+
+I'm clarifying that the clinical cohort after normative modeling is ASD from ABIDE, with TD used to build the normative model. Next, I'll look for age and sex info for the ASD group post-NM in Table 1 and supplementary files.
+exec
+/bin/bash -lc 'rg -n "sex|male|female|gender" -i study_1/Jiang2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:02:46.833787Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+61:to typically developed (TD) individuals (Bai et al., 2019). ElNakieb et al., used resting-state fMRI data from the Autism Brain Imaging Data Exchange database (ABIDE) and investigated the role of connectivity dynamics of resting-state networks in the diagnosis of ASD (ElNakieb et al., 2023). They found that compared with TD individuals, those with ASD spent more time in states with weaker FC, especially within the default mode network (DMN) and between the DMN and other networks. What ' s more, researchers showed that the abnormalities of resting state FC in ASD may depend on various factors, such as age, gender, IQ, task condition, data modality, analysis technique and network definition (Hull et al., 2017). However, the heterogeneity of the disorder hampers identification of reliable biomarkers or neuroimaging-based diagnostic tools (Ecker et al., 2013). In addition, there is a need for more comprehensive and standardized assessments of ASD to improve diagnostic accuracy and aid in the identification of subtypes (Bai et al., 2019).
+65:Normative models(NM) have emerged as a powerful tool to address the limitations of traditional group comparison studies in neuroimaging research. By defining a range of values for a particular brain feature in a healthy cohort, NM can identify individuals who deviate from the expected patterns of brain development or aging. This approach can help to address issues related to heterogeneity, confounding factors, and individual variability in neuroimaging data (Fjell et al., 2015). Moreover, the method has been applied in various fields of neuroscience, including studies of ASD (Bethlehem et al., 2020; Ecker, 2019). The benefits are as follows. First, it can overcome the limitations of traditional case -control analysis methods and provide individuallevel results (Zabihi et al., 2020). Second, NM offers a flexible framework considering factors like age and gender, addressing the complex heterogeneity in resting-state FC in ASD. Third, NM allows assessment of associations between FC heterogeneity and ASD subtypes or dimensions, tied to clinical presentation, genetic risk, or treatment response, in relation to other biological or behavioral variables (Rutherford et al., 2023). Additionally, there have been some advances in the use of normative modeling in ASD research. It has been applied to brain measures such as CT, white matter integrity, and FC (Sala-Llonch, Bartrés-Faz, &amp; Junqué, 2015).
+226:There are some limitations to consider in this study. First, the current data are cross-sectional, and standardized age-modeling methods cannot make individual-level judgments about trajectories. Longitudinal data would extend this standardized modeling approach. Second, to remove multisite effect, researchers suggested that the hierarchical Bayesian approach may be a better alternative to ComBat because it avoids the exclusion of meaningful variance correlated with site and can improve the accuracy of normative modeling (Bayer et al., 2022). We chose this model due to its advantages in terms of computational efficiency, automatic parameter learning, and the mitigation of issues related to local optima and overfitting, subsequent studies should try to apply different models to remove site effects in normative modeling studies. Third, the calculation of W -scores was based on two mean calculations from the raw data, which inevitably led to some loss of precision; we hope to solve this problem in the future. Fourth, although this study has a large sample size, it does not encompass the very early developmental period or the very late adulthood period; it also has few female participants, with a male-to-female ratio of approximately 5:1. Conclusions regarding female participants lack corresponding evidence, and additional female data should be collected in the future to study sex differences in ASD. In addition, there are many different normalization modeling methods, each with its own advantages and disadvantages (Marquand et al., 2019). We chose to use the LOESS estimation method because it is computationally efficient and the resulting W-scores are easy to interpret. However, because it is based on an estimate of the standard deviation of the normative sample, it is potentially sensitive to small sample sizes in specific age ranges (e.g. if a particular age range has only four data points, there may be an unreliable S.D.). Therefore, we excluded age ranges (one year) containing less than or equal to two subjects. Finally, although head motion within scanners is a well-known confounding factor in resting-state studies, recent studies have shown that the same motion can also affect structural image quality and surface reconstruction (Power, Barnes, Snyder, Schlaggar, &amp; Petersen, 2012; Van Dijk, Sabuncu, &amp; Buckner, 2012). Therefore, given its impact on traditional analysis methods, we strongly encourage future research to consider motion as an important confounding factor.
+252:- Bethlehem, R. A. I., Seidlitz, J., Romero-Garcia, R., Dumas, G., &amp; Lombardo, M. V. (2018). Normative age modelling of cortical thickness in autistic males. Neuroscience . https://doi.org/10.1101/252593
+253:- Bethlehem, R. A. I., Seidlitz, J., Romero-Garcia, R., Trakoshis, S., Dumas, G., &amp; Lombardo, M. V. (2020). A normative modelling approach reveals age-atypical cortical thickness in a subgroup of males with autism spectrum disorder. Communications Biology , 3 (1), 486. https://doi.org/10.1038/ s42003-020-01212-9
+261:- Ecker, C. (2019). Notice of retraction and replacement: Ecker et al. association between the probability of autism spectrum disorder and normative sexrelated phenotypic diversity in brain structure. JAMA Psychiatry , 2017; 74 (4):329 -338. JAMA Psychiatry, 76(5), 549 -550. https://doi.org/10.1001/ jamapsychiatry.2018.4296
+
+thinking
+**Searching supplementary for sex counts**
+exec
+/bin/bash -lc 'rg -n "male|female|sex|gender" -i study_1/S0033291724000138sup001.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:02:49.823144Z ERROR codex_core::codex: needs_follow_up: true
+ exited 1 in 27ms:
+
+
+thinking
+**Checking additional files**
+exec
+/bin/bash -lc 'rg -n "male|female|sex|gender" -i study_1/S0033291724000138sup002.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:02:58.121811Z ERROR codex_core::codex: needs_follow_up: true
+ exited 1 in 31ms:
+
+exec
+/bin/bash -lc 'rg -n "male|female|sex|gender" -i study_1/S0033291724000138sup003.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 exited 1 in 23ms:
+
+exec
+/bin/bash -lc 'rg -n "male|female|sex|gender" -i study_1/S0033291724000138sup004.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 exited 1 in 25ms:
+
+exec
+/bin/bash -lc 'rg -n "male|female|sex|gender" -i study_1/S0033291724000138sup005.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 exited 1 in 23ms:
+
+
+thinking
+**Checking supplementary sample characteristics**
+
+I'm opening the supplementary file sup001 to look for sample characteristics tables that might include sex information.
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/S0033291724000138sup001.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:03:01.226701Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+### Online supplement 1 Dataset details
+
+The ABIDE dataset is a large-scale open-access neuroimaging dataset for ASD, which currently includes resting-state fMRI data from 1495 individuals collected at 17 data acquisition centers. It contains a wealth of demographic, behavioral, and imaging data from ASD patients, providing valuable resources for the study of this highly heterogeneous disorder, and is being widely used in ASD-related studies. All the data analyzed in this study were sourced from the ABIDE dataset. We aimed to identify subtle changes in brain FC in ASD populations using a large dataset to achieve greater statistical power. The dataset includes 659 datasets from patients with ASD and 836 datasets from TD individuals. Each dataset includes one or more resting-state fMRI scan of the individual, a volumetric MPRAGE image, and multiple autism-related behavioral questionnaire scores (such as those on the Social Responsiveness Scale developed by (Constantino et al., 2003), which measures social function, and the Vineland Adaptive Behavior Scales developed by (Sparrow &amp; Cicchetti, 1989), which measures daily function). More information about the specific behavioral measures used can be found on the ABIDE website (ABIDE (nitrc.org)). All data were completely anonymous and analyzed according to procedures approved by the Institutional Review Board at the University of Utah. All images were obtained with informed consent according to procedures established by the human subjects research committees at each participating institution. MPRAGE image data were not used in this study. To eliminate confounding effects of irrelevant variables and to address the consistent asymmetry due to handedness and lack of available data to estimate normative data in ASD, we excluded left-handed participants and those with poor scan quality. After exclusion, the sample size was 642 for the TD group and 576 for the ASD group.
+
+2026-03-05T03:03:03.998962Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/S0033291724000138sup002.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 succeeded in 31ms:
+### Online supplement 2 Preprocessing
+
+**Preprocessing of functional MRI data**
+
+Data preprocessing was performed using DPABI V5.1 (Dpabi.org) and SPM12 (SPM12.ucl). The preprocessing steps included 1) discarding the first 10 time points; 2) slice-timing correction; 3) head-motion correction; 4) spatial normalization to the unified segmented anatomical image using forward deformation fields and resampling to 3×3×3 mm3; 5) spatial smoothing with a 3D isotropic Gaussian kernel with a full width at half maximum of 6 mm; 6) linear trend removal; 7) nuisance covariate regression, including head-motion covariates using the Friston 24-parameter model as well as signals from white matter and cerebrospinal fluid; and 8) bandpass filtering of the data with a frequency range of 0.01-0.08 Hz.
+
+**Constructing FC matrices**
+
+All FC measurements were calculated using the Gretna toolbox (J. Wang et al., 2015). Based on previous studies on network construction methods (J. Zhang et al., 2011; Z. Zhang, Telesford, Giusti, Lim, &amp; Bassett, 2016), we applied a functional template called "Dosenbach160" (Dosenbach et al., 2010), which provides 160 functionally isolated regions of interest (ROIs) covering most of the cortical and cerebellar regions of the brain. We used the CONN toolbox (CONN.org) to compute the whole-brain networks for each participant. Specifically, BOLD signals were extracted from each ROI, and pairwise correlations between each pair of ROIs were computed to obtain the 160×160 FC matrix for each participant.
+
+**Multisite effect correction**
+
+Site effects on the modular coefficient were removed using the ComBat function available in MATLAB (ComBatHarmonization.com) to account for site, collection time, and data acquisition parameter variability across each of the data collection sites in the ABIDE data. This approach has been shown to effectively account for scanner-related variance in multisite resting-state fMRI datasets (De Rosa et al., 2023; Maltbie, Yousefi, Zhang, Kashyap, &amp; Keilholz, 2022; Yamashita et al., 2019). With the ComBat function, the diagnosis was treated as the biological variable of interest, and a parametric prior method was used in the empirical Bayes procedure.
+
+2026-03-05T03:03:08.137706Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/S0033291724000138sup003.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 succeeded in 29ms:
+### Online supplement 3 Additional methodological detail
+
+**Selection of model**
+
+We chose the polynomial regression fitting process (LOESS) due to its advantages in terms of computational efficiency, automatic parameter learning, and the mitigation of issues related to local optima and overfitting.
+
+We also tried another model based on a different article (Zabihi et al., 2019), which is a Gaussian process regression model. By comparing different models, we chose the LOESS due to the following reasons:
+
+1. The LOESS algorithm is a flexible and robust method to deal with heteroskedasticity and non-constant variance in the data, which are common features of neuroimaging data. In contrast, Gaussian process regression modeling requires the assumption that the data obey a Gaussian distribution, which may not be true of the data.
+2. The LOESS algorithm can handle outliers and missing values in the data, which are also common challenges in neuroimaging studies. In contrast, Gaussian process regression models are sensitive to outliers and missing values, which may lead to unstable or inaccurate models.
+3. The LOESS algorithm produces smooth and continuous curves that are easy to interpret and visualize. Gaussian process regression models (see figure 1), on the other hand, produce curves that can be more Rigid and difficult to understand (see figure 2).
+
+![Image](./S0033291724000138sup003_artifacts/image_000000_2e3c2a1387244860b9d21b8dea730505866eaef0212c513a279bccc093914ac9.png)
+
+2026-03-05T03:03:11.028149Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/S0033291724000138sup004.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 succeeded in 24ms:
+### Online supplement 4 All 23 NM maps
+
+This file shows all 23 NM maps for each network, including 2 overall-FCs. First, LOESS regression was used to estimate the FC developmental trajectory for each individual brain region to obtain age-specific means and standard deviations. This enables prediction of the FC value (the dark contour line) from the clinical covariates (age) along with measures of predictive confidence (the two lighter contour lines). For each one-year age bin, the normative scores were calculated for these means and standard deviations, and the y-value of the dark line represents the median. Next, for each ASD individual and each brain network, normalized means and standard deviations were used to calculate the W-score relative to their neurotypical age bin. The dark and light dots represent the values for the ASD group and TD group, respectively.
+
+![Image](./S0033291724000138sup004_artifacts/image_000000_27bd32f7ec66774729dbdb9d5c5590e3b52a93495b4bd1db9919aa650a2c5ce4.png)
+
+2026-03-05T03:03:13.518111Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/S0033291724000138sup005.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 succeeded in 29ms:
+### Online supplement 5 Complete relevant values of W-scores and behavioral data
+
+We identified clinically relevant networks by analyzing the distribution of network data in ASD patients relative to their questionnaire scores. The W-scores of individuals showed varying degrees of significant correlation with scores on various subscales of the Social Responsiveness Scale (SRS). The complete relevant values and the related p(corrected) values are listed below. Among which, the highlighted cell shows the corrected significant correlation value.
+
+|                    |              |   SRS Total Raw Score | SRS Social Awareness    | SRS Social Cognition    | SRS Social Communication    | SRS Social Motivation    | SRS Autistic Mannerisms    |
+|--------------------|--------------|-----------------------|-------------------------|-------------------------|-----------------------------|--------------------------|----------------------------|
+| Overall_FC_within  | r            |                 0.078 | -.155*                  | -0.068                  | -0.11                       | -0.076                   | -0.075                     |
+| Overall_FC_within  | p(corrected) |                 0.279 | 0.033                   | 0.092                   | 0.058                       | 0.213                    | 0.216                      |
+| Overall_FC_between | r            |                 0.085 | -0.093                  | -0.063                  | -0.097                      | -0.003                   | -0.077                     |
+| Overall_FC_between | p(corrected) |                 0.241 | 0.07                    | 0.237                   | 0.067                       | 0.171                    | 0.213                      |
+| 1 DMN              | r            |                 0.037 | -.192*                  | -.101*                  | -0.135                      | -0.056                   | -.153*                     |
+| 1 DMN              | p(corrected) |                 0.613 | 0.028                   | 0.025                   | 0.055                       | 0.276                    | 0.045                      |
+| 2 FPN              | r            |                 0.057 | -0.131                  | -.262**                 | -.112*                      | -0.41                    | -.183**                    |
+| 2 FPN              | p(corrected) |                 0.438 | 0.058                   | 0.001                   | 0.021                       | 0.073                    | 0.007                      |
+| 3 CON              | r            |                 0.097 | -.038*                  | -0.094                  | -0.12                       | -0.073                   | -0.036                     |
+| 3 CON              | p(corrected) |                 0.181 | 0.042                   | 0.184                   | 0.052                       | 0.087                    | 0.126                      |
+| 4 SMN              | r            |                 0.067 | -.205*                  | -.208*                  | -0.044                      | -0.074                   | -0.067                     |
+| 4 SMN              | p(corrected) |                 0.363 | 0.023                   | 0.022                   | 0.138                       | 0.462                    | 0.111                      |
+| 5 OCN              | r            |                 0.059 | -0.331                  | -.243**                 | -.145*                      | -0.353                   | -.176**                    |
+| 5 OCN              | p(corrected) |                 0.421 | 0.154                   | 0.002                   | 0.013                       | 0.127                    | 0.008                      |
+
+
+thinking
+**Deciding on sex data reporting**
+
+Sex counts are not reported, only an approximate male-to-female ratio of 5:1 mentioned in limitations; this ratio can inform percentages but lacks exact counts, so it's best marked as not reported. I'll compute age stats (mean, SD, min, max) from Table 1 with two decimals for mean and SD and cite the exact table text with quotes.
+thinking
+**Confirming sex data as not reported with ratio mention**
+
+Deciding to mark sex counts and percentages as "NR" since the 5:1 male-to-female ratio is approximate and not specific to ASD, though I'll mention that ratio from limitations for context. Also confirming ABIDE as the dataset source and ASD as the disorder, with supporting text from methods and abstract; next, I'll align the JSON output structure accordingly.
+exec
+/bin/bash -lc 'cat DE_v14_Jiang2024_by_codex_20260305120219178.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051202191782026-03-05T03:03:30.313208Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Summarizing source data and quotes**
+
+I identified exact quotes for age from the main sample table, disorder name and dataset from abstract and supplement, and noted sex data is not reported but includes a 5:1 male-to-female ratio mention with low confidence. Next, I'll format age as an object quoting the table row and represent sex as an object with "NR" plus the ratio quote.
+thinking
+**Preparing JSON patch with NR fields and ASCII compliance**
+2026-03-05T03:03:53.799388Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Jiang2024"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we analyzed individuals with ASD and typically developed (TD) controls\"",
++        "location": "Jiang2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "All analyzed data sourced from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All the data analyzed in this study were sourced from the ABIDE dataset.\"",
++        "location": "S0033291724000138sup001.docx.md: Online supplement 1 Dataset details"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 40,
++          "mean": 15.19,
++          "sd": 7.79
++        },
++        "detail": "ASD group after normative modeling selection.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| Age | ASD |  15.19 | 576 |  7.786 |         5 |        40 |       13 |\"",
++        "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "NR",
++          "male_pct": "NR",
++          "female_n": "NR",
++          "female_pct": "NR"
++        },
++        "detail": "Sex counts for the ASD clinical cohort not reported; only an overall approximate ratio is mentioned.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"there are many different normalization modeling methods, each with its own advantages and disadvantages (Marquand et al., 2019). We chose to use the LOESS estimation method because it is computationally efficient and the resulting W-scores are easy to interpret. However, because it is based on an estimate of the standard deviation of the normative sample, it is potentially sensitive to small sample sizes in specific age ranges (e.g. if a particular age range has only four data points, there may be an unreliable S.D.). Therefore, we excluded age ranges (one year) containing less than or equal to two subjects. Finally, although head motion within scanners is a well-known confounding factor in resting-state studies, recent studies have shown that the same motion can also affect structural image quality and surface reconstruction (Power, Barnes, Snyder, Schlaggar, & Petersen, 2012; Van Dijk, Sabuncu, & Buckner, 2012). Therefore, given its impact on traditional analysis methods, we strongly encourage future research to consider motion as an important confounding factor.\"",
++        "location": "Jiang2024.pdf.md: Discussion / Limitations"
+       }
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..06f6c37b7ce32161d81d9eb43a6ee301736d1fdf
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Jiang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we analyzed individuals with ASD and typically developed (TD) controls\"",
++        "location": "Jiang2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "All analyzed data sourced from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All the data analyzed in this study were sourced from the ABIDE dataset.\"",
++        "location": "S0033291724000138sup001.docx.md: Online supplement 1 Dataset details"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 40,
++          "mean": 15.19,
++          "sd": 7.79
++        },
++        "detail": "ASD group after normative modeling selection.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| Age | ASD |  15.19 | 576 |  7.786 |         5 |        40 |       13 |\"",
++        "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "NR",
++          "male_pct": "NR",
++          "female_n": "NR",
++          "female_pct": "NR"
++        },
++        "detail": "Sex counts for the ASD clinical cohort not reported; only an overall approximate ratio is mentioned.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"there are many different normalization modeling methods, each with its own advantages and disadvantages (Marquand et al., 2019). We chose to use the LOESS estimation method because it is computationally efficient and the resulting W-scores are easy to interpret. However, because it is based on an estimate of the standard deviation of the normative sample, it is potentially sensitive to small sample sizes in specific age ranges (e.g. if a particular age range has only four data points, there may be an unreliable S.D.). Therefore, we excluded age ranges (one year) containing less than or equal to two subjects. Finally, although head motion within scanners is a well-known confounding factor in resting-state studies, recent studies have shown that the same motion can also affect structural image quality and surface reconstruction (Power, Barnes, Snyder, Schlaggar, & Petersen, 2012; Van Dijk, Sabuncu, & Buckner, 2012). Therefore, given its impact on traditional analysis methods, we strongly encourage future research to consider motion as an important confounding factor.\"",
++        "location": "Jiang2024.pdf.md: Discussion / Limitations"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..06f6c37b7ce32161d81d9eb43a6ee301736d1fdf
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Jiang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we analyzed individuals with ASD and typically developed (TD) controls\"",
++        "location": "Jiang2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "All analyzed data sourced from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All the data analyzed in this study were sourced from the ABIDE dataset.\"",
++        "location": "S0033291724000138sup001.docx.md: Online supplement 1 Dataset details"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 40,
++          "mean": 15.19,
++          "sd": 7.79
++        },
++        "detail": "ASD group after normative modeling selection.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| Age | ASD |  15.19 | 576 |  7.786 |         5 |        40 |       13 |\"",
++        "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "NR",
++          "male_pct": "NR",
++          "female_n": "NR",
++          "female_pct": "NR"
++        },
++        "detail": "Sex counts for the ASD clinical cohort not reported; only an overall approximate ratio is mentioned.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"there are many different normalization modeling methods, each with its own advantages and disadvantages (Marquand et al., 2019). We chose to use the LOESS estimation method because it is computationally efficient and the resulting W-scores are easy to interpret. However, because it is based on an estimate of the standard deviation of the normative sample, it is potentially sensitive to small sample sizes in specific age ranges (e.g. if a particular age range has only four data points, there may be an unreliable S.D.). Therefore, we excluded age ranges (one year) containing less than or equal to two subjects. Finally, although head motion within scanners is a well-known confounding factor in resting-state studies, recent studies have shown that the same motion can also affect structural image quality and surface reconstruction (Power, Barnes, Snyder, Schlaggar, & Petersen, 2012; Van Dijk, Sabuncu, & Buckner, 2012). Therefore, given its impact on traditional analysis methods, we strongly encourage future research to consider motion as an important confounding factor.\"",
++        "location": "Jiang2024.pdf.md: Discussion / Limitations"
+       }
+     }
+   ]
+
+
+thinking
+**Correcting supporting text source**
+
+I'm searching the PDF markdown for the exact quote about the ratio to replace the incorrect paragraph currently used as supporting text.
+2026-03-05T03:03:57.245421Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "ratio" study_1/Jiang2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178 succeeded in 25ms:
+63:Traditional research methods often rely on comparisons between patient and control groups, with age included as a covariate to control for its effects. However, this approach has limitations in achieving individual-level predictions and explaining the variability in disease progression. Recent advances in neuroimaging techniques have enabled the identification of unique neural signatures associated with psychiatric disorders at the individual level (Lv et al., 2021). For instance, machine learning algorithms can be applied to predict clinical outcomes based on imaging features, providing personalized predictions for patients (Drysdale et al., 2017). Furthermore, traditional group comparison approaches may not be sensitive enough to detect subtle changes in brain structure or function that are characteristic of psychiatric disorders. For example, studies have shown that ASD individuals ' cortical thickness (CT), surface area, and white matter volume change significantly with age (Sowell et al., 2004). Thus, age-related changes should be taken into consideration when comparing brain measures between groups to avoid misinterpretation of the results.
+69:Large-scale fMRI data are crucial for understanding the complex relationship between brain activity and behavior, thereby guiding the clinical treatment of neurological and psychiatric disorders. Given the complexity of both brain activity and behavior, identifying a direct mapping between specific brain regions and behavioral measurements is unlikely (Gratton, Nelson, &amp; Gordon, 2022), and collaboration at the consortium level is needed. Despite potentially revealing only small effect sizes, collaborative studies using cross-sectional methods can still provide stronger effect sizes than mature genome-wide association study methods (Sniekers et al., 2017).
+71:FC alterations have been observed in several neurological disorders (Baggio et al., 2015; Hazlett et al., 2017), suggesting the potential use of FC as a biomarker for disease detection and monitoring. In addition, FC has not been used as a neural marker in NM research targeting ASD. Moreover, studies have shown that disruptions in the DMN play an important role in the pathogenesis of ASD (Dickie et al., 2018; von dem Hagen, Stoyanova, Baron-Cohen, &amp; Calder, 2013). However, the relationship between brain networks and the changes in FC over the lifespan remains unclear. Recent large-scale analyses combining data have revealed significant heterogeneity in CT among children with ASD (van Rooij et al., 2018). Thus, we can make the following inferences about FC in ASD: first, age is a particularly important variable in the development of autism; second, we should not focus on mean differences between all cases and all healthy controls but rather stratify subjects according to age, focusing on changes in FC and degree of variability over time, to identify extreme cases that lie on this normative variability spectrum.
+190:The DMN includes a set of brain regions that are more active when an individual is not focused on the outside world, instead, they are activated when an individual engages in internal thoughts or self-referential processing. Several studies have suggested that individuals with ASD exhibit atypical connectivity within the DMN. For example, one study used community structure analyses to explore functional network features of individuals with ASD and found disrupted recruitment and integration in the DMN (Yang et al., 2023). Another study using dynamic FC analysis reported altered dynamics in several networks, such as the DMN, in patients with ASD (Wang et al., 2022). These studies suggest that ASD is associated with atypical connectivity within the DMN, highlighting the importance of studying brain FC in ASD research.
+216:The interpretations of within-network connectivity vary slightly among studies. For example, Power et al. (2011) suggested that strongly connected network modules within the brain may reflect a function or process that is relatively more centralized or localized than other modules. Meunier, Lambiotte, and Bullmore (2010), on the other hand, argue that increased withinnetwork connections may indicate tighter information integration or coordination.
+218:Regarding the FC between networks, research has found that brain regions with strong connectivity have similar functional features and form specific brain networks. These brain networks are activated in different cognitive tasks, and there are interactions and regulatory relationships between different brain networks, enabling efficient information processing and integration capabilities when humans perform cognitive tasks. The FC values between networks represent the flexibility of the brain when performing different tasks and the degree of integration of the entire brain.
+226:There are some limitations to consider in this study. First, the current data are cross-sectional, and standardized age-modeling methods cannot make individual-level judgments about trajectories. Longitudinal data would extend this standardized modeling approach. Second, to remove multisite effect, researchers suggested that the hierarchical Bayesian approach may be a better alternative to ComBat because it avoids the exclusion of meaningful variance correlated with site and can improve the accuracy of normative modeling (Bayer et al., 2022). We chose this model due to its advantages in terms of computational efficiency, automatic parameter learning, and the mitigation of issues related to local optima and overfitting, subsequent studies should try to apply different models to remove site effects in normative modeling studies. Third, the calculation of W -scores was based on two mean calculations from the raw data, which inevitably led to some loss of precision; we hope to solve this problem in the future. Fourth, although this study has a large sample size, it does not encompass the very early developmental period or the very late adulthood period; it also has few female participants, with a male-to-female ratio of approximately 5:1. Conclusions regarding female participants lack corresponding evidence, and additional female data should be collected in the future to study sex differences in ASD. In addition, there are many different normalization modeling methods, each with its own advantages and disadvantages (Marquand et al., 2019). We chose to use the LOESS estimation method because it is computationally efficient and the resulting W-scores are easy to interpret. However, because it is based on an estimate of the standard deviation of the normative sample, it is potentially sensitive to small sample sizes in specific age ranges (e.g. if a particular age range has only four data points, there may be an unreliable S.D.). Therefore, we excluded age ranges (one year) containing less than or equal to two subjects. Finally, although head motion within scanners is a well-known confounding factor in resting-state studies, recent studies have shown that the same motion can also affect structural image quality and surface reconstruction (Power, Barnes, Snyder, Schlaggar, &amp; Petersen, 2012; Van Dijk, Sabuncu, &amp; Buckner, 2012). Therefore, given its impact on traditional analysis methods, we strongly encourage future research to consider motion as an important confounding factor.
+242:institutional committees on human experimentation and with the Helsinki Declaration of 1975, as revised in 2008.
+293:- Rudie, J. D., Shehzad, Z., Hernandez, L. M., Colich, N. L., Bookheimer, S. Y., Iacoboni, M., &amp; Dapretto, M. (2012). Reduced functional integration and segregation of distributed neural systems underlying social and emotional information processing in autism spectrum disorders. Cerebral Cortex , 22 (5), 1025 -1037. https://doi.org/10.1093/cercor/bhr171
+307:- Wang, M., Wang, L., Yang, B., Yuan, L., Wang, X., Potenza, M. N., &amp; Dong, G. H. (2022). Disrupted dynamic network reconfiguration of the brain functional networks of individuals with autism spectrum disorder. Brain Communications , 4 (4), fcac177. https://doi.org/10.1093/ braincomms/fcac177
+308:- Yang, B., Wang, M., Zhou, W., Wang, X., Chen, S., Yuan, L.-X., &amp; Dong, G.-H. (2023). Edge-centric functional network analyses reveal disrupted network configuration in autism spectrum disorder. Journal of Affective Disorders , 336 , 74 -80. https://doi.org/10.1016/j.jad.2023.05.025
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..06f6c37b7ce32161d81d9eb43a6ee301736d1fdf
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Jiang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we analyzed individuals with ASD and typically developed (TD) controls\"",
++        "location": "Jiang2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "All analyzed data sourced from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All the data analyzed in this study were sourced from the ABIDE dataset.\"",
++        "location": "S0033291724000138sup001.docx.md: Online supplement 1 Dataset details"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 40,
++          "mean": 15.19,
++          "sd": 7.79
++        },
++        "detail": "ASD group after normative modeling selection.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| Age | ASD |  15.19 | 576 |  7.786 |         5 |        40 |       13 |\"",
++        "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "NR",
++          "male_pct": "NR",
++          "female_n": "NR",
++          "female_pct": "NR"
++        },
++        "detail": "Sex counts for the ASD clinical cohort not reported; only an overall approximate ratio is mentioned.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"there are many different normalization modeling methods, each with its own advantages and disadvantages (Marquand et al., 2019). We chose to use the LOESS estimation method because it is computationally efficient and the resulting W-scores are easy to interpret. However, because it is based on an estimate of the standard deviation of the normative sample, it is potentially sensitive to small sample sizes in specific age ranges (e.g. if a particular age range has only four data points, there may be an unreliable S.D.). Therefore, we excluded age ranges (one year) containing less than or equal to two subjects. Finally, although head motion within scanners is a well-known confounding factor in resting-state studies, recent studies have shown that the same motion can also affect structural image quality and surface reconstruction (Power, Barnes, Snyder, Schlaggar, & Petersen, 2012; Van Dijk, Sabuncu, & Buckner, 2012). Therefore, given its impact on traditional analysis methods, we strongly encourage future research to consider motion as an important confounding factor.\"",
++        "location": "Jiang2024.pdf.md: Discussion / Limitations"
+       }
+     }
+   ]
+
+
+thinking
+**Updating sex supporting text with ratio sentence**
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+@@ -44,3 +44,3 @@
+         "confidence_rating": "Low",
+-        "supporting_text": "\"there are many different normalization modeling methods, each with its own advantages and disadvantages (Marquand et al., 2019). We chose to use the LOESS estimation method because it is computationally efficient and the resulting W-scores are easy to interpret. However, because it is based on an estimate of the standard deviation of the normative sample, it is potentially sensitive to small sample sizes in specific age ranges (e.g. if a particular age range has only four data points, there may be an unreliable S.D.). Therefore, we excluded age ranges (one year) containing less than or equal to two subjects. Finally, although head motion within scanners is a well-known confounding factor in resting-state studies, recent studies have shown that the same motion can also affect structural image quality and surface reconstruction (Power, Barnes, Snyder, Schlaggar, & Petersen, 2012; Van Dijk, Sabuncu, & Buckner, 2012). Therefore, given its impact on traditional analysis methods, we strongly encourage future research to consider motion as an important confounding factor.\"",
++        "supporting_text": "\"it also has few female participants, with a male-to-female ratio of approximately 5:1.\"",
+         "location": "Jiang2024.pdf.md: Discussion / Limitations"
+2026-03-05T03:04:08.050369Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 11ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..239889eb9ca4537b2600dc0896847b4caa295506
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Jiang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we analyzed individuals with ASD and typically developed (TD) controls\"",
++        "location": "Jiang2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "All analyzed data sourced from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All the data analyzed in this study were sourced from the ABIDE dataset.\"",
++        "location": "S0033291724000138sup001.docx.md: Online supplement 1 Dataset details"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 40,
++          "mean": 15.19,
++          "sd": 7.79
++        },
++        "detail": "ASD group after normative modeling selection.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| Age | ASD |  15.19 | 576 |  7.786 |         5 |        40 |       13 |\"",
++        "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "NR",
++          "male_pct": "NR",
++          "female_n": "NR",
++          "female_pct": "NR"
++        },
++        "detail": "Sex counts for the ASD clinical cohort not reported; only an overall approximate ratio is mentioned.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"it also has few female participants, with a male-to-female ratio of approximately 5:1.\"",
++        "location": "Jiang2024.pdf.md: Discussion / Limitations"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..239889eb9ca4537b2600dc0896847b4caa295506
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Jiang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we analyzed individuals with ASD and typically developed (TD) controls\"",
++        "location": "Jiang2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "All analyzed data sourced from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All the data analyzed in this study were sourced from the ABIDE dataset.\"",
++        "location": "S0033291724000138sup001.docx.md: Online supplement 1 Dataset details"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 40,
++          "mean": 15.19,
++          "sd": 7.79
++        },
++        "detail": "ASD group after normative modeling selection.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| Age | ASD |  15.19 | 576 |  7.786 |         5 |        40 |       13 |\"",
++        "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "NR",
++          "male_pct": "NR",
++          "female_n": "NR",
++          "female_pct": "NR"
++        },
++        "detail": "Sex counts for the ASD clinical cohort not reported; only an overall approximate ratio is mentioned.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"it also has few female participants, with a male-to-female ratio of approximately 5:1.\"",
++        "location": "Jiang2024.pdf.md: Discussion / Limitations"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming text details**
+
+Supporting text requires exact lowercase matching including ratios and precise rounding; the summary will note sex as not reported and mention the updated file per instructions.
+codex
+Filled in the cohort extraction for Jiang2024, using ABIDE as the clinical dataset, ASD as the disorder, and the ASD age stats from Table 1; sex remains NR with only the reported overall ratio cited. Updated `DE_v14_Jiang2024_by_codex_20260305120219178.json`.
+
+If you want, I can also compute sex counts from the 5:1 ratio and ASD N=576, but it would be an approximation and not explicitly reported.
+2026-03-05T03:04:16.852153Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..239889eb9ca4537b2600dc0896847b4caa295506
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120219178/DE_v14_Jiang2024_by_codex_20260305120219178.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Jiang2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"we analyzed individuals with ASD and typically developed (TD) controls\"",
++        "location": "Jiang2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE"
++        ],
++        "detail": "All analyzed data sourced from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All the data analyzed in this study were sourced from the ABIDE dataset.\"",
++        "location": "S0033291724000138sup001.docx.md: Online supplement 1 Dataset details"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5,
++          "max": 40,
++          "mean": 15.19,
++          "sd": 7.79
++        },
++        "detail": "ASD group after normative modeling selection.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| Age | ASD |  15.19 | 576 |  7.786 |         5 |        40 |       13 |\"",
++        "location": "Jiang2024.pdf.md: Table 1. Sample characteristics after normative modeling selection"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "NR",
++          "male_pct": "NR",
++          "female_n": "NR",
++          "female_pct": "NR"
++        },
++        "detail": "Sex counts for the ASD clinical cohort not reported; only an overall approximate ratio is mentioned.",
++        "confidence_rating": "Low",
++        "supporting_text": "\"it also has few female participants, with a male-to-female ratio of approximately 5:1.\"",
++        "location": "Jiang2024.pdf.md: Discussion / Limitations"
+       }
+     }
+   ]
+
+tokens used
+34,345
+Filled in the cohort extraction for Jiang2024, using ABIDE as the clinical dataset, ASD as the disorder, and the ASD age stats from Table 1; sex remains NR with only the reported overall ratio cited. Updated `DE_v14_Jiang2024_by_codex_20260305120219178.json`.
+
+If you want, I can also compute sex counts from the 5:1 ratio and ASD N=576, but it would be an approximation and not explicitly reported.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

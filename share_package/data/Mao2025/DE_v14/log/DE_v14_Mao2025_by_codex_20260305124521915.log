@@ -1,0 +1,511 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Mao2025_by_codex_20260305124521915.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc19-ac60-77c1-8ccf-33340eb07241
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Mao2025_by_codex_20260305124521915.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read guide file**
+2026-03-05T03:45:27.474767Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915 succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Mao2025_by_codex_20260305124521915.json
+DE_v14_Mao2025_by_codex_20260305124521915.log
+study_1
+
+thinking
+**Opening guide**
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051245219152026-03-05T03:45:29.757794Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating study data**
+
+I'm checking the study_1 directory to find the relevant study data files.
+2026-03-05T03:45:32.309446Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915 succeeded in 18ms:
+1-s2.0-S1878929325001008-mmc1.pdf.md
+1-s2.0-S1878929325001008-mmc1_artifacts
+Mao2025.pdf.md
+Mao2025_artifacts
+
+thinking
+**Checking for extraction in Mao2025**
+2026-03-05T03:45:37.020359Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical cohort|patients|schiz|bipolar|depress|autis|Alzheimer|ADHD|epilep|psychosis|mdd|depression|cohort" Mao2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915/study_1 succeeded in 18ms:
+51:This study investigated early childhood corpus callosum development, a critical process for cognitive maturation and implicated in Autism Spectrum Disorder (ASD), using sex-specific growth curve models. Structural MRI data from  295  typically  developing  children  (TDC;  aged  1 -6  years)  were  used  to  model  age-  and  sex-dependent changes in ten morphometric parameters, including subregion volumes and midsagittal plane features. Analyses  revealed  nonlinear  developmental  trajectories,  region-specific  growth  rates,  and  earlier  developmental peaks in females. We applied these normative models to an independent dataset of 41 TDC and 26 children with ASD,  acquired  on  a  different  scanner.  Classifiers  trained  on  deviations  from  the  growth  curves  accurately distinguished children with ASD from TDC (mean Area Under the Receiver Operating Characteristic Curve [AUC] = 0.95),  demonstrating  model  generalizability.  These  findings  establish  sex-specific  corpus  callosum  growth curve models as a quantitative, generalizable tool for characterizing typical development and detecting atypical morphometry,  offering  a  promising  approach  for  early,  objective  ASD  diagnosis  and  potentially  facilitating timely intervention. Further study of model generalizability across more diverse populations is warranted.
+53:mental  health.  For  instance,  toddlers  with  autism  spectrum  disorder (ASD)  aged  2 -4  years  have  been  shown  to  exhibit  increased  corpus callosum  volumes  compared  to  typically  developing  children  (Zhang et al., 2023). Longitudinal studies also suggest that the atypical development of the corpus callosum ' s white matter microstructure in ASD begins in early childhood and persists into adolescence and adulthood (Courchesne et al., 2011).
+73:The inclusion criteria for TDC were the same for both datasets: age between 1 and 6 years; full-term birth (gestational age between 37 and 41 weeks) with no perinatal complications; normal results on neurological and physical examinations; no current or past neurological or psychiatric disorders; no evidence of genetic, metabolic, or infectious diseases. Neuroradiologists reviewed the T1 and T2 weighted images to exclude  indications  of  congenital  brain  development  abnormalities, such as abnormal brain volume, heterotopia of gray and white matter, and unusual MR signal indications in the brain, such as brain tumors, arachnoid cysts, hemorrhage, and encephalitis. Participants in the TDC group  were  excluded  if  they  had  diagnoses  of  ASD,  intellectual disability,  hearing  impairment,  speech  sound  disorder,  other  sensory impairments,  tic  disorder,  Tourette ' s  syndrome,  attention  deficit/hyperactivity disorder, specific learning disorder, anxiety disorder, depression,  or  epilepsy.  Although  participants  were  recruited  from children recommended for MRI due to simple febrile seizures, dizziness, headache, facial or arm numbness, trauma, transient fever of unknown origin,  and  for  routine  physical  examinations,  they  were  ultimately included in the TDC group after neurologists ruled out neurological diagnoses  based  on  medical  history,  physical  examination,  and  MRI findings.
+75:A clinical diagnosis of ASD was established by an experienced child psychiatrist or developmental pediatrician following a comprehensive evaluation based on the criteria of the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5). The evaluation included a detailed assessment of developmental history, direct behavioral observation of the child, and structured parental interviews. All participants were between 1 and 6 years of age at the time of the scan. Subjects were excluded if they had comorbid genetic or major neurological disorders (e.g., epilepsy), were unable to complete the MRI scan, or if brain MRI revealed  significant  structural  abnormalities  (e.g.,  congenital  malformations, tumors, cysts, hemorrhage, or encephalitis). For both the ASD and TDC participants, the gender was determined based on their parents ' self-assessment.
+85:This study employed a cross-sectional design and proceeded in two distinct  stages:  (1)  normative  model  construction  using  data  from  a single scanner, and (2) clinical validation and generalizability testing using data from a different scanner (see Fig. 1).
+87:First, to construct the normative models, we utilized structural MRI data from a cohort of 295 typically developing children (TDC), all acquired on a 1.5 T Siemens scanner. This TDC cohort was stratified into six year-by-year age groups (1 -2, 2 -3, 3 -4, 4 -5, 5 -6, and 6 -7 years) for quality control and image processing. Following manual and automated quality control (Section 2.4), images were segmented using Freesurfer (Fischl,  2012)  and  Yuki  (Ardekani,  2018)  software  to  extract  corpus callosum morphometrics. These cross-sectional data were then used to build sex-specific growth  curve  models  that  characterize typical age-related changes and population variability.
+89:Second, to evaluate the model ' s real-world clinical utility, we performed a stringent validation test.  We chose  an independent  dataset (Dataset 2) acquired on a different scanner. This approach was designed to assess the model ' s generalizability, a critical feature for diagnostic tool  intended  for  widespread  use  where  data  are  collected  across different  imaging  environments  (Maleki  et  al.,  2023;  Richter  et  al., 2025). We applied the normative models to this new dataset to derive percentile-based deviation scores for children with ASD and additional TDCs. These scores were then used to train and test multivariate classifiers to evaluate their performance in identifying ASD, thereby testing the robustness of the biological signal against potential scanner-induced variations.
+99:Table 1 summarizes the sample sizes for all datasets, after image quality control. Since percentiles from Dataset 2 were extracted through the model to validate its ability to identify ASD patients, there was no need to differentiate between age groups.
+139:These morphological characteristics have been widely used in the field  of  cognitive  science  (e.g.,  perception  studies  (Danielsen  et  al., 2020), language (Bartha-Doering et al., 2021), intelligence (Guadarrama-Ortiz et al., 2020), emotional intelligence (Anderson et al., 2017)), as well as in neurological disease research (including cerebrovascular diseases (Raghavan et al., 2020), neurodegenerative diseases (Kamal et al., 2021), epilepsy (Liu et al., 2024), and various psychiatric disorders).
+171:Fig.  3 illustrates  the  age-dependent  changes  in  ten  morphometric parameters of the corpus callosum, with mean values and standard errors indicated for each age cohort. These parameters include five global metrics (total volume, area, length, perimeter, and circularity) as well as volumetric assessments of five subregions (anterior, mid-anterior, central, mid-posterior, and posterior) within the corpus callosum.
+217:Fig. 7. Individualized inference using growth curve models to assess the ability of growth curves to identify ASD children. (A) Out-of-sample typical development control (TDC) children (top) and ASD children (bottom), with blue bars indicating individuals below the model ' s 10th percentile and red bars indicating individuals above the model ' s 90th percentile for each morphological feature. (B) Percentile distribution of ASD children within the growth curve model, showing density  curves  for  each  corpus  callosum  region  and  overall  morphological  features  across  percentiles,  with  TDC  in  pink  and  ASD  in  blue.  (C)  Distribution  of Mahalanobis distances for ASD and TDC groups, illustrating the separation in multivariate space, with ASD children showing a higher and more variable distribution compared to TDC children. ASD median: 42.65, TDC median: 9.42. (D) Receiver operating characteristic (ROC) curve of the classifier used to distinguish ASD patients from TDC based on percentiles derived from the growth curve model, with area under the curve (AUC) values for all features (0.95), subregional volumes (0.916), and sagittal plane features (0.894).
+233:A  key  methodological  consideration  of  this  study  is  the  use  of different MRI scanners for the model construction (1.5 T Siemens) and validation (3 T Philips) cohorts. This was a deliberate design choice. Our primary scientific aim -to characterize typical corpus callosum development -was addressed using data from a single, homogenous scanner to ensure methodological rigor. The subsequent validation phase was designed as a stringent test of the model ' s real-world applicability. It is well-established that scanner hardware, field strength, and acquisition parameters can introduce systematic variance that poses a challenge for combining neuroimaging data from different sites (Chen et al., 2014). For a diagnostic model to be clinically useful, however, it must be robust to such site-specific variations (Maleki et al., 2023; Richter et al., 2025). Therefore, by demonstrating high classification accuracy when applying a model from one scanner to data from another, our findings provide strong  evidence  for  the  generalizability  of  our  growth  curve-derived features.  This  suggests  the  biological  signal  of  atypical  corpus  callosum  morphology  in  ASD  is  potent  enough  to  be  detected  across different imaging platforms, a crucial step for potential clinical translation.  Future  work  involving  harmonized,  multi-site  studies  will  be essential  to  further  validate  these  models  for  widespread  clinical deployment.
+235:Several limitations of this study should be acknowledged. First, our cross-sectional design captures population-level trends rather than individual  developmental  trajectories.  Second,  the  TDC  group  was recruited from a clinical population, which, despite rigorous screening, may introduce more variance than a community-based sample and thus make our findings more conservative. Finally, our projections of peak developmental  ages  extend  beyond  our  1-to-6-year  data  range  and should be considered exploratory hypotheses, not definitive findings; they serve only to contextualize the sex differences observed in early childhood growth rates. Addressing these limitations will require future validation  in  large,  prospectively  recruited  longitudinal  cohorts  that span from early childhood through adolescence.
+267:- Bethlehem, R. a I., Seidlitz, J., White, S.R., Vogel, J.W., Anderson, K.M., Adamson, C., Adler, S., Alexopoulos, G.S., Anagnostou, E., Areces-Gonzalez, A., Astle, D.E., Auyeung, B., Ayub, M., Bae, J., Ball, G., Baron-Cohen, S., Beare, R., Bedford, S.A., Benegal, V., Beyer, F., Blangero, J., Blesa C ´ abez, M., Boardman, J.P., Borzage, M., Bosch-Bayard, J.F., Bourke, N., Calhoun, V.D., Chakravarty, M.M., Chen, C., Chertavian, C., Chetelat, G., Chong, Y.S., Cole, J.H., Corvin, A., Costantino, M., Courchesne, E., Crivello, F., Cropley, V.L., Crosbie, J., Crossley, N., Delarue, M., Delorme, R., Desrivieres, S., Devenyi, G.A., Di Biase, M.A., Dolan, R., Donald, K.A., Donohoe, G., Dunlop, K., Edwards, A.D., Elison, J.T., Ellis, C.T., Elman, J.A., Eyler, L., Fair, D.A., Feczko, E., Fletcher, P.C., Fonagy, P., Franz, C.E., GalanGarcia, L., Gholipour, A., Giedd, J., Gilmore, J.H., Glahn, D.C., Goodyer, I.M., Grant, P.E., Groenewold, N.A., Gunning, F.M., Gur, R.E., Gur, R.C., Hammill, C.F., Hansson, O., Hedden, T., Heinz, A., Henson, R.N., Heuer, K., Hoare, J., Holla, B., Holmes, A.J., Holt, R., Huang, H., Im, K., Ipser, J., Jack, C.R., Jackowski, A.P., Jia, T., Johnson, K.A., Jones, P.B., Jones, D.T., Kahn, R.S., Karlsson, H., Karlsson, L., Kawashima, R., Kelley, E.A., Kern, S., Kim, K.W., Kitzbichler, M.G., Kremen, W.S., Lalonde, F., Landeau, B., Lee, S., Lerch, J., Lewis, J.D., Li, J., Liao, W., Liston, C., Lombardo, M.V., Lv, J., Lynch, C., Mallard, T.T., Marcelis, M., Markello, R.D., Mathias, S.R., Mazoyer, B., McGuire, P., Meaney, M.J., Mechelli, A., Medic, N., Misic, B., Morgan, S.E., Mothersill, D., Nigg, J., Ong, M.Q.W., Ortinau, C., Ossenkoppele, R., Ouyang, M., Palaniyappan, L., Paly, L., Pan, P.M., Pantelis, C., Park, M.M., Paus, T., Pausova, Z., Paz-Linares, D., Pichet Binette, A., Pierce, K., Qian, X., Qiu, J., Qiu, A., Raznahan, A., Rittman, T., Rodrigue, A., Rollins, C.K., Romero-Garcia, R., Ronan, L., Rosenberg, M.D., Rowitch, D.H., Salum, G.A., Satterthwaite, T.D., Schaare, H.L., Schachar, R.J., Schultz, A.P., Schumann, G., Sch ¨ oll, M., Sharp, D., Shinohara, R.T., Skoog, I., Smyser, C.D., Sperling, R.A., Stein, D.J., Stolicyn, A., Suckling, J., Sullivan, G., Taki, Y., Thyreau, B., Toro, R., Traut, N., Tsvetanov, K.A., Turk-Browne, N.B., Tuulari, J.J., Tzourio, C., VachonPresseau, ´ E., Valdes-Sosa, M.J., Valdes-Sosa, P.A., Valk, S.L., van Amelsvoort, T., Vandekar, S.N., Vasung, L., Victoria, L.W., Villeneuve, S., Villringer, A., V ´ ertes, P.E., Wagstyl, K., Wang, Y.S., Warfield, S.K., Warrier, V., Westman, E., Westwater, M.L., Whalley, H.C., Witte, A.V., Yang, N., Yeo, B., Yun, H., Zalesky, A., Zar, H.J., Zettergren, A., Zhou, J.H., Ziauddeen, H., Zugman, A., Zuo, X.N., 3R-BRAIN, AIBL, Alzheimer ' s Disease Neuroimaging Initiative, Alzheimer ' s Disease Repository Without Borders Investigators, CALM Team, Cam-CAN, CCNP, COBRE, cVEDA, ENIGMA Developmental Brain Age Working Group, Developing Human Connectome Project, FinnBrain, Harvard Aging Brain Study, IMAGEN, KNE96, Mayo Clinic Study of Aging, NSPN, POND, PREVENT-AD Research Group, VETSA, Bullmore, E.T., Alexander-Bloch, A.F., 2022. Brain charts for the human lifespan. Nature 604, 525 -533. https://doi.org/10.1038/s41586-022-04554-y.
+272:- Courchesne, E., Campbell, K., Solso, S., 2011. Brain growth across the life span in autism: age-specific changes in anatomical pathology. Brain Res. 1380, 138 -145. https:// doi.org/10.1016/j.brainres.2010.09.101.
+279:- Gaser, C., Dahnke, R., Thompson, P.M., Kurth, F., Luders, E., 2024. The Alzheimer ' s Disease Neuroimaging Initiative, 2024. CAT: A computational anatomy toolbox for the analysis of structural MRI data. GigaScience 13, giae049. https://doi.org/ 10.1093/gigascience/giae049.
+280:- Giuliano, A., Saviozzi, I., Brambilla, P., Muratori, F., Retico, A., Calderoni, S., 2018. The effect of age, sex and clinical features on the volume of corpus callosum in preschoolers with autism spectrum disorder: a case-control study. Eur. J. Neurosci. 47, 568 -578. https://doi.org/10.1111/ejn.13527.
+282:- Kamal, S., Park, I., Kim, Y.J., Kim, Y.J., Lee, U., 2021. Alteration of the corpus callosum in patients with Alzheimer ' s disease: deep learning-based assessment. PLoS One 16, e0259051. https://doi.org/10.1371/journal.pone.0259051.
+
+thinking
+**Identifying clinical cohort details**
+
+I'm locating the clinical cohort information for the ASD dataset, focusing on demographics in Table 1 to extract relevant details.
+exec
+/bin/bash -lc 'rg -n "Table 1|Dataset 2|ASD|TDC" Mao2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915/study_12026-03-05T03:45:41.457292Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+51:This study investigated early childhood corpus callosum development, a critical process for cognitive maturation and implicated in Autism Spectrum Disorder (ASD), using sex-specific growth curve models. Structural MRI data from  295  typically  developing  children  (TDC;  aged  1 -6  years)  were  used  to  model  age-  and  sex-dependent changes in ten morphometric parameters, including subregion volumes and midsagittal plane features. Analyses  revealed  nonlinear  developmental  trajectories,  region-specific  growth  rates,  and  earlier  developmental peaks in females. We applied these normative models to an independent dataset of 41 TDC and 26 children with ASD,  acquired  on  a  different  scanner.  Classifiers  trained  on  deviations  from  the  growth  curves  accurately distinguished children with ASD from TDC (mean Area Under the Receiver Operating Characteristic Curve [AUC] = 0.95),  demonstrating  model  generalizability.  These  findings  establish  sex-specific  corpus  callosum  growth curve models as a quantitative, generalizable tool for characterizing typical development and detecting atypical morphometry,  offering  a  promising  approach  for  early,  objective  ASD  diagnosis  and  potentially  facilitating timely intervention. Further study of model generalizability across more diverse populations is warranted.
+53:mental  health.  For  instance,  toddlers  with  autism  spectrum  disorder (ASD)  aged  2 -4  years  have  been  shown  to  exhibit  increased  corpus callosum  volumes  compared  to  typically  developing  children  (Zhang et al., 2023). Longitudinal studies also suggest that the atypical development of the corpus callosum ' s white matter microstructure in ASD begins in early childhood and persists into adolescence and adulthood (Courchesne et al., 2011).
+63:This study aims to construct growth curve models to characterize the morphological  features  of  the  corpus  callosum  in  children  aged  1 -6 years. By elucidating the growth rate and inter-individual variability of ten  fine-grained  morphometrics  of  the  corpus  callosum,  we  seek  to provide insights into the timing and pace of corpus callosum maturation during early childhood. Furthermore, we aim to examine the hypothesis that the these growth curve models are effective in identifying atypical development associated ASD. If the hypothesis is proved, this approach could lead to a novel tool for quantitatively recognizing corpus callosum abnormalities and assessing developmental deviations.
+71:This study utilized two brain imaging datasets collected at Zhejiang Children ' s Hospital, Zhejiang University. Dataset 1 consists of structural brain images from 295 typically developing children (TDC), aged 1 -6 years, and was used to construct growth curve models of the corpus callosum. Dataset 2 includes brain images from 26 children with ASD and 41 TDC children. Dataset 2 was used to assess the capability of the growth  curve  models  to  identify  ASD  based  on  deviations  in  corpus callosum morphology. This study is approved by The Medical Research Ethics Committee at the Children ' s Hospital. The parents of all participants signed informed consent form.
+73:The inclusion criteria for TDC were the same for both datasets: age between 1 and 6 years; full-term birth (gestational age between 37 and 41 weeks) with no perinatal complications; normal results on neurological and physical examinations; no current or past neurological or psychiatric disorders; no evidence of genetic, metabolic, or infectious diseases. Neuroradiologists reviewed the T1 and T2 weighted images to exclude  indications  of  congenital  brain  development  abnormalities, such as abnormal brain volume, heterotopia of gray and white matter, and unusual MR signal indications in the brain, such as brain tumors, arachnoid cysts, hemorrhage, and encephalitis. Participants in the TDC group  were  excluded  if  they  had  diagnoses  of  ASD,  intellectual disability,  hearing  impairment,  speech  sound  disorder,  other  sensory impairments,  tic  disorder,  Tourette ' s  syndrome,  attention  deficit/hyperactivity disorder, specific learning disorder, anxiety disorder, depression,  or  epilepsy.  Although  participants  were  recruited  from children recommended for MRI due to simple febrile seizures, dizziness, headache, facial or arm numbness, trauma, transient fever of unknown origin,  and  for  routine  physical  examinations,  they  were  ultimately included in the TDC group after neurologists ruled out neurological diagnoses  based  on  medical  history,  physical  examination,  and  MRI findings.
+75:A clinical diagnosis of ASD was established by an experienced child psychiatrist or developmental pediatrician following a comprehensive evaluation based on the criteria of the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5). The evaluation included a detailed assessment of developmental history, direct behavioral observation of the child, and structured parental interviews. All participants were between 1 and 6 years of age at the time of the scan. Subjects were excluded if they had comorbid genetic or major neurological disorders (e.g., epilepsy), were unable to complete the MRI scan, or if brain MRI revealed  significant  structural  abnormalities  (e.g.,  congenital  malformations, tumors, cysts, hemorrhage, or encephalitis). For both the ASD and TDC participants, the gender was determined based on their parents ' self-assessment.
+81:Dataset 2 was acquired using a Philips Achieva 3 T TX MRI scanner (Philips Healthcare, Best, The Netherlands). High-resolution T1weighted 3D images were acquired using a 3D Turbo Field Echo (3DTFE)  sequence  with  the  following  parameters:  TR = 2000  ms,  TE = 3.7 ms, TI = 800 ms, flip angle = 8 ◦ , FOV = 256 mm × 256 mm, data matrix = 320 × 320, 180 slices, spatial resolution = 0.8 × 0.8 × 2.0 mm 3 . The scan procedure was the same as in Dataset 1.
+87:First, to construct the normative models, we utilized structural MRI data from a cohort of 295 typically developing children (TDC), all acquired on a 1.5 T Siemens scanner. This TDC cohort was stratified into six year-by-year age groups (1 -2, 2 -3, 3 -4, 4 -5, 5 -6, and 6 -7 years) for quality control and image processing. Following manual and automated quality control (Section 2.4), images were segmented using Freesurfer (Fischl,  2012)  and  Yuki  (Ardekani,  2018)  software  to  extract  corpus callosum morphometrics. These cross-sectional data were then used to build sex-specific growth  curve  models  that  characterize typical age-related changes and population variability.
+89:Second, to evaluate the model ' s real-world clinical utility, we performed a stringent validation test.  We chose  an independent  dataset (Dataset 2) acquired on a different scanner. This approach was designed to assess the model ' s generalizability, a critical feature for diagnostic tool  intended  for  widespread  use  where  data  are  collected  across different  imaging  environments  (Maleki  et  al.,  2023;  Richter  et  al., 2025). We applied the normative models to this new dataset to derive percentile-based deviation scores for children with ASD and additional TDCs. These scores were then used to train and test multivariate classifiers to evaluate their performance in identifying ASD, thereby testing the robustness of the biological signal against potential scanner-induced variations.
+91:Fig. 1. Overview of the dataset and analysis workflow. A total of 380 brain imaging data were initially collected from two datasets: Dataset 1 (n = 311) and Dataset 2 (n = 69). Due to low image quality, 16 images were excluded from Dataset 1 and 2 images from Dataset 2, resulting in a total of 362 remaining images. Dataset 1 (n = 295, TDC) was used to construct growth curve models of corpus callosum morphometrics, focusing on age-related variations and developmental trends. Dataset 2 (n = 41, TDC; n = 26, ASD) was used to validate the classifier by assessing the role of growth curves in identifying corpus callosum abnormalities associated with ASD.
+99:Table 1 summarizes the sample sizes for all datasets, after image quality control. Since percentiles from Dataset 2 were extracted through the model to validate its ability to identify ASD patients, there was no need to differentiate between age groups.
+101:Table 1
+115:| Dataset 2         |          |        |         |
+116:| TDC Group         | 28       | 13     | 41      |
+117:| ASD Group         | 10       | 16     | 26      |
+159:To examine the characteristics of the corpus callosum morphological development  in  terms  of  age  and  sex,  this  study  divided  typically developing children (TDC) into 12 groups based on age range (1 -2, 2 -3, 3 -4, 4 -5, 5 -6, 6 -7 years) and sex. Sex and age main effects and their interaction  were  analyzed  using  a  2  (Sex:  Male,  Female) × 6  (Age Groups) analysis of variance (ANOVA). Subsequently, effect sizes between age and sex groups were quantified using Cohen ' s d.
+163:We evaluated the effectiveness of the growth curve model in identifying ASD based on corpus callosum morphometry using Dataset 2. Developmental scores (i.e., percentiles within the same-age population) were calculated for both TDC and ASD children, who were not included in the model training process.
+165:To classify TDC and ASD children, we trained regularized discriminant analysis (RDA) classifiers using the default parameters from the ' klaR ' package in R (Weihs et al., 2005). Three classifiers were developed  based  on  different  feature  sets:  (1)  volumes  (6  features),  (2) midsagittal morphological characteristics (4 features), and (3) a combination of both sets (10 features). A 10-fold cross-validation scheme was employed, and the performance of each classifier was assessed using mean classification accuracy and the area under the receiver operating characteristic curve (AUC).
+203:To  examine  the  ability  of  the  growth  curve  model  to  detect morphological aberrance in the corpus callosum, we used this model to compare the brain imaging data of a group of ASD children and TDC, which were acquired from another 3 T scanner. Specifically, we examined the deviation of the corpus callosum morphology between the two groups as indicated by the growth curve model and then utilized these deviations to train a machine learning model for ASD child identification.
+205:Fig. 7A visualizes the outliers ( &gt; 90th percentile or &lt; 10th percentile) from the growth curves for all corpus callosum morphometrics in TDC and children with ASD. Both groups were scanned on a different scanner and were not included in the training of the growth curve model. The results  indicate  that  aberrance  in  ASD  is  heterogeneous  across  individuals and metrics. The most common aberrance in ASD is an overlarge volume of the central subregion of the corpus callosum.
+
+thinking
+**Checking clinical cohort details**
+
+I'm exploring around Table 1 to find sex and clinical cohort details for ASD in dataset2.
+2026-03-05T03:45:44.372452Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '96,130p' Mao2025.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915/study_1 succeeded in 17ms:
+
+We first used the CAT12 toolbox (Gaser et al., 2024) to evaluate the quality of all images. According to the CAT quality report interpretation, the quality report rates image quality IQR (Image Quality Rating) based on resolution, noise, and bias into 16 grades from A + to F. Since this study focuses on the corpus callosum and the pediatric data is extremely valuable, to ensure sufficient modeling data, we chose an IQR equal or less  than ' C-' as  the  exclusion  criterion,  which  excluded  12  images. Subsequently, we manually inspected the remaining image data using ITK-SNAP (Yushkevich et al., 2006) to ensure no significant artifacts, noise, or unclear contours in the corpus callosum region. This process excluded 6 additional images. The remaining images had an average IQR of 82.55 % (above B-, with a standard deviation of 2.70 %).
+
+Table 1 summarizes the sample sizes for all datasets, after image quality control. Since percentiles from Dataset 2 were extracted through the model to validate its ability to identify ASD patients, there was no need to differentiate between age groups.
+
+Table 1
+
+Overview of Datasets.
+
+| Category          | Female   | Male   | Total   |
+|-------------------|----------|--------|---------|
+| Dataset 1         |          |        |         |
+| Age Group 1       | 27       | 33     | 60      |
+| Age Group 2       | 22       | 34     | 56      |
+| Age Group 3       | 27       | 22     | 49      |
+| Age Group 4       | 15       | 30     | 45      |
+| Age Group 5       | 19       | 28     | 47      |
+| Age Group 6       | 28       | 20     | 48      |
+| Total (Dataset 1) | 138      | 157    | 295     |
+| Dataset 2         |          |        |         |
+
+thinking
+**Clarifying dataset details and participant demographics**
+
+I'm setting ASD group age range as min 1 and max 6 with no mean or SD since not provided, labeling dataset origin as SINGLE-SITE from Zhejiang Children's Hospital, and calculating sex distribution percentages (61.5% male, 38.5% female) for 26 participants; I'll confirm paper ID Mao2025 and update the JSON accordingly.
+2026-03-05T03:45:51.476040Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Mao2025_by_codex_20260305124521915.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915 succeeded in 18ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Defining structured ASD fields**
+
+I'm specifying the ASD disorder and age answers as objects with numeric or "NR" string values, including proper supporting text quotes with section-based location references since line numbers aren't available.
+thinking
+**Adding dataset and cohort details**
+
+I'm preparing to include dataset origin as a single-site hospital dataset and specify ASD clinical cohort details, age range with no mean/sd reported, and sex counts from Table 1 with confidence ratings before editing the JSON.
+2026-03-05T03:46:12.639796Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mao2025"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical ASD cohort in Dataset 2 used for normative model validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Dataset 2 includes brain images from 26 children with ASD and 41 TDC children.\"",
++        "location": "Mao2025.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Dataset 2 collected at Zhejiang Children's Hospital, Zhejiang University (single-site).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"This study utilized two brain imaging datasets collected at Zhejiang Children ' s Hospital, Zhejiang University.\"",
++        "location": "Mao2025.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 1,
++          "max": 6,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "ASD participants in Dataset 2; mean/SD not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"All participants were between 1 and 6 years of age at the time of the scan.\"",
++        "location": "Mao2025.pdf.md: Methods / Participants"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 16,
++          "male_pct": 61.5,
++          "female_n": 10,
++          "female_pct": 38.5
++        },
++        "detail": "Counts from Table 1 (ASD Group); percentages calculated from N=26.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ASD Group         | 10       | 16     | 26      |\"",
++        "location": "Mao2025.pdf.md: Table 1 / Overview of Datasets"
+       }
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json b/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..31568ada64297099f6f4cd0be720ed23b327ea02
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mao2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical ASD cohort in Dataset 2 used for normative model validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Dataset 2 includes brain images from 26 children with ASD and 41 TDC children.\"",
++        "location": "Mao2025.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Dataset 2 collected at Zhejiang Children's Hospital, Zhejiang University (single-site).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"This study utilized two brain imaging datasets collected at Zhejiang Children ' s Hospital, Zhejiang University.\"",
++        "location": "Mao2025.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 1,
++          "max": 6,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "ASD participants in Dataset 2; mean/SD not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"All participants were between 1 and 6 years of age at the time of the scan.\"",
++        "location": "Mao2025.pdf.md: Methods / Participants"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 16,
++          "male_pct": 61.5,
++          "female_n": 10,
++          "female_pct": 38.5
++        },
++        "detail": "Counts from Table 1 (ASD Group); percentages calculated from N=26.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ASD Group         | 10       | 16     | 26      |\"",
++        "location": "Mao2025.pdf.md: Table 1 / Overview of Datasets"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json b/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..31568ada64297099f6f4cd0be720ed23b327ea02
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mao2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical ASD cohort in Dataset 2 used for normative model validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Dataset 2 includes brain images from 26 children with ASD and 41 TDC children.\"",
++        "location": "Mao2025.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Dataset 2 collected at Zhejiang Children's Hospital, Zhejiang University (single-site).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"This study utilized two brain imaging datasets collected at Zhejiang Children ' s Hospital, Zhejiang University.\"",
++        "location": "Mao2025.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 1,
++          "max": 6,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "ASD participants in Dataset 2; mean/SD not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"All participants were between 1 and 6 years of age at the time of the scan.\"",
++        "location": "Mao2025.pdf.md: Methods / Participants"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 16,
++          "male_pct": 61.5,
++          "female_n": 10,
++          "female_pct": 38.5
++        },
++        "detail": "Counts from Table 1 (ASD Group); percentages calculated from N=26.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ASD Group         | 10       | 16     | 26      |\"",
++        "location": "Mao2025.pdf.md: Table 1 / Overview of Datasets"
+       }
+     }
+   ]
+
+
+thinking
+**Providing final guidance**
+
+The main implementation updates are in the specified file; unless further changes are requested, no additional steps are needed now.
+codex
+Filled the extracted ASD clinical cohort details and demographics per `DE_Guide_v14.md`, with supporting citations, in `DE_v14_Mao2025_by_codex_20260305124521915.json`.
+
+If you want, I can also extract the TDC cohort or verify against the supplemental file `study_1/1-s2.0-S1878929325001008-mmc1.pdf.md`.
+2026-03-05T03:46:15.619348Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json b/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..31568ada64297099f6f4cd0be720ed23b327ea02
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124521915/DE_v14_Mao2025_by_codex_20260305124521915.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mao2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical ASD cohort in Dataset 2 used for normative model validation.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Dataset 2 includes brain images from 26 children with ASD and 41 TDC children.\"",
++        "location": "Mao2025.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Dataset 2 collected at Zhejiang Children's Hospital, Zhejiang University (single-site).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"This study utilized two brain imaging datasets collected at Zhejiang Children ' s Hospital, Zhejiang University.\"",
++        "location": "Mao2025.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 1,
++          "max": 6,
++          "mean": "NR",
++          "sd": "NR"
++        },
++        "detail": "ASD participants in Dataset 2; mean/SD not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"All participants were between 1 and 6 years of age at the time of the scan.\"",
++        "location": "Mao2025.pdf.md: Methods / Participants"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 16,
++          "male_pct": 61.5,
++          "female_n": 10,
++          "female_pct": 38.5
++        },
++        "detail": "Counts from Table 1 (ASD Group); percentages calculated from N=26.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ASD Group         | 10       | 16     | 26      |\"",
++        "location": "Mao2025.pdf.md: Table 1 / Overview of Datasets"
+       }
+     }
+   ]
+
+tokens used
+20,936
+Filled the extracted ASD clinical cohort details and demographics per `DE_Guide_v14.md`, with supporting citations, in `DE_v14_Mao2025_by_codex_20260305124521915.json`.
+
+If you want, I can also extract the TDC cohort or verify against the supplemental file `study_1/1-s2.0-S1878929325001008-mmc1.pdf.md`.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

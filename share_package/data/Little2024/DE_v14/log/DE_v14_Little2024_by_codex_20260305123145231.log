@@ -1,0 +1,539 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Little2024_by_codex_20260305123145231.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123145231/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc0d-3636-7791-8bf5-afb302ad685a
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Little2024_by_codex_20260305123145231.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Locating read guide**
+
+I'm checking for a README or equivalent guide file to understand the project further before proceeding.
+2026-03-05T03:31:53.053031Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123145231 succeeded in 15ms:
+DE_Guide_v14.md
+DE_v14_Little2024_by_codex_20260305123145231.json
+DE_v14_Little2024_by_codex_20260305123145231.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051231452312026-03-05T03:31:56.037266Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Searching for study data files**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051231452312026-03-05T03:31:59.204073Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 37ms:
+DE_v14_Little2024_by_codex_20260305123145231.log
+DE_Guide_v14.md
+study_1/Little2024.pdf.md
+study_1/bdi13484-sup-0001-supinfo.docx.md
+DE_v14_Little2024_by_codex_20260305123145231.json
+
+thinking
+**Extracting content from study markdown**
+exec
+/bin/bash -lc 'cat study_1/Little2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051231452312026-03-05T03:32:02.449461Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+## ORIGINAL ARTICLE
+
+![Image](./Little2024_artifacts/image_000000_f53d72c504b0939393d0b524a4cf444c69bb9887394f37a1caaea23763dfa787.png)
+
+![Image](./Little2024_artifacts/image_000001_254f55d376bb550ccea789336ce8322d9e84a285572d2d7f5350264df3da7e03.png)
+
+## Multivariate brain-  cognition associations in euthymic bipolar disorder
+
+Bethany Little 1,2
+
+|
+
+Carly Flowers 1
+
+|
+
+Andrew Blamire
+
+1
+
+
+thinking
+**Seeking clinical cohort details**
+
+I'm verifying that the clinical cohort involves bipolar disorder patients, specifically euthymic BD patients, and checking the supplement for age, sex, and dataset origins like BLISS or other details.
+exec
+/bin/bash -lc 'cat study_1/bdi13484-sup-0001-supinfo.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051231452312026-03-05T03:32:13.337490Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+# Supplementary material
+
+Little et al. (2023) Multivariate brain-cognition associations in euthymic bipolar disorder
+
+## 1 Normative model of cortical thickness
+
+We utilised four public datasets of T1-weighted scans from healthy controls:
+
+- the WU-Minn Human Connectome Project Young Adult (HCP; available at https://www.humanconnectome.org/study/hcp-young-adult);1
+- Open Big Healthy Brains (OpenBHB; available at https://ieee-dataport.org/open-access/openbhb-multi-site-brain-mri-dataset-age-prediction-and-debiasing);2
+- Open Access Series of Imaging Studies (OASIS-3; available at https://sites.wustl.edu/oasisbrains/home/oasis-3/);3 and
+- the Cambridge Centre for Ageing and Neuroscience (Cam-CAN; available at http://www.mrc-cbu.cam.ac.uk/datasets/camcan/).4
+
+We also used a cohort of healthy adult participants scanned at Newcastle University as part of another study (site=NCL). Table S1 shows the demographic data for each site.
+
+| Dataset   | N    | Age   | Age   | Age   | Sex      | Sex      |
+|-----------|------|-------|-------|-------|----------|----------|
+| Dataset   | N    | Mean  | SD    | Range | N female | % female |
+| CamCAN    | 644  | 54.75 | 18.51 | 18-88 | 327      | 50.8%    |
+| OASIS-3   | 542  | 66.18 | 8.89  | 42-95 | 335      | 61.8%    |
+
+thinking
+**Searching for clinical cohort demographics**
+2026-03-05T03:32:16.628335Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "age|sex|male|female|demograph|participant|table" study_1/Little2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123145231 succeeded in 29ms:
+3:![Image](./Little2024_artifacts/image_000000_f53d72c504b0939393d0b524a4cf444c69bb9887394f37a1caaea23763dfa787.png)
+5:![Image](./Little2024_artifacts/image_000001_254f55d376bb550ccea789336ce8322d9e84a285572d2d7f5350264df3da7e03.png)
+61:Methods: Euthymic BD patients ( n = 56)  and  matched  healthy  controls  ( n = 26)  underwent T1-  weighted MRI scans and completed neuropsychological tests of PS, attention and EF. We utilised public datasets to develop normative models of cortical thickness ( n = 5977) to generate robust estimations of cortical abnormalities in patients. Canonical correlation analysis was used to assess multivariate brain-  cognition associations in BD, controlling for age, sex and premorbid IQ.
+65:Conclusion: Impairments in PS, attention and EF can be observed in euthymic BD and may be related to abnormal cortical thickness in temporal regions. Future research should continue to leverage normative modelling and multivariate methods to examine  complex  brain-  cognition  associations  in  BD.  Future  research  may  benefit  from exploring covariance between traditional brain structural morphological metrics such as cortical thickness, cortical volume and surface area.
+87:Several challenges currently limit brain-  cognition studies: recent research  suggests  that  brain-  behaviour  associations  are  not  replicable, 16 and results appear inconsistent with some studies failing to  detect  significant  structural  brain-  cognition  associations. 15,17,18 This may be driven by small samples; here, normative modelling approaches offer a powerful tool to mitigate this limitation and provide more robust estimates of brain abnormalities. 19 Previous research generally  relies  on  univariate  analysis,  where  the  relationship  between a single cognitive function and the structure of several brain regions is tested. Studying cognitive functions independently may not accurately model cognitive impairment in BD, since processes likely  interact  and  overlap,  especially  in  the  presence  of  cognitive impairment. 8,9,20,21 The  univariate  approach is also constrained by the problem of multiple comparisons, where there is a risk of missing real associations after correcting for multiple comparisons (i.e., increased type-  II errors). Multivariate methods that can simultaneously accommodate the multivariate cognitive and brain data may better  reflect  the  complex,  multimodal  nature  of  behaviour  and physiology. Such methods are beginning to be leveraged to assess brain-  cognition  relationships 5,22,23 ;  however,  few  studies  have  utilised these methods, especially in BD.
+93:Data  were  collected  as  part  of  the  Bipolar  Lithium  Imaging  and Spectroscopy Study (BLISS). 24 T1-  weighted imaging, diffusionweighted  imaging  and  lithium  imaging  data  have  been  reported previously. 24,25 BLISS was granted a favourable ethical opinion by a United Kingdom National Research Ethics Committee (14/NE/1135). All participants provided written informed consent.
+99:Inclusion criteria for patients comprised a diagnosis of BD (type I  or  II)  according  to  DSM-  5  criteria.  The  diagnosis  was  confirmed during clinical interviews using the NetSCID diagnostic tool, a validated  computerised  version  of  the  Structured  Clinical  Interview for DSM-  5 criteria (Telesage, Inc., Chapel Hill, NC, USA), which facilitates data storage. Comorbid psychiatric diagnoses identified by NetSCID were permissible (excluding neurodevelopmental, neurocognitive, neurodegenerative and substance abuse disorders) if the primary diagnosis was BD. Where further information was required to  confirm  the  primary  diagnosis,  case  notes  were  reviewed  and discussed with a senior psychiatrist (DAC) as required. All patients were euthymic for 1 month prior to the scan, defined as a score of &lt; 7 on both the Young Mania Rating Scale (YMRS) 26 and the 21-  item Hamilton Rating Scale for Depression (HAM-  D). 27
+105:University.  Healthy  controls  had  no  history  of  psychiatric  illness and were not taking any psychotropic medications. All participants were 18-65 years of age. Exclusion criteria for all participants were: contraindications to MR examination (e.g., cardiac pacemaker claustrophobia, exceeding 150 kg in weight); current or past medical condition  likely  to  affect  brain  structure;  current  or  recent  substance abuse  (NetSCID  Module  E);  alcohol  intake  exceeding  21 units  per week  (self-  reported);  and  a  learning  disability  or  impairment  of capacity.
+109:Premorbid IQ was measured with the National Adult Reading Test (NART), a commonly used test in which participants are asked to read a list of words aloud, with no time limit imposed. The examiner records whether each word had been pronounced correctly, totalling the number of errors, which can be converted into an IQ score.
+115:The DSST measured PS and attention, as it is sensitive to cognitive impairment in euthymic BD, detecting large effect sizes compared to controls. 13,30 Participants transcribed unique geometric symbols with corresponding Arabic numbers using a key on the page. Participants also completed a sub-  test of the DSST, Symbol Copy, which involves copying symbols from one row of boxes to another, retaining elements of motor speed but not requiring other cognitive processes involved in transcribing. We subtracted the time taken to complete the Symbol Copy version from the time taken to complete the DSST original version to reflect cognitive speed without the motor component.
+117:The TMT was used as a validated, standardised test that is sensitive to cognitive impairment in BD. 30 Part A (TMT-  A) was used to measure PS and attention. Participants connected a series of numbered circles spread on a page in ascending order. Part B (TMT-  B) measured EF: participants connected a series of circles that either contained a number or letter, in alternate ascending and alphabetical order (e.g.,  1-  A-  2-  B-  3-  C,  etc.).  In  both  parts,  the  time  to  complete the task was measured. TMT-  B tests working memory and switching (elements of EF), as well as motor speed, cognitive speed and attention. The latter three functions were fractioned out of the TMT-  B score by subtracting the time to complete TMT-  A from the time to complete TMT-  B, leaving a measure of EF.
+125:The d2 test was used to measure effortful attention and concentration, since effortful (but not automatic) attention appears to be impaired in BD. 32 Participants crossed out as many target stimuli as possible (the letter 'd' with two dashes above or below it) amongst a series of distractor stimuli (letters 'd' or 'p' with any other number of dashes around it) within 20 seconds. Three outcome measures were recorded: the percentage of correct responses; the total number of correctly cancelled targets minus the total number incorrectly cancelled (concentration performance; CP); and the maximum minus the minimum of total items processed in a trial (fluctuation rate; FR). CP captures effortful attention and the ability to coordinate speed and accuracy and correlates with reaction times in BD. 32 FR captures inconsistency in performance.
+129:All  participants  attended  a  screening  visit  to  obtain  informed  consent  and  assess  eligibility  during  a  clinical  interview.  The  interview included: NetSCID to confirm diagnosis and comorbidities in patients and to screen for psychiatric illness in healthy controls; observer-  rated mood scales (YMRS and HAM-  D) to confirm euthymic mood; and an MR safety questionnaire. Clinical interviews were conducted by an experienced research assistant (CF), supervised by a senior psychiatrist (DAC) via discussion of the assessment and suitability for inclusion.
+131:Participants who were eligible were then invited to attend a second session, which included collecting blood samples (not reported here), MRI  scanning  and  neuropsychological  assessment.  MRI  scans  were performed at 9 am by an experienced MRI physicist; scans lasted 2 h for patients taking lithium (lithium acquisition reported previously), 24 and 1 h for all other participants. To avoid fatigue, a comfort break was included  before  the  neuropsychological  assessment.  The  neuropsychological battery was administered according to the respective manuals by an experienced research assistant (CF) trained in administering each test. The battery lasted approximately 50 min and was completed in a quiet testing room. The tests were administered in a fixed order: NART, category fluency, TMT (parts A and B), DSST (original followed by symbol copy) and the d2 test of attention.
+133:## 2.3.1  |  Scanner and image acquisition
+135:MR  data  were  acquired  on  a  3T  Philips  Achieva  MRI  scanner  (Philips  Medical  Systems)  with 1 H  structural  and  diffusionweighted  imaging  performed  using  a  Philips  8-  channel  SENSE head coil. For each participant, we acquired 3D T 1 -  weighted images  (T1w)  of  brain  anatomy  with  a 1 H gradient  echo  sequence (TR = 9.6 ms,  TE = 4.6 ms,  FOV = 240 × 240 × 180 mm,  acquisition matrix = 240 × 208 × 180 mm,  voxel  size = 1 × 1.15 × 1 mm,  reconstructed  into  matrix  size = 256 × 256 × 180 mm,  1 mm 3 average) and 2D T 2 -  weighted Fluid-  Attenuated Inversion Recovery (FLAIR)
+139:images  (50  slices,  TR = 11,000 ms,  TE = 125 ms,  FOV = 240 × 240 mm, matrix size = 256 × 256 mm, voxel size = 1 × 1 × 3 mm average).
+147:All  BLISS  MR  images  were  exported  in  DICOM  format  and converted to NIFTI format using the dcm2niix program (v1.0.20180622).  Data  pre-  processing  and  analysis  were  performed  using  FreeSurfer  v6.0, 33 using  the  standard recon-  all pipeline,  including  removal  of  non-  brain  tissue,  segmentation of  grey  matter  and  white  matter  surfaces,  and  cortical  parcellation.  FLAIR  images  were  used  in  the recon-  all pipeline  to improve  the  pial  surface  and  segmentation.  Participants  were excluded if the T1w images included MR artefacts or were poor quality  ( n = 1;  HC). For the remaining participants, visual qual ity inspections were performed on a sub-  sample of participants (approximately half the total sample; n = 30 BD and n = 18 HC) using FreeSurfer's FreeView function. Manual corrections of the pial  surface  were  conducted where necessary using FreeView ( n = 24 participants were edited). After manual corrections, the overall  image  quality  and  FreeSurfer  processing  were  deemed adequate and cortical thickness measures were obtained for 68 anatomical regions of interest (ROIs) for each participant using the Desikan-  Killiany atlas.
+151:To mitigate issues with a small healthy control sample, we developed normative models of cortical thickness using large public normative datasets. 34-37 A  sample  of n = 6344  healthy  individuals  were  included (normative-  HC: mean age 32.64; 50.3% females; see Data S1 for further details). All data were pre-  processed using the standard recon-  all pipeline in FreeSurfer. We harmonised the normative-  HC data, including the 26 HCs recruited to BLISS, for each ROI by regressing age, sex and scanning protocol (i.e., site; as a random effect) on cortical thickness using a generalised additive model. The correction was performed in R using the package mgcv (https://  CRAN. R-  proje  ct.  org/  web/  packa  ges/  mgcv). We removed controls who had outliers in any ROI, defined as residuals greater than 5 median absolute deviations ( n = 393).
+153:BD data were then adjusted for age, sex and scanning site, using the prediction from the normative model, where the site correction was informed by the site offset estimated for BLISS HCs. Data for each  ROI  were  then z -  scored  based  on  the  normative  mean  and standard  deviation.  The  resulting  data  therefore  reflected  abnormalities in cortical thickness for each ROI for each patient, based on
+
+thinking
+**Investigating missing table content**
+
+I'm checking the PDF and markdown files around the sex line to locate or extract the possibly missing Table 1 content on age and sex by reviewing lines near that section.
+exec
+/bin/bash -lc "sed -n '200,240p' study_1/Little2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123145231 succeeded in 26ms:
+
+PCA was conducted on the cortical thickness data: 23 PCs explained 90% of the data.  CCA  was  performed  using  the  seven  neuropsychological variables as dataset U and the 23 cortical thickness PCs as dataset V ; Figure 1 shows heatmaps of each dataset and a scatterplot of the first canonical correlation, which had a strong linear correlation of 0.860. Pillai's Trace suggested that this was not statistically significant ( p = 0.112). Results for the remaining canonical correlations are provided in Data S1. A permutation test with n = 10,000 permutations also suggested the correlation was not significant but was trending towards significance ( p = 0.093).
+
+Table  2  displays  the  canonical  loadings  and  cross-  loadings for each cognitive variable from dataset U .  DSST (minus Symbol Copy) and TMT-  B (minus TMT-  A) were most strongly associated with  the  first  canonical  variates U1 and V1 .  Figure  4  illustrates the  association  between  cortical  thickness  of  each  region  and the cognitive dataset U .  Three regions were most strongly associated  with  the  first  cognitive  canonical  variate U1 :  left  inferior temporal  ( rho = 0.406, p = 0.002),  right  entorhinal  ( rho = 0.380, p = 0.004)  and  right  temporal  pole  areas  ( rho = 0.334, p = 0.012). Three other regions did not reach the threshold of 0.3 but had significant p -  values:  right  inferior  temporal  ( rho = 0.286, p = 0.032), right pars orbitalis ( rho = 0.268, p = 0.046) and right superior temporal ( rho = 0.297, p = 0.026) areas. The full list of cross-  loadings is provided in Data S1.
+
+![Image](./Little2024_artifacts/image_000004_b0977230bc4a6a27433a2be26ec7859c10c751d64f7f21d4df7d2ad471080b9a.png)
+
+.
+
+TABLE 1 Descriptive statistics and group differences on demographics, clinical characteristics, raw neuropsychological variables (i.e., data before pre-  processing) and average cortical thickness, for BD patients ( n = 56) and matched healthy controls ( n = 26).
+
+|                                           | Healthy Control group                     | Healthy Control group                     | Healthy Control group                     | Healthy Control group                     | Bipolar Disorder group                    | Bipolar Disorder group                    | Bipolar Disorder group                    | Bipolar Disorder group                    | Group differences                         | Group differences                         | Group differences                         | Group differences                         |
+|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+|                                           | n                                         | Mean                                      | SD                                        | Median                                    | n                                         | Mean                                      | SD                                        | Median                                    | Statistic  ( t / W )                      | df                                        | p                                         | Cohen's  d                                |
+| Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics | Demographics and clinical characteristics |
+| Sex ( n  female, % female)                | 26                                        | n =  12                                   | 46%                                       | -                                         | 56                                        | n  =  35                                  | 62%                                       | -                                         | 1.33                                      | 1                                         | 0.249                                     | -                                         |
+| Age (years)                               | 26                                        | 48.46                                     | 11.80                                     | 48.50                                     | 56                                        | 45.36                                     | 12.15                                     | 46.00                                     | 612.5                                     | -                                         | 0.252                                     | 0.26                                      |
+| Education (years)                         | 26                                        | 16.46                                     | 3.78                                      | 16.00                                     | 56                                        | 14.14                                     | 2.88                                      | 13.00                                     | 470.0*                                    | -                                         | 0.009                                     | 0.74                                      |
+| HAM-  D                                   | 26                                        | 1.00                                      | 1.57                                      | 0                                         | 56                                        | 4.20                                      | 4.16                                      | 3.00                                      | 1123.5*                                   | -                                         | < 0.001                                   | 0.91                                      |
+| YMRS                                      | 26                                        | 0.12                                      | 0.43                                      | 0                                         | 56                                        | 1.06                                      | 2.23                                      | 0                                         | 938.0*                                    | -                                         | 0.007                                     | 0.51                                      |
+2026-03-05T03:32:26.970700Z ERROR codex_core::codex: needs_follow_up: true
+
+
+thinking
+**Confirming demographic percentages and dataset labeling**
+
+The male percentage calculates to 37.5% based on counts, while female is 62.5%; I'll report these with one decimal. Age stats have mean and SD but no min/max, so I'll mark min/max as not reported. Since BLISS isn't in the dataset keyword list, I'll label it as "No Special Dataset Name" per instructions.
+thinking
+**Setting dataset origin as SINGLE-SITE with BLISS detail**
+
+I'm deciding to label the dataset origin as ["SINGLE-SITE"] with detail "BLISS study at Newcastle University." I'll use BD as the disorder with supporting text from the abstract and methods describing DSM-5 diagnosis. Age and sex stats come from Table 1, noting female counts and calculated male percentage. Next, I'll write this data into the specified JSON output file.
+2026-03-05T03:32:42.484990Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Little2024_by_codex_20260305123145231.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123145231 succeeded in 30ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Finalizing data extraction details**
+
+I'm defining the age and sex objects with numeric values (2 decimals for age stats, 1 decimal for percentages) and using "NR" as a string for missing min/max age data. The male counts will be derived from female counts and percentages with clarifying supporting text. I'm setting dataset origin and consistent location references from the paper's Table 1 and Methods sections. Next, I'll prepare the JSON and apply the patch accordingly.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Little2024"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "DSM-5 bipolar disorder (type I or II); euthymic clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Inclusion criteria for patients comprised a diagnosis of BD (type I  or  II)  according  to  DSM-  5  criteria.\"",
++        "location": "Little2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "BLISS study at Newcastle University (single-site clinical cohort).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Data  were  collected  as  part  of  the  Bipolar  Lithium  Imaging  and Spectroscopy Study (BLISS).\"",
++        "location": "Little2024.pdf.md: Methods"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 45.36,
++          "sd": 12.15
++        },
++        "detail": "Bipolar disorder group; descriptive statistics from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (years) ... 56 ... 45.36 ... 12.15 ... 46.00\"",
++        "location": "Little2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 21,
++          "male_pct": 37.5,
++          "female_n": 35,
++          "female_pct": 62.5
++        },
++        "detail": "Female counts reported; male counts and percentages calculated from total N=56.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex ( n  female, % female) ... 56 ... n  =  35 ... 62%\"",
++        "location": "Little2024.pdf.md: Table 1"
+       }
+2026-03-05T03:33:01.234742Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M DE_v14_Little2024_by_codex_20260305123145231.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json b/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e43cad66a37fa257219d3e1722290f216938e056
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Little2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "DSM-5 bipolar disorder (type I or II); euthymic clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Inclusion criteria for patients comprised a diagnosis of BD (type I  or  II)  according  to  DSM-  5  criteria.\"",
++        "location": "Little2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "BLISS study at Newcastle University (single-site clinical cohort).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Data  were  collected  as  part  of  the  Bipolar  Lithium  Imaging  and Spectroscopy Study (BLISS).\"",
++        "location": "Little2024.pdf.md: Methods"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 45.36,
++          "sd": 12.15
++        },
++        "detail": "Bipolar disorder group; descriptive statistics from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (years) ... 56 ... 45.36 ... 12.15 ... 46.00\"",
++        "location": "Little2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 21,
++          "male_pct": 37.5,
++          "female_n": 35,
++          "female_pct": 62.5
++        },
++        "detail": "Female counts reported; male counts and percentages calculated from total N=56.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex ( n  female, % female) ... 56 ... n  =  35 ... 62%\"",
++        "location": "Little2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json b/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e43cad66a37fa257219d3e1722290f216938e056
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Little2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "DSM-5 bipolar disorder (type I or II); euthymic clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Inclusion criteria for patients comprised a diagnosis of BD (type I  or  II)  according  to  DSM-  5  criteria.\"",
++        "location": "Little2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "BLISS study at Newcastle University (single-site clinical cohort).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Data  were  collected  as  part  of  the  Bipolar  Lithium  Imaging  and Spectroscopy Study (BLISS).\"",
++        "location": "Little2024.pdf.md: Methods"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 45.36,
++          "sd": 12.15
++        },
++        "detail": "Bipolar disorder group; descriptive statistics from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (years) ... 56 ... 45.36 ... 12.15 ... 46.00\"",
++        "location": "Little2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 21,
++          "male_pct": 37.5,
++          "female_n": 35,
++          "female_pct": 62.5
++        },
++        "detail": "Female counts reported; male counts and percentages calculated from total N=56.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex ( n  female, % female) ... 56 ... n  =  35 ... 62%\"",
++        "location": "Little2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming text accuracy with ellipses**
+
+The supporting text includes ellipses as direct snippets from the table, which is acceptable since it's an exact quote. No tests were run, and none are needed here.
+codex
+Updated the clinical cohort extraction for Little2024 (BD) with BLISS single-site origin, demographics from Table 1, and computed sex percentages in `DE_v14_Little2024_by_codex_20260305123145231.json`.
+
+Next steps:
+1. If you want, I can also add min/max ages by checking any additional sources in the supplement or figures.
+2026-03-05T03:33:06.244764Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json b/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e43cad66a37fa257219d3e1722290f216938e056
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123145231/./DE_v14_Little2024_by_codex_20260305123145231.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Little2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "DSM-5 bipolar disorder (type I or II); euthymic clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Inclusion criteria for patients comprised a diagnosis of BD (type I  or  II)  according  to  DSM-  5  criteria.\"",
++        "location": "Little2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "BLISS study at Newcastle University (single-site clinical cohort).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Data  were  collected  as  part  of  the  Bipolar  Lithium  Imaging  and Spectroscopy Study (BLISS).\"",
++        "location": "Little2024.pdf.md: Methods"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 45.36,
++          "sd": 12.15
++        },
++        "detail": "Bipolar disorder group; descriptive statistics from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age (years) ... 56 ... 45.36 ... 12.15 ... 46.00\"",
++        "location": "Little2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 21,
++          "male_pct": 37.5,
++          "female_n": 35,
++          "female_pct": 62.5
++        },
++        "detail": "Female counts reported; male counts and percentages calculated from total N=56.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex ( n  female, % female) ... 56 ... n  =  35 ... 62%\"",
++        "location": "Little2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+tokens used
+68,899
+Updated the clinical cohort extraction for Little2024 (BD) with BLISS single-site origin, demographics from Table 1, and computed sex percentages in `DE_v14_Little2024_by_codex_20260305123145231.json`.
+
+Next steps:
+1. If you want, I can also add min/max ages by checking any additional sources in the supplement or figures.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

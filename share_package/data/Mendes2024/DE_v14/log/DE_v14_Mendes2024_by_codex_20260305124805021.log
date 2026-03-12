@@ -1,0 +1,899 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Mendes2024_by_codex_20260305124805021.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124805021/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc1c-297d-70d3-b278-764c6c76e342
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Mendes2024_by_codex_20260305124805021.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Locating usage guide**
+
+I'm planning to find and open the usage guide by searching the codebase to proceed with reading it.
+2026-03-05T03:48:10.763301Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124805021 succeeded in 20ms:
+DE_Guide_v14.md
+DE_v14_Mendes2024_by_codex_20260305124805021.json
+DE_v14_Mendes2024_by_codex_20260305124805021.log
+study_1
+exec
+/bin/bash -lc "sed -n '1,200p' DE_Guide_v14.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051248050212026-03-05T03:48:14.659969Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating study files**
+
+I'm focusing on finding the paper data within study_1 and will check instructions for any required extraction details.
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051248050212026-03-05T03:48:17.734373Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+DE_v14_Mendes2024_by_codex_20260305124805021.json
+DE_v14_Mendes2024_by_codex_20260305124805021.log
+DE_Guide_v14.md
+study_1/Mendes2024.pdf.md
+study_1/imag_a_00204-supp.pdf.md
+
+thinking
+**Identifying next file to read**
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Mendes2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124805021 succeeded in 18ms:
+![Image](./Mendes2024_artifacts/image_000000_219af23b6dab78bb2610a0346afa29b57ef3d3d929b088c5698c2522e2dbbf37.png)
+
+## GPT-  based normative models of brain sMRI correlate with dimensional psychopathology
+
+Sergio Leonardo Mendes a , Walter Hugo Lopez Pinaya b , Pedro Mario Pan c , Ary Gadelha c , Sintia Belangero c , Andrea Parolin Jackowski c,d , Luis Augusto Rohde e,f,g , Euripedes Constantino Miguel h , João Ricardo Sato a,i a Center of Mathematics, Computing, and Cognition, Universidade Federal do ABC, S ã o Paulo - SP , Brazil
+
+b Department of Biomedical Engineering, King's College London, London, United Kingdom
+
+c Escola Paulista de Medicina, Universidade Federal de S ã o Paulo, S ã o Paulo - SP , Brazil
+
+d Department of Education, ICT and Learning, Ø stfold University College, Halden, Norway
+
+e ADHD Outpatient Program &amp; Developmental Psychiatry Program, Hospital de Clinicas de Porto Alegre, Federal University of Rio Grande do Sul, Brazil f Medical Council UNIFAJ and UNIMAX, Indaiatuba, Brazil g National Institute of Developmental Psychiatry &amp; National Center for Innovation and Research in Mental Health, S ã o Paulo - SP , Brazil
+
+h Department and Institute of Psychiatry, Universidade de S ã o Paulo (USP), S ã o Paulo - SP , Brazil i Big Data Section, Hospital Israelita Albert Einstein, S ã o Paulo - SP , Brazil
+
+Corresponding Author: Sergio Leonardo Mendes (sergioleonardomendes@gmail.com)
+
+## ABSTRACT
+
+2026-03-05T03:48:41.036065Z ERROR codex_core::codex: needs_follow_up: true
+
+
+thinking
+**Clarifying clinical cohort details**
+
+The normative model was trained on typical subjects from the ABCD lower quartile and applied to clinical test sets including ADHD-200 and ABIDE-II as clinical psychiatric cohorts, while BHRCS and ABCD contain population cohorts with dimensional psychopathology but not strictly clinical disorders. Next, I’ll extract age and sex details from Table 1, calculating female/male counts from total N and percent male where needed.
+thinking
+**Calculating sex breakdown and preparing age data**
+
+I've computed estimated male and female counts from total N and male percentages for ADHD-200 and ABIDE-II, noting these are estimates. Next, I'll record mean and SD of age (no min/max), compile this into the specified JSON, and plan to open the existing JSON file to update it.
+exec
+/bin/bash -lc 'cat DE_v14_Mendes2024_by_codex_20260305124805021.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051248050212026-03-05T03:48:52.982663Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Structuring disorder dataset details**
+
+Planning to list two disorders, ADHD and ASD, using normalized dataset keywords (ADHD-200, ABIDE-II) with accompanying structured age and sex stats from Table 1, including mean, SD, units, and male/female percentages computed from N; will support entries with minimal citations from the table and text.
+thinking
+**Integrating abstract dataset references**
+
+Planning to link disorders explicitly to datasets using abstract quotes naming ADHD-200 and ABIDE-II, ensuring disorder names remain ADHD and ASD while citing dataset mentions from the abstract; will update JSON accordingly and apply patch to the file.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mendes2024"
+   },
+@@ -7,28 +7,62 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ADHD",
++        "detail": "Clinical cohort evaluated with ADHD scores from the ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "scores and diagnostic of psychiatric disorders: Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADHD-200"
++        ],
++        "detail": "ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "age": {
++        "answer": "mean=11.7; sd=3.0; unit=years",
++        "detail": "Age reported as mean ± SD for ADHD-200.",
++        "confidence_rating": "High",
++        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": "female_n=340 (36.9%); male_n=582 (63.1%)",
++        "detail": "Male % reported; female count and % estimated from N=922.",
++        "confidence_rating": "Medium",
++        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Clinical cohort evaluated with ASD diagnosis from the ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-II"
++        ],
++        "detail": "ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mean=12.1; sd=3.2; unit=years",
++        "detail": "Age reported as mean ± SD for ABIDE-II.",
++        "confidence_rating": "High",
++        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "female_n=152 (26.2%); male_n=428 (73.8%)",
++        "detail": "Male % reported; female count and % estimated from N=580.",
++        "confidence_rating": "Medium",
++        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       }
+2026-03-05T03:49:23.238420Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Mendes2024_by_codex_20260305124805021.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..d3aac7c281d5ebd5e26d2ef4c2142d0adc77d076
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+@@ -1,36 +1,70 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mendes2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ADHD",
++        "detail": "Clinical cohort evaluated with ADHD scores from the ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "scores and diagnostic of psychiatric disorders: Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADHD-200"
++        ],
++        "detail": "ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "age": {
++        "answer": "mean=11.7; sd=3.0; unit=years",
++        "detail": "Age reported as mean ± SD for ADHD-200.",
++        "confidence_rating": "High",
++        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": "female_n=340 (36.9%); male_n=582 (63.1%)",
++        "detail": "Male % reported; female count and % estimated from N=922.",
++        "confidence_rating": "Medium",
++        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Clinical cohort evaluated with ASD diagnosis from the ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-II"
++        ],
++        "detail": "ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mean=12.1; sd=3.2; unit=years",
++        "detail": "Age reported as mean ± SD for ABIDE-II.",
++        "confidence_rating": "High",
++        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "female_n=152 (26.2%); male_n=428 (73.8%)",
++        "detail": "Male % reported; female count and % estimated from N=580.",
++        "confidence_rating": "Medium",
++        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..d3aac7c281d5ebd5e26d2ef4c2142d0adc77d076
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+@@ -1,36 +1,70 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mendes2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ADHD",
++        "detail": "Clinical cohort evaluated with ADHD scores from the ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "scores and diagnostic of psychiatric disorders: Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADHD-200"
++        ],
++        "detail": "ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "age": {
++        "answer": "mean=11.7; sd=3.0; unit=years",
++        "detail": "Age reported as mean ± SD for ADHD-200.",
++        "confidence_rating": "High",
++        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": "female_n=340 (36.9%); male_n=582 (63.1%)",
++        "detail": "Male % reported; female count and % estimated from N=922.",
++        "confidence_rating": "Medium",
++        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Clinical cohort evaluated with ASD diagnosis from the ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-II"
++        ],
++        "detail": "ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mean=12.1; sd=3.2; unit=years",
++        "detail": "Age reported as mean ± SD for ABIDE-II.",
++        "confidence_rating": "High",
++        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "female_n=152 (26.2%); male_n=428 (73.8%)",
++        "detail": "Male % reported; female count and % estimated from N=580.",
++        "confidence_rating": "Medium",
++        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming exact supporting text match**
+
+I'm verifying if the supporting text should match the exact table line or if substring matching suffices, leaning toward extracting the full exact table row to ensure accuracy.
+exec
+/bin/bash -lc "rg -n \"ADHD-\\s*200\" -n study_1/Mendes2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051248050212026-03-05T03:49:27.773132Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+21:Generative Pre-  trained Transformer (GPT) models have been widely used for language tasks with surprising results. Furthermore,  neuroimaging  studies  using  deep  generative  normative  modeling  show  promise  in  detecting  brain abnormalities  from  brain  structural  MRI  (sMRI).  Meanwhile,  psychiatric  disorders  are  typically  diagnosed  through clinical assessment, which is particularly challenging in children and adolescents who present early symptoms or are in the early stages of the disease. Brain biomarkers research may contribute to the complex task of disentangling typical neurodevelopment from emergent psychiatric disorders. Here, we investigate whether a GPT-  based normative architecture can detect psychiatric symptoms and disorders from brain sMRI of youths. The studied datasets contain measures of dimensional psychopathology: Brazilian High-  Risk Cohort Study (BHRCS, n = 737) and Adolescent Brain Cognitive Development (ABCD, n = 11,031), and scores and diagnostic of psychiatric disorders: Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922) and Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580). We examined the associations of all brain regions with: the Child Behavior Checklist (CBCL) symptom groups, ADHD scores, and Autism Spectrum Disorder (ASD) diagnosis. Results showed the whole-  brain typicality likelihood as correlated with social problems (ABCD test set) and ASD diagnosis (ABIDE-  II dataset). Analysis by brain regions linked different areas to several CBCL scales, ADHD scores, and ASD diagnostic. This is the first successful study assessing all dimensional groups of CBCL symptoms, from all brain regions, based exclusively on sMRI. The normative models based on GPT are promising to investigate the gap between the phenotypes of psychiatric conditions and their neurobiological substrates.
+41:Deficit Hyperactivity Disorder (ADHD) and diagnosis of Autism Spectrum Disorder (ASD). Whereas the behavioral symptoms captured by the CBCL and ADHD scores may capture mild or early-  stage conditions, the positive diagnosis  of  ASD  can  capture  an  already  established disorder. BHRCS, ABCD, Attention Deficit Hyperactivity Disorder  (ADHD-  200),  and  Autism  Brain  Imaging  Data Exchange II (ABIDE-  II) consortiums provide datasets for these  investigations  (  Di    Martino    et  al.,    2017;    Milham et al.,   2012).
+51:The studied data include two datasets containing scores and  diagnoses  of  psychiatric  disorders,  respectively: Attention Deficit Hyperactivity Disorder (ADHD-  200) and Autism Brain Imaging Data Exchange II (ABIDE-  II), and two neurodevelopmental studies containing measures of dimensional  psychopathology:  the  Brazilian  High-  Risk Cohort Study (BHRCS) and Adolescent Brain Cognitive
+71:Fig. 2. Datasets demographic distribution. Note the different distributions of age, sex, and psychiatric diagnostics among the datasets. The PD acronym represents different psychiatric diagnostics in each dataset (i.e., ASD for ABIDE-  II, ADHD for ADHD-  200, and all the DSM-  IV or DSM-  V diagnostics, respectively, for BHRCS and ABCD). Note that the distributions of CBCL scores present lower values in ABCD than in BHRCS. This is because the BHRCS screening protocol prioritized participants with higher risks of developing psychiatric disorders. Dotted lines mark the quartiles. Acronyms: CBCL = Child Behavior Checklist, TD = Typically Developing, PD = Psychiatric Diagnostic.
+81:| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |
+84:The sample size is denoted by N. Age is presented in years ± standard deviations. The CBCL total score is on a raw scale ± standard deviations. Subjects with any psychiatric disorder are grouped in PD. For ADHD-  200, PD contains the subtypes of ADHD, and for ABIDEII PD includes different levels of the autism spectrum. For ABCD and BHRCS, PD contains subjects with at least one mental disorder according to DSM-  V (ABCD) and DSM-  IV (BHRCS). Note the datasets differences for sample size, age range, psychiatric diagnostic, and CBCL. The CBCL scores present higher values in BHRCA than in ABCD. This is because the BHRCS screening protocol prioritized participants with higher risks of developing psychiatric disorders. Acronyms: CBCL = Child Behavior Checklist, PD = Psychiatric Diagnostic.
+102:| ADHD-  200          | ADHD symptom   groups     | Numeric         | r, p-  value     | <0.05 |
+126:Evaluating  the  ADHD-  200  dataset  (n  =  922),  the whole-  brain  predicted  likelihood  was  not  found  to  be correlated to the scores of inattentive, hyper-  impulsive, or  ADHD index. However, significant  correlations  were found when assessing the ADHD score groups by brain ROIs. The brain regions and their detected associations are presented in Table 5 and Figure 4c. See Table S3 for statistical metrics.
+166:(only), using the lower quartiles of CBCL total score from the  ABCD  dataset.  Next,  the  trained  models  predicted the likelihoods (of typicality) for the whole brain and each brain segment of the tested subjects. During the evaluation, the likelihoods of typicality were assessed for associations with (i) the scores of CBCL symptom groups (for the ABCD test set and BHRCS dataset), (ii) the scores of ADHD  (for  ADHD-  200  dataset),  (iii)  the  diagnostics  of ASD (for the ABIDE-  II dataset), and (iv) the chronological age  (for  all  datasets).  The  resulting  p-  values  were  corrected by Bonferroni's method, and the statistically significant associations were identified and charted.
+168:This approach identified that the whole brain's likelihood of typicality  was  correlated  with  social  problems (for the ABCD test set), ASD diagnosis (for the ABIDE-  II dataset),  and  age  (for  the  BHRCS,  ADHD-  200,  and ABIDE-  II  datasets). The analysis by brain region linked different brain ROIs to several CBCL scales, ADHD scores, and ASD diagnostic.
+178:Fig. 4. Brain regions associated with psychiatric symptoms or disorders: (a) CBCL symptoms in ABCD test set, (b) CBCL symptoms in BHRCS dataset, (c) ADHD symptoms in ADHD-  200 dataset, (d) ASD diagnostic in ABIDE-  II. The mapped regions are statistically significant after correcting the p-  values by Bonferroni's method.
+194:Table 5. Brain regions versus ADHD scores in the ADHD-  200 dataset.
+265:ABCD  and  BHRCS  may  have  influenced  the  nonreplicability of the results in these datasets. Another limitation is due to the multiple distinct scanner models used to collect the sMRI in each dataset (see Supplemental Information, section 5.1). A recent study indicates that differences  in  the  acquisition  parameters  of  scanners represent  a  major  limitation  for  the  generalizability  of brain models (  Jirsaraie   et al.,   2023). The set of scanner models used to train our artificial neural network (from ABCD dataset) is different from the set of scanners used by each of the testing datasets (i.e., BHRCS, ABIDE-  II and  ADHD-  200).  Therefore,  the  statistical  effect  size obtained from the testing datasets may have been reduced since our method does not control for the effect of scanners models. For instance, the scanners used to collect the  ABCD  data  were  3T  scanners  whereas  BHRCS employed 1.5T (exclusively). The higher magnetic field strength  of  the  3T  models  provides  higher  signal-  tonoise  and  contrast-  to-  noise  ratios  (in  comparison  with 1.5T)  (  Duyn,    2012).  This  translates  in  less  noise  with increased image contrast and resolution (  Duyn,   2012) for ABCD. That is, the 3T images (when compared to 1.5T) potentially capture more information on subtle contrast differences and small structural variations of the brain. Therefore, the differences in scanners' acquisition parameters  may  also  have  influenced  the  non-  replication  of ABCD results on BHRCS data.
+267:Analyzing  the  ADHD-  200  dataset,  the  brain  regions found  to  be  associated  with  ADHD  symptoms  (see Table 5) have already been reported as atypical in ADHD subjects (  Krain   &amp;   Castellanos,   2006;   Posner   et al.,   2011, 2014;   Tomasi   &amp;   Volkow,   2012;   Zang   et al.,   2007). Studies with  ADHD  subjects  show  that  the  prefrontal  cortex, basal ganglia, and cerebellum are known for presenting atypical  volume  when  measured  from  structural  MRI (  Krain   &amp;   Castellanos,   2006;   Zang   et al.,   2007). In addition, the regions of the anterior cingulate cortex, and amygdala have been found to present abnormal activation in functional  MRI  studies  of  ADHD  (  Posner    et  al.,    2011; Zang   et  al.,    2007).  Another  functional  MRI  study  found that the substantia nigra and its dopaminergic nigrostriatal  pathways  mature  abnormally  during  childhood  to adulthood  in  ADHD  subjects  (  Tomasi    &amp;    Volkow,    2012). Including the thalamus, most of these structures are part of the cortico-  striato-  cortical loops, which are neural circuits  that  are  believed  to  show  abnormal  function  in ADHD subjects (  Posner   et al.,   2014). Taken together, the literature  corroborates  the  regions  highlighted  in  this study as being associated with ADHD.
+273:| Brain region                                                  | ABCD   | BHRCS    | ADHD-  200   | ABIDE-  II          |
+315:The analysis of the correlation metrics (see supplementary  T ables  S1-  S3)  shows  that  the  correlations'  dir  ection changes when assessing different datasets. The correlations of the ABCD test set are positive (Table S1), whereas they are mixed (positive and negative) for BHRCS (Table S2), and  almost  entirely  negative  for  the  ADHD-  200  dataset (Table S3). We conjecture that this occurs due to the differences in the data distribution (especially age) of these datasets (see Fig. 2). In other words, the assessment of subjects whose age is outside the ABCD age range may lead the correlations to be negative. As the typical neurodevelopment is coupled with aging (  Gogtay   et al.,   2004; Silk    &amp;    Wood,   2011),  subjects  presenting  age  deviations (from the training set) can have their normal neurodevelopment accounted as atypical by the models' estimation.
+317:To investigate this scenario, we measured the association between the chronological age and the models' likelihood of  typicality  (see  supplementary  Table  S5).  The  results indicated that differently of the ABCD test set (r = -  0.01, p-  value  =  0.48),  both  the  datasets  BHRCS  (r  =  -  0.07, p-  value = 0.046), ADHD-  200 (r = -  0.19, p-  value &lt; 0.001), and ABIDE-  II (r = -  0.33, p-  value &lt; 0.001) presented statistical  significant  association  between  age  and  the  wholebrain  likelihood  of  typicality.  However,  none  of  the  brain ROIs associated with the CBCL groups of symptoms or ADHD (except the left thalamus pulvinar) showed a statistically significant association with age. We hypothesize that, although brain ROIs associated with psychiatric symptoms or  ADHD  are  not  significantly  confounded  by  age,  the influence of age across the brain may influence the direction of the correlations. Presumably, this scenario would not occur if the demographic data distribution of the training set and the evaluation datasets had the same shape.
+329:The  datasets  used  in  this  study  were  obtained  from two  public  datasets:  the  Autism  Brain  Imaging  Data Exchange II (ABIDE-  II) and Attention Deficit Hyperactivity Disorder (ADHD-  200); and from two datasets that required authorization: Adolescent Brain Cognitive Development (ABCD) and Brazilian High-  Risk Cohort Study (BHRCS). ADHD-  200  and  ABIDE-  II  can  be  directly  downloaded
+331:from the NeuroImaging Tools &amp; Resource Collaboratory Image Repository (NITRC-  IR: https://www  .  nitrc  .  org  /  ir/). For ABCD and BHRCS data sets, application and consortium approval of an NDA form are required. The data were collected and made publicly available according to the guidelines, and approval was provided by the local ethics committee for each project. Detailed information on these datasets and their acquisition parameters can be retrieved from ABIDE-  II (http://fcon  \_  1000  .  projects  .  nitrc .  org  / indi  /  abide  /  abide  \_  II  .  html), ADHD-  200 (http://fcon \_  1000  .  projects  .  nitrc  .  org  /  indi  /  adhd200/),  ABCD  (https:// nda  .  nih  .  gov  /  abcd), and BHRCS  (https://osf  .  io  /  ktz5h /  wiki  /  home/).
+353:2022/07782-  3, and 2021/05332-  8. This study  was financed in part by the Coordena çã o de Aperfei ç oamento de Pessoal de N í vel Superior - Brasil (CAPES) - Finance Code 001. WHLP is supported by the Wellcome Flagship Programme  [WT213038/Z/18/Z].  We  acknowledge  the Autism Brain Imaging Data Exchange II (ABIDE-  II) consortium and  their funding sources  (http://fcon  \_  1000 . projects  .  nitrc  .  org  / indi  / abide  /  abide  \_  II  .  html). We would like to thank the Attention Deficit Hyperactivity Disorder (ADHD-  200) consortium and their funding sources (http:// fcon  \_  1000  .  projects  .  nitrc  .  org  /  indi  /  adhd200/).  Data  used in the preparation of this article were obtained from the Adolescent Brain Cognitive Development (ABCD) Study (https://abcdstudy  .  org),  held  in  the  NIMH  Data  Archive (NDA). This was a multisite, longitudinal study designed to recruit more than 10,000 children aged 9-  10 and follow them over 10 years into early adulthood. The ABCD Study® is supported by the National Institutes of Health and  additional  federal  partners  under  award  numbers U01DA041048,  U01DA050989,  U01DA051016,  U01DA 041022, U01DA051018, U01DA051037, U01DA050987, U01DA041174,  U01DA041106,  U01DA041117,  U01DA 041028, U01DA041134, U01DA050988, U01DA051039, U01DA041156,  U01DA041025,  U01DA041120,  U01DA 051038, U01DA041148, U01DA041093, U01DA041089, U24DA041123, U24DA041147. A full list of supporters is available  at  https://abcdstudy  .  org  /  federal  -  partners  .  html. A listing of participating sites and a complete listing of the  study  investigators  can  be  found  at  https://abcdstudy  .  org  /  consortium  \_  members/.  The  ABCD  consortium inves  tigators designed and implemented the study and/or   provided data but did not necessarily participate in the analysis or writing of this report. This manuscript reflects  the  views  of  the  authors  and  may  not  reflect the opinions or views of the NIH or ABCD consortium investigators.
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..d3aac7c281d5ebd5e26d2ef4c2142d0adc77d076
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+@@ -1,36 +1,70 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mendes2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ADHD",
++        "detail": "Clinical cohort evaluated with ADHD scores from the ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "scores and diagnostic of psychiatric disorders: Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADHD-200"
++        ],
++        "detail": "ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "age": {
++        "answer": "mean=11.7; sd=3.0; unit=years",
++        "detail": "Age reported as mean ± SD for ADHD-200.",
++        "confidence_rating": "High",
++        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": "female_n=340 (36.9%); male_n=582 (63.1%)",
++        "detail": "Male % reported; female count and % estimated from N=922.",
++        "confidence_rating": "Medium",
++        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Clinical cohort evaluated with ASD diagnosis from the ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-II"
++        ],
++        "detail": "ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mean=12.1; sd=3.2; unit=years",
++        "detail": "Age reported as mean ± SD for ABIDE-II.",
++        "confidence_rating": "High",
++        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "female_n=152 (26.2%); male_n=428 (73.8%)",
++        "detail": "Male % reported; female count and % estimated from N=580.",
++        "confidence_rating": "Medium",
++        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Updating supporting text to full table rows**
+
+I'm switching the supporting text for age and sex rows to include the full table row line with pipes to ensure exact matches, and extending the ADHD-200 supporting text to include the corresponding abstract line. Next, I’ll apply patches for ABIDE and ADHD accordingly.
+2026-03-05T03:49:43.183723Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+@@ -26,3 +26,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "supporting_text": "| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |",
+         "location": "study_1/Mendes2024.pdf.md: Table 1"
+@@ -33,3 +33,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": "ADHD-  200 | 922 | 11.7  ±  3.0 | 63.1%",
++        "supporting_text": "| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |",
+         "location": "study_1/Mendes2024.pdf.md: Table 1"
+@@ -58,3 +58,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "supporting_text": "| ABIDE-  II | 580    | 12.1  ±  3.2    | 73.8%     | 43.3%   | -             |",
+         "location": "study_1/Mendes2024.pdf.md: Table 1"
+@@ -65,3 +65,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": "ABIDE-  II | 580 | 12.1  ±  3.2 | 73.8%",
++        "supporting_text": "| ABIDE-  II | 580    | 12.1  ±  3.2    | 73.8%     | 43.3%   | -             |",
+         "location": "study_1/Mendes2024.pdf.md: Table 1"
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Mendes2024_by_codex_20260305124805021.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..590ed3d90a0752eaf49c649c91b6b3936aaecc7a
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+@@ -1,36 +1,70 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mendes2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ADHD",
++        "detail": "Clinical cohort evaluated with ADHD scores from the ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "scores and diagnostic of psychiatric disorders: Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADHD-200"
++        ],
++        "detail": "ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "age": {
++        "answer": "mean=11.7; sd=3.0; unit=years",
++        "detail": "Age reported as mean ± SD for ADHD-200.",
++        "confidence_rating": "High",
++        "supporting_text": "| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": "female_n=340 (36.9%); male_n=582 (63.1%)",
++        "detail": "Male % reported; female count and % estimated from N=922.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Clinical cohort evaluated with ASD diagnosis from the ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-II"
++        ],
++        "detail": "ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mean=12.1; sd=3.2; unit=years",
++        "detail": "Age reported as mean ± SD for ABIDE-II.",
++        "confidence_rating": "High",
++        "supporting_text": "| ABIDE-  II | 580    | 12.1  ±  3.2    | 73.8%     | 43.3%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "female_n=152 (26.2%); male_n=428 (73.8%)",
++        "detail": "Male % reported; female count and % estimated from N=580.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ABIDE-  II | 580    | 12.1  ±  3.2    | 73.8%     | 43.3%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..590ed3d90a0752eaf49c649c91b6b3936aaecc7a
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+@@ -1,36 +1,70 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mendes2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ADHD",
++        "detail": "Clinical cohort evaluated with ADHD scores from the ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "scores and diagnostic of psychiatric disorders: Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADHD-200"
++        ],
++        "detail": "ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "age": {
++        "answer": "mean=11.7; sd=3.0; unit=years",
++        "detail": "Age reported as mean ± SD for ADHD-200.",
++        "confidence_rating": "High",
++        "supporting_text": "| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": "female_n=340 (36.9%); male_n=582 (63.1%)",
++        "detail": "Male % reported; female count and % estimated from N=922.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Clinical cohort evaluated with ASD diagnosis from the ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-II"
++        ],
++        "detail": "ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mean=12.1; sd=3.2; unit=years",
++        "detail": "Age reported as mean ± SD for ABIDE-II.",
++        "confidence_rating": "High",
++        "supporting_text": "| ABIDE-  II | 580    | 12.1  ±  3.2    | 73.8%     | 43.3%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "female_n=152 (26.2%); male_n=428 (73.8%)",
++        "detail": "Male % reported; female count and % estimated from N=580.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ABIDE-  II | 580    | 12.1  ±  3.2    | 73.8%     | 43.3%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming non-ASCII handling and dataset keywords**
+
+Supporting text includes non-breaking spaces from the source, so they should be preserved for exact quotes despite instructions preferring ASCII; dataset origin keywords like "ABIDE-II" and "ADHD-200" are confirmed for the guide. The final response will reference the updated JSON path and suggest verifying next.
+codex
+Filled the extraction JSON for Mendes2024 with ADHD and ASD clinical cohorts, including dataset, age, and sex estimates based on Table 1. Updated `DE_v14_Mendes2024_by_codex_20260305124805021.json`.
+
+Next steps: if you want, I can also validate the JSON structure against any schema you use or add BHRCS/ABCD as non-clinical cohorts if required.
+2026-03-05T03:49:48.608931Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..590ed3d90a0752eaf49c649c91b6b3936aaecc7a
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124805021/./DE_v14_Mendes2024_by_codex_20260305124805021.json
+@@ -1,36 +1,70 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Mendes2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ADHD",
++        "detail": "Clinical cohort evaluated with ADHD scores from the ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "scores and diagnostic of psychiatric disorders: Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADHD-200"
++        ],
++        "detail": "ADHD-200 dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Attention Deficit Hyperactivity Disorder (ADHD-  200, n = 922)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
++      },
++      "age": {
++        "answer": "mean=11.7; sd=3.0; unit=years",
++        "detail": "Age reported as mean ± SD for ADHD-200.",
++        "confidence_rating": "High",
++        "supporting_text": "| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": "female_n=340 (36.9%); male_n=582 (63.1%)",
++        "detail": "Male % reported; female count and % estimated from N=922.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ADHD-  200 | 922    | 11.7  ±  3.0    | 63.1%     | 38.7%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Clinical cohort evaluated with ASD diagnosis from the ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-II"
++        ],
++        "detail": "ABIDE-II dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism Brain Imaging Data Exchange II (ABIDE-  II, n = 580)",
++        "location": "study_1/Mendes2024.pdf.md: Abstract"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mean=12.1; sd=3.2; unit=years",
++        "detail": "Age reported as mean ± SD for ABIDE-II.",
++        "confidence_rating": "High",
++        "supporting_text": "| ABIDE-  II | 580    | 12.1  ±  3.2    | 73.8%     | 43.3%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "female_n=152 (26.2%); male_n=428 (73.8%)",
++        "detail": "Male % reported; female count and % estimated from N=580.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ABIDE-  II | 580    | 12.1  ±  3.2    | 73.8%     | 43.3%   | -             |",
++        "location": "study_1/Mendes2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+tokens used
+30,124
+Filled the extraction JSON for Mendes2024 with ADHD and ASD clinical cohorts, including dataset, age, and sex estimates based on Table 1. Updated `DE_v14_Mendes2024_by_codex_20260305124805021.json`.
+
+Next steps: if you want, I can also validate the JSON structure against any schema you use or add BHRCS/ABCD as non-clinical cohorts if required.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

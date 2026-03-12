@@ -1,0 +1,560 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Wang2023_by_codex_20260305134013007.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134013007/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc4b-e43d-7450-8058-b7743ff471ab
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Wang2023_by_codex_20260305134013007.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Reviewing guide file**
+
+I'm reading the guide file content to gather necessary information before proceeding.
+2026-03-05T04:40:21.323333Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134013007 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Wang2023_by_codex_20260305134013007.json
+DE_v14_Wang2023_by_codex_20260305134013007.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051340130072026-03-05T04:40:23.419806Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Checking for study_1 extract files**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051340130072026-03-05T04:40:25.799438Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+DE_v14_Wang2023_by_codex_20260305134013007.json
+DE_v14_Wang2023_by_codex_20260305134013007.log
+DE_Guide_v14.md
+study_1/Supplementary.pdf.md
+study_1/Wang2023.pdf.md
+2026-03-05T04:40:29.037498Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patient|schiz|bipolar|depress|ADHD|autism|epilepsy|dementia|MCI|psych" study_1/Wang2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134013007 succeeded in 31ms:
+27:Autism spectrum disorder (ASD) is an early-onset neurodevelopmental disorder characterized by early impairments in social communication and interaction, as well as restricted, repetitive patterns of behaviors, interests, or activities [1,  2].  These core  symptoms typically manifest from around age 2 years and are accompanied by developmental differences in brain anatomy, functioning, and connectivity that affect behaviour across the lifespan [3-5]. While the etiology of autism remains largely unknown, it has been suggested that genetic, developmental, and environmental factors might act either alone or in combination as possible causal or predisposing effects toward developing autism [6]. The neuropathological mechanisms underlying ASD seem to revolve around disrupted molecular and  cellular processes  that  lead  to  cortical  abnormalities  in  infants  with  typical  developmental  controls  (TD)  [7,  8].  Altered maturational rates within different brain regions during early development may result in structurally and functionally distinct architecture throughout life [9, 10]. As such, a substantial normative dataset characterising the developmental trajectory of different morphometric features cross the lifespan, would be imperative in achieving a comprehensive understanding of ASD brain development. Moreover, novel data analytical and integrated approaches are crucial in facilitating the identification of anatomical abnormalities in individuals with ASD.
+31:Furthermore, to fully utilize multiple types of features for predicting individuals with ASD, advanced deep learning models and data integration methods has gained popularity in medical imaging applications [28]. For instance, Parisot et  al.  [29]  utilized  graph  convolutional  networks  (GCNs)  to  merge  MRI  data  and  pairwise  interactions  using phenotypic data by executing node classifications on a population graph for ASD classification. Alternatively, Arya et al. [30] employed relational information from sMRI data in comparison to phenotypic data alongside multiple MRI data for ASD classification utilizing GCNs. Additionally, Wang et al. [31] presented a multi-atlas graph convolutional network method that was based on varied brain atlases for identifying ASD patients and then combined different feature representations using a stacking ensemble learning method. However, these existing GCNs methods primarily focus on semi-supervised methods by propagating the labels from labeled data to unlabeled ones, which cannot be directly applied to predicting new samples [32-35]. Moreover, while current GCNs-based methods often implement early and late integration strategies to combine diverse types of data [36-38]. These models cannot leverage distinct (intra-modality) and complementary (inter-modality) information between different modalities. Unlike early and late integration,  we  proposed  a  novel  intermediate  integration  method  that  can  effectively  extract  more  informative representations  from  each  modality  while  also  exploiting  the  interplay  of  information  between  intermediate representations from data transformation techniques [28, 39]. Moreover, we compared our model with early and late integration strategies as well as traditional machine learning methods to evaluate the learning performance for ASD classification.
+33:Overall, combining individual subject data from KQJH, 16 cohorts were collected previously as part of the ABIDE consortium [40], and 17 as part of ABIDE-II [41], with a focus on three domains: brain developmental trajectory, neural biomarkers, and advanced disease classification model. Our initial approach involved adopting the normative modelling methods to analyses the different normative trajectories of brain morphometric properties for ASD and TD over the lifespan. Subsequently, we investigated important neural biomarkers from multiple types of cortical features related  to  the  disease.  Additionally,  we  utilized  MTFGCN,  an  end-to-end deep-learning  model with  intermediate integrative approach, for ASD classification. Altogether, our study endeavors to achieve three primary objectives: firstly, to identify atypical brain development trajectory in ASD comparing with TD across the lifespan, which may point  towards  specific  neurobiological  mechanisms  for  ASD.  Secondly,  to  get  insights  into  the  neural substrates underlying the ASD phenotype, which provide crucial clues to help in the development of new treatments. Finally, to
+41:All data are acquired from ABIDE-I [40], ABIDE-II [41] and KQJH. ABIDE-I consists of 1112 participants in total, 539 ASD participants and 573 TD participants. ABIDE-I data was collected across 17 scanning sites. Ages (in years) ranged between 7-64 in the ASD group and between 6-56 in the TD group. ABIDE-II consists of 1114 participants, 521 ASD participants and 593 TD participants. ABIDE-II data was collected across 19 scanning sites. Ages (in years) ranged between 5-62 in the ASD group and between 5-64 in the TD group. KQJH dataset is originally collected to investigate the association between genetic, neuroimaging and clinical data for children with ASD.  All data was collected in the same site. The MRI dataset currently consists of 323 participants in total, 237 ASD participants, 86 TD participants. Ages (in years) ranged between 0-7 in the ASD group and between 0-4 in the TD group. All datasets utilized in this study were obtained from research that was authorized by local Internal Review Boards and conducted in compliance with pertinent ethical guidelines and regulations. Additionally, informed consent was obtained from all participants, or in the case of minors (under 18), consent was obtained from their parent or legal guardian.
+55:The brain in infants with autism undergoes an abnormal morphological and volumetric changes compared to TD, contributing  to  clinical  abnormalities  in  behavior  and  cognitive  function.  The  approach  of  estimating  mean  and standard deviation from the residuals won't work for brain development over the lifespan, such as heteroskedastic and non-gaussian models [49-52]. Generalized additive models for location, scale and shape (GAMLSS) can be used to model multi-parameter distributions, where each parameter of the distribution, i.e., location, scale, and shape, can be modeled as a function of several input variables, thereby accommodating a wide range of distributions [53-55]. So, for a four-parameter distribution:
+81:Previous GCNs models have primarily focused on semi-supervised learning, propagating labels from labeled data to unlabeled ones. However, the applicability of these methods in clinical settings may be limited as the learned GCNs model cannot be directly used to predict new samples when data is not available during the training process [35, 59]. Hence, in this study, we investigate the use of GCNs in supervised learning to capture the intrinsic data structure through graphs during network training. The advantage of using graph NN in a supervised setting lies in its ability to capture  both  the  local  intra-class  information  from  multi-modal  phenomena within  each  class  and  the  inter-class information to achieve more discriminative features.
+177:Brain development in individuals with ASD is a dynamic and nonlinear process, particularly during early stage [6365]. Abnormal development at the critical periods may lead to significant impairments in the establishment of neural circuitry that underlie cognitive, socio-emotional, and communication functions[5, 9]. In the current study, we adopted the GAMLSS model to qualify normative trajectories for cortical morphological measures in the largest sample to date  of  patients  with  ASD  and  TD across  the  lifespan.  Our  findings  indicate  that  cortical  thickness-surface  area trajectories are separate and distinct across the lifespan. We also identified crucial neural biomarkers linked to ASD, which may have implications for early detection and intervention. Additionally, we utilized a deep-learning framework called  LMFGCN,  which  integrates  multiple  types  of  cerebral  cortical  features  to  classify  ASD.  Our  approach outperformed other methods tested on a large dataset across multiple sites, achieving classification accuracy exceeding 81.77%.
+179:The proper maturation of the brain during the early stages of neurodevelopment is  critical for understanding the pathology of ASD [66, 67]. In this critical period, structural and functional abnormalities in the brain can impair the development of social, emotional, and cognitive functions, resulting in significant and far-reaching consequences later in life [68, 69]. The results of our investigation indicate that in the initial years of development, MCT, TSA, and TGV display swift and dynamic trajectories that gradually diminish around 8-10 years of age. These results are consistent with  the  largest  existing  imaging  study  of  children  with  ASD  [13,  25].  It  is  noteworthy,  however,  that  after  the intersection of the growth curve (around age 10 years), there appears to be a period of "pseudonormalization" that may not reflect broader structural or functional normalizations. These pseudonormalizations in neurodevelopmental trajectories may be related to underlying neural complexity and contribute to the heterogeneity observed in ASD. Moreover,  our  study  demonstrated  that  the  larger  brain  volume  observed  in  very  young  children  with  ASD  is predominantly attributed to increased SA, rather than CT. This aligns with similar findings on increased total surface area at younger ages [19, 70] and decreasing CT with age in ASD [25]. Our research also supports the notion of divergent developmental trajectories of cortical thickness and surface area throughout the lifespan [19, 71], which suggests that distinct mature trajectories for both measures are related to different aspects of cortical neuropathology and represent unique features of the cortical architecture. The early expansion of cortical surface area was previously thought  to  result  from  symmetrical  proliferation  of  neuronal  progenitor  cells,  while  later  events  in  development determine the number of neurons and synapses per column, which are reflected in cortical thickness according to the radial unit hypothesis of Rakic [24, 72, 73]. Therefore, the finding of early enlargement of the brain in ASD, caused by an accelerated expansion of SA but not CT, is of significant interest as it points towards specific genetic and neurobiological mechanisms that may be impaired in ASD. This highlights the need for the development of innovative neuroimaging measurements that offer a higher degree of specificity with regard to particular underlying mechanisms. The development of brain structure is a dynamic process, and it has been suggested that atypical regional alterations in ASD may contribute to the manifestation of relevant autism traits. Although the vast previous findings[26, 69, 7476] have revealed cortical abnormalities in individual with ASD of varying ages and has indicated that these changes may be associated with autism-related symptoms, the results have not been entirely inconsistent. Accordingly, we systematically investigated brain morphometry differences between ASD and TD in a large-scale study across the
+185:There are several limitations to the current study. Firstly, current study has a larger sample size cross the life span, but various participating sites and sex differences still be challenging for multi-sits datasets. While we made effects to control for these effects in our models, it cannot fully exclude potential influence. Secondly, the classification model for ASD must be replicated on other independent datasets before any application in clinical decision-making. Lastly, the developmental trajectories for brain changes in ASD are predominantly drawn from our current cross-sectional data, future longitudinal studies with larger sample sizes are essential to clarify reported developmental trajectories and determine whether distinct early developmental trajectories can predict brain changes in the later life.
+226:ABIDE, Autism Brain Imaging Data Exchange; TD, typical development; ASD, autism spectrum disorder; F, female; M, male.
+267:- [1] G. Dawson, A. D. Rieder, and M. H. Johnson, "Prediction of autism in infants: progress and challenges," (in eng), Lancet Neurol, vol. 22, no. 3, pp. 244-254, Mar 2023, doi: 10.1016/s1474-4422(22)00407-0.
+268:- [2] J. Zeidan et al. , "Global prevalence of autism: A systematic review update," (in eng), Autism Res, vol. 15, no. 5, pp. 778-790, May 2022, doi: 10.1002/aur.2696.
+270:- [4] E. J. Jones, T. Gliga, R. Bedford, T. Charman, and M. H. Johnson, "Developmental pathways to autism: a review of prospective studies of infants at risk," (in eng), Neurosci Biobehav Rev, vol. 39, no. 100, pp. 1-33, Feb 2014, doi: 10.1016/j.neubiorev.2013.12.001.
+274:- [8] D. Velmeshev et al. , "Single-cell genomics identifies cell type -specific molecular changes in autism," Science, vol. 364, no. 6441, pp. 685-689, 2019.
+275:- [9] E. Courchesne et al. , "Mapping early brain development in autism," (in eng), Neuron, vol. 56, no. 2, pp. 399-413, Oct 25 2007, doi: 10.1016/j.neuron.2007.10.016.
+277:- [11] E. Courchesne, "Abnormal early brain development in autism," (in eng), Mol Psychiatry, vol. 7 Suppl 2, pp. S21-3, 2002, doi: 10.1038/sj.mp.4001169.
+278:- [12] R. A. Carper and E. Courchesne, "Localized enlargement of the frontal cortex in early autism," (in eng), Biol Psychiatry, vol. 57, no. 2, pp. 126-33, Jan 15 2005, doi: 10.1016/j.biopsych.2004.11.005.
+279:- [13] E. Courchesne et al. , "Unusual brain growth patterns in early life in patients with autistic disorder," An MRI study, vol. 57, no. 2, pp. 245-254, 2001, doi: 10.1212/wnl.57.2.245.
+280:- [14] A. S. Nunes, V. A. Vakorin, N. Kozhemiako, N. Peatfield, U. Ribary, and S. M. Doesburg, "Atypical age-related changes in cortical thickness in autism spectrum disorder," Scientific Reports, vol. 10, no. 1, p. 11067, 2020/07/06 2020, doi: 10.1038/s41598-02067507-3.
+281:- [15] J. K. Lee et al. , "Longitudinal Evaluation of Cerebral Growth Across Childhood in Boys and Girls With Autism Spectrum Disorder," Biological Psychiatry, vol. 90, no. 5, pp. 286294, 2021/09/01/ 2021, doi: https://doi.org/10.1016/j.biopsych.2020.10.014.
+
+thinking
+**Locating clinical cohort and normative model details**
+
+I'm focusing on methods and dataset demographics sections to find clinical cohort info and details on the normative model. Next, I'll check relevant tables for clearer data presentation.
+exec
+/bin/bash -lc "sed -n '1,140p' study_1/Wang2023.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051340130072026-03-05T04:40:34.143921Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 32ms:
+## Distinct Neurodevelopmental Patterns and Intermediate Integration-Based Predictive Modeling in Autism Spectral Disorder
+
+## Author names
+
+Yanlin Wang Ph.D. 1 , Shiqiang Ma Ph.D. 1 , Ruimin Ma Ph.D. 1 , Linxia Xiao Ph.D. 1 , Shi Tang Ph.D. 2 , Yanjie Wei Ph.D. 1* , Yi Pan Ph.D. 1*
+
+## Academic affiliation
+
+1  Center for High Performance Computing, Joint Engineering Research Center for Health Big Data Intelligent Analysis Technology, Shenzhen Institute of Advanced Technology, Chinese Academy of Sciences, Shenzhen, Guangdong 518055, People's Republic of China 2 Li Chiu Kong Family Sleep Assessment Unit, Department of Psychiatry, Faculty of Medicine, The Chinese
+
+University of Hong Kong, Hong Kong Special Administrative Region.
+
+## *Corresponding author
+
+Dr. Yanjie Wei, Center for High Performance Computing, Joint Engineering Research Center for Health Big Data Intelligent Analysis Technology, Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences, Shenzhen, Guangdong 518055, People's Republic of China. Email: yj.wei@siat.ac.cn, or Dr. Yi Pan, Center for High Performance Computing, Joint Engineering Research Center for Health Big Data Intelligent Analysis Technology, Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences, Shenzhen, Guangdong 518055, People's Republic of China. Email: yi.pan@siat.ac.cn.
+
+available under aCC-BY-NC-ND 4.0 International license. (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made bioRxiv preprint doi: https://doi.org/10.1101/2023.06.26.546426; this version posted June 28, 2023. The copyright holder for this preprint
+
+## ABSTRACT
+
+
+thinking
+**Searching supplement for demographics**
+
+I'm looking into supplement tables to locate demographic data like sex, which will inform data extraction and analysis.
+exec
+/bin/bash -lc 'rg -n "male|female|sex|age" study_1/Supplementary.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051340130072026-03-05T04:40:38.365029Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+7:All T1-weighted scans were chosen from 1112 ABIDE-I participants (539 ASD participants and 573 TC), 1114 ABIDE-II participants (521 ASD participants and 593 TC participants), and 323 KQJH participants (237 ASD participants, 86 TC participants). A detailed introduction of the participants and scan parameters in each center for ABIDE dataset (ABIDE-I [1] and ABIDE-II [2]) is available at http://fcon\_1000.projects.nitrc.org/indi/abide/.  KQJH  dataset  was  acquired  in  the  sagittal  plane  on  3  T scanners  (Siemens  Skyra)  using  a  magnetization  prepared  rapid  gradient  echo  (MPRAGE)  sequence. Acquisition parameters were as follows: TR/TE/TI = 2020/2.11/900 ms; flip angle: 8°; FOV = 224 × 224 mm 2 ; and 1 × 1 × 1 mm3 isotropic voxel. Before scanning, the sedation was performed with 10% chloral hydrate (50 mg/ml) orally or by enema to reduce the influence of children's head movement on image quality.
+11:The  quality  control  was  assessed  by  inspecting  the  image  and  the  cortical  reconstructed  results  across individual brains by two independent reviewers (YL.W. and S.T.). To enhance the accuracy of QA and to investigate the reason for exclusion, we use quality control software for MRI data (MRIQC [3] ) to compute image quality metrics for each dataset (see Table. S8/9/10).
+19:After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female), age range 7-64 (M = 12.72, SD = 6.38) and 481 TD participants (163 female) age range 6-56 (M = 12.65, SD = 6.69). ABIDE II consisted of 402 ASD participants (N=54 female), age range 7-64 (M = 17.04, SD = 7.95) and 469 TD participants (90 female) age range 6-56 (M = 16.85, SD = 7.23). KQJH consisted of 216 ASD participants (N=38 female), age range 1-6 (M = 2.65, SD = 0.83) and 48 TD participants (23 female) age range 0-6 (M = 2.13, SD = 0.97). Moreover, age at time of scan in years per collection (sites) was plotted in Figure S1.
+21:## Image preprocessing and feature extraction
+25:The T1-weighted images of participants between 0-2 years of age were analyzed using Infant Freesurfer software (https://surfer.nmr.mgh.harvard.edu/fswiki/infantFS). Infant Freesurfer is a pipeline of automated segmentation and surface extraction based on Freesurfer for T1-weighted neuroimaging data for infants [4]. Automatic processing steps include intensity normalization, skull stripping, and segmentation of the cortex, white  matter,  and  subcortical  structures.  Segmentation  involves  using  a  multi-atlas  approach  in  which multiple atlases are first registered to subject space and the labels are transferred. The atlases were developed from infant MRI scans [5]. To create the atlas, manually segmented labels were developed using MRI scans from a representative sample of infants (0-2 years of age). In the current study, developmentally appropriate atlases for 4- and 6-month-old infants were employed. A total of 68 regionally distributed measurements (grey matter volume, surface area, and cortical thickness) were extracted from the 'aparc' [6] in each subject.
+29:The T1-weighted images of participants between 3-6 years of age were estimated using FreeSurfer (version 7.1.117) and ANTs (version 2.0). Since the brain size and gray-white matter contrast change with age during childhood periods, we first applied the age-specific brain templates [7] and created prior probabilistic tissue maps/masks including gray matter, white matter, cerebrospinal fluid (CSF), subcortical structures, brain stem, and cerebellum (see Data and Code availability). Then, all images were transformed and inputted to the FreeSurfer "recon-all" pipeline, and the corresponding white matter and brain extraction masks obtained above were injected into the pipeline for tissue segmentation. The detailed information of MRI preprocessing process sees the blow descriptions (over 6 Years).
+33:Cortical reconstruction and volumetric segmentation for all participants were performed with the FreeSurfer software,  version  7.1.117  (http://surfer.nmr.mgh.harvard.edu/).  It  begins  with  transformation  to Talaraich space, intensity inhomogeneity correction, bias field correction [8], and skull-stripping [9]. Thereafter, WM is separated from GM and other tissues and the volume within the created WM-GM boundary is filled. After this, the surface is tessellated and smoothed. After these preprocessing steps are completed, the surface is inflated [10] and registered to a spherical atlas. This method adapts to the folding pattern of each individual brain, utilizing consistent folding patterns such as the central sulcus and the sylvian fissure as landmarks, allowing for high localization accuracy. FreeSurfer uses probabilistic approach based on Markov random fields for automated labeling of brain regions. Cortical thickness is calculated as the average distance between the  WM-GM  boundary  and  the  pial  surface  on  the  tessellated  surface.  The  FreeSurfer  algorithm automatically parcellates the cortex and assigns a neuroanatomical label to each location on a cortical surface model based on probabilistic information. The parcellation scheme of the Desikan-Killiany atlas [6, 11] was used to divide the cortex into 34 regions per hemisphere.
+138:Figure S1. Age at time of scan in years per collection (ordered by mean age per collection), irrespective of diagnostic group.
+140:![Image](./Supplementary_artifacts/image_000000_74f2bd03c935bc874e6e5cedd44157a3f5fc96d6ddbafd076869462b66627360.png)
+142:Figure S2. Dynamic maps of mean cortical thickness in ASD groups across the lifespan (the interval is ten years). The colors indicate the changes of cortical thickness across ages. Most cortical regions become thinner from birth to older years old.
+144:![Image](./Supplementary_artifacts/image_000001_f2f8be357dff16492a1c5c0d635eac324eea9728985e6cac6a3bff6a1b675a8b.png)
+146:Figure S3. Dynamic maps of total surface area in ASD groups across the lifespan (the interval is  ten years). The colors indicate the changes of cortical thickness across ages. Most cortical regions become thinner from birth to older years old.
+148:![Image](./Supplementary_artifacts/image_000002_1ba52c8d6e1a6366fffbc73718b8b08025eb76b2bc3eecc6534e287503e7c03e.png)
+150:Figure S4. Dynamic maps of total gray matter volume in ASD groups across the lifespan (the interval is ten years). The colors indicate changes of cortical thickness across ages. Most cortical regions become thinner from birth to older years old.
+152:![Image](./Supplementary_artifacts/image_000003_f01aac2dd31ccd038345d0d1b8b30827d232d4cfe4ae020ea24c7845f4817ee7.png)
+156:![Image](./Supplementary_artifacts/image_000004_7f27369f1aef11a7caf0d8c4650a4c468d4ce308ad6e3ca8e17311d0e3bf49b6.png)
+162:- [3] O. Esteban, D. Birman, M. Schaer, O. O. Koyejo, R. A. Poldrack, and K. J. Gorgolewski, "MRIQC: Advancing the automatic prediction of image quality in MRI from unseen sites," PloS one, vol. 12, no. 9, p. e0184661, 2017.
+163:- [4] L.  Zöllei,  J.  E.  Iglesias,  Y .  Ou,  P.  E.  Grant,  and  B.  Fischl,  "Infant  FreeSurfer:  An  automated segmentation and surface extraction pipeline for T1-weighted neuroimaging data of infants 0-2 years," NeuroImage, vol. 218, p. 116946, 2020/09/01/ 2020, doi: https://doi.org/10.1016/j.neuroimage.2020.116946.
+164:- [5] K. de Macedo Rodrigues et al. , "A FreeSurfer-compliant consistent manual segmentation of infant brains spanning the 0-2 year age range," (in eng), Front Hum Neurosci, vol. 9, p. 21, 2015, doi: 10.3389/fnhum.2015.00021.
+165:- [6] R. S. Desikan et al. , "An automated labeling system for subdividing the human cerebral cortex on MRI scans into gyral based regions of interest," Neuroimage, vol. 31, no. 3, pp. 968-80, Jul 1 2006, doi: 10.1016/j.neuroimage.2006.01.021.
+
+thinking
+**Computing combined ASD cohort stats**
+
+I'm preparing to compute weighted mean age and pooled SD for the ASD clinical cohort across ABIDE I/II and KQJH, using counts, means, and SDs from supplements, also aggregating total participants and sex counts, with age range 1 to 64.
+2026-03-05T04:40:50.568092Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+# data: N, mean, sd
+entries = [
+    (393, 12.72, 6.38),
+    (402, 17.04, 7.95),
+    (216, 2.65, 0.83),
+]
+N = sum(n for n,_,_ in entries)
+weighted_mean = sum(n*m for n,m,_ in entries)/N
+# pooled sd (sample) - using formula for combined groups: sqrt( (sum((n-1)*sd"'^2) + sum(n*(mean - overall_mean)''^2)) / (N-1) )
+ss_within = sum((n-1)*sd**2 for n,_,sd in entries)
+ss_between = sum(n*(m-weighted_mean)**2 for n,m,_ in entries)
+pooled_var = (ss_within + ss_between) / (N-1)
+pooled_sd = math.sqrt(pooled_var)
+print('"'N',N)
+print('weighted_mean',weighted_mean)
+print('pooled_sd',pooled_sd)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134013007 succeeded in 37ms:
+N 1011
+weighted_mean 12.286290801186944
+pooled_sd 8.364470546026864
+
+thinking
+**Calculating min, max, and sex percentages**
+
+I have the mean and standard deviation for the data and established the sex distribution as about 85.2% male and 14.8% female; I'll now compute the minimum and maximum values within the 1–64 range.
+exec
+/bin/bash -lc "python - <<'PY'
+N=1011
+female=150
+male=861
+print('female_pct',round(female/N*100,1))
+print('male_pct',round(male/N*100,1))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051340130072026-03-05T04:40:54.770109Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 39ms:
+female_pct 14.8
+male_pct 85.2
+
+thinking
+**Planning dataset and cohort details**
+
+I'm confirming the clinical cohort (ASD) was modeled in NM based on separate ASD and TD GAMLSS models, and will use ABIDE-I, ABIDE-II, and KQJH as dataset origins. I'll extract supporting text and statistics like counts, sex, and age from Supplementary line 19 and the main Methods section for citation and detail, preparing to generate the JSON output file next.
+2026-03-05T04:41:02.462710Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Wang2023_by_codex_20260305134013007.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134013007 succeeded in 27ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Preparing detailed disorder and demographic text**
+
+I'm shaping the disorder-name text by referencing ABIDE-I as having 1112 total participants with 539 ASD cases, using methods section quotes for supporting detail and supplement citations for age/sex data. I'll include weighted mean and pooled SD in the age answer object with a note field as instructed for clarity.
+thinking
+**Adding sex distribution with supporting text**
+
+I'm including male and female counts and percentages calculated from supplement data and total participants, and preparing to update the JSON accordingly using apply_patch.
+2026-03-05T04:41:26.735162Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wang2023"
+   },
+@@ -7,28 +7,44 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder (clinical cohort) analyzed with normative modeling across lifespan.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Autism spectrum disorder (ASD) is an early-onset neurodevelopmental disorder\"; \"we characterize the distinct developmental patterns of cortical morphology in individuals with ASD\"",
++        "location": "Wang2023.pdf.md: ABSTRACT / opening paragraph; Wang2023.pdf.md: ABSTRACT / opening paragraph"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II",
++          "KQJH"
++        ],
++        "detail": "Clinical cohort pooled from three datasets.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All data are acquired from ABIDE-I [40], ABIDE-II [41] and KQJH.\"",
++        "location": "Wang2023.pdf.md: METHODS / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 1,
++          "max": 64,
++          "mean": 12.29,
++          "sd": 8.36,
++          "note": "weighted mean; pooled SD"
++        },
++        "detail": "Weighted mean and pooled SD across ASD cohorts after QA (ABIDE I N=393, ABIDE II N=402, KQJH N=216); min/max from reported ASD ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female), age range 7-64 (M = 12.72, SD = 6.38)\"; \"ABIDE II consisted of 402 ASD participants (N=54 female), age range 7-64 (M = 17.04, SD = 7.95)\"; \"KQJH consisted of 216 ASD participants (N=38 female), age range 1-6 (M = 2.65, SD = 0.83)\"",
++        "location": "Supplementary.pdf.md: Participants / QA results"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 861,
++          "male_pct": 85.2,
++          "female_n": 150,
++          "female_pct": 14.8
++        },
++        "detail": "Female counts summed across ASD cohorts; male counts inferred by subtracting female from total N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female)\"; \"ABIDE II consisted of 402 ASD participants (N=54 female)\"; \"KQJH consisted of 216 ASD participants (N=38 female)\"",
++        "location": "Supplementary.pdf.md: Participants / QA results"
+       }
+apply_patch(auto_approved=true) exited 0 in 7ms:
+Success. Updated the following files:
+M DE_v14_Wang2023_by_codex_20260305134013007.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json b/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7668fee2f84cb1897d863063a8e0e85435b921fc
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
+@@ -1,36 +1,52 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wang2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder (clinical cohort) analyzed with normative modeling across lifespan.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Autism spectrum disorder (ASD) is an early-onset neurodevelopmental disorder\"; \"we characterize the distinct developmental patterns of cortical morphology in individuals with ASD\"",
++        "location": "Wang2023.pdf.md: ABSTRACT / opening paragraph; Wang2023.pdf.md: ABSTRACT / opening paragraph"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II",
++          "KQJH"
++        ],
++        "detail": "Clinical cohort pooled from three datasets.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All data are acquired from ABIDE-I [40], ABIDE-II [41] and KQJH.\"",
++        "location": "Wang2023.pdf.md: METHODS / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 1,
++          "max": 64,
++          "mean": 12.29,
++          "sd": 8.36,
++          "note": "weighted mean; pooled SD"
++        },
++        "detail": "Weighted mean and pooled SD across ASD cohorts after QA (ABIDE I N=393, ABIDE II N=402, KQJH N=216); min/max from reported ASD ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female), age range 7-64 (M = 12.72, SD = 6.38)\"; \"ABIDE II consisted of 402 ASD participants (N=54 female), age range 7-64 (M = 17.04, SD = 7.95)\"; \"KQJH consisted of 216 ASD participants (N=38 female), age range 1-6 (M = 2.65, SD = 0.83)\"",
++        "location": "Supplementary.pdf.md: Participants / QA results"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 861,
++          "male_pct": 85.2,
++          "female_n": 150,
++          "female_pct": 14.8
++        },
++        "detail": "Female counts summed across ASD cohorts; male counts inferred by subtracting female from total N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female)\"; \"ABIDE II consisted of 402 ASD participants (N=54 female)\"; \"KQJH consisted of 216 ASD participants (N=38 female)\"",
++        "location": "Supplementary.pdf.md: Participants / QA results"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json b/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7668fee2f84cb1897d863063a8e0e85435b921fc
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
+@@ -1,36 +1,52 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wang2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder (clinical cohort) analyzed with normative modeling across lifespan.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Autism spectrum disorder (ASD) is an early-onset neurodevelopmental disorder\"; \"we characterize the distinct developmental patterns of cortical morphology in individuals with ASD\"",
++        "location": "Wang2023.pdf.md: ABSTRACT / opening paragraph; Wang2023.pdf.md: ABSTRACT / opening paragraph"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II",
++          "KQJH"
++        ],
++        "detail": "Clinical cohort pooled from three datasets.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All data are acquired from ABIDE-I [40], ABIDE-II [41] and KQJH.\"",
++        "location": "Wang2023.pdf.md: METHODS / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 1,
++          "max": 64,
++          "mean": 12.29,
++          "sd": 8.36,
++          "note": "weighted mean; pooled SD"
++        },
++        "detail": "Weighted mean and pooled SD across ASD cohorts after QA (ABIDE I N=393, ABIDE II N=402, KQJH N=216); min/max from reported ASD ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female), age range 7-64 (M = 12.72, SD = 6.38)\"; \"ABIDE II consisted of 402 ASD participants (N=54 female), age range 7-64 (M = 17.04, SD = 7.95)\"; \"KQJH consisted of 216 ASD participants (N=38 female), age range 1-6 (M = 2.65, SD = 0.83)\"",
++        "location": "Supplementary.pdf.md: Participants / QA results"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 861,
++          "male_pct": 85.2,
++          "female_n": 150,
++          "female_pct": 14.8
++        },
++        "detail": "Female counts summed across ASD cohorts; male counts inferred by subtracting female from total N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female)\"; \"ABIDE II consisted of 402 ASD participants (N=54 female)\"; \"KQJH consisted of 216 ASD participants (N=38 female)\"",
++        "location": "Supplementary.pdf.md: Participants / QA results"
+       }
+     }
+   ]
+
+codex
+Filled the extraction JSON with ASD clinical cohort details from ABIDE-I/ABIDE-II/KQJH, including weighted/pooled age stats and inferred sex counts based on the supplementary QA demographics in `DE_v14_Wang2023_by_codex_20260305134013007.json`.
+
+If you want, I can also compute and add TD cohort details or verify any specific table references.
+2026-03-05T04:41:30.501321Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json b/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7668fee2f84cb1897d863063a8e0e85435b921fc
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134013007/./DE_v14_Wang2023_by_codex_20260305134013007.json
+@@ -1,36 +1,52 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wang2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder (clinical cohort) analyzed with normative modeling across lifespan.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Autism spectrum disorder (ASD) is an early-onset neurodevelopmental disorder\"; \"we characterize the distinct developmental patterns of cortical morphology in individuals with ASD\"",
++        "location": "Wang2023.pdf.md: ABSTRACT / opening paragraph; Wang2023.pdf.md: ABSTRACT / opening paragraph"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II",
++          "KQJH"
++        ],
++        "detail": "Clinical cohort pooled from three datasets.",
++        "confidence_rating": "High",
++        "supporting_text": "\"All data are acquired from ABIDE-I [40], ABIDE-II [41] and KQJH.\"",
++        "location": "Wang2023.pdf.md: METHODS / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 1,
++          "max": 64,
++          "mean": 12.29,
++          "sd": 8.36,
++          "note": "weighted mean; pooled SD"
++        },
++        "detail": "Weighted mean and pooled SD across ASD cohorts after QA (ABIDE I N=393, ABIDE II N=402, KQJH N=216); min/max from reported ASD ranges.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female), age range 7-64 (M = 12.72, SD = 6.38)\"; \"ABIDE II consisted of 402 ASD participants (N=54 female), age range 7-64 (M = 17.04, SD = 7.95)\"; \"KQJH consisted of 216 ASD participants (N=38 female), age range 1-6 (M = 2.65, SD = 0.83)\"",
++        "location": "Supplementary.pdf.md: Participants / QA results"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 861,
++          "male_pct": 85.2,
++          "female_n": 150,
++          "female_pct": 14.8
++        },
++        "detail": "Female counts summed across ASD cohorts; male counts inferred by subtracting female from total N.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"After the QA steps described above, ABIDE I consisted of 393 ASD participants (N=58 female)\"; \"ABIDE II consisted of 402 ASD participants (N=54 female)\"; \"KQJH consisted of 216 ASD participants (N=38 female)\"",
++        "location": "Supplementary.pdf.md: Participants / QA results"
+       }
+     }
+   ]
+
+tokens used
+27,780
+Filled the extraction JSON with ASD clinical cohort details from ABIDE-I/ABIDE-II/KQJH, including weighted/pooled age stats and inferred sex counts based on the supplementary QA demographics in `DE_v14_Wang2023_by_codex_20260305134013007.json`.
+
+If you want, I can also compute and add TD cohort details or verify any specific table references.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

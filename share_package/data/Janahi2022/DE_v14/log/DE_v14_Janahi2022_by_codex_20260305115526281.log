@@ -1,0 +1,579 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Janahi2022_by_codex_20260305115526281.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115526281/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbbeb-f6eb-7e23-bcb3-2784e839adb5
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Janahi2022_by_codex_20260305115526281.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read instructions**
+2026-03-05T02:55:32.120436Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115526281 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Janahi2022_by_codex_20260305115526281.json
+DE_v14_Janahi2022_by_codex_20260305115526281.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051155262812026-03-05T02:55:34.452724Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Listing files to locate source paper**
+
+I'm listing files to check the study_1 directory for the source paper referenced in the guide.
+2026-03-05T02:55:38.207211Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115526281 succeeded in 32ms:
+DE_v14_Janahi2022_by_codex_20260305115526281.json
+DE_v14_Janahi2022_by_codex_20260305115526281.log
+DE_Guide_v14.md
+study_1/Janahi2022.pdf.md
+study_1/media-1.pdf.md
+
+thinking
+**Preparing to read paper**
+exec
+/bin/bash -lc 'cat study_1/Janahi2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051155262812026-03-05T02:55:40.722479Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+![Image](./Janahi2022_artifacts/image_000000_4af1adec219d51abeff2871048356a80f7a455e05d5ee6df11e91482aad65c1a.png)
+
+*For correspondence: Rmapmja@ucl.ac.uk
+
+Competing interest: The authors declare that no competing interests exist.
+
+Funding:
+
+See page 13
+
+Preprinted:
+
+19 February 2022
+
+Received:
+
+28 February 2022
+
+Accepted:
+
+
+thinking
+**Confirming clinical cohort extraction criteria**
+
+I'm clarifying that only AD and MCI disorder categories should be extracted from the ADNI clinical cohort since CN is not a disorder; next, I'll verify if demographics like age and sex are available in tables or metadata to include with the clinical data.
+exec
+/bin/bash -lc 'rg -n "Age|age|demograph|sex|female|male" study_1/Janahi2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051155262812026-03-05T02:55:47.679215Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+1:![Image](./Janahi2022_artifacts/image_000000_4af1adec219d51abeff2871048356a80f7a455e05d5ee6df11e91482aad65c1a.png)
+9:See page 13
+31:![Image](./Janahi2022_artifacts/image_000001_088300b505fe165abd7084fac0b20a567d42d0a0bdf9338006628d480b82e774.png)
+33:![Image](./Janahi2022_artifacts/image_000002_5fabc45a8c090e90c3c5c98d0cfd5c0bb0f581ea0783341a56c0e95c0cec15a0.png)
+39:1 Centre for Medical Image Computing (CMIC), Department of Medical Physics and Biomedical Engineering, University College London, London, United Kingdom; 2 Medical and Population Genomics Lab, Human Genetics Department, Research Branch, Sidra Medicine, Doha, Qatar; 3 Stevens Neuroimaging and Informatics Institute, Keck School of Medicine, University of Southern California, Los Angeles, United States; 4 Dementia Research Centre (DRC), Queen Square Institute of Neurology, University College London, London, United Kingdom;  5 Department of Genetic Medicine, Weill Cornell Medicine-  Qatar, Doha, Qatar
+41:Abstract Nomograms are important clinical tools applied widely in both developing and aging populations. They are generally constructed as normative models identifying cases as outliers to a distribution of healthy controls. Currently used normative models do not account for genetic heterogeneity. Hippocampal volume (HV) is a key endophenotype for many brain disorders. Here, we examine the impact of genetic adjustment on HV nomograms and the translational ability to detect dementia patients. Using imaging data from 35,686 healthy subjects aged 44-82 from the UK Biobank (UKB), we built HV nomograms using Gaussian process regression (GPR), which compared to a previous method - extended the application age by 20 years, including dementia critical age ranges. Using HV polygenic scores (HV-  PGS), we built genetically adjusted nomograms from participants stratified into the top and bottom 30% of HV-  PGS. This shifted the nomograms in the expected directions by ~100 mm 3  (2.3% of the average HV), which equates to 3 years of normal aging for a person aged ~65. Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients. While no significant change in the survival analysis was found for MCI-  to-  AD conversion, an average of 68% relative decrease was found in intra-  diagnostic-  group variance, highlighting the importance of genetic adjustment in untangling phenotypic heterogeneity.
+51:![Image](./Janahi2022_artifacts/image_000003_7587685cd29a19aa49de267673f428021d9adeffc4dccc36b7becc109b2da8fc.png)
+53:cases as outliers to a distribution of healthy controls and was shown to have potential to improve early diagnosis, progression models, and risk assessment ( Marquand et al., 2016 ; Pinaya et al., 2020 ; Wolfers et al., 2020 ; Ziegler et al., 2014 ). Where conventional case-  control studies generally require both cases and controls to be well clustered, normative models work well even when cases are not clustered or overlap with controls. Nomograms are a common implementation of normative models and have been used as growth charts of brain volumes across age in both developing and aging populations ( Castellanos et al., 2002 ; Scahill et al., 2003 ; Peterson et al., 2018 ).
+55:Normative modelling identifies cases by their deviation from normality, however, genetics shapes what is 'normal'. Heritability studies have found that whole brain volume is 90 ± 4.8 heritable ( Lukies et al., 2017 ), hippocampal volume (HV) is 75 ± 5 ( Kremen et al., 2010 ; Thompson et al., 2020 ; Hibar et al., 2015 ), and other cortical brain areas between 34% and 80% ( Rentería et al., 2014 ; Zhao et al., 2019 ). Genome-  wide association studies (GWASs) have identified genome-  wide significant variants that explain 13 ± 1.5 of the variation in HV ( Hibar et al., 2017 ), 34 ± 3 in total cortical surface area, and 26±2% in average cortical thickness ( Grasby et al., 2020 ).  The  gap  between estimates from GWAS hits and formal heritability estimates (termed the 'missing heritability') ( Manolio et al., 2009 ) implies that less significant variants also have an influence and that it may be captured through polygenic scores (PGSs) ( Foo et al., 2021 ; Axelrud et al., 2018 ; Escott-  Price et al., 2015 ). In this work we demonstrate the impact of accounting for polygenic effects in normative modelling of HV.
+57:Damage to the hippocampus which is integral to memory processes ( Bird and Burgess, 2008 ) has been associated with major depressive disorder ( Bremner et al., 2000 ), schizophrenia ( Nelson et al., 1998 ), epilepsy ( Whelan et al., 2018 ), and Alzheimer's disease (AD) ( Pini et al., 2016 ). AD is a global health burden: 7% of people over 60 are diagnosed with dementia ( van der Flier and Scheltens, 2005 )  of  which AD accounts for 70% ( Rabinovici, 2019 ).  The pathophysiological processes underlying AD, namely amyloid and tau pathology accumulation, are thought to precede brain atrophy, which typically starts in the hippocampus and medial temporal lobe and then spreads throughout the neocortex ( Rabinovici, 2019 ).
+59:The normal variation of HV is of great clinical interest as the early and often prominent hippocampal atrophy seen in AD creates a need for early diagnosis and disease tracking. Many studies have examined HV across age ( Schmidt et al., 2018 ; Fraser et al., 2015 ), for example, a recent study by Nobis et al., 2019 , produced HV nomograms from UK biobank (UKB) for use in clinical settings. It is
+61:Figure 1. Study overview. ( A ) Using 35,686 subjects from the UK Biobank, we generate nomograms using two methods: a previously reported sliding window method (SWM) and Gaussian process regression (GPR). We find that GPR is more data efficient than the SWM and can extend the nomogram into dementia critical age ranges. ( B ) Using a previously reported genome-  wide association study, we generate polygenic scores (PGSs) for the subjects in our UK Biobank table. We then stratify the table by PGS and generate nomograms for the top and bottom 30% of samples separately. We find the genetic adjustment differentiates the nomograms by an average of 100 mm 3 , which is equivalent to about 3 years of normal aging for a 65-  year-  old.
+63:![Image](./Janahi2022_artifacts/image_000004_2a1b92b9b27c4550bff96c3a4b15939f5e9af6063705a264455c3eb2c4d5170e.png)
+65:![Image](./Janahi2022_artifacts/image_000005_3793103ee4d722cf51efbe2a68fdbf7fcf43d45218cb5bd8aa69f3836735a542.png)
+67:important to note that some of the variation in the normative models can be explained by the clear impact of genetics on HV ( Hibar et al., 2017 ; Mather et al., 2015 ).  Thus far, the few attempts at including genetics in the construction of HV nomograms have focussed on disease-  related variants. For instance, two recent studies examined the impact of the AD-  associated APOE gene ( Ching et al., 2020 ; Veldsman et al., 2021 ), showing that APOE4/4 carriers had significantly lower HV trajectories. This effect is likely driven by AD-  related disease processes since APOE4/4 carriers have a 10-  fold risk of developing AD ( Kim et al., 2009 ; Liu et al., 2013 ). However, the genetic impact on variation in HV in healthy population remains underexamined in the context of nomograms. In this work, we close this gap. We built HV nomograms using a GPR method ( Figure 1A ). We then computed a PGS of HV for subjects in our cohort and built genetically adjusted nomograms ( Figure 1B ). We found that genetic adjustment did in fact shift the nomograms and that, because the model requires no smoothing, our GPR nomograms provided an extended age range compared to previous methods.
+75:Nomograms of healthy subjects generated using the sliding window approach (SWA) and GPR method displayed  similar  trends  ( Figure  2 ; Figure  2-figure  supplement  2 ).  However,  GPR  nomograms spanned the entire training dataset age range (45-82 years) compared to the SWA (52-72 years). This is primarily because the SWA is a non-  model-  based approach that requires smoothing to avoid edge effects, and a Gaussian smoothing window of width 20 was used ( Nobis et al., 2019 ). This extension allowed 86% of all diagnostic groups from the ADNI to be evaluated vs. 56% in the SWA nomograms ( Figure  2 ; Figure  2-figure  supplement  2 ).  Furthermore,  our  GPR  nomograms  confirmed previously reported trends: Overall, the average 50th percentile in male nomograms (4162 ± 222) was higher than the female nomograms (3883 ± 170), and within each sex, right HV was larger than left HV ( Figure 2 ; Figure 2-figure supplement 2 ). We also observed that along the 50th percentile, male HV declined faster (-20.3mm 3 /year) than female HV (-14.6mm 3 /year). Additionally, in GPR nomograms, HV peaks in women at age 53.5 years with a less pronounced peak in males at 50 years ( Figure 2 ; Figure 2-figure supplement 2 ). Training the GPR model with 16,000 samples took ~1 hr on a consumer grade machine (2.3 GHz 8-  Core Intel Core i9).
+79:The calculated  PGS,  based  on  an  earlier  GWAS  for  average  bilateral  HV  ( Hibar  et  al.,  2017 ),  as expected, showed a strong correlation with HV in the UKB data. Overall, the PGSs showed a significant positive correlation with HV across all p-  value thresholds and training sample subsets (p&lt;2.7E-  24; Table 1 ). PGSs explained more variance in males vs. females. Furthermore, PGSs did not show detectable differences in left vs. right HV; and explained the most variance in mean bilateral HV ( Table 1 , Figure 3-source data 1 ). In all tested settings, the explained variance ( R 2 ) by the PGS across p-  value threshold was similar: with one peak at the 1E-  7 threshold (capturing few but very significant SNPs), a higher peak at the 0.75 threshold (capturing many SNPs with mostly small effect sizes) ( Figure 3 ). For the ADNI dataset, this distribution increased with the threshold. When investigating mean HV across percentile of PGS at the 0.75 threshold (highest R 2 ), the top and bottom 20% of scores accounted for 41% of the variance in HV ( Figure 3 ) with similar values observed across thresholds in both datasets ( Figure 3-figure supplements 1 and 2 ).
+85:Figure 2. Comparing nomogram generation methods. Nomograms produced from healthy UK Biobank (UKB) subjects using the sliding window approach (SWA) (red lines) and Gaussian process regression (GPR) method (grey lines) show similar trends. Both left hemisphere nomograms ( A, C ) are lower than their right counterparts ( B, D ). Male nomograms are higher than female nomograms (A vs. C) and (B vs. D). Female hippocampal volume (HV) shows a peak at 53.5 years of age, while male HV shows a less prominent peak at 50 years of age. SWA and GPR show good agreement, while GPR enables a 10-  year nomogram extension in either direction. The benefits of this extension can be seen with scatter plots of Alzheimer's Disease Neuroimaging Initiative (ADNI) subjects of all diagnoses overlayed ( E, F ). The extended age range of the GPR nomograms (45-82 years) enables the evaluation of an additional 43% of male data ( E ) and 34% of female data ( F ) (turquoise circles). A similar figure with only the cognitively normal ADNI subjects can be found in Figure 2-figure supplement 2 .
+87:![Image](./Janahi2022_artifacts/image_000006_6fd1c67b91b882b708b8cd0edd322b3768b3fc3c6fd46dd14367b14d0b9a282f.png)
+89:![Image](./Janahi2022_artifacts/image_000007_fd7099392d90e9f3ed80568d368290b4f8336e07a44a4a198ce73deb35d9ce7f.png)
+
+thinking
+**Checking demographic data location**
+
+I'm verifying whether demographic details for the ADNI clinical cohort are stored outside the main md file, possibly in media-1.
+exec
+/bin/bash -lc 'cat study_1/media-1.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051155262812026-03-05T02:55:50.514096Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+Supplementary Figure S1: Summary of PGS scores and models based on GWAS of HV and UKBB samples
+
+## Supplementary Material
+
+![Image](./media-1_artifacts/image_000000_369b0711fa4970ddb47646245edf6b64acbd242da0ddbcbf5732d815e996f30b.png)
+
+Supplementary Figure S2: Summary of PGS scores and models based on HV GWAS and ADNI samples
+
+![Image](./media-1_artifacts/image_000001_dd72fd230be505caf31439ed122494270e5096acc051f96933fa076139625279.png)
+
+Supplementary Figure S3: Genetically Adjusted Nomograms
+
+![Image](./media-1_artifacts/image_000002_1363388cde3ea5dc46748b1c27fec6d2e0f08d0f0f39a5f50bc37fa89394d562.png)
+
+Supplementary Figure S4 : Nomograms generated with the SWM by stratifying the sample set based on PGSs. Left column: PGS based on HV GWAS. Middle column: PGS based on ICV GWAS. Right column: PGS based on AD GWAS.
+
+![Image](./media-1_artifacts/image_000003_b08d6cc5e09790b91a4cf22c17bb6d59e6f6bf9174532025c02703ff1fa3aeef.png)
+
+Supplementary Figure S5: Longitudinal Analysis. A selection of MCI samples longitudinal data plotted against nomograms of male mean HV. (a) all selected samples plotted against a non-adjusted nomogram. Lines connect visits of the same sample with diagnosis at each visit shown: CN as blue squares; MCI as green dots, AD as red triangles, and no diagnosis (NA) as grey squares. (b) samples from (a) with high PGS plotted against a nomogram generated from high PGS CN samples in UKBB. (c) equivalent result for low PGS samples from (a).
+
+
+
+thinking
+**Clarifying demographic data limits**
+
+No disorder-specific age or sex breakdown is available for the clinical cohort; overall ADNI age range is 55–95 with 1001 subjects (445 male), but after exclusions cohort is 818 with no sex counts—best to note demographics as NR per disorder and reference overall ADNI sample stats only.
+thinking
+**Structuring JSON with NR fields**
+
+For sex and age not reported per disorder, using "NR" string is best, with age given as general ADNI range 55–95 applying to both AD and MCI; the JSON will include paper_id, disorders array for AD and MCI, dataset-of-origin as ["ADNI"], and supporting text referencing ADNI diagnoses and age from abstract or methods.
+2026-03-05T02:56:08.798596Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Janahi2022_by_codex_20260305115526281.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115526281 succeeded in 31ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Drafting JSON for AD and MCI disorders**
+
+Preparing JSON entries for AD and MCI disorders based on the ADNI clinical cohort, including age ranges and dataset origin from the abstract and methods, using "NR" with supporting text "NR" for missing sex data to maintain consistency and citation style.
+thinking
+**Structuring final JSON with detailed metadata**
+
+Decided to include age with min/max numeric values and mean/sd as "NR" for clarity, set sex as "NR" with detail, and include dataset origin and supporting text locations referencing the Janahi2022 paper; preparing to apply these in a two-disorder JSON patch.
+2026-03-05T02:56:40.922743Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Janahi2022"
+   },
+@@ -7,28 +7,58 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "ADNI clinical cohort diagnosis (mild cognitive impairment).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients.\"",
++        "location": "Janahi2022.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI"],
++        "detail": "ADNI application dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ( Petersen et al., 2010 ).\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 55, "max": 95, "mean": "NR", "sd": "NR" },
++        "detail": "ADNI application dataset overall (includes CN/MCI/AD); age range not reported per diagnosis.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
++      },
++      "sex": {
++        "answer": "NR",
++        "detail": "Sex breakdown for MCI diagnosis not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "NR",
++        "location": "Janahi2022.pdf.md: NR"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "ADNI clinical cohort diagnosis (Alzheimer's disease).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients.\"",
++        "location": "Janahi2022.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI"],
++        "detail": "ADNI application dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ( Petersen et al., 2010 ).\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 55, "max": 95, "mean": "NR", "sd": "NR" },
++        "detail": "ADNI application dataset overall (includes CN/MCI/AD); age range not reported per diagnosis.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Sex breakdown for AD diagnosis not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "NR",
++        "location": "Janahi2022.pdf.md: NR"
+       }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M DE_v14_Janahi2022_by_codex_20260305115526281.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json b/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7214f393869bbba9069a58454a8d457ee1a1d7e6
+--- a/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
+@@ -1,36 +1,66 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Janahi2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "ADNI clinical cohort diagnosis (mild cognitive impairment).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients.\"",
++        "location": "Janahi2022.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI"],
++        "detail": "ADNI application dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ( Petersen et al., 2010 ).\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 55, "max": 95, "mean": "NR", "sd": "NR" },
++        "detail": "ADNI application dataset overall (includes CN/MCI/AD); age range not reported per diagnosis.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
++      },
++      "sex": {
++        "answer": "NR",
++        "detail": "Sex breakdown for MCI diagnosis not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "NR",
++        "location": "Janahi2022.pdf.md: NR"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "ADNI clinical cohort diagnosis (Alzheimer's disease).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients.\"",
++        "location": "Janahi2022.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI"],
++        "detail": "ADNI application dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ( Petersen et al., 2010 ).\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 55, "max": 95, "mean": "NR", "sd": "NR" },
++        "detail": "ADNI application dataset overall (includes CN/MCI/AD); age range not reported per diagnosis.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Sex breakdown for AD diagnosis not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "NR",
++        "location": "Janahi2022.pdf.md: NR"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json b/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7214f393869bbba9069a58454a8d457ee1a1d7e6
+--- a/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
+@@ -1,36 +1,66 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Janahi2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "ADNI clinical cohort diagnosis (mild cognitive impairment).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients.\"",
++        "location": "Janahi2022.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI"],
++        "detail": "ADNI application dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ( Petersen et al., 2010 ).\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 55, "max": 95, "mean": "NR", "sd": "NR" },
++        "detail": "ADNI application dataset overall (includes CN/MCI/AD); age range not reported per diagnosis.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
++      },
++      "sex": {
++        "answer": "NR",
++        "detail": "Sex breakdown for MCI diagnosis not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "NR",
++        "location": "Janahi2022.pdf.md: NR"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "ADNI clinical cohort diagnosis (Alzheimer's disease).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients.\"",
++        "location": "Janahi2022.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI"],
++        "detail": "ADNI application dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ( Petersen et al., 2010 ).\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 55, "max": 95, "mean": "NR", "sd": "NR" },
++        "detail": "ADNI application dataset overall (includes CN/MCI/AD); age range not reported per diagnosis.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Sex breakdown for AD diagnosis not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "NR",
++        "location": "Janahi2022.pdf.md: NR"
+       }
+     }
+   ]
+
+codex
+Filled the clinical cohort extraction for Janahi2022 and wrote it to `DE_v14_Janahi2022_by_codex_20260305115526281.json`, including ADNI-based AD/MCI disorders, dataset origin, and available age range with NR where diagnosis-specific demographics were not reported.
+
+If you want, I can also try to locate diagnosis-specific age/sex details from any additional ADNI tables you provide.
+2026-03-05T02:56:44.085529Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json b/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7214f393869bbba9069a58454a8d457ee1a1d7e6
+--- a/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305115526281/./DE_v14_Janahi2022_by_codex_20260305115526281.json
+@@ -1,36 +1,66 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Janahi2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "ADNI clinical cohort diagnosis (mild cognitive impairment).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients.\"",
++        "location": "Janahi2022.pdf.md: Abstract"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI"],
++        "detail": "ADNI application dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ( Petersen et al., 2010 ).\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
++      },
++      "age": {
++        "answer": { "unit": "years", "min": 55, "max": 95, "mean": "NR", "sd": "NR" },
++        "detail": "ADNI application dataset overall (includes CN/MCI/AD); age range not reported per diagnosis.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
++      },
++      "sex": {
++        "answer": "NR",
++        "detail": "Sex breakdown for MCI diagnosis not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "NR",
++        "location": "Janahi2022.pdf.md: NR"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "ADNI clinical cohort diagnosis (Alzheimer's disease).",
++        "confidence_rating": "High",
++        "supporting_text": "\"Clinical impact of genetically adjusted nomograms was investigated by comparing 818 subjects from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database diagnosed as either cognitively normal (CN), having mild cognitive impairment (MCI) or Alzheimer's disease (AD) patients.\"",
++        "location": "Janahi2022.pdf.md: Abstract"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI"],
++        "detail": "ADNI application dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"For an application dataset, we used the ADNI database (http://adni.loni.usc.edu/) ( Petersen et al., 2010 ).\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": { "unit": "years", "min": 55, "max": 95, "mean": "NR", "sd": "NR" },
++        "detail": "ADNI application dataset overall (includes CN/MCI/AD); age range not reported per diagnosis.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"A total of 1001 ADNI subjects (445 male) aged 55-95 were included in this analysis.\"",
++        "location": "Janahi2022.pdf.md: Methods / Application dataset"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "NR",
++        "detail": "Sex breakdown for AD diagnosis not reported.",
++        "confidence_rating": "Low",
++        "supporting_text": "NR",
++        "location": "Janahi2022.pdf.md: NR"
+       }
+     }
+   ]
+
+tokens used
+39,889
+Filled the clinical cohort extraction for Janahi2022 and wrote it to `DE_v14_Janahi2022_by_codex_20260305115526281.json`, including ADNI-based AD/MCI disorders, dataset origin, and available age range with NR where diagnosis-specific demographics were not reported.
+
+If you want, I can also try to locate diagnosis-specific age/sex details from any additional ADNI tables you provide.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

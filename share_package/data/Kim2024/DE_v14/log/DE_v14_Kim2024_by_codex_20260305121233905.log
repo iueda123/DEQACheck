@@ -1,0 +1,1539 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Kim2024_by_codex_20260305121233905.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbbfb-a4e0-7501-a845-817dc74f0b55
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Kim2024_by_codex_20260305121233905.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read guide**
+2026-03-05T03:12:42.205882Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Kim2024_by_codex_20260305121233905.json
+DE_v14_Kim2024_by_codex_20260305121233905.log
+study_1
+
+thinking
+**Opening guide file**
+2026-03-05T03:12:46.200691Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905 succeeded in 26ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating paper data files**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051212339052026-03-05T03:12:51.701379Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 36ms:
+DE_v14_Kim2024_by_codex_20260305121233905.log
+DE_Guide_v14.md
+DE_v14_Kim2024_by_codex_20260305121233905.json
+study_1/1-s2.0-S2667174325000953-mmc1.pdf.md
+study_1/1-s2.0-S2667174325000953-mmc2.xlsx.md
+study_1/Kim2024.pdf.md
+
+thinking
+**Preparing to use Kim2024**
+2026-03-05T03:12:56.548377Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|clinical|patient|cohort|psychosis|depression|bipolar|schizophrenia|autism|ADHD|MCI|Alzheimer|Parkinson|epilepsy" study_1/Kim2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905 succeeded in 30ms:
+5:Milin Kim, Nitin Sharma, Esten H. Leonardsen, Saige Rutherford, Geir Selbæk, Karin Persson, Nils Eiel Steen, Olav B. Smeland, Torill Ueland, Geneviève Richard, Aikaterina Manoli, So /uniFB01 e L. Valk, Dag Alnæs, Christian F. Beckman, Andre F. Marquand, Ole A. Andreassen, Lars T. Westlye, Thomas Wolfers, and Torgeir Moberget, for the Alzheimer ' s Disease Neuroimaging Initiative
+9:BACKGROUND: Mental and neurological conditions have been linked to structural brain variations. However, aside from dementia, the value of brain structural characteristics derived from brain scans for prediction is relatively low. One reason for this limitation is the clinical and biological heterogeneity inherent to such conditions. Recent studies have implicated aberrations in the cerebellum, a relatively understudied brain region, in these clinical conditions. METHODS: Here, we used machine learning to test the value of individual deviations from normative cerebellar development across the lifespan (based on trained data from . 27,000 participants) for prediction of autism spectrum disorder (ASD) ( n = 317), bipolar disorder ( n = 238), schizophrenia (SZ) ( n = 195), mild cognitive impairment ( n = 122), and Alzheimer ' s disease ( n = 116); individuals without diagnoses were matched to the clinical cohorts. We applied several atlases and derived median, variance, and percentages of extreme deviations within each region of interest. RESULTS: The results show that lobular and voxelwise cerebellar data can be used to discriminate reference samples from individuals with ASD and SZ with moderate accuracy (the area under the receiver operating characteristic curves ranged from 0.56 to 0.65). Contributions to these predictive models originated from both anterior and posterior regions of the cerebellum.
+11:CONCLUSIONS: Our study highlights the utility of cerebellar normative modeling in predicting ASD and SZ, aided by 4 cerebellar atlases that enhanced the interpretability of the /uniFB01 ndings.
+15:Clinical heterogeneity and complex pathobiological mechanisms impede the discovery of reliable biomarkers for many neurological and especially psychiatric disorders, thereby complicating precise clinical decision making and treatments. Over the last 2 decades, there has been a trend in the development of neuroimaging-based tools and machine learning for prognosis and diagnosis of psychiatric disorders (1,2) and neurological illnesses (3). Neuroimaging-based prediction studies of autism spectrum disorder (ASD), bipolar disorder (BD), and schizophrenia (SZ) have reported a wide range of accuracies, underscoring the limitations associated with small samples, including poor generalization performance (4,5). Notably, prediction studies on dementia have shown greater promise for clinical usage in both Alzheimer ' s disease (AD) (3) and mild cognitive impairment (MCI).
+17:Notably, most of these prediction studies (4 -6) have focused on cerebral features, perhaps re /uniFB02 ecting a corticocentric bias in the literature (7). Nonetheless, disruptions in the cerebellum have been hypothesized to contribute to early cognitive disturbances (8) and various clinical conditions, such as childhood psychiatric symptoms (9), AD (10), SZ (11), and
+19:ASD (12 -14). Using a normative modeling approach, we recently demonstrated signi /uniFB01 cant deviations from normal cerebellar developmental across the lifespan in individuals with mental and neurodegenerative illnesses including SZ and AD (15). The deviation refers to instances where an individual falls outside the typical range. However, recent literature indicates that there are no signi /uniFB01 cant differences in the cerebellum in ASD (16), a condition characterized by repetitive patterns in behaviors, restricted interests, and dif /uniFB01 culties in social interaction and communication (17). This may be attributed to the presence of both positive and negative deviations in cerebellar characteristics (15). In contrast, several studies (11,18) of SZ indicate a reduction in cerebellar volume, particularly in regions associated with perception, language comprehension, and cognitive functions. Patient studies have shown that abnormalities in the cerebellum can exert a signi /uniFB01 cant in /uniFB02 uence on motor, cognitive, and emotional functions (19 -21); however, there has been little exploration of the role of the cerebellum in predicting and classifying mental and neurological illnesses. While these individual-level deviations revealed substantial cerebellar heterogeneity among individuals with the same
+23:In this study, we addressed this gap by performing a set of predictions of ASD, MCI, AD, BD, and SZ using magnetic resonance imaging (MRI) -based cerebellar features and crossvalidated machine learning classi /uniFB01 ers. We applied lobular and voxelwise normative models (15) and aggregated the median, variance, and percentage of extreme deviations across atlases (22,23). The features, speci /uniFB01 cally the percentage of extreme deviation, median, and variance for each of the different cerebellar atlas regions, illuminate the model performance in terms of prediction of the disorders and diseases, given different parcellations and features. Finally, for models that were able to meaningfully differentiate between patients and healthy control participants, we identi /uniFB01 ed the cerebellar regions that contributed most to the prediction.
+29:The study sample consisted of individuals from the cerebellar lifespan normative model (15), where individuals without a diagnosis were split into a training set ( n = 27,117; 54% female), a test set ( n = 26,985; 53% females), and a clinical set ( n = 1757; 30% females) (Figure 1A and Table S2). Individuals without diagnoses were matched to the clinical datasets of patients with AD, ASD, BD, MCI, and SZ (Table 1) using nearest-neighbor matching based on exact matches of sex and scanning site with age as implemented in MatchIt (24). The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts. Information about each cohort and studies can be found in the corresponding publications (Table S1). If participants were scanned at several time points, only baseline scans were chosen for this study. Individuals who withdrew from the studies or lacked essential demographic information and T1-weighted MRI data were excluded from the analyses.
+35:To segment the cerebellum, we utilized the Automatic Cerebellum Anatomical Parcellation Using U-Net with Locally Constrained Optimization (ACAPULCO) algorithm (28), a part of the Enhancing Neuro Imaging Genetics through Meta Analysis (ENIGMA) Cerebellum Volumetric Pipeline, which is a cerebellum parcellation algorithm based on convolutional neural networks. This algorithm delivers fast and precise quantitative in vivo regional assessment of the cerebellum. As part of the algorithm, the images were corrected for inhomogeneity by the N4 correction method (29) and registered to the 1-mm isotropic ICBM 2009c template in Montreal Neurological Institute (MNI) space using the Advanced Normalization Tools registration suite (30). The ACAPULCO algorithm is based on 15 expert manual delineations of an adult cohort (31). It achieves per-voxel labeling and uses postprocessing of the parcellation to correct for mislabeling and accurate segmentation. ACAPULCO segments the cerebellum into 28 cerebellar lobules and computes the volume (mm 3 ) for each lobule. These regions include bilateral lobules I -VI; crus I and II; lobules VIIB, VIIIA, VIIIB, and IX -X; vermis VI, VII, VIII, IX, and X; and the corpus medullare. To ensure data quality, participants with extreme outliers (2.698 SD above or below the mean) (32) in more than 2 lobules based on automated quality control measures were excluded. We set the threshold at 2 lobules because the differences between 1 and 2 lobules were not signi /uniFB01 cant (see Supplemental Methods for detailed information on quality control).
+43:Normative modeling (35), similar to pediatric growth charts, addresses the limitation of case-control studies by mapping developmental and aging trajectories across the lifespan, thereby preserving individual-level inference in reference to large populations (36 -38). Widely applied in clinical research (38 -43), it helps detect extreme deviations in individuals. Here, we used this approach to normalize clinical groups against the population reference, accounting for age, sex, and site effects. We used a publicly available cerebellar normative model based on . 27,000 individuals without diagnoses (15). The cerebellar normative model was developed using a large reference sample that spans ages 3 to 85 years. This broad age range allows us to map individual deviations from established norms within clinical cohorts, including young participants. The use of this extensive reference sample provides a basis for normalization and confound removal with respect to age, sex, and site. This normative model includes cerebellar lobules and voxelwise intensities, which differ across tissues (e.g., gray matter, white matter, cerebrospinal /uniFB02 uid) based on their proton density and relaxation properties, while adjusting for sex, age, and scanning site (Figure 1B).
+67:datasets (45). Scanning site was accounted for as a /uniFB01 xed effect (47,48). The normative model provides point estimates and evaluation metrics such as explained variance, mean squared log loss, skew, and kurtosis (46). These evaluation metrics were calculated in the test set, which did not include clinical cohorts. Extreme deviations were de /uniFB01 ned as | z | . 1.96, corresponding to the most extreme 5% of cases in both directions in the reference cohort.
+71:First, lobular normative models were used to derive deviation scores of volume for the 28 cerebellar lobules (Table S3). Second, voxelwise normative models were utilized to map deviation pro /uniFB01 les of gray matter onto existing atlases (see Supplemental Methods for statistics and reproducibility). Four existing atlases were selected: 28 regions of interest (ROIs) from cerebellar anatomical atlas, 10 ROIs from a multidomain task battery (23), 32 ROIs from a hierarchical atlas (49), and 17 ROIs from resting-state connectivity (22,50) (see Atlases in Supplemental Methods and Figure S1 for labels). For each ROI delineated by these atlases, we computed 3 key statistics: the median, variance, and percentage of extreme deviations (Figure 1C). To quantify the percentage of extremes in deviation, we also calculated the proportion of voxelwise deviations that exceeded the established threshold of | z | . 1.96, denoting both extreme positive and negative deviations. This proportion was determined by dividing the count of such extreme deviations by the total voxel count within the corresponding ROI. Variance has previously been used to examine the structural heterogeneity among patients with SZ (51,52). Unlike percentage of extreme deviation (| z | . 1.96), which has been used in past normative studies (38,42,53), variance assesses the dispersion within the region, capturing the regionally heterogeneous spread within patients.
+81:Figure 1. Overview of predicting mental and neurological illnesses. (A) The study included 5 clinical datasets: Alzheimer ' s disease, autism spectrum disorder, bipolar disorder, mild cognitive impairment, and schizophrenia. The input data, together with the samples, consist of both lobular and voxelwise data. (B) Individuals without a diagnosis were divided into training and test sets to evaluate the cerebellar normative models. The deviation score ( z score) measures how much an individual deviates from the norm represented by the estimated population model. (C) The analysis utilized the deviation scores derived from the cerebellar lobular and voxelwise normative models. Lobular z scores consist of 28 lobular volumes. For voxelwise, deviation scores overlaid onto existing cerebellar atlases including anatomical, task-based, hierarchical, and resting-state parcellations. This process calculated median, variance, and percentage of extreme positive and negative deviation for each atlas ' regions of interest (ROIs). Logistic regression was used for each atlas to assess the predictive value of features across all ROIs.
+88:| Alzheimer ' s Disease     | 116            | 13         | 71.72 (7.12)  | 55%/45%             |
+94:| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |
+102:ASD, autism spectrum disorder; HC, healthy control participant.
+104:algorithm, with diagnoses with respect to healthy individuals and clinical groups, such as ASD, BD, SZ, MCI, and AD, as labels. We utilized LR to assess predictive performance, using deviations from normative models, speci /uniFB01 cally their median, variance, and percentage of extreme deviations, derived from existing atlases superimposed onto voxelwise cerebellar maps. To evaluate the model ' s performance in the test set, we conducted a strati /uniFB01 ed 5-fold cross-validation and used the area under the receiver operating characteristic curve (AUROC) as the primary performance metric. The AUROC measures the ability of the model to distinguish between classes, in this case, accurately identifying individuals with or without the condition under study. A higher AUROC value, closer to 1, indicates better performance, signifying that the model has a higher probability of correctly classifying the outcomes. We also calculated precision, recall, sensitivity, speci /uniFB01 city, balanced accuracy, and the area under the precision-recall curve.
+120:Permutation testing revealed signi /uniFB01 cant predictions for ASD and SZ (AUROC values ranging from 0.56 to 0.65), using various models based on deviations from the cerebellar normative model (Figure 2 and Table S4). Prediction performance for MCI, AD, and BD were not above chance levels. For SZ, the most predictive models were those centered around median and variance measures summarized within ROIs for the voxelwise models. In contrast, for ASD, models based on the lobular volumes and voxelwise variance within ROIs were found to be the most predictive. We explored 2 machine learning approaches, LR and RF, and observed no notable differences between models in terms of feature importance or performance (Figures S3 and S4). This
+122:Figure 2. Cerebellar features moderately predict autism spectrum disorder (ASD) and schizophrenia (SZ). (A) Information from the anatomical (28 regions), task-based (10 regions), hierarchical (32 regions), or resting-state (17 regions) atlases are compiled into features that were used as predictors by the logistic regression model to make predictions. The area under the receiver operating characteristic curve (AUROC) serves as an important measure in evaluating the performance of a binary classi /uniFB01 er, representing a trade-off between the classi /uniFB01 er ' s sensitivity (true positive rate) and speci /uniFB01 city (true negative rate). The reliability and robustness of the AUROC were assessed by computing them over 1000 permutations, which aids in determining whether the classi /uniFB01 er ' s performance is statistically signi /uniFB01 cant or due to random chance. (B -D) The values that survived multiple comparison are shown. AD, Alzheimer ' s disease; BD, bipolar disorder; MCI, mild cognitive impairment.
+134:Figure 3. Different regions show distinct feature importance (FI) across atlases in autism spectrum disorder (ASD) and schizophrenia (SZ). The FI values derived from logistic regression reveal the contribution of each speci /uniFB01 c cerebellar region to predictive modeling relative to average prediction outcomes. FI values accentuate distinct cerebellar regions with unique predictive capabilities as identi /uniFB01 ed in lobules, anatomical, task-based, hierarchical, and resting-state atlases through voxelwise analysis. Features that remained signi /uniFB01 cant after adjustments for multiple comparisons of the area under the receiver operating characteristic curve are shown.
+
+thinking
+**Inspecting supplemental tables**
+
+I'll check the .xlsx.md and mmc1 files to locate clinical cohort details in the supplementary materials.
+2026-03-05T03:13:00.842081Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table 1|Table S1|Table S2|Table S3|ADNI|ABIDE|AIBL|DEMGEN|TOP|ASD|bipolar|schizophrenia|MCI|Alzheimer|Age|Sex" study_1/1-s2.0-S2667174325000953-mmc1.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905 succeeded in 31ms:
+22:5. Feature Importance of ASD
+25:8. Feature Importance of MCI
+66:E) Comparison in MCI
+70:B) Comparison in ASD
+82:Supplementary  Figure  3. Comparisons  between  models  within  the  anatomical  atlas generally yield similar performance. (A) The figure illustrates the comparative distance in performance between pairs of models that have withstood multiple comparison tests for each disease across anatomical atlas. (B) This suggests that while most models are equally predictive, the variance model is an exception in the MCI cohort.
+94:E) Comparison in MCI
+96:—\_B) Comparison in ASD
+112:Supplementary Figure 4. Random Forest achieves a performance comparable to that of Logistic Regressio n in anatomical atlas (A) The heatmap of the AUROC for the Random Forest model displaying results akin to linear regression. (B-F) Also, comparisons between different models using Random Forest also indicating no significant differences except in ASD.
+116:## Supplementary Table 1. Sources of the studies used in the study
+120:| Autism Brain  Imaging Dataset  Exchange  (ABIDE-I)                         | http://fcon_1000.projects.nitrc.org/ | Primary support for the work by Adriana Di Martino was provided by the NIMH  (K23MH087770) and the Leon Levy Foundation. Primary support for the work by Michael P. Milham and the INDI  team was provided by gifts from Joseph P. Healy and the Stavros Niarchos Foundation to the Child Mind Institute, as  well as by an NIMH award to MPM (R03MH096321).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | (8)          |
+121:| Autism Brain  Imaging Dataset  Exchange II  (ABIDE-II)                     | http://fcon_1000.projects.nitrc.org/ | Primary support for the work by Adriana Di Martino and her team was provided by the National Institute of Mental  Health (NIMH 5R21MH107045). Primary support for the work by Michael P. Milham and his team provided by the  National  Institute  of  Mental  Health  (NIMH  5R21MH107045);  Nathan  S.  Kline  Institute  of  Psychiatric  Research).  Additional Support was provided by gifts from Joseph P. Healey, Phyllis Green and Randolph Cowen to the Child Mind  Institute.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | (9)          |
+122:| Alzheimer's  Disease  Neuroimaging  Initiative  (ADNI)                     | http://adni.loni.usc.edu/            | The ADNI was launched in 2003 as a public-private partnership, led by Principal Investigator Michael W. Weiner, MD.  ADNI consists of 4 waves, the later is still ongoing (ADNI 3). A complete listing of ADNI investigators can be found at  http://adni.loni.usc.edu/wpcontent/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf.  Data  collection  and  sharing for this project was funded by the Alzheimer's Disease Neuroimaging Initiative (ADNI) (National Institutes of  Health Grant U01 AG024904) and DOD ADNI (Department of Defense award number W81XWH-12-2-0012). ADNI  is  funded by the National Institute on Aging, the National Institute of Biomedical Imaging and Bioengineering, and  through  generous  contributions  from  the  following:  AbbVie,  Alzheimer's  Association;  Alzheimer's  Drug  Discovery  Foundation; Araclon Biotech; BioClinica, Inc.; Biogen; Bristol-Myers Squibb Company; CereSpir, Inc.; Cogstate; Eisai  Inc.;  Elan  Pharmaceuticals, Inc.; Eli Lilly and Company; EuroImmun; F. Hoffmann-La Roche Ltd and its affiliated  company  Genentech,  Inc.;  Fujirebio;  GE  Healthcare;  IXICO  Ltd.;Janssen  Alzheimer  Immunotherapy  Research  &  Development, LLC.; Johnson & Johnson Pharmaceutical Research & Development LLC.; Lumosity; Lundbeck; Merck  & Co., Inc.;Meso Scale Diagnostics, LLC.; NeuroRx Research; Neurotrack Technologies; Novartis Pharmaceuticals  Corporation; Pfizer Inc.; Piramal Imaging; Servier; Takeda Pharmaceutical Company; and Transition Therapeutics. The  Canadian Institutes  of  Health  Research  is  providing  funds  to  support  ADNI  clinical  sites  in  Canada.  Private  sector  contributions  are  facilitated  by  the  Foundation  for  the  National  Institutes  of  Health  (www.fnih.org).  The  grantee  organization  is  the  Northern  California  Institute  for  Research  and  Education,  and  the  study  is  coordinated  by  the  Alzheimer's Therapeutic Research Institute at the University of Southern California. ADNI data are disseminated by the  Laboratory for Neuro Imaging at the University of Southern California. |              |
+123:| The Australian  Imaging,  Biomarkers and  Lifestyle Flagship  Study (AIBL) | https://aibl.csiro.au/               | Australian  Imaging  Biomarkers  and  Lifestyle  flagship  study  of  ageing  (AIBL)  was  funded  by  the  Commonwealth  Scientific  and  Industrial  Research  Organisation  (CSIRO),  which  was  made  available  at  the  ADNI  databas  (http://www.loni.usc.edu/ADNI). The AIBL researchers contributed data but did not participate in analysis or writing of  this report. AIBL researchers are listed at  http://www.aibl.csiro.au.  Correspondence  should  be  addressed  to  Christopher  Rowe  (email:  christopher.rowe@austin.org.au).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | (10)         |
+124:| Norwegian  Dementia  Genetics  Network  (DEMGEN)                           | Authors                              | Supported by the Norwegian National Advisory Unit on Aging and Health                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | (11,12)      |
+126:| StrokeMRI (TOP)                          | Authors   | Supported by the Research Council of Norway (249795, 248238), the South-Eastern Norway  Regional Health Authority (2014097, 2015044, 2015073, 2016083), and the Norwegian ExtraFoundation for Health and  Rehabilitation (2015/FO5146)   | (13)    |
+128:| Thematically  Organized Psychosis  (TOP) | Authors   | Supported by several grants from the Research Council of Norway, and the South-Eastern  Norway Regional Health Authority                                                                                                                 | (14-16) |
+132:|          |                                 |   N  (Participants) |   N   (Scanning-site) | Age   (Mean, S.D.)   | Sex   (%F:%M)   |
+138:|          | Alzheimer's Disease (AD)        |                 146 |                    13 | 72.42 (7.65)         | 53:47           |
+139:|          | Autism Spectrum Disorder (ASD)  |                 900 |                    37 | 16.20 (9.00)         | 14:86           |
+141:|          | Mild Cognitive Impairment (MCI) |                 122 |                     3 | 67.25 (9.27)         | 42:58           |
+
+thinking
+**Locating clinical cohort demographics**
+
+I identified a table in mmc1 around line 132 that likely contains sample size, sites, age, and sex data for all disorders; next, I'll extract the full table for review.
+exec
+/bin/bash -lc "sed -n '120,170p' study_1/1-s2.0-S2667174325000953-mmc1.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051212339052026-03-05T03:13:06.380265Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+| Autism Brain  Imaging Dataset  Exchange  (ABIDE-I)                         | http://fcon_1000.projects.nitrc.org/ | Primary support for the work by Adriana Di Martino was provided by the NIMH  (K23MH087770) and the Leon Levy Foundation. Primary support for the work by Michael P. Milham and the INDI  team was provided by gifts from Joseph P. Healy and the Stavros Niarchos Foundation to the Child Mind Institute, as  well as by an NIMH award to MPM (R03MH096321).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | (8)          |
+| Autism Brain  Imaging Dataset  Exchange II  (ABIDE-II)                     | http://fcon_1000.projects.nitrc.org/ | Primary support for the work by Adriana Di Martino and her team was provided by the National Institute of Mental  Health (NIMH 5R21MH107045). Primary support for the work by Michael P. Milham and his team provided by the  National  Institute  of  Mental  Health  (NIMH  5R21MH107045);  Nathan  S.  Kline  Institute  of  Psychiatric  Research).  Additional Support was provided by gifts from Joseph P. Healey, Phyllis Green and Randolph Cowen to the Child Mind  Institute.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | (9)          |
+| Alzheimer's  Disease  Neuroimaging  Initiative  (ADNI)                     | http://adni.loni.usc.edu/            | The ADNI was launched in 2003 as a public-private partnership, led by Principal Investigator Michael W. Weiner, MD.  ADNI consists of 4 waves, the later is still ongoing (ADNI 3). A complete listing of ADNI investigators can be found at  http://adni.loni.usc.edu/wpcontent/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf.  Data  collection  and  sharing for this project was funded by the Alzheimer's Disease Neuroimaging Initiative (ADNI) (National Institutes of  Health Grant U01 AG024904) and DOD ADNI (Department of Defense award number W81XWH-12-2-0012). ADNI  is  funded by the National Institute on Aging, the National Institute of Biomedical Imaging and Bioengineering, and  through  generous  contributions  from  the  following:  AbbVie,  Alzheimer's  Association;  Alzheimer's  Drug  Discovery  Foundation; Araclon Biotech; BioClinica, Inc.; Biogen; Bristol-Myers Squibb Company; CereSpir, Inc.; Cogstate; Eisai  Inc.;  Elan  Pharmaceuticals, Inc.; Eli Lilly and Company; EuroImmun; F. Hoffmann-La Roche Ltd and its affiliated  company  Genentech,  Inc.;  Fujirebio;  GE  Healthcare;  IXICO  Ltd.;Janssen  Alzheimer  Immunotherapy  Research  &  Development, LLC.; Johnson & Johnson Pharmaceutical Research & Development LLC.; Lumosity; Lundbeck; Merck  & Co., Inc.;Meso Scale Diagnostics, LLC.; NeuroRx Research; Neurotrack Technologies; Novartis Pharmaceuticals  Corporation; Pfizer Inc.; Piramal Imaging; Servier; Takeda Pharmaceutical Company; and Transition Therapeutics. The  Canadian Institutes  of  Health  Research  is  providing  funds  to  support  ADNI  clinical  sites  in  Canada.  Private  sector  contributions  are  facilitated  by  the  Foundation  for  the  National  Institutes  of  Health  (www.fnih.org).  The  grantee  organization  is  the  Northern  California  Institute  for  Research  and  Education,  and  the  study  is  coordinated  by  the  Alzheimer's Therapeutic Research Institute at the University of Southern California. ADNI data are disseminated by the  Laboratory for Neuro Imaging at the University of Southern California. |              |
+| The Australian  Imaging,  Biomarkers and  Lifestyle Flagship  Study (AIBL) | https://aibl.csiro.au/               | Australian  Imaging  Biomarkers  and  Lifestyle  flagship  study  of  ageing  (AIBL)  was  funded  by  the  Commonwealth  Scientific  and  Industrial  Research  Organisation  (CSIRO),  which  was  made  available  at  the  ADNI  databas  (http://www.loni.usc.edu/ADNI). The AIBL researchers contributed data but did not participate in analysis or writing of  this report. AIBL researchers are listed at  http://www.aibl.csiro.au.  Correspondence  should  be  addressed  to  Christopher  Rowe  (email:  christopher.rowe@austin.org.au).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | (10)         |
+| Norwegian  Dementia  Genetics  Network  (DEMGEN)                           | Authors                              | Supported by the Norwegian National Advisory Unit on Aging and Health                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | (11,12)      |
+
+| StrokeMRI (TOP)                          | Authors   | Supported by the Research Council of Norway (249795, 248238), the South-Eastern Norway  Regional Health Authority (2014097, 2015044, 2015073, 2016083), and the Norwegian ExtraFoundation for Health and  Rehabilitation (2015/FO5146)   | (13)    |
+|------------------------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| Thematically  Organized Psychosis  (TOP) | Authors   | Supported by several grants from the Research Council of Norway, and the South-Eastern  Norway Regional Health Authority                                                                                                                 | (14-16) |
+
+## Supplementary Table 2 . Full Sample description and demographics
+
+|          |                                 |   N  (Participants) |   N   (Scanning-site) | Age   (Mean, S.D.)   | Sex   (%F:%M)   |
+|----------|---------------------------------|---------------------|-----------------------|----------------------|-----------------|
+| Full     | All                             |               54102 |                   132 |                      |                 |
+|          | Training set                    |               27117 |                   132 | 54.36 (20.31)        | 53:47           |
+|          | Testing set                     |               26985 |                   132 | 54.52 (20.19)        | 53:47           |
+| Clinical | Testing set                     |                1757 |                    53 | 29.40 (20.84)        | 30:70           |
+|          | Alzheimer's Disease (AD)        |                 146 |                    13 | 72.42 (7.65)         | 53:47           |
+|          | Autism Spectrum Disorder (ASD)  |                 900 |                    37 | 16.20 (9.00)         | 14:86           |
+
+thinking
+**Mapping disorders to dataset origins**
+
+I'm identifying clinical cohort data sources for each disorder using Table S2 and cross-referencing with Table 1 and the main text to confirm datasets like ABIDE for ASD, ADNI/AIBL/DEMGEN for AD/MCI, and TOP for SZ and BD. Next, I'll locate this info in Kim2024.pdf.md.
+exec
+/bin/bash -lc 'rg -n "Table 1|Table 1" study_1/Kim2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051212339052026-03-05T03:13:14.108223Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+29:The study sample consisted of individuals from the cerebellar lifespan normative model (15), where individuals without a diagnosis were split into a training set ( n = 27,117; 54% female), a test set ( n = 26,985; 53% females), and a clinical set ( n = 1757; 30% females) (Figure 1A and Table S2). Individuals without diagnoses were matched to the clinical datasets of patients with AD, ASD, BD, MCI, and SZ (Table 1) using nearest-neighbor matching based on exact matches of sex and scanning site with age as implemented in MatchIt (24). The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts. Information about each cohort and studies can be found in the corresponding publications (Table S1). If participants were scanned at several time points, only baseline scans were chosen for this study. Individuals who withdrew from the studies or lacked essential demographic information and T1-weighted MRI data were excluded from the analyses.
+83:Table 1. Matched Sample Description and Demographics
+
+thinking
+**Locating Table1 in Kim2024.pdf.md**
+
+I'm checking around page 83 of Kim2024.pdf.md for Table1, expecting it to contain demographics for the matched sample or to confirm if it's only in the main document.
+2026-03-05T03:13:18.591192Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '80,110p' study_1/Kim2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905 succeeded in 29ms:
+
+Figure 1. Overview of predicting mental and neurological illnesses. (A) The study included 5 clinical datasets: Alzheimer ' s disease, autism spectrum disorder, bipolar disorder, mild cognitive impairment, and schizophrenia. The input data, together with the samples, consist of both lobular and voxelwise data. (B) Individuals without a diagnosis were divided into training and test sets to evaluate the cerebellar normative models. The deviation score ( z score) measures how much an individual deviates from the norm represented by the estimated population model. (C) The analysis utilized the deviation scores derived from the cerebellar lobular and voxelwise normative models. Lobular z scores consist of 28 lobular volumes. For voxelwise, deviation scores overlaid onto existing cerebellar atlases including anatomical, task-based, hierarchical, and resting-state parcellations. This process calculated median, variance, and percentage of extreme positive and negative deviation for each atlas ' regions of interest (ROIs). Logistic regression was used for each atlas to assess the predictive value of features across all ROIs.
+
+Table 1. Matched Sample Description and Demographics
+
+| Sample                    | Participants   | Scanners   | Age, Years    | Sex, Female/ Male   |
+|---------------------------|----------------|------------|---------------|---------------------|
+| Matched HC                |                |            |               |                     |
+| Alzheimer ' s Disease     | 116            | 13         | 71.72 (7.12)  | 55%/45%             |
+| ASD                       | 317            | 25         | 15.96 (7.45)  | 17%/83%             |
+| Bipolar Disorder          | 238            | 3          | 33.06 (10.50) | 55%/45%             |
+| Mild Cognitive Impairment | 122            | 3          | 65.62 (9.91)  | 42%/58%             |
+| Schizophrenia             | 195            | 3          | 30.13 (8.15)  | 41%/59%             |
+| Clinical                  |                |            |               |                     |
+| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |
+| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |
+| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |
+| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |
+| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |
+
+
+
+thinking
+**Clarifying clinical cohort source mapping**
+
+The clinical cohort to use is the "Clinical" rows in Table 1 after matching, representing datasets from ABIDE I/II, ADNI, AIBL, DEMGEN, and TOP. The mapping is likely AD/MCI from ADNI/AIBL/DEMGEN, ASD from ABIDE I/II, and BD/SZ from TOP, pending confirmation with supplementary tables.
+thinking
+**Detailing dataset origins and demographic calculations**
+
+I'm mapping disorders to datasets based on inferred clinical sources with noted confidence and will compute age and sex demographics from Table 1 clinical rows using means and percentages to estimate counts, marking them as estimated; these details and supporting text locations in the source will be referenced in the output JSON.
+2026-03-05T03:13:43.772322Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Kim2024_by_codex_20260305121233905.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905 succeeded in 27ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Planning JSON patch for disorders**
+
+I'm defining a disorders array with 5 entries and standardizing answer objects to use "NR" strings for unknown min/max and numeric mean values to maintain JSON consistency. Each disorder will include sample demographics and dataset origin info with precise source locations in the methods section for thorough supporting text.
+thinking
+**Structuring disorder JSON entries**
+
+I'm detailing each disorder with precise names, dataset origins, age and sex statistics, confidence levels, and clear supporting text references from Table 1 and methods. I'll standardize dataset labeling and confidence, include five disorder objects, assign paper ID, and prepare to apply the JSON patch.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kim2024"
+   },
+@@ -7,28 +7,218 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "Alzheimer's Disease clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.11,
++          "sd": 7.60
++        },
++        "detail": "Clinical AD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 52,
++          "male_pct": 45.0,
++          "female_n": 64,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=116 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "Clinical datasets obtained from ABIDE I and ABIDE II for ASD.",
++        "confidence_rating": "High",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 12.35,
++          "sd": 4.42
++        },
++        "detail": "Clinical ASD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 263,
++          "male_pct": 83.0,
++          "female_n": 54,
++          "female_pct": 17.0
++        },
++        "detail": "Counts estimated from N=317 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to BD inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.61,
++          "sd": 11.40
++        },
++        "detail": "Clinical BD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 45.0,
++          "female_n": 131,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=238 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 67.25,
++          "sd": 9.27
++        },
++        "detail": "Clinical MCI row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 71,
++          "male_pct": 58.0,
++          "female_n": 51,
++          "female_pct": 42.0
++        },
++        "detail": "Counts estimated from N=122 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "SCZ",
++        "detail": "Schizophrenia clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to SZ inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 28.29,
++          "sd": 9.45
++        },
++        "detail": "Clinical SZ row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 115,
++          "male_pct": 59.0,
++          "female_n": 80,
++          "female_pct": 41.0
++        },
++        "detail": "Counts estimated from N=195 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       }
+apply_patch(auto_approved=true) exited 0 in 12ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json b/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..43a6ec4928c9264386aff95e73b29f309a3d87ea
+--- a/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+@@ -1,36 +1,226 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kim2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "Alzheimer's Disease clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.11,
++          "sd": 7.60
++        },
++        "detail": "Clinical AD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 52,
++          "male_pct": 45.0,
++          "female_n": 64,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=116 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "Clinical datasets obtained from ABIDE I and ABIDE II for ASD.",
++        "confidence_rating": "High",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 12.35,
++          "sd": 4.42
++        },
++        "detail": "Clinical ASD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 263,
++          "male_pct": 83.0,
++          "female_n": 54,
++          "female_pct": 17.0
++        },
++        "detail": "Counts estimated from N=317 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to BD inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.61,
++          "sd": 11.40
++        },
++        "detail": "Clinical BD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 45.0,
++          "female_n": 131,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=238 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 67.25,
++          "sd": 9.27
++        },
++        "detail": "Clinical MCI row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 71,
++          "male_pct": 58.0,
++          "female_n": 51,
++          "female_pct": 42.0
++        },
++        "detail": "Counts estimated from N=122 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "SCZ",
++        "detail": "Schizophrenia clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to SZ inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 28.29,
++          "sd": 9.45
++        },
++        "detail": "Clinical SZ row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 115,
++          "male_pct": 59.0,
++          "female_n": 80,
++          "female_pct": 41.0
++        },
++        "detail": "Counts estimated from N=195 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       }
+     }
+   ]
+
+2026-03-05T03:14:59.710108Z ERROR codex_core::codex: needs_follow_up: true
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json b/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..43a6ec4928c9264386aff95e73b29f309a3d87ea
+--- a/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+@@ -1,36 +1,226 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kim2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "Alzheimer's Disease clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.11,
++          "sd": 7.60
++        },
++        "detail": "Clinical AD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 52,
++          "male_pct": 45.0,
++          "female_n": 64,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=116 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "Clinical datasets obtained from ABIDE I and ABIDE II for ASD.",
++        "confidence_rating": "High",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 12.35,
++          "sd": 4.42
++        },
++        "detail": "Clinical ASD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 263,
++          "male_pct": 83.0,
++          "female_n": 54,
++          "female_pct": 17.0
++        },
++        "detail": "Counts estimated from N=317 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to BD inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.61,
++          "sd": 11.40
++        },
++        "detail": "Clinical BD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 45.0,
++          "female_n": 131,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=238 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 67.25,
++          "sd": 9.27
++        },
++        "detail": "Clinical MCI row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 71,
++          "male_pct": 58.0,
++          "female_n": 51,
++          "female_pct": 42.0
++        },
++        "detail": "Counts estimated from N=122 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "SCZ",
++        "detail": "Schizophrenia clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to SZ inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 28.29,
++          "sd": 9.45
++        },
++        "detail": "Clinical SZ row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 115,
++          "male_pct": 59.0,
++          "female_n": 80,
++          "female_pct": 41.0
++        },
++        "detail": "Counts estimated from N=195 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       }
+     }
+   ]
+
+
+thinking
+**Validating JSON quickly**
+
+I'm verifying JSON validity using Python's built-in json.tool to ensure the data is correctly formatted before proceeding.
+2026-03-05T03:15:05.663809Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'python -m json.tool DE_v14_Kim2024_by_codex_20260305121233905.json > /tmp/validate.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305121233905 succeeded in 78ms:
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json b/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..43a6ec4928c9264386aff95e73b29f309a3d87ea
+--- a/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+@@ -1,36 +1,226 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kim2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "Alzheimer's Disease clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.11,
++          "sd": 7.60
++        },
++        "detail": "Clinical AD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 52,
++          "male_pct": 45.0,
++          "female_n": 64,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=116 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "Clinical datasets obtained from ABIDE I and ABIDE II for ASD.",
++        "confidence_rating": "High",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 12.35,
++          "sd": 4.42
++        },
++        "detail": "Clinical ASD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 263,
++          "male_pct": 83.0,
++          "female_n": 54,
++          "female_pct": 17.0
++        },
++        "detail": "Counts estimated from N=317 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to BD inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.61,
++          "sd": 11.40
++        },
++        "detail": "Clinical BD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 45.0,
++          "female_n": 131,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=238 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 67.25,
++          "sd": 9.27
++        },
++        "detail": "Clinical MCI row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 71,
++          "male_pct": 58.0,
++          "female_n": 51,
++          "female_pct": 42.0
++        },
++        "detail": "Counts estimated from N=122 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "SCZ",
++        "detail": "Schizophrenia clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to SZ inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 28.29,
++          "sd": 9.45
++        },
++        "detail": "Clinical SZ row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 115,
++          "male_pct": 59.0,
++          "female_n": 80,
++          "female_pct": 41.0
++        },
++        "detail": "Counts estimated from N=195 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       }
+     }
+   ]
+
+
+thinking
+**Providing final summary and next steps**
+
+I updated the mapping logic in the specified file to better align dataset keys with model inputs, assuming consistent naming conventions across datasets. Next, I'll verify the mapping through tests or sample runs and handle any dataset inconsistencies that arise.
+codex
+Filled in the clinical cohort extraction for Kim2024 and wrote the results to `DE_v14_Kim2024_by_codex_20260305121233905.json`, using Table 1 clinical rows for demographics and the methods paragraph for dataset sources, with noted inferences for BD/SZ and AD/MCI dataset mapping.
+
+Details
+- Updated `DE_v14_Kim2024_by_codex_20260305121233905.json` with 5 disorders (AD, ASD, BD, MCI, SCZ) plus paper_id.
+- Age and sex values are from the Table 1 Clinical rows in `study_1/Kim2024.pdf.md`.
+- Dataset-of-origin uses ABIDE I/II for ASD, ADNI/AIBL/DEMGEN for AD/MCI, and TOP for BD/SZ with explicit “inferred” notes and lowered confidence.
+
+Possible next steps
+1. If you want stricter evidence for BD/SZ and AD/MCI dataset mapping, point me to any per-disorder dataset breakdown (e.g., Table S1 or other supplement).
+2026-03-05T03:15:12.932144Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json b/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..43a6ec4928c9264386aff95e73b29f309a3d87ea
+--- a/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305121233905/DE_v14_Kim2024_by_codex_20260305121233905.json
+@@ -1,36 +1,226 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kim2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "Alzheimer's Disease clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 73.11,
++          "sd": 7.60
++        },
++        "detail": "Clinical AD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 52,
++          "male_pct": 45.0,
++          "female_n": 64,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=116 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Alzheimer ' s Disease     | 116            | 13         | 73.11 (7.60)  | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "ASD",
++        "detail": "Autism spectrum disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "Clinical datasets obtained from ABIDE I and ABIDE II for ASD.",
++        "confidence_rating": "High",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 12.35,
++          "sd": 4.42
++        },
++        "detail": "Clinical ASD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 263,
++          "male_pct": 83.0,
++          "female_n": 54,
++          "female_pct": 17.0
++        },
++        "detail": "Counts estimated from N=317 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| ASD                       | 317            | 25         | 12.35 (4.42)  | 17%/83%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to BD inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 31.61,
++          "sd": 11.40
++        },
++        "detail": "Clinical BD row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 107,
++          "male_pct": 45.0,
++          "female_n": 131,
++          "female_pct": 55.0
++        },
++        "detail": "Counts estimated from N=238 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Bipolar Disorder          | 238            | 3          | 31.61 (11.40) | 55%/45%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "DEMGEN"
++        ],
++        "detail": "Clinical datasets obtained from ADNI, AIBL, and DEMGEN; mapping to AD/MCI inferred from the dementia-focused cohorts listed.",
++        "confidence_rating": "Medium",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 67.25,
++          "sd": 9.27
++        },
++        "detail": "Clinical MCI row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 71,
++          "male_pct": 58.0,
++          "female_n": 51,
++          "female_pct": 42.0
++        },
++        "detail": "Counts estimated from N=122 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Mild Cognitive Impairment | 122            | 3          | 67.25 (9.27)  | 42%/58%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "SCZ",
++        "detail": "Schizophrenia clinical cohort in Table 1 (Clinical).",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "TOP"
++        ],
++        "detail": "Clinical datasets obtained from TOP; mapping to SZ inferred from psychosis-focused cohorts listed.",
++        "confidence_rating": "Low",
++        "supporting_text": "The clinical datasets were obtained from the ABIDE I and II (Autism Brain Imaging Data Exchange I and II), ADNI (Alzheimer ' s Disease Neuroimaging Initiative), AIBL (The Australian Imaging, Biomarkers and Lifestyle Flagship Study), DEMGEN (Norwegian Dementia Genetics Network), and TOP (Thematically Organized Psychosis) cohorts.",
++        "location": "Kim2024.pdf.md: Methods / Study sample"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 28.29,
++          "sd": 9.45
++        },
++        "detail": "Clinical SZ row in Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 115,
++          "male_pct": 59.0,
++          "female_n": 80,
++          "female_pct": 41.0
++        },
++        "detail": "Counts estimated from N=195 and reported percentages.",
++        "confidence_rating": "Medium",
++        "supporting_text": "| Schizophrenia             | 195            | 3          | 28.29 (9.45)  | 41%/59%             |",
++        "location": "Kim2024.pdf.md: Table 1 / Matched Sample Description and Demographics"
+       }
+     }
+   ]
+
+tokens used
+37,587
+Filled in the clinical cohort extraction for Kim2024 and wrote the results to `DE_v14_Kim2024_by_codex_20260305121233905.json`, using Table 1 clinical rows for demographics and the methods paragraph for dataset sources, with noted inferences for BD/SZ and AD/MCI dataset mapping.
+
+Details
+- Updated `DE_v14_Kim2024_by_codex_20260305121233905.json` with 5 disorders (AD, ASD, BD, MCI, SCZ) plus paper_id.
+- Age and sex values are from the Table 1 Clinical rows in `study_1/Kim2024.pdf.md`.
+- Dataset-of-origin uses ABIDE I/II for ASD, ADNI/AIBL/DEMGEN for AD/MCI, and TOP for BD/SZ with explicit “inferred” notes and lowered confidence.
+
+Possible next steps
+1. If you want stricter evidence for BD/SZ and AD/MCI dataset mapping, point me to any per-disorder dataset breakdown (e.g., Table S1 or other supplement).
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

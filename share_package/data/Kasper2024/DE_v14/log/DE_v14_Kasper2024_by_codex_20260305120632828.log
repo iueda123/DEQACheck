@@ -1,0 +1,504 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Kasper2024_by_codex_20260305120632828.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbbf6-2292-7db3-82c7-e286095620a2
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Kasper2024_by_codex_20260305120632828.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Checking for read guide**
+
+I'm planning to find and open any README or guide file using search and direct file reading.
+2026-03-05T03:06:42.260907Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828 succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Kasper2024_by_codex_20260305120632828.json
+DE_v14_Kasper2024_by_codex_20260305120632828.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051206328282026-03-05T03:06:44.625435Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Inspecting source data for JSON**
+2026-03-05T03:06:47.606714Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828 succeeded in 30ms:
+1-s2.0-S2451902224001125-mmc1.pdf.md
+1-s2.0-S2451902224001125-mmc1_artifacts
+Kasper2024.pdf.md
+Kasper2024_artifacts
+2026-03-05T03:06:51.818317Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patient|schiz|depress|bipolar|ASD|ADHD|epilep|MCI|Alzheimer|psych" Kasper2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828/study_1 succeeded in 36ms:
+11:BACKGROUND: Human healthy and pathological aging is linked to a steady decline in brain resting-state activity and connectivity measures. The neurophysiological mechanisms that underlie these changes remain poorly understood. METHODS: Making use of recent developments in normative modeling and availability of in vivo maps for various neurochemical systems, we tested in the UK Biobank cohort ( n = 25,917) whether and how age- and Parkinson ' s disease -related resting-state changes in commonly applied local and global activity and connectivity measures colocalize with underlying neurotransmitter systems.
+13:RESULTS: We found that the distributions of several major neurotransmitter systems including serotonergic, dopaminergic, noradrenergic, and glutamatergic neurotransmission correlated with age-related changes across functional activity and connectivity measures. Colocalization patterns in Parkinson ' s disease deviated from normative aging trajectories for these, as well as for cholinergic and GABAergic (gamma-aminobutyric acidergic) neurotransmission. The deviation from normal colocalization of brain function and GABAA correlated with disease duration.
+15:CONCLUSIONS: These /uniFB01 ndings provide new insights into molecular mechanisms underlying age- and Parkinson ' srelated brain functional changes by extending the existing evidence elucidating the vulnerability of speci /uniFB01 c neurochemical attributes to normal aging and Parkinson ' s disease. The results particularly indicate that alongside dopamine and serotonin, increased vulnerability of glutamatergic, cholinergic, and GABAergic systems may also contribute to Parkinson ' s disease -related functional alterations. Combining normative modeling and neurotransmitter mapping may aid future research and drug development through deeper understanding of neurophysiological mechanisms that underlie speci /uniFB01 c clinical conditions.
+33:Understanding of typical age-related colocalization changes of brain function and neurotransmitter systems can inform the study of pathological deviations from such as is observed in Parkinson ' s disease (PD), for example (25). Normative models, as recently applied to MRI data (26 -28), may prove suitable for characterizing such spatial colocalizations. Such models allow individual participants or patients to be compared with the typical trajectories derived from large representative populations by incorporating nonconstant percentiles of variation and variation within the cohort of interest (29).
+37:To address these questions, we adopted a normative modeling approach to testing for aging effects on colocalizations between brain functional measures and underlying neurotransmission in the UK Biobank cohort. We tested for colocalization of PET-derived distributions for major neurotransmitter systems with commonly deployed rs-fMRI -derived activity and connectivity measures during aging and in PD.
+43:We included 25,917 adult participants from the UK Biobank not diagnosed with psychiatric, cognitive, or neurological disorders (Table S1) with known effects on brain structure and function as a control cohort. We also identi /uniFB01 ed a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session. An overview of both groups is provided in Table 1.
+57:Values are presented as n , mean 6 SD, or n (%). Normative modeling of colocalizations between brain function and neurotransmitter systems was based on the data of HCs. Regional differences in brain measures in patients with PD were calculated with respect to an age- and sex-matched subcohort of HCs. HC, healthy control participant; PD, Parkinson ' s disease; TIV, total intracranial volume.
+87:To model aging effects on the observed colocalization patterns, we generated normative models based on the Fisher ' s transformed correlation coef /uniFB01 cients derived from the healthy participants using the PCNtoolkit (64) (cf. Supplemental Methods for more details on model construction and Figure 1 for a methodological overview).
+89:For participants with PD, deviations ( z scores) from these normative aging models were derived per neurotransmitter map. For each model, we examined whether the PD deviation scores were signi /uniFB01 cantly different from a null distribution ( t test, alpha = 0.05) and whether they were correlated with disease duration and cognitive scores (details are provided in Tables S23 -S29). We also wanted to know which brain regions contributed most to signi /uniFB01 cant deviations ( p FDR , .05) and whether functional differences from a normal subpopulation explain these regional contributions. To this end, we repeated the colocalization analysis in the data of the PD group using a leave-one-region-out approach (65) to obtain maps of regional contribution ( Dr 2 ) to the deviation. Furthermore, we calculated regional functional differences (Cohen ' s d ) in fALFF, LCOR, and GCOR in PD compared with an age- and sex-matched healthy subgroup ( n = 17,400).
+99:The analysis was repeated on 25,914 participants after accounting for age-related atrophy, excluding 3 participants with structural data. Seventy/uniFB01 ve participants in the total pool had reported a diagnosis of PD; 58 of them were classi /uniFB01 ed as ' manifest ' because their /uniFB01 rst report of PD was dated before their imaging session. To compare regional measures of brain function in patients with PD with those of the healthy control participants (HCs), we de /uniFB01 ned an ageand sex-matched subcohort consisting of 17,400 participants (mean 6 SD age in years: PD = 68.6 6 6.5, HC = 67.6 6 6.0, p . .26; PD 55.17% male and HC 51.7% male, c 2 1 = 0.29, p = .59). An overview of the groups is provided in Table 1.
+119:## Regional contribution &amp; differences between Parkinson's disease and control cohort G
+121:Figure 1. Methodological overview. We derived voxelwise maps of fALFF, LCOR, and GCOR from individual rs-fMRI data (A) . First, these data were used to explore group-level voxelwise aging changes in fALFF, LCOR, and GCOR in the healthy cohort ( n healthy control = 25,917) (right column). (B) Second, we used PET maps of 19 neurotransmitter systems to calculate the spatial correlation (colocalization) with the (C) group-level aging effects and (D) individual fALFF, LCOR, and GCOR. (E) We Fisher ' s z -transformed the Spearman correlation coef /uniFB01 cients r to ensure a normal distribution and examined the effects of age on the colocalization data of the healthy cohort. The blue cloud illustrates colocalization strengths (kernel density estimation of all transformed Spearman correlation coef /uniFB01 cients) of the healthy cohort. For each pair of measure and neurotransmitter map, we analyzed mean colocalizations (yellow), linear aging effects (green), and differences in variances across participants in the youngest (44 -60 years) and oldest (68 -82 years) third of the sample ( n Both = 8639; red). Vertical dashed red lines were added for illustration purposes only and do not correspond to the actual variance of the respective subpopulation. (F) Next, we normatively modeled the colocalization strengths depending on age and sex (left) to calculate the deviation in participants with manifest PD ( n PD = 58; crosses). Here, we show the predicted means (solid lines) and 25% and 75% percentile (dashed lines) derived from the normative model for both men (blue) and women (orange). We analyzed whether the deviation ( z ) scores of participants with PD were signi /uniFB01 cantly different from a null distribution (box plot). In this example, the distribution was signi /uniFB01 cantly below a null distribution, indicating that patients with PD exhibited lower Spearman correlation coef /uniFB01 cients than the norm. (G) Lastly, we quanti /uniFB01 ed the mean regional contribution to the observed deviation score across participants with PD (left), as well as the functional differences in patients with PD compared to an age- and sex-matched subcohort of healthy control participants ( n healthy control matched = 17,900) (right). The functional differences were quanti /uniFB01 ed by calculating the regional effect sizes (Cohen ' s d ). fALFF, fractional amplitude of low-frequency /uniFB02 uctuations; GABA, gamma-aminobutyric acid; GCOR, global correlation; LCOR, local correlation; PD, Parkinson ' s disease; PET, positron emission tomography; p FDR, false discovery rate -corrected p ; rsfMRI, resting-state functional magnetic resonance imaging; SPECT, single photon emission computed tomography.
+145:Figure 3. Single-participant colocalizations between brain functional measure and neurotransmitter systems depended on age. (A) Left column: overview of all signi /uniFB01 cant linear aging effects ( p Bonferroni-Holm , .05) in the colocalization strengths (Fisher ' s z -transformed Spearman correlation coef /uniFB01 cients) between each pair of brain functional measure (fALFF, LCOR, GCOR) and neurotransmitter system. Error bars correspond to the standard error of parameter (slope) estimation. Right column: Exemplary plots show how colocalization strengths between brain functional measures (fALFF, top; LCOR, middle; GCOR, bottom) and speci /uniFB01 c neurotransmitter systems depend on age. The black horizontal line indicates the population mean colocalization (see Figure S6 for an overview of all colocalization means). The colored clouds show the kernel density estimation of Fisher ' s z -transformed Spearman correlation coef /uniFB01 cients of the healthy cohort. The slope of the colored line (linear /uniFB01 ts) corresponds to the bar plots in the left column. (B) Left column: Each plot shows the effect size ( F statistic) of MSE differences between younger and older adults. We show bar plots regarding neurotransmitter systems whose colocalization with the respective brain functional measure was previously shown to be signi /uniFB01 cantly nonconstant (White test, p FDR , .05). All pairs of brain function and PET map whose colocalization variance was signi /uniFB01 cantly ( p FDR , .05) different in the older and the younger subpopulations are highlighted by asterisks (* p FDR , .05, ** p FDR , .01, *** p FDR , .001). F statistics (MSE of older adults divided by MSE of younger adults) above 1 correspond to a larger variance in the older subpopulation. Right column: Exemplary plots visualize the individual squared errors of the colocalizations between younger and older adults. Box plots show both distributions. Note that per de /uniFB01 nition, the squared errors are positive. Due to the kernel density estimation of all squared errors, the colored clouds exceed the null level. Colors group receptors and transporters of the same neurotransmitter system according to the same scheme as described in Figure 2. 5-HT, serotonin; DAT, dopamine transporter; fALFF, fractional amplitude of low-frequency /uniFB02 uctuation; GABA, gamma-aminobutyric acid; GCOR, global correlation; LCOR, local correlation; mGluR, metabotropic glutamate receptor; MSE, mean squared error; NET, norepinephrine transporter; n.s., not signi /uniFB01 cant; PET, positron emission tomography; p FDR, false discovery rate -corrected p ; SERT, serotonin transporter; VAChT, vesicular acetylcholine transporter.
+147:colocalization strengths between each participant ' s restingstate measure and each neurotransmitter map. Due to the large cohort size, even very small effects in all functional measures were signi /uniFB01 cantly associated with the 19 PET maps (all p sBonferroni-Holm , .001, median absolute Spearman correlation coef /uniFB01 cient ranged from 0.03 to 0.68), with different neurotransmitter systems explaining between 0.1% and 46% of the variance in the respective resting-state measures (Figure S6 and Tables S11 -S13, left columns). The direction of the correlations was highly similar across the 3 measures. Positive correlations were found for the norepinephrinergic, muscarinic, glutamatergic, and GABAergic systems and serotonergic receptors 5-HT1B, 5-HT2A, and 5-HT6. Negative correlations were found for the dopaminergic, histaminergic, and opioid neurotransmitter systems, serotonin receptors 5-HT1A and 5-HT4, and SERT and VAChT. All associations remained signi /uniFB01 cant after controlling for age-related atrophy (Tables S14 -S16). If age-related changes in brain functions are predominantly in /uniFB02 uenced by speci /uniFB01 c neurotransmitter systems, correlation coef /uniFB01 cients should systematically (that is, in simplest approximation, linearly) increase or decrease during aging. Thus, we evaluated whether and to what extent aging effects and their colocalizations with neurotransmitter systems observed at the cohort level were also re /uniFB02 ected in the individual colocalization strength. Most of the observed correlations were signi /uniFB01 cantly associated, with age explaining up to 3%, 4%, and 1% of the colocalization strength between fALFF (with NMDA and SERT), LCOR (with SERT), and GCOR (with VAChT) and the respective neurotransmitter systems, respectively (Figure 3A; Tables S11 -S13, middle columns). Correction for atrophy lowered the correlation strengths for most associations, but the /uniFB01 ndings remained largely signi /uniFB01 cant (Tables S14 -S16, middle columns).
+157:Having established this reference for colocalization of normal age-related changes with different neurotransmitter systems, next we aimed to test whether and how functional changes caused by progressive neurodegeneration deviated from the nonpathological colocalization patterns. For this, we adopted a normative modeling approach using the healthy aging population as a reference (models are visualized in Figures S7 and S8). A UK Biobank subgroup of patients with PD served as an example for the clinical relevance of our /uniFB01 ndings. For fALFF, patients with PD had a lower colocalization strength with serotonergic, GABAergic, muscarinic, and glutamatergic neurotransmission (Figure 4D). For LCOR and GCOR, patients with PD showed lower colocalizations with serotonergic, dopaminergic, GABAergic, histaminergic, norepinephrinergic, glutamatergic, and cholinergic neurotransmitter systems (Figure 4E, F; Table S19). The deviation in colocalization strength regarding LCOR and GABAA (Figure 4A, B) was negatively correlated with disease duration, with higher deviations being indicative of longer disease duration (Pearson ' s r = 2 0.38, p FDR = .027) (Figure 4C; Tables S21 and S22). No signi /uniFB01 cant correlations were found between PD-related deviations in colocalization strengths and the cognitive score (cf. Tables S23 -S29). After atrophy correction, all deviations remained signi /uniFB01 cant except for the LCOR-5-HT1B and LCORVAChT associations (Table S20).
+159:Lastly, we aimed to understand which regions contributed most to the observed colocalization alterations in PD. For fALFF, the main contributing regions to colocalization changes in PD were the basal ganglia, insula, and occipital regions. For LCOR and GCOR, the main contributing regions were the basal ganglia, subcallosal areas, thalamus (LCOR only), and basal forebrain, as well as the pre- and postcentral insula and occipital regions (Figures S9 -S11). The effects remained largely similar after controlling for atrophy (Figures S12 -S14). Regional contribution to the deviations found regarding the glutamatergic system were signi /uniFB01 cantly correlated with regional alteration in PD in both synchronicity measures ( p FDR , .05) (Figures S15 and S16; Tables S29 and S30; Figure 4G, H: effect sizes in regions with FDR-signi /uniFB01 cant differences in LCOR and GCOR in PD vs. matched HC; Tables S31 and S32: regional comparison of fALFF, LCOR, and GCOR in patients with PD vs. matched HCs; Figures S17 -S19: regional effect sizes in fALFF, LCOR, and GCOR in patients with PD vs. matched HCs).
+165:Consistent with most studies that have reported aging effects in the brain, we found widespread age-related decreases in all 3 evaluated functional measures (1 -5). The extent of the decreases is substantially higher in our study, covering basically all of the brain, with few exceptions as discussed below. Considering the large cohort size, the increased statistical power compared with previous studies with at most a few hundred participants is the most likely explanation for the observed discrepancy. In parallel, we observed spatially distinct age-related increases across the 3 evaluated measures covering parietal, precuneal, thalamic, gyrus rectus, and cerebellar regions. Recent theories of neurocognitive aging including dedifferentiation (67) and scaffolding (68) may provide potential explanations for these patterns of brain functional alteration. Neuronal compensation and inef /uniFB01 ciency may be associated with increased or decreased cognitive functioning, respectively (69,70). With respect to directionality, our /uniFB01 ndings are consistent with several previous studies suggesting presumably compensation-related increases in
+167:Figure 4. Participants with PD deviated from normative models of colocalization between brain function and neurotransmitter systems. (A) The purple cloud shows the kernel density plot of Fisher ' s z -transformed Spearman correlation coef /uniFB01 cients of the healthy cohort regarding the spatial correlation of LCOR and GABAA. Solid and dashed lines show the predicted mean and predicted 25% or 75% percentile of men (turquoise) and women (orange) derived from the normative models. Crosses indicate the colocalization levels of patients with PD. (B) Box plot showing the signi /uniFB01 cant deviation from the norm (null) in patients with PD. (C) Deviation scores in the PD group were signi /uniFB01 cantly correlated with disease duration. (D -F) Box plots showing the deviation scores that were signi /uniFB01 cantly different from the norm (null) regarding (D) fALFF, (E) LCOR, and (F) GCOR. *, **, and *** indicate Bonferroni-Holm -corrected signi /uniFB01 cant deviations of the distributions from a null distribution with exact p , .05, p , .01, and p , .001. Colors in box plots group receptors and transporters of the same neurotransmitter system according to the same scheme as described in Figure 2. (G, H) Signi /uniFB01 cant ( p FDR , .05) regional differences (effect sizes, Cohen ' s d ) between the PD group and the matched subgroup of HCs in (G) LCOR and (H) GCOR. Lower values in the PD group are indicated by blue areas. Effect sizes of all regions are provided in Figures S17 -S19. 5-HT, serotonin; DAT, dopamine transporter; fALFF, fractional amplitude of low-frequency /uniFB02 uctuations; GABAA, gamma-aminobutyric acid A; GCOR, global correlation; HC, healthy control participant; L, left; LCOR, local correlation; mGluR, metabotropic glutamate receptor; NET, norepinephrine transporter; P, posterior; PD, Parkinson ' s disease; p FDR, false discovery rate -corrected p ; R, right; SERT, serotonin transporter; V, ventral; VAChT, vesicular acetylcholine transporter.
+175:When testing for colocalization of functional measures with neurotransmission at the single-participant level, we found that age-related alterations in all 3 measures colocalized primarily with monoaminergic neurotransmission. Increases in variance observed for a variety of evaluated neurotransmitter systems complemented these /uniFB01 ndings. Considering the reportedly high prevalence of neuropathology in a cognitively normal older population (81,82), the individual colocalization changes -together with increased variance -may re /uniFB02 ect such still undetected neurodegenerative processes. To test the sensitivity of the colocalization patterns to such neurodegenerative processes, we further adopted a normative modeling approach. A major advantage of normative models is their ability to represent population heterogeneity in the phenotype under investigation by means of normalized deviation scores (64). We applied this approach in patients with a diagnosis of PD, which was previously linked to monoaminergic neurotransmission as well as more recently to an imbalance between GABA and glutamate (83 -85). In patients with PD, colocalization patterns signi /uniFB01 cantly deviated from age- and sex-adjusted normative models across various neurotransmitter systems and all 3 functional metrics. Deviations in local activity colocalization were found primarily with respect to serotonergic, GABA, and glutamatergic neurotransmission, while deviations in colocalization of both connectivity measures were also present with respect to dopamine neurotransmission. We found that only the deviation in colocalization strength of local connectivity with GABAA receptors predicted disease duration, thereby supporting the suggested relevance of GABA pathology for clinical progression (83). The observed age-related increases in variance regarding GABAergic colocalization with brain function supports the notion of its contribution to potential pathophysiological changes in parts of the aging population. This interpretation is also supported by its association with disease duration in patients with PD in our study. Consistent with that, GABAergic system changes have recently been reported in PD and were associated with visual hallucinations and axial symptoms (such as postural instability, rigidity, and bradykinesia) (86 -88). The observed distinct colocalization patterns of various neurotransmitter systems with functional changes in aging and PD point to distinct pathophysiological processes affecting the respective processes. Such insights, if con /uniFB01 rmed by other modalities, may help with identi /uniFB01 cation of novel drug targets as well as development of successful monitoring strategies for the respective pathophysiological changes.
+177:The studied cohort was recruited as a representative sample of healthy UK residents. Because the metrics target local brain function, participants with diseases primarily affecting brain structure or function were excluded. Given the prevalence of mild depressive symptoms in the UK population of 11% (89) and the fact that 12.32% of our analyzed participants from the UK Biobank have a reference to ICD-10: F32, their exclusion would have biased the cohort. PD appearance and progression is highly heterogeneous. Because no scores for PD severity [i.e., Uni /uniFB01 ed Parkinson ' s Disease Rating Scale (90) or Hoehn &amp; Yahr stages (91)] and only a limited number of cognitive scores were available, we could only roughly approximate PD severity based on disease duration. Because PD medication is known to affect measures of brain function, it might have contributed to some of the effects observed in the PD cohort in the current study. However, the effects of PD medication on spatial colocalization have previously been shown to be rather negligible compared with the effects of PD (25). Additional healthy control biases in the UK Biobank (92) include a high average socioeconomic status and low alcohol and tobacco consumption. Although socioeconomic status may be associated with cognitive reserve through strengthened cognitive abilities during childhood (93,94), we estimate that deviations from the overall population results are small with respect to these primary biases. Further sampling of a more diverse population is needed to address the potential impact of such biases. Clinical scores of disease severity should be used to strengthen evidence for the observed association with GABAergic neurotransmission. Using PET maps from differently aged healthy populations might have introduced a further bias into our /uniFB01 ndings because proteomics such as receptor and transporter distributions may change during aging (79,95).
+
+thinking
+**Searching clinical cohort details**
+
+I'm opening the documentation to locate detailed info on the Parkinson's Disease cohort in the UK Biobank, focusing on Table 1 for specifics.
+2026-03-05T03:06:55.647551Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table 1|Table S1|PD" Kasper2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828/study_1 succeeded in 30ms:
+33:Understanding of typical age-related colocalization changes of brain function and neurotransmitter systems can inform the study of pathological deviations from such as is observed in Parkinson ' s disease (PD), for example (25). Normative models, as recently applied to MRI data (26 -28), may prove suitable for characterizing such spatial colocalizations. Such models allow individual participants or patients to be compared with the typical trajectories derived from large representative populations by incorporating nonconstant percentiles of variation and variation within the cohort of interest (29).
+35:Previous studies have provided evidence for increased vulnerability of speci /uniFB01 c neurotransmitter systems in PD including dopaminergic (30 -35), serotonergic (36 -38), glutamatergic (39,40), GABAergic (34), histaminergic (41), cholinergic (42 -44), and norepinephrinergic (45,46) neurotransmission. In our previous work, functional alterations in PD were related to the availability of D2 and serotonin 1B (5-HT1B) receptors, supporting the notion of speci /uniFB01 c vulnerability of these neurotransmitter systems (25). However, whether and how far these PD-related alterations deviate from typical agerelated colocalization changes remain to be shown.
+37:To address these questions, we adopted a normative modeling approach to testing for aging effects on colocalizations between brain functional measures and underlying neurotransmission in the UK Biobank cohort. We tested for colocalization of PET-derived distributions for major neurotransmitter systems with commonly deployed rs-fMRI -derived activity and connectivity measures during aging and in PD.
+43:We included 25,917 adult participants from the UK Biobank not diagnosed with psychiatric, cognitive, or neurological disorders (Table S1) with known effects on brain structure and function as a control cohort. We also identi /uniFB01 ed a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session. An overview of both groups is provided in Table 1.
+45:Table 1. Demographic Characteristics of the Study Sample
+49:|                | Combined, n = 25,917 | Females, n = 14,000                                | Males, n = 11,917                                  | Manifest PD, n = 58     | HC Matched to PD, n = 17,400 |
+57:Values are presented as n , mean 6 SD, or n (%). Normative modeling of colocalizations between brain function and neurotransmitter systems was based on the data of HCs. Regional differences in brain measures in patients with PD were calculated with respect to an age- and sex-matched subcohort of HCs. HC, healthy control participant; PD, Parkinson ' s disease; TIV, total intracranial volume.
+85:## Normative Modeling of Brain Function: NeurotransmitterColocalizationandDeviationsinPD
+89:For participants with PD, deviations ( z scores) from these normative aging models were derived per neurotransmitter map. For each model, we examined whether the PD deviation scores were signi /uniFB01 cantly different from a null distribution ( t test, alpha = 0.05) and whether they were correlated with disease duration and cognitive scores (details are provided in Tables S23 -S29). We also wanted to know which brain regions contributed most to signi /uniFB01 cant deviations ( p FDR , .05) and whether functional differences from a normal subpopulation explain these regional contributions. To this end, we repeated the colocalization analysis in the data of the PD group using a leave-one-region-out approach (65) to obtain maps of regional contribution ( Dr 2 ) to the deviation. Furthermore, we calculated regional functional differences (Cohen ' s d ) in fALFF, LCOR, and GCOR in PD compared with an age- and sex-matched healthy subgroup ( n = 17,400).
+99:The analysis was repeated on 25,914 participants after accounting for age-related atrophy, excluding 3 participants with structural data. Seventy/uniFB01 ve participants in the total pool had reported a diagnosis of PD; 58 of them were classi /uniFB01 ed as ' manifest ' because their /uniFB01 rst report of PD was dated before their imaging session. To compare regional measures of brain function in patients with PD with those of the healthy control participants (HCs), we de /uniFB01 ned an ageand sex-matched subcohort consisting of 17,400 participants (mean 6 SD age in years: PD = 68.6 6 6.5, HC = 67.6 6 6.0, p . .26; PD 55.17% male and HC 51.7% male, c 2 1 = 0.29, p = .59). An overview of the groups is provided in Table 1.
+121:Figure 1. Methodological overview. We derived voxelwise maps of fALFF, LCOR, and GCOR from individual rs-fMRI data (A) . First, these data were used to explore group-level voxelwise aging changes in fALFF, LCOR, and GCOR in the healthy cohort ( n healthy control = 25,917) (right column). (B) Second, we used PET maps of 19 neurotransmitter systems to calculate the spatial correlation (colocalization) with the (C) group-level aging effects and (D) individual fALFF, LCOR, and GCOR. (E) We Fisher ' s z -transformed the Spearman correlation coef /uniFB01 cients r to ensure a normal distribution and examined the effects of age on the colocalization data of the healthy cohort. The blue cloud illustrates colocalization strengths (kernel density estimation of all transformed Spearman correlation coef /uniFB01 cients) of the healthy cohort. For each pair of measure and neurotransmitter map, we analyzed mean colocalizations (yellow), linear aging effects (green), and differences in variances across participants in the youngest (44 -60 years) and oldest (68 -82 years) third of the sample ( n Both = 8639; red). Vertical dashed red lines were added for illustration purposes only and do not correspond to the actual variance of the respective subpopulation. (F) Next, we normatively modeled the colocalization strengths depending on age and sex (left) to calculate the deviation in participants with manifest PD ( n PD = 58; crosses). Here, we show the predicted means (solid lines) and 25% and 75% percentile (dashed lines) derived from the normative model for both men (blue) and women (orange). We analyzed whether the deviation ( z ) scores of participants with PD were signi /uniFB01 cantly different from a null distribution (box plot). In this example, the distribution was signi /uniFB01 cantly below a null distribution, indicating that patients with PD exhibited lower Spearman correlation coef /uniFB01 cients than the norm. (G) Lastly, we quanti /uniFB01 ed the mean regional contribution to the observed deviation score across participants with PD (left), as well as the functional differences in patients with PD compared to an age- and sex-matched subcohort of healthy control participants ( n healthy control matched = 17,900) (right). The functional differences were quanti /uniFB01 ed by calculating the regional effect sizes (Cohen ' s d ). fALFF, fractional amplitude of low-frequency /uniFB02 uctuations; GABA, gamma-aminobutyric acid; GCOR, global correlation; LCOR, local correlation; PD, Parkinson ' s disease; PET, positron emission tomography; p FDR, false discovery rate -corrected p ; rsfMRI, resting-state functional magnetic resonance imaging; SPECT, single photon emission computed tomography.
+151:Because aging might not only have affected average colocalization strengths but might also have led to increased variance (i.e., due to undetected neurodegenerative processes in a subpopulation), we tested for such changes using a 2-step procedure. Using the White test, we identi /uniFB01 ed signi /uniFB01 cant nonconstant variance in colocalization strength. For fALFF and LCOR, nonconstant variance was observed for all neurotransmitter classes, except for LCOR and the opioid system. For GCOR, signi /uniFB01 cant nonconstant variance in colocalization was found for serotoninergic, norepinephrinergic, cannabinoid, opioid, glutamatergic, and cholinergic neurotransmission (Table S17, left columns). These effects remained signi /uniFB01 cant after controlling for atrophy except for GCOR and 5-HT1B, 5HT6, and SERT (Table S18, left columns). Because the previous analysis only detected differences in variance across age but not their direction, we proceeded to perform the GoldfeldQuandt test. Here, we compared the colocalization variance between the youngest (44 -60 years) and oldest (68 -82 years) third ( n Both = 8639) of the study population for the previously identi /uniFB01 ed signi /uniFB01 cant nonconstant variances (Figure 3B).
+153:For fALFF and LCOR, higher variability in colocalization was found in the older subpopulation for serotonergic, dopaminergic, noradrenergic, histaminergic, cannabinoid, glutamatergic, and cholinergic neurotransmission. In addition, for LCOR, we found signi /uniFB01 cantly higher variance in the older population in colocalization with the GABA system. For GCOR, higher variability in colocalization was found regarding the serotonergic, noradrenergic, glutamatergic, and cholinergic system. The number of neurotransmitter colocalization pairs, as identi /uniFB01 ed using the White test, that showed a higher variance in the older subpopulation was 11 of 14 for fALFF, 14 of 15 for LCOR, and 7 of 11 for GCOR (Figure 3B; Table S17, right columns). The effects remained largely similar after controlling for atrophy (Table S18, right columns).
+155:## Deviations From Normal Colocalization in Manifest PD
+157:Having established this reference for colocalization of normal age-related changes with different neurotransmitter systems, next we aimed to test whether and how functional changes caused by progressive neurodegeneration deviated from the nonpathological colocalization patterns. For this, we adopted a normative modeling approach using the healthy aging population as a reference (models are visualized in Figures S7 and S8). A UK Biobank subgroup of patients with PD served as an example for the clinical relevance of our /uniFB01 ndings. For fALFF, patients with PD had a lower colocalization strength with serotonergic, GABAergic, muscarinic, and glutamatergic neurotransmission (Figure 4D). For LCOR and GCOR, patients with PD showed lower colocalizations with serotonergic, dopaminergic, GABAergic, histaminergic, norepinephrinergic, glutamatergic, and cholinergic neurotransmitter systems (Figure 4E, F; Table S19). The deviation in colocalization strength regarding LCOR and GABAA (Figure 4A, B) was negatively correlated with disease duration, with higher deviations being indicative of longer disease duration (Pearson ' s r = 2 0.38, p FDR = .027) (Figure 4C; Tables S21 and S22). No signi /uniFB01 cant correlations were found between PD-related deviations in colocalization strengths and the cognitive score (cf. Tables S23 -S29). After atrophy correction, all deviations remained signi /uniFB01 cant except for the LCOR-5-HT1B and LCORVAChT associations (Table S20).
+159:Lastly, we aimed to understand which regions contributed most to the observed colocalization alterations in PD. For fALFF, the main contributing regions to colocalization changes in PD were the basal ganglia, insula, and occipital regions. For LCOR and GCOR, the main contributing regions were the basal ganglia, subcallosal areas, thalamus (LCOR only), and basal forebrain, as well as the pre- and postcentral insula and occipital regions (Figures S9 -S11). The effects remained largely similar after controlling for atrophy (Figures S12 -S14). Regional contribution to the deviations found regarding the glutamatergic system were signi /uniFB01 cantly correlated with regional alteration in PD in both synchronicity measures ( p FDR , .05) (Figures S15 and S16; Tables S29 and S30; Figure 4G, H: effect sizes in regions with FDR-signi /uniFB01 cant differences in LCOR and GCOR in PD vs. matched HC; Tables S31 and S32: regional comparison of fALFF, LCOR, and GCOR in patients with PD vs. matched HCs; Figures S17 -S19: regional effect sizes in fALFF, LCOR, and GCOR in patients with PD vs. matched HCs).
+163:In the current study, we tested how age-related changes in commonly applied resting activity and connectivity measures colocalize with underlying neurotransmission. Consistent with previous studies of aging effects on brain function, we found widespread age-related decreases but also several increases in the 3 evaluated measures (2,3,66). These age-related changes showed a robust colocalization pattern with various major neurotransmitter systems, including monoamines, glutamate, acetylcholine, and GABA, at the group- and singleparticipant level. Variance in the colocalization patterns of these systems increased with age. Patients with PD showed signi /uniFB01 cant deviations from typical age-related colocalization patterns in neurotransmitter systems related to the disease. The deviation in colocalization strength regarding the GABAergic system was correlated with disease duration.
+167:Figure 4. Participants with PD deviated from normative models of colocalization between brain function and neurotransmitter systems. (A) The purple cloud shows the kernel density plot of Fisher ' s z -transformed Spearman correlation coef /uniFB01 cients of the healthy cohort regarding the spatial correlation of LCOR and GABAA. Solid and dashed lines show the predicted mean and predicted 25% or 75% percentile of men (turquoise) and women (orange) derived from the normative models. Crosses indicate the colocalization levels of patients with PD. (B) Box plot showing the signi /uniFB01 cant deviation from the norm (null) in patients with PD. (C) Deviation scores in the PD group were signi /uniFB01 cantly correlated with disease duration. (D -F) Box plots showing the deviation scores that were signi /uniFB01 cantly different from the norm (null) regarding (D) fALFF, (E) LCOR, and (F) GCOR. *, **, and *** indicate Bonferroni-Holm -corrected signi /uniFB01 cant deviations of the distributions from a null distribution with exact p , .05, p , .01, and p , .001. Colors in box plots group receptors and transporters of the same neurotransmitter system according to the same scheme as described in Figure 2. (G, H) Signi /uniFB01 cant ( p FDR , .05) regional differences (effect sizes, Cohen ' s d ) between the PD group and the matched subgroup of HCs in (G) LCOR and (H) GCOR. Lower values in the PD group are indicated by blue areas. Effect sizes of all regions are provided in Figures S17 -S19. 5-HT, serotonin; DAT, dopamine transporter; fALFF, fractional amplitude of low-frequency /uniFB02 uctuations; GABAA, gamma-aminobutyric acid A; GCOR, global correlation; HC, healthy control participant; L, left; LCOR, local correlation; mGluR, metabotropic glutamate receptor; NET, norepinephrine transporter; P, posterior; PD, Parkinson ' s disease; p FDR, false discovery rate -corrected p ; R, right; SERT, serotonin transporter; V, ventral; VAChT, vesicular acetylcholine transporter.
+175:When testing for colocalization of functional measures with neurotransmission at the single-participant level, we found that age-related alterations in all 3 measures colocalized primarily with monoaminergic neurotransmission. Increases in variance observed for a variety of evaluated neurotransmitter systems complemented these /uniFB01 ndings. Considering the reportedly high prevalence of neuropathology in a cognitively normal older population (81,82), the individual colocalization changes -together with increased variance -may re /uniFB02 ect such still undetected neurodegenerative processes. To test the sensitivity of the colocalization patterns to such neurodegenerative processes, we further adopted a normative modeling approach. A major advantage of normative models is their ability to represent population heterogeneity in the phenotype under investigation by means of normalized deviation scores (64). We applied this approach in patients with a diagnosis of PD, which was previously linked to monoaminergic neurotransmission as well as more recently to an imbalance between GABA and glutamate (83 -85). In patients with PD, colocalization patterns signi /uniFB01 cantly deviated from age- and sex-adjusted normative models across various neurotransmitter systems and all 3 functional metrics. Deviations in local activity colocalization were found primarily with respect to serotonergic, GABA, and glutamatergic neurotransmission, while deviations in colocalization of both connectivity measures were also present with respect to dopamine neurotransmission. We found that only the deviation in colocalization strength of local connectivity with GABAA receptors predicted disease duration, thereby supporting the suggested relevance of GABA pathology for clinical progression (83). The observed age-related increases in variance regarding GABAergic colocalization with brain function supports the notion of its contribution to potential pathophysiological changes in parts of the aging population. This interpretation is also supported by its association with disease duration in patients with PD in our study. Consistent with that, GABAergic system changes have recently been reported in PD and were associated with visual hallucinations and axial symptoms (such as postural instability, rigidity, and bradykinesia) (86 -88). The observed distinct colocalization patterns of various neurotransmitter systems with functional changes in aging and PD point to distinct pathophysiological processes affecting the respective processes. Such insights, if con /uniFB01 rmed by other modalities, may help with identi /uniFB01 cation of novel drug targets as well as development of successful monitoring strategies for the respective pathophysiological changes.
+177:The studied cohort was recruited as a representative sample of healthy UK residents. Because the metrics target local brain function, participants with diseases primarily affecting brain structure or function were excluded. Given the prevalence of mild depressive symptoms in the UK population of 11% (89) and the fact that 12.32% of our analyzed participants from the UK Biobank have a reference to ICD-10: F32, their exclusion would have biased the cohort. PD appearance and progression is highly heterogeneous. Because no scores for PD severity [i.e., Uni /uniFB01 ed Parkinson ' s Disease Rating Scale (90) or Hoehn &amp; Yahr stages (91)] and only a limited number of cognitive scores were available, we could only roughly approximate PD severity based on disease duration. Because PD medication is known to affect measures of brain function, it might have contributed to some of the effects observed in the PD cohort in the current study. However, the effects of PD medication on spatial colocalization have previously been shown to be rather negligible compared with the effects of PD (25). Additional healthy control biases in the UK Biobank (92) include a high average socioeconomic status and low alcohol and tobacco consumption. Although socioeconomic status may be associated with cognitive reserve through strengthened cognitive abilities during childhood (93,94), we estimate that deviations from the overall population results are small with respect to these primary biases. Further sampling of a more diverse population is needed to address the potential impact of such biases. Clinical scores of disease severity should be used to strengthen evidence for the observed association with GABAergic neurotransmission. Using PET maps from differently aged healthy populations might have introduced a further bias into our /uniFB01 ndings because proteomics such as receptor and transporter distributions may change during aging (79,95).
+
+thinking
+**Preparing to extract table lines**
+
+I'm focusing on getting one line from table 1 to examine the surrounding content before the table.
+exec
+/bin/bash -lc "sed -n '40,80p' Kasper2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828/study_12026-03-05T03:06:59.251222Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 31ms:
+
+## Cohorts
+
+We included 25,917 adult participants from the UK Biobank not diagnosed with psychiatric, cognitive, or neurological disorders (Table S1) with known effects on brain structure and function as a control cohort. We also identi /uniFB01 ed a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session. An overview of both groups is provided in Table 1.
+
+Table 1. Demographic Characteristics of the Study Sample
+
+|                | HC                   | HC                                                 | HC                                                 |                         |                              |
+|----------------|----------------------|----------------------------------------------------|----------------------------------------------------|-------------------------|------------------------------|
+|                | Combined, n = 25,917 | Females, n = 14,000                                | Males, n = 11,917                                  | Manifest PD, n = 58     | HC Matched to PD, n = 17,400 |
+| Age, Years     | 64.03 6 7.5          | 63.5 6 7.4                                         | 64.7 6 7.6                                         | 68.6 6 6.5              | 67.6 6 6.0                   |
+| Age statistics | -                    | t 25915 = 2 12.48, p , .0001, Cohen ' s d = 2 0.16 | t 25915 = 2 12.48, p , .0001, Cohen ' s d = 2 0.16 | t 57.32 = 1.15, p = .26 | t 57.32 = 1.15, p = .26      |
+| Sex, Male      | 11,917 (46%)         | -                                                  |                                                    | 32 (55.2%)              | 8988 (51.7%)                 |
+| Sex statistics | -                    | -                                                  | -                                                  | c 2 1 = 0.29, p = .59   | c 2 1 = 0.29, p = .59        |
+| TIV, L         | 1.548 6 0.152        | 1.467 6 0.116                                      | 1.643 6 0.133                                      | -                       | -                            |
+| TIV statistics | -                    | t 25915 = 2 113.0, p , .0001, Cohen ' s d = 2 1.42 | t 25915 = 2 113.0, p , .0001, Cohen ' s d = 2 1.42 | -                       | -                            |
+
+Values are presented as n , mean 6 SD, or n (%). Normative modeling of colocalizations between brain function and neurotransmitter systems was based on the data of HCs. Regional differences in brain measures in patients with PD were calculated with respect to an age- and sex-matched subcohort of HCs. HC, healthy control participant; PD, Parkinson ' s disease; TIV, total intracranial volume.
+
+## Processing of Resting-State Functional Imaging Data
+
+
+thinking
+**Summarizing clinical cohort PD details**
+
+Extracted PD cohort data shows age mean 68.6, sd 6.5 with min/max as "NR" strings, sex counts male 32 (55.2%) and female 26 (44.8%) from n=58, dataset origin UK BIOBANK, paper ID Kasper2024, and confirmed normative modeling applied to PD.
+thinking
+**Extracting exact PD cohort text**
+
+Found precise cohort description as "group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20)" and age info "Manifest PD, n=58" with mean 68.6 and sd 6.5 years, ready to include quoted text and format as JSON.
+2026-03-05T03:07:09.374824Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Kasper2024_by_codex_20260305120632828.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828 succeeded in 28ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Drafting structured answer content**
+
+I'm preparing JSON values for age and sex answer fields with precise decimal formatting and including direct supporting quotes from the source table rows, plus dataset and disorder info with high confidence location references for traceability.
+thinking
+**Applying patch with text integration**
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kasper2024"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Idiopathic Parkinson's disease clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "“a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session.”",
++        "location": "Kasper2024.pdf.md: Cohorts / Cohort description"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UK BIOBANK"
++        ],
++        "detail": "Clinical cohort drawn from UK Biobank",
++        "confidence_rating": "High",
++        "supporting_text": "“a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session.”",
++        "location": "Kasper2024.pdf.md: Cohorts / Cohort description"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 68.60,
++          "sd": 6.50
++        },
++        "detail": "Manifest PD group",
++        "confidence_rating": "High",
++        "supporting_text": "| Age, Years     | 64.03 6 7.5          | 63.5 6 7.4                                         | 64.7 6 7.6                                         | 68.6 6 6.5              | 67.6 6 6.0                   |",
++        "location": "Kasper2024.pdf.md: Cohorts / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 32,
++          "male_pct": 55.2,
++          "female_n": 26,
++          "female_pct": 44.8
++        },
++        "detail": "Female count and percent derived from total n=58 and reported male count",
++        "confidence_rating": "High",
++        "supporting_text": "| Sex, Male      | 11,917 (46%)         | -                                                  |                                                    | 32 (55.2%)              | 8988 (51.7%)                 |",
++        "location": "Kasper2024.pdf.md: Cohorts / Table 1"
+       }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json b/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..c8b883d1362cd223e81899c34d0208e862e0de25
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kasper2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Idiopathic Parkinson's disease clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "“a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session.”",
++        "location": "Kasper2024.pdf.md: Cohorts / Cohort description"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UK BIOBANK"
++        ],
++        "detail": "Clinical cohort drawn from UK Biobank",
++        "confidence_rating": "High",
++        "supporting_text": "“a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session.”",
++        "location": "Kasper2024.pdf.md: Cohorts / Cohort description"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 68.60,
++          "sd": 6.50
++        },
++        "detail": "Manifest PD group",
++        "confidence_rating": "High",
++        "supporting_text": "| Age, Years     | 64.03 6 7.5          | 63.5 6 7.4                                         | 64.7 6 7.6                                         | 68.6 6 6.5              | 67.6 6 6.0                   |",
++        "location": "Kasper2024.pdf.md: Cohorts / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 32,
++          "male_pct": 55.2,
++          "female_n": 26,
++          "female_pct": 44.8
++        },
++        "detail": "Female count and percent derived from total n=58 and reported male count",
++        "confidence_rating": "High",
++        "supporting_text": "| Sex, Male      | 11,917 (46%)         | -                                                  |                                                    | 32 (55.2%)              | 8988 (51.7%)                 |",
++        "location": "Kasper2024.pdf.md: Cohorts / Table 1"
+       }
+     }
+   ]
+
+2026-03-05T03:07:31.762601Z ERROR codex_core::codex: needs_follow_up: true
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json b/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..c8b883d1362cd223e81899c34d0208e862e0de25
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kasper2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Idiopathic Parkinson's disease clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "“a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session.”",
++        "location": "Kasper2024.pdf.md: Cohorts / Cohort description"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UK BIOBANK"
++        ],
++        "detail": "Clinical cohort drawn from UK Biobank",
++        "confidence_rating": "High",
++        "supporting_text": "“a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session.”",
++        "location": "Kasper2024.pdf.md: Cohorts / Cohort description"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 68.60,
++          "sd": 6.50
++        },
++        "detail": "Manifest PD group",
++        "confidence_rating": "High",
++        "supporting_text": "| Age, Years     | 64.03 6 7.5          | 63.5 6 7.4                                         | 64.7 6 7.6                                         | 68.6 6 6.5              | 67.6 6 6.0                   |",
++        "location": "Kasper2024.pdf.md: Cohorts / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 32,
++          "male_pct": 55.2,
++          "female_n": 26,
++          "female_pct": 44.8
++        },
++        "detail": "Female count and percent derived from total n=58 and reported male count",
++        "confidence_rating": "High",
++        "supporting_text": "| Sex, Male      | 11,917 (46%)         | -                                                  |                                                    | 32 (55.2%)              | 8988 (51.7%)                 |",
++        "location": "Kasper2024.pdf.md: Cohorts / Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Providing final concise summary**
+codex
+Filled the clinical cohort extraction for Kasper2024 with PD details, UK Biobank origin, and age/sex demographics in `DE_v14_Kasper2024_by_codex_20260305120632828.json`.
+2026-03-05T03:07:35.508101Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json b/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..c8b883d1362cd223e81899c34d0208e862e0de25
+--- a/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305120632828/DE_v14_Kasper2024_by_codex_20260305120632828.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Kasper2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "PD",
++        "detail": "Idiopathic Parkinson's disease clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "“a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session.”",
++        "location": "Kasper2024.pdf.md: Cohorts / Cohort description"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "UK BIOBANK"
++        ],
++        "detail": "Clinical cohort drawn from UK Biobank",
++        "confidence_rating": "High",
++        "supporting_text": "“a group of 58 participants from the UK Biobank who were diagnosed with idiopathic PD (ICD-10, G20) before their imaging session.”",
++        "location": "Kasper2024.pdf.md: Cohorts / Cohort description"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 68.60,
++          "sd": 6.50
++        },
++        "detail": "Manifest PD group",
++        "confidence_rating": "High",
++        "supporting_text": "| Age, Years     | 64.03 6 7.5          | 63.5 6 7.4                                         | 64.7 6 7.6                                         | 68.6 6 6.5              | 67.6 6 6.0                   |",
++        "location": "Kasper2024.pdf.md: Cohorts / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 32,
++          "male_pct": 55.2,
++          "female_n": 26,
++          "female_pct": 44.8
++        },
++        "detail": "Female count and percent derived from total n=58 and reported male count",
++        "confidence_rating": "High",
++        "supporting_text": "| Sex, Male      | 11,917 (46%)         | -                                                  |                                                    | 32 (55.2%)              | 8988 (51.7%)                 |",
++        "location": "Kasper2024.pdf.md: Cohorts / Table 1"
+       }
+     }
+   ]
+
+tokens used
+34,706
+Filled the clinical cohort extraction for Kasper2024 with PD details, UK Biobank origin, and age/sex demographics in `DE_v14_Kasper2024_by_codex_20260305120632828.json`.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

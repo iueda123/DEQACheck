@@ -1,0 +1,538 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Sampaio2025_by_codex_20260305131209421.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131209421/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc32-33c4-77a0-a7ed-f23f7031a47f
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Sampaio2025_by_codex_20260305131209421.json へ書き込んでください。
+mcp startup: no servers
+2026-03-05T04:12:15.703128Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131209421 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Sampaio2025_by_codex_20260305131209421.json
+DE_v14_Sampaio2025_by_codex_20260305131209421.log
+study_1
+2026-03-05T04:12:19.041012Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131209421 succeeded in 27ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Checking study data source**
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131209421/study_12026-03-05T04:12:21.978564Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 31ms:
+Sampaio2025.pdf.md
+1-s2.0-S0933365724003051-mmc1.docx.md
+2026-03-05T04:12:24.253493Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/Sampaio2025.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131209421 succeeded in 24ms:
+![Image](./Sampaio2025_artifacts/image_000000_6b1b8625b769f27703e2e60f691cf84d823d04dc257b3fbf0d5df7bb15a8e342.png)
+
+Contents lists available at ScienceDirect
+
+## Artificial Intelligence In Medicine
+
+journal homepage: www.elsevier.com/locate/artmed
+
+A generalizable normative deep autoencoder for brain morphological anomaly detection: application to the multi-site StratiBip dataset on bipolar disorder in an external validation framework
+
+In ˆ es Won Sampaio a , Emma Tassi a,b , Marcella Bellani c , Francesco Benedetti d , Igor Nenadi ´ c e , Mary L. Phillips f , Fabrizio Piras g , Lakshmi Yatham h , Anna Maria Bianchi a , Paolo Brambilla b,i,*,1 , Eleonora Maggioni a,b,1
+
+- a Department of Electronics, Information and Bioengineering, Politecnico di Milano, Milan, Italy
+- b Department of Neurosciences and Mental Health, Fondazione IRCCS Ca ' Granda Ospedale Maggiore Policlinico, Milan, Italy
+- c Department of Neurosciences, Biomedicine and Movement Sciences, Section of Psychiatry, University of Verona, Verona, Italy
+- d Division of Neuroscience, Unit of Psychiatry and Clinical Psychobiology, IRCCS Ospedale San Raffaele, Milan, Italy
+- e Cognitive Neuropsychiatry Lab, Department of Psychiatry and Psychotherapy, Philipps-University Marburg, Marburg, Germany
+- f Department of Psychiatry, University of Pittsburgh School of Medicine, Pittsburgh, PA, USA
+- g Fondazione IRCCS Santa Lucia, Roma, Italy
+- h Department of Psychiatry, University of British Columbia, Vancouver, BC, Canada
+
+thinking
+**Checking for clinical cohort details**
+
+I'm searching the supplemental materials for demographics to find info on the BD group and dataset StratiBip.
+exec
+/bin/bash -lc 'rg -n "StratiBip|BD|bipolar|clinical|patients|sample" study_1/1-s2.0-S0933365724003051-mmc1.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051312094212026-03-05T04:12:27.676747Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 34ms:
+1:**A generalizable normative deep autoencoder for brain morphological anomaly detection: application to the multi-site StratiBip dataset on bipolar disorder in an external validation framework.**
+23:*StratiBip dataset exclusion criteria*
+37:*Sup. Tab. 1- Comparison between HCP-YA, StratiBip-HC and StratiBip-BD*
+39:*Sup. Tab. 2- StratiBip individual centers demographic information*
+57:*Sup. Tab. 11* - *Mass-univariate analysis on raw data HC vs. BD*
+59:*Sup. Tab. 12* - *StratiBip individual sites MRI acquistion information*
+79:*Sup. Fig.7- Features mZ distributions for HC and BD group*
+81:**Suplementary Information | StratiBip dataset exclusion criteria**
+83:All subjects were recruited and assessed at each individual site after signing a written and informed consent approved by the competent Ethical Committees, in accordance with the principles in the Declaration of Helsinki. The clinical assessment was performed by professional psychiatrists and diagnosis was based on the Diagnostic and Statistical Manual of Mental Disorders (DSM-IV) criteria for Axis I disorders (SCID-I) [27], with the exception of participants recruited in the Vancouver site (site id=7), for which diagnosis was based on the Mini International Neuropsychiatry Interview [28]. The participants exclusion criteria were: comorbidities, intellectual disability, pregnancy, history of epilepsy, major medical and neurological disorders, neuroleptic treatment in the last 3 months, drug or alcohol abuse in the last 6 months, and medical conditions affecting the immune system.
+91:ComBat models biological covariates, such as age, sex,  apriori, with a linear regression. The model starts by standardizing data to zero mean and unit variance, and removing from data the variance associated with the biological covariates,  $X_{ji}^{T} eta _{v}$ , which are estimated at net of site by including them in the design matrix  $X$  but not removing them during standardization,   $y_{ijv}^{Standardized}=rac{y_{ijv}- \hat{a}_{v}- X_{j}\hat{ eta }_{v}}{\hat{ \sigma }_{v}}$ , where  $\hat{a}_{v}$   and  $\hat{ \sigma }_{v}$  are the standardization parameters, estimated mean, and variance across feature  $v$ . The standardized data is assumed to follow a normal distribution,  $y_{ijv}^{Standardized} 	ext{ 	extasciitilde } N( \gamma _{iv}, \delta _{iv})$ . Then, the parametric model assumes a normal distribution for the additive site effect,  $\gamma _{iv} 	ext{ 	extasciitilde } N\left(Yi, 	au ^{2}ight),$ and an inverse gamma for the multiplicative effect,  $\delta _{iv} 	ext{ 	extasciitilde } IG( \lambda _{i}, 	heta _{i})$ . ComBat parameter estimations ( $\hat{a}_{v}$ ,  $\hat{ \sigma }_{v}$ ,  $\gamma _{iv}$ ,  $\delta _{iv}$ ) were applied in the StratiBip external test set in the following manner: first the estimated standardization statistics (based on HCP-YA reference) are used to standardize all test set data (HC and BD StratiBip). Second, before removing the estimated site-effects, biocovariates were accounted for, using the mean effects by averaging the estimated biocovariates coefficients,  $\hat{ eta }_{v}$ ,  across the reference site subjects (HCP-YA),   $mod \_ mean\left[n_{subj}, n_{features}ight]=X_{i=HCP, j} 	ext{ 	exttimes } \hat{ eta }_{v}$ , thus  $mod \_ mean^{avg}=rac{\sum_{j}^{}mod \_ mean_{i=HCP, j}}{n \_ subj _{i=HCP}}$ . The final data adjustment for all subjects in the external test sets was given by:   $\hat{y}_{ijv}^{M-ComBat}=rac{y_{ijv}-\hat{a}_{i=HCP,v}- mod \_ mean^{avg}- \gamma _{iv}^{*}}{ \delta _{iv}^{*}}+\hat{ lpha }_{i=HCP,v}+mod \_ mean^{avg}$ .
+95:To evaluate the efficacy of site effects removal we first performed a thorough inter-site comparison between data distributions, before and after harmonization. Using a Kruskal Wallis ANOVA test we compared the mean CT, GMV, and WMV distribution between sites, separately on HC and BD data, before and after harmonization. For HC data, the 7 StratiBip sites and the HCP-YA were compared, followed by a Dunnett posthoc test in case of significant differences, using the HCP-YA as reference. On the other hand, for the BD group, only the 7 StratiBip sites were compared, as site differences between HCP-YA and BD could be confounded by group differences, followed by a TukeyHSD posthoc test in case of significant differences.  Next, we assessed site-dependent clusterization on the entire dataset via UMAP non-linear dimensionality reduction method. UMAP embeds data by finding a low-dimensional data projection that has the closest possible equivalent fuzzy topological structure. This method was used to unveil the cluster-like structure, naturally present in data induced by the differences associated with site effects. Furthermore, we trained a support vector machine (SVM) classifier to predict site origin and assess the successful removal of site effects via decreasing model performance after data harmonization. First, all data was combined (N=1672) and split in 50% training (N=836) and 50% test set (N=836), stratifying for site. Then, with the model probability site-origin predictions we constructed the receiving operating characteristic curve (ROC) and evaluated model performance through the area under the curve (AUC-ROC) and f1-score. In a second analysis, we repeated the procedure by feature-type and by group. We used the *SVC()* function from *sklearn* to implement the SVM classifier with C=1, linear kernal, one-versus-rest decision function and a weighted class balance, and the *roc\_auc\_score* from *metrics* with a *one-versus-rest* multiclass strategy and a weighted average. To assert the total preservation of biological covariates effects, StratiBip intra-site linear regression (LR) models were computed before and after harmonization. Age, sex, and diagnosis were included as independent variables, and each brain feature was modelled as dependent variable, Eq. 3. This resulted in 170 models, computed with raw data and harmonized data, within each site (N=170x2x7). Mainly we assessed two conditions, i) the stability of biocovariates beta coefficients significance, before and after harmonization, and ii) the beta coefficients Spearman correlation, before and after harmonization. To satisfy the criteria of biological effects total preservation after M-ComBat harmonization, the significant associations between brain features and biocovariares have to be maintained after harmonization. The significance was assessed through the corrected p-values for multiple comparisons using the *holm-sidak* strategy, for an alpha level =0.05. Additionally, we expected high correlations between unharmonized and harmonized LR beta coefficients to consolidate the evidence for biocovariates effects preservation after harmonization. Finally, to show that M-ComBat harmonization performed similarly for HC and BD groups, despite all the models parameters being normatively estimated (i.e. exclusively in the HC group), we repeated the previous analysis by performing separate LR models for each group. All the models were computed using the *GLM()* function from *statsmodel* library using the Gaussian distribution family and identity link function.
+109:**Supplementary Table 1 | Comparison between HCP-YA, StratiBip-HC and StratiBip-BD**
+111:The age distributions between the three groups were significantly different according to a Kruskal-Wallis ANOVA test. The post-hoc pairwise comparison employing the Mann-Whitney U test with a Bonferroni correction for multiple comparisons showed that all groups differed among each other in terms of age distributions (HCvs.BD p=4.92e-6; HCvsHCP p=1.73e-6; HCPvsBD p=2.95e-2). On the other hand, based on a Chi-Square test of independence, no significant differences among the three groups were found for sex proportions (χ2(2, N=1659)=0.6338, p=0.728).
+116:| HCP-YA       | 1109         | 28.811 ±3.693  29.0 [25%: 26.0; 75%:32.0]   | 34.85 p=2.702e10-8     | HCPvsHC p=1.73e-6  HCPvsBD p=2.95e-2 | 505   | 604   | χ2(0.6338 p=0.728) |
+117:| HC-StratiBip | 363          | 27.741±3.999  27.0 [25%: 25.0 ; 75%: 31.0 ] | 34.85 p=2.702e10-8     | HCvsBD p=4.92e-6                     | 174   | 189   | χ2(0.6338 p=0.728) |
+118:| BD-StratiBip | 187          | 29.625 ±4.371  30.0 [25%: 26.0; 75%: 33.0]  | 34.85 p=2.702e10-8     | -                                    | 86    | 101   | χ2(0.6338 p=0.728) |
+120:**Supplementary Table 2 | StratiBip individual centers demographic information**
+122:Detailed demographic information for each StratiBip test set cohort is presented in this table. A 2x2 Chi-square test of independence was performed to investigate differences in sex distributions between the two groups, HC and BD, within each site. Instead, a  Fisher Exact test was used for sites 1 and 3 due to low sample numerosity, signed with *. For comparing age distributions between the two groups, a Kruskall-Wallis ANOVA was used. When information is available only for a subset of subjects, the specific numerosity is presented *(n=X)* .
+124:| Site   | Diagnosis   | Diagnosis   | Sex   | Sex   | Χ2 pvalue   | **Age**  **(years)**   |                 | ANOVA pvalue   | Education             | BD-type   | BD-type   | BD-type   | **BD Age**  **Onset**   |
+126:| Site   | Diagnosis   | Diagnosis   | Sex   | Sex   | Χ2 pvalue   |                        |                 | ANOVA pvalue   | Education             | BD-I      | BD-I      | BD-II     |                         |
+
+
+thinking
+**Deciding dataset origin label**
+
+I’m weighing how to label the dataset origin for StratiBip since it’s a multi-site dataset not on the normalized list; the best fit is using "Unknown" or "No Special Dataset Name" with MULTI-SITE, leaning toward the latter to convey multi-site status while lacking a normalized name.
+thinking
+**Confirming dataset labeling and cohort details**
+
+I’m finalizing to use "Unknown" from the normalized list for StratiBip dataset origin despite it being multi-site since its name isn’t listed, and will apply the 22–37 age range with mean and SD from supplemental Table S1 to the BD cohort, preparing to extract exact supporting text for citation.
+exec
+/bin/bash -lc "sed -n '108,122p' study_1/1-s2.0-S0933365724003051-mmc1.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051312094212026-03-05T04:12:42.128965Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+
+**Supplementary Table 1 | Comparison between HCP-YA, StratiBip-HC and StratiBip-BD**
+
+The age distributions between the three groups were significantly different according to a Kruskal-Wallis ANOVA test. The post-hoc pairwise comparison employing the Mann-Whitney U test with a Bonferroni correction for multiple comparisons showed that all groups differed among each other in terms of age distributions (HCvs.BD p=4.92e-6; HCvsHCP p=1.73e-6; HCPvsBD p=2.95e-2). On the other hand, based on a Chi-Square test of independence, no significant differences among the three groups were found for sex proportions (χ2(2, N=1659)=0.6338, p=0.728).
+
+| Group        | Numerosity   | **Age**  Mean ± std | median [25th;75th ]   | Kruskal Wallis ANOVA   | Post-hoc                             | Sex   | Sex   | Chi-Square test    |
+|--------------|--------------|---------------------------------------------|------------------------|--------------------------------------|-------|-------|--------------------|
+| Group        | Numerosity   |                                             | Kruskal Wallis ANOVA   | Post-hoc                             | M     | F     | Chi-Square test    |
+| HCP-YA       | 1109         | 28.811 ±3.693  29.0 [25%: 26.0; 75%:32.0]   | 34.85 p=2.702e10-8     | HCPvsHC p=1.73e-6  HCPvsBD p=2.95e-2 | 505   | 604   | χ2(0.6338 p=0.728) |
+| HC-StratiBip | 363          | 27.741±3.999  27.0 [25%: 25.0 ; 75%: 31.0 ] | 34.85 p=2.702e10-8     | HCvsBD p=4.92e-6                     | 174   | 189   | χ2(0.6338 p=0.728) |
+| BD-StratiBip | 187          | 29.625 ±4.371  30.0 [25%: 26.0; 75%: 33.0]  | 34.85 p=2.702e10-8     | -                                    | 86    | 101   | χ2(0.6338 p=0.728) |
+
+**Supplementary Table 2 | StratiBip individual centers demographic information**
+
+Detailed demographic information for each StratiBip test set cohort is presented in this table. A 2x2 Chi-square test of independence was performed to investigate differences in sex distributions between the two groups, HC and BD, within each site. Instead, a  Fisher Exact test was used for sites 1 and 3 due to low sample numerosity, signed with *. For comparing age distributions between the two groups, a Kruskall-Wallis ANOVA was used. When information is available only for a subset of subjects, the specific numerosity is presented *(n=X)* .
+
+thinking
+**Extracting age range from main text**
+
+The main text specifies participant ages from 22 to 37, confirming the minimum and maximum age range for young adults included. I'll now locate the exact lines containing this detail for supporting reference.
+exec
+/bin/bash -lc 'rg -n "22 to 37" -n study_1/Sampaio2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051312094212026-03-05T04:12:52.075951Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+99:The sMRI data used as external test set was acquired from 550 subjects, 363 HC (median age = 27.00 years, 189 females, 174 males) and 187 with BD (median age = 30.00 years, 101 females, 86 males) across 7 sites using T1-weighted sequences on 3 T MRI scanners. Each site employed its own resources, protocols, and sequences (Table S12). Consistent with the HCP training sample, only young adults were included, from 22 to 37 years old (Table S1-S2, and Fig. S1).
+
+thinking
+**Preparing supporting text details**
+
+I'm gathering supporting text with sex counts and BD median age from the main line, extracting location format from Sampaio2025.pdf.md near line 99, and preparing to fill these into the target JSON file.
+2026-03-05T04:12:56.883753Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Sampaio2025_by_codex_20260305131209421.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131209421 succeeded in 25ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Detailing age and sex data with supporting quotes**
+
+I'm structuring the age answer as an object with unit, min/max from the statement, and mean/sd from supplemental table rounded to two decimals, including both supporting quotes separated by semicolons. For sex, I'll compute percentages from counts and reference a direct quote from the main text for supporting text, citing the dataset origin as "StratiBip multi-site clinical dataset" with an "Unknown" value in the answer.
+thinking
+**Extracting supporting quote for dataset origin**
+
+I'm retrieving the exact quote from the main text around lines 90–100 describing the external test set as part of the StratiBip network and multi-site clinical and neuroimaging data for precise supporting text attribution.
+exec
+/bin/bash -lc "sed -n '88,104p' study_1/Sampaio2025.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051312094212026-03-05T04:13:08.064724Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 34ms:
+
+## Training phase
+
+Fig. 1. Normative modelling framework. In the training phase, the normative training set is used to fit the biocovariates regression pipeline, and after data correction, the normative AE model is trained. In the testing phase, the external test sets are harmonized with the reference normative training set. Then, the corrected test data is fed to the trained normative model and an anomaly detection framework is applied to the model test reconstructions. Leveraging the REs, grouplevel and subject-level analyses are conducted to characterize both groups in terms of brain normative deviations.
+
+![Image](./Sampaio2025_artifacts/image_000003_c087363c5fba278c9884f794a6ac65b22c4b03a855cbdfb421e6d3092bd26d71.png)
+
+## 3.1.2. StratiBip dataset: external test set
+
+The external test set consisted of data collected as part of the StratiBip network, an initiative that originated from the ENPACT network [16]. The StratiBip dataset results from the post-hoc integration of multi-site clinical and neuroimaging data collected from HC and subjects with BD, more details can be found in supplementary information.
+
+The sMRI data used as external test set was acquired from 550 subjects, 363 HC (median age = 27.00 years, 189 females, 174 males) and 187 with BD (median age = 30.00 years, 101 females, 86 males) across 7 sites using T1-weighted sequences on 3 T MRI scanners. Each site employed its own resources, protocols, and sequences (Table S12). Consistent with the HCP training sample, only young adults were included, from 22 to 37 years old (Table S1-S2, and Fig. S1).
+
+## 3.1.3. Comparing both datasets
+
+A Kruskal-Wallis test revealed significant age differences among the three groups, HCP-YA, StratiBip-HC, and StratiBip-BD ( χ 2 (2) = 34.85; p &lt; 10 GLYPH&lt;0&gt; 7 ); the post-hoc comparisons showed that StratiBip-HC were younger than HCP-YA and StratiBip-BD subjects (Table S1). On the other hand, based on a Chi-Square test of independence, no significant differences among the three groups were found for sex proportions ( χ 2(2, N = 1659) = 0.6338, p = 0.728) . More detailed information on the sample characteristics in each site can be found in Table S2.
+
+
+thinking
+**Preparing JSON update for BD in Sampaio2025**
+
+I'm gathering details for the bipolar disorder minor category under Mood disorders, referencing the clinical cohort name and location, to create a JSON patch for the Sampaio2025 file.
+2026-03-05T04:13:26.399364Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Sampaio2025"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in the StratiBip external test set.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The StratiBip dataset results from the post-hoc integration of multi-site clinical and neuroimaging data collected from HC and subjects with BD\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "Unknown"
++        ],
++        "detail": "StratiBip network multi-site clinical dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The external test set consisted of data collected as part of the StratiBip network\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 37,
++          "mean": 29.63,
++          "sd": 4.37
++        },
++        "detail": "BD-StratiBip mean/SD from Supplementary Table 1; age range from StratiBip cohort description.",
++        "confidence_rating": "High",
++        "supporting_text": "\"BD-StratiBip | 187 | 29.625 ±4.371  30.0 [25%: 26.0; 75%: 33.0]\"; \"only young adults were included, from 22 to 37 years old\"",
++        "location": "1-s2.0-S0933365724003051-mmc1.docx.md: Supplementary Table 1 | Comparison between HCP-YA, StratiBip-HC and StratiBip-BD; Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 86,
++          "male_pct": 45.9,
++          "female_n": 101,
++          "female_pct": 54.1
++        },
++        "detail": "Percentages calculated from reported counts (N=187).",
++        "confidence_rating": "High",
++        "supporting_text": "\"187 with BD (median age = 30.00 years, 101 females, 86 males)\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json b/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..d8a2fb768af12be06d257b2f325fe18ad8e73f6a
+--- a/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Sampaio2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in the StratiBip external test set.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The StratiBip dataset results from the post-hoc integration of multi-site clinical and neuroimaging data collected from HC and subjects with BD\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "Unknown"
++        ],
++        "detail": "StratiBip network multi-site clinical dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The external test set consisted of data collected as part of the StratiBip network\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 37,
++          "mean": 29.63,
++          "sd": 4.37
++        },
++        "detail": "BD-StratiBip mean/SD from Supplementary Table 1; age range from StratiBip cohort description.",
++        "confidence_rating": "High",
++        "supporting_text": "\"BD-StratiBip | 187 | 29.625 ±4.371  30.0 [25%: 26.0; 75%: 33.0]\"; \"only young adults were included, from 22 to 37 years old\"",
++        "location": "1-s2.0-S0933365724003051-mmc1.docx.md: Supplementary Table 1 | Comparison between HCP-YA, StratiBip-HC and StratiBip-BD; Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 86,
++          "male_pct": 45.9,
++          "female_n": 101,
++          "female_pct": 54.1
++        },
++        "detail": "Percentages calculated from reported counts (N=187).",
++        "confidence_rating": "High",
++        "supporting_text": "\"187 with BD (median age = 30.00 years, 101 females, 86 males)\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json b/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..d8a2fb768af12be06d257b2f325fe18ad8e73f6a
+--- a/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Sampaio2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in the StratiBip external test set.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The StratiBip dataset results from the post-hoc integration of multi-site clinical and neuroimaging data collected from HC and subjects with BD\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "Unknown"
++        ],
++        "detail": "StratiBip network multi-site clinical dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The external test set consisted of data collected as part of the StratiBip network\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 37,
++          "mean": 29.63,
++          "sd": 4.37
++        },
++        "detail": "BD-StratiBip mean/SD from Supplementary Table 1; age range from StratiBip cohort description.",
++        "confidence_rating": "High",
++        "supporting_text": "\"BD-StratiBip | 187 | 29.625 ±4.371  30.0 [25%: 26.0; 75%: 33.0]\"; \"only young adults were included, from 22 to 37 years old\"",
++        "location": "1-s2.0-S0933365724003051-mmc1.docx.md: Supplementary Table 1 | Comparison between HCP-YA, StratiBip-HC and StratiBip-BD; Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 86,
++          "male_pct": 45.9,
++          "female_n": 101,
++          "female_pct": 54.1
++        },
++        "detail": "Percentages calculated from reported counts (N=187).",
++        "confidence_rating": "High",
++        "supporting_text": "\"187 with BD (median age = 30.00 years, 101 females, 86 males)\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       }
+     }
+   ]
+
+
+thinking
+**Providing final concise summary**
+
+No tests were found or added in the discussed work; the user can verify functionality manually if desired, but no immediate next steps are required.
+codex
+Filled the extraction JSON with the StratiBip BD clinical cohort details (paper ID, disorder, dataset, age, sex) using the main text and Supplementary Table 1.
+
+Updated file: `DE_v14_Sampaio2025_by_codex_20260305131209421.json`
+
+If you want, I can also cross-check Supplementary Table 2 site-level demographics for any additional clarifications.
+2026-03-05T04:13:29.732373Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json b/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..d8a2fb768af12be06d257b2f325fe18ad8e73f6a
+--- a/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305131209421/DE_v14_Sampaio2025_by_codex_20260305131209421.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Sampaio2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in the StratiBip external test set.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The StratiBip dataset results from the post-hoc integration of multi-site clinical and neuroimaging data collected from HC and subjects with BD\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "Unknown"
++        ],
++        "detail": "StratiBip network multi-site clinical dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The external test set consisted of data collected as part of the StratiBip network\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 22,
++          "max": 37,
++          "mean": 29.63,
++          "sd": 4.37
++        },
++        "detail": "BD-StratiBip mean/SD from Supplementary Table 1; age range from StratiBip cohort description.",
++        "confidence_rating": "High",
++        "supporting_text": "\"BD-StratiBip | 187 | 29.625 ±4.371  30.0 [25%: 26.0; 75%: 33.0]\"; \"only young adults were included, from 22 to 37 years old\"",
++        "location": "1-s2.0-S0933365724003051-mmc1.docx.md: Supplementary Table 1 | Comparison between HCP-YA, StratiBip-HC and StratiBip-BD; Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 86,
++          "male_pct": 45.9,
++          "female_n": 101,
++          "female_pct": 54.1
++        },
++        "detail": "Percentages calculated from reported counts (N=187).",
++        "confidence_rating": "High",
++        "supporting_text": "\"187 with BD (median age = 30.00 years, 101 females, 86 males)\"",
++        "location": "Sampaio2025.pdf.md: 3.1.2. StratiBip dataset: external test set"
+       }
+     }
+   ]
+
+tokens used
+30,315
+Filled the extraction JSON with the StratiBip BD clinical cohort details (paper ID, disorder, dataset, age, sex) using the main text and Supplementary Table 1.
+
+Updated file: `DE_v14_Sampaio2025_by_codex_20260305131209421.json`
+
+If you want, I can also cross-check Supplementary Table 2 site-level demographics for any additional clarifications.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

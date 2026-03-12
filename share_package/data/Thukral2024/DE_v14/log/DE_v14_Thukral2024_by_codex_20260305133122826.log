@@ -1,0 +1,502 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Thukral2024_by_codex_20260305133122826.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133122826/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc43-cd2f-7631-9df6-8451a7229833
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Thukral2024_by_codex_20260305133122826.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning file inspection**
+
+I'm deciding to open the relevant file directly instead of searching, aiming for efficient skill or user request analysis.
+2026-03-05T04:31:28.386082Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133122826 succeeded in 18ms:
+DE_Guide_v14.md
+DE_v14_Thukral2024_by_codex_20260305133122826.json
+DE_v14_Thukral2024_by_codex_20260305133122826.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051331228262026-03-05T04:31:30.412857Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating study files**
+
+I'm identifying and listing files related to study_1 to access the paper's data.
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051331228262026-03-05T04:31:32.848613Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+Thukral2024.pdf.md
+Thukral2024_artifacts
+2026-03-05T04:31:36.141155Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patient|schiz|bipolar|depress|ASD|autism|ADHD|epilepsy|dementia|MCI|psychosis|disorder" -i Thukral2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133122826/study_1 succeeded in 30ms:
+7:Dissecting Heterogeneity in Functional Network Connectivity Aberrations in Antipsychotic Medication-Naïve First Episode Psychosis Patients - A Normative Modeling Study
+25:Importance: While there is a general consensus that functional connectome pathology is a key mechanism underlying psychosis spectrum disorders, the literature is plagued with inconsistencies and translation into clinical practice is non-existent. This is perhaps because group-level findings may not be accurate reflections of pathology at the individual patient level.
+27:Objective: To characterize inter-individual heterogeneity in functional networks and investigate if normative values can be leveraged to identify biologically less heterogeneous subgroups of patients.
+29:Design, Setting, and Participants: We used data collected in a case-control study conducted at the University of Alabama at Birmingham (UAB). We recruited antipsychotic medication-naïve first-episode psychosis patients from UAB outpatient, inpatient, and emergency room settings.
+31:Main Outcome(s) and Measure(s): Individual-level patterns of deviations from a normative reference range in resting-state functional networks using the Yeo-17 atlas for parcellations.
+33:Results: Statistical analyses included 108 medication-naïve first-episode psychosis patients. We found that there is a high level of inter-individual heterogeneity in resting-state network connectivity deviations from the normative reference range. Interestingly 48% of patients did not have any functional connectivity deviations, and no more than 11.1% of patients shared functional deviations between the same regions of interest. In a post hoc analysis, we grouped patients based on deviations into four theoretically possible groups. We discovered that all four groups do exist in our experimental data and showed that subgroups based on deviation profiles were significantly less heterogeneous compared to the overall group (positive deviation group: z= -2.88, p = 0.002; negative deviation group: z= -3.36, p&lt;0.001).
+37:All rights reserved. No reuse allowed without permission. (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity. medRxiv preprint doi: https://doi.org/10.1101/2024.08.23.24312480; this version posted August 23, 2024. The copyright holder for this preprint psychosis patients which support the idea that group-level findings are not accurate reflections of pathology at the individual level. We also demonstrated that normative functional connectivity deviations may have utility for identifying biologically less heterogeneous subgroups of patients, even though they are not distinguishable clinically. Our findings constitute a significant step towards making precision psychiatry a reality, where patients are selected for treatments based on their individual biological characteristics.
+43:Question: How heterogeneous is individual-level resting-state functional network pathology in patients suffering from a first psychotic episode? Can normative reference values in functional network connectivity be leveraged to identify biologically more homogenous subgroups of patients?
+45:Findings: We report that functional network pathology is highly heterogeneous, with no more than 11% of patients sharing functional deviations between the same regions of interest.
+47:Meaning: Normative modeling is a tool that can map individual neurobiological differences and enables the classification of a clinically heterogenous patient group into subgroups that are neurobiologically less heterogenous.
+53:Psychosis spectrum disorders are clinically and biologically complex 1 . There is general consensus in the field that functional connectome pathology is central to the underlying pathophysiology 2-4 , but there remains a high degree of unexplained inconsistencies of findings in the existing literature 5,6 . This is perhaps not surprising, given that the knowledge largely stems from case-control studies describing connectome pathology of the 'average patient,' while it is becoming increasingly clear that pathological signatures identified at the group-level may not be accurate reflections of pathology at the individual patient level 7-11 .
+55:Normative modeling is a newer statistical approach, inspired by the principles of pediatric growth curve charting, that allows quantification of brain deviations at the individual level 7  in the context of a normative reference range. Several studies have now demonstrated that inter-individual heterogeneity in brain structures is considerable in schizophrenia, bipolar disorder, autism spectrum disorders, and ADHD, suggesting that group differences are inaccurate reflections of individual-level structural abnormalities 9-12 . More recently, normative reference curves have also been developed for large-scale resting-state brain networks 13 , but to our knowledge, only one study thus far has leveraged this to describe functional brain network pathology at the individual level in schizophrenia 14 . The authors found a high degree of heterogeneity in functional network connectivity disruptions 14 . They also demonstrated that normative data outperformed traditional metrics (e.g. functional connectivity expressed as betaweights) in disease classification and prediction of cognitive ability in medicated patients with chronic schizophrenia 14 , again, suggesting that individual-level measures outperform traditional metrics of brain function.
+57:Here, we built on the emerging literature and used normative modeling of resting-state brain networks to characterize individual-level pathology in a large group of antipsychotic medication-naïve first-episode psychosis patients, which has not been done before. We
+59:All rights reserved. No reuse allowed without permission. (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity. medRxiv preprint doi: https://doi.org/10.1101/2024.08.23.24312480; this version posted August 23, 2024. The copyright holder for this preprint hypothesized that functional connectome pathology would show significant inter-individual heterogeneity. We also tested, for the first time, if normative deviations have potential utility in identifying more biologically homogeneous subgroups of patients. The ability to identify groups of patients based on shared biological features constitutes a critical step towards precision medicine, where treatments selected based on biological features.
+65:Patients were recruited through the University of Alabama at Birmingham (UAB) Emergency Department, inpatient, and outpatient units. Ethical approval was obtained through the UAB Institutional Review Board (IRB), and informed consent was obtained from all participants (participant assent and parental consent was obtained for participants younger than 18). We recruited through flyers and advertisements posted throughout the Birmingham area.
+67:also assessed decisional capacity for informed consent in patients 15 .  Healthy volunteers were Healthy controls and patients were excluded if they had a central nervous system illness, any major medical conditions, history of head trauma with loss of consciousness &gt;2 minutes, MRI contraindications such as metal objects, an active moderate to severe substance use disorder within the past month (excluding nicotine and cannabis), or if they were pregnant. Patients were further excluded if they had more than five days lifetime exposure to antipsychotic medications. Healthy controls were further excluded if they had a psychiatric history or a first degree relative having a psychotic disorder. Consensus diagnoses were made according to DSM-5 criteria by two board-certified psychiatrists (ACL and NVK), taking into consideration information from the Diagnostic Interview for Genetic Studies (DIGS) 16  or Mini-International Neuropsychiatric Interview 7.0 (MINI) 17  and from all historical and direct assessment information available. The Brief Psychiatric Rating Scale (BPRS) 18  and Repeatable Battery for the Assessment of Neuropsychological Status (RBANS) 19  were used to assess clinical symptom severity and cognition, respectively. Data acquisition All imaging data were acquired using a 3T whole-body Siemens MAGNETOM Prisma MRI scanner equipped with a 20-channel head-coil. A high-resolution T1-weighted structural scan was acquired for anatomical reference (MPRAGE: TR/TE/TI= 2400/ 2.22/1000ms; flip angle =
+81:## Normative Modeling
+83:Here, we used the Predictive Clinical Neuroscience (PCN) toolkit (version 0.27), a publicly available Python package, for normative modeling of resting state connectivity data. The normative model was generated using resting state connectivity data from approximately 22,000 healthy individuals across the lifespan (age range (yrs): 2-100). Healthy control data collected in this project were used for calibration of the normative reference curves (Python version 3.8.3 29,30 , PCN toolkit version 0.27 31 ).
+87:Statistical analyses and plot generation were conducted using R version 4.3.1 32 . We quantified functional connection deviations expressed as standard deviations (z-score) from the normative reference range for each patient. We binarized z-scores to operationally define a significant deviation using a cut-off value of ±2 standard deviations. We then calculated connectivity deviations between the functional connections and calculated the deviation load (number of absolute, positive, and negative deviations in an individual patient), and the percentage of participants who share the same functional connection deviations (i.e. functional connection deviation similarities between the same regions of interest). To evaluate the distribution of the data, we created a scatter plot of individual-level deviation load data across two axes (x = negative deviation load, y = positive deviation load).
+91:All rights reserved. No reuse allowed without permission. (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity. medRxiv preprint doi: https://doi.org/10.1101/2024.08.23.24312480; this version posted August 23, 2024. The copyright holder for this preprint reported patterns of only increased connectivity 2,6 , only decreased connectivity 33,34 , or a mix of increased and decreased connectivity 35,36  in psychosis spectrum disorders, we made the decision to examine individual-level deviation patterns in the same categorical framework. We grouped individuals according to plausible functional deviation profiles: (1) patients that have only positive deviations (increased connectivity), (2) patients that have only negative deviations (decreased connectivity), (3) patients that have a mix of positive and negative deviations, and (4) patients that display no significant functional connectivity deviations. We then mapped connectivity deviation patterns for each group separately, correcting for multiple comparisons by controlling for the false discovery rate [α= 0.05 significance threshold]. To do so, we set the significance threshold for the total number of positive/ negative deviations 4 or greater [number of connections (136) x significant one-tailed alpha (0.025) = 3.4 (4 upon rounding)]. To determine if the functional connection deviations with the highest patient similarity percentage within each subgroup were less heterogeneous than the maximum overall patient group similarity percentage, a z-test was used.
+
+thinking
+**Locating demographic data**
+
+I'm checking Table1 for age and sex details relevant to the clinical cohort demographics.
+exec
+/bin/bash -lc "sed -n '180,240p' Thukral2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133122826/study_12026-03-05T04:31:39.044802Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+- 38 Segal, A. et al. Regional, circuit and network heterogeneity of brain abnormalities in psychiatric disorders. Nat Neurosci 26 , 1613-1629 (2023). https://doi.org/10.1038/s41593-023-01404-6
+- 39 Feczko, E. et al. The heterogeneity problem: approaches to identify psychiatric subtypes. Trends in cognitive sciences 23 , 584-601 (2019).
+- 40 Chand, G. B. et al. Two distinct neuroanatomical subtypes of schizophrenia revealed using machine learning. Brain 143 , 1027-1038 (2020). https://doi.org/10.1093/brain/awaa025
+- 41 Pan, Y. et al. Morphological Profiling of Schizophrenia: Cluster Analysis of MRI-Based Cortical Thickness Data. Schizophr Bull 46 , 623-632 (2020). https://doi.org/10.1093/schbul/sbz112
+- 42 Xiao, Y. et al. Subtyping Schizophrenia Patients Based on Patterns of Structural Brain Alterations. Schizophr Bull 48 , 241-250 (2022). https://doi.org/10.1093/schbul/sbab110
+
+All rights reserved. No reuse allowed without permission. (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity. medRxiv preprint doi: https://doi.org/10.1101/2024.08.23.24312480; this version posted August 23, 2024. The copyright holder for this preprint
+
+## TABLES
+
+## Table 1: Demographic and Clinical Characteristics
+
+|                                | Patients (N = 108)   | HC (N = 122)   | Test         | P value   |
+|--------------------------------|----------------------|----------------|--------------|-----------|
+| Age, mean(SD), y               | 23.54(5.49)          | 23.59(5.10)    | t = 0.07     | 0.94      |
+| Sex                            |                      |                |              |           |
+| Male                           | 65                   | 70             | χ 2  = 0.09  | 0.77      |
+| Female                         | 43                   | 52             | χ 2  = 0.09  | 0.77      |
+| Socioeconomic Status, mean(SD) | 5.69(4.94)           | 4.58(4.10)     | t= 1.81      | 0.07      |
+| Packs Per Day, mean(SD), day   | 0.23(0.39)           | 0.01(0.06)     | t = 5.72     | <0.001    |
+
+thinking
+**Summarizing clinical cohort details**
+
+The clinical cohort is first-episode psychosis (FEP) under psychotic disorders, from the UAB single-site dataset with 108 patients, including age mean 23.54 (SD 5.49) and sex distribution 60.2% male, 39.8% female. Next, I'll extract supporting method text from the specified lines in Thukral2024.pdf.md for JSON output.
+exec
+/bin/bash -lc "sed -n '20,40p' Thukral2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133122826/study_12026-03-05T04:31:52.075625Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+
+All rights reserved. No reuse allowed without permission. (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity. medRxiv preprint doi: https://doi.org/10.1101/2024.08.23.24312480; this version posted August 23, 2024. The copyright holder for this preprint
+
+## ABSTRACT
+
+Importance: While there is a general consensus that functional connectome pathology is a key mechanism underlying psychosis spectrum disorders, the literature is plagued with inconsistencies and translation into clinical practice is non-existent. This is perhaps because group-level findings may not be accurate reflections of pathology at the individual patient level.
+
+Objective: To characterize inter-individual heterogeneity in functional networks and investigate if normative values can be leveraged to identify biologically less heterogeneous subgroups of patients.
+
+Design, Setting, and Participants: We used data collected in a case-control study conducted at the University of Alabama at Birmingham (UAB). We recruited antipsychotic medication-naïve first-episode psychosis patients from UAB outpatient, inpatient, and emergency room settings.
+
+Main Outcome(s) and Measure(s): Individual-level patterns of deviations from a normative reference range in resting-state functional networks using the Yeo-17 atlas for parcellations.
+
+Results: Statistical analyses included 108 medication-naïve first-episode psychosis patients. We found that there is a high level of inter-individual heterogeneity in resting-state network connectivity deviations from the normative reference range. Interestingly 48% of patients did not have any functional connectivity deviations, and no more than 11.1% of patients shared functional deviations between the same regions of interest. In a post hoc analysis, we grouped patients based on deviations into four theoretically possible groups. We discovered that all four groups do exist in our experimental data and showed that subgroups based on deviation profiles were significantly less heterogeneous compared to the overall group (positive deviation group: z= -2.88, p = 0.002; negative deviation group: z= -3.36, p&lt;0.001).
+
+Conclusions and Relevance: Our findings experimentally demonstrate that there is a high level of inter-individual heterogeneity in resting-state network pathology in first-episode
+
+All rights reserved. No reuse allowed without permission. (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity. medRxiv preprint doi: https://doi.org/10.1101/2024.08.23.24312480; this version posted August 23, 2024. The copyright holder for this preprint psychosis patients which support the idea that group-level findings are not accurate reflections of pathology at the individual level. We also demonstrated that normative functional connectivity deviations may have utility for identifying biologically less heterogeneous subgroups of patients, even though they are not distinguishable clinically. Our findings constitute a significant step towards making precision psychiatry a reality, where patients are selected for treatments based on their individual biological characteristics.
+
+All rights reserved. No reuse allowed without permission. (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity. medRxiv preprint doi: https://doi.org/10.1101/2024.08.23.24312480; this version posted August 23, 2024. The copyright holder for this preprint
+
+thinking
+**Processing participant demographics**
+
+Calculating sex distribution percentages from Table 1 (60.2% male, 39.8% female) and noting age mean and SD; will label dataset as SINGLE-SITE from UAB with supporting detail from the abstract on medication-naive first-episode psychosis patients before editing the output JSON.
+exec
+/bin/bash -lc 'cat DE_v14_Thukral2024_by_codex_20260305133122826.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051331228262026-03-05T04:31:58.309488Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Designing answer object structure**
+
+Planning to structure age answer as an object with mean, sd, and min/max fields, using "NR" strings for unavailable min/max values. Sex answer will include counts and percentages for male and female, ensuring valid JSON before applying the patch.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Thukral2024"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "FEP",
++        "detail": "Antipsychotic medication-naive first-episode psychosis clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "We recruited antipsychotic medication-na\u00efve first-episode psychosis patients from UAB outpatient, inpatient, and emergency room settings.",
++        "location": "Thukral2024.pdf.md: ABSTRACT / Design, Setting, and Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Case-control study conducted at the University of Alabama at Birmingham (UAB)",
++        "confidence_rating": "High",
++        "supporting_text": "We used data collected in a case-control study conducted at the University of Alabama at Birmingham (UAB).",
++        "location": "Thukral2024.pdf.md: ABSTRACT / Design, Setting, and Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 23.54,
++          "sd": 5.49
++        },
++        "detail": "Patients (N = 108) in Table 1",
++        "confidence_rating": "High",
++        "supporting_text": "Age, mean(SD), y               | 23.54(5.49)",
++        "location": "Thukral2024.pdf.md: Table 1: Demographic and Clinical Characteristics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 65,
++          "male_pct": 60.2,
++          "female_n": 43,
++          "female_pct": 39.8
++        },
++        "detail": "Percentages calculated from counts in Table 1",
++        "confidence_rating": "High",
++        "supporting_text": "Male                           | 65\nFemale                         | 43",
++        "location": "Thukral2024.pdf.md: Table 1: Demographic and Clinical Characteristics"
+       }
+2026-03-05T04:32:13.969117Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 7ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json b/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7e8502fa2fecbee702f8c1c9144836b79a2e267e
+--- a/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Thukral2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "FEP",
++        "detail": "Antipsychotic medication-naive first-episode psychosis clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "We recruited antipsychotic medication-na\u00efve first-episode psychosis patients from UAB outpatient, inpatient, and emergency room settings.",
++        "location": "Thukral2024.pdf.md: ABSTRACT / Design, Setting, and Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Case-control study conducted at the University of Alabama at Birmingham (UAB)",
++        "confidence_rating": "High",
++        "supporting_text": "We used data collected in a case-control study conducted at the University of Alabama at Birmingham (UAB).",
++        "location": "Thukral2024.pdf.md: ABSTRACT / Design, Setting, and Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 23.54,
++          "sd": 5.49
++        },
++        "detail": "Patients (N = 108) in Table 1",
++        "confidence_rating": "High",
++        "supporting_text": "Age, mean(SD), y               | 23.54(5.49)",
++        "location": "Thukral2024.pdf.md: Table 1: Demographic and Clinical Characteristics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 65,
++          "male_pct": 60.2,
++          "female_n": 43,
++          "female_pct": 39.8
++        },
++        "detail": "Percentages calculated from counts in Table 1",
++        "confidence_rating": "High",
++        "supporting_text": "Male                           | 65\nFemale                         | 43",
++        "location": "Thukral2024.pdf.md: Table 1: Demographic and Clinical Characteristics"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json b/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7e8502fa2fecbee702f8c1c9144836b79a2e267e
+--- a/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Thukral2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "FEP",
++        "detail": "Antipsychotic medication-naive first-episode psychosis clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "We recruited antipsychotic medication-na\u00efve first-episode psychosis patients from UAB outpatient, inpatient, and emergency room settings.",
++        "location": "Thukral2024.pdf.md: ABSTRACT / Design, Setting, and Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Case-control study conducted at the University of Alabama at Birmingham (UAB)",
++        "confidence_rating": "High",
++        "supporting_text": "We used data collected in a case-control study conducted at the University of Alabama at Birmingham (UAB).",
++        "location": "Thukral2024.pdf.md: ABSTRACT / Design, Setting, and Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 23.54,
++          "sd": 5.49
++        },
++        "detail": "Patients (N = 108) in Table 1",
++        "confidence_rating": "High",
++        "supporting_text": "Age, mean(SD), y               | 23.54(5.49)",
++        "location": "Thukral2024.pdf.md: Table 1: Demographic and Clinical Characteristics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 65,
++          "male_pct": 60.2,
++          "female_n": 43,
++          "female_pct": 39.8
++        },
++        "detail": "Percentages calculated from counts in Table 1",
++        "confidence_rating": "High",
++        "supporting_text": "Male                           | 65\nFemale                         | 43",
++        "location": "Thukral2024.pdf.md: Table 1: Demographic and Clinical Characteristics"
+       }
+     }
+   ]
+
+
+thinking
+**Noting Unicode handling in text**
+
+The supporting text contains a Unicode character (ï) escaped as \u00ef to maintain ASCII compatibility; newlines are allowed. This confirms proper encoding handling in the file. Next, verification may be optional.
+codex
+Clinical cohort extraction completed for first-episode psychosis patients and written into the JSON with sourced demographics and dataset details. Updated `DE_v14_Thukral2024_by_codex_20260305133122826.json`.
+
+Next step if you want: 1) have me validate the JSON format against any project schema.
+2026-03-05T04:32:17.747997Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json b/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..7e8502fa2fecbee702f8c1c9144836b79a2e267e
+--- a/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305133122826/DE_v14_Thukral2024_by_codex_20260305133122826.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Thukral2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "FEP",
++        "detail": "Antipsychotic medication-naive first-episode psychosis clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "We recruited antipsychotic medication-na\u00efve first-episode psychosis patients from UAB outpatient, inpatient, and emergency room settings.",
++        "location": "Thukral2024.pdf.md: ABSTRACT / Design, Setting, and Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Case-control study conducted at the University of Alabama at Birmingham (UAB)",
++        "confidence_rating": "High",
++        "supporting_text": "We used data collected in a case-control study conducted at the University of Alabama at Birmingham (UAB).",
++        "location": "Thukral2024.pdf.md: ABSTRACT / Design, Setting, and Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 23.54,
++          "sd": 5.49
++        },
++        "detail": "Patients (N = 108) in Table 1",
++        "confidence_rating": "High",
++        "supporting_text": "Age, mean(SD), y               | 23.54(5.49)",
++        "location": "Thukral2024.pdf.md: Table 1: Demographic and Clinical Characteristics"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 65,
++          "male_pct": 60.2,
++          "female_n": 43,
++          "female_pct": 39.8
++        },
++        "detail": "Percentages calculated from counts in Table 1",
++        "confidence_rating": "High",
++        "supporting_text": "Male                           | 65\nFemale                         | 43",
++        "location": "Thukral2024.pdf.md: Table 1: Demographic and Clinical Characteristics"
+       }
+     }
+   ]
+
+tokens used
+21,632
+Clinical cohort extraction completed for first-episode psychosis patients and written into the JSON with sourced demographics and dataset details. Updated `DE_v14_Thukral2024_by_codex_20260305133122826.json`.
+
+Next step if you want: 1) have me validate the JSON format against any project schema.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

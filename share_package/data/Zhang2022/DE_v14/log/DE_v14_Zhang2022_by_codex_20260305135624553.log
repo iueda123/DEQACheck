@@ -1,0 +1,493 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Zhang2022_by_codex_20260305135624553.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135624553/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc5a-b745-79e1-a364-707426157827
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Zhang2022_by_codex_20260305135624553.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Gathering guide content**
+
+I'm planning to read the guide file using ripgrep or cat to understand its structure and contents.
+2026-03-05T04:56:31.093663Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135624553 succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Zhang2022_by_codex_20260305135624553.json
+DE_v14_Zhang2022_by_codex_20260305135624553.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051356245532026-03-05T04:56:34.227529Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 15ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Inspecting study_1 for paper info**
+2026-03-05T04:56:36.822340Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135624553 succeeded in 32ms:
+Zhang2022.pdf.md
+Zhang2022_artifacts
+exec
+/bin/bash -lc 'rg -n "normative|clinical|patient|cohort|schiz|bipolar|depress|MDD|ADHD|autism|epilepsy|psychosis|disorder" study_1/Zhang2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051356245532026-03-05T04:56:39.880368Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+5:## Probing individual-level structural atrophy in frontal glioma patients
+13:Although every glioma patient varies in tumor size, location, histological grade and molecular biomarkers, non-tumoral morphological abnormalities are commonly detected by a statistical comparison among patient groups, missing the information of individual morphological alterations. In this study, we introduced an individual-level structural abnormality detection method for glioma patients and proposed several abnormality indexes to depict individual atrophy patterns. Forty-five patients with a glioma in the frontal lobe and fifty-one age-matched healthy controls participated in the study. Individual structural abnormality maps (SAM) were generated using patients' preoperative T1 images, by calculating the degree of deviation of voxel volume in each patient with the normative model built from healthy controls. Based on SAM, a series of individual abnormality indexes were computed, and their relationship with glioma characteristics was explored. The results demonstrated that glioma patients showed unique non-tumoral atrophy patterns with overlapping atrophy regions mainly located at hippocampus, parahippocampus, amygdala, insula, middle temporal gyrus and inferior temporal gyrus, which are closely related to the human cognitive functions. The abnormality indexes were associated with several molecular biomarkers including isocitrate dehydrogenase (IDH) mutation, 1p/19q co-deletion and telomerase reverse transcriptase (TERT) promoter mutation. Our study provides an effective way to access the individual-level non-tumoral structural abnormalities in glioma patients, which has the potential to significantly improve individualized precision medicine.
+30:Gliomas represent the majority of primary central nervous system (CNS) tumors. Comprehensive assessment of various diagnostic information of gliomas, including histological grades and molecular biomarkers, is important for its clinical management and prediction of outcome. However, it is infeasible to acquire these information before surgery; therefore, presurgical multi-modal imaging has been used as a key approach to assess the tumor status. Among many imaging modalities available for glioma patients, such as structural magnetic resonance imaging (sMRI), perfusion MRI, diffusion MRI (dMRI), functional MRI (fMRI) and positron emission tomography (PET), sMRI, e.g., T1 and T2 image, is the current standard of care scanning sequence, as it reveals the detailed morphological information about glioma with high spatial resolution and test-retest reliability. Commonly, limited information from sMRI, such as tumor location and size, is used for presurgical assessment. With the emergence of radiomics, the quantitative analysis of the
+36:Besides the tumor itself, glioma could induce alterations in the non-tumoral regions of the brain. A recent study reported that glioma in insular cortex resulted in a compensatory increase in the contralateral gray matter volume [1]. Another study confirmed that the gray matter volume of the contralateral temporal lobe was compensatively changed in patients with unilateral temporal lobe glioma and was related with patients' cognitive function [17]. Functional connectivity studies of the non-tumoral regions based on resting-state fMRI (rs-fMRI) indicated that alterations of functional connectivity and resting state networks in non-tumoral regions were related with patients' cognitive function [8, 31]. These studies imply that alterations in the non-tumoral regions may be important to the postsurgical prognosis of brain tumors. Structural and functional alterations in the non-tumoral regions are commonly studied by group-level statistical comparisons [1, 8, 17, 31], although every glioma patient may suffer unique brain alterations. Because detecting and quantifying individual-level alterations may further deepen our understanding of the influences of gliomas, it is necessary to probe the individual-level alterations of the nontumoral regions for glioma patients.
+38:A previous study proposed an individual-level abnormality detection method called W-score map on multi-modal MRI [25]. W-score map can be used to detect personalized alterations in a single patient based on the patient's deviation from a normative model derived from healthy controls in a voxel-wise manner. This method has been applied to discover individual-level gray matter changes in Alzheimer's disease [18, 41] and provided an insightful assessment of the neuroanatomical variability and heterogeneity among patients. Based on these studies, we developed an extended W-score method for studying both gray matter and white matter volumes in brain tumor patients and further proposed several novel whole brain structural abnormality indexes to depict the individualized structural atrophy patterns. In this study, we aim to investigate whether individual frontal glioma patients display unique structural alterations, whether common patterns of structural alterations exist among glioma patients, and whether the individual-level atrophy patterns are correlated with patient-specific tumor characteristics.
+48:Beijing, China (KY2020-048-01), and registered at Chinese  ClinicalTrial  Registry  (ChiCTR2000031805). All study procedures were in accordance with the Declaration of Helsinki. Written informed consent was obtained from all subjects. All patients were prospectively enrolled between May 2019 and July 2020, and all healthy controls were recruited from the local community and universities. An initial cohort of 52 glioma patients and 117 healthy controls participated this study. All gliomas were diagnosed according to the criteria of the World Health Organization (WHO) classification system [28, 29]. Inclusion criteria were adult (&gt; 18 years old) patients with a newly diagnosed glioma. Exclusion criteria were patients with previous cranial surgery, neuropsychiatric comorbidities and any contraindications to MR scanning such as metal implants. A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed) and 51  age-matched  healthy  controls  (24  men,  27  women, age = 42.6 ± 9.7 years, all right-handed) were included in the study. The demographic and clinical information of all subjects is listed in Table 1.
+50:Neuropsychological testing was conducted in patients prior to their first MRI scan using the Montreal Cognitive Assessment (MOCA) test. The MOCA score was obtained by summing up seven sub-domain scores, including visual-spatial abilities, name objects, attention, language, abstraction, delayed recall and orientation. The total score of MOCA is 30, and patients scoring below 26 were identified as showing cognitive impairment. Age-adjusted Charlson Comorbidity Index (CCI) was collected to ascertain the comorbidity level for each patient. Histological confirmation of the diagnosis was obtained by surgical resection, and there were 33/10/2 glioma patients with grade II/III/IV. Molecular markers, including 1p/19q co-deletion, isocitrate dehydrogenase (IDH)1/2 mutation, telomerase reverse transcriptase (TERT) promoter mutation and   O 6 -methylguanine-DNA methyltransferase (MGMT) promotor methylation, were all collected. Chromosomes 1 and 19 were analyzed by the fluorescence in situ hybridization method, and the IDH1/2 mutation and TERT promoter mutation were detected by sequence analysis, both following a previously described protocol [39]. MGMT promoter methylation was assessed by methylation-specific polymerase chain reaction (PCR) as described previously by our team [47]. Patients were followed with routine clinical visits after initiation of treatment.
+54:All subjects were scanned with a Philips Ingenia 3.0 T MRI scanner at Beijing Tiantan Hospital. For both glioma patients and healthy controls, T1 sequence was collected with the following parameters: TR: 6.5 ms, TE: 3.0 ms, flip angle: 8°, voxel size: 1  ×  1  ×  1   mm 3 , image dimension: 256 × 256 × 196.
+56:Table 1 Demographic and clinical information of all subjects
+58:|                                            | Glioma patients   | Healthy controls   |
+75:For patients, T2-FLAIR (fluid attenuated inversion recovery) was scanned with the following parameters: TR: 4.8 s, TE: 0.34 s, flip angle: 90°, voxel size: 0.625  ×  0.625  ×  0.55   mm 3 , image dimension: 400 × 400 × 300.
+79:The tumor region of every patient was extracted from T2-FLAIR images using the ITK-SNAP software (www. itksn  ap.  org,version 3.8.0) [46]. First, an automatic segmentation procedure was performed on each patient's T2-FLAIR image to segment the tumor region, followed by a manual correction of any errors by an experienced neurosurgeon (Zhang, G.). Notably, the tumor segmentation region contained the peri-tumoral edema in order to minimize possible influences of edema on non-tumoral structural alterations. Using the SPM12 software (https://  www.  fil.  ion.  ucl.  ac.  uk/ spm/, Wellcome Trust Center for Neuroimaging, University College London, UK), individual patient's T2-FLAIR image was co-registered to the patient's T1 image using a rigid registration procedure, and the resulting transformation matrix was applied to the segmented tumor to obtain the extracted tumor region in T1 image space. To obtain an overall distribution of the tumors, the segmented tumors were normalized into Montreal Neurological Institute (MNI) standard space (Fig. 1).
+87:Our idea of generating an individual structural abnormality map (SAM) is to quantify the deviation of a patient's brain volume measurement from a normative brain volume model using a W score. Figure 2 illustrates the flowchart of SAM generation. First, a normative brain volume model was constructed using the healthy controls' data. General linear model (GLM) was adopted to discover the relationship between brain volume and variables including age, sex and total intracranial volume (TIV) using the following equation:
+91:where β 1 , β 2 , β 3 are weights of the regressors age, sex and TIV, respectively. Using this approach, the normative GM and WM volume models were separately constructed. Then, for each glioma patient, an individual SAM was generated by calculating a W score [25] for each voxel using the following equation:
+95:Here, the W score essentially reflects the degree of deviation of each patient from the healthy normal controls, and
+99:Fig. 1 Overall tumor distribution in all frontal glioma patients. The color bar indicates the number of patients who display tumor in that location. L: left; R: right
+103:the larger the W score in one voxel, the higher the atrophy probability in that location. A threshold of |W|&gt; 6 was selected to generate the SAM for each patient to avoid the possible false positives in the whole brain SAM. Additionally, individual SAM was masked with corresponding nontumoral regions, which was generated by the subtraction of individual tumor ROI from GM/WM prior probability template (provided in SPM, thresholded at 0.2). Based on the whole brain SAM, we defined 8 structural abnormality indexes (4 indexes for GM and 4 for WM) to reflect the characteristics of individual patients' structural alterations: ipsilateral atrophy ratio, contralateral atrophy ratio, non-cancer atrophy ratio and relative atrophy ratio (definitions of these indexes are listed in Table 2).
+115:All  subjects'  demographic  information  is  reported  in Table 1. A summary of the patients' clinical information, including WHO histological grade, IDH1, TERT mutation, 1p/19q co-deletion, MGMT promoter methylation and MOCA score, is reported in Table 1 as well. Specially, the MOCA score was negatively correlated with WHO grading (r  =  -0.356, p =  0.0096) in all patients.
+117:## Every patient displayed unique atrophy pattern
+119:The results showed that every patient displayed unique atrophy pattern, and the tumor-induced structural atrophies were located not only at regions close to tumors but also regions far away from tumors. Figure 3 illustrates three example patients' results, showing T1 images (with varying tumor size and histological grades) and corresponding individualized GM/WM SAMs that were mapped back to the patients' T1 space using reverse normalization matrix.
+
+thinking
+**Extracting clinical cohort details**
+
+I'm identifying the clinical cohort as frontal glioma patients with a normative model based on healthy controls. Next, I'll extract exact demographics and confirm dataset origin and normative model application from the table.
+2026-03-05T04:56:44.422829Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '44,90p' study_1/Zhang2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135624553 succeeded in 25ms:
+This study was approved by the Institutional Review Board of Beijing Tiantan Hospital, Capital Medical University,
+
+![Image](./Zhang2022_artifacts/image_000002_691faa8fa051e164f8ab4e6b81054ae0372beb45c55929007ad1716fb425b282.png)
+
+Beijing, China (KY2020-048-01), and registered at Chinese  ClinicalTrial  Registry  (ChiCTR2000031805). All study procedures were in accordance with the Declaration of Helsinki. Written informed consent was obtained from all subjects. All patients were prospectively enrolled between May 2019 and July 2020, and all healthy controls were recruited from the local community and universities. An initial cohort of 52 glioma patients and 117 healthy controls participated this study. All gliomas were diagnosed according to the criteria of the World Health Organization (WHO) classification system [28, 29]. Inclusion criteria were adult (&gt; 18 years old) patients with a newly diagnosed glioma. Exclusion criteria were patients with previous cranial surgery, neuropsychiatric comorbidities and any contraindications to MR scanning such as metal implants. A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed) and 51  age-matched  healthy  controls  (24  men,  27  women, age = 42.6 ± 9.7 years, all right-handed) were included in the study. The demographic and clinical information of all subjects is listed in Table 1.
+
+Neuropsychological testing was conducted in patients prior to their first MRI scan using the Montreal Cognitive Assessment (MOCA) test. The MOCA score was obtained by summing up seven sub-domain scores, including visual-spatial abilities, name objects, attention, language, abstraction, delayed recall and orientation. The total score of MOCA is 30, and patients scoring below 26 were identified as showing cognitive impairment. Age-adjusted Charlson Comorbidity Index (CCI) was collected to ascertain the comorbidity level for each patient. Histological confirmation of the diagnosis was obtained by surgical resection, and there were 33/10/2 glioma patients with grade II/III/IV. Molecular markers, including 1p/19q co-deletion, isocitrate dehydrogenase (IDH)1/2 mutation, telomerase reverse transcriptase (TERT) promoter mutation and   O 6 -methylguanine-DNA methyltransferase (MGMT) promotor methylation, were all collected. Chromosomes 1 and 19 were analyzed by the fluorescence in situ hybridization method, and the IDH1/2 mutation and TERT promoter mutation were detected by sequence analysis, both following a previously described protocol [39]. MGMT promoter methylation was assessed by methylation-specific polymerase chain reaction (PCR) as described previously by our team [47]. Patients were followed with routine clinical visits after initiation of treatment.
+
+## Structural MRI acquisition
+
+All subjects were scanned with a Philips Ingenia 3.0 T MRI scanner at Beijing Tiantan Hospital. For both glioma patients and healthy controls, T1 sequence was collected with the following parameters: TR: 6.5 ms, TE: 3.0 ms, flip angle: 8°, voxel size: 1  ×  1  ×  1   mm 3 , image dimension: 256 × 256 × 196.
+
+Table 1 Demographic and clinical information of all subjects
+
+|                                            | Glioma patients   | Healthy controls   |
+|--------------------------------------------|-------------------|--------------------|
+| Number                                     | 45                | 51                 |
+| Gender (M/F)                               | 29/16             | 24/27              |
+| Age                                        | 43.2 ± 9.7        | 42.6 ± 9.7         |
+| TIV                                        | 1475.1 ± 114.0    | 1425.9 ± 144.9     |
+
+thinking
+**Preparing JSON template**
+
+I'm confirming the normative model is built from healthy controls and generates SAM for glioma patients, then planning to fill the JSON file by opening an existing template for reference.
+2026-03-05T04:56:47.921412Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Zhang2022_by_codex_20260305135624553.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135624553 succeeded in 26ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Extracting cohort and demographics data**
+
+I'm preparing structured JSON data for the frontal glioma cohort, including mean age with SD and "NR" for missing min/max, sex percentages computed from counts, and listing the dataset origin as a single-site cohort at Beijing Tiantan Hospital with direct supporting quotes.
+thinking
+**Standardizing disorder category and location format**
+
+I'm confirming the disorder category as "Frontal glioma" exactly and deciding to format source locations as "Zhang2022.pdf.md: Participants / cohort description" since line numbers aren't available.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Zhang2022"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "Frontal glioma",
++        "detail": "Clinical cohort of frontal glioma patients",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed) and 51  age-matched  healthy  controls  (24  men,  27  women, age = 42.6 ± 9.7 years, all right-handed) were included in the study.\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site cohort recruited and scanned at Beijing Tiantan Hospital",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"All subjects were scanned with a Philips Ingenia 3.0 T MRI scanner at Beijing Tiantan Hospital.\"",
++        "location": "Zhang2022.pdf.md: Structural MRI acquisition / site"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 43.2,
++          "sd": 9.7
++        },
++        "detail": "Glioma patients; mean and SD reported",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed)\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 29,
++          "male_pct": 64.4,
++          "female_n": 16,
++          "female_pct": 35.6
++        },
++        "detail": "Percentages calculated from counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed)\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       }
+2026-03-05T04:57:11.185765Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 7ms:
+Success. Updated the following files:
+M DE_v14_Zhang2022_by_codex_20260305135624553.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json b/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..6877e3f9777655234974d46633bc0caf4933b7cf
+--- a/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Zhang2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "Frontal glioma",
++        "detail": "Clinical cohort of frontal glioma patients",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed) and 51  age-matched  healthy  controls  (24  men,  27  women, age = 42.6 ± 9.7 years, all right-handed) were included in the study.\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site cohort recruited and scanned at Beijing Tiantan Hospital",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"All subjects were scanned with a Philips Ingenia 3.0 T MRI scanner at Beijing Tiantan Hospital.\"",
++        "location": "Zhang2022.pdf.md: Structural MRI acquisition / site"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 43.2,
++          "sd": 9.7
++        },
++        "detail": "Glioma patients; mean and SD reported",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed)\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 29,
++          "male_pct": 64.4,
++          "female_n": 16,
++          "female_pct": 35.6
++        },
++        "detail": "Percentages calculated from counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed)\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json b/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..6877e3f9777655234974d46633bc0caf4933b7cf
+--- a/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Zhang2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "Frontal glioma",
++        "detail": "Clinical cohort of frontal glioma patients",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed) and 51  age-matched  healthy  controls  (24  men,  27  women, age = 42.6 ± 9.7 years, all right-handed) were included in the study.\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site cohort recruited and scanned at Beijing Tiantan Hospital",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"All subjects were scanned with a Philips Ingenia 3.0 T MRI scanner at Beijing Tiantan Hospital.\"",
++        "location": "Zhang2022.pdf.md: Structural MRI acquisition / site"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 43.2,
++          "sd": 9.7
++        },
++        "detail": "Glioma patients; mean and SD reported",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed)\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 29,
++          "male_pct": 64.4,
++          "female_n": 16,
++          "female_pct": 35.6
++        },
++        "detail": "Percentages calculated from counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed)\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming JSON validity**
+
+I verified the JSON is valid and now I'll provide a response with a summary and outline the next steps.
+codex
+Filled the extraction JSON with the frontal glioma clinical cohort details, including demographics and single-site origin, based on the cohort description in `study_1/Zhang2022.pdf.md`.
+
+Details:
+- Wrote `paper_id` as `Zhang2022`.
+- Added disorder entry for Brain tumors → Frontal glioma with age/sex and site info.
+- Computed sex percentages from counts.
+
+Updated file: `DE_v14_Zhang2022_by_codex_20260305135624553.json`
+
+Next steps:
+1. If you want, I can double-check line-specific locations or adjust confidence ratings.
+2026-03-05T04:57:15.475362Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json b/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..6877e3f9777655234974d46633bc0caf4933b7cf
+--- a/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305135624553/./DE_v14_Zhang2022_by_codex_20260305135624553.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Zhang2022"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "Frontal glioma",
++        "detail": "Clinical cohort of frontal glioma patients",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed) and 51  age-matched  healthy  controls  (24  men,  27  women, age = 42.6 ± 9.7 years, all right-handed) were included in the study.\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site cohort recruited and scanned at Beijing Tiantan Hospital",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"All subjects were scanned with a Philips Ingenia 3.0 T MRI scanner at Beijing Tiantan Hospital.\"",
++        "location": "Zhang2022.pdf.md: Structural MRI acquisition / site"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 43.2,
++          "sd": 9.7
++        },
++        "detail": "Glioma patients; mean and SD reported",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed)\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 29,
++          "male_pct": 64.4,
++          "female_n": 16,
++          "female_pct": 35.6
++        },
++        "detail": "Percentages calculated from counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"A final cohort of 45 patients (29 men, 16 women, age (mean ± standard deviation (SD)) = 43.2 ± 9.7 years, all right-handed)\"",
++        "location": "Zhang2022.pdf.md: Participants / cohort description"
+       }
+     }
+   ]
+
+tokens used
+19,303
+Filled the extraction JSON with the frontal glioma clinical cohort details, including demographics and single-site origin, based on the cohort description in `study_1/Zhang2022.pdf.md`.
+
+Details:
+- Wrote `paper_id` as `Zhang2022`.
+- Added disorder entry for Brain tumors → Frontal glioma with age/sex and site info.
+- Computed sex percentages from counts.
+
+Updated file: `DE_v14_Zhang2022_by_codex_20260305135624553.json`
+
+Next steps:
+1. If you want, I can double-check line-specific locations or adjust confidence ratings.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

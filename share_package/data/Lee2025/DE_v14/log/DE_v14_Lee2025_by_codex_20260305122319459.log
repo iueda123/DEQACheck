@@ -1,0 +1,580 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Lee2025_by_codex_20260305122319459.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc05-7e95-7590-896a-1b191763c7db
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Lee2025_by_codex_20260305122319459.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning to read the guide**
+2026-03-05T03:23:24.894869Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Lee2025_by_codex_20260305122319459.json
+DE_v14_Lee2025_by_codex_20260305122319459.log
+study_1
+2026-03-05T03:23:27.244461Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459 succeeded in 25ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating paper info in study list**
+2026-03-05T03:23:30.243271Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459 succeeded in 30ms:
+13229_2025_641_MOESM1_ESM.docx.md
+13229_2025_641_MOESM1_ESM_artifacts
+Lee2025.pdf.md
+Lee2025_artifacts
+
+thinking
+**Locating Lee2025 source**
+exec
+/bin/bash -lc 'rg -n "normative|clinical|patient|cohort|disorder|schizo|bipolar|depress|autism|ADHD|MCI|Alzheimer" Lee2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051223194592026-03-05T03:23:36.964808Z ERROR codex_core::codex: needs_follow_up: true
+ exited 2 in 29ms:
+rg: Lee2025.pdf.md: IO error for operation on Lee2025.pdf.md: No such file or directory (os error 2)
+
+thinking
+**Setting working directory**
+2026-03-05T03:23:41.294686Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|clinical|patient|cohort|disorder|schizo|bipolar|depress|autism|ADHD|MCI|Alzheimer" study_1/Lee2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459 succeeded in 33ms:
+3:## Atypical maturation of the functional connectome hierarchy in autism
+13:Background Autism spectrum disorder (ASD) is marked by disruptions in low-level sensory processing and higherorder sociocognitive functions, suggesting a complex interplay between different brain regions across the cortical hierarchy. However, the developmental trajectory of this hierarchical organization in ASD remains underexplored. Herein, we investigated the maturational abnormalities in the cortical hierarchy among individuals with ASD.
+15:Methods Resting-state functional magnetic resonance imaging data from three large-scale datasets were analyzed: Autism Brain Imaging Data Exchange I and II and Lifespan Human Connectome Project Development (aged 5-22 years). The principal functional connectivity gradient representing cortical hierarchy was estimated using diffusion map embedding. By applying normative modeling with the generalized additive model for location, scale, and shape (GAMLSS), we captured the nonlinear trajectories of the developing functional gradient, as well as the individual-level deviations in ASD from typical development based on centile scores measured as deviations from the normative curves. A whole-brain summary metric, the functional hierarchy score, was derived to measure the extent of abnormal maturation in individuals with ASD. Finally, through a series of mediation analyses, we examined the potential role of network-level connectomic disruptions between the diagnoses and deviations in the cortical hierarchy.
+31:Conclusions These findings highlight the importance of understanding the developmental trajectories of cortical organization in ASD, collectively suggesting that early interventions aimed at promoting the normative development of higher-order networks may be critical for improving outcomes in individuals with ASD.
+33:Keywords Autism spectrum disorder, Cortical hierarchy, Normative modeling, Integration and segregation
+37:Autism spectrum disorder (ASD) is a neurodevelopmental condition characterized by a wide range of behavioral phenotypes,  including  persistent  deficits  in  social  communication  and  interaction,  repetitive  behaviors,  and restricted  interests  [1].  Over  the  past  several  decades, convergent evidence of impairment in social information processing  has  indicated  that  ASD  is  a  socio-cognitive condition  [2].  Recent  studies  have  demonstrated  that sensory processing may be central to understanding the neurobiology of ASD [3]. As such, a remaining challenge in ASD research is to identify the common neurobiological basis underlying its system-wide effects.
+39:A range of approaches has been employed to comprehensively understand the complex behavioral phenotypes of  ASD  [4-6].  Recently,  hierarchy-based  measures  have gained  significant  traction  because  of  their  promising findings and applicability [7, 8]. Central to this approach is the idea that the brain is systematically organized in a hierarchical  manner,  linking  low-level  sensory  processing to higher-order cognitive functions [9]. Prior studies have consistently supported the idea that the brain's hierarchical structure facilitates the transmission of sensory inputs  across  multiple  cortical  layers  into  transmodal regions,  such  as  the  default  mode  network  (DMN)  and frontoparietal  network  [10,  11].  Given  that  ASD  manifests  as  a  heterogeneous combination of perceptual and social symptoms, this hierarchy-based approach offers a comprehensive framework for unraveling its complexity. Notably, prior conceptualizations of ASD as a condition of altered long-range connectivity linking sensory-driven posterior regions to more integrative anterior ones have hinted  at  underlying  hierarchical  disorganization  [12]. Additionally, other work has revealed that abnormal sensory-transmodal integration patterns correlate with clinical  severity  in  ASD  [13].  Recent  studies  using  manifold learning  in  resting-state  functional  MRI  (rs-fMRI)  have further  demonstrated  that  a  principal  eigenvector  (i.e., gradient)  of  functional  connectivity  spans  a  continuous brain axis, with sensory and motor networks at one end and the DMN at the other end [9]. This principal gradient closely aligns with the key characteristics of ASD, including atypical social and communication abilities, repetitive behaviors and interests, and altered sensory and perceptual processing [7], making it a critical feature for understanding the underlying connectopathy of ASD. Indeed, a previous case-control study reported the global suppression of the connectome gradient in individuals with ASD, showing a narrower distribution of gradient values compared to controls, leading to a disturbed cortical hierarchy [7].
+43:Trajectory  analysis,  which  quantifies  changes  in  brain structure or function with respect to age, is essential for understanding  developmental  phenomena  in  both  typically developing (TD) brains, and those with psychiatric disorders [17, 18]. Given that typical brain development has been well characterized, trajectory analysis explains pathological disturbances as deviations from the typical developmental path. Specifically,  deviant  developmental trajectories  are  characterized  by  two  distinct  features: the  timing  and  shape  of  the  trajectory  [18].  For  example,  one  longitudinal  neuroimaging  study  demonstrated the presence of early brain overgrowth (i.e., altered timing) in young children with a high familial risk of autism [19]. Alterations in the shape of a trajectory (e.g., halting, failure to mature, or ectopic development) may indicate more  severe  developmental  disturbances  [20].  While
+45:longitudinal  data  are  considered  the  gold  standard  for mapping developmental trajectories, challenges, such as data  collection  difficulties  and  attrition,  have  led  to  the rise of a complementary approach: normative modeling. This method, which uses large-scale cross-sectional datasets across a wide age range, offers a promising tool for identifying  individual-level  abnormalities  by  measuring centile deviations from normative curves [21, 22]. These centile  deviations  represent  the  relative  distance  from the  median  of  the  age-specific  distributions,  with  more extreme  centile  scores  indicating  a  greater  deviation from the norm. Notably, one recent study using normative  modeling  to  whole-brain  cortical  thickness  identified  highly  individualized  patterns  of  abnormalities  that would have been statistically overlooked using traditional case-control approaches [23].
+47:In this study, we aimed to evaluate whether a distinct developmental  trajectory  reflecting  an  atypical  cortical hierarchy  exists  in  ASD  compared  with  the  TD  group, primarily hypothesizing that the principal gradient would follow a maturational process. To investigate this, we first applied a normative modeling approach to the principal gradient of functional connectivity to trace the development of cortical hierarchy in TD individuals. In particular,  a  generalized additive model for location, scale, and shape (GAMLSS) [24] was used to establish a stable and flexible  model  capable  of  capturing  nonlinear  trajectories.  Subsequently,  we  explored  whether  a  summary metric,  the  hierarchy  score,  based  on  the  trajectory  of the whole-brain hierarchy in ASD relative to the normative model, would show a distinct pattern compared with the TD group. Finally, we performed mediation analyses to  examine  whether  the  degree  of  network  integration/ segregation mediated the relationship between diagnosis and  hierarchy  scores  to  gain  connectome-level  insights into  how  topological  characteristics  influence  atypical developmental trajectories in ASD. Because our analyses are based on cross-sectional data, we use terms like 'maturational abnormalities' and 'developmental trajectories' to describe observed age-related associations at the population level, rather than definitive longitudinal changes in individual participants.
+57:To construct a normative developmental trajectory, we used an additional  cohort  of  652  neurologically  healthy children  and  adolescents  from  the  Lifespan  Human Connectome Project Development (HCP-D) dataset [27].  These  participants  (aged  5-21  years  [14.44 ± 4.06, mean ± standard deviation], 301 males and 251 females) represent TD individuals with diverse ethnic, racial, and socioeconomic backgrounds. The HCP-D data collection was  approved  by  the  local  Institutional  Review  Board. All  participants  aged  18  and  above  provided  written informed consent to participate, while for children under 18 years of age, a parent or legal guardian provided written informed consent to participate.
+77:Normative models were constructed using the GAMLSS model  [24,  39],  which  allowed  us  to  capture  nonlinear age-related patterns of cortical hierarchy in TD individuals and identify deviations in ASD relative to this normative  pattern.  This  approach  has  been  widely  applied across  various  fields  to  approximate  developmental  trajectories from cross-sectional data [22, 40, 41]. Fitting the GAMLSS model involves  a  four-parameter  distribution modeling µ, σ, ν, and τ; corresponding to the mean, variance, skewness, and kurtosis of the feature distribution, respectively.  We  used  the  four-parameter  sinh-arcsinh (SHASH) distribution  [42],  following  the  recommendations  for  the  normative  modeling  of  neuroimaging  data [43]. Specifically, region-wise normative modeling of gradient  values  based  on  age  and  the  interaction  between age and sex was performed as follows:
+81:where f ( x ) is  a  nonlinear  function  (i.e.,  P-spline)  of x . GAMLSS model fitting was implemented using the gamlss R  package  [39].  A  normative  model  for  the  gradient  values  was  constructed  using  the  HCP-D  dataset  and  then transferred to the TD group of the ABIDE dataset. For the ABIDE dataset, the intercepts (i.e., β µ , new , β σ , new )  were re-estimated  while  retaining  the  nonlinear  effect  of  age fixed [43]. This procedure adjusts the intercept and standard deviation of the model to better correspond to the data from a new dataset while preserving the estimated nonlinear agerelated terms. Significant age effects were determined from the β µ , age ,  while  multiple  comparisons  across  the  brain regions were corrected using the false discovery rate (FDR) procedure [44].
+83:To quantify the extent to which an individual deviates from normative trajectories, we calculated centile scores, which serve as age- and sex-specific indicators of deviations in gradient values across developmental stages. The centile score was determined by comparing each individual's brain features (i.e., gradient value) with those from the normative distribution. This difference determines an individual's  position  within  the  normative  distribution, with higher or lower centile scores indicating the degree
+85:of  atypicality  relative  to  the  reference  group.  Extreme scores indicate a greater deviation from normal. We utilized  ABIDE-I  data  for  the  primary  normative  modeling analyses, and the reproducibility was assessed using ABIDE-II data,  following  the  same  preprocessing  steps, modeling framework, and exclusion criteria.
+89:We devised  a  functional  hierarchy  score  as  a  summary metric  (i.e.,  a  scalar  value  for  the  whole  brain),  representing  the  relative  closeness  of  individual  data  points with respect to the normative cortical functional hierarchy. We defined this as the cosine similarity between an individual's gradient ( G 1 ) and the normative gradient for their  age  ( NormG 1 age ),  as  estimated  by  the  GAMLSS model.
+93:This metric assesses how closely the individual gradient aligns with the normative functional hierarchy, reflecting the  proximity  of  the  functional  hierarchy  based  on  the participants' age and sex. The higher the score, the closer the  individual's  brain  matches  the  normative  functional hierarchical pattern. To construct developmental trajectories  of  hierarchy  scores  for  the  ASD  and  TD  groups, we further modeled the age-related changes in hierarchy scores for each group using the GAMLSS from Eq. 1.
+101:where M represents the set of network modules, k i ( m ) is the degree of node i with respect to all nodes in module m , and k i is the total degree of node i with respect to all the other nodes in the entire network. PC was calculated from a binarized functional connectivity matrix that  retained  only  the  top  10%  of  positive  connections using the Yeo-7 functional network as the module [46]. To  control  for  age,  sex,  and  diagnosis  labels,  we  calculated the PC centile scores based on the normative models specific to each group using the GAMLSS from Eq. 1.
+113:We replicated our findings using the independent ABIDE-II dataset to verify the reproducibility.  We repeated the entire analysis by substituting ABIDE-I with ABIDE-II. Additionally, we correlated social responsiveness scale (SRS) scores with the hierarchy scores [49] to assess the clinical relevance of the scores (Supplementary Tables  1  and  2).  For  the  correlation  analysis,  we  used  a subset of the data (ABIDE-I: n =  240,  ABIDE-II: n =  538) to  capture  the  spectrum  of  autistic  traits  across  both ASD  and  TD  populations.  Note  that  the  SRS  subdomain scores were only available for the ABIDE-II dataset. Lastly, to assess the impact of uneven age distribution on developmental trajectory shapes in the ABIDE-II replication  dataset  (Supplementary  Fig.  2),  we  divided  the  age range  into  five  equal  intervals  and  uniformly  sampled participants  from  each  interval.  Since  this  adjustment resulted in some intervals lacking female participants, we simplified the GAMLSS model by removing the interaction term ( age ∗ sex ). We repeated the resampling procedure 100 times and averaged the resulting trajectories. This  approach  enabled  us  to  assess  the  stability  of  the trajectory shapes under a more balanced age distribution (Supplementary Fig. 3A).
+135:## Aberrant development of functional hierarchy in autism
+
+thinking
+**Searching for ASD clinical cohort details**
+
+I'm checking the Methods section and supplements for participant demographics like age and sex in the ASD cohorts from ABIDE I/II and HCP-D normative models.
+exec
+/bin/bash -lc 'rg -n "Participants|Subjects|sample|demographic|ABIDE|ASD|TD" study_1/Lee2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051223194592026-03-05T03:23:45.654415Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+13:Background Autism spectrum disorder (ASD) is marked by disruptions in low-level sensory processing and higherorder sociocognitive functions, suggesting a complex interplay between different brain regions across the cortical hierarchy. However, the developmental trajectory of this hierarchical organization in ASD remains underexplored. Herein, we investigated the maturational abnormalities in the cortical hierarchy among individuals with ASD.
+15:Methods Resting-state functional magnetic resonance imaging data from three large-scale datasets were analyzed: Autism Brain Imaging Data Exchange I and II and Lifespan Human Connectome Project Development (aged 5-22 years). The principal functional connectivity gradient representing cortical hierarchy was estimated using diffusion map embedding. By applying normative modeling with the generalized additive model for location, scale, and shape (GAMLSS), we captured the nonlinear trajectories of the developing functional gradient, as well as the individual-level deviations in ASD from typical development based on centile scores measured as deviations from the normative curves. A whole-brain summary metric, the functional hierarchy score, was derived to measure the extent of abnormal maturation in individuals with ASD. Finally, through a series of mediation analyses, we examined the potential role of network-level connectomic disruptions between the diagnoses and deviations in the cortical hierarchy.
+17:Results The maturation of cortical hierarchy in individuals with ASD followed a non-linear trajectory, showing delayed maturation during childhood compared to that of typically developing individuals, followed by an accelerated 'catch-up' phase during adolescence and a subsequent decline in young adulthood. The nature of these deviations varied across networks, with sensory and attention networks displaying the most pronounced abnormalities in childhood, while higher-order networks, particularly the default mode network (DMN), remaining impaired from childhood to adolescence. Mediation analyses revealed that the persistent reduction in DMN segregation throughout development was a key contributor to the atypical development of cortical hierarchy in ASD.
+19:Limitations The uneven distribution of samples across age groups, particularly in the later stages of development, limited our ability to fully capture developmental trajectories among older individuals.
+31:Conclusions These findings highlight the importance of understanding the developmental trajectories of cortical organization in ASD, collectively suggesting that early interventions aimed at promoting the normative development of higher-order networks may be critical for improving outcomes in individuals with ASD.
+37:Autism spectrum disorder (ASD) is a neurodevelopmental condition characterized by a wide range of behavioral phenotypes,  including  persistent  deficits  in  social  communication  and  interaction,  repetitive  behaviors,  and restricted  interests  [1].  Over  the  past  several  decades, convergent evidence of impairment in social information processing  has  indicated  that  ASD  is  a  socio-cognitive condition  [2].  Recent  studies  have  demonstrated  that sensory processing may be central to understanding the neurobiology of ASD [3]. As such, a remaining challenge in ASD research is to identify the common neurobiological basis underlying its system-wide effects.
+39:A range of approaches has been employed to comprehensively understand the complex behavioral phenotypes of  ASD  [4-6].  Recently,  hierarchy-based  measures  have gained  significant  traction  because  of  their  promising findings and applicability [7, 8]. Central to this approach is the idea that the brain is systematically organized in a hierarchical  manner,  linking  low-level  sensory  processing to higher-order cognitive functions [9]. Prior studies have consistently supported the idea that the brain's hierarchical structure facilitates the transmission of sensory inputs  across  multiple  cortical  layers  into  transmodal regions,  such  as  the  default  mode  network  (DMN)  and frontoparietal  network  [10,  11].  Given  that  ASD  manifests  as  a  heterogeneous combination of perceptual and social symptoms, this hierarchy-based approach offers a comprehensive framework for unraveling its complexity. Notably, prior conceptualizations of ASD as a condition of altered long-range connectivity linking sensory-driven posterior regions to more integrative anterior ones have hinted  at  underlying  hierarchical  disorganization  [12]. Additionally, other work has revealed that abnormal sensory-transmodal integration patterns correlate with clinical  severity  in  ASD  [13].  Recent  studies  using  manifold learning  in  resting-state  functional  MRI  (rs-fMRI)  have further  demonstrated  that  a  principal  eigenvector  (i.e., gradient)  of  functional  connectivity  spans  a  continuous brain axis, with sensory and motor networks at one end and the DMN at the other end [9]. This principal gradient closely aligns with the key characteristics of ASD, including atypical social and communication abilities, repetitive behaviors and interests, and altered sensory and perceptual processing [7], making it a critical feature for understanding the underlying connectopathy of ASD. Indeed, a previous case-control study reported the global suppression of the connectome gradient in individuals with ASD, showing a narrower distribution of gradient values compared to controls, leading to a disturbed cortical hierarchy [7].
+41:It has been well established that the whole-brain organization of the functional connectome is not static, but instead  undergoes  significant  changes  across  the  lifespan, particularly during childhood and adolescence [14, 15].  A  previous  study  using  longitudinal  data  showed that the maturation of the principal connectome gradient from childhood to adolescence entails  both  segregation and  integration  across  various  networks,  and  is  associated  with  the  expression  of  genes  involved  in  calcium ion-regulated  exocytosis  and  chemical  synaptic  transmission  [16].  Despite  relatively  well-established  developmental effects on the cortical gradient, the trajectory of  atypical  functional  connectome  organization  in  ASD remains  understudied.  Most  existing  studies  have  considered  demographic  factors  (e.g.,  age  and  sex)  as  confounding variables during statistical analyses, neglecting the  opportunity to directly assess developmental effects in the autistic brain. To fully capture the developmental dynamics  underlying  atypical  functional  connectome organization in ASD, it is crucial to move beyond static snapshots and adopt approaches that account for changes over  developmental  time.  Trajectory-based  frameworks offer a powerful means of exploring how deviations from typical  developmental  patterns  unfold,  providing  critical  insights  into  the  hierarchical  disruptions  observed in  ASD.  Thus,  our  work  focused  on  characterizing  agedependent changes in the principal connectome gradient in individuals with ASD, using age as the main variable of interest.
+43:Trajectory  analysis,  which  quantifies  changes  in  brain structure or function with respect to age, is essential for understanding  developmental  phenomena  in  both  typically developing (TD) brains, and those with psychiatric disorders [17, 18]. Given that typical brain development has been well characterized, trajectory analysis explains pathological disturbances as deviations from the typical developmental path. Specifically,  deviant  developmental trajectories  are  characterized  by  two  distinct  features: the  timing  and  shape  of  the  trajectory  [18].  For  example,  one  longitudinal  neuroimaging  study  demonstrated the presence of early brain overgrowth (i.e., altered timing) in young children with a high familial risk of autism [19]. Alterations in the shape of a trajectory (e.g., halting, failure to mature, or ectopic development) may indicate more  severe  developmental  disturbances  [20].  While
+47:In this study, we aimed to evaluate whether a distinct developmental  trajectory  reflecting  an  atypical  cortical hierarchy  exists  in  ASD  compared  with  the  TD  group, primarily hypothesizing that the principal gradient would follow a maturational process. To investigate this, we first applied a normative modeling approach to the principal gradient of functional connectivity to trace the development of cortical hierarchy in TD individuals. In particular,  a  generalized additive model for location, scale, and shape (GAMLSS) [24] was used to establish a stable and flexible  model  capable  of  capturing  nonlinear  trajectories.  Subsequently,  we  explored  whether  a  summary metric,  the  hierarchy  score,  based  on  the  trajectory  of the whole-brain hierarchy in ASD relative to the normative model, would show a distinct pattern compared with the TD group. Finally, we performed mediation analyses to  examine  whether  the  degree  of  network  integration/ segregation mediated the relationship between diagnosis and  hierarchy  scores  to  gain  connectome-level  insights into  how  topological  characteristics  influence  atypical developmental trajectories in ASD. Because our analyses are based on cross-sectional data, we use terms like 'maturational abnormalities' and 'developmental trajectories' to describe observed age-related associations at the population level, rather than definitive longitudinal changes in individual participants.
+53:Two  large-scale  independent  datasets  from  the  Autism Brain  Imaging  Data  Exchange  (ABIDE),  termed  the ABIDE  I  and  II    (  h  t  t  p  :  /  /  f  c  o n  \_  1 0  0  0 . p  r o  j e  c t  s . n  i t  r c  . o  r g  / i  n d  i  /  a  b  i  d  e  )  [25,  26],  were  analyzed.  The  ABIDE  database provides a large number of samples obtained from multiple  centers.  Participants  with  large  head  motion  in the rs-fMRI time series (≥ 0.5 mm mean framewise displacement)  and  faulty  cortical  surface  segmentation  in T1-weighted (T1w) MRI were excluded (Supplementary
+55:Fig.  1).  ABIDE  data  collection  was  performed  according  to  local  Institutional  Review  Board  guidelines.  All ABIDE  datasets  were  anonymized,  and  no  protected health  information  was  included,  following  the  Health Insurance  Portability  and  Accountability  Act  guidelines and the 1000 Functional Connectomes Project or International Neuroimaging Data-sharing Initiative protocols. The site-specific details of demographic information are described in Supplementary Tables 1-3.
+57:To construct a normative developmental trajectory, we used an additional  cohort  of  652  neurologically  healthy children  and  adolescents  from  the  Lifespan  Human Connectome Project Development (HCP-D) dataset [27].  These  participants  (aged  5-21  years  [14.44 ± 4.06, mean ± standard deviation], 301 males and 251 females) represent TD individuals with diverse ethnic, racial, and socioeconomic backgrounds. The HCP-D data collection was  approved  by  the  local  Institutional  Review  Board. All  participants  aged  18  and  above  provided  written informed consent to participate, while for children under 18 years of age, a parent or legal guardian provided written informed consent to participate.
+61:Both  T1w  structural  MRI  and  rs-fMRI  were  available from all  sites  in  both  the  discovery  (ABIDE-I)  and  replication  (ABIDE-II)  datasets.  The  site-specific  imaging acquisition  parameters  are  presented  in  Supplementary Tables 4 and 5. For the HCPD study, brain imaging data were collected using a 3T Siemens Prisma scanner (Siemens, Erlangen, Germany). T1w and T2-weighted (T2w) images  were  acquired  using  multi-echo  magnetization prepared  rapid  acquisition  gradient  echo  (MPRAGE)  at 0.8 mm isotropic (T1w: repetition time [TR] = 2,500 ms; echo time [TE] = 1.81 ms; inversion time [TI] = 1,000 ms; flip angle = 8°; T2w: TR = 3,200 ms; TE = 564 ms). Rs-fMRI data were obtained with the sequences counterbalanced using  anterior-posterior  and  posterior-anterior  phaseencoding directions at 2 mm isotropic, with a multi-band factor of 8 (TR = 800 ms; TE = 37 ms; flip angle = 52°; 488 volumes).
+69:We  applied  a  standardized  preprocessing  pipeline  of the HCP-D dataset to the ABIDE dataset. The ABIDE-I and  II  datasets  were  preprocessed  using  QuNex,  which adapts  HCP  preprocessing  pipelines  [28]  for  broader applications [29]. In the ABIDE dataset, the T1w structural  MRI data were bias-field corrected, skull stripped, and  registered  to  the  MNI  space.  The  gray  and  white matter  were  segmented,  and  the  cortical  surfaces  were reconstructed to produce individual anatomical segmentations of both the cortical and subcortical regions [30]. The BOLD time-series data were slice-timing-corrected, head-motion-corrected, and registered to the MNI space. Cortical  surface  models  for  the  pial  and  white  matter boundaries, along with segmentation masks for subcortical voxels, were subsequently used to generate the grayordinate space [28]. The preprocessed cortical BOLD data were then mapped to the standard gray ordinate space, using  a  cortical  ribbon-constrained  volume-to-surface mapping  algorithm. Surface-based spatial smoothing with a 2 mm FWHM was performed. Finally, a bandpass filter  with  a  range  of  0.008-0.1  Hz  was  applied,  and  six head-motion  parameters  were  further  regressed  out. Despiking and motion scrubbing were not performed.
+73:The present study focused primarily on the first principal gradient,  which  represents  the  sensory-DMN  axis.  We estimated  cortex-wide  functional  connectivity  gradients from  preprocessed  BOLD  data  using  the  Schaefer  atlas [31]  with  200  parcels.  Functional  connectivity  matrices were computed by calculating the Pearson's correlations between  the  time-series  data  of  distinct  brain  regions for  each  participant.  Fisher's  r-to-z  transformation  was subsequently  applied  to  normalize  the  distribution  of the correlation values. Next, the functional connectivity matrix  was  refined  by  retaining  only  the  strongest  10% of  the  connections  per  row  by  following  previous  studies  on  functional  connectivity  gradients  [7,  9,  32-34]. An affinity matrix capturing the similarity in connectivity  patterns  across  the  cortical  areas  was  subsequently constructed using a normalized angle kernel.  Lowdimensional  representations,  referred  to  as  gradients, were extracted from this matrix by using diffusion map embedding [35] for each participant. A group-level connectivity matrix for the HCP-D datasets was created by averaging  the  individual  functional  connectivity  matrices, while a group-level template gradient was computed from  the  averaged  functional  connectivity  matrix.  The individual  gradients  of  the  HCP-D  and  ABIDE  datasets were  aligned  to  a  group-level  template  gradient  using Procrustes  rotation  [36].  The  entire  gradient  estimation process  was  conducted  using  the  BrainSpace  toolbox [37].  Finally,  to  mitigate  scanner  and  site  effects  within the  ABIDE  dataset,  combat  harmonization  was  applied to the gradient values [38].
+77:Normative models were constructed using the GAMLSS model  [24,  39],  which  allowed  us  to  capture  nonlinear age-related patterns of cortical hierarchy in TD individuals and identify deviations in ASD relative to this normative  pattern.  This  approach  has  been  widely  applied across  various  fields  to  approximate  developmental  trajectories from cross-sectional data [22, 40, 41]. Fitting the GAMLSS model involves  a  four-parameter  distribution modeling µ, σ, ν, and τ; corresponding to the mean, variance, skewness, and kurtosis of the feature distribution, respectively.  We  used  the  four-parameter  sinh-arcsinh (SHASH) distribution  [42],  following  the  recommendations  for  the  normative  modeling  of  neuroimaging  data [43]. Specifically, region-wise normative modeling of gradient  values  based  on  age  and  the  interaction  between age and sex was performed as follows:
+81:where f ( x ) is  a  nonlinear  function  (i.e.,  P-spline)  of x . GAMLSS model fitting was implemented using the gamlss R  package  [39].  A  normative  model  for  the  gradient  values  was  constructed  using  the  HCP-D  dataset  and  then transferred to the TD group of the ABIDE dataset. For the ABIDE dataset, the intercepts (i.e., β µ , new , β σ , new )  were re-estimated  while  retaining  the  nonlinear  effect  of  age fixed [43]. This procedure adjusts the intercept and standard deviation of the model to better correspond to the data from a new dataset while preserving the estimated nonlinear agerelated terms. Significant age effects were determined from the β µ , age ,  while  multiple  comparisons  across  the  brain regions were corrected using the false discovery rate (FDR) procedure [44].
+85:of  atypicality  relative  to  the  reference  group.  Extreme scores indicate a greater deviation from normal. We utilized  ABIDE-I  data  for  the  primary  normative  modeling analyses, and the reproducibility was assessed using ABIDE-II data,  following  the  same  preprocessing  steps, modeling framework, and exclusion criteria.
+93:This metric assesses how closely the individual gradient aligns with the normative functional hierarchy, reflecting the  proximity  of  the  functional  hierarchy  based  on  the participants' age and sex. The higher the score, the closer the  individual's  brain  matches  the  normative  functional hierarchical pattern. To construct developmental trajectories  of  hierarchy  scores  for  the  ASD  and  TD  groups, we further modeled the age-related changes in hierarchy scores for each group using the GAMLSS from Eq. 1.
+
+thinking
+**Examining supplementary tables for demographics**
+
+I'm reviewing the supplementary materials to locate site-specific demographic information needed for the analysis.
+2026-03-05T03:23:50.087867Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table|Supplementary Table|demographic|age|sex|male|female|ASD|ABIDE" study_1/13229_2025_641_MOESM1_ESM.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459 succeeded in 36ms:
+3:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000000_b2db6f3a23d869bab936d24a4689e2e2856ef86fbc90125406f3c7df65dbacad.png)
+5:**Supplementary Fig. 1 | Flowchart for the participant selection procedure for the ABIDE cohorts.**
+7:Abbreviations: MRI, magnetic resonance imaging; ABIDE, Autism Brain Imaging Data Exchange; FD, framewise displacement; T1w, T1-weighted; TD, typically developing; ASD, Autism spectrum disorder.
+9:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000001_c79a3f74c18b20f2f2b7e52012cbb37418db14b96ac205ab4ae7ddca1623b228.png)
+11:**Supplementary Fig. 2 | Age distribution of the discovery (ABIDE-I) and replication (ABIDE-II) datasets.** We noted a significant difference in age distribution between the two datasets (two-sample Kolmogorov-Smirnov test; p &lt; 0.001). The replication dataset was found to have a larger proportion of subjects in childhood, while the discovery dataset presents a more balanced distribution across different developmental stages.
+12:Abbreviations: TD, typically developing; ASD, Autism spectrum disorder; ABIDE, Autism Brain Imaging Data Exchange.
+14:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000002_3e366e1169cbe37a3aea9ae39c7662d63dc33a98356e52c7811122e9cd4560ae.png)
+16:**Supplementary Fig. 3 | Sensitivity analyses after adjusting the age distribution in the ABIDE-II dataset. (A)** Age distribution from a single representative sample among the 100 resampled data. **(B)** The average trajectory curve, retaining nonlinear characteristics under the adjusted age distribution, is shown along with confidence intervals derived from 100 curves. **(C)** Slope values [per year] are presented with confidence intervals calculated from the same 100 curves.
+18:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000003_af094b5a183508acb41f27033ce616db6b2438d017c2e20a0e0bb69078641dcf.png)
+23:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000004_3013ed54e5e021815a8ffb8b301a4fc620b8dc6b17bbc937db099e609dc8ee10.png)
+25:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000005_5767d3ea1620b23d31373b520a9ab983f302362b1b1de63d92e7322678f3d776.png)
+27:Supplementary Fig. 5 | Atypical development of the cortical hierarchy for the second gradient. (A) The second gradient derived from functional connectivity of the TD group. (B) The maturational trajectory of the whole-brain functional hierarchy. Brain regions with significant age effects are plotted ( $P_{FDR}  <  0.05$ ), and the color of each line corresponds to the gradient values from (A). (C) Whole-brain statistics of group differences in centile scores between ASD and TD groups. (D) The t-statistics are stratified using canonical functional networks.
+28:Abbreviations: Vis, Visual; SomMot, Somatomotor; DorsAttn, Dorsal attention; VentAttn, Ventral attention; TD, typically developing; ASD, Autism spectrum disorder.
+30:Supplementary Fig. 6 | Hierarchy score analysis derived from the second gradient. (A) Calculation of hierarchy scores and the trajectory of median and slope values [per year]. (B) Whole-brain centile scores across three developmental stages. (C) Network-level stratification of whole-brain centile scores across different developmental stages. ∗,  $p < 0.05$ ; ∗∗,  $p < 0.01$ ; ∗∗∗,  $p < 0.001$ .
+31:Abbreviations: TD, typically developing; ASD, Autism spectrum disorder; Vis, Visual; SomMot, Somatomotor; DorsAttn, Dorsal attention; VentAttn, Ventral attention.
+33:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000006_9481d00c5e035be012041eb5e7567f1fb91f87373d066efc61827f314f680554.png)
+36:Abbreviations: TD, typically developing; ASD, Autism spectrum disorder.
+38:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000007_4977c54c666fc44de4516cfa4f3a93dade71ad30707a3367668ab644c52a6863.png)
+40:**Supplementary Fig. 8 | Results of mediation analysis in all age groups.** The paths *a, b* , and *c* denote direct effect between two variables. Significant age effects are indicated by darker boxes.
+43:![Image](./13229_2025_641_MOESM1_ESM_artifacts/image_000008_aea5b7993ccd48c85d5ca40bb9a126f9487e025518ac4e2d1706dc34c9bf51b7.png)
+
+thinking
+**Extracting demographics from tables**
+
+Planning to extract demographic data by parsing supplementary tables in markdown, focusing on reading around the table content using sed to capture relevant details.
+2026-03-05T03:23:53.364938Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '90,140p' study_1/13229_2025_641_MOESM1_ESM.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459 succeeded in 27ms:
+
+**Supplementary Fig. 18 | Hierarchy score analysis after controlling for head motion. (A)** Calculation of hierarchy scores and the trajectory of median and slop values [per year]. **(B)** Whole-brain centile scores across three developmental stages ( *left* ) and their spatial correlations between the original model and the model controlled for mean FD ( *right* ).
+
+Abbreviations: FD, framewise displacement; TD, typically developing; ASD, Autism spectrum disorder; r, Pearson correlation coefficient.
+
+Supplementary Table 1 | Demographic information of the ABIDE-I participants.
+
+| Site     | n   | Age        | Age        | *p*  -value   | Sex (M:F)   | Sex (M:F)   | *p*  -value   | SRS Total (T-score)   | SRS Total (T-score)   | *p*  -value   | Handedness (L:R:L+R)   | Handedness (L:R:L+R)   | *p*  -value   |
+|----------|-----|------------|------------|---------------|-------------|-------------|---------------|-----------------------|-----------------------|---------------|------------------------|------------------------|---------------|
+| Site     | n   | ASD        | TD         |               | ASD         | TD          |               | ASD                   | TD                    |               | ASD                    | TD                     |               |
+| CALTECH  | 13  | 20.03±1.31 | 19.74±1.47 | 0.716         | 4:2         | 4:3         | 1             | -                     | -                     | -             | 0:4:2                  | 0:5:2                  | 1             |
+| CMU      | 8   | 20.25±0.96 | 20.75±0.50 | 0.390         | 3:1         | 3:1         | 1             | -                     | -                     | -             | 0:4:0                  | 0:4:0                  | 1             |
+| KKI      | 44  | 9.92±1.47  | 10.01±1.16 | 0.830         | 13:3        | 20:8        | 0.719         | -                     | -                     | -             | 1:13:2                 | 1:24:3                 | 1             |
+| LEUVEN_1 | 11  | 19.25±0.89 | 20.00±1.73 | 0.353         | 8:0         | 3:0         | 1             | 64.38±6.90            | 48.00±7.94            | 0.008         | 0:8:0                  | 0:3:0                  | 1             |
+| LEUVEN_2 | 34  | 13.92±1.31 | 14.22±1.45 | 0.535         | 12:3        | 14:5        | 1             | 73.13±13.05           | 44.58±6.40            | <0.001        | 2:13:0                 | 3:15:1                 | 1             |
+| MAX_NUM  | 10  | 12.71±4.11 | 9.33±2.08  | 0.223         | 7:0         | 3:0         | 1             | -                     | -                     | -             | 0:7:0                  | 0:3:0                  | 1             |
+| NYU      | 135 | 11.98±3.35 | 13.21±3.76 | 0.050         | 53:5        | 59:18       | 0.036         | 72.23±11.50           | 45.41±5.33            | <0.001        | -                      | -                      | -             |
+| OHSU     | 24  | 11.43±2.18 | 10.24±1.13 | 0.109         | 12:0        | 12:0        | 1             | -                     | -                     | -             | 1:11:0                 | 0:12:0                 | 1             |
+| OLIN     | 25  | 16.64±2.82 | 16.36±3.35 | 0.832         | 12:2        | 9:2         | 1             | -                     | -                     | -             | 3:11:0                 | 1:10:0                 | 0.598         |
+| PITT     | 38  | 15.39±3.66 | 15.92±3.06 | 0.632         | 16:3        | 15:4        | 1             | -                     | -                     | -             | 2:17:0                 | 1:18:0                 | 1             |
+
+
+thinking
+**Separating ABIDE-I and ABIDE-II summaries**
+
+Clinical cohort includes ASD individuals from both ABIDE-I and ABIDE-II, with main analyses treating ABIDE-I as discovery and ABIDE-II as replication. It's best to report age and sex totals separately for each dataset using semicolons, rather than combining values, since the clinical cohort isn’t model-specific and norms (e.g., HCP-D) should be excluded.
+thinking
+**Standardizing age and sex formats**
+
+Decided to report age using an object with semicolon-separated strings for means and SDs across ABIDE-I and II, marking min and max as "NR" since unavailable. For sex, I'll calculate percentages from totals and prepare to extract ABIDE-II data to complete the breakdown.
+exec
+/bin/bash -lc "sed -n '140,220p' study_1/13229_2025_641_MOESM1_ESM.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051223194592026-03-05T03:24:12.509182Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 28ms:
+| TCD    | 32  | 14.95±3.36 | 16.13±2.81 | 0.287         | 15:0        | 17:0        | 1             | 77.53±8.59            | 41.88±6.06            | <0.001        | 0:15:0                 | 0:17:0                 | 1             |
+| UCD    | 28  | 15.14±1.87 | 15.00±1.61 | 0.836         | 12:3        | 9:4         | 0.670         | 70.67±11.92           | 41.00±2.57            | <0.001        | 0:14:1                 | 0:13:0                 | 1             |
+| UCLA   | 25  | 12.46±1.79 | 9.61±1.97  | 0.001         | 12:0        | 9:4         | 0.096         | -                     | -                     | -             | 1:11:0                 | 1:11:1                 | 1             |
+| USM    | 12  | 16.30±2.54 | 15.54±3.59 | 0.680         | 7:1         | 4:0         | 1             | 83.00±8.77            | 46.00±7.12            | 0.001         | 0:5:2                  | 0:3:0                  | 1             |
+| Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001        | 75.77±13.58           | 44.17±6.71            | <0.001        | 22:245:22              | 15:324:14              | 0.020         |
+
+The *p* -values for age and SRS score were derived from a two-sample t-test, and those for sex and handedness were derived from Fisher’s exact test. Abbreviations: TD, typically developing; ASD, Autism spectrum disorder; ABIDE, Autism Brain Imaging Data Exchange; SRS, social responsiveness scale; M, male; F, female; SRS, social responsiveness scale; L, left; R, right.
+
+**Supplementary Table 3 | Demographic information of the ABIDE-II longitudinal participants.**
+
+| Stie   | n   | Follow-up year   | Age at baseline   | Age at baseline   | *p*  -value   | Sex (M:F)   | Sex (M:F)   | *p*  -value   | Handedness (L:R:LR)   | Handedness (L:R:LR)   | *p*  -value   |
+|--------|-----|------------------|-------------------|-------------------|---------------|-------------|-------------|---------------|-----------------------|-----------------------|---------------|
+| Stie   | n   | Follow-up year   | ASD               | TD                |               | ASD         | TD          |               | ASD                   | TD                    |               |
+| UCLA   | 21  | 2.89±0.34        | 11.73±1.19        | 12.23±1.09        | 0.363         | 13:1        | 7:0         | 1             | 1:13:0                | 0:7:0                 | 1             |
+| UPSM   | 17  | 1.75±0.20        | 13.74±2.74        | 14.30±1.82        | 0.630         | 7:2         | 6:2         | 1             | 1:7:1                 | 1:7:0                 | 1             |
+| Total  | 38  | 2.38±0.63        | 12.52±2.14        | 13.34±1.82        | 0.230         | 20:3        | 13:2        | 1             | 2:20:1                | 1:14:0                | 1             |
+
+The *p* -values for age were derived from a two-sample t-test, and those for sex and handedness were derived from Fisher’s exact test. 
+Abbreviations: TD, typically developing; ASD, Autism spectrum disorder; ABIDE, Autism Brain Imaging Data Exchange; M, male; F, female; L, left; R, right.
+
+
+thinking
+**Clarifying cohort counts and metadata**
+
+I confirmed ASD and TD counts for ABIDE-I and ABIDE-II cohorts adding to totals and noted sex ratios and age statistics are separated by dataset for ASD, not pooled. Next, I'll check the existing JSON file for updating normalized disorder metadata and dataset keywords.
+exec
+/bin/bash -lc 'cat DE_v14_Lee2025_by_codex_20260305122319459.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051223194592026-03-05T03:24:24.495209Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 31ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Planning structured JSON data**
+
+I'm outlining a JSON structure for presenting age and sex data with separate answers for ABIDE-I and ABIDE-II, incorporating detailed supporting text quotes, file/table locations, confidence levels, dataset origins, and disorder names. Next, I'll assemble the fill content aligning with these specifications.
+thinking
+**Preparing patch with direct quotes and structured answers**
+
+I'm ensuring age answers are objects rather than strings and including direct quotes with precise location references before applying the edit patch.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Lee2025"
+   },
+@@ -7,28 +7,42 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical cohort consists of individuals with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism spectrum disorder (ASD) is a neurodevelopmental condition characterized by a wide range of behavioral phenotypes",
++        "location": "study_1/Lee2025.pdf.md: Introduction / Autism spectrum disorder (ASD)"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "ASD clinical cohorts drawn from ABIDE I (discovery) and ABIDE II (replication).",
++        "confidence_rating": "High",
++        "supporting_text": "Two  large-scale  independent  datasets  from  the  Autism Brain  Imaging  Data  Exchange  (ABIDE),  termed  the ABIDE  I  and  II",
++        "location": "study_1/Lee2025.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "13.91;11.93",
++          "sd": "3.58;4.01"
++        },
++        "detail": "ASD totals reported separately for ABIDE-I and ABIDE-II (mean±SD); values are not pooled.",
++        "confidence_rating": "High",
++        "supporting_text": "Total    | 702 | 13.91±3.58 | 13.66±3.49 | 0.353         | 291:42      | 291:78      | 0.004; Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001",
++        "location": "study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 1 / Total row; study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 2 / Total row"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "291;260",
++          "male_pct": "87.4;86.1",
++          "female_n": "42;42",
++          "female_pct": "12.6;13.9"
++        },
++        "detail": "ASD totals reported separately for ABIDE-I and ABIDE-II; percentages calculated from reported M:F counts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "Total    | 702 | 13.91±3.58 | 13.66±3.49 | 0.353         | 291:42      | 291:78      | 0.004; Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001",
++        "location": "study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 1 / Total row; study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 2 / Total row"
+       }
+apply_patch(auto_approved=true) exited 0 in 7ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json b/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..2dc6b88bbc02cf26b634c6520f2554d2352e1899
+--- a/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
+@@ -1,36 +1,50 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Lee2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical cohort consists of individuals with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism spectrum disorder (ASD) is a neurodevelopmental condition characterized by a wide range of behavioral phenotypes",
++        "location": "study_1/Lee2025.pdf.md: Introduction / Autism spectrum disorder (ASD)"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "ASD clinical cohorts drawn from ABIDE I (discovery) and ABIDE II (replication).",
++        "confidence_rating": "High",
++        "supporting_text": "Two  large-scale  independent  datasets  from  the  Autism Brain  Imaging  Data  Exchange  (ABIDE),  termed  the ABIDE  I  and  II",
++        "location": "study_1/Lee2025.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "13.91;11.93",
++          "sd": "3.58;4.01"
++        },
++        "detail": "ASD totals reported separately for ABIDE-I and ABIDE-II (mean±SD); values are not pooled.",
++        "confidence_rating": "High",
++        "supporting_text": "Total    | 702 | 13.91±3.58 | 13.66±3.49 | 0.353         | 291:42      | 291:78      | 0.004; Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001",
++        "location": "study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 1 / Total row; study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 2 / Total row"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "291;260",
++          "male_pct": "87.4;86.1",
++          "female_n": "42;42",
++          "female_pct": "12.6;13.9"
++        },
++        "detail": "ASD totals reported separately for ABIDE-I and ABIDE-II; percentages calculated from reported M:F counts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "Total    | 702 | 13.91±3.58 | 13.66±3.49 | 0.353         | 291:42      | 291:78      | 0.004; Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001",
++        "location": "study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 1 / Total row; study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 2 / Total row"
+       }
+     }
+   ]
+
+2026-03-05T03:24:59.891838Z ERROR codex_core::codex: needs_follow_up: true
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json b/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..2dc6b88bbc02cf26b634c6520f2554d2352e1899
+--- a/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
+@@ -1,36 +1,50 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Lee2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical cohort consists of individuals with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism spectrum disorder (ASD) is a neurodevelopmental condition characterized by a wide range of behavioral phenotypes",
++        "location": "study_1/Lee2025.pdf.md: Introduction / Autism spectrum disorder (ASD)"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "ASD clinical cohorts drawn from ABIDE I (discovery) and ABIDE II (replication).",
++        "confidence_rating": "High",
++        "supporting_text": "Two  large-scale  independent  datasets  from  the  Autism Brain  Imaging  Data  Exchange  (ABIDE),  termed  the ABIDE  I  and  II",
++        "location": "study_1/Lee2025.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "13.91;11.93",
++          "sd": "3.58;4.01"
++        },
++        "detail": "ASD totals reported separately for ABIDE-I and ABIDE-II (mean±SD); values are not pooled.",
++        "confidence_rating": "High",
++        "supporting_text": "Total    | 702 | 13.91±3.58 | 13.66±3.49 | 0.353         | 291:42      | 291:78      | 0.004; Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001",
++        "location": "study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 1 / Total row; study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 2 / Total row"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "291;260",
++          "male_pct": "87.4;86.1",
++          "female_n": "42;42",
++          "female_pct": "12.6;13.9"
++        },
++        "detail": "ASD totals reported separately for ABIDE-I and ABIDE-II; percentages calculated from reported M:F counts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "Total    | 702 | 13.91±3.58 | 13.66±3.49 | 0.353         | 291:42      | 291:78      | 0.004; Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001",
++        "location": "study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 1 / Total row; study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 2 / Total row"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming supported text format**
+
+The supporting text uses direct ASCII quotes with pipe characters in table rows, aligning with instructions; no tests are needed here.
+codex
+ASD clinical cohort fields filled from the main text and Supplementary Tables, including ABIDE-I/II demographics and computed sex percentages, in `DE_v14_Lee2025_by_codex_20260305122319459.json`.
+
+If you want, I can also compute pooled age/sex across ABIDE-I+II and add as an additional note or separate field.
+2026-03-05T03:25:03.438558Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json b/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..2dc6b88bbc02cf26b634c6520f2554d2352e1899
+--- a/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305122319459/DE_v14_Lee2025_by_codex_20260305122319459.json
+@@ -1,36 +1,50 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Lee2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "Clinical cohort consists of individuals with autism spectrum disorder.",
++        "confidence_rating": "High",
++        "supporting_text": "Autism spectrum disorder (ASD) is a neurodevelopmental condition characterized by a wide range of behavioral phenotypes",
++        "location": "study_1/Lee2025.pdf.md: Introduction / Autism spectrum disorder (ASD)"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE-I",
++          "ABIDE-II"
++        ],
++        "detail": "ASD clinical cohorts drawn from ABIDE I (discovery) and ABIDE II (replication).",
++        "confidence_rating": "High",
++        "supporting_text": "Two  large-scale  independent  datasets  from  the  Autism Brain  Imaging  Data  Exchange  (ABIDE),  termed  the ABIDE  I  and  II",
++        "location": "study_1/Lee2025.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": "13.91;11.93",
++          "sd": "3.58;4.01"
++        },
++        "detail": "ASD totals reported separately for ABIDE-I and ABIDE-II (mean±SD); values are not pooled.",
++        "confidence_rating": "High",
++        "supporting_text": "Total    | 702 | 13.91±3.58 | 13.66±3.49 | 0.353         | 291:42      | 291:78      | 0.004; Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001",
++        "location": "study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 1 / Total row; study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 2 / Total row"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "291;260",
++          "male_pct": "87.4;86.1",
++          "female_n": "42;42",
++          "female_pct": "12.6;13.9"
++        },
++        "detail": "ASD totals reported separately for ABIDE-I and ABIDE-II; percentages calculated from reported M:F counts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "Total    | 702 | 13.91±3.58 | 13.66±3.49 | 0.353         | 291:42      | 291:78      | 0.004; Total  | 657 | 11.93±4.01 | 11.36±3.20 | 0.043         | 260:42      | 234:121     | <0.001",
++        "location": "study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 1 / Total row; study_1/13229_2025_641_MOESM1_ESM.docx.md: Supplementary Table 2 / Total row"
+       }
+     }
+   ]
+
+tokens used
+49,889
+ASD clinical cohort fields filled from the main text and Supplementary Tables, including ABIDE-I/II demographics and computed sex percentages, in `DE_v14_Lee2025_by_codex_20260305122319459.json`.
+
+If you want, I can also compute pooled age/sex across ABIDE-I+II and add as an additional note or separate field.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,519 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Shao2024_by_codex_20260305132416250.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305132416250/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc3d-4afa-7d02-96a2-697b8af82206
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Shao2024_by_codex_20260305132416250.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Checking instructions file**
+
+I'm deciding to read the instructions file to gather necessary details, considering using `rg` or simply `cat` to view its contents.
+2026-03-05T04:24:22.604922Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305132416250 succeeded in 18ms:
+DE_Guide_v14.md
+DE_v14_Shao2024_by_codex_20260305132416250.json
+DE_v14_Shao2024_by_codex_20260305132416250.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051324162502026-03-05T04:24:24.725626Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Listing study files to find paper info**
+2026-03-05T04:24:27.570902Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305132416250 succeeded in 22ms:
+DE_v14_Shao2024_by_codex_20260305132416250.json
+DE_Guide_v14.md
+DE_v14_Shao2024_by_codex_20260305132416250.log
+study_1/1-s2.0-S0006322323014920-mmc1.pdf.md
+study_1/1-s2.0-S0006322323014920-mmc2.xlsx.md
+study_1/Shao2024.pdf.md
+
+thinking
+**Identifying next file to read**
+2026-03-05T04:24:30.781626Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|cohort|patients|clinical" study_1/Shao2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305132416250 succeeded in 31ms:
+9:BACKGROUND: The high heterogeneity of depression prevents us from obtaining reproducible and de /uniFB01 nite anatomical maps of brain structural changes associated with the disorder, which limits the individualized diagnosis and treatment of patients. In this study, we investigated the clinical issues related to depression according to individual deviations from normative ranges of gray matter volume.
+11:METHODS: We enrolled 1092 participants, including 187 patients with depression and 905 healthy control participants. Structural magnetic resonance imaging data of healthy control participants from the Human Connectome Project ( n = 510) and REST-meta-MDD Project ( n = 229) were used to establish a normative model across the life span in adults 18 to 65 years old for each brain region. Deviations from the normative range for 187 patients and 166 healthy control participants recruited from two local hospitals were captured as normative probability maps, which were used to identify the disease risk and treatment-related latent factors.
+13:RESULTS: In contrast to case-control results, our normative modeling approach revealed highly individualized patterns of anatomic abnormalities in depressed patients (less than 11% extreme deviation overlapping for any regions). Based on our classi /uniFB01 cation framework, models trained with individual normative probability maps (area under the receiver operating characteristic curve range, 0.7146 -0.7836) showed better performance than models trained with original gray matter volume values (area under the receiver operating characteristic curve range, 0.6800 -0.7036), which was veri /uniFB01 ed in an independent external test set. Furthermore, different latent brain structural factors in relation to antidepressant treatment were revealed by a Bayesian model based on normative probability maps, suggesting distinct treatment response and inclination.
+15:CONCLUSIONS: Capturing personalized deviations from a normative range could help in understanding the heterogeneous neurobiology of depression and thus guide clinical diagnosis and treatment of depression.
+19:Depression is one of the most prevalent psychiatric disorders, with prevalence showing a predominant increasing trend over time (1,2). According to the World Health Organization, depression is the single largest contributor to global disability, affecting more than 300 million people yearly (3), with a lifetime risk of 15% to 18% (4). The current gold standard for diagnosis and treatment outcomes in depression mainly depends on the criteria from DSM; however, the classi /uniFB01 cation in DSM is not clear, and clinical subjectivity easily causes confusion (5). Moreover, based on the current prevailing treatment guidelines for antidepressant choice, only approximately 50% of patients with depression respond to /uniFB01 rst-line treatment (6). Therefore, there is an urgent need to develop effective and objective neurobiological markers to help guide the diagnosis and treatment of depression in individual patients.
+25:precise and personalized diagnosis and prognosis of depression (7,8). However, even though the brain structure is relatively stable, the results were inconsistent across studies when considering only decreased gray matter volume (GMV) in patients with depression compared with control participants (9,10). This might be partly explained by two factors. First, depression is a highly heterogeneous psychiatric syndrome (11 -13). DSM identi /uniFB01 es at least 256 unique symptom manifestations that meet the standard de /uniFB01 nition of depression, resulting in extensive clinical heterogeneity (14). Further, patients vary greatly in the temporal dynamics of symptom onset, including age of onset and frequency of episodes. Depression is also heterogeneous in psychiatric comorbidities and treatment outcomes (11,15). Second, the use of relatively small samples might lead to type I and II errors (16), therefore limiting the generalizability of results. These factors are inevitable challenges in the process of achieving precision medicine in depression.
+27:The goal of precision medicine is to provide timely and accurate diagnosis, prognosis, and treatment for individual patients (17 -19). However, traditional case-control analyses allow only statistical inferences at the group level, rather than the individual level, and cannot fully capture brain abnormalities at the individual level (20,21). Furthermore, most studies employ standard single-variable analysis methods, the predictive power of which, either singularly or cumulatively, remains inadequate (22). Machine learning offers a new paradigm that enables automated and more objective assessment for prognosis and diagnosis of depression. Studies have shown that machine learning models could predict treatment-resistant depression with comparable accuracy (0.7) (23). Besides, data-driven subtypes of depression can facilitate an understanding of heterogeneity, which may help improve the predictability of diagnosis and clinical outcomes (24,25). Therefore, an approach that takes into account individual heterogeneity combined with machine learning algorithms is needed to understand the pathophysiological changes of depression and to explore whether there are potential diagnostic and antidepressant treatment-related effects.
+29:Normative modeling is an emerging statistical technique for mapping individual deviations at the participant level with respect to a reference model, which could help in understanding the heterogeneous biology underlying psychiatric disorders (26,27). In this study, a large dataset of healthy adults 18 to 65 years of age from the Human Connectome Project (28) and REST-meta-MDD Project (29) was used to estimate normative models of GMV across the life span. These models were then applied to patient cohorts to assess the individual deviations from a normative range. Based on this, we developed three applications, as follows: 1) We built an individual depression prediction model in a discovery cohort to mine the depression-related information over those deviations from the normative range and provide an individualized objective assessment. We also explored the performance of the prediction model in an independent external test set. 2) A Bayesian model was used to explore the brain structural changes associated with antidepressant treatment to /uniFB01 nd the latent brain factors in the subgroup of patients who are sensitive to treatment with selective serotonin reuptake inhibitors (SSRIs). 3) We further explored the similarities and differences in the brain structure of patients targeted by two typical antidepressants, i.e., SSRIs and serotonin norepinephrine reuptake inhibitors (SNRIs). This study provides new insights into the neurobiological heterogeneity of depression and demonstrates its promising application in clinical diagnosis and treatment.
+35:The cohorts of this study were mainly composed of three datasets, two of which were from an open data sharing project (details of participant inclusion in Figure S1). In dataset I, we enrolled 127 depressed patients and 110 healthy control (HC) participants from the Af /uniFB01 liated Brain Hospital of Nanjing Medical University as the discovery cohort. Additionally, 60 patients and 56 HC participants from Nanjing Drum Tower
+37:Hospital were recruited as an external test set. Details of this dataset and treatment of patients are provided in Supplemental Methods. In this study, patients with at least a 50% reduction in the total scores of 17-item Hamilton Rating Scale for Depression after 4 weeks were conventionally de /uniFB01 ned as responders ( n = 111; 77 with SSRIs, 34 with SNRIs), and patients with less than 50% reduction were de /uniFB01 ned as nonresponders ( n = 43; 35 with SSRIs, 8 with SNRIs).
+39:To construct the normative models, we downloaded phenotypic data and MRI T1-weighted data from the Human Connectome Project (dataset II; 510 HC participants; age range, 22 -36 years) (28) and REST-meta-MDD Project (dataset III; 229 HC participants; age range, 18 -65 years; site 20) (29). All images in datasets I through III were acquired on Siemens 3T MRI scanners (Siemens Healthineers). Further details about MRI acquisition and preprocessed pipeline are provided in Table S1 and Supplemental Methods. After all T1 images were preprocessed, the GMV of each brain region was estimated based on the Automated Anatomical Labeling atlas, and the total intracranial volume (TIV) for each participant was calculated simultaneously.
+43:Continuous clinical variables were compared between patients with depression and HC participants in dataset I using the twosample t test or Mann-Whitney U test after normality testing (Supplemental Methods). The c 2 test was used to compare categorical clinical variables. Regional GMV between patients and HC participants was examined using the two-sample t test after regressing out several covariates, including age, sex, and TIV, to avoid potential confounders. Two-tailed p , .05 indicated a signi /uniFB01 cant statistical difference when false discovery rate was used for multiple comparison correction.
+47:To minimize the nonbiological variance introduced by differences in MRI scanners and acquisition protocols, we used the ComBat method (30) to harmonize data from these three datasets. ComBat is a popular batch adjustment method developed for genomics expression analysis that has been demonstrated to remove the unwanted variation introduced by site in diffusion tensor imaging (31,32) or structural MRI (33) studies, while effectively preserving biological variability. Speci /uniFB01 cally, we /uniFB01 rst harmonized the data from dataset I (discovery cohort) and datasets II and III into a common domain using the ComBat method. To avoid a potential data leakage problem for subsequent classi /uniFB01 cation modeling, we retained the biological variability related to age, sex, and TIV, without preserving the diagnostic labels. Then, the pretrained ComBat model was applied to harmonize the external test set directly (Figure 1A).
+51:Analogous to the normative growth charts used in pediatric medicine to plot child development based on height or weight as a function of age, the essence of the normative model is to chart standardized brain development and aging (34 -36). A normative model can be interpreted as a statistical
+53:Figure 1. Overview of the normative model and its application pipeline. (A) T1 images were segmented by the magnetic resonance imaging preprocessing pipeline to obtain the gray matter map, and the gray matter volume (GMV) of each region in the Automated Anatomical Labeling atlas was calculated. Then, we harmonized the discovery cohort of dataset I and datasets II and III into a common domain using the ComBat method, and the magnetic resonance imaging data of the external test set in dataset I was harmonized with the trained ComBat model (different colored arrows indicated different dataset types). (B) Estimate of the normative model with B-spline Bayesian linear regression for each brain region based on healthy control (HC) participants of datasets II and III (gray dots). The model provided the ability to predict GMV in this region for a given age and sex, along with measures of predictive con /uniFB01 dence (blue contour lines). Different shades of shadow indicate different centiles of predictive con /uniFB01 dence for the cohort (percentages on the right, e.g., 5% -95%). For each participant from other independent datasets (dataset I in this study; depression patients [red dots] and HC participants [black dots]), one can compute a normative probability map ( z scores) that quanti /uniFB01 ed the individual ' s deviation from the normative model of each brain region. (C) Clinical applications based on the normative models: Machine learning models were trained in the discovery cohort of dataset I to diagnose depressed patients using the z scores and veri /uniFB01 ed in the external test set (left); a Bayesian model was used to /uniFB01 nd the latent brain factors in the subgroup of patients who are sensitive to treatment with selective serotonin reuptake inhibitors (SSRIs) (middle); another Bayesian model was used to explore the similarities and differences in the brain structure of patients targeted by SSRIs or serotonin norepinephrine reuptake inhibitors (SNRIs) (right). ROI, region of interest.
+57:model that maps clinically relevant variables to readouts of biological measures (such as neuroimaging metrics) using healthy samples (27). Then, it can be applied to patient cohorts to measure individual deviation. This framework shifts the focus away from group-level comparisons across different diagnostic groups toward characterizing the extreme values of biological measures or deviations from normative functions, thus enabling dimensional analysis to study heterogeneous presentations. Brie /uniFB02 y, for each brain region, we estimated an age-related normative model with datasets II and III ( n = 510 1 229 = 739) (Figure 1B, top) to predict regional GMV as a function of age and sex plus nuisance covariate TIV using a B-spline Bayesian linear regression (37). Then, this normative model was applied to each individual from dataset I to predict the normative GMV value of the current brain region for a given age and sex (Figure 1B, middle). We derived a normative probability map (NPM) (38), quantifying the individual deviations from normative ranges, by computing z scores for each region of each participant re /uniFB02 ecting the difference between the
+65:All the analyses were performed in Python 3.6, using the PCNtoolkit (39) (https://github.com/amarquand/PCNtoolkit) for model estimation and evaluation. We established the threshold for NPM using j z j . ± 1 : 96 (i.e., exceeding the two-tailed 95% CI) to de /uniFB01 ne the extreme positive or negative deviations from the normative model.
+69:According to the NPMs obtained from the normative models, depression evaluation models were trained over the discovery cohort in dataset I for individual prediction. First, the enrolled participants in the discovery cohort were randomly divided into a training set and a test set in a 4:1 ratio. To avoid the in /uniFB02 uence of data splitting, we randomly repeated dividing training and test sets with the above proportion 10,000 times independently (40). In different splits of sample, the proportion of patients and HC participants remained consistent in both the training (102 patients vs. 88 HC participants) and the test (25 patients vs. 22 HC participants) sets. Moreover, feature selection was performed using max-relevance and minredundancy (41) with 10-fold cross-validation. Then, each trained model was used to predict the diagnostic category for each participant in the corresponding test set, which was rebuilt and tested during the 10,000 resampling procedure.
+71:To verify the superiority of individual GMV deviation measure over large sample normative distribution, we also constructed depression prediction models with original GMV as performance comparison. The related aspects, including the effect of sites harmonization, kernels for support vector machine (linear, sigmoid, and radial basis function), and feature dimension, were comprehensively analyzed. Finally, each model trained in the discovery cohort was applied to the external test set to evaluate the generalizability and transportability of the models under different sites (Figure 1C, left).
+75:An unsupervised Bayesian model, polar Latent Dirichlet Allocation (pLDA) (42,43), was applied to identify latent factors associated with treatment in patients with depression based on the NPMs. To apply this model to our GMV data, the z scores from normative models were multiplied by 10 and rounded to the nearest integer (details in Supplemental Methods). Given the discretized z scores and the number of prede /uniFB01 ned factors, K , we can estimate the GMV patterns of factor speci /uniFB01 city [i.e., E(GMV patterns|Factor)] and the factor composition of each patient [i.e., Pr(Factor|Patient)].
+
+thinking
+**Searching for clinical cohort details**
+
+I'm looking for Table 1 containing demographic info like age and sex to identify the depression patient cohort, checking PDF or markdown files for this data.
+exec
+/bin/bash -lc 'rg -n "Table 1|Demographic|Characteristics" -n study_1/Shao2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051324162502026-03-05T04:24:34.416726Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 35ms:
+83:## Demographic and GMV Data
+85:The demographic data of open datasets are shown in Table S2: 510 HC participants from the Human Connectome Project (mean age, 29.19 6 3.50 years; 302 women) and 229 HC participants from the REST-Meta-MDD Project (mean age, 39.34 6 15.66 years; 156 women). The demographic and clinical characteristics of participants in dataset I are summarized in Table 1. There were signi /uniFB01 cant age and sex differences between patients with depression and HC participants and between the discovery cohort and external test set, which was adjusted by our normative models. Furthermore, there was no signi /uniFB01 cant difference in the 17-item Hamilton Rating Scale for Depression score between responders and nonresponders at baseline ( p = .407) for patients treated with SSRIs (Table S3). The SSRI- and SNRI-targeted patients also had no signi /uniFB01 cant difference in the 17-item Hamilton Rating Scale for Depression score either at baseline ( p = .275) (Table S4) or after 4 weeks of treatment ( p = .257) (Table S4).
+93:Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I
+98:| Demographics                                  |                    |                    |                     |                     |                                                   |
+2026-03-05T04:24:37.966282Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '90,140p' study_1/Shao2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305132416250 succeeded in 30ms:
+
+After verifying the generality of the normative models (Supplemental Results), we positioned each patient with depression in the discovery cohort within the normative range for a given age and sex. Compared with the group-level differences (Figure 2A), which were characterized by a reduction of some core brain regions in GMV, the speci /uniFB01 c brain regions having out-of-range alterations varied remarkably among individual patients (Figure S2). Speci /uniFB01 cally, we found that 92.91% of patients showed extreme deviations in at least one brain region, including 51.97% of patients with extreme positive deviations and 62.99% with extreme negative deviations (Figure S2D). From the perspective of brain regions, all brain regions exhibited extreme deviations in at least one patient. However, for any single brain region, less than 11% of patients
+
+Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I
+
+|                                               | Discovery Cohort   | Discovery Cohort   | External Test Set   | External Test Set   |                                                   |
+|-----------------------------------------------|--------------------|--------------------|---------------------|---------------------|---------------------------------------------------|
+|                                               | DP, n = 127        | HC, n = 110        | DP, n = 60          | HC, n = 56          | p Value                                           |
+| Demographics                                  |                    |                    |                     |                     |                                                   |
+| Age, Years                                    | 30.81 6 8.77       | 32.32 6 8.91       | 34.57 6 10.58       | 27.00 6 6.46        | .193 (1) a .000 (2) a,b .012 (3) a,b .000 (4) a,b |
+| Sex, Female/Male                              | 61/66              | 70/40              | 39/21               | 38/18               | .016 (1) b,c .745 (2) c .044 (3) b,c .714 (4) c   |
+| Handedness, Right/Left                        | 127/0              | 110/0              | 60/0                | 56/0                | -                                                 |
+| HAMD-17 Score                                 | 22.70 6 5.03       | -                  | 21.85 6 4.87        | -                   | .279 (3) a                                        |
+| Status of Onset, First Episode/Recurrent      | 82/45              | -                  | 33/27               | -                   | .274 (3) c                                        |
+| Duration of Illness, Months                   | 31.88 6 41.86      | -                  | 37.24 6 53.66       | -                   | .460 (3) a                                        |
+| Family History of Psychiatric Disease, Yes/No | 21/106             | -                  | 20/40               | -                   | -                                                 |
+| Medication Strategy                           |                    |                    |                     |                     |                                                   |
+| SSRIs                                         | 81                 | -                  | 31                  | -                   | .033 (3) b,c                                      |
+| SNRIs                                         | 21                 | -                  | 21                  | -                   |                                                   |
+| ECT With Antidepressant                       | 25                 | -                  | 8                   | -                   |                                                   |
+
+
+thinking
+**Assigning dataset origin and disorder labels**
+
+The clinical cohort spans two local hospitals, so labeling dataset origin as "MULTI-SITE (N>=2)" fits best. For disorder, "DEP" (Depression) is appropriate since the text refers generically to depression rather than explicitly major depressive disorder.
+thinking
+**Calculating combined age and sex statistics**
+
+I'm computing the weighted mean age and pooled standard deviation for the combined clinical cohort of 187 patients, using the two subcohorts' means and SDs. I'll also total the sex counts to get overall female and male distributions with percentages.
+2026-03-05T04:24:52.403558Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n1=127; mean1=30.81; sd1=8.77
+n2=60; mean2=34.57; sd2=10.58
+# weighted mean
+wm=(n1*mean1+n2*mean2)/(n1+n2)
+# pooled sd (using sample variance)
+# compute combined variance using formula
+# pooled variance = ((n1-1)*sd1"'^2 + (n2-1)*sd2''^2 + n1*(mean1-wm)''^2 + n2*(mean2-wm)''^2)/(n1+n2-1)
+var=((n1-1)*sd1**2 + (n2-1)*sd2**2 + n1*(mean1-wm)**2 + n2*(mean2-wm)**2)/(n1+n2-1)
+psd=math.sqrt(var)
+print(wm, psd)
+PY' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305132416250 succeeded in 38ms:
+32.016417112299465 9.52398254647246
+
+thinking
+**Preparing detailed dataset metadata**
+
+I’m gathering precise age and sex statistics from Table 1 of Shao2024.pdf.md and extracting dataset origin details from methods lines 35–37, ensuring exact quotes and citations for the JSON output with paper ID in A_Style.
+2026-03-05T04:24:59.743578Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Shao2024_by_codex_20260305132416250.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305132416250 succeeded in 28ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Finalizing JSON answer structure**
+
+Planning to update answers for age and sex as objects with units and values, including exact supporting text quotes from table lines, and noting weighted pooling for the depression cohort total before applying the JSON patch.
+2026-03-05T04:25:18.006650Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Shao2024"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "DEP",
++        "detail": "Depression patients (DP) in dataset I",
++        "confidence_rating": "High",
++        "supporting_text": "\"DP, depression\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Dataset I clinical cohort recruited from two local hospitals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"In dataset I, we enrolled 127 depressed patients and 110 healthy control (HC) participants from the Affiliated Brain Hospital of Nanjing Medical University as the discovery cohort. Additionally, 60 patients and 56 HC participants from Nanjing Drum Tower Hospital were recruited as an external test set.\"",
++        "location": "Shao2024.pdf.md: Methods / Cohorts, L35-L37"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 32.02,
++          "sd": 9.52
++        },
++        "detail": "Weighted mean and pooled SD for depressed patients across discovery (n=127) and external test (n=60) cohorts in dataset I",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Age, Years                                    | 30.81 6 8.77       | 32.32 6 8.91       | 34.57 6 10.58       | 27.00 6 6.46\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 87,
++          "male_pct": 46.5,
++          "female_n": 100,
++          "female_pct": 53.5
++        },
++        "detail": "Counts summed across discovery (61/66) and external test (39/21) depressed patients in dataset I; percentages calculated from total N=187",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex, Female/Male                              | 61/66              | 70/40              | 39/21               | 38/18\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       }
+apply_patch(auto_approved=true) exited 0 in 10ms:
+Success. Updated the following files:
+M DE_v14_Shao2024_by_codex_20260305132416250.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json b/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..71e2d884a49ca0e8f2337a80e2e0517d3078d9ac
+--- a/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Shao2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "DEP",
++        "detail": "Depression patients (DP) in dataset I",
++        "confidence_rating": "High",
++        "supporting_text": "\"DP, depression\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Dataset I clinical cohort recruited from two local hospitals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"In dataset I, we enrolled 127 depressed patients and 110 healthy control (HC) participants from the Affiliated Brain Hospital of Nanjing Medical University as the discovery cohort. Additionally, 60 patients and 56 HC participants from Nanjing Drum Tower Hospital were recruited as an external test set.\"",
++        "location": "Shao2024.pdf.md: Methods / Cohorts, L35-L37"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 32.02,
++          "sd": 9.52
++        },
++        "detail": "Weighted mean and pooled SD for depressed patients across discovery (n=127) and external test (n=60) cohorts in dataset I",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Age, Years                                    | 30.81 6 8.77       | 32.32 6 8.91       | 34.57 6 10.58       | 27.00 6 6.46\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 87,
++          "male_pct": 46.5,
++          "female_n": 100,
++          "female_pct": 53.5
++        },
++        "detail": "Counts summed across discovery (61/66) and external test (39/21) depressed patients in dataset I; percentages calculated from total N=187",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex, Female/Male                              | 61/66              | 70/40              | 39/21               | 38/18\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json b/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..71e2d884a49ca0e8f2337a80e2e0517d3078d9ac
+--- a/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Shao2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "DEP",
++        "detail": "Depression patients (DP) in dataset I",
++        "confidence_rating": "High",
++        "supporting_text": "\"DP, depression\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Dataset I clinical cohort recruited from two local hospitals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"In dataset I, we enrolled 127 depressed patients and 110 healthy control (HC) participants from the Affiliated Brain Hospital of Nanjing Medical University as the discovery cohort. Additionally, 60 patients and 56 HC participants from Nanjing Drum Tower Hospital were recruited as an external test set.\"",
++        "location": "Shao2024.pdf.md: Methods / Cohorts, L35-L37"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 32.02,
++          "sd": 9.52
++        },
++        "detail": "Weighted mean and pooled SD for depressed patients across discovery (n=127) and external test (n=60) cohorts in dataset I",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Age, Years                                    | 30.81 6 8.77       | 32.32 6 8.91       | 34.57 6 10.58       | 27.00 6 6.46\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 87,
++          "male_pct": 46.5,
++          "female_n": 100,
++          "female_pct": 53.5
++        },
++        "detail": "Counts summed across discovery (61/66) and external test (39/21) depressed patients in dataset I; percentages calculated from total N=187",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex, Female/Male                              | 61/66              | 70/40              | 39/21               | 38/18\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       }
+     }
+   ]
+
+codex
+Updated `DE_v14_Shao2024_by_codex_20260305132416250.json` with the extracted clinical cohort details from Shao2024, including depression cohort labeling, dataset origin, and computed pooled age/sex values based on Table 1.
+
+Details:
+- Clinical cohort derived from dataset I across two local hospitals, recorded as multi-site.
+- Age and sex values aggregated across discovery and external test cohorts with weighted mean/pooled SD and summed counts.
+
+Next steps you may want:
+1) I can also extract any relevant details from the supplemental files (`study_1/1-s2.0-S0006322323014920-mmc1.pdf.md`, `study_1/1-s2.0-S0006322323014920-mmc2.xlsx.md`) if needed.
+2) I can run a quick validation pass over the JSON for schema consistency.
+2026-03-05T04:25:22.651906Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json b/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..71e2d884a49ca0e8f2337a80e2e0517d3078d9ac
+--- a/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305132416250/./DE_v14_Shao2024_by_codex_20260305132416250.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Shao2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "DEP",
++        "detail": "Depression patients (DP) in dataset I",
++        "confidence_rating": "High",
++        "supporting_text": "\"DP, depression\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "MULTI-SITE (N>=2)"
++        ],
++        "detail": "Dataset I clinical cohort recruited from two local hospitals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"In dataset I, we enrolled 127 depressed patients and 110 healthy control (HC) participants from the Affiliated Brain Hospital of Nanjing Medical University as the discovery cohort. Additionally, 60 patients and 56 HC participants from Nanjing Drum Tower Hospital were recruited as an external test set.\"",
++        "location": "Shao2024.pdf.md: Methods / Cohorts, L35-L37"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 32.02,
++          "sd": 9.52
++        },
++        "detail": "Weighted mean and pooled SD for depressed patients across discovery (n=127) and external test (n=60) cohorts in dataset I",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Age, Years                                    | 30.81 6 8.77       | 32.32 6 8.91       | 34.57 6 10.58       | 27.00 6 6.46\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 87,
++          "male_pct": 46.5,
++          "female_n": 100,
++          "female_pct": 53.5
++        },
++        "detail": "Counts summed across discovery (61/66) and external test (39/21) depressed patients in dataset I; percentages calculated from total N=187",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex, Female/Male                              | 61/66              | 70/40              | 39/21               | 38/18\"",
++        "location": "Shao2024.pdf.md: Table 1. Demographic and Clinical Characteristics of Discovery Cohort and External Test Set for Dataset I"
+       }
+     }
+   ]
+
+tokens used
+29,729
+Updated `DE_v14_Shao2024_by_codex_20260305132416250.json` with the extracted clinical cohort details from Shao2024, including depression cohort labeling, dataset origin, and computed pooled age/sex values based on Table 1.
+
+Details:
+- Clinical cohort derived from dataset I across two local hospitals, recorded as multi-site.
+- Age and sex values aggregated across discovery and external test cohorts with weighted mean/pooled SD and summed counts.
+
+Next steps you may want:
+1) I can also extract any relevant details from the supplemental files (`study_1/1-s2.0-S0006322323014920-mmc1.pdf.md`, `study_1/1-s2.0-S0006322323014920-mmc2.xlsx.md`) if needed.
+2) I can run a quick validation pass over the JSON for schema consistency.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

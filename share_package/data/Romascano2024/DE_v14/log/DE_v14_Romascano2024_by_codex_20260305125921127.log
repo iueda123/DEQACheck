@@ -1,0 +1,491 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Romascano2024_by_codex_20260305125921127.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125921127/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc26-7a96-7cc3-9f13-011447a6a6ca
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Romascano2024_by_codex_20260305125921127.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Checking available documentation**
+
+Planning to locate and read any guide files using ripgrep or direct file reads to understand usage or setup instructions.
+2026-03-05T03:59:27.299856Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125921127 succeeded in 15ms:
+DE_Guide_v14.md
+DE_v14_Romascano2024_by_codex_20260305125921127.json
+DE_v14_Romascano2024_by_codex_20260305125921127.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051259211272026-03-05T03:59:29.677308Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 88ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Checking for paper info in study data**
+
+I'm verifying if study_1 contains paper-related information that might be relevant for the task.
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051259211272026-03-05T03:59:33.326059Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+1-s2.0-S2213158224000639-mmc1.docx.md
+1-s2.0-S2213158224000639-mmc1_artifacts
+Romascano2024.pdf.md
+Romascano2024_artifacts
+
+thinking
+**Extracting clinical cohort data**
+
+I'm focusing on extracting the clinical cohort data related to NM from the PDF markdown content. Next, I'll identify relevant sections and parse them for meaningful data.
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patient|disorder|schiz|bipolar|depress|autis|ADHD|MCI|Parkinson|epilep|psych" Romascano2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125921127/study_12026-03-05T03:59:36.950107Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 22ms:
+32:Over the past decades, morphometric analysis of brain MRI has contributed substantially to the understanding of healthy brain structure, development and aging as well as to improved characterisation of disease related pathologies. Certified commercial tools based on normative modeling of these metrics are meanwhile available for diagnostic purposes, but they are cost intensive and their clinical evaluation is still in its infancy. Here we have compared the performance of ' ScanOMetrics ' ,  an  open-source  research-level  tool  for  detection  of  statistical anomalies in individual MRI scans, depending on whether it is operated on the output of FreeSurfer or of the deep learning based brain morphometry tool DL + DiReCT. When applied to the public OASIS3 dataset, containing patients with Alzheimer ' s disease (AD) and healthy controls (HC), cortical thickness anomalies in patient scans were mainly detected in regions that are known as predilection areas of cortical atrophy in AD, regardless of the software used for extraction of the metrics. By contrast, anomaly detections in HCs were up to twenty-fold reduced and spatially unspecific using both DL + DiReCT and FreeSurfer. Progression of the atrophy pattern with clinical dementia rating (CDR) was clearly observable with both methods. DL + DiReCT provided results in less than 25 min, more than 15 times faster than FreeSurfer. This difference in computation time might be relevant when considering application of this or similar methodology as diagnostic decision support for neuroradiologists.
+34:morphometric variables have been included as outcome measures in recent clinical trials (e.g. National Library of  Medicine  [NLM], NCT04860947  for  the  prediction  of  disease  progression  in  multiple sclerosis, National Library of Medicine (U.S.), 2019, or  NLM NCT06155942 for the use of morphometry as a biomarker for Parkinson ' s disease, National Library of Medicine (U.S.), 2024).
+64:Sensitivity of SBA metrics to pathological processes has been mostly established through cross-sectional and longitudinal group studies (see e. g. de Figueiredo et al., 2021; Alkan et al., 2021; Nkrumah et al., 2023; Fortea et al., 2023 for recent examples). In contrast, normative modeling aims at a quantitative evaluation of single subject scans by establishing healthy  developmental  trajectories  and  prediction  intervals  of  SBA metrics in a reference population. It is a powerful tool to detect statistical anomalies at the individual level, making it much better suited to support personalized diagnostics and decision making (Marquand et al., 2016, 2019; Potvin et al., 2017; Ge et al., 2023; Potvin, 2021). In the meantime, CE-marked and FDA-approved commercial tools for clinical decision support by brain morphometry and normative modeling have become available for application in various forms of dementia (Pemberton et al., 2021) and in patients with MS (Mendelsohn et al., 2023).
+66:To provide reliable predictions, the models should be derived from large normative databases (Rutherford et al., 2022). In the field of MRI, suitable datasets have recently become available as public resources and open  doors  towards  the  application  of  normative  models  in  clinical settings.  Since  MRI  acquisition  settings  like  scanner  type  (Sinnecker et al., 2022) or scanning protocol (Rebsamen et al., 2023b) have been demonstrated to influence SBA estimates, control for these confounders by harmonization procedures is required (see e.g. Fortin et al., 2018). Our own work in the direction of normative modeling has demonstrated screening test characteristics of automated regional SBA metrics in patients with temporal lobe epilepsy (i.e. large negative predictive values, while positive predictive values were only moderate; Rummel et al., 2017) and provided markers for regional atrophy progression in patients with multiple sclerosis (Rummel et al., 2018).
+68:One of the remaining obstacles hindering the use of SBA normative modeling as a decision support tool in the clinical routine is the long computation time required for tools like FreeSurfer to process a single MRI scan, which is in the order of ten hours on the central processing unit (CPU) of a current standard desktop computer. Indeed, to practically  contribute  information  to  clinical  diagnostics,  processing  times should ideally be reduced to the order of minutes, to enable patient evaluation on demand or at least within the same shift. To overcome this limitation, new tools leveraging deep learning (DL) and convolutional neural  networks  (CNN) running on graphical processing units (GPU) have become available for SBA, like for example FastSurfer (Henschel et al., 2020). DL + DiReCT (Rebsamen et al., 2020, 2023a) and CortexMorph (McKinley &amp; Rummel, 2023) are alternative approaches to DL-based estimation of CTh. A recent comparative study revealed that not only did DL + DiReCT substantially outperform FreeSurfer in terms of  computation  time  required  to  estimate  CTh,  but  it  also  provided comparable  scan-rescan  reproducibility  and  estimated  atrophy  rates (Rebsamen et al., 2020). Importantly, DL + DiReCT was shown superior to FreeSurfer (both cross-sectional and longitudinal) in terms of sensitivity  to  simulated  cortical  thinning,  especially  when  the  introduced atrophy was weak (Rusak et al., 2022).
+70:The purpose of this work was to explore the performance of our normative modeling approach ( ' ScanOMetrics ' , Rummel et al., 2017, 2018) on metrics derived from DL + DiReCT and FreeSurfer, in the context of clinical evaluation. To achieve full reproducibility of our results, we focussed the analysis on OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset containing clinical grade high-resolution isotropic T1-weighted MRI scans of patients with Alzheimer ' s disease (AD) and healthy controls (HC). This extends previous work on DL + DiReCT and normative modelling to a reference database of several thousand scans instead of hundreds, and to their use for the evaluation of AD scans. We restricted our  software  comparison  to  the  jointly  available  SBA  metrics  of  the Desikan-Killiany atlas (Desikan et al., 2006), namely regional cortical GMV as well as regional mean and standard deviation of the CTh. The ability to detect regional outliers was compared between the two processing tools and the accumulation of anomalies in brain regions that are known for atrophy in AD group studies was studied, effectively assessing whether normative modeling based on a faster morphometry tool (DL + DiReCT) provides evaluation metrics that are consistent with a slower but widely used and validated tool (FreeSurfer).
+72:Our hypotheses were the following: Based on results by Rusak et al. (2022) and ourselves (Rebsamen et al., 2020), we expected normative models within ScanOMetrics to provide (1) more narrow distributions of fit residues, (2) higher scan-rescan reproducibility, as well as (3) more pronounced and more specific atrophy patterns in patients when using DL + DiReCT instead of FreeSurfer metrics. Based on previous work using PET and MRI imaging (Jansen et al., 2022; Verdi et al., 2023), we expected that (4) the AD group would yield a higher percentage of individual scans labeled as anomalous than a leave-one-out cross-validation  (LOOCV)  in  the  HC  group.  Finally,  we  hypothesized  that  (5) normative  modeling  at  the  level  of  individual  scans/patients  shows heterogeneous  anomaly  patterns. When  averaging  the  individual anomaly maps over the whole group, the shared anomaly motifs should, however, be similar to the map obtained when testing for statistical differences between the entire AD and HC groups (i.e. effect sizes in a group analysis).
+80:The  OASIS3  dataset  (Open  Access  Series  of  Imaging  Studies, LaMontagne et al., 2019) is publicly available at www.oasis-brains.org/ and contains NIFTI files of 2 ′ 643 high-resolution (voxel sizes in the order of 1 mm x 1 mm x 1 mm) isotropic T1-weighted MRI scans from 1 ′ 038 participants.  All  scans  were  acquired  at  two  field  strengths  using Siemens MRI scanners: Magnetom Sonata and Avanto (1.5 T, 42 scans) as well as Biograph mMR and Magnetom Trio (both 3 T, 2 ′ 601 scans). 2 ′ 014 scans are from subjects considered HCs with normal cognition (clinical dementia rating CDR = 0), 420 scans are from undetermined cases  with  CDR = 0.5,  and  209  scans  correspond  to  patients  with established AD having CDR ≥ 1, leading to 629 scans with CDR &gt; 0.
+82:Of the 2 ′ 014 HC scans, 87 are from 41 subjects that had a mixture of scans  with  CDR = 0  and  CDR ≥ 0.5  ( ' converters ' between  normal cognition and suspicion or established impairment). Those scans were excluded  from  building  our  normative  model,  which  was  therefore based on 1 ' 927 scans from 696 non-converting subjects, see Table 1 for demographic information. The 41 'converter ' subjects were instead used to investigate the change trajectories between the first and follow-up scans longitudinally.
+92:Demographic characteristics of the used OASIS3 subgroups. To increase clarity, 60 scans (2.2 %) from 15 patients with CDR changing between different levels of CDR ≥ 0.5 are not included here.
+94:|                         | CDR  = 0,  'non-  converters '  used for  normative  models   | subjects with  CDR  = 0 and  ≥ 0.5,  'converters '  used for  follow-up  analysis   | CDR  = 0.5,  'undetermined '  cases   | CDR  ≥ 1,  'established '  dementia   |
+111:In addition to the 'raw ' metrics, we used 'normalized ' variants to account for the fact that most metrics vary with brain size (Potvin et al., 2017).  All  volumes  were  scaled  to  the  mean  ICV  of  the  normative dataset. Mean and standard deviation of the CTh were instead scaled isometrically  according  to  ICV^(1/3)  to  respect  the  geometry  of  the cortex  as  a  thin  two-dimensional  sheet,  which  is  folded  into  threedimensional space, see (Rummel et al., 2017, 2018) for details. As estimates for ICV we used the Estimated Total Intracranial Volume (eTIV) for  FreeSurfer and an exhaustive volume sum of all intracranial segmentations for DL + DiReCT. Since ICV normalized by itself has the same value for all scans and asymmetry indices do not change under the normalization  procedure,  we  obtained  239  additional  'normalized ' metrics.
+121:## 2.5. Evaluating patient data against the normative models
+123:With the normative age models available, we applied them to patient scans and compared their fit residues to the distribution in the HCs. Covariates other than age (i.e. sex, scanner and scanning protocol) were accounted for by selecting matched subgroups before computing statistics. Matching for scanning protocol allows to reduce variability in thickness  estimation  due  to  imaging  parameters  and  corresponding differences in  WM/GM contrast (Rebsamen et al., 2023b). Since this matching yielded variable group sizes, the probability P of finding a fit residue of the observed size was calculated accounting for the distribution in the matching HCs and the uncertainty of the measurement, see Rummel et al. (2017, 2018) for details. For individual scans, an initial zscore was computed to position the individual metric with respect to the matching and scans in the reference set that were not previously flagged as outliers. This z-score was divided by a variance estimate that takes into account both the standard deviation of metrics within the reference dataset,  as  well  as  the  measurement  uncertainty  established  from repeated  scans.  The  resulting  z-score  was  then  converted  to  p-value using a standard z to p transformation, involving the cumulative distribution of a Gaussian. To account for metric and region specific measurement uncertainties, these were estimated based on repeated scans of the same HC within an age change of less than 10 %. Note that compared to same-session rescans under identical conditions, this estimate yields only an upper bound of the true uncertainty. Finally, log10(P), signed positive/negative  for  larger/smaller  than  expected  fit  residues,  were used  as  the  central  objects  to  decide  whether  a  regional  metric  was classified  as  statistically  normal  or  abnormal.  To  detect  a  statistical anomaly, a significance threshold was set to q = 0.01, equivalent to GLYPH&lt;0&gt; log10(P) &gt; 2.
+133:## 2.7. Comparison to other normative tools
+135:Z-scores  obtained when evaluating right and left mean CTh were compared to scores obtained using the PCN toolkit (Rutherford et al., 2022). Signed log(p) values for the average CTh were also compared to centiles obtained from Brain Chart (Bethlehem et al., 2022), another open-access tool for normative modelling. CTh for the HCs were submitted along the AD subjects for both PCN toolkit and BrainChart. Since both PCN toolkit and BrainChart rely on FreeSurfer metrics, and DL + DiReCT log(p) values correlated strongly with FreeSurfer, we refrained from including DL + DiReCT metrics in this comparison.
+139:To explore the separation of the AD and HC groups, receiver operating characteristics (ROC) and areas under the curve (AUC) were estimated separately for DL + DiReCT and FreeSurfer. The percentage of abnormal metrics per scan (p-values below 0.01) was taken to assess scans as a whole. To focus on brain regions that are known to be affected in AD patients, a similar analysis was repeated for the signed log10(p) values of the CTh of the entorhinal cortex and the hippocampal GMV.
+145:## 2.10. Evaluating and cleaning the normative dataset
+147:The normative dataset was evaluated with a subject-wise leave-oneout  cross-validation  (LOOCV)  study,  building  normative  polynomial models under exclusion of a specific HC (all sessions and repeated scans) and testing all scans of the excluded subject against that model, similar to what was described above for patients. To test for normality of fit residues in our LOOCV, Shapiro-Wilk tests were performed on each of the 597 metrics separately. To test whether the number of detections during  the  LOOCV  was  abnormally  high  over  all  subjects  and  'raw ' metrics,  we  performed  a  binomial  test  with  the  number  of  positives given  by  the  number  of  anomaly  detections,  the  number  of  samples given by the number of metrics times the number of scans and the expected fraction of random outliers given by the significance threshold q = 0.01.
+149:To clean our normative models from scans with artifacts or potential pathologies before final application, the LOOCV analysis was in addition used to identify anomalous scans separately for the DL + DiReCT and FreeSurfer pipelines and remove them from the normative datasets. We considered scans as not (entirely) normal if they yielded p-values lower than q = 0.01 for 18 or more out of the 358 raw metrics (5 % of metrics). As a final step, the LOOCV procedure was repeated after cleaning of the normative  dataset.  The  patient  evaluation  described  in  the  previous paragraph was done against the clean normative dataset.
+
+thinking
+**Identifying clinical cohort demographics**
+
+I'm focusing on extracting age and sex data for the Alzheimer's cohort from the clinical demographic table, likely around line 92 in the PDF markdown file. This will support applying NM to the clinical cohort.
+exec
+/bin/bash -lc "sed -n '90,140p' Romascano2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125921127/study_12026-03-05T03:59:41.807738Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+## Table 1
+
+Demographic characteristics of the used OASIS3 subgroups. To increase clarity, 60 scans (2.2 %) from 15 patients with CDR changing between different levels of CDR ≥ 0.5 are not included here.
+
+|                         | CDR  = 0,  'non-  converters '  used for  normative  models   | subjects with  CDR  = 0 and  ≥ 0.5,  'converters '  used for  follow-up  analysis   | CDR  = 0.5,  'undetermined '  cases   | CDR  ≥ 1,  'established '  dementia   |
+|-------------------------|---------------------------------------------------------------|-------------------------------------------------------------------------------------|---------------------------------------|---------------------------------------|
+| participants  (female)  | 696  (419, 60.2  %)                                           | 41  (19, 46.3 %)                                                                    | 174  (85, 48.9 %)                     | 112  (56, 50.0 %)                     |
+| scans  (female)         | 1 ′ 927  (1 ′ 188, 61.7                                       | 167  (84, 50.3 %)                                                                   | 309  (151, 48.9 %)                    | 180  (91, 50.6 %)                     |
+| (years,                 | %)  69.0  ± 9.3,                                              | 74.0  ± 8.2                                                                         | 76.1  ± 7.2                           |                                       |
+| age at scan             |                                                               |                                                                                     |                                       | 74.2  ± 8.4                           |
+| mean  + -SD and  range) | (42.7 -- 97.0)                                                | (54.0 - 94.4)                                                                       | (51.7 - 94.4)                         | (50.3 - 95.6)                         |
+
+version 6.0.0 and DL + DiReCT (Rebsamen et al., 2020, 2023a) using default  parameters.  Results  were  exported  in  tabular  form  using  the Desikan-Killiany  atlas  (Desikan  et  al.,  2006).  Because  the  current implementation of DL + DiReCT does not provide other SBA metrics, only the cortical GMV, mean and standard deviation of the CTh were included in  our  study.  Structures  with  bilateral  representations  were used to compute an asymmetry index. In summary, for both processing pipelines, each scan yielded a total of 358 'raw ' measurements:
+
+- subcortical volumes: 8 structures (thalamus proper, caudate, putamen,  pallidum,  accumbens  area,  hippocampus,  amygdala  and ventral diencephalon) on 2 hemispheres plus 8 asymmetry indices
+- 3 volumes of midline structures (brain stem, 3rd and 4th ventricles)
+- cortical regions of the Desikan-Killiany atlas: 3 metrics for 34 regions on 2 hemispheres plus 3x34 asymmetry indices
+- brain lobes: volumes for 6 lobes (frontal, parietal, occipital, temporal,  cingulate  and  insula)  on  2  hemispheres  plus  6  asymmetry indices. Mean and standard deviation of CTh were not included here, since a size-weighted lobar aggregation requires an estimate of the CSA, which is currently not provided by DL + DiReCT.
+- brain  hemispheres:  left/right  cortex  volume  and  mean  CTh  plus asymmetry indices
+- whole brain: estimate for intracranial volume (ICV).
+
+
+thinking
+**Defining clinical cohort as CDR≥1 AD patients**
+
+The clinical cohort will include AD patients with CDR≥1 (established dementia) excluding CDR=0.5 (undetermined/MCI). I'll extract participant counts, sex distribution, and age stats for this group from Table 1 in Romascano2024.pdf.md, using participant data rather than scans for cohort demographics.
+thinking
+**Assigning dataset origin as OASIS-3**
+
+The dataset of origin will be labeled "OASIS-3" with supporting text confirming it includes AD patients with CDR≥1 and controls, referencing Table 1 and descriptive text from the source. Next, I'll examine the existing JSON file for updating.
+exec
+/bin/bash -lc 'cat DE_v14_Romascano2024_by_codex_20260305125921127.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051259211272026-03-05T03:59:52.449459Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 16ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Detailing participant demographics**
+
+I'm preparing to report 56 females out of 112 participants (50.0%) with CDR ≥1 dementia, including mean age 74.2 (sd 8.4, min 50.3, max 95.6), citing exact support from Table 1 and using the disorder and dataset descriptions verbatim from the introduction in Romascano2024.pdf.md.
+thinking
+**Preparing exact demographic quotes**
+
+I'm assembling exact excerpts from the table including "CDR  ≥ 1,  'established '  dementia" with age "74.2  ± 8.4" and "(50.3 - 95.6)" plus "participants  (female) ... 112  (56, 50.0 %)" for accurate quoting in JSON with Romascano2024 paper ID.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Romascano2024"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "CDR ≥ 1 established dementia group in OASIS3; AD patient scans evaluated against normative models.",
++        "confidence_rating": "High",
++        "supporting_text": "\"OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset containing clinical grade high-resolution isotropic T1-weighted MRI scans of patients with Alzheimer ' s disease (AD) and healthy controls (HC).\"",
++        "location": "Romascano2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "OASIS-3"
++        ],
++        "detail": "Clinical cohort drawn from OASIS3.",
++        "confidence_rating": "High",
++        "supporting_text": "\"OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset\"",
++        "location": "Romascano2024.pdf.md: Introduction"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 50.3,
++          "max": 95.6,
++          "mean": 74.2,
++          "sd": 8.4
++        },
++        "detail": "CDR ≥ 1 established dementia participants.",
++        "confidence_rating": "High",
++        "supporting_text": "\"CDR  ≥ 1,  'established '  dementia\" \"74.2  ± 8.4\" \"(50.3 - 95.6)\"",
++        "location": "Romascano2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 56,
++          "male_pct": 50.0,
++          "female_n": 56,
++          "female_pct": 50.0
++        },
++        "detail": "Participant counts for CDR ≥ 1 established dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"participants  (female)\" \"112  (56, 50.0 %)\"",
++        "location": "Romascano2024.pdf.md: Table 1"
+       }
+2026-03-05T04:00:16.904816Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Romascano2024_by_codex_20260305125921127.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json b/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..ef2d0e7ff5c4d3fe0b7d7b8748aabc65f7b07809
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Romascano2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "CDR ≥ 1 established dementia group in OASIS3; AD patient scans evaluated against normative models.",
++        "confidence_rating": "High",
++        "supporting_text": "\"OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset containing clinical grade high-resolution isotropic T1-weighted MRI scans of patients with Alzheimer ' s disease (AD) and healthy controls (HC).\"",
++        "location": "Romascano2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "OASIS-3"
++        ],
++        "detail": "Clinical cohort drawn from OASIS3.",
++        "confidence_rating": "High",
++        "supporting_text": "\"OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset\"",
++        "location": "Romascano2024.pdf.md: Introduction"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 50.3,
++          "max": 95.6,
++          "mean": 74.2,
++          "sd": 8.4
++        },
++        "detail": "CDR ≥ 1 established dementia participants.",
++        "confidence_rating": "High",
++        "supporting_text": "\"CDR  ≥ 1,  'established '  dementia\" \"74.2  ± 8.4\" \"(50.3 - 95.6)\"",
++        "location": "Romascano2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 56,
++          "male_pct": 50.0,
++          "female_n": 56,
++          "female_pct": 50.0
++        },
++        "detail": "Participant counts for CDR ≥ 1 established dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"participants  (female)\" \"112  (56, 50.0 %)\"",
++        "location": "Romascano2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json b/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..ef2d0e7ff5c4d3fe0b7d7b8748aabc65f7b07809
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Romascano2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "CDR ≥ 1 established dementia group in OASIS3; AD patient scans evaluated against normative models.",
++        "confidence_rating": "High",
++        "supporting_text": "\"OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset containing clinical grade high-resolution isotropic T1-weighted MRI scans of patients with Alzheimer ' s disease (AD) and healthy controls (HC).\"",
++        "location": "Romascano2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "OASIS-3"
++        ],
++        "detail": "Clinical cohort drawn from OASIS3.",
++        "confidence_rating": "High",
++        "supporting_text": "\"OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset\"",
++        "location": "Romascano2024.pdf.md: Introduction"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 50.3,
++          "max": 95.6,
++          "mean": 74.2,
++          "sd": 8.4
++        },
++        "detail": "CDR ≥ 1 established dementia participants.",
++        "confidence_rating": "High",
++        "supporting_text": "\"CDR  ≥ 1,  'established '  dementia\" \"74.2  ± 8.4\" \"(50.3 - 95.6)\"",
++        "location": "Romascano2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 56,
++          "male_pct": 50.0,
++          "female_n": 56,
++          "female_pct": 50.0
++        },
++        "detail": "Participant counts for CDR ≥ 1 established dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"participants  (female)\" \"112  (56, 50.0 %)\"",
++        "location": "Romascano2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming mention of normative models**
+
+I'll ensure the supporting text properly refers to normative models applied to patient scans with a citation to section 2.5, while keeping the disorder name focused on AD patients for clarity.
+codex
+Filled the clinical cohort extraction for Romascano2024 with OASIS3 AD (CDR ≥ 1) demographics and provenance, based on Table 1 and the OASIS3 description. Updated `DE_v14_Romascano2024_by_codex_20260305125921127.json` with AD disorder name, dataset keyword, age stats, and sex counts/percentages, each backed by quoted supporting text and locations in `study_1/Romascano2024.pdf.md`.
+
+If you want, I can also add an explicit supporting quote that the normative models were applied to patient scans (methods 2.5) to reinforce the NM-application criterion.
+2026-03-05T04:00:25.291496Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json b/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..ef2d0e7ff5c4d3fe0b7d7b8748aabc65f7b07809
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125921127/./DE_v14_Romascano2024_by_codex_20260305125921127.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Romascano2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "AD",
++        "detail": "CDR ≥ 1 established dementia group in OASIS3; AD patient scans evaluated against normative models.",
++        "confidence_rating": "High",
++        "supporting_text": "\"OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset containing clinical grade high-resolution isotropic T1-weighted MRI scans of patients with Alzheimer ' s disease (AD) and healthy controls (HC).\"",
++        "location": "Romascano2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "OASIS-3"
++        ],
++        "detail": "Clinical cohort drawn from OASIS3.",
++        "confidence_rating": "High",
++        "supporting_text": "\"OASIS3 (Open Access Series of Imaging Studies; LaMontagne et al., 2019), a large and freely available dataset\"",
++        "location": "Romascano2024.pdf.md: Introduction"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 50.3,
++          "max": 95.6,
++          "mean": 74.2,
++          "sd": 8.4
++        },
++        "detail": "CDR ≥ 1 established dementia participants.",
++        "confidence_rating": "High",
++        "supporting_text": "\"CDR  ≥ 1,  'established '  dementia\" \"74.2  ± 8.4\" \"(50.3 - 95.6)\"",
++        "location": "Romascano2024.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 56,
++          "male_pct": 50.0,
++          "female_n": 56,
++          "female_pct": 50.0
++        },
++        "detail": "Participant counts for CDR ≥ 1 established dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"participants  (female)\" \"112  (56, 50.0 %)\"",
++        "location": "Romascano2024.pdf.md: Table 1"
+       }
+     }
+   ]
+
+tokens used
+32,314
+Filled the clinical cohort extraction for Romascano2024 with OASIS3 AD (CDR ≥ 1) demographics and provenance, based on Table 1 and the OASIS3 description. Updated `DE_v14_Romascano2024_by_codex_20260305125921127.json` with AD disorder name, dataset keyword, age stats, and sex counts/percentages, each backed by quoted supporting text and locations in `study_1/Romascano2024.pdf.md`.
+
+If you want, I can also add an explicit supporting quote that the normative models were applied to patient scans (methods 2.5) to reinforce the NM-application criterion.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

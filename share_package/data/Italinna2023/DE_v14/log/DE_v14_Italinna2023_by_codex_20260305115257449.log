@@ -1,0 +1,477 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Italinna2023_by_codex_20260305115257449.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115257449/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbbe9-b15a-72f3-b401-14fada83ccca
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Italinna2023_by_codex_20260305115257449.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning file content inspection**
+
+I'm planning to read the guide file using shell tools to inform the next step since there is no clear plan yet.
+2026-03-05T02:53:03.519930Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115257449 succeeded in 14ms:
+DE_Guide_v14.md
+DE_v14_Italinna2023_by_codex_20260305115257449.json
+DE_v14_Italinna2023_by_codex_20260305115257449.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051152574492026-03-05T02:53:05.941529Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 31ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating paper data in study_1**
+2026-03-05T02:53:09.152233Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115257449 succeeded in 48ms:
+DE_v14_Italinna2023_by_codex_20260305115257449.json
+DE_v14_Italinna2023_by_codex_20260305115257449.log
+DE_Guide_v14.md
+study_1/Italinna2023.pdf.md
+2026-03-05T02:53:12.229293Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical" study_1/Italinna2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115257449 succeeded in 37ms:
+5:Citation: Ita ¨linna V, Kaltiainen H, Forss N, Liljestro ¨mM,Parkkonen L (2023) Using normative modeling and machine learning for detecting mild traumatic brain injury from magnetoencephalography data. PLoS Comput Biol 19(11): e1011613. https://doi.org/10.1371/journal.
+19:Data Availability Statement: The data from the mTBI patients and their healthy controls are not publicly available as it contains information that could compromise the privacy of the research participants. Data can however be shared with scientific collaborators after an amendment to the research ethics permit via the hospital's ethics committee and a data transfer agreement. Data can be requested by contacting the ethics committee at HUS at eettinen.toimikunta@hus.fi. The Cam-CAN dataset used for the normative modeling in this
+23:## Using normative modeling and machine learning for detecting mild traumatic brain injury from magnetoencephalography data
+35:Newbiomarkers are urgently needed for many brain disorders; for example, the diagnosis of mild traumatic brain injury (mTBI) is challenging as the clinical symptoms are diverse and nonspecific. EEG and MEG studies have demonstrated several population-level indicators of mTBI that could serve as objective markers of brain injury. However, deriving clinically useful biomarkers for mTBI and other brain disorders from EEG/MEG signals is hampered by the large inter-individual variability even across healthy people. Here, we used a multivariate machine-learning approach to detect mTBI from resting-state MEG measurements. To address the heterogeneity of the condition, we employed a normative modeling approach and modeled MEG signal features of individual mTBI patients as deviations with respect to the normal variation. To this end, a normative dataset comprising 621 healthy participants was used to determine the variation in power spectra across the cortex. In addition, we constructed normative datasets based on age-matched subsets of the full normative data. To discriminate patients from healthy control subjects, we trained support-vector-machine classifiers on the quantitative deviation maps for 25 mTBI patients and 20 controls not included in the normative dataset. The best performing classifier made use of the full normative data across the entire age and frequency ranges. This classifier was able to distinguish patients from controls with an accuracy of 79%. Inspection of the trained model revealed that low-frequency activity in the theta frequency band (4-8 Hz) is a significant indicator of mTBI, consistent with earlier studies. The results demonstrate the feasibility of using normative modeling of MEG data combined with machine learning to advance diagnosis of mTBI and identify patients that would benefit from treatment and rehabilitation. The current approach could be applied to a wide range of brain disorders, thus providing a basis for deriving MEG/ EEG-based biomarkers.
+45:Mild traumatic brain injury is extremely common, but no definite diagnostic method is yet available. Objective markers for detecting brain injury are needed to direct care to those who would most benefit from it. Here we present and demonstrate the feasibility of a new approach based on MEG recordings that first explicitly addresses the variability in brain dynamics within the population through normative modeling, and then applies supervised machine-learning to detect pathological deviations related to mTBI. The approach can easily be adapted to other brain disorders as well and could thus provide a basis for an automated tool for analysis of MEG/EEG towards disease-specific biomarkers.
+49:Due to its high prevalence and potential long-term adverse health effects, accurate diagnosis of mild traumatic brain injury (mTBI) is of high importance. Objective diagnosis of mTBI remains a challenge, however, as structural imaging methods such as magnetic resonance imaging (MRI) as well as neuropsychological testing often fail to detect clinically significant abnormalities [1,2]. Diagnosis of mTBI after the acute phase is further complicated by posttraumatic symptoms that are nonspecific to mTBI and highly variable across patients [3].
+51:Studies employing noninvasive functional neuroimaging techniques such as functional magnetic resonance imaging (fMRI), electroencephalography (EEG) or magnetoencephalography (MEG) have provided group-level evidence of changes in brain activity following mTBI, even several months after the trauma and in the absence of clinical symptoms [4-7]. New objective measures based on functional brain imaging might prove essential for improving the accuracy and reliability of the diagnosis, and for identifying patients who are at risk of chronic symptoms and would benefit from intervention.
+53:Electrophysiological recordings of brain activity, such as MEG and EEG, provide a range of measures (e.g. amount of low-frequency activity, posterior alpha frequency and power, alterations in functional connectivity, cross-frequency coupling, or network topology measures) that reflect the altered functional state of brain regions and networks after mTBI [5,8-11]. However, the ability to determine the clinical status of individual mTBI patients based on single-or univariate-measures is extremely limited [12], and it is not clear which MEG/EEG measures are most informative of disease pathology. Thus, compound-or multivariate-analysis within a machine-learning framework that jointly exploits multiple measures could potentially increase our ability to accurately detect pathology related to mTBI. Recent studies applying machine learning have shown promise in identifying individuals with mTBI from MEG data using measures of oscillatory activity [13,14], functional connectivity and network topology [11,15,16].
+55:Extraction of objective measures from functional imaging data in mTBI is particularly challenging since the mechanism, location and nature of the head insult, as well as the clinical symptoms are largely heterogeneous. Moreover, individual variation in brain activity is large even in the healthy population and the majority of mTBI patients experience a prompt recovery. Therefore, regarding patients and control subjects as clearly delineated and distinct groups, may not properly reflect the nature of this disorder [17,18]. This variability can partially be addressed by normative modeling [18], where the aim is to map the full range of normal variation within the population and quantify statistical deviations of individual patients. Different normative modeling approaches have recently been applied to neuroimaging data to study disorders such as schizophrenia [19-21], dementia [22,23] and autism [20,24]. The
+59:In this study, we compare source-level power spectra computed from resting-state MEG recordings of mTBI patients and their healthy controls to a large normative reference dataset for the purpose of modeling the pathological features of individual mTBI patients as extreme values or deviations with respect to the normal variation. To discriminate the group of mTBI patients from healthy control subjects, we train a support vector machine (SVM) classifier [25] on the resulting quantitative deviation maps.
+61:Akey question in normative modeling is the choice of the reference cohort, which should capture a wide range of variation in the population [26]. An important consideration is therefore the matching of the demographics of the normative reference data to the subject. As there is significant neurophysiological variation across demographic groups, interesting diseaserelated effects may be diluted if the applied normative data represents the whole population. Here, we explore this question by comparing the results obtained with age-matched and nonmatched normative data.
+67:Weemployed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls. In addition, we employed a large, separate dataset, utilizing MEG recordings from a total of 621 healthy participants [29] as normative data.
+124:Alarge open neuroimaging dataset by the Cambridge Centre for Ageing and Neuroscience (Cam-CAN) [29], containing MEG and MRI measurements of nearly 700 healthy participants aged 18 to 87, was used for creating the normative reference data. The curated, cross-sectional Cam-CAN dataset contains measurements from approximately 50 men and 50 women in each age decade (18-27, 28-37, 38-47, 48-57, 58-67, 68-77 and 78-87 years). In this study, only the resting-state, eyes-closed MEG and anatomical MRI were used. Further details of the dataset are presented by Taylor and colleagues [29].
+142:Fig 1. Analysis pipeline. ( A ) Data preprocessing. Source-level power spectra were first calculated for each cortical region and morphed to a common brain template. (B) Construction of normative models. The mean μ and standard deviation σ were calculated across subjects within the reference dataset to obtain normative data for each location and frequency. Three different types of normative models were constructed: a full normative model containing all participants from the reference dataset across the entire age range (depicted in blue, mean values across all frequencies and cortical locations are shown), age-matched models containing a subset of participants within the same age range as the patient/control (exemplar depicted in green), and for comparison a random model with a subset of reference data of random ages (shown in red). ( C ) Classification procedure. The normative models were used for converting the power spectra of the patients and controls into deviation scores (z-scores). The deviation scores, binned into 448 cortical parcels and six frequency bands, were then entered into the classification procedure.
+148:Feature engineering. To obtain normative models, the mean μ and standard deviation σ of the power spectra were calculated across the subjects from the normative dataset (Fig 1B). These statistics were then used for converting the power spectrum matrices for the patients and their healthy controls, into deviations maps of Z-scores over the entire cortex, calculated as
+170:To test the effect of using normative data from a specific age group, the model was trained and evaluated on an age-matched subset of the normative data, i.e., only the power spectra belonging to the same age decade as the subject were used. The age groups were defined according to the normative dataset as 18-27, 28-37, 38-47, 48-57 and 58-67 years. To ensure
+172:that the possible difference in the results was not due to the smaller size of the normative dataset, the model was also evaluated on a dataset where the normative data used for each subject were randomly subsampled so that the size of the normative dataset was equal to the number of normative samples in the subject's age group. The results of the randomized procedure were averaged over three repetitions to reduce the effect of a single random sampling.
+174:In addition to the above three ways of employing the large normative dataset, we trained and evaluated the model on a dataset where the features were created from only the power spectra of the mTBI patients and their healthy controls, applying the same binning scheme as described earlier but without computing the Z-scores using normative data. This was done to assess the performance of the proposed normative modeling approach compared to classifying the power spectra as such.
+192:Fig 2. (A) Group-average, relative power spectra of mTBI patients and healthy controls . Horizontal axis is frequency (Hz), vertical axis the cortical location (indices of the 448 cortical regions ordered alphabetically), and the color indicates the Z-score with respect to the normative data at that frequency and cortical location. (B) Relative power spectra associated with different classification results . The average Z-score maps for patients (first row) and controls (second row) by classification output, from left to right: correctly classified samples, incorrectly classified samples and the difference between the correctly and incorrectly classified samples.
+198:the normative dataset, mainly around 10 and 20 Hz as well as at frequencies over 30 Hz. The deviation values for the control subjects are overall slightly lower compared to the normative dataset, which might be an effect of different measurement sites.
+
+thinking
+**Locating cohort demographics**
+
+I'm searching the PDF documentation for demographic details on mTBI patients and controls in the Kaltiainen dataset to gather age and sex information.
+exec
+/bin/bash -lc 'rg -n "age|years|mean|SD|female|male|sex|demographic|participants|patients|controls" study_1/Italinna2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051152574492026-03-05T02:53:15.755075Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 34ms:
+1:![Image](./Italinna2023_artifacts/image_000000_c390f09bdfef817f6cceec6187ae69e2128412d077da12866e942a9a105facb1.png)
+3:![Image](./Italinna2023_artifacts/image_000001_ce41a2492fd392321b0d5513187518da496335f1d6dfa9602a961439b28653e6.png)
+19:Data Availability Statement: The data from the mTBI patients and their healthy controls are not publicly available as it contains information that could compromise the privacy of the research participants. Data can however be shared with scientific collaborators after an amendment to the research ethics permit via the hospital's ethics committee and a data transfer agreement. Data can be requested by contacting the ethics committee at HUS at eettinen.toimikunta@hus.fi. The Cam-CAN dataset used for the normative modeling in this
+35:Newbiomarkers are urgently needed for many brain disorders; for example, the diagnosis of mild traumatic brain injury (mTBI) is challenging as the clinical symptoms are diverse and nonspecific. EEG and MEG studies have demonstrated several population-level indicators of mTBI that could serve as objective markers of brain injury. However, deriving clinically useful biomarkers for mTBI and other brain disorders from EEG/MEG signals is hampered by the large inter-individual variability even across healthy people. Here, we used a multivariate machine-learning approach to detect mTBI from resting-state MEG measurements. To address the heterogeneity of the condition, we employed a normative modeling approach and modeled MEG signal features of individual mTBI patients as deviations with respect to the normal variation. To this end, a normative dataset comprising 621 healthy participants was used to determine the variation in power spectra across the cortex. In addition, we constructed normative datasets based on age-matched subsets of the full normative data. To discriminate patients from healthy control subjects, we trained support-vector-machine classifiers on the quantitative deviation maps for 25 mTBI patients and 20 controls not included in the normative dataset. The best performing classifier made use of the full normative data across the entire age and frequency ranges. This classifier was able to distinguish patients from controls with an accuracy of 79%. Inspection of the trained model revealed that low-frequency activity in the theta frequency band (4-8 Hz) is a significant indicator of mTBI, consistent with earlier studies. The results demonstrate the feasibility of using normative modeling of MEG data combined with machine learning to advance diagnosis of mTBI and identify patients that would benefit from treatment and rehabilitation. The current approach could be applied to a wide range of brain disorders, thus providing a basis for deriving MEG/ EEG-based biomarkers.
+49:Due to its high prevalence and potential long-term adverse health effects, accurate diagnosis of mild traumatic brain injury (mTBI) is of high importance. Objective diagnosis of mTBI remains a challenge, however, as structural imaging methods such as magnetic resonance imaging (MRI) as well as neuropsychological testing often fail to detect clinically significant abnormalities [1,2]. Diagnosis of mTBI after the acute phase is further complicated by posttraumatic symptoms that are nonspecific to mTBI and highly variable across patients [3].
+51:Studies employing noninvasive functional neuroimaging techniques such as functional magnetic resonance imaging (fMRI), electroencephalography (EEG) or magnetoencephalography (MEG) have provided group-level evidence of changes in brain activity following mTBI, even several months after the trauma and in the absence of clinical symptoms [4-7]. New objective measures based on functional brain imaging might prove essential for improving the accuracy and reliability of the diagnosis, and for identifying patients who are at risk of chronic symptoms and would benefit from intervention.
+53:Electrophysiological recordings of brain activity, such as MEG and EEG, provide a range of measures (e.g. amount of low-frequency activity, posterior alpha frequency and power, alterations in functional connectivity, cross-frequency coupling, or network topology measures) that reflect the altered functional state of brain regions and networks after mTBI [5,8-11]. However, the ability to determine the clinical status of individual mTBI patients based on single-or univariate-measures is extremely limited [12], and it is not clear which MEG/EEG measures are most informative of disease pathology. Thus, compound-or multivariate-analysis within a machine-learning framework that jointly exploits multiple measures could potentially increase our ability to accurately detect pathology related to mTBI. Recent studies applying machine learning have shown promise in identifying individuals with mTBI from MEG data using measures of oscillatory activity [13,14], functional connectivity and network topology [11,15,16].
+55:Extraction of objective measures from functional imaging data in mTBI is particularly challenging since the mechanism, location and nature of the head insult, as well as the clinical symptoms are largely heterogeneous. Moreover, individual variation in brain activity is large even in the healthy population and the majority of mTBI patients experience a prompt recovery. Therefore, regarding patients and control subjects as clearly delineated and distinct groups, may not properly reflect the nature of this disorder [17,18]. This variability can partially be addressed by normative modeling [18], where the aim is to map the full range of normal variation within the population and quantify statistical deviations of individual patients. Different normative modeling approaches have recently been applied to neuroimaging data to study disorders such as schizophrenia [19-21], dementia [22,23] and autism [20,24]. The
+59:In this study, we compare source-level power spectra computed from resting-state MEG recordings of mTBI patients and their healthy controls to a large normative reference dataset for the purpose of modeling the pathological features of individual mTBI patients as extreme values or deviations with respect to the normal variation. To discriminate the group of mTBI patients from healthy control subjects, we train a support vector machine (SVM) classifier [25] on the resulting quantitative deviation maps.
+61:Akey question in normative modeling is the choice of the reference cohort, which should capture a wide range of variation in the population [26]. An important consideration is therefore the matching of the demographics of the normative reference data to the subject. As there is significant neurophysiological variation across demographic groups, interesting diseaserelated effects may be diluted if the applied normative data represents the whole population. Here, we explore this question by comparing the results obtained with age-matched and nonmatched normative data.
+67:Weemployed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls. In addition, we employed a large, separate dataset, utilizing MEG recordings from a total of 621 healthy participants [29] as normative data.
+71:The study was approved by the Ethics Committee of Helsinki and Uusimaa Hospital District. Written consent was obtained from the participants in accordance with the Declaration of Helsinki.
+73:## mTBI patients and healthy controls
+75:The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males) with a mean age of 42 years (range 20-59 years). The control group comprised 20 healthy subjects (8 females, 12 males) with a mean age of 39 years (range 19-58 years). All patients and controls were without neuropsychological disorders, medication affecting the central nervous system, substance abuse or earlier history of TBI. The patients' level of consciousness was assessed with the Glasgow Coma Scale (GCS) [30] shortly after the injury. GCS addresses the level of consciousness, ranging from three (deep unconsciousness) to 15 (alert and awake). The GCS scores varied between 14 and 15, thus fulfilling the criteria for mTBI. All patients maintained TBI symptoms at their first MEG measurement. At their MEG measurement sessions, the patients filled in the Rivermead Post-Concussion Symptoms Questionnaire (RPQ) [31], which measures the severity of post-concussive symptoms after TBI with a five-step scale, compared with the situation before the accident. The maximum score is 64 but answering 'no more of a problem as before the accident' yields one point. The scores of the questionnaire varied from 3 to 36 with an average of 17.2. The demographics of the patient group, as well as their GCS and RPQ scores, are presented in Table 1. All patients fulfilled the criteria for mTBI according to the American Congress of Rehabilitation Medicine (ACRM) criteria [32] with loss of consciousness of less than 30 minutes at the time of the accident, GCS varying between 13-15 at 30 min after the accident and the duration of post-traumatic amnesia less than 24h.
+77:Table 1. Demographics of the mTBI patients.
+79:| Patient a   |   Age (years) |   GCS |   RPQ |   Delay (weeks) b | Lesions c   |
+106:| Average     |          41.6 |  14.4 |  17.2 |                 8 | 60%         |
+108:a The data were obtained from Kaltiainen and colleagues [27,28]. The patients are in the same order as in Table 1 of Kaltiainen et al. [28].
+110:b The time between the injury and the MEG measurement. Times expressed in months were converted to weeks using a factor of 4.345 (the average number of weeks in a month).
+118:All patients underwent an MEG measurement within 6 months (26 weeks) after the trauma, 19 of which were performed at the subacute stage within 2 months (9 weeks) of the injury. Nine patients underwent a follow-up comprising of both a MEG recording and neuropsychological testing at 6 months after the first recording [28]. The follow-up recordings were not analyzed in the current study due to the small group size. The MEG measurements were performed at Aalto Neuroimaging MEG Core, Aalto University School of Science, Espoo, Finland, using a 306-channel whole-head MEG device (Elekta Neuromag; MEGIN Oy, Helsinki, Finland). During the recordings, data were filtered to 0.03-330 Hz and sampled at 1000 Hz. Electrocardiogram and horizontal and vertical electro-oculograms were measured for managing artifacts caused by heartbeat and eye movement, respectively. Here, from those recordings, we use one MEG session where the subjects rested with eyes closed for 10 minutes. The subjects were instructed to sit relaxed and avoid movement. The measurement was briefly paused twice to confirm that the subjects remained awake and alert.
+
+
+thinking
+**Clarifying clinical cohort and dataset origin**
+
+The clinical cohort includes only the mTBI patients, not controls, with mean age 42 and range 20–59 but no SD reported. The dataset is from a single site (Aalto University) without a public name, so labeling it as "SINGLE-SITE" with unknown dataset name fits the schema.
+thinking
+**Finalizing demographic details with stats and citation**
+
+Age will include unit years with min, max, mean, and sd as "NR"; sex counts with computed percentages will be included. Citation uses paper ID "Italinna2023" with location referencing the paper section for patient group details.
+2026-03-05T02:53:28.394207Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Italinna2023_by_codex_20260305115257449.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115257449 succeeded in 31ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Preparing to apply patch**
+2026-03-05T02:53:45.710696Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Italinna2023"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mTBI",
++        "detail": "Clinical cohort of mild traumatic brain injury patients used for normative-model-based classification.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Dataset measured by Kaltiainen and colleagues; no specific dataset name reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls.\"",
++        "location": "Italinna2023.pdf.md: Methods / Data"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 20,
++          "max": 59,
++          "mean": 42,
++          "sd": "NR"
++        },
++        "detail": "mTBI patient group; SD not reported.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males) with a mean age of 42 years (range 20-59 years).\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 14,
++          "male_pct": 56.0,
++          "female_n": 11,
++          "female_pct": 44.0
++        },
++        "detail": "Percentages calculated from counts for the mTBI patient group.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males)\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       }
+apply_patch(auto_approved=true) exited 0 in 7ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json b/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b26ae1b2cea489bb55a2cca42ae78ad4bcec632f
+--- a/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Italinna2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mTBI",
++        "detail": "Clinical cohort of mild traumatic brain injury patients used for normative-model-based classification.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Dataset measured by Kaltiainen and colleagues; no specific dataset name reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls.\"",
++        "location": "Italinna2023.pdf.md: Methods / Data"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 20,
++          "max": 59,
++          "mean": 42,
++          "sd": "NR"
++        },
++        "detail": "mTBI patient group; SD not reported.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males) with a mean age of 42 years (range 20-59 years).\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 14,
++          "male_pct": 56.0,
++          "female_n": 11,
++          "female_pct": 44.0
++        },
++        "detail": "Percentages calculated from counts for the mTBI patient group.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males)\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json b/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b26ae1b2cea489bb55a2cca42ae78ad4bcec632f
+--- a/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Italinna2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mTBI",
++        "detail": "Clinical cohort of mild traumatic brain injury patients used for normative-model-based classification.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Dataset measured by Kaltiainen and colleagues; no specific dataset name reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls.\"",
++        "location": "Italinna2023.pdf.md: Methods / Data"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 20,
++          "max": 59,
++          "mean": 42,
++          "sd": "NR"
++        },
++        "detail": "mTBI patient group; SD not reported.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males) with a mean age of 42 years (range 20-59 years).\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 14,
++          "male_pct": 56.0,
++          "female_n": 11,
++          "female_pct": 44.0
++        },
++        "detail": "Percentages calculated from counts for the mTBI patient group.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males)\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming disorder name and dataset details**
+
+The disorder is confirmed as mTBI per the Neurotrauma mTBI list, with dataset origin presumed SINGLE-SITE. I'll ensure the response remains concise while noting the location and mention of normative model application.
+codex
+Updated the extraction JSON with the mTBI clinical cohort details and citations from the paper. The results are in `DE_v14_Italinna2023_by_codex_20260305115257449.json`.
+
+If you want, I can also add the healthy control cohort as a separate non-disorder entry, but per guide I kept only the clinical disorder cohort.
+2026-03-05T02:53:49.802629Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json b/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..b26ae1b2cea489bb55a2cca42ae78ad4bcec632f
+--- a/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305115257449/DE_v14_Italinna2023_by_codex_20260305115257449.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Italinna2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "mTBI",
++        "detail": "Clinical cohort of mild traumatic brain injury patients used for normative-model-based classification.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Dataset measured by Kaltiainen and colleagues; no specific dataset name reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"We employed a dataset originally measured by Kaltiainen and colleagues [27,28], comprising resting-state MEG recordings from 25 mild traumatic injury patients and 20 healthy controls.\"",
++        "location": "Italinna2023.pdf.md: Methods / Data"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 20,
++          "max": 59,
++          "mean": 42,
++          "sd": "NR"
++        },
++        "detail": "mTBI patient group; SD not reported.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males) with a mean age of 42 years (range 20-59 years).\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 14,
++          "male_pct": 56.0,
++          "female_n": 11,
++          "female_pct": 44.0
++        },
++        "detail": "Percentages calculated from counts for the mTBI patient group.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The patient group consisted of 25 mild traumatic brain injury patients (11 females, 14 males)\"",
++        "location": "Italinna2023.pdf.md: mTBI patients and healthy controls"
+       }
+     }
+   ]
+
+tokens used
+24,872
+Updated the extraction JSON with the mTBI clinical cohort details and citations from the paper. The results are in `DE_v14_Italinna2023_by_codex_20260305115257449.json`.
+
+If you want, I can also add the healthy control cohort as a separate non-disorder entry, but per guide I kept only the clinical disorder cohort.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

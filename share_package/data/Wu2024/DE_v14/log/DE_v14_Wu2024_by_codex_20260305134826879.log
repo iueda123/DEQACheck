@@ -1,0 +1,490 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Wu2024_by_codex_20260305134826879.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc53-6d7a-74d0-8385-42f28ed7566b
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Wu2024_by_codex_20260305134826879.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read DE_Guide**
+2026-03-05T04:48:32.677004Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Wu2024_by_codex_20260305134826879.json
+DE_v14_Wu2024_by_codex_20260305134826879.log
+study_1
+2026-03-05T04:48:36.075880Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879 succeeded in 28ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating study_1 files**
+
+I'm searching the repository for files related to study_1 using a file listing command.
+2026-03-05T04:48:39.904738Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879 succeeded in 35ms:
+DE_v14_Wu2024_by_codex_20260305134826879.log
+DE_Guide_v14.md
+study_1/1-s2.0-S2667174323000939-mmc1.pdf.md
+study_1/1-s2.0-S2667174323000939-mmc2.xlsx.md
+study_1/Wu2024.pdf.md
+DE_v14_Wu2024_by_codex_20260305134826879.json
+
+thinking
+**Opening paper for reference**
+exec
+/bin/bash -lc 'cat study_1/Wu2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051348268792026-03-05T04:48:43.938501Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+## Archival Report
+
+## Sex Determines Anterior Cingulate Cortex Cortical Thickness in the Course of Depression
+
+Guo-Rong Wu and Chris Baeken
+
+## ABSTRACT
+
+BACKGROUND: Major depressive disorder (MDD) is a severe psychiatric disorder affecting women more than men. Changes in anterior cingulate cortex cortical thickness (ACC CT) may be crucial to understanding sex in /uniFB02 uences in MDD onset and recurrency.
+
+METHODS: Taken from the large open-source REST-meta-MDD database, we contrasted 499 patients with MDD (381 /uniFB01 rst-episode MDD, 118 recurrent MDD) and 524 healthy control participants using linear mixed-effects models and normative modeling and investigated whether sex differences affected ACC CT and its subregions differently during the course of depressive illness.
+
+RESULTS: Overall, females showed thinner ACC CT compared with males. Female patients with a /uniFB01 rst depressive episode showed signi /uniFB01 cantly thinner ACC CT compared with male patients with /uniFB01 rst-episode MDD (Cohen ' s d = 2 0.65), including in the perigenual ACC and the subgenual ACC, but not in the dorsal ACC. Moreover, male patients with /uniFB01 rst-episode depression showed thicker ACC CT (including subgenual ACC and pregenual ACC) compared to the male patients with recurrent MDD (Cohen ' s d = 1.24), but they also showed signi /uniFB01 cantly thicker cortices in the same subregions in comparison to never-depressed males (Cohen ' s d = 0.85). No lateralization differences were observed in ACC CT or its subdivisions.
+
+CONCLUSIONS: Sex determined ACC CT changes over the course of depressive illness. Because the ACC subdivisions in question are associated with dysregulation of emotions, our observations substantiate the need for early and prolonged sex-speci /uniFB01 c clinical interventions.
+
+https://doi.org/10.1016/j.bpsgos.2023.08.003
+
+Major depressive disorder (MDD) is one of the most common mental health problems worldwide, with a high relapse rate and high risk of chronicity, and regardless of country and culture, it is more prevalent in women than in men (1). Furthermore, sex differences have been documented in the presentation of clinical symptoms (2). For example, cross-sectional baseline data from the large NESDA (Netherlands Study of Depression and Anxiety) study showed sex differences in the clinical presentation of MDD with the most notable outcomes in women being a younger starting age, comorbid anxiety, lower alcohol use, and a higher prevalence of atypical depression (3). In contrast, depressed men may be more likely to report externalizing symptoms, such as heightened risk taking, poor impulse control, and substance misuse (4). In addition, it has been suggested that structural, immunological, genetic, and environmental factors as well as stress hormones are also responsible for different clinical symptom presentations between men and women in MDD (5,6).
+
+
+
+thinking
+**Planning clinical cohort age calculation**
+
+I'm preparing to compute the overall MDD clinical cohort's age mean and SD by weighting and pooling the first-episode and recurrent subgroups based on their sizes. This will provide a combined age summary for the full 499-patient MDD group.
+thinking
+**Computing weighted age stats and sex counts**
+
+I'm calculating the combined MDD mean age and pooled SD using subgroup sizes and statistics, and summing female/male counts with percentages from first-episode and recurrent groups. I'll document the derivation and cite Table 1 lines explicitly, noting that min/max age is not reported for MDD alone and likely derived range includes controls. I'll also confirm normative modeling applies to the clinical MDD cohort and ensure disorder and dataset names align with the REST-meta-MDD consortium details before updating the JSON.
+2026-03-05T04:49:12.074029Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Wu2024_by_codex_20260305134826879.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879 succeeded in 30ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Planning age statistics computation**
+
+Considering using Python or a shell command to compute age statistics next.
+2026-03-05T04:49:17.213350Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n1=381
+mean1=34.72
+sd1=12.26
+n2=118
+mean2=39.98
+sd2=13.26
+n=n1+n2
+mean=(n1*mean1+n2*mean2)/n
+# combined variance using sum of squares
+var=((n1-1)*sd1**2 + (n2-1)*sd2**2 + n1*(mean1-mean)**2 + n2*(mean2-mean)**2)/(n-1)
+sd=math.sqrt(var)
+print(mean, sd)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879 succeeded in 36ms:
+35.96384769539078 12.688851525532076
+
+thinking
+**Calculating summary statistics**
+
+The mean is 36.0 with a standard deviation of 12.7, and the sample is 67.3% female and 32.7% male based on 499 total subjects.
+2026-03-05T04:49:22.670318Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+female=336
+male=163
+n=female+male
+print(female/n*100, male/n*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879 succeeded in 38ms:
+67.33466933867736 32.66533066132264
+
+thinking
+**Preparing dataset and cohort text**
+
+I'm gathering supporting text for the MDD cohort and dataset from specified file sections and planning to update the JSON accordingly, including demographic details and file locations.
+2026-03-05T04:49:43.728420Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wu2024"
+   },
+@@ -7,28 +7,39 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MDD",
++        "detail": "Major depressive disorder clinical cohort (first-episode and recurrent MDD).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All patients met the DSM-IV criteria for MDD\"; \"499 patients with MDD (381 first-episode MDD, 118 recurrent MDD)\"",
++        "location": "Wu2024.pdf.md: Methods / Participants; Wu2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "REST-meta-MDD"
++        ],
++        "detail": "REST-MetaMDD Consortium clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Structural brain imaging data were used from the REST-MetaMDD Consortium\"",
++        "location": "Wu2024.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "mean": 35.96,
++          "sd": 12.69
++        },
++        "detail": "Weighted mean and pooled SD computed from first-episode MDD total (n=381, mean 34.72, SD 12.26) and recurrent MDD total (n=118, mean 39.98, SD 13.26).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"FE Total 381 34.72 (12.26)\"; \"Recurrent MDD Total 118 39.98 (13.26)\"",
++        "location": "Wu2024.pdf.md: Results / Demographics, Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 163,
++          "male_pct": 32.7,
++          "female_n": 336,
++          "female_pct": 67.3
++        },
++        "detail": "Counts summed across first-episode MDD (female 259, male 122) and recurrent MDD (female 77, male 41); percentages calculated from total MDD N=499.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"MDD Female 259\"; \"MDD Male 122\"; \"Recurrent MDD Female 77\"; \"Recurrent MDD Male 41\"",
++        "location": "Wu2024.pdf.md: Results / Demographics, Table 1"
+       }
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json b/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..11b3759b872d0f4340c059d963ef61dbb7585a51
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wu2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MDD",
++        "detail": "Major depressive disorder clinical cohort (first-episode and recurrent MDD).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All patients met the DSM-IV criteria for MDD\"; \"499 patients with MDD (381 first-episode MDD, 118 recurrent MDD)\"",
++        "location": "Wu2024.pdf.md: Methods / Participants; Wu2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "REST-meta-MDD"
++        ],
++        "detail": "REST-MetaMDD Consortium clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Structural brain imaging data were used from the REST-MetaMDD Consortium\"",
++        "location": "Wu2024.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "mean": 35.96,
++          "sd": 12.69
++        },
++        "detail": "Weighted mean and pooled SD computed from first-episode MDD total (n=381, mean 34.72, SD 12.26) and recurrent MDD total (n=118, mean 39.98, SD 13.26).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"FE Total 381 34.72 (12.26)\"; \"Recurrent MDD Total 118 39.98 (13.26)\"",
++        "location": "Wu2024.pdf.md: Results / Demographics, Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 163,
++          "male_pct": 32.7,
++          "female_n": 336,
++          "female_pct": 67.3
++        },
++        "detail": "Counts summed across first-episode MDD (female 259, male 122) and recurrent MDD (female 77, male 41); percentages calculated from total MDD N=499.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"MDD Female 259\"; \"MDD Male 122\"; \"Recurrent MDD Female 77\"; \"Recurrent MDD Male 41\"",
++        "location": "Wu2024.pdf.md: Results / Demographics, Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json b/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..11b3759b872d0f4340c059d963ef61dbb7585a51
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wu2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MDD",
++        "detail": "Major depressive disorder clinical cohort (first-episode and recurrent MDD).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All patients met the DSM-IV criteria for MDD\"; \"499 patients with MDD (381 first-episode MDD, 118 recurrent MDD)\"",
++        "location": "Wu2024.pdf.md: Methods / Participants; Wu2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "REST-meta-MDD"
++        ],
++        "detail": "REST-MetaMDD Consortium clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Structural brain imaging data were used from the REST-MetaMDD Consortium\"",
++        "location": "Wu2024.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "mean": 35.96,
++          "sd": 12.69
++        },
++        "detail": "Weighted mean and pooled SD computed from first-episode MDD total (n=381, mean 34.72, SD 12.26) and recurrent MDD total (n=118, mean 39.98, SD 13.26).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"FE Total 381 34.72 (12.26)\"; \"Recurrent MDD Total 118 39.98 (13.26)\"",
++        "location": "Wu2024.pdf.md: Results / Demographics, Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 163,
++          "male_pct": 32.7,
++          "female_n": 336,
++          "female_pct": 67.3
++        },
++        "detail": "Counts summed across first-episode MDD (female 259, male 122) and recurrent MDD (female 77, male 41); percentages calculated from total MDD N=499.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"MDD Female 259\"; \"MDD Male 122\"; \"Recurrent MDD Female 77\"; \"Recurrent MDD Male 41\"",
++        "location": "Wu2024.pdf.md: Results / Demographics, Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming MDD data and metadata**
+
+The MDD from the disorder list is correctly identified as "REST-meta-MDD" with supporting text and counts included from the PDF table. The output excludes normative modeling and min/max data as planned. Next, I'll prepare a concise final response with explanation and relevant file path.
+codex
+Filled in the clinical cohort extraction for Wu2024 (MDD) with dataset, derived age stats, and sex counts/percentages, based on `Wu2024.pdf.md` Table 1 and participants text. Updated `DE_v14_Wu2024_by_codex_20260305134826879.json`.
+
+Next steps:
+1. If you want min/max ages included, point me to a patient-only range in the paper (current range appears to be for combined sample).
+2. If you want me to include additional disorder subgroup entries (first-episode vs recurrent), say the word.
+2026-03-05T04:49:49.516635Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json b/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..11b3759b872d0f4340c059d963ef61dbb7585a51
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134826879/DE_v14_Wu2024_by_codex_20260305134826879.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wu2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MDD",
++        "detail": "Major depressive disorder clinical cohort (first-episode and recurrent MDD).",
++        "confidence_rating": "High",
++        "supporting_text": "\"All patients met the DSM-IV criteria for MDD\"; \"499 patients with MDD (381 first-episode MDD, 118 recurrent MDD)\"",
++        "location": "Wu2024.pdf.md: Methods / Participants; Wu2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "REST-meta-MDD"
++        ],
++        "detail": "REST-MetaMDD Consortium clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Structural brain imaging data were used from the REST-MetaMDD Consortium\"",
++        "location": "Wu2024.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "mean": 35.96,
++          "sd": 12.69
++        },
++        "detail": "Weighted mean and pooled SD computed from first-episode MDD total (n=381, mean 34.72, SD 12.26) and recurrent MDD total (n=118, mean 39.98, SD 13.26).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"FE Total 381 34.72 (12.26)\"; \"Recurrent MDD Total 118 39.98 (13.26)\"",
++        "location": "Wu2024.pdf.md: Results / Demographics, Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 163,
++          "male_pct": 32.7,
++          "female_n": 336,
++          "female_pct": 67.3
++        },
++        "detail": "Counts summed across first-episode MDD (female 259, male 122) and recurrent MDD (female 77, male 41); percentages calculated from total MDD N=499.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"MDD Female 259\"; \"MDD Male 122\"; \"Recurrent MDD Female 77\"; \"Recurrent MDD Male 41\"",
++        "location": "Wu2024.pdf.md: Results / Demographics, Table 1"
+       }
+     }
+   ]
+
+tokens used
+24,074
+Filled in the clinical cohort extraction for Wu2024 (MDD) with dataset, derived age stats, and sex counts/percentages, based on `Wu2024.pdf.md` Table 1 and participants text. Updated `DE_v14_Wu2024_by_codex_20260305134826879.json`.
+
+Next steps:
+1. If you want min/max ages included, point me to a patient-only range in the paper (current range appears to be for combined sample).
+2. If you want me to include additional disorder subgroup entries (first-episode vs recurrent), say the word.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

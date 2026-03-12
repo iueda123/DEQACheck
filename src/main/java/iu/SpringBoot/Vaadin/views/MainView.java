@@ -35,6 +35,8 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 public class MainView extends VerticalLayout {
 
     public MainView() {
+
+        /* ** Preparation ** */
         setSizeFull();
         setAlignItems(Alignment.START);
         setPadding(true);
@@ -83,11 +85,14 @@ public class MainView extends VerticalLayout {
         mainDoctLink.setTarget("_blank");
         add(mainDoctLink);
 
+        Anchor spreadsheetLink = new Anchor(
+                "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
+                "Google Spreadsheet - table1_NM_2025.11.17"
+        );
+        spreadsheetLink.setTarget("_blank");
+        add(spreadsheetLink);
 
-        /// ////////////////////////////////////////////////////////
-        Hr separator1 = new Hr();
-        separator1.getStyle().set("width", "100%").set("margin", "10px 0");
-        add(separator1);
+        addSeparator();
         /// ////////////////////////////////////////////////////////
 
         add(new H2("Quality Assessment"));
@@ -101,20 +106,21 @@ public class MainView extends VerticalLayout {
         RouterLink link9 = new RouterLink("QA Result Table (Per AuthorYear and PromptName)", QAResultTablePage.class);
         add(link9);
 
-        Hr separator2 = new Hr();
-        separator2.getStyle().set("width", "100%").set("margin", "10px 0");
-        add(separator2);
 
-        /// ///////////////////////////////////////////////
+        addSeparator();
+        /// ////////////////////////////////////////////////////////
+
+        add(new H2("AI-Created File Check"));
+
+        RouterLink link11 = new RouterLink("DE File Table (v11/v12/v13/v14)", DEFileTable.class);
+        add(link11);
+
+
+        addSeparator();
+        /// ////////////////////////////////////////////////////////
 
         add(new H2("Data Extraction (for local server)"));
 
-        Anchor spreadsheetLink = new Anchor(
-                "https://docs.google.com/spreadsheets/d/1cbgV4JkQRuyA0HzBgRNw8CbJjSAgq1aO/edit?gid=1558917589#gid=1558917589",
-                "Google Spreadsheet - table1_NM_2025.11.17"
-        );
-        spreadsheetLink.setTarget("_blank");
-        add(spreadsheetLink);
 
         // only visible to ADMIN users (admin, local)
         if (hasAdminRole()) {
@@ -128,9 +134,6 @@ public class MainView extends VerticalLayout {
             RouterLink link3 = new RouterLink("Summary View for DE_v10 (ver 2)", SummaryView_DEv10_2.class);
             add(link3);
 
-            RouterLink link11 = new RouterLink("DE File Table (v11/v12/v13/v14)", DEFileTable.class);
-            add(link11);
-
             RouterLink link10 = new RouterLink("Summary View for DE_v11/12", SummaryView_DEv11_v12.class);
             add(link10);
 
@@ -143,10 +146,21 @@ public class MainView extends VerticalLayout {
             RouterLink link15 = new RouterLink("Summary View for DE_v14", SummaryView_DEv14.class);
             add(link15);
 
+        }
+
+        addSeparator();
+        /// ////////////////////////////////////////////////////////
+
+        add(new H2("RsltComaprator"));
+
+        if (hasAdminRole()) {
             RouterLink link12 = new RouterLink("Result Comparator", RsltComparatorWebView.class);
             add(link12);
-
         }
+
+        addSeparator();
+        /// ////////////////////////////////////////////////////////
+
 
         // Help link - fixed at bottom right
         RouterLink helpLink = new RouterLink("Help", TheFirstHelpPage.class);
@@ -182,5 +196,11 @@ public class MainView extends VerticalLayout {
                 null,
                 null
         );
+    }
+
+    private void addSeparator() {
+        Hr separator = new Hr();
+        separator.getStyle().set("width", "100%").set("margin", "10px 0");
+        add(separator);
     }
 }

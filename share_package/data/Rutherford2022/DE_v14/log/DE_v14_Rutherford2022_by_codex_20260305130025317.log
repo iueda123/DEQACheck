@@ -1,0 +1,1010 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Rutherford2022_by_codex_20260305130025317.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc27-754a-7aa1-9824-89184cebc0c3
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Rutherford2022_by_codex_20260305130025317.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read the guide**
+2026-03-05T04:00:31.745876Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Rutherford2022_by_codex_20260305130025317.json
+DE_v14_Rutherford2022_by_codex_20260305130025317.log
+study_1
+2026-03-05T04:00:33.919525Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 19ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:00:38.568611Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+DE_v14_Rutherford2022_by_codex_20260305130025317.log
+DE_v14_Rutherford2022_by_codex_20260305130025317.json
+DE_Guide_v14.md
+study_1/elife-72904-supp2-v2.docx.md
+study_1/elife-72904-supp3-v2.docx.md
+study_1/elife-72904-supp1-v2.docx.md
+study_1/elife-72904-transrepform1-v2.pdf.md
+study_1/Rutherford2022.pdf.md
+
+thinking
+**Opening paper for review**
+2026-03-05T04:00:44.663468Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "clinical|cohort|patient|participants|psych|schiz|depress|bipolar|autism|ADHD|MCI|Alzheimer|epilep|Parkinson|dement|MS|psychosis|disorder" study_1/Rutherford2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 20ms:
+43:Abstract Defining reference models for population variation, and the ability to study individual deviations is essential for understanding inter-  individual variability and its relation to the onset and progression of medical conditions. In this work, we assembled a reference cohort of neuroimaging data from 82 sites (N=58,836; ages 2-100) and used normative modeling to characterize lifespan trajectories of cortical thickness and subcortical volume. Models are validated against a manually quality checked subset (N=24,354) and we provide an interface for transferring to new data sources. We showcase the clinical value by applying the models to a transdiagnostic psychiatric sample (N=1985), showing they can be used to quantify variability underlying multiple disorders whilst also refining case-  control inferences. These models will be augmented with additional samples and imaging modalities as they become available. This provides a common reference platform to bind results from different studies and ultimately paves the way for personalized clinical decision-  making.
+47:This manuscript is of broad interest to the neuroimaging community. It establishes a detailed reference model of human brain development and lifespan trajectories based on a very large data set, across many cortical and subcortical brain regions. The model not only explains substantial variability on test data, it also successfully uncovers individual differences on a database of psychiatric patients that, in addition to group-  level analyses, may be critical for diagnosis, thereby demonstrating high clinical potential. It presents a clear overview of the data resource, including detailed evaluation metrics, and makes code, models and documentation directly available to the community.
+51:Since their introduction more than a century ago, normative growth charts have become fundamental tools in pediatric medicine and also in many other areas of anthropometry ( Cole, 2012 ). They provide the ability to quantify individual variation against centiles of variation in a reference population, which shifts focus away from group-  level (e.g., case-  control) inferences to the level of the individual. This idea has been adopted and generalized in clinical neuroimaging, and normative modeling is now established as an effective technique for providing inferences at the level of the individual in neuroimaging studies ( Marquand et al., 2016 ; Marquand et al., 2019 ).
+53:Although normative modeling can be used to estimate many different kinds of mappings-for example between behavioral scores and neurobiological readouts-normative models of brain development and aging are appealing considering that many brain disorders are grounded in atypical trajectories of brain development ( Insel, 2014 ) and the association between cognitive decline and brain tissue in aging and neurodegenerative diseases ( Jack et al., 2010 ; Karas et al., 2004 ). Indeed, normative modeling has been applied in many different clinical contexts, including charting the development of infants born preterm ( Dimitrova et al., 2020 ) and dissecting the biological heterogeneity across cohorts of individuals
+57:mQC refers to the manual quality checked subset of the full sample. 'All' rows=Train+Test. Clinical refers to the transdiagnostic psychiatric sample (diagnostic details in Figure 2A ).
+70:Figure 1. Normative model overview. ( A ) Age density distribution (x-  axis) of each site (y-  axis) in the full model train and test, clinical, and transfer validation set. ( B ) Age count distribution of the full sample (N=58,836). ( C, D ) Examples of lifespan trajectories of brain regions. Age is shown on x-  axis and predicted thickness (or volume) values are on the y-  axis. Centiles of variation are plotted for each region. In ( C ), we show that sex differences between females (red) and males (blue) are most pronounced when modeling large-  scale features such as mean cortical thickness across the entire cortex or total gray matter volume. These sex differences manifest as a shift in the mean in that the shape of these trajectories is the same for both sexes, as determined by sensitivity analyses where separate normative models were estimated for each sex. The explained variance (in the full test set) of the whole cortex and subcortex is highlighted inside the circle of ( D ). All plots within the circle share the same color scale. Visualizations for all ROI trajectories modeled are shared on GitHub for users that wish to explore regions not shown in this figure.
+76:with different brain disorders, including schizophrenia, bipolar disorder, autism, and attention-  deficit/ hyperactivity disorder ( Bethlehem et al., 2020 ; Wolfers et al., 2021 ; Zabihi et al., 2019 ).
+78:A hurdle to the widespread application of normative modeling is a lack of well-  defined reference models to quantify variability across the lifespan and to compare results from different studies. Such models should: (1) accurately model population variation across large samples; (2) be derived from widely accessible measures; (3) provide the ability to be updated as additional data come online, (4) be supported by easy-  to-  use software tools, and (5) should quantify brain development and aging at a high spatial resolution, so that different patterns of atypicality can be used to stratify cohorts and predict clinical outcomes with maximum spatial precision. Prior work on building normative modeling reference cohorts ( Bethlehem et al., 2021 ) has achieved some of these aims (1-4), but has modeled only global features (i.e., total brain volume), which is useful for quantifying brain growth but has limited utility for the purpose of stratifying clinical cohorts (aim 5). The purpose of this paper is to introduce a set of reference models that satisfy all these criteria.
+80:To this end, we assemble a large neuroimaging data set ( Table 1 ) from 58,836 individuals across 82 scan sites covering the human lifespan (aged 2-100, Figure 1A ) and fit normative models for cortical thickness and subcortical volumes derived from Freesurfer (version 6.0). We show the clinical utility of these models in a large transdiagnostic psychiatric sample (N=1985, Figure 2 ). To maximize the utility of this contribution, we distribute model coefficients freely along with a set of software tools to enable researchers to derive subject-  level predictions for new data sets against a set of common reference models.
+92:| Attention Deficit Disorder (ADHD) | _| 111           | Fe|           | 36/64         | 476,124        |
+101:Figure 2. Normative modeling in clinical cohorts. Reference brain charts were transferred to several clinical samples (described in ( A )). Patterns of extreme deviations were summarized for each clinical group and compared to matched control groups (from the same sites). ( B ) Shows extreme positive deviations (thicker/larger than expected) and ( C ) shows the extreme negative deviation (thinner/smaller than expected) patterns. ( D ) Shows the significant (FDR corrected p&lt;0.05) results of classical case-  control methods (mass-  univariate t-  tests) on the true cortical thickness data (top row) and on the deviations scores (bottom row). There is unique information added by each approach which becomes evident when noticing the maps in ( B-D ) are not identical. ADHD, attention-  deficit hyperactive disorder; ASD, autism spectrum disorder; BD, bipolar disorder; EP , early psychosis; FDR, false discovery rate; MDD, major depressive disorder; SZ, schizophrenia.
+105:Figure 3. Evaluation metrics across all test sets. The distribution of evaluation metrics in four different test sets (full, mQC, patients, and transfer, see Materials and methods) separated into left and right hemispheres and subcortical regions, with the skew and excess kurtosis being measures that depict the accuracy of the estimated shape of the model, ideally both would be around zero. Note that kurtosis is highly sensitive to outlying samples. Overall, these models show that the models fit well in term of central tendency and variance (explained variance and MSLL) and model the shape of the distribution well in most regions (skew and kurtosis). Code and sample data for transferring these models to new sites not included in training is shared.
+121:We validate our models with several careful procedures: first, we report out of sample metrics; second, we perform a supplementary analysis on a subset of participants for whom input data had undergone manual quality checking by an expert rater ( Table 1 - mQC). Third, each model fit was evaluated using metrics ( Figure 3 , Figure 3-figure supplements 1-3 ) that quantify central tendency and distributional accuracy ( Dinga et al., 2021 ; Fraza et al., 2021 ). We also estimated separate models for males and females, which indicate that sex effects are adequately modeled using a global offset.
+135:A  goal  of  this  work  is  to  develop  normative models  that  can  be  applied  to  many  different clinical  conditions.  To  showcase  this,  we  apply the model to a transdiagnostic psychiatric cohort
+137:( Table 1 - Clinical; Figure 2 ) resulting in personalized, whole-  brain deviation maps that can be used to  understand  inter-  individual  variability  (e.g.,  for  stratification)  and  to  quantify  group  separation (e.g., case-  control effects). To demonstrate this, for each clinical group, we summarized the individual deviations within that group by computing the proportion of subjects that have deviations in each region and comparing to matched (same sites) controls in the test set ( Figure 2B-C ). Additionally, we performed case-  control comparisons on the raw cortical thickness and subcortical volumes, and on the deviation maps ( Figure 2D ), again against a matched sample from the test set. This demonstrates the advantages of using normative models for investigating individual differences in psychiatry, that is, quantifying clinically relevant information at the level of each individual. For most diagnostic groups, the z-  statistics derived from the normative deviations also provided stronger case-  control effects than the raw data. This shows the importance of accurate modeling of population variance across multiple clinically relevant dimensions. The individual-  level deviations provide complimentary information to the group effects, which aligns with previous work ( Wolfers et al., 2018 ; Wolfers et al., 2020 ; Zabihi et al., 2020 ). We note that a detailed description of the clinical significance of our findings is beyond the scope of this work and will be presented separately.
+141:In this work, we create lifespan brain charts of cortical thickness and subcortical volume derived from structural  MRI,  to  serve  as  reference  models.  Multiple  data  sets  were  joined  to  build  a  mega-  site lifespan reference cohort to provide good coverage of the lifespan. We applied the reference cohort models to clinical data sets and demonstrated the benefits of normative modeling in addition to standard case-  control comparisons. All models, including documentation and code, are made available to the research community. We also provide an example data set (that includes data from sites not in the training sample) along with the code to demonstrate how well our models can adapt to new sites, and how easy it is to transfer our pretrained models to users' own data sets.
+143:We identify three main strengths of our approach. First, our large lifespan data set provides high anatomical  specificity,  necessary  for  discriminating  between  conditions,  predicting  outcomes,  and stratifying subtypes. Second, our models are flexible in that they can model non-  Gaussian distributions, can easily be transferred to new sites, and are built on validated analytical techniques and software tools ( Fraza et al., 2021 ; Kia et al., 2021 ; Marquand et al., 2019 ). Third, we show the general utility of this work in that it provides the ability to map individual variation whilst also improving casecontrol inferences across multiple disorders.
+145:In recent work, a large consortium established lifespan brain charts that are complementary to our approach ( Bethlehem et al., 2021 ). Benefits of their work include precisely quantifying brain growth using a large cohort, but they only provide estimates of four coarse global measures (e.g., total brain
+149:volume). While this can precisely quantify brain growth and aging this does not provide the ability to generate individualized fingerprints or to stratify clinical cohorts. In contrast, in this work, we focus on providing spatially specific estimates (188 different brain regions) across the post-  natal lifespan which provides fine-  grained anatomical estimates of deviation, offering an individualized perspective that can be used for clinical stratification. We demonstrate the transdiagnostic clinical value of our models ( Figure 2 ) by showing how clinical variation is widespread in a fine-  grain manner (e.g., not all individuals deviate in the same regions and not all disorders have the same characteristic patterns) and we facilitate clinical applications of our models by sharing tutorial code notebooks with sample data that can be run locally or online in a web browser.
+151:We also identify the limitations of this work. We view the word 'normative' as problematic. This language implies that there are normal and abnormal brains, a potentially problematic assumption. As indicated in Figure 2 , there is considerable individual variability and heterogeneity among trajectories. We encourage the use of the phrase 'reference cohort' over 'normative model'. In order to provide coverage of the lifespan the curated data set is based on aggregating existing data, meaning there is unavoidable sampling bias. Race, education, and socioeconomic variables were not fully available for all included data sets, however, given that data were compiled from research studies, they are  likely  samples  drawn  predominantly  from  Western,  Educated,  Industrialized,  Rich,  and  Democratic  (WEIRD)  societies  ( Henrich  et  al.,  2010 )  and  future  work  should  account  for  these  factors. The sampling bias of UKBiobank ( Fry et al., 2017 )  is  especially important for users to consider as UKBiobank data contributes 59% of the full sample. By sampling both healthy population samples and case-  control studies, we achieve a reasonable estimate of variation across individuals, however, downstream analyses should consider the nature of the reference cohort and whether it is appropriate for the target sample. Second, we have relied on semi-  automated quality control (QC) for the full sample which-despite a conservative choice of inclusion threshold-does not guarantee either that low-  quality data were excluded or that the data were excluded are definitively excluded because of artifacts. We addressed this by comparing our full test set to a manually quality check data set and observed similar model performance. Also, Freesurfer was not adjusted for the very young age ranges (2-7 yo) thus caution should be used when interpreting the model on new data in this age range. Finally, although the models presented in this study are comprehensive, they are only the first step, and we will augment our repository with more diverse data, different features, and modeling advances as these become available.
+
+thinking
+**Opening supplementary file for clinical cohorts**
+2026-03-05T04:00:48.689474Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Clinical|ADHD|ASD|bipolar|psychosis|schiz|MDD|depress|BD|EP|patient|disorder|diagnosis" study_1/elife-72904-supp1-v2.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 21ms:
+57:| HCP_EP_BWH    | 4       | 1/3       | 21.92, 2.07  | 4                       | 1/3        | 24.27, 4.28   | 23                      | 8/15      | 22.39, 4.26   |
+58:| HCP_EP_IU     | 12      | 5/7       | 24.76, 4.21  | 13                      | 6/7        | 23.12, 3.27   | 59                      | 22/37     | 22.97, 3.84   |
+59:| HCP_EP_McL    | 7       | 2/5       | 26.49, 4.29  | 6                       | 2/4        | 23.6, 2.33    | 31                      | 15/16     | 23.56, 3.46   |
+60:| HCP_EP_MGH    | 6       | 1/5       | 26.89, 4.1   | 5                       | 2/3        | 28.48, 5.97   | 10                      | 3/7       | 20.32, 2.99   |
+
+thinking
+**Locating supplementary table**
+
+I'm checking the supplementary materials around the indicated lines to find the referenced table.
+exec
+/bin/bash -lc "sed -n '1,220p' study_1/elife-72904-supp1-v2.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:00:51.975995Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+|               | Train   |           |              | **Control**  **Test**   |            |               | **Patient**  **Test**   |           |               |
+|---------------|---------|-----------|--------------|-------------------------|------------|---------------|-------------------------|-----------|---------------|
+| Site          | N       | Sex (F/M) | Age (m, s.d) | N                       | Sex  (F/M) | Age  (m, s.d) | N                       | Sex (F/M) | Age  (m, s.d) |
+| ABCD_01       | 194     | 100/94    | 9.95, 0.62   | 194                     | 99/95      | 9.85, 0.63    |                         |           |               |
+| ABCD_02       | 271     | 127/144   | 10.12, 0.6   | 271                     | 125/146    | 10.03, 0.64   |                         |           |               |
+| ABCD_03       | 285     | 131/154   | 9.86, 0.62   | 284                     | 137/147    | 9.9, 0.62     |                         |           |               |
+| ABCD_04       | 315     | 149/166   | 9.81, 0.64   | 316                     | 158/158    | 9.82, 0.65    |                         |           |               |
+| ABCD_05       | 172     | 91/81     | 9.9, 0.65    | 173                     | 87/86      | 9.89, 0.62    |                         |           |               |
+| ABCD_06       | 282     | 142/140   | 9.96, 0.59   | 282                     | 144/138    | 9.93, 0.59    |                         |           |               |
+| ABCD_07       | 162     | 74/88     | 9.87, 0.63   | 163                     | 79/84      | 9.87, 0.62    |                         |           |               |
+| ABCD_08       | 168     | 70/98     | 10, 0.62     | 168                     | 90/78      | 9.91, 0.62    |                         |           |               |
+| ABCD_09       | 204     | 107/97    | 9.95, 0.63   | 203                     | 93/110     | 9.98, 0.59    |                         |           |               |
+| ABCD_10       | 287     | 135/152   | 9.85, 0.63   | 288                     | 145/143    | 9.87, 0.62    |                         |           |               |
+| ABCD_11       | 207     | 108/99    | 9.84, 0.62   | 207                     | 98/109     | 9.79, 0.64    |                         |           |               |
+| ABCD_12       | 81      | 33/48     | 9.89, 0.56   | 80                      | 44/36      | 9.87, 0.62    |                         |           |               |
+| ABCD_13       | 277     | 146/131   | 9.81, 0.58   | 278                     | 131/147    | 9.82, 0.61    |                         |           |               |
+| ABCD_14       | 292     | 131/161   | 10.17, 0.56  | 291                     | 136/155    | 10.22, 0.57   |                         |           |               |
+| ABCD_15       | 198     | 87/111    | 9.87, 0.59   | 197                     | 91/106     | 9.94, 0.62    |                         |           |               |
+| ABCD_16       | 460     | 205/255   | 9.91, 0.65   | 461                     | 209/252    | 9.9, 0.65     |                         |           |               |
+| ABCD_17       | 278     | 133/145   | 9.79, 0.61   | 279                     | 134/145    | 9.84, 0.64    |                         |           |               |
+
+thinking
+**Checking supplementary files for cohort details**
+
+I'm looking into supplementary file 2 to find clinical cohort and diagnostic information related to patient disorders.
+2026-03-05T04:00:56.006661Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/elife-72904-supp2-v2.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 16ms:
+|              | Train   |           |              | Test   |           |              |
+|--------------|---------|-----------|--------------|--------|-----------|--------------|
+| Site         | N       | Sex (F/M) | Age (m, s.d) | N      | Sex (F/M) | Age (m, s.d) |
+| ABCD_01      | 180     | 96/84     | 9.88, 0.62   | 179    | 85/94     | 9.93, 0.63   |
+| ABCD_02      | 267     | 126/141   | 10.12, 0.6   | 266    | 121/145   | 10.02, 0.64  |
+| ABCD_03      | 282     | 138/144   | 9.87, 0.61   | 282    | 127/155   | 9.9, 0.62    |
+| ABCD_04      | 275     | 131/144   | 9.87, 0.63   | 276    | 139/137   | 9.79, 0.66   |
+| ABCD_05      | 169     | 86/83     | 9.94, 0.65   | 170    | 88/82     | 9.86, 0.6    |
+| ABCD_06      | 280     | 140/140   | 9.97, 0.59   | 279    | 143/136   | 9.93, 0.59   |
+| ABCD_07      | 160     | 69/91     | 9.88, 0.6    | 160    | 82/78     | 9.85, 0.65   |
+| ABCD_08      | 132     | 55/77     | 9.98, 0.63   | 131    | 68/63     | 10.01, 0.6   |
+| ABCD_09      | 197     | 98/99     | 9.96, 0.6    | 197    | 99/98     | 9.97, 0.63   |
+| ABCD_10      | 248     | 114/134   | 9.9, 0.63    | 249    | 127/122   | 9.83, 0.61   |
+| ABCD_11      | 203     | 89/114    | 9.81, 0.63   | 203    | 112/91    | 9.82, 0.63   |
+| ABCD_12      | 79      | 38/41     | 9.97, 0.57   | 79     | 38/41     | 9.79, 0.61   |
+| ABCD_13      | 240     | 121/119   | 9.83, 0.62   | 240    | 123/117   | 9.82, 0.59   |
+| ABCD_14      | 285     | 116/169   | 10.2, 0.56   | 285    | 144/141   | 10.21, 0.57  |
+| ABCD_15      | 188     | 93/95     | 9.88, 0.59   | 188    | 77/111    | 9.93, 0.61   |
+| ABCD_16      | 459     | 196/263   | 9.9, 0.66    | 459    | 216/236   | 9.91, 0.65   |
+| ABCD_17      | 264     | 135/129   | 9.78, 0.62   | 265    | 125/140   | 9.87, 0.64   |
+
+thinking
+**Investigating Figure 2A in Rutherford2022**
+
+Planning to check Figure 2A and surrounding text in Rutherford2022 to clarify if "supp2" refers to transfer and to gather clinical diagnostic categories.
+exec
+/bin/bash -lc 'rg -n "Figure 2A|Figure 2" study_1/Rutherford2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:01:01.819435Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+101:Figure 2. Normative modeling in clinical cohorts. Reference brain charts were transferred to several clinical samples (described in ( A )). Patterns of extreme deviations were summarized for each clinical group and compared to matched control groups (from the same sites). ( B ) Shows extreme positive deviations (thicker/larger than expected) and ( C ) shows the extreme negative deviation (thinner/smaller than expected) patterns. ( D ) Shows the significant (FDR corrected p&lt;0.05) results of classical case-  control methods (mass-  univariate t-  tests) on the true cortical thickness data (top row) and on the deviations scores (bottom row). There is unique information added by each approach which becomes evident when noticing the maps in ( B-D ) are not identical. ADHD, attention-  deficit hyperactive disorder; ASD, autism spectrum disorder; BD, bipolar disorder; EP , early psychosis; FDR, false discovery rate; MDD, major depressive disorder; SZ, schizophrenia.
+
+thinking
+**Checking clinical cohort details in supplements**
+
+Planning to examine Supplementary File 3 for clinical group information, diagnoses, site mappings, and cohort sizes to clarify patient characteristics and dataset origins.
+exec
+/bin/bash -lc "sed -n '1,200p' study_1/elife-72904-supp3-v2.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:01:06.196255Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+| Site     |   N | Sex (M/F)   | Age (m, s.d.)   |
+|----------|-----|-------------|-----------------|
+| ds000115 |  99 | 59/40       | 22.9, 4.41      |
+| ds000222 |  79 | 38/41       | 44.4, 20.12     |
+| ds003416 |  87 | 51/36       | 6.49, 0.61      |
+| ds003469 |  81 | 31/50       | 24.06, 5.31     |
+| ds003653 |  87 | 22/65       | 28.7, 6.42      |
+
+thinking
+**Searching for clinical cohort details**
+
+I'm focusing on locating diagnostic group labels and sample sizes in the main paper or supplements, prioritizing Figure 2A and adjacent sections for aggregated disorder-level counts rather than site-specific data.
+2026-03-05T04:01:11.856078Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '80,130p' study_1/Rutherford2022.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 17ms:
+To this end, we assemble a large neuroimaging data set ( Table 1 ) from 58,836 individuals across 82 scan sites covering the human lifespan (aged 2-100, Figure 1A ) and fit normative models for cortical thickness and subcortical volumes derived from Freesurfer (version 6.0). We show the clinical utility of these models in a large transdiagnostic psychiatric sample (N=1985, Figure 2 ). To maximize the utility of this contribution, we distribute model coefficients freely along with a set of software tools to enable researchers to derive subject-  level predictions for new data sets against a set of common reference models.
+
+## Results
+
+We split the available data into training and test sets, stratifying by site ( Table 1 , Supplementary files 1 and 2 ). After careful quality checking procedures, we fit normative models using a set of covariates
+
+![Image](./Rutherford2022_artifacts/image_000006_d509bf3b95ee86ad75c6cdce2101c20adf436f290c4af6289f048591bdb1229c.png)
+
+## A) Clinical Validation Sample Description
+
+|                                   | | N (subjects)   | N (sites) |   | Sex (%F/%M)   | Age (m, s.d)   |
+|-----------------------------------|------------------|---------------|---------------|----------------|
+| Attention Deficit Disorder (ADHD) | _| 111           | Fe|           | 36/64         | 476,124        |
+| Autism Spectrum Disorder (ASD)    | _| 450           | 6. |          | 14/86         | 194,114        |
+| Early Psychosis (EP)              | [207             | ee            | ee ee         |                |
+| Schizophrenia (SZ)                | | 469            | 8 |           | 41/59         | 31.9,9.5       |
+| Bipolar Disorder (BD)             | | __249 _        | a             | a) ee         | eee ee         |
+| Major Depression Disorder(MDD)    | | 499            | Or |          | soos          | a0 1a          |
+
+## B) Percent of Individuals with Extreme Positive Deviations (Z-score &gt; 2)
+
+thinking
+**Planning to extract accurate sample data from figure image**
+
+I identified that the table with sample sizes and demographics is broken by OCR, so I'll use the figure image, likely Figure 2A, or supplementary files to get accurate values and map clinical cohorts to disorders and sites. Next, I'll view the relevant image to read and extract the needed data.
+2026-03-05T04:01:38.637001Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000006_d509bf3b95ee86ad75c6cdce2101c20adf436f290c4af6289f048591bdb1229c.png
+
+
+thinking
+**Assessing clinical cohort data sources**
+
+The clinical cohort info in Figure 2A table is OCR corrupted, complicating direct extraction of disorder-wise demographics. Supplementary file 1 has patient test counts per site but lacks diagnosis labels, requiring inference of disorder groups from dataset-site mappings to compile group-level N, sex, and age statistics.
+thinking
+**Investigating incomplete image display**
+
+The image tool showed only the top/banner of the large Figure 2A image, suggesting the full table wasn't loaded or displayed. Next, I'll check artifact files to confirm if the full image is available or if cropping or alternative access is needed.
+2026-03-05T04:01:52.616632Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1/Rutherford2022_artifacts' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 19ms:
+image_000000_174e1ed871938131c9618d5f1f5cb110811689ccd4b6644618f46a319651cb13.png
+image_000001_27d4b0617cb378ad1b50ad03703d33f0972b2feabf06f9f0c47639d6b3ad31f7.png
+image_000002_d842dc318699897a331028233a404cc6228ecd274abd4520d7057579105ce75f.png
+image_000003_2b372beab3812a1eecea164678b2e4d959cf556ee1da9c129f8329c9a692896a.png
+image_000004_ccb00ed3663be0ceebcc9dfa41996fe1daf88ff70164d0f62c24484e5befd561.png
+image_000005_ba98623cc018f2b2b748f546968cea81093592d78161f7d740b3f9480bc1a92e.png
+image_000006_d509bf3b95ee86ad75c6cdce2101c20adf436f290c4af6289f048591bdb1229c.png
+image_000007_5b9df0200d235f7dd372a599c71b10e577d96a9c680c9001a51caebacd31826c.png
+image_000008_ccb00ed3663be0ceebcc9dfa41996fe1daf88ff70164d0f62c24484e5befd561.png
+image_000009_ee4ac777282190b1cc532973a1549c4f7c228a88c4dd28622c3618a901812cf6.png
+image_000010_65fb292215612c2aeee588e8046177657dcfbd5c7109c7fdfa434f912df905f4.png
+image_000011_c29fcdc141855ec656324829a432edb58fe2a4981d2f438995e8f033dedd689d.png
+image_000012_7360d8f8dade820dc1f1cf5acef22b68f4923be65ed635bafd7634202b7a0912.png
+image_000013_65fb292215612c2aeee588e8046177657dcfbd5c7109c7fdfa434f912df905f4.png
+image_000014_7360d8f8dade820dc1f1cf5acef22b68f4923be65ed635bafd7634202b7a0912.png
+image_000015_65fb292215612c2aeee588e8046177657dcfbd5c7109c7fdfa434f912df905f4.png
+image_000016_7360d8f8dade820dc1f1cf5acef22b68f4923be65ed635bafd7634202b7a0912.png
+image_000017_65fb292215612c2aeee588e8046177657dcfbd5c7109c7fdfa434f912df905f4.png
+image_000018_7360d8f8dade820dc1f1cf5acef22b68f4923be65ed635bafd7634202b7a0912.png
+image_000019_65fb292215612c2aeee588e8046177657dcfbd5c7109c7fdfa434f912df905f4.png
+
+thinking
+**Reviewing specific image data**
+2026-03-05T04:01:56.425876Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000005_ba98623cc018f2b2b748f546968cea81093592d78161f7d740b3f9480bc1a92e.png
+
+thinking
+**Reviewing clinical cohort source**
+
+I'm checking supplementary file 1 and Figure 2A image for a clinical validation sample table since the PDF markdown table is garbled. Next, I'll examine the relevant image for clear cohort details.
+2026-03-05T04:02:01.412740Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000007_5b9df0200d235f7dd372a599c71b10e577d96a9c680c9001a51caebacd31826c.png
+
+
+thinking
+**Assessing clinical cohort data sources**
+
+The clinical validation sample details needed for disorders and datasets are scattered and partially unclear, with diagnosis-to-site mapping not explicit in Supplementary file 1 but hinted at by site names and Figure 2A summaries, which have garbled OCR. Next, I'll clarify site-to-disorder mapping and extract per-site patient counts and ages to compute weighted means and pooled SDs.
+thinking
+**Searching supplementary file for clinical validation data**
+2026-03-05T04:02:11.079696Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "ADHD|ASD|EP|SZ|BD|MDD|Schizophrenia|Bipolar|Depression|Psychosis" study_1/elife-72904-supp1-v2.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 19ms:
+57:| HCP_EP_BWH    | 4       | 1/3       | 21.92, 2.07  | 4                       | 1/3        | 24.27, 4.28   | 23                      | 8/15      | 22.39, 4.26   |
+58:| HCP_EP_IU     | 12      | 5/7       | 24.76, 4.21  | 13                      | 6/7        | 23.12, 3.27   | 59                      | 22/37     | 22.97, 3.84   |
+59:| HCP_EP_McL    | 7       | 2/5       | 26.49, 4.29  | 6                       | 2/4        | 23.6, 2.33    | 31                      | 15/16     | 23.56, 3.46   |
+60:| HCP_EP_MGH    | 6       | 1/5       | 26.89, 4.1   | 5                       | 2/3        | 28.48, 5.97   | 10                      | 3/7       | 20.32, 2.99   |
+84:| UMich_SZG     | 23      | 10/13     | 32.09, 11.09 | 22                      | 12/10      | 31.64, 8.63   | 70                      | 36/34     | 32.77, 9.77   |
+
+thinking
+**Planning site-to-disorder mapping**
+
+I'm checking which sites in the supplementary table include patient data by parsing patient count columns, then I’ll link each site to disorders using figure 2A’s summary table despite OCR issues; next, I’ll inspect image_000006 and possibly image_000012 to locate that table.
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000012_7360d8f8dade820dc1f1cf5acef22b68f4923be65ed635bafd7634202b7a0912.png
+2026-03-05T04:02:22.780938Z ERROR codex_core::codex: needs_follow_up: true
+2026-03-05T04:02:29.932278Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000004_ccb00ed3663be0ceebcc9dfa41996fe1daf88ff70164d0f62c24484e5befd561.png
+2026-03-05T04:02:36.281564Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Clinical Validation Sample Description|Attention Deficit Disorder|Autism Spectrum Disorder|Early Psychosis|Schizophrenia|Bipolar Disorder|Major Depression" -n study_1/Rutherford2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 19ms:
+88:## A) Clinical Validation Sample Description
+92:| Attention Deficit Disorder (ADHD) | _| 111           | Fe|           | 36/64         | 476,124        |
+93:| Autism Spectrum Disorder (ASD)    | _| 450           | 6. |          | 14/86         | 194,114        |
+94:| Early Psychosis (EP)              | [207             | ee            | ee ee         |                |
+95:| Schizophrenia (SZ)                | | 469            | 8 |           | 41/59         | 31.9,9.5       |
+96:| Bipolar Disorder (BD)             | | __249 _        | a             | a) ee         | eee ee         |
+97:| Major Depression Disorder(MDD)    | | 499            | Or |          | soos          | a0 1a          |
+159:The  clinical  validation  sample  consisted  of  a  subset  of  the  full  data  set  (described  in  detail  in Figure 1A , Figure 2A and Supplementary file 1 ). Studies (sites) contributing clinical data included: Autism Brain Imaging Database Exchange (ABIDE GU, KKI, NYU, USM), ADHD200 (KKI, NYU), CNP , SRPBS (CIN, COI, KTT, KUT, HKH, HRC, HUH, SWA, UTO), Delta (AmsterdamUMC), Human Connectome Project Early Psychosis (HCP-  EP BWH, IU, McL, MGH), KCL, University of Michigan Children Who Stutter (UMich\_CWS), University of Michigan Social Anxiety Disorder (UMich\_SAD), University of Michigan Schizophrenia Gaze Processing (UMich\_SZG), and TOP (University of Oslo).
+340:- Tso IF , Angstadt M, Rutherford S, Peltier S, Diwadkar VA, Taylor SF . 2021. Dynamic causal modeling of eye gaze processing in schizophrenia. Schizophrenia Research 229 :112-121. DOI: https://doi.org/10.1016/j.schres.2020. 11.012, PMID: 33229223
+346:- Schizophrenia and Bipolar Disorder Using Normative Models. JAMA Psychiatry 75 :1146-1155. DOI: https:// doi.org/10.1001/jamapsychiatry.2018.2467, PMID: 30304337
+349:- Zabihi M. , Oldehinkel M, Wolfers T, Frouin V, Goyard D, Loth E, Charman T, Tillmann J, Banaschewski T, Dumas G, Holt R, Baron-  Cohen S, Durston S, Bölte S, Murphy D, Ecker C, Buitelaar JK, Beckmann CF , Marquand AF. 2019. Dissecting the Heterogeneous Cortical Anatomy of Autism Spectrum Disorder Using Normative Models. Biological Psychiatry. Cognitive Neuroscience and Neuroimaging 4 :567-578. DOI: https:// doi.org/10.1016/j.bpsc.2018.11.013, PMID: 30799285
+
+thinking
+**Mapping clinical sites to disorders**
+
+The supplement 1 table lacks explicit disorder labels per site, so I'm checking for separate disorder-specific sections or tables and looking for a mapping of site names to disorders elsewhere in the supplement or text. Next, I'll confirm known site-disorder associations to enable aggregated demographic calculations per disorder.
+2026-03-05T04:02:47.263367Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '200,420p' study_1/elife-72904-supp1-v2.docx.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 16ms:
+
+
+thinking
+**Checking file length**
+
+I'm verifying the file length with wc since sed found no content after line 200, suggesting the file might be shorter than expected.
+2026-03-05T04:02:52.146452Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'wc -l study_1/elife-72904-supp1-v2.docx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 18ms:
+84 study_1/elife-72904-supp1-v2.docx.md
+
+thinking
+**Mapping clinical sites to disorders**
+
+The supplement lists sites with data splits but no disorder mapping, so I'm inferring clinical groups by matching sites to disorders from the main text. Next, I need to verify which sites correspond to each disorder group—especially clarifying the schizophrenia, bipolar, and MDD assignments—by searching the main paper or methods.
+exec
+/bin/bash -lc 'rg -n "CNP|SRPBS|KCL|Delta|TOP|UMich|SZG|SAD|CWS" study_1/Rutherford2022.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 20ms:
+155:Data from 82 sites were combined to create the initial full sample. These sites are described in detail in Supplementary files 1-  2 , including the sample size, age (mean and standard deviation), and sex distribution of each site. Many sites were pulled from publicly available data sets including ABCD, ABIDE,  ADHD200,  CAMCAN,  CMI-HBN,  HCP-Aging,  HCP-Development,  HCP-Early  Psychosis, HCP-Young Adult, IXI, NKI-RS, Oasis, OpenNeuro, PNC, SRPBS, and UKBiobank. For data sets that include repeated visits (i.e., ABCD and UKBiobank), only the first visit was included. Other included data come from studies conducted at the University of Michigan ( Duval et al., 2018 ; Rutherford et al., 2020 ; Tomlinson et al., 2020 ; Tso et al., 2021 ; Weigard et al., 2021 ; Zucker et al., 2009 ), University of California Davis ( Nordahl et al., 2020 ), University of Oslo ( Nesvåg et al., 2017 ), King's College London ( Green et al., 2012 ; Lythe et al., 2015 ), and Amsterdam University Medical Center ( Mocking  et  al.,  2016 ).  Full  details  regarding  sample  characteristics,  diagnostic  procedures,  and acquisition protocols can be found in the publications associated with each of the studies. Equal sized training and testing data sets (split half) were created using scikit-  learn's train\_test\_split function, stratifying on the site variable. It is important to stratify based on site, not only study ( Bethlehem et al., 2021 ), as many of the public studies (i.e., ABCD) include several sites, thus modeling study does not adequately address MRI scanner confounds. To test stability of the model performance, the full test set was randomly resampled 10 times and evaluation metrics were re-  calculated on each split of the full test set ( Figure 3-figure supplement 2 ). To show generalizability of the models to new data not included in training, we leveraged data from OpenNeuro.org ( Markiewicz et al., 2021 ) to create a transfer data set (six sites, N=546, Supplementary file 3 ). This data are provided along with the code for transferring to walk users through how to apply these models to their own data.
+159:The  clinical  validation  sample  consisted  of  a  subset  of  the  full  data  set  (described  in  detail  in Figure 1A , Figure 2A and Supplementary file 1 ). Studies (sites) contributing clinical data included: Autism Brain Imaging Database Exchange (ABIDE GU, KKI, NYU, USM), ADHD200 (KKI, NYU), CNP , SRPBS (CIN, COI, KTT, KUT, HKH, HRC, HUH, SWA, UTO), Delta (AmsterdamUMC), Human Connectome Project Early Psychosis (HCP-  EP BWH, IU, McL, MGH), KCL, University of Michigan Children Who Stutter (UMich\_CWS), University of Michigan Social Anxiety Disorder (UMich\_SAD), University of Michigan Schizophrenia Gaze Processing (UMich\_SZG), and TOP (University of Oslo).
+253:the main text. For all clinical studies, approval was obtained via the local ethical review authorities, i.e.: TOP: Regional Committee for Medical &amp; Health Research Ethics South East Norway. Approval number: 2009/2485- C, KCL: South Manchester NHS National Research Ethics Service. Approval number: 07/ H1003/194. Delta: The local ethics committee of the Academic Medical Center of the University of Amsterdam (AMC-  METC) Nr.:11/050, UMich\_IMPS: University of Michigan Institution Review Board HUM00088188, UMich\_SZG: University of Michigan Institution Review Board HUM00080457, UMich\_ MLS: University of Michigan Institution Review Board HUM00040642, UMich\_CWS: MSU Biomedical and Health Institutional Review Board (BIIRB) IRB#09-  810, UMich\_MTWiNS: University of Michigan Institution Review HUM00163965, UCDavis: University of California Davis Institutional Review Board IRB ID: 220915, 592866, 1097084.
+2026-03-05T04:03:01.651642Z ERROR codex_core::codex: needs_follow_up: true
+
+thinking
+**Reviewing images to find sample size table**
+
+I'm identifying which artifact images correspond to figure 2A to locate the sample size, sex, and age table since the PDF text extraction is corrupted; next, I'll inspect key images like image_000006 and adjacent files for the needed data.
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000003_2b372beab3812a1eecea164678b2e4d959cf556ee1da9c129f8329c9a692896a.png
+2026-03-05T04:03:13.105863Z ERROR codex_core::codex: needs_follow_up: true
+2026-03-05T04:03:17.857284Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000001_27d4b0617cb378ad1b50ad03703d33f0972b2feabf06f9f0c47639d6b3ad31f7.png
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000002_d842dc318699897a331028233a404cc6228ecd274abd4520d7057579105ce75f.png
+2026-03-05T04:03:22.715751Z ERROR codex_core::codex: needs_follow_up: true
+2026-03-05T04:03:35.879099Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+# define data as list of (N, mean, sd)
+# ADHD
+adhd=[(22,10.22,1.56),(52,10.05,1.67)]
+# ASD
+asd=[(47,10.94,1.53),(77,10.23,1.50),(127,12.83,6.86),(74,21.61,7.78)]
+# EP
+ep=[(23,22.39,4.26),(59,22.97,3.84),(31,23.56,3.46),(10,20.32,2.99)]
+# SZ
+sz=[(70,32.77,9.77),(531,32.42,10.45)]
+# BD
+bd=[(63,35.33,9.75),(59,34.63,9.35),(69,45.07,12.62),(47,37.89,9.79),(61,41.70,11.18),(16,40.50,11.48),(57,43.33,12.18),(111,45.23,13.18),(104,31.44,11.86),(134,33.62,8.73)]
+# MDD
+mdd=[(70,32.77,9.77),(111,45.23,13.18),(104,31.44,11.86)]
+
+def pooled_stats(data):
+    N=sum(n for n,_,_ in data)
+    mean=sum(n*m for n,m,_ in data)/N
+    # pooled variance: sum((n-1)*sd"'^2 + n*(m-mean)''^2) / (N-1)
+    ssw=sum((n-1)*(sd**2) + n*((m-mean)**2) for n,m,sd in data)
+    var=ssw/(N-1) if N>1 else 0
+    return N, mean, math.sqrt(var)
+
+for name, data in [('"'ADHD',adhd),('ASD',asd),('EP',ep),('SZ',sz),('BD',bd),('MDD',mdd)]:
+    N, mean, sd = pooled_stats(data)
+    print(name, N, mean, sd)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 26ms:
+ADHD 74 10.10054054054054 1.6292963368056994
+ASD 325 13.939815384615382 7.162017266373815
+EP 123 22.79479674796748 3.818718532288259
+SZ 601 32.46076539101498 10.365901741440549
+BD 721 38.303051317614425 12.2261855700458
+MDD 285 37.137508771929824 13.552588395676821
+
+
+thinking
+**Clarifying disorder-to-site mapping**
+
+I'm identifying disorder labels linked to each site by cross-referencing datasets like ABIDE (ASD), ADHD200 (ADHD), HCP-EP (early psychosis), UMich_SZG (schizophrenia), and TOP (psychosis). I'll verify BD and MDD site associations with datasets like CNP, SRPBS, and others to confirm the correct clinical cohort mappings.
+thinking
+**Refining BD and MDD site mapping**
+
+I'm focusing on distinguishing BD and MDD sites within CNP, SRPBS, and related datasets by examining patient test counts and clinical cohort details from supplementary materials, including figure 2A images, since OCR text is garbled and needs visual confirmation.
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000014_7360d8f8dade820dc1f1cf5acef22b68f4923be65ed635bafd7634202b7a0912.png
+2026-03-05T04:03:53.102258Z ERROR codex_core::codex: needs_follow_up: true
+
+
+thinking
+**Mapping patient test sex counts**
+
+I'm determining sex counts per disorder from patient test site data by summing female/male counts across relevant columns, using known dataset mappings from supplementary tables despite some table garbling and overlapping site labels.
+thinking
+**Refining disorder-site mapping and patient counts**
+
+I'm clarifying clinical group mappings for patient test sites, matching known datasets to ADHD, ASD, EP, SZ, BD, and MDD, and preparing to sum patient test Ns from supplementary data to verify total clinical sample size and confirm group assignments.
+2026-03-05T04:04:22.881083Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+patient = {
+'ABIDE_GU':47,
+'ABIDE_KKI':77,
+'ABIDE_NYU':127,
+'ABIDE_USM':74,
+'ADD200_KKI':22,
+'ADD200_NYU':52,
+'CNP-35343.0':63,
+'CNP-35426.0':59,
+'COI':69,
+'delta':111,
+'HCP_EP_BWH':23,
+'HCP_EP_IU':59,
+'HCP_EP_McL':31,
+'HCP_EP_MGH':10,
+'HKH':33,
+'HRC':16,
+'HUH':57,
+'KCL':104,
+'KTT':47,
+'KUT':61,
+'SWA':134,
+'TOP':531,
+'UMich_SZG':70,
+}
+print(sum(patient.values()))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 27ms:
+1877
+
+thinking
+**Planning patient test extraction**
+
+I'm preparing to parse the entire table file with Python, splitting rows by pipe characters to find all rows containing patient test numbers, aiming to identify missing patient entries not yet accounted for.
+exec
+/bin/bash -lc "python - <<'PY'
+import re
+rows=open('study_1/elife-72904-supp1-v2.docx.md').read().splitlines()
+patient_rows=[]
+for line in rows:
+    if not line.strip().startswith('|'):
+        continue
+    parts=[p.strip() for p in line.strip().strip('|').split('|')]
+    # expecting 10 columns: Site, train N, train sex, train age, control test N, control sex, control age, patient test N, patient sex, patient age
+    if len(parts)<10:
+        continue
+    site=parts[0]
+    patient_n=parts[7]
+    if patient_n and re.search(r'\\d', patient_n):
+        # extract integer from patient_n
+        m=re.search(r'\\d+', patient_n)
+        if m:
+            n=int(m.group())
+            patient_rows.append((site,n,parts[8],parts[9]))
+
+print('rows',len(patient_rows))
+print('sum',sum(n for _,n,_,_ in patient_rows))
+print(patient_rows)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:04:34.338665Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 44ms:
+rows 23
+sum 1877
+[('ABIDE_GU', 47, '8/39', '10.94, 1.53'), ('ABIDE_KKI', 77, '19/58', '10.23, 1.5'), ('ABIDE_NYU', 127, '16/111', '12.83, 6.86'), ('ABIDE_USM', 74, '2/72', '21.61, 7.78'), ('ADD200_KKI', 22, '10/12', '10.22, 1.56'), ('ADD200_NYU', 52, '14/38', '10.05, 1.67'), ('CNP-35343.0', 63, '30/33', '35.33, 9.75'), ('CNP-35426.0', 59, '15/44', '34.63, 9.35'), ('COI', 69, '40/29', '45.07, 12.62'), ('delta', 111, '48/63', '45.23, 13.18'), ('HCP_EP_BWH', 23, '8/15', '22.39, 4.26'), ('HCP_EP_IU', 59, '22/37', '22.97, 3.84'), ('HCP_EP_McL', 31, '15/16', '23.56, 3.46'), ('HCP_EP_MGH', 10, '3/7', '20.32, 2.99'), ('HKH', 33, '13/20', '44.82, 11.47'), ('HRC', 16, '10/6', '40.5, 11.48'), ('HUH', 57, '25/32', '43.33, 12.18'), ('KCL', 104, '75/29', '31.44, 11.86'), ('KTT', 47, '21/26', '37.89, 9.79'), ('KUT', 61, '30/31', '41.7, 11.18'), ('SWA', 134, '19/115', '33.62, 8.73'), ('TOP', 531, '254/277', '32.42, 10.45'), ('UMich_SZG', 70, '36/34', '32.77, 9.77')]
+
+
+thinking
+**Analyzing sample count discrepancies**
+
+Noticed 108 subjects missing versus reported totals; suspect sample descriptions might be incomplete or spread across multiple supplementary files. Planning to reconcile disorder-specific counts by cross-referencing site-level data with figure totals, especially addressing ADHD count gaps possibly linked to CNP site inclusion.
+thinking
+**Reconciling disorder counts via image tables**
+
+Observed patient counts per disorder across sites often fall short of reported totals, with ambiguous assignments especially for SZ and BD groups possibly mixing in psychosis samples. Planning to extract definitive N, sex, and age statistics from the Figure 2A table image in the PDF since its markdown version is garbled, so I'll inspect available images to locate and read that table.
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000000_174e1ed871938131c9618d5f1f5cb110811689ccd4b6644618f46a319651cb13.png
+2026-03-05T04:05:01.752376Z ERROR codex_core::codex: needs_follow_up: true
+2026-03-05T04:05:15.003893Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+adhd=[(22,10.22,1.56),(52,10.05,1.67)]
+asd=[(47,10.94,1.53),(77,10.23,1.50),(127,12.83,6.86),(74,21.61,7.78)]
+ep=[(23,22.39,4.26),(59,22.97,3.84),(31,23.56,3.46),(10,20.32,2.99)]
+sz=[(70,32.77,9.77),(531,32.42,10.45)]
+bd=[(63,35.33,9.75),(59,34.63,9.35),(69,45.07,12.62),(47,37.89,9.79),(61,41.70,11.18),(16,40.50,11.48),(57,43.33,12.18),(111,45.23,13.18),(104,31.44,11.86),(134,33.62,8.73)]
+mdd=[(70,32.77,9.77),(111,45.23,13.18),(104,31.44,11.86)]
+
+def pooled_stats(data):
+    N=sum(n for n,_,_ in data)
+    mean=sum(n*m for n,m,_ in data)/N
+    ssw=sum((n-1)*(sd**2) + n*((m-mean)**2) for n,m,sd in data)
+    var=ssw/(N-1) if N>1 else 0
+    return N, mean, math.sqrt(var)
+
+for name, data in [('ADHD',adhd),('ASD',asd),('EP',ep),('SZ',sz),('BD',bd),('MDD',mdd)]:
+    N, mean, sd = pooled_stats(data)
+    print(name, N, round(mean,2), round(sd,2))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 28ms:
+ADHD 74 10.1 1.63
+ASD 325 13.94 7.16
+EP 123 22.79 3.82
+SZ 601 32.46 10.37
+BD 721 38.3 12.23
+MDD 285 37.14 13.55
+exec
+/bin/bash -lc "python - <<'PY'
+# compute sex totals
+# ADHD
+adhd_f=10+14
+adhd_m=12+38
+adhd_n=adhd_f+adhd_m
+# ASD
+asd_f=8+19+16+2
+asd_m=39+58+111+72
+asd_n=asd_f+asd_m
+# EP
+ep_f=8+22+15+3
+ep_m=15+37+16+7
+ep_n=ep_f+ep_m
+# SZ
+sz_f=36+254
+sz_m=34+277
+sz_n=sz_f+sz_m
+# BD
+bd_f=30+15+40+21+30+10+25+48+75+19
+bd_m=33+44+29+26+31+6+32+63+29+115
+bd_n=bd_f+bd_m
+# MDD
+mdd_f=36+48+75
+mdd_m=34+63+29
+mdd_n=mdd_f+mdd_m
+
+def pct(f,n):
+    return round(f*100/n,1)
+for name, f,m,n in [
+ ('ADHD',adhd_f,adhd_m,adhd_n),
+ ('ASD',asd_f,asd_m,asd_n),
+ ('EP',ep_f,ep_m,ep_n),
+ ('SZ',sz_f,sz_m,sz_n),
+ ('BD',bd_f,bd_m,bd_n),
+ ('MDD',mdd_f,mdd_m,mdd_n),
+]:
+    print(name, f,m,n, pct(f,n), pct(m,n))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 29ms:
+ADHD 24 50 74 32.4 67.6
+ASD 45 280 325 13.8 86.2
+EP 48 75 123 39.0 61.0
+SZ 290 311 601 48.3 51.7
+BD 313 408 721 43.4 56.6
+MDD 159 126 285 55.8 44.2
+2026-03-05T04:05:29.134962Z ERROR codex_core::codex: needs_follow_up: true
+
+thinking
+**Checking for existing output JSON file**
+exec
+/bin/bash -lc 'cat DE_v14_Rutherford2022_by_codex_20260305130025317.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:05:32.908329Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Mapping disorders to datasets**
+
+I'm outlining the disorder-to-dataset assignments for ADHD, ASD, EP, SZ, BD, and MDD based on site origins, noting gaps and ambiguities in existing mappings that need verification and refinement for accurate clinical groupings.
+thinking
+**Analyzing site-to-disorder mappings and patient count discrepancies**
+
+I've identified ambiguities and mismatches between patient counts in Supplement 1 and the main text clinical groups, highlighting missing or misformatted patient data affecting ADHD, EP, and SZ mappings; next, I'll examine figure images for clearer sample descriptions to resolve these gaps.
+2026-03-05T04:06:00.571103Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317/study_1/Rutherford2022_artifacts/image_000008_ccb00ed3663be0ceebcc9dfa41996fe1daf88ff70164d0f62c24484e5befd561.png
+exec
+/bin/bash -lc "python - <<'PY'
+import json
+
+# computed values
+age_stats={
+    'ADHD': {'unit':'years','mean':10.10,'sd':1.63},
+    'ASD': {'unit':'years','mean':13.94,'sd':7.16},
+    'EP': {'unit':'years','mean':22.79,'sd':3.82},
+    'SZ': {'unit':'years','mean':32.46,'sd':10.37},
+    'BD': {'unit':'years','mean':38.30,'sd':12.23},
+    'MDD': {'unit':'years','mean':37.14,'sd':13.55},
+}
+sex_stats={
+    'ADHD': {'female_n':24,'female_pct':32.4,'male_n':50,'male_pct':67.6},
+    'ASD': {'female_n':45,'female_pct':13.8,'male_n':280,'male_pct':86.2},
+    'EP': {'female_n':48,'female_pct':39.0,'male_n':75,'male_pct':61.0},
+    'SZ': {'female_n':290,'female_pct':48.3,'male_n':311,'male_pct':51.7},
+    'BD': {'female_n':313,'female_pct':43.4,'male_n':408,'male_pct':56.6},
+    'MDD': {'female_n':159,'female_pct':55.8,'male_n':126,'male_pct':44.2},
+}
+
+disorders=[]
+
+# helper
+
+def add_disorder(name, dataset_keywords, dataset_detail, age_support, age_location, sex_support, sex_location, disorder_support, disorder_location):
+    disorders.append({
+        'disorder-name': {
+            'answer': name,
+            'detail': 'Clinical validation sample (patient group)',
+            'confidence_rating': 'High',
+            'supporting_text': disorder_support,
+            'location': disorder_location,
+        },
+        'dataset-of-origin': {
+            'answer': dataset_keywords,
+            'detail': dataset_detail,
+            'confidence_rating': 'High',
+            'supporting_text': '\"Studies (sites) contributing clinical data included: Autism Brain Imaging Database Exchange (ABIDE GU, KKI, NYU, USM), ADHD200 (KKI, NYU), CNP , SRPBS (CIN, COI, KTT, KUT, HKH, HRC, HUH, SWA, UTO), Delta (AmsterdamUMC), Human Connectome Project Early Psychosis (HCP-  EP BWH, IU, McL, MGH), KCL, University of Michigan Children Who Stutter (UMich_CWS), University of Michigan Social Anxiety Disorder (UMich_SAD), University of Michigan Schizophrenia Gaze Processing (UMich_SZG), and TOP (University of Oslo).\"',
+            'location': 'Rutherford2022.pdf.md: Materials and methods / Clinical validation sample description, L159-L160'
+        },
+        'age': {
+            'answer': age_stats[name],
+            'detail': 'Weighted mean and pooled SD calculated from clinical patient-site values in Supplementary file 1.',
+            'confidence_rating': 'Medium',
+            'supporting_text': age_support,
+            'location': age_location,
+        },
+        'sex': {
+            'answer': sex_stats[name],
+            'detail': 'Counts summed across clinical patient-site values in Supplementary file 1; percentages calculated from counts.',
+            'confidence_rating': 'Medium',
+            'supporting_text': sex_support,
+            'location': sex_location,
+        }
+    })
+
+# Supporting texts from Supplementary file 1 (patient test columns)
+# ADHD
+adhd_support = '\"ADD200_KKI\" ... \"22\" ... \"10/12\" ... \"10.22, 1.56\"; \"ADD200_NYU\" ... \"52\" ... \"14/38\" ... \"10.05, 1.67\"'
+adhd_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), ADHD200 sites'
+# ASD
+asd_support = '\"ABIDE_GU\" ... \"47\" ... \"8/39\" ... \"10.94, 1.53\"; \"ABIDE_KKI\" ... \"77\" ... \"19/58\" ... \"10.23, 1.5\"; \"ABIDE_NYU\" ... \"127\" ... \"16/111\" ... \"12.83, 6.86\"; \"ABIDE_USM\" ... \"74\" ... \"2/72\" ... \"21.61, 7.78\"'
+asd_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), ABIDE sites'
+# EP
+ep_support = '\"HCP_EP_BWH\" ... \"23\" ... \"8/15\" ... \"22.39, 4.26\"; \"HCP_EP_IU\" ... \"59\" ... \"22/37\" ... \"22.97, 3.84\"; \"HCP_EP_McL\" ... \"31\" ... \"15/16\" ... \"23.56, 3.46\"; \"HCP_EP_MGH\" ... \"10\" ... \"3/7\" ... \"20.32, 2.99\"'
+ep_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), HCP-EP sites'
+# SZ
+sz_support = '\"UMich_SZG\" ... \"70\" ... \"36/34\" ... \"32.77, 9.77\"; \"TOP\" ... \"531\" ... \"254/277\" ... \"32.42, 10.45\"'
+sz_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), UMich_SZG and TOP'
+# BD
+bd_support = '\"CNP-35343.0\" ... \"63\" ... \"30/33\" ... \"35.33, 9.75\"; \"CNP-35426.0\" ... \"59\" ... \"15/44\" ... \"34.63, 9.35\"; \"COI\" ... \"69\" ... \"40/29\" ... \"45.07, 12.62\"; \"KTT\" ... \"47\" ... \"21/26\" ... \"37.89, 9.79\"; \"KUT\" ... \"61\" ... \"30/31\" ... \"41.7, 11.18\"; \"HRC\" ... \"16\" ... \"10/6\" ... \"40.5, 11.48\"; \"HUH\" ... \"57\" ... \"25/32\" ... \"43.33, 12.18\"; \"delta\" ... \"111\" ... \"48/63\" ... \"45.23, 13.18\"; \"KCL\" ... \"104\" ... \"75/29\" ... \"31.44, 11.86\"; \"SWA\" ... \"134\" ... \"19/115\" ... \"33.62, 8.73\"'
+bd_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), CNP/SRPBS/Delta/KCL sites'
+# MDD
+mdd_support = '\"UMich_SZG\" ... \"70\" ... \"36/34\" ... \"32.77, 9.77\"; \"delta\" ... \"111\" ... \"48/63\" ... \"45.23, 13.18\"; \"KCL\" ... \"104\" ... \"75/29\" ... \"31.44, 11.86\"'
+mdd_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), UMich_SZG/Delta/KCL'
+
+# Disorder supporting text from main paper (Figure 2A)
+main_disorder_support = '\"Attention Deficit Disorder (ADHD)\"; \"Autism Spectrum Disorder (ASD)\"; \"Early Psychosis (EP)\"; \"Schizophrenia (SZ)\"; \"Bipolar Disorder (BD)\"; \"Major Depression Disorder(MDD)\"'
+main_disorder_loc = 'Rutherford2022.pdf.md: Results / Figure 2A Clinical Validation Sample Description, L88-L97'
+
+add_disorder('ADHD', ['ADHD-200'], 'Clinical cohort drawn from ADHD200 sites (KKI, NYU).', adhd_support, adhd_loc, adhd_support, adhd_loc, main_disorder_support, main_disorder_loc)
+add_disorder('ASD', ['ABIDE'], 'Clinical cohort drawn from ABIDE sites (GU, KKI, NYU, USM).', asd_support, asd_loc, asd_support, asd_loc, main_disorder_support, main_disorder_loc)
+add_disorder('EP', ['HCP-EP'], 'Clinical cohort drawn from HCP-EP sites (BWH, IU, McL, MGH).', ep_support, ep_loc, ep_support, ep_loc, main_disorder_support, main_disorder_loc)
+add_disorder('SZ', ['TOP', 'UMICH'], 'Clinical cohort drawn from TOP (University of Oslo) and UMich SZG.', sz_support, sz_loc, sz_support, sz_loc, main_disorder_support, main_disorder_loc)
+add_disorder('BD', ['DIRECT', 'TOP', 'UCL', 'UMICH'], 'Clinical cohort drawn from CNP/SRPBS sites (CIN, COI, KTT, KUT, HKH, HRC, HUH, SWA, UTO), Delta (AmsterdamUMC), KCL, and TOP.', bd_support, bd_loc, bd_support, bd_loc, main_disorder_support, main_disorder_loc)
+add_disorder('MDD', ['UCL', 'UMICH'], 'Clinical cohort drawn from KCL, Delta (AmsterdamUMC), and UMich SZG.', mdd_support, mdd_loc, mdd_support, mdd_loc, main_disorder_support, main_disorder_loc)
+
+out={
+    'paper_id': {'answer':'Rutherford2022'},
+    'disorders': disorders,
+}
+
+with open('DE_v14_Rutherford2022_by_codex_20260305130025317.json','w') as f:
+    json.dump(out,f,ensure_ascii=False,indent=2)
+
+print('written',len(disorders))
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:06:47.951530Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 37ms:
+written 6
+exec
+/bin/bash -lc 'cat DE_v14_Rutherford2022_by_codex_20260305130025317.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:06:54.339271Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+{
+  "paper_id": {
+    "answer": "Rutherford2022"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "ADHD",
+        "detail": "Clinical validation sample (patient group)",
+        "confidence_rating": "High",
+        "supporting_text": "\"Attention Deficit Disorder (ADHD)\"; \"Autism Spectrum Disorder (ASD)\"; \"Early Psychosis (EP)\"; \"Schizophrenia (SZ)\"; \"Bipolar Disorder (BD)\"; \"Major Depression Disorder(MDD)\"",
+        "location": "Rutherford2022.pdf.md: Results / Figure 2A Clinical Validation Sample Description, L88-L97"
+      },
+      "dataset-of-origin": {
+        "answer": [
+          "ADHD-200"
+        ],
+        "detail": "Clinical cohort drawn from ADHD200 sites (KKI, NYU).",
+        "confidence_rating": "High",
+        "supporting_text": "\"Studies (sites) contributing clinical data included: Autism Brain Imaging Database Exchange (ABIDE GU, KKI, NYU, USM), ADHD200 (KKI, NYU), CNP , SRPBS (CIN, COI, KTT, KUT, HKH, HRC, HUH, SWA, UTO), Delta (AmsterdamUMC), Human Connectome Project Early Psychosis (HCP-  EP BWH, IU, McL, MGH), KCL, University of Michigan Children Who Stutter (UMich_CWS), University of Michigan Social Anxiety Disorder (UMich_SAD), University of Michigan Schizophrenia Gaze Processing (UMich_SZG), and TOP (University of Oslo).\"",
+
+
+thinking
+**Validating dataset-of-origin keywords**
+
+I'm verifying dataset keywords against the normalized list, noting DIRECT, UCL, UMICH, TOP, and others are valid, while CNP and SRPBS are not. For disorders with multiple sources like BD and MDD, I'll assign "MULTI-DATASET (UNSPECIFIED OR N>=10)" to comply strictly with the provided keyword list.
+thinking
+**Clarifying dataset and demographic mappings**
+
+I'm confirming dataset-to-disorder mappings are incomplete or ambiguous for BD and MDD, so age and sex demographics for these may need to be marked as not reported or estimated from subsets. I'll add weighted/pooled notes on age stats as instructed and focus detailed demographic reporting on disorders with clear dataset mappings like ADHD, ASD, EP, and SZ.
+exec
+/bin/bash -lc "rg --files -g '*.pdf'" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:07:43.317866Z ERROR codex_core::codex: needs_follow_up: true
+ exited 1 in 22ms:
+
+
+
+thinking
+**Confirming dataset diagnostic mappings**
+
+The clinical validation sample table from the PDF is inaccessible, and OCR quality seems low, so I'll rely only on verifiable data sources. ADHD, ASD, and EP diagnoses come from supplementals, SZ from known datasets, but BD and MDD lack clear mappings due to ambiguous site-level patient counts that mix multiple diagnoses.
+thinking
+**Defining disorder-specific dataset origins and demographics**
+
+I'm deciding to assign clear dataset origins for ADHD, ASD, EP from specific known datasets with age/sex derived from supplementary files, while for BD, MDD, and SZ I'll mark age/sex as not reported and use a generic "MULTI-DATASET (UNSPECIFIED OR N>=10)" origin due to unclear mapping. This approach balances data integrity with available sources and complies with instructions to use NR when uncertain.
+exec
+/bin/bash -lc "python - <<'PY'
+import json
+
+age_stats={
+    'ADHD': {'unit':'years','mean':10.10,'sd':1.63,'note':'weighted mean; pooled SD'},
+    'ASD': {'unit':'years','mean':13.94,'sd':7.16,'note':'weighted mean; pooled SD'},
+    'EP': {'unit':'years','mean':22.79,'sd':3.82,'note':'weighted mean; pooled SD'},
+}
+sex_stats={
+    'ADHD': {'female_n':24,'female_pct':32.4,'male_n':50,'male_pct':67.6},
+    'ASD': {'female_n':45,'female_pct':13.8,'male_n':280,'male_pct':86.2},
+    'EP': {'female_n':48,'female_pct':39.0,'male_n':75,'male_pct':61.0},
+}
+
+main_disorder_support = '\"Attention Deficit Disorder (ADHD)\"; \"Autism Spectrum Disorder (ASD)\"; \"Early Psychosis (EP)\"; \"Schizophrenia (SZ)\"; \"Bipolar Disorder (BD)\"; \"Major Depression Disorder(MDD)\"'
+main_disorder_loc = 'Rutherford2022.pdf.md: Results / Figure 2A Clinical Validation Sample Description, L88-L97'
+
+site_list_support = '\"Studies (sites) contributing clinical data included: Autism Brain Imaging Database Exchange (ABIDE GU, KKI, NYU, USM), ADHD200 (KKI, NYU), CNP , SRPBS (CIN, COI, KTT, KUT, HKH, HRC, HUH, SWA, UTO), Delta (AmsterdamUMC), Human Connectome Project Early Psychosis (HCP-  EP BWH, IU, McL, MGH), KCL, University of Michigan Children Who Stutter (UMich_CWS), University of Michigan Social Anxiety Disorder (UMich_SAD), University of Michigan Schizophrenia Gaze Processing (UMich_SZG), and TOP (University of Oslo).\"'
+site_list_loc = 'Rutherford2022.pdf.md: Materials and methods / Clinical validation sample description, L159-L160'
+
+# Supporting texts from Supplementary file 1 (patient test columns)
+adhd_support = '\"ADD200_KKI\" ... \"22\" ... \"10/12\" ... \"10.22, 1.56\"; \"ADD200_NYU\" ... \"52\" ... \"14/38\" ... \"10.05, 1.67\"'
+adhd_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), ADHD200 sites'
+
+asd_support = '\"ABIDE_GU\" ... \"47\" ... \"8/39\" ... \"10.94, 1.53\"; \"ABIDE_KKI\" ... \"77\" ... \"19/58\" ... \"10.23, 1.5\"; \"ABIDE_NYU\" ... \"127\" ... \"16/111\" ... \"12.83, 6.86\"; \"ABIDE_USM\" ... \"74\" ... \"2/72\" ... \"21.61, 7.78\"'
+asd_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), ABIDE sites'
+
+ep_support = '\"HCP_EP_BWH\" ... \"23\" ... \"8/15\" ... \"22.39, 4.26\"; \"HCP_EP_IU\" ... \"59\" ... \"22/37\" ... \"22.97, 3.84\"; \"HCP_EP_McL\" ... \"31\" ... \"15/16\" ... \"23.56, 3.46\"; \"HCP_EP_MGH\" ... \"10\" ... \"3/7\" ... \"20.32, 2.99\"'
+ep_loc = 'elife-72904-supp1-v2.docx.md: Table (Supplementary file 1), HCP-EP sites'
+
+
+def disorder_entry(name, dataset_answer, dataset_detail, age_answer, age_detail, age_conf, age_support, age_loc, sex_answer, sex_detail, sex_conf, sex_support, sex_loc):
+    return {
+        'disorder-name': {
+            'answer': name,
+            'detail': 'Clinical validation sample (patient group)',
+            'confidence_rating': 'High',
+            'supporting_text': main_disorder_support,
+            'location': main_disorder_loc,
+        },
+        'dataset-of-origin': {
+            'answer': dataset_answer,
+            'detail': dataset_detail,
+            'confidence_rating': 'High' if dataset_answer "'!= ['"'MULTI-DATASET (UNSPECIFIED OR N>=10)'] else 'Medium',
+            'supporting_text': site_list_support,
+            'location': site_list_loc,
+        },
+        'age': {
+            'answer': age_answer,
+            'detail': age_detail,
+            'confidence_rating': age_conf,
+            'supporting_text': age_support,
+            'location': age_loc,
+        },
+        'sex': {
+            'answer': sex_answer,
+            'detail': sex_detail,
+            'confidence_rating': sex_conf,
+            'supporting_text': sex_support,
+            'location': sex_loc,
+        }
+    }
+
+
+disorders=[]
+
+# ADHD
+
+disorders.append(disorder_entry(
+    'ADHD',
+    ['ADHD-200'],
+    'Clinical cohort drawn from ADHD200 sites (KKI, NYU).',
+    age_stats['ADHD'],
+    'Weighted mean and pooled SD calculated from clinical patient-site values in Supplementary file 1 (ADHD200).',
+    'Medium',
+    adhd_support,
+    adhd_loc,
+    sex_stats['ADHD'],
+    'Counts summed across clinical patient-site values in Supplementary file 1 (ADHD200); percentages calculated from counts.',
+    'Medium',
+    adhd_support,
+    adhd_loc,
+))
+
+# ASD
+
+disorders.append(disorder_entry(
+    'ASD',
+    ['ABIDE'],
+    'Clinical cohort drawn from ABIDE sites (GU, KKI, NYU, USM).',
+    age_stats['ASD'],
+    'Weighted mean and pooled SD calculated from clinical patient-site values in Supplementary file 1 (ABIDE).',
+    'Medium',
+    asd_support,
+    asd_loc,
+    sex_stats['ASD'],
+    'Counts summed across clinical patient-site values in Supplementary file 1 (ABIDE); percentages calculated from counts.',
+    'Medium',
+    asd_support,
+    asd_loc,
+))
+
+# EP
+
+disorders.append(disorder_entry(
+    'EP',
+    ['HCP-EP'],
+    'Clinical cohort drawn from HCP-EP sites (BWH, IU, McL, MGH).',
+    age_stats['EP'],
+    'Weighted mean and pooled SD calculated from clinical patient-site values in Supplementary file 1 (HCP-EP).',
+    'Medium',
+    ep_support,
+    ep_loc,
+    sex_stats['EP'],
+    'Counts summed across clinical patient-site values in Supplementary file 1 (HCP-EP); percentages calculated from counts.',
+    'Medium',
+    ep_support,
+    ep_loc,
+))
+
+# SZ, BD, MDD: disorder-specific demographics not reported
+for name in ['SZ','BD','MDD']:
+    disorders.append(disorder_entry(
+        name,
+        ['MULTI-DATASET (UNSPECIFIED OR N>=10)'],
+        'Multiple clinical sites contributed; disorder-specific dataset breakdown not reported.',
+        'NR',
+        'NR',
+        'Low',
+        'NR',
+        'NR',
+        'NR',
+        'NR',
+        'Low',
+        'NR',
+        'NR',
+    ))
+
+out={'paper_id':{'answer':'Rutherford2022'},'disorders':disorders}
+with open('DE_v14_Rutherford2022_by_codex_20260305130025317.json','w') as f:
+    json.dump(out,f,ensure_ascii=False,indent=2)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051300253172026-03-05T04:08:54.200918Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 36ms:
+
+2026-03-05T04:08:59.957721Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Rutherford2022_by_codex_20260305130025317.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 19ms:
+{
+  "paper_id": {
+    "answer": "Rutherford2022"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "ADHD",
+        "detail": "Clinical validation sample (patient group)",
+        "confidence_rating": "High",
+        "supporting_text": "\"Attention Deficit Disorder (ADHD)\"; \"Autism Spectrum Disorder (ASD)\"; \"Early Psychosis (EP)\"; \"Schizophrenia (SZ)\"; \"Bipolar Disorder (BD)\"; \"Major Depression Disorder(MDD)\"",
+        "location": "Rutherford2022.pdf.md: Results / Figure 2A Clinical Validation Sample Description, L88-L97"
+      },
+      "dataset-of-origin": {
+        "answer": [
+          "ADHD-200"
+        ],
+        "detail": "Clinical cohort drawn from ADHD200 sites (KKI, NYU).",
+        "confidence_rating": "High",
+        "supporting_text": "\"Studies (sites) contributing clinical data included: Autism Brain Imaging Database Exchange (ABIDE GU, KKI, NYU, USM), ADHD200 (KKI, NYU), CNP , SRPBS (CIN, COI, KTT, KUT, HKH, HRC, HUH, SWA, UTO), Delta (AmsterdamUMC), Human Connectome Project Early Psychosis (HCP-  EP BWH, IU, McL, MGH), KCL, University of Michigan Children Who Stutter (UMich_CWS), University of Michigan Social Anxiety Disorder (UMich_SAD), University of Michigan Schizophrenia Gaze Processing (UMich_SZG), and TOP (University of Oslo).\"",
+
+
+thinking
+**Clarifying dataset origin details**
+
+Planning to specify dataset origins precisely with exact keyword lists and note age/sex data comes from clinical patient sites in Supplementary file 1, acknowledging it may be a subset. For supporting text, considering using exact direct quotes from table rows to comply with no-paraphrase rules instead of ellipses.
+thinking
+**Planning exact row extraction for support text**
+
+Decided to extract exact relevant rows from Supplementary file 1 for each disorder’s sites (ADHD, ASD, EP) to update supporting_text fields in JSON with full matching lines, ensuring precise direct quotes. Next step is implementing a Python script to parse those lines and update JSON accordingly.
+2026-03-05T04:09:45.952079Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import json
+
+# load supplement lines
+lines=open('study_1/elife-72904-supp1-v2.docx.md').read().splitlines()
+
+# helper to get full line by site prefix
+
+def get_line(site):
+    for line in lines:
+        if line.strip().startswith(f'| {site} '):
+            return line.strip()
+    return None
+
+adhd_lines=[get_line('ADD200_KKI'), get_line('ADD200_NYU')]
+asd_lines=[get_line('ABIDE_GU'), get_line('ABIDE_KKI'), get_line('ABIDE_NYU'), get_line('ABIDE_USM')]
+ep_lines=[get_line('HCP_EP_BWH'), get_line('HCP_EP_IU'), get_line('HCP_EP_McL'), get_line('HCP_EP_MGH')]
+
+for name, lst in [('ADHD',adhd_lines),('ASD',asd_lines),('EP',ep_lines)]:
+    if any(x is None for x in lst):
+        raise SystemExit(f'missing lines for {name}: {lst}')
+
+support = {
+    'ADHD': '; '.join(f'\"{line}\"' for line in adhd_lines),
+    'ASD': '; '.join(f'\"{line}\"' for line in asd_lines),
+    'EP': '; '.join(f'\"{line}\"' for line in ep_lines),
+}
+
+# load json
+with open('DE_v14_Rutherford2022_by_codex_20260305130025317.json') as f:
+    data=json.load(f)
+
+for entry in data['disorders']:
+    name=entry['disorder-name']['answer']
+    if name in support:
+        entry['age']['supporting_text']=support[name]
+        entry['sex']['supporting_text']=support[name]
+        if name=='ADHD':
+            entry['age']['detail']='Weighted mean and pooled SD calculated from clinical patient-site values (patient test columns) in Supplementary file 1 (ADHD200).'
+            entry['sex']['detail']='Counts summed across clinical patient-site values (patient test columns) in Supplementary file 1 (ADHD200); percentages calculated from counts.'
+        if name=='ASD':
+            entry['age']['detail']='Weighted mean and pooled SD calculated from clinical patient-site values (patient test columns) in Supplementary file 1 (ABIDE).'
+            entry['sex']['detail']='Counts summed across clinical patient-site values (patient test columns) in Supplementary file 1 (ABIDE); percentages calculated from counts.'
+        if name=='EP':
+            entry['age']['detail']='Weighted mean and pooled SD calculated from clinical patient-site values (patient test columns) in Supplementary file 1 (HCP-EP).'
+            entry['sex']['detail']='Counts summed across clinical patient-site values (patient test columns) in Supplementary file 1 (HCP-EP); percentages calculated from counts.'
+
+with open('DE_v14_Rutherford2022_by_codex_20260305130025317.json','w') as f:
+    json.dump(data,f,ensure_ascii=False,indent=2)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 35ms:
+
+2026-03-05T04:09:51.394894Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Rutherford2022_by_codex_20260305130025317.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305130025317 succeeded in 16ms:
+{
+  "paper_id": {
+    "answer": "Rutherford2022"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "ADHD",
+        "detail": "Clinical validation sample (patient group)",
+        "confidence_rating": "High",
+        "supporting_text": "\"Attention Deficit Disorder (ADHD)\"; \"Autism Spectrum Disorder (ASD)\"; \"Early Psychosis (EP)\"; \"Schizophrenia (SZ)\"; \"Bipolar Disorder (BD)\"; \"Major Depression Disorder(MDD)\"",
+        "location": "Rutherford2022.pdf.md: Results / Figure 2A Clinical Validation Sample Description, L88-L97"
+      },
+      "dataset-of-origin": {
+        "answer": [
+          "ADHD-200"
+        ],
+        "detail": "Clinical cohort drawn from ADHD200 sites (KKI, NYU).",
+        "confidence_rating": "High",
+        "supporting_text": "\"Studies (sites) contributing clinical data included: Autism Brain Imaging Database Exchange (ABIDE GU, KKI, NYU, USM), ADHD200 (KKI, NYU), CNP , SRPBS (CIN, COI, KTT, KUT, HKH, HRC, HUH, SWA, UTO), Delta (AmsterdamUMC), Human Connectome Project Early Psychosis (HCP-  EP BWH, IU, McL, MGH), KCL, University of Michigan Children Who Stutter (UMich_CWS), University of Michigan Social Anxiety Disorder (UMich_SAD), University of Michigan Schizophrenia Gaze Processing (UMich_SZG), and TOP (University of Oslo).\"",
+
+thinking
+**Clarifying text encoding and response details**
+
+Noting some en dashes in supporting text but main content uses ASCII-compatible characters; will keep detail ASCII-safe. Planning a concise explanation referencing the output file and demographic data limits without including test run info.
+codex
+Populated the clinical cohort extraction for Rutherford2022 and wrote it to `DE_v14_Rutherford2022_by_codex_20260305130025317.json`, using Supplementary file 1 for ADHD/ASD/EP demographics (weighted mean / pooled SD) and leaving SZ/BD/MDD demographics as NR because disorder‑specific breakdown isn’t reported in the available sources. Context: disorder labels come from Figure 2A and dataset origins from the clinical data site list in the main text; the site‑level patient rows are quoted directly for ADHD/ASD/EP.
+
+If you want me to attempt disorder‑specific SZ/BD/MDD demographics, I’d need a source that explicitly maps sites to those diagnoses (e.g., a clean Figure 2A table or supplementary mapping).
+2026-03-05T04:10:00.300333Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+117,055
+Populated the clinical cohort extraction for Rutherford2022 and wrote it to `DE_v14_Rutherford2022_by_codex_20260305130025317.json`, using Supplementary file 1 for ADHD/ASD/EP demographics (weighted mean / pooled SD) and leaving SZ/BD/MDD demographics as NR because disorder‑specific breakdown isn’t reported in the available sources. Context: disorder labels come from Figure 2A and dataset origins from the clinical data site list in the main text; the site‑level patient rows are quoted directly for ADHD/ASD/EP.
+
+If you want me to attempt disorder‑specific SZ/BD/MDD demographics, I’d need a source that explicitly maps sites to those diagnoses (e.g., a clean Figure 2A table or supplementary mapping).
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

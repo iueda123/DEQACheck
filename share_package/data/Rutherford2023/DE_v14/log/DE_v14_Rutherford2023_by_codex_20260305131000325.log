@@ -1,0 +1,329 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Rutherford2023_by_codex_20260305131000325.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc30-3b62-78d3-9ce6-7b72c3ab7e52
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Rutherford2023_by_codex_20260305131000325.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to follow DE_Guide instructions**
+2026-03-05T04:10:08.587983Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325 succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Rutherford2023_by_codex_20260305131000325.json
+DE_v14_Rutherford2023_by_codex_20260305131000325.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051310003252026-03-05T04:10:11.119655Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Planning skill source extraction**
+
+I'm focusing on finding instructions or documentation that mention agent skills by searching for study or paper files in the repo to locate relevant content.
+2026-03-05T04:10:13.836582Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325 succeeded in 28ms:
+DE_v14_Rutherford2023_by_codex_20260305131000325.log
+DE_v14_Rutherford2023_by_codex_20260305131000325.json
+DE_Guide_v14.md
+study_1/elife-85082-supp1-v2.xlsx.md
+study_1/elife-85082-mdarchecklist1-v2.pdf.md
+study_1/elife-85082-supp3-v2.xlsx.md
+study_1/Rutherford2023.pdf.md
+study_1/elife-85082-supp4-v2.xlsx.md
+study_1/elife-85082-supp2-v2.xlsx.md
+
+thinking
+**Opening paper file**
+2026-03-05T04:10:18.876385Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical|patient|cohort|disorder|diagnos" study_1/Rutherford2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325 succeeded in 20ms:
+33:## Evidence for embracing normative modeling
+39:Abstract In this work, we expand the normative model repository introduced in Rutherford et al., 2022a to include normative models charting lifespan trajectories of structural surface area and brain functional connectivity, measured using two unique resting-  state network atlases (Yeo-  17 and Smith-  10), and an updated online platform for transferring these models to new data sources. We showcase the value of these models with a head-  to-  head comparison between the features output by normative modeling and raw data features in several benchmarking tasks: mass univariate group difference testing (schizophrenia versus control), classification (schizophrenia versus control), and regression (predicting general cognitive ability). Across all benchmarks, we show the advantage of using normative modeling features, with the strongest statistically significant results demonstrated in the group difference testing and classification tasks. We intend for these accessible resources to facilitate the wider adoption of normative modeling across the neuroimaging community.
+43:This is a rigorous and compelling extension of previous normative modeling work. The current study demonstrates that normative models incorporating lifespan trajectories of structural and functional connectivity provide a strong basis for brain imaging studies across a range of tasks including, univariate group difference assessment, classification, and building regression models. The work is important, rigorous and a valuable contribution to the field.
+55:brain measure) in a reference population creates a coordinate system that defines the units in which humans vary. Placing individuals into this coordinate system creates the opportunity to characterize their profiles of deviation. While this is an important aspect of normative modeling, it is usually just the first step, i.e., you are often interested in using the outputs of normative models in downstream analyses to detect case-  control differences, stratification, or individual statistics. This framework provides a platform for such analyses as it effectively translates diverse data to a consistent scale, defined with respect to population norms.
+57:Normative modeling has seen widespread use spanning diverse disciplines. The most well-  known example can be found in pediatric medicine, where conventional growth charts are used to map the height, weight, and head circumference trajectories of children ( Borghi et al., 2006 ). Under the neuroscience umbrella, generalizations of this approach have been applied in the fields of psychiatry ( Floris et al., 2021 ; Madre et al., 2020 ; Wolfers et al., 2015 ; Wolfers et al., 2017 ; Wolfers et al., 2018 ; Wolfers et al., 2020 ; Wolfers et al., 2021 ; Zabihi et al., 2019 ; Zabihi et al., 2020 ), neurology ( Itälinna et al., 2022 ; Verdi et al., 2021 ), developmental psychology ( Holz et al., 2022 ; Kjelkenes et al., 2022 ), and cognitive neuroscience ( Marquand et al., 2017 ). Throughout these numerous applications,  normative  models  have  exposed  the  shortcomings  of  prior  case-  control  frameworks,  i.e., that they rely heavily on the assumption, there is within-  group homogeneity. This case versus control assumption is often an oversimplification, particularly in psychiatric diagnostic categories, where the clinical labels used to place individuals into group categories are often unreliable, poorly measured, and may not map cleanly onto underlying biological mechanisms ( Cai et al., 2020 ; Cuthbert and Insel, 2013 ; Flake and Fried, 2020 ; Insel et al., 2010 ; Linden, 2012 ; Loth et al., 2021 ; Michelini et al., 2021 ; Moriarity et al., 2022 ; Moriarity and Alloy, 2021 ; Nour et al., 2022 ; Sanislow, 2020 ; Zhang et al., 2021 ). Correspondingly, traditional analysis techniques for modeling case versus control effects have often led to null findings ( Winter et al., 2022 ) or significant but very small clinically meaningless differences. These effects are furthermore frequently aspecific to an illness or disorder ( Baker et al., 2019 ; Goodkind et al., 2015 ; McTeague et al., 2017 ; Sprooten et al., 2017 ) and inconsistent or contradictory ( Filip et al., 2022 ; Lee et al., 2007 ; Pereira-  Sanchez and Castellanos, 2021 ) yielding questionable clinical utility ( Etkin, 2019 ; Mottron and Bzdok, 2022 ).
+59:In addition to the applications of normative modeling, there is also active technical development ( Dinga et al., 2021 ; Fraza et al., 2022 ; Fraza et al., 2021 ; Kia et al., 2020 ; Kia et al., 2021 ; Kia and Marquand, 2018 ; Kumar, 2021 ). Due to the growing popularity of normative modeling and in recognition  of  the  interdisciplinary  requirements  using  and  developing  this  technology  (clinical  domain knowledge, statistical expertise, data management, and computational demands), research interests have been centered on open science, and inclusive, values ( Gau et al., 2021 ; Levitis et al., 2021 ) that support this type of interdisciplinary scientific work. These values encompass open-  source software, sharing pre-  trained big data models ( Rutherford et al., 2022a ), online platforms for communication and collaboration, extensive documentation, code tutorials, and protocol-  style publications ( Rutherford et al., 2022b ).
+61:The central contribution of this paper is to, first, augment the models in Rutherford et al., 2022a , with additional normative models for surface area and functional connectivity, which are made open and accessible to the community. Second, we comprehensively evaluate the utility of normative models for a range of downstream analyses, including (1) mass univariate group difference testing (schizophrenia versus controls), (2) multivariate prediction - classification  (using  support  vector  machines to distinguish schizophrenia from controls), and (3) multivariate prediction - regression (using principal component regression (PCR) to predict general cognitive ability) ( Figure 1 ). Within these benchmarking tasks, we show the benefit of using normative modeling features compared to using raw features. We aim for these benchmarking results, along with our publicly available resources (code, documentation, tutorials, protocols, community forum, and website for running models without using any code). Combined this provides practical utility as well as scientific evidence for embracing normative modeling.
+63:Figure 1. Overview of workflow.  ( A ) Datasets included the Human Connectome Project (young adult) study, the University of Michigan schizophrenia study, and the Center for Biomedical Research Excellence (COBRE) schizophrenia study. ( B ) Openly shared, pre-  trained on big data, normative models were estimated for large-  scale resting-  state functional brain networks and cortical thickness. ( C ) Deviation (Z) scores and raw data, for both functional and structural data, were input into three benchmarking tasks: 1. group difference testing, 2. support vector machine (SVM) classification, and 3. regression (predicting cognition). ( D ) Evaluation metrics were calculated for each benchmarking task. These metrics were calculated for the raw data models and the deviation score models. The difference between each models' performance was calculated for both functional and structural modalities.
+73:Datasets  used  for  training  the  functional  normative  models  closely  match  the  sample  included  in Rutherford et al., 2022a , apart from sites that did not collect or were unable to share functional data. Evaluation of the functional normative models was performed in a test set (20% of the training set) and in two transfer sets that are comprised of scanning sites not seen by the model during training (clinical and healthy controls). The full details of the data included in the functional normative model training can be found in Appendix 1 and Supplementary file 1 . We leverage several datasets for the benchmarking tasks, the Human Connectome Project Young Adult study (HCP) ( Van Essen et al., 2013 ), The Center for Biomedical Research Excellence (COBRE) ( Aine et al., 2017 ; Sui et al., 2018 ), and the University of Michigan SchizGaze (UMich) ( Tso et al., 2021 ; Table 1 ). The HCP data was chosen because it is widely used by the neuroscience community, especially for prediction studies. Also, prior studies using HCP data have shown promising results for predicting general cognitive ability ( Sripada
+90:## Demographic, cognition, and clinical diagnosis variables
+92:Demographic variables included age, sex, and MRI scanner site. A latent variable of cognition, referred to as General Cognitive Ability (GCA), was created for the regression benchmarking task using HCP data. The HCP study administered the NIHToolbox Cognition battery ( Gershon et al., 2010 ), and a bi-  factor model was fit (for further modeling details and assessment of model fit see Sripada et al., 2020b ). For COBRE and UMich studies, clinical diagnosis of schizophrenia was confirmed using the Structured Clinical Interview used for DSM-  5 disorders (SCID) ( First, 1956 ). All subjects were screened and excluded if they had: a history of neurological disorder, mental retardation, severe head trauma, or substance abuse/dependence within the last 6 (UMich) or 12 months (COBRE), were pregnant/ nursing (UMich), or had any contraindications for MRI.
+100:Large-  scale brain networks from the 17-  network Yeo atlas ( Yeo et al., 2011 ) were then extracted and between-  network connectivity was calculated using full correlation. We also shared functional normative  models  using  the  Smith-  10  ICA-  based  parcellation  ( Smith  et  al.,  2009 )  which  includes subcortical coverage, however, the benchmarking tasks only use the Yeo-  17 functional data. Fisher r-  to-  z  transformation  was  performed on the correlation matrices. If there were multiple functional runs, connectivity matrices were calculated separately for each run then all runs for a subject were averaged. For further details regarding the preparation of the functional MRI data, see Appendix 1.
+104:After dataset selection and preprocessing, normative models were estimated using the Predictive Clinical Neuroscience toolkit (PCNtoolkit), an open-  source python package for normative modeling ( Marquand et al., 2021 ). For the structural data, we used a publicly shared repository of pre-  trained normative models that were estimated on approximately 58,000 subjects using a warped Bayesian
+108:Linear Regression algorithm ( Fraza et al., 2021 ). The covariates used to train the structural normative  models included age, sex, data quality metric (Euler number), and site. Normative models of surface area were also added to the same repository Supplementary file 2 . Model fit was established using explained variance, mean standardized log loss, skew, and kurtosis. The outputs of normative modeling also include a Z-  score, or deviation score, for all brain regions and all subjects. The deviation score represents where the individual is in comparison to the population the model was estimated on, where a positive deviation score corresponds to the greater cortical thickness or subcortical volume than average, and a negative deviation score represents less cortical thickness or subcortical volume than average. The deviation (Z) scores that are output from the normative model are the features input for the normative modeling data in the benchmarking analyses.
+110:In addition to normative models of brain structure, we also expanded our repository by estimating normative models of brain functional connectivity (resting-  state brain networks, Yeo-  17 and Smith-  10) using the same algorithm (Bayesian Linear Regression) as the structural models. The covariates used to train the functional normative models were similar to the structural normative models which included age, sex, data quality metric (mean framewise displacement), and site. Functional normative models were trained on a large multi-  site dataset (approx. N=22,000) and evaluated in several test sets using explained variance, mean standardized log loss, skew, and kurtosis. The training dataset excluded subjects with any known psychiatric diagnosis. We transferred the functional normative models to the datasets used in this work for benchmarking ( Table 1 ) to generate deviation (Z) scores. HCP was included in the initial training (half of the sample was held out in the test set), while the UMich and COBRE datasets were not included in the training and can be considered as examples of transfer to new, unseen sites.
+114:The data that we compare the output of normative modeling to, referred to throughout this work as 'raw' input data, is simply the outputs of traditional preprocessing methods for structural and functional MRI. For structural MRI, this corresponds to the cortical thickness files that are output after running the Freesurfer recon-  all pipeline. We used the aparcstats2table and asegstats2table functions to extract the cortical thickness and subcortical volume from each region in the Destrieux atlas and Freesurfer subcortical atlas. For functional MRI, tradition data refers to the Yeo17 brain network connectomes which were extracted from the normalized, smoothed, de-  noised functional time-  series. The upper triangle of each subject's symmetric connectivity matrix was vectorized, where each cell represents a unique between-  network connection. For clarification, we also note that the raw input data is the starting point of the normative modeling analysis, or in other words, the raw input data is the response variable or independent (Y) variable that is predicted from the vector of covariates when estimating the normative model. Before entering into the benchmarking tasks, to create a fair comparison between raw data and deviation scores, nuisance variables including sex, site, linear and quadratic effects of age and head motion (only for functional models) were regressed out of the raw data (structural and functional) using least squares regression.
+142:Figure 2. Functional brain network normative modeling. ( A ) Age distribution per scanning site in the train, test, and transfer data partitions and across the full sample (train +test). ( B ) The Yeo-  17 brain network atlas is used to generate connectomes. Between network connectivity was calculated for all 17 networks, resulting in 136 unique network pairs that were each individually input into a functional normative model. ( C ) The explained variance in the controls test set (N=7244) of each of the unique 136 network pairs of the Yeo-  17 atlas. Networks were clustered for visualization to show similar variance patterns.
+154:Figure 3. Functional normative model evaluation metrics. ( A ) Explained variance per network pair across the test set (top), and both transfer sets (patients - middle, controls - bottom). Networks were clustered for visualization to show similar variance patterns. ( B ) The distribution across all models of the evaluation metrics (columns) in the test set (top row) and both transfer sets (middle and bottom rows). Higher explained variance (closer to one), more negative MSLL, and normally distributed skew and kurtosis correspond to better model fit.
+162:## Sharing of functional big data normative models
+164:The first result of this work is the evaluation of the functional big data normative models ( Figure 2 ). These  models  build  upon  the  work  of Rutherford  et  al.,  2022a in  which  we  shared  populationlevel structural normative models charting cortical thickness and subcortical volume across the human lifespan (ages 2-100). The datasets used for training the functional models, the age range of the sample, and the procedures for evaluation closely resemble the structural normative models. The sample size (approx. N=22,000) used for training and testing the functional models is smaller than the structural models (approx. N=58,000) due to data availability (i.e. some sites included in the structural models did not collect functional data or could not share the data) and the quality control procedures (see methods). However, despite the smaller sample size of the functional data reference cohort, the ranges of the evaluation metrics are quite similar to the structural models ( Figure 3 ).  Most importantly, we demonstrate the opportunity to transfer the functional models to new samples, or sites that were not included in the original training and testing sets, referred to as the transfer set, and show that transfer works well in a clinical sample ( Figure 3 - transfer patients) or sample of healthy controls ( Figure 3 - transfer controls).
+
+thinking
+**Searching for clinical cohort info**
+
+I'm locating demographic details and clinical cohort info for schizophrenia from Table 1, as referenced in the markdown.
+exec
+/bin/bash -lc 'rg -n "Table 1|COBRE|UMich|schizophrenia|Schiz" study_1/Rutherford2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051310003252026-03-05T04:10:22.636233Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+39:Abstract In this work, we expand the normative model repository introduced in Rutherford et al., 2022a to include normative models charting lifespan trajectories of structural surface area and brain functional connectivity, measured using two unique resting-  state network atlases (Yeo-  17 and Smith-  10), and an updated online platform for transferring these models to new data sources. We showcase the value of these models with a head-  to-  head comparison between the features output by normative modeling and raw data features in several benchmarking tasks: mass univariate group difference testing (schizophrenia versus control), classification (schizophrenia versus control), and regression (predicting general cognitive ability). Across all benchmarks, we show the advantage of using normative modeling features, with the strongest statistically significant results demonstrated in the group difference testing and classification tasks. We intend for these accessible resources to facilitate the wider adoption of normative modeling across the neuroimaging community.
+61:The central contribution of this paper is to, first, augment the models in Rutherford et al., 2022a , with additional normative models for surface area and functional connectivity, which are made open and accessible to the community. Second, we comprehensively evaluate the utility of normative models for a range of downstream analyses, including (1) mass univariate group difference testing (schizophrenia versus controls), (2) multivariate prediction - classification  (using  support  vector  machines to distinguish schizophrenia from controls), and (3) multivariate prediction - regression (using principal component regression (PCR) to predict general cognitive ability) ( Figure 1 ). Within these benchmarking tasks, we show the benefit of using normative modeling features compared to using raw features. We aim for these benchmarking results, along with our publicly available resources (code, documentation, tutorials, protocols, community forum, and website for running models without using any code). Combined this provides practical utility as well as scientific evidence for embracing normative modeling.
+63:Figure 1. Overview of workflow.  ( A ) Datasets included the Human Connectome Project (young adult) study, the University of Michigan schizophrenia study, and the Center for Biomedical Research Excellence (COBRE) schizophrenia study. ( B ) Openly shared, pre-  trained on big data, normative models were estimated for large-  scale resting-  state functional brain networks and cortical thickness. ( C ) Deviation (Z) scores and raw data, for both functional and structural data, were input into three benchmarking tasks: 1. group difference testing, 2. support vector machine (SVM) classification, and 3. regression (predicting cognition). ( D ) Evaluation metrics were calculated for each benchmarking task. These metrics were calculated for the raw data models and the deviation score models. The difference between each models' performance was calculated for both functional and structural modalities.
+73:Datasets  used  for  training  the  functional  normative  models  closely  match  the  sample  included  in Rutherford et al., 2022a , apart from sites that did not collect or were unable to share functional data. Evaluation of the functional normative models was performed in a test set (20% of the training set) and in two transfer sets that are comprised of scanning sites not seen by the model during training (clinical and healthy controls). The full details of the data included in the functional normative model training can be found in Appendix 1 and Supplementary file 1 . We leverage several datasets for the benchmarking tasks, the Human Connectome Project Young Adult study (HCP) ( Van Essen et al., 2013 ), The Center for Biomedical Research Excellence (COBRE) ( Aine et al., 2017 ; Sui et al., 2018 ), and the University of Michigan SchizGaze (UMich) ( Tso et al., 2021 ; Table 1 ). The HCP data was chosen because it is widely used by the neuroscience community, especially for prediction studies. Also, prior studies using HCP data have shown promising results for predicting general cognitive ability ( Sripada
+75:Table 1. Dataset inclusion and sample overview.
+81:| COBRE | Classification & Group Difference | 124                  | 37.0, 12.7           | 24.2, 75.8            | 121                   | 35.4, 12.4            | 23.1, 76.9            |
+82:| UMich | Classification & Group Difference | 89                   | 32.6, 9.6            | 50.6, 49.3            | 87                    | 33.0, 10.1            | 50.6, 49.3            |
+86:et al., 2020a ). The HCP data was used in the prediction - regression benchmarking task. The COBRE and UMich datasets are used in the classification and group difference testing benchmarking tasks. Inclusion criteria across all the datasets were that the participant has necessary behavioral and demographic variables, as well as high-  quality MRI data. High-  quality was defined for structural images as in our prior work ( Rutherford et al., 2022a ), namely as the lack of any artifacts such as ghosting or ringing, that Freesurfer surface reconstruction was able to run successfully, and that the Euler number calculated from Freesurfer ( Klapwijk et al., 2019 ), which is a proxy metric for scan quality, was below a  chosen  threshold  (rescaled  Euler  &lt;10)  ( Kia  et  al.,  2022 ).  High-  quality  functional  data  followed recommended practices ( Siegel  et  al.,  2017 )  and  was  defined  as  having  a  high-  quality  structural MRI (required for co-  registration and normalization) and at least 5 min of low motion data (framewise displacement &lt;0.5 mm). The HCP , COBRE, and UMich functional and structural data were manually inspected for quality  at  several  tasks  during  preprocessing  (after  co-  registration  of  functional  and structural data and after normalization of functional data to MNI template space).
+92:Demographic variables included age, sex, and MRI scanner site. A latent variable of cognition, referred to as General Cognitive Ability (GCA), was created for the regression benchmarking task using HCP data. The HCP study administered the NIHToolbox Cognition battery ( Gershon et al., 2010 ), and a bi-  factor model was fit (for further modeling details and assessment of model fit see Sripada et al., 2020b ). For COBRE and UMich studies, clinical diagnosis of schizophrenia was confirmed using the Structured Clinical Interview used for DSM-  5 disorders (SCID) ( First, 1956 ). All subjects were screened and excluded if they had: a history of neurological disorder, mental retardation, severe head trauma, or substance abuse/dependence within the last 6 (UMich) or 12 months (COBRE), were pregnant/ nursing (UMich), or had any contraindications for MRI.
+110:In addition to normative models of brain structure, we also expanded our repository by estimating normative models of brain functional connectivity (resting-  state brain networks, Yeo-  17 and Smith-  10) using the same algorithm (Bayesian Linear Regression) as the structural models. The covariates used to train the functional normative models were similar to the structural normative models which included age, sex, data quality metric (mean framewise displacement), and site. Functional normative models were trained on a large multi-  site dataset (approx. N=22,000) and evaluated in several test sets using explained variance, mean standardized log loss, skew, and kurtosis. The training dataset excluded subjects with any known psychiatric diagnosis. We transferred the functional normative models to the datasets used in this work for benchmarking ( Table 1 ) to generate deviation (Z) scores. HCP was included in the initial training (half of the sample was held out in the test set), while the UMich and COBRE datasets were not included in the training and can be considered as examples of transfer to new, unseen sites.
+122:Mass univariate group difference (schizophrenia versus control) testing was performed across all brain regions. Two sample independent t-  tests were estimated and run on the data using the SciPy python package ( Virtanen et al., 2020 ). After addressing multiple comparison corrections, brain regions with
+132:Support vector machine is a commonly used algorithm in machine learning studies and performs well in classification settings. A support vector machine constructs a set of hyper-  planes in a high dimensional space and optimizes to find the hyper-  plane that has the largest distance, or margin, to the nearest training data points of any class. A larger margin represents better linear separation between classes and will correspond to a lower error of the classifier in new samples. Samples that lie on the margin boundaries are also called 'support vectors.' The decision function provides per-  class scores than can be turned into probabilities estimates of class membership. We used Support vector classification (SVC) with a linear kernel as implemented in the scikit-  learn package (version 1.0.9) ( Pedregosa et al., 2011 ) to classify a schizophrenia group from a control group. These default hyperparameters were chosen based on following an example of SVC provided by scikit-  learn, however, similar results were obtained using a radial basis function kernel (not shown). This classification setting of distinguishing schizophrenia from a control group was chosen due to past work showing the presence of both case-  control group differences and individual differences ( Wolfers et al., 2018 ). The evaluation metric for the classification task is an area under the receiving operator curve (AUC) averaged across all folds within a 10-  fold cross-  validation framework.
+183:The strongest evidence for embracing normative modeling can be seen in the benchmarking task one group difference (schizophrenia versus controls) testing results ( Table 2 , Figure 4 ). In this application,  we  observe  numerous  group  differences  in  both  functional  and  structural  deviation  score models after applying stringent multiple comparison corrections (FDR p-  value &lt;0.05). The strongest effects (HC&gt;SZ) in the structural models were located in the right hemisphere lateral occipitotemporal sulcus (S\_oc\_temp\_lat) thickness, right hemisphere superior segment of the circular sulcus of the  insula  (S\_circular\_ins\_sup)  thickness,  right  Accumbens  volume,  left  hemisphere  Supramarginal gyrus (G\_pariet\_inf\_Supramar) thickness, and left hemisphere Inferior occipital gyrus (O3) and sulcus (G\_and\_S\_occipital\_inf) thickness. For the functional models, the strongest effects (HC&gt;SZ t-  statistic) were observed in the between-  network connectivity of Visual A-  Default B, Dorsal Attention A-  Control B, and Visual B-  Limbic A. In the raw data models, which were residualized of covariates including site, sex, and linear +quadratic effects of age and head motion (only included for functional models), we observe no group differences after multiple comparison corrections. The lack of any group differences in  the  raw  data  was  initially  a  puzzling  finding  due  to  reported  group  differences  in  the  literature ( Arbabshirani et al., 2013 ; Cetin et al., 2015 ; Cetin et al., 2016 ; Cheon et al., 2022 ; Dansereau et al., 2017 ; Howes et al., 2023 ; Lei et al., 2020a ; Lei et al., 2020b ; Meng et al., 2017 ; Rahim et al., 2017 ; Rosa et al., 2015 ; Salvador et al., 2017 ; Shi et al., 2021 ; van Erp et al., 2018 ; Venkataraman et al., 2012 ; Wannan et al., 2019 ; Yu et al., 2012 ), however, upon the investigation of the uncorrected statistical maps, we observe that the raw data follows a similar pattern to the deviation group difference map ( Figure 4 ),  but  these results do not withstand multiple comparison correction. For full  statistics  including  the  corrected  and  uncorrected p-  values  and  test-  statistic  of  every  ROI,  see Supplementary files 3 and 4 . While there have been reported group differences between controls and schizophrenia in cortical thickness and resting state brain networks in the literature, these studies have used different datasets (of varying sample sizes), different preprocessing pipelines and software versions, and different statistical frameworks ( Castro et al., 2016 ; Di Biase et al., 2019 ; Dwyer et al., 2018 ; Geisler et al., 2015 ; Marek et al., 2022 ; Sui et al., 2015 ; van Haren et al., 2011 ).  When reviewing the literature of studies on SZ versus HC group difference testing, we did not find any study that performed univariate t-  testing and multiple comparison correction at the ROI-  level or networklevel, rather most works used statistical tests and multiple comparison correction at the voxel-  level or edge-  level. Combined with the known patterns of heterogeneity present in schizophrenia disorder ( Lv et al., 2021 ; Wolfers et al., 2018 ), it is unsurprising that our results differ from past studies.
+205:In benchmarking task two, we classified schizophrenia versus controls using SVC within a 10-  fold crossvalidation framework ( Table 2 , Figure 5 ). The best-  performing model used cortical thickness deviation scores to achieve a classification accuracy of 87% (AUC = 0.87). The raw cortical thickness model accuracy was indistinguishable from chance accuracy (AUC = 0.43). The AUC performance difference between the cortical thickness deviation and raw data models was 0.44, and this performance difference was statistically significant. The functional models, both deviation scores (0.69) and raw data (0.68) were more accurate than chance accuracy, however, the performance difference (i.e. improvement in accuracy using the deviation scores) was small (0.01) and was not statistically significant.
+213:This work expands the available open-  source tools for conducting normative modeling analyses and provides clear evidence for why normative modeling should be utilized by the neuroimaging community  (and  beyond).  We  updated  our  publicly  available  repository  of  pre-  trained  normative  models to  include  a  new  MRI  imaging  modality  (models  of  resting-  state  functional  connectivity  extracted from the Yeo-  17 and Smith-  10 brain network atlases) and demonstrate how to transfer these models to new data sources. The repository includes an example transfer dataset and in addition, we have developed a user-  friendly interface (https://pcnportal.dccn.nl/) that allows transferring the pre-  trained normative  models  to  new  samples  without  requiring  any  programming.  Next,  we  compared  the features that are output from normative modeling (deviation scores) against 'raw' data features across several benchmarking tasks including univariate group difference testing (schizophrenia vs. control), multivariate prediction - classification (schizophrenia vs. control), and multivariate prediction - regression (predicting general cognitive ability). We found across all benchmarking tasks there were minor (regression) to strong (group difference testing) benefits of using deviation scores compared to the raw data features.
+268:Human subjects: Secondary data analysis was conducted in this work. Data were pooled from multiple data sources described in the supplemental tables. All subjects provided informed consent. Subject recruitment procedures and informed consent forms, including consent to share de-  identified data, were approved by the corresponding university institutional review board where data were collected. Human subjects: Ethical approval for the public data were provided by the relevant local research authorities for the studies contributing data. For full details, see the main study publications in the main text. For all clinical studies, approval was obtained via the local ethical review authorities, i.e., Delta: The local ethics committee of the Academic Medical Center of the University of Amsterdam (AMCMETC)  Nr.:11/050,  UMich\_IMPS:  University  of  Michigan  Institution  Review  Board  HUM00088188, UMich\_SZG: University of Michigan Institution Review Board HUM00080457.
+282:-   Supplementary file 3. Structural Group Difference Testing Statistics. Description: We show for all cortical thickness and subcortical volume from the Destrieux and aseg Freesurfer atlases regions of interest (ROIs from a two-  sample t-  test between Schizophrenia versus Healthy Controls) the tstatistic (T -  stat), False Discovery Rate corrected p-  value (FDRcorr\_pvalue), and uncorrected p-  value (uncorr\_pvalue) for both the raw data (shown in green) and the deviation scores (shown in blue).
+283:-   Supplementary file 4. Functional Connectivity Group Difference Testing Statistics. Description: We show for all Yeo-  17 between network connectivity regions of interest (ROIs) from a two-  sample t-  test between Schizophrenia versus Healthy Controls the t-  statistic (T-  stat), False Discovery Rate corrected p-  value (FDRcorr\_pvalue), and uncorrected p-  value (uncorr\_pvalue) for both the raw data (shown in green) and the deviation scores (shown in blue).
+296:2017. Multimodal neuroimaging in schizophrenia: description and dissemination. Neuroinformatics 15 :343364. DOI: https://doi.org/10.1007/s12021-017-9338-9, PMID: 28812221
+297:2. Arbabshirani MR , Kiehl KA, Pearlson GD, Calhoun VD. 2013. Classification of schizophrenia patients based on resting-  state functional network connectivity. Frontiers in Neuroscience 7 :133. DOI: https://doi.org/10.3389/ fnins.2013.00133, PMID: 23966903
+
+thinking
+**Verifying clinical cohort composition**
+
+I'm checking the table around line 75 to confirm it includes both schizophrenia and control counts from COBRE and UMich clinical cohorts.
+exec
+/bin/bash -lc "sed -n '70,90p' study_1/Rutherford2023.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051310003252026-03-05T04:10:27.638186Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+
+## Dataset selection and scanner parameters
+
+Datasets  used  for  training  the  functional  normative  models  closely  match  the  sample  included  in Rutherford et al., 2022a , apart from sites that did not collect or were unable to share functional data. Evaluation of the functional normative models was performed in a test set (20% of the training set) and in two transfer sets that are comprised of scanning sites not seen by the model during training (clinical and healthy controls). The full details of the data included in the functional normative model training can be found in Appendix 1 and Supplementary file 1 . We leverage several datasets for the benchmarking tasks, the Human Connectome Project Young Adult study (HCP) ( Van Essen et al., 2013 ), The Center for Biomedical Research Excellence (COBRE) ( Aine et al., 2017 ; Sui et al., 2018 ), and the University of Michigan SchizGaze (UMich) ( Tso et al., 2021 ; Table 1 ). The HCP data was chosen because it is widely used by the neuroscience community, especially for prediction studies. Also, prior studies using HCP data have shown promising results for predicting general cognitive ability ( Sripada
+
+Table 1. Dataset inclusion and sample overview.
+
+|       |                                   | Cortical Thickness   | Cortical Thickness   | Functional Networks   | Functional Networks   | Functional Networks   | Functional Networks   |
+|-------|-----------------------------------|----------------------|----------------------|-----------------------|-----------------------|-----------------------|-----------------------|
+| Study | Benchmark Task                    | N                    | Age ( m, s.d .)      | F, M (% )             | N                     | Age ( m, s.d .)       | F, M (% )             |
+| HCP   | Regression - predicting cognition | 529                  | 28.8, 3.6            | 53.4, 46.6            | 499                   | 28.9, 3.6             | 54.3, 45.6            |
+| COBRE | Classification & Group Difference | 124                  | 37.0, 12.7           | 24.2, 75.8            | 121                   | 35.4, 12.4            | 23.1, 76.9            |
+| UMich | Classification & Group Difference | 89                   | 32.6, 9.6            | 50.6, 49.3            | 87                    | 33.0, 10.1            | 50.6, 49.3            |
+
+![Image](./Rutherford2023_artifacts/image_000006_0bd412ec9bff4a1dc71792628d7b6d859bf07895f3df6721124abb41039b2e36.png)
+
+et al., 2020a ). The HCP data was used in the prediction - regression benchmarking task. The COBRE and UMich datasets are used in the classification and group difference testing benchmarking tasks. Inclusion criteria across all the datasets were that the participant has necessary behavioral and demographic variables, as well as high-  quality MRI data. High-  quality was defined for structural images as in our prior work ( Rutherford et al., 2022a ), namely as the lack of any artifacts such as ghosting or ringing, that Freesurfer surface reconstruction was able to run successfully, and that the Euler number calculated from Freesurfer ( Klapwijk et al., 2019 ), which is a proxy metric for scan quality, was below a  chosen  threshold  (rescaled  Euler  &lt;10)  ( Kia  et  al.,  2022 ).  High-  quality  functional  data  followed recommended practices ( Siegel  et  al.,  2017 )  and  was  defined  as  having  a  high-  quality  structural MRI (required for co-  registration and normalization) and at least 5 min of low motion data (framewise displacement &lt;0.5 mm). The HCP , COBRE, and UMich functional and structural data were manually inspected for quality  at  several  tasks  during  preprocessing  (after  co-  registration  of  functional  and structural data and after normalization of functional data to MNI template space).
+
+All  subjects  provided  informed  consent.  Subject  recruitment  procedures and informed consent forms, including consent to share de-  identified data, were approved by the corresponding university institutional review board where data were collected. The scanning acquisition parameters were similar but varied slightly across the studies, details in Appendix 1.
+
+
+thinking
+**Checking supplementary data for cohort details**
+
+I'm verifying if the supplementary files break down demographics by schizophrenia and control groups, since the main table only shows overall dataset stats without counts or group splits.
+exec
+/bin/bash -lc 'rg -n "schizophrenia|SZ|patient|control" study_1/elife-85082-supp1-v2.xlsx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051310003252026-03-05T04:10:37.904534Z ERROR codex_core::codex: needs_follow_up: true
+ exited 1 in 20ms:
+
+exec
+/bin/bash -lc 'rg -n "schizophrenia|SZ|patient|control" study_1/elife-85082-supp2-v2.xlsx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325 exited 1 in 19ms:
+
+exec
+/bin/bash -lc 'rg -n "schizophrenia|SZ|patient|control" study_1/elife-85082-supp3-v2.xlsx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325 exited 1 in 17ms:
+
+exec
+/bin/bash -lc 'rg -n "schizophrenia|SZ|patient|control" study_1/elife-85082-supp4-v2.xlsx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325 exited 1 in 19ms:
+
+
+thinking
+**Checking ripgrep exit behavior**
+
+I'm verifying whether ripgrep exits with code 1 when no matches are found and considering checking the tables or documentation in supplemental files for clarity.
+exec
+/bin/bash -lc 'head -n 40 study_1/elife-85082-supp1-v2.xlsx.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051310003252026-03-05T04:10:41.555173Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+| Train   | Train        | Train        | Test   | Test         | Test        |
+|---------|--------------|--------------|--------|--------------|-------------|
+| N       | Sex (F/M)%   | Age (m, s.d) | N      | Sex          | Age         |
+| N       | Sex (F/M)%   | Age (m, s.d) | N      | (F/M)%       | (m, s.d)    |
+| 60      | 48.33, 51.67 | 9.87, 0.58   | 73     | 56.16, 43.84 | 9.95, 0.61  |
+| 244     | 47.54, 52.46 | 10.12, 0.64  | 258    | 47.29, 52.71 | 10.1, 0.62  |
+| 282     | 47.87, 52.13 | 9.87, 0.62   | 260    | 50, 50       | 9.91, 0.61  |
+| 258     | 49.61, 50.39 | 9.91, 0.64   | 268    | 50.37, 49.63 | 9.77, 0.64  |
+| 161     | 62.11, 37.89 | 9.85, 0.63   | 144    | 42.36, 57.64 | 9.96, 0.63  |
+| 228     | 54.82, 45.18 | 9.98, 0.58   | 240    | 48.75, 51.25 | 10.02, 0.59 |
+| 128     | 50.78, 49.22 | 9.86, 0.64   | 128    | 42.97, 57.03 | 9.93, 0.61  |
+| 113     | 50.44, 49.56 | 9.98, 0.63   | 104    | 45.19, 54.81 | 10.1, 0.59  |
+| 173     | 48.55, 51.45 | 10.05, 0.59  | 175    | 56, 44       | 9.89, 0.6   |
+| 187     | 48.66, 51.34 | 9.88, 0.62   | 223    | 45.29, 54.71 | 9.93, 0.64  |
+| 192     | 51.04, 48.96 | 9.88, 0.65   | 173    | 51.45, 48.55 | 9.79, 0.62  |
+| 70      | 50, 50       | 9.85, 0.6    | 68     | 1.47, 54.41  | 9.95, 0.55  |
+| 209     | 51.67, 48.33 | 9.84, 0.61   | 191    | 52.88, 47.12 | 9.84, 0.6   |
+| 286     | 48.6, 51.4   | 10.24, 0.51  | 220    | 45.45, 54.55 | 10.2, 0.54  |
+| 138     | 55.07, 44.93 | 9.94, 0.62   | 149    | 45.64, 54.36 | 10, 0.58    |
+| 458     | 46.29, 53.71 | 9.89, 0.64   | 462    | 42.64, 48.7  | 9.9, 0.66   |
+
+
+thinking
+**Clarifying clinical cohort details for schizophrenia**
+
+The clinical cohort data in Table 1 likely combines schizophrenia patients and controls without separate stats; I'll confirm dataset descriptions to identify schizophrenia-specific info, but if unavailable, I'll note age/sex as overall mixed and mark missing details as NR.
+thinking
+**Confirming cohort composition and demographics**
+
+The classification datasets likely include both schizophrenia patients and controls, but patient-specific demographics aren’t separated; I'll check text and supplements for patient counts, else use overall dataset demographics as a proxy and mark missing specifics as NR.
+exec
+/bin/bash -lc 'rg -n "COBRE" -n study_1/Rutherford2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051310003252026-03-05T04:10:52.613255Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+63:Figure 1. Overview of workflow.  ( A ) Datasets included the Human Connectome Project (young adult) study, the University of Michigan schizophrenia study, and the Center for Biomedical Research Excellence (COBRE) schizophrenia study. ( B ) Openly shared, pre-  trained on big data, normative models were estimated for large-  scale resting-  state functional brain networks and cortical thickness. ( C ) Deviation (Z) scores and raw data, for both functional and structural data, were input into three benchmarking tasks: 1. group difference testing, 2. support vector machine (SVM) classification, and 3. regression (predicting cognition). ( D ) Evaluation metrics were calculated for each benchmarking task. These metrics were calculated for the raw data models and the deviation score models. The difference between each models' performance was calculated for both functional and structural modalities.
+73:Datasets  used  for  training  the  functional  normative  models  closely  match  the  sample  included  in Rutherford et al., 2022a , apart from sites that did not collect or were unable to share functional data. Evaluation of the functional normative models was performed in a test set (20% of the training set) and in two transfer sets that are comprised of scanning sites not seen by the model during training (clinical and healthy controls). The full details of the data included in the functional normative model training can be found in Appendix 1 and Supplementary file 1 . We leverage several datasets for the benchmarking tasks, the Human Connectome Project Young Adult study (HCP) ( Van Essen et al., 2013 ), The Center for Biomedical Research Excellence (COBRE) ( Aine et al., 2017 ; Sui et al., 2018 ), and the University of Michigan SchizGaze (UMich) ( Tso et al., 2021 ; Table 1 ). The HCP data was chosen because it is widely used by the neuroscience community, especially for prediction studies. Also, prior studies using HCP data have shown promising results for predicting general cognitive ability ( Sripada
+81:| COBRE | Classification & Group Difference | 124                  | 37.0, 12.7           | 24.2, 75.8            | 121                   | 35.4, 12.4            | 23.1, 76.9            |
+86:et al., 2020a ). The HCP data was used in the prediction - regression benchmarking task. The COBRE and UMich datasets are used in the classification and group difference testing benchmarking tasks. Inclusion criteria across all the datasets were that the participant has necessary behavioral and demographic variables, as well as high-  quality MRI data. High-  quality was defined for structural images as in our prior work ( Rutherford et al., 2022a ), namely as the lack of any artifacts such as ghosting or ringing, that Freesurfer surface reconstruction was able to run successfully, and that the Euler number calculated from Freesurfer ( Klapwijk et al., 2019 ), which is a proxy metric for scan quality, was below a  chosen  threshold  (rescaled  Euler  &lt;10)  ( Kia  et  al.,  2022 ).  High-  quality  functional  data  followed recommended practices ( Siegel  et  al.,  2017 )  and  was  defined  as  having  a  high-  quality  structural MRI (required for co-  registration and normalization) and at least 5 min of low motion data (framewise displacement &lt;0.5 mm). The HCP , COBRE, and UMich functional and structural data were manually inspected for quality  at  several  tasks  during  preprocessing  (after  co-  registration  of  functional  and structural data and after normalization of functional data to MNI template space).
+92:Demographic variables included age, sex, and MRI scanner site. A latent variable of cognition, referred to as General Cognitive Ability (GCA), was created for the regression benchmarking task using HCP data. The HCP study administered the NIHToolbox Cognition battery ( Gershon et al., 2010 ), and a bi-  factor model was fit (for further modeling details and assessment of model fit see Sripada et al., 2020b ). For COBRE and UMich studies, clinical diagnosis of schizophrenia was confirmed using the Structured Clinical Interview used for DSM-  5 disorders (SCID) ( First, 1956 ). All subjects were screened and excluded if they had: a history of neurological disorder, mental retardation, severe head trauma, or substance abuse/dependence within the last 6 (UMich) or 12 months (COBRE), were pregnant/ nursing (UMich), or had any contraindications for MRI.
+110:In addition to normative models of brain structure, we also expanded our repository by estimating normative models of brain functional connectivity (resting-  state brain networks, Yeo-  17 and Smith-  10) using the same algorithm (Bayesian Linear Regression) as the structural models. The covariates used to train the functional normative models were similar to the structural normative models which included age, sex, data quality metric (mean framewise displacement), and site. Functional normative models were trained on a large multi-  site dataset (approx. N=22,000) and evaluated in several test sets using explained variance, mean standardized log loss, skew, and kurtosis. The training dataset excluded subjects with any known psychiatric diagnosis. We transferred the functional normative models to the datasets used in this work for benchmarking ( Table 1 ) to generate deviation (Z) scores. HCP was included in the initial training (half of the sample was held out in the test set), while the UMich and COBRE datasets were not included in the training and can be considered as examples of transfer to new, unseen sites.
+452:In the HCP study, four runs of resting state fMRI data (14.5 min each) were acquired on a Siemens Skyra 3 Tesla scanner using multi-  band gradient-  echo EPI (TR = 720ms, TE = 33ms, flip angle = 52°, multiband acceleration factor = 8, 2 mm isotropic voxels, FOV = 208 × 180 mm, 72 slices, alternating  RL/LR  phase  encode  direction).  T1  weighted  scans  were  acquired  with  3D  MPRAGE sequence (TR = 2400ms, TE = 2.14ms, TI = 1000ms, flip angle = 8, 0.7 mm isotropic voxels, FOV = 224 mm, 256 sagittal slices) and T2 weighted scans were acquired with a SPACE sequence (TR = 3200ms, TE = 565ms, 0.7 mm isotropic voxels, FOV = 224 mm, 256 sagittal slices). In the COBRE study, the T1 weighted acquisition is a multi-  echo MPRAGE (MEMPR) sequence (1 mm isotropic). Resting state functional MRI data was collected with single-  shot full k-  space echo-  planar imaging (EPI) (TR = 2000ms, TE = 29ms, FOV = 64 × 64, 32 slices in axial plane interleaved multi slice series ascending, voxel size = 3 × 3 x4 mm 3 ). The University of Michigan SchizGaze study was collected in two phases with different parameters but using the same MRI machine (3.0T GE MR 750 Discovery scanner). In SchizGaze1 (N=47), functional images were acquired with a T2*-weighted, reverse spiral acquisition sequence (TR = 2000ms, 240 volumes (8 min), 3 mm isotropic voxels) and a T1-  weighted image was acquired in the same prescription as the functional images to facilitate co-  registration. In SchizGaze2 (N=68), functional images were acquired with a T2*-weighted multi-  band EPI sequence (multi-  band acceleration factor of 8, TR = 800ms, 453 volumes (6 min), 2.4 mm isotropic voxels) and T1w (MPRAGE) and T2w structural scans were acquired for co-  registration with the functional data. In addition, field maps were acquired to correct for intensity and geometric distortions.
+
+
+thinking
+**Clarifying demographic data extraction**
+
+I’m consolidating demographic details from Table 1, deciding to present age and sex separately for cortical thickness and functional networks per cohort, calculating counts from percentages where needed and noting combined clinical cohorts include schizophrenia and controls with disorder labeled as SCZ.
+thinking
+**Deciding demographic count rounding and formatting**
+
+I’ll compute sex counts by rounding N*percent/100 to nearest whole and note these are derived from Table 1 percentages; for age, only mean and SD exist so I’ll mark min/max as NR. I’ll provide demographics separately per dataset and modality as semicolon-separated strings with detailed notes on model and dataset specificity.
+2026-03-05T04:11:23.809263Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Rutherford2023_by_codex_20260305131000325.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325 succeeded in 29ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Computing sex counts and percentages**
+
+I've calculated male and female counts for each dataset and modality by applying the reported percentages to sample sizes, rounding carefully and verifying sums. Next, I'll incorporate these statistics with supporting disorder and dataset origin text from the methods and Figure 1.
+thinking
+**Structuring JSON with detailed stats**
+
+I'm preparing a JSON answer string including modality-specific age and sex statistics with clear ordering and dataset-level notes from Table 1, plus disorder and dataset origins with confidence ratings. Next, I'll rewrite the JSON file fully with this crafted content for clarity.
+2026-03-05T04:12:02.648850Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "cat <<'EOF' > DE_v14_Rutherford2023_by_codex_20260305131000325.json
+{
+  \"paper_id\": {
+    \"answer\": \"Rutherford2023\"
+  },
+  \"disorders\": [
+    {
+      \"disorder-name\": {
+        \"answer\": \"SCZ\",
+        \"detail\": \"Clinical schizophrenia cohorts from COBRE and UMich used in schizophrenia vs control benchmarking tasks.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Datasets included the Human Connectome Project (young adult) study, the University of Michigan schizophrenia study, and the Center for Biomedical Research Excellence (COBRE) schizophrenia study.\\\"\",
+        \"location\": \"Rutherford2023.pdf.md: Figure 1\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [
+          \"COBRE\",
+          \"UMICH\"
+        ],
+        \"detail\": \"COBRE and UMich schizophrenia studies used for classification and group difference benchmarking.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Datasets included the Human Connectome Project (young adult) study, the University of Michigan schizophrenia study, and the Center for Biomedical Research Excellence (COBRE) schizophrenia study.\\\"\",
+        \"location\": \"Rutherford2023.pdf.md: Figure 1\"
+      },
+      \"age\": {
+        \"answer\": \"Cortical thickness COBRE: {unit: years, min: NR, max: NR, mean: 37.0, sd: 12.7}; Cortical thickness UMich: {unit: years, min: NR, max: NR, mean: 32.6, sd: 9.6}; Functional networks COBRE: {unit: years, min: NR, max: NR, mean: 35.4, sd: 12.4}; Functional networks UMich: {unit: years, min: NR, max: NR, mean: 33.0, sd: 10.1}\",
+        \"detail\": \"Age summary reported at dataset level and by modality (cortical thickness vs functional networks), not split by diagnosis.\",
+        \"confidence_rating\": \"Medium\",
+        \"supporting_text\": \"\\\"| COBRE | Classification & Group Difference | 124                  | 37.0, 12.7           | 24.2, 75.8            | 121                   | 35.4, 12.4            | 23.1, 76.9            |\\\"\\n\\\"| UMich | Classification & Group Difference | 89                   | 32.6, 9.6            | 50.6, 49.3            | 87                    | 33.0, 10.1            | 50.6, 49.3            |\\\"\",
+        \"location\": \"Rutherford2023.pdf.md: Table 1\"
+      },
+      \"sex\": {
+        \"answer\": \"Cortical thickness COBRE: male_n 94 (75.8%), female_n 30 (24.2%); Cortical thickness UMich: male_n 44 (49.3%), female_n 45 (50.6%); Functional networks COBRE: male_n 93 (76.9%), female_n 28 (23.1%); Functional networks UMich: male_n 43 (49.3%), female_n 44 (50.6%)\",
+        \"detail\": \"Sex distribution reported as percentages at dataset level and by modality; counts derived from N and reported percentages.\",
+        \"confidence_rating\": \"Medium\",
+        \"supporting_text\": \"\\\"| COBRE | Classification & Group Difference | 124                  | 37.0, 12.7           | 24.2, 75.8            | 121                   | 35.4, 12.4            | 23.1, 76.9            |\\\"\\n\\\"| UMich | Classification & Group Difference | 89                   | 32.6, 9.6            | 50.6, 49.3            | 87                    | 33.0, 10.1            | 50.6, 49.3            |\\\"\",
+        \"location\": \"Rutherford2023.pdf.md: Table 1\"
+      }
+    }
+  ]
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305131000325 succeeded in 29ms:
+
+
+thinking
+**Confirming dataset and diagnosis text usage**
+
+The keyword "UMICH" is correctly included, and the clinical diagnosis phrase for schizophrenia will be used verbatim as supporting text alongside figure 1. Next, I'll finalize a concise summary integrating these details.
+codex
+Wrote the extracted clinical cohort info for Rutherford2023 into `DE_v14_Rutherford2023_by_codex_20260305131000325.json`, using Table 1 for modality-specific age/sex and Figure 1 for the schizophrenia cohort/dataset origins. Counts for sex are derived from N and reported percentages and noted as such.
+
+Next steps:
+1. If you want, I can refine the demographics to schizophrenia-only values if a source with patient/control splits is available.
+2026-03-05T04:12:09.397246Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+38,524
+Wrote the extracted clinical cohort info for Rutherford2023 into `DE_v14_Rutherford2023_by_codex_20260305131000325.json`, using Table 1 for modality-specific age/sex and Figure 1 for the schizophrenia cohort/dataset origins. Counts for sex are derived from N and reported percentages and noted as such.
+
+Next steps:
+1. If you want, I can refine the demographics to schizophrenia-only values if a source with patient/control splits is available.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

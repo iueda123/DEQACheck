@@ -1,0 +1,480 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Wu2023_by_codex_20260305134725136.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc52-7c70-7750-a600-4119c3f637e4
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Wu2023_by_codex_20260305134725136.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning next step**
+
+I'm considering how to retrieve instructions, deciding whether to search with ripgrep or simply read the guide file directly.
+2026-03-05T04:47:30.781344Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136 succeeded in 17ms:
+DE_Guide_v14.md
+DE_v14_Wu2023_by_codex_20260305134725136.json
+DE_v14_Wu2023_by_codex_20260305134725136.log
+study_1
+
+thinking
+**Opening usage guide**
+2026-03-05T04:47:33.104207Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136 succeeded in 29ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Noting need for paper info**
+
+I identified the need to include paper information in the study_1.list for completeness.
+2026-03-05T04:47:36.376730Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136 succeeded in 26ms:
+1-s2.0-S0165032723009618-mmc1.docx.md
+1-s2.0-S0165032723009618-mmc1_artifacts
+Wu2023.pdf.md
+Wu2023_artifacts
+
+thinking
+**Planning extraction of clinical cohort data**
+
+I'll review Wu2023.pdf.md to identify and extract the clinical cohort information needed for the NM application.
+2026-03-05T04:47:39.755589Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical|patient|cohort|dataset|schiz|bipolar|depress|MDD|SCZ|psych" Wu2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136 exited 2 in 18ms:
+rg: Wu2023.pdf.md: IO error for operation on Wu2023.pdf.md: No such file or directory (os error 2)
+2026-03-05T04:47:46.312444Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical|patient|cohort|dataset|schiz|bipolar|depress|MDD|SCZ|psych" study_1/Wu2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136 succeeded in 33ms:
+5:## Normative modeling analysis reveals corpus callosum volume changes in early and mid-to-late first episode major depression
+20:Keywords: Corpus callosum Major depressive disorder VBM First-episode depression meta-analysis
+24:Major depressive disorder (MDD) is among the most common psychiatric  conditions  worldwide  and  this  severe  mental  condition  is characterized  by  a  high  risk  of  recurrence  and  a  high  probability  of chronicity (Villalobos et al., 2021). MDD is characterized by high variability  in  clinical  symptoms and has been documented to result in a series  of  neurobiological  changes  in  the  brain,  including  structural changes as in the early phases of the depressive state (e.g. Schmaal et al., 2017), on the other hand, adolescent first episode MDD patients do not seem  to  show  changes  in  brain  volume  compared  to  age-matched healthy controls (Schmaal et al., 2016), suggesting that structural (and functional)  changes  in  the  brain  due  to  MDD  may  appear  later  in
+28:Background: It has been widely accepted that major depressive disorder (MDD) impacts brain structures including the Corpus Callosum (CC). However, this assumption is based on scarce literature data involving small sample sizes. Furthermore, it is still unclear whether such CC volume changes may already be present at a first depressive episode.
+30:Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.
+32:Results: Relative  to  the  norms  established  by  the  healthy  controls,  first-episode  MDD  patients  displayed  CC volume (z-score) reductions in the entire CC (including the body), as did mid-to-late-onset first-episode MDD patients (age ≥ 45 y). In early-onset first-episode MDD patients (age ≤ 44 y), depression severity symptoms were related to volume increases in the entire CC, as well as the body and splenium.
+34:Limitations: No data on depressive episode duration. Relatively small sample size for mid-to-late first-episode MDD patients.
+36:Conclusions: Our data revealed CC (sub)volume differences in early versus mid-to-late onset first episode MDD. Especially at early onset, depression severity may result in neural white matter activity as potential reaction to stress influences. Our results underline the importance of prompt clinical interventions at early onset MDD.
+38:adulthood.  When  experiencing  first  episode  MDD  in  adulthood,  reductions in cortical thickness and brain volume have been mostly reported in frontolimbic regions, including the (para)hippocampal areas, representing  brain  areas  involved  in  emotion  regulation,  mood,  and memory, neuropsychological functions affected when clinically depressed (Ahern and Semkovska, 2017; Peng et al., 2016; Varghese et al., 2022; Zheng et al., 2021).
+40:Because  of  these  widespread  functional  and  structural  changes throughout the brain, one may assume that one particular large brain structure,  the  Corpus  Callosum  (CC),  located  on  the  brain's  midline, might be crucial to the psychopathology of MDD, including the first episode (Lacerda et al., 2005). The CC consists of millions of nerve fibres that connect the two hemispheres and it plays a key role in balancing
+54:G.-R. Wu and C. Baeken hemispheric  activity  by  connecting,  transmitting  information,  and integrating  neural  activity  within/between  both  hemispheres  (Ran et al., 2020). As such, the CC is believed to be involved in the hemispheric communication of higher cognitive functions, among which are attention, arousal, language, emotion, and memory to name just a few (Hahn et al., 2015). Whereas in neurological literature, the CC has been put  forward  as  a  keynote  player  involved  in  the  pathophysiology  of several major neurological conditions, including multiple sclerosis and Alzheimer's disease (Chakraborty and Pal, 2019), in adult MDD however, the CC has rarely been put central in structural brain research in psychiatry. The few available studies focusing on CC volumes, mostly including  small  clinical  samples,  have  produced  rather  unequivocal findings (Cheng et al., 2010; Lee et al., 2020; Ozalay et al., 2013; Ran et al., 2020), yielding no clear direction (see Supplemental Table 1 and meta-analytical approach Supplemental Fig. 1). Here it must be added that these studies were not uniform in the used atlases/CC parcelations. In spite of the fact that the evidence is not overwhelming, it is broadly assumed that MDD results in CC volume decreases, predominantly in the prefrontal (genu) parts (Wise et al., 2016). However, it remains to be clarified  whether  such  CC  volumetric  changes  already  occur  when experiencing  a  first  depressive  episode.  Furthermore,  given  the  high variability in depressive symptomatology, more individualized analytical approaches may be more suitable (Rutherford et al., 2022).
+56:Therefore, we investigated CC (sub)volume differences (comprising genu, body, splenium) between first episode MDD patients and age and gender  matched  never-depressed  healthy  controls.  Because  heterogeneity is an important aspect of MDD in symptoms and CC volumes, we examined how CC (sub)volumes in MDD can be parameterized as an individualized metric of matched never-depressed normal controls. We applied  normative  modeling  resulting  in  individualized  CC  (sub)volumes in MDD. We hypothesized that besides the entire CC especially the genu  would  show  volume  decreases.  We  further  examined  whether experiencing an 'early ' or 'mid-to-late ' first depressive episode would affect  CC  (sub)volume differently.  Finally,  we  also  explored  whether depression severity symptoms could affect CC (sub)volumes.
+62:The structural  brain  imaging  data  were  acquired  from  the  RESTmeta-MDD Consortium (Chen et al., 2022; Yan et al., 2019), which is a  collaborative  effort  involving  twenty-five  research  groups  from  17 hospitals in China. Together, the consortium consisted of 2428 collected datasets  (1300  currently  depressed  individuals  and  1128  matched healthy controls, see Yan et al. (2019) for more details about the inclusion and exclusion criteria). For the current VBM study, based on several  quality  measurements,  participants  were  excluded  for  the following reasons: (1) poor imaging quality (via visual inspection, rating scale score from 1 (bad quality) to 5 (excellent quality), with rating scale score &lt; 4; (2) from a hospital site with patient sample sizes (first episode MDD) smaller  than  10;  (3)  no  information  on  medication  status.  In addition,  all  patients  met  the  Diagnostic  and  Statistical  Manual  of Mental  Disorders-IV  criteria  for  MDD  (First,  1997)  and  were  only included if they had a total score of 14 or more on the 17-item Hamilton Depression  Rating  Scale  (HAMD)  (Hamilton,  1967)  at  the  time  of scanning, indicating moderate to severe depression. According to Zisook et  al.  (2007),  we  further  divided  first-episode  depression  into  'early ' (age ≤ 44y) and 'mid to late ' onset (age ≥ 45y). See also the flow diagram in Fig. 1 and for the age and education frequency distribution in Supplemental Fig. 2.
+64:Consequently,  369  MDD  patients  (first  episode  MDD)  and  490
+66:Fig. 1. Flow diagram for the identification and exclusion of participants and hospital sites. Abbreviations: MDD: patients with major depressive disorder; HC: healthy controls.
+88:We applied the neuroanatomical normative  modeling  to  examine individual-level  variability  in  CC  (sub)volume  using  the  PCNToolkit (v.0.18) package (https://pcntoolkit.readthedocs.io). Normative modeling essentially aims to predict centiles of variance in a response variable  (CC  (sub)volume)  on  the  basis  of  a  set  of  covariates.  To accommodate inter-site variation, hierarchical Bayesian regression was employed  to  train  the  normative  models  on  healthy  participants (Rutherford et al., 2022). Given that gender and age related differences in  the  morphology  of  the  Corpus  Callosum  have  been  reported  (e.g. Suganthy et al., 2003), and that intelligence may be an influential factor (e.g. Luders et al., 2007), we fitted normative models using gender, age, education, and total intracranial volume as fixed effects covariates to predict CC (sub)volumes. This model was further used to estimate zscores that indicate to what extent an individual's CC volume differs from the norms calculated by the reference dataset (healthy controls). A one-sample t -test on the resulting z-scores of first episode MDD patients was then performed to determine the statistical significance of the mean deviation  (z-scores).  Given  the  hypothesis  of  CC  (sub)volume  reductions, significance was set at p &lt; 0.05, one-tailed.
+90:To evaluate the effects of depression severity, we computed three separate Spearman correlations between the HAMD scores and CC (sub) volume z-scores, 1) for the whole first episode MDD group; 2) at early onset (age ≤ 44y), and 3) at mid-to-late onset (age ≥ 45y). Medication
+102:When considering the whole sample, the two groups (healthy controls,  first  episode  MDD) did not differ in age and gender. However, education was significantly different between groups, with higher education levels in the control group ( p &lt; 0.01, see Table 1). As shown in Supplemental Fig. 2, the education distribution in the HC group covers all levels of education observed in the MDD group. The normative model can  effectively  capture  the  contribution  of  education  to  CC  volume prediction (z-score) in individuals with MDD. Concerning the VBM results,  compared  to  healthy  controls'  norms,  we  found  significant  CC (sub)volume(s) z-scores reductions in the first episode MDD group in the entire CC ( p = 0.04) and in the body of the CC ( p = 0.02, FDR corrected). Depression severity did not influence the CC (sub)volume(s) z-scores ( p 's &gt; 0.05, see Table 2).
+104:When  looking  at  early  onset  (age ≤ 44  y)  and  mid-to-late  first episode onset (age ≥ 45 y) depressed patients separately, both groups did not significantly differ in depression severity scores (HAMD) ( p = 0.08). By definition the two groups significantly differed in age, however, they did not significantly differ in gender ( p = 0.24). Also, education  was  significantly  different  between  both  groups  ( p = 0.02), showing a lower level of education in the late onset first episode MDD patients. We found no significant CC (sub)volume z-scores differences between  early  and  mid-to-late  onset  first  episode  depression  (see Table 2).
+106:On the other hand, relative to the norms computed by the healthy controls,  we  found  that  mid-to-late  onset  first  episode  MDD  showed significant CC volume z-scores decreases for the entire CC ( p = 0.02) as well as for the body of the CC ( p = 0.01, FDR corrected). Furthermore, although we did not find significant CC (sub)volume differences for the early onset first episode MDD patients, depression severity scores were significantly associated with increased entire CC volume z-scores ( r = 0.15, p = 0.01), including body ( r = 0.15, p = 0.03, FDR corrected) and splenium ( r = 0.14, p = 0.03, FDR corrected). For an overview, see Table 2 and Fig. 3. For additional information see also Supplemental Fig. 3.
+
+thinking
+**Calculating demographics and confirming metadata**
+
+I've inferred male counts and percentages from total and female counts, confirmed age mean and SD, and standardized the dataset origin naming as "REST-meta-MDD." I'll also verify normative modeling use and extract paper ID and relevant text locations next.
+2026-03-05T04:47:51.525518Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "nl -ba study_1/Wu2023.pdf.md | sed -n '24,80p'" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136 succeeded in 43ms:
+    24	Major depressive disorder (MDD) is among the most common psychiatric  conditions  worldwide  and  this  severe  mental  condition  is characterized  by  a  high  risk  of  recurrence  and  a  high  probability  of chronicity (Villalobos et al., 2021). MDD is characterized by high variability  in  clinical  symptoms and has been documented to result in a series  of  neurobiological  changes  in  the  brain,  including  structural changes as in the early phases of the depressive state (e.g. Schmaal et al., 2017), on the other hand, adolescent first episode MDD patients do not seem  to  show  changes  in  brain  volume  compared  to  age-matched healthy controls (Schmaal et al., 2016), suggesting that structural (and functional)  changes  in  the  brain  due  to  MDD  may  appear  later  in
+    25	
+    26	## A B S T R A C T
+    27	
+    28	Background: It has been widely accepted that major depressive disorder (MDD) impacts brain structures including the Corpus Callosum (CC). However, this assumption is based on scarce literature data involving small sample sizes. Furthermore, it is still unclear whether such CC volume changes may already be present at a first depressive episode.
+    29	
+    30	Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.
+    31	
+    32	Results: Relative  to  the  norms  established  by  the  healthy  controls,  first-episode  MDD  patients  displayed  CC volume (z-score) reductions in the entire CC (including the body), as did mid-to-late-onset first-episode MDD patients (age ≥ 45 y). In early-onset first-episode MDD patients (age ≤ 44 y), depression severity symptoms were related to volume increases in the entire CC, as well as the body and splenium.
+    33	
+    34	Limitations: No data on depressive episode duration. Relatively small sample size for mid-to-late first-episode MDD patients.
+    35	
+    36	Conclusions: Our data revealed CC (sub)volume differences in early versus mid-to-late onset first episode MDD. Especially at early onset, depression severity may result in neural white matter activity as potential reaction to stress influences. Our results underline the importance of prompt clinical interventions at early onset MDD.
+    37	
+    38	adulthood.  When  experiencing  first  episode  MDD  in  adulthood,  reductions in cortical thickness and brain volume have been mostly reported in frontolimbic regions, including the (para)hippocampal areas, representing  brain  areas  involved  in  emotion  regulation,  mood,  and memory, neuropsychological functions affected when clinically depressed (Ahern and Semkovska, 2017; Peng et al., 2016; Varghese et al., 2022; Zheng et al., 2021).
+    39	
+    40	Because  of  these  widespread  functional  and  structural  changes throughout the brain, one may assume that one particular large brain structure,  the  Corpus  Callosum  (CC),  located  on  the  brain's  midline, might be crucial to the psychopathology of MDD, including the first episode (Lacerda et al., 2005). The CC consists of millions of nerve fibres that connect the two hemispheres and it plays a key role in balancing
+    41	
+    42	* Corresponding author at: Key Laboratory of Cognition and Personality, Faculty of Psychology, Southwest University, Chongqing, China. E-mail address: guorongwu@swu.edu.cn (G.-R. Wu).
+    43	
+
+thinking
+**Preparing dataset metadata JSON**
+
+I'm organizing metadata with counts for sex, age stats (mean/sd only), disorder details including "first-episode MDD patients," and dataset origin using line 30 info, then computing sex percentages before writing JSON and verifying existing file content.
+2026-03-05T04:47:57.842879Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Wu2023_by_codex_20260305134725136.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136 succeeded in 26ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+thinking
+**Preparing JSON patch with computed percentages**
+
+I'm building a JSON patch with age and sex objects using one-decimal percentages (67.6% female, 32.5% male) based on counts and formatting supporting text and location references exactly per the example.
+2026-03-05T04:48:23.869265Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wu2023"
+   },
+@@ -7,28 +7,39 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MDD",
++        "detail": "First-episode major depressive disorder clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "REST-meta-MDD"
++        ],
++        "detail": "Open-source REST meta-MDD database",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "mean": 35,
++          "sd": 12
++        },
++        "detail": "First-episode MDD patients; no min/max reported",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 120,
++          "male_pct": 32.5,
++          "female_n": 249,
++          "female_pct": 67.5
++        },
++        "detail": "Female count reported; male count inferred from total N=369",
++        "confidence_rating": "Medium",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       }
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M DE_v14_Wu2023_by_codex_20260305134725136.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json b/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..84ead986e804e637448d745f144c3fbe9b2698d3
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wu2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MDD",
++        "detail": "First-episode major depressive disorder clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "REST-meta-MDD"
++        ],
++        "detail": "Open-source REST meta-MDD database",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "mean": 35,
++          "sd": 12
++        },
++        "detail": "First-episode MDD patients; no min/max reported",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 120,
++          "male_pct": 32.5,
++          "female_n": 249,
++          "female_pct": 67.5
++        },
++        "detail": "Female count reported; male count inferred from total N=369",
++        "confidence_rating": "Medium",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json b/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..84ead986e804e637448d745f144c3fbe9b2698d3
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wu2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MDD",
++        "detail": "First-episode major depressive disorder clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "REST-meta-MDD"
++        ],
++        "detail": "Open-source REST meta-MDD database",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "mean": 35,
++          "sd": 12
++        },
++        "detail": "First-episode MDD patients; no min/max reported",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 120,
++          "male_pct": 32.5,
++          "female_n": 249,
++          "female_pct": 67.5
++        },
++        "detail": "Female count reported; male count inferred from total N=369",
++        "confidence_rating": "Medium",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming no tests and next steps**
+
+There are no tests present for this change, and no further immediate steps are required.
+codex
+Updated the extraction JSON with Wu2023 clinical cohort details (MDD, REST-meta-MDD, age, sex) using the abstract demographics in `DE_v14_Wu2023_by_codex_20260305134725136.json`.
+
+Next steps: if you want, I can also cross-check the supplement file for any additional cohort details (age ranges or sex breakdown by subgroup).
+2026-03-05T04:48:26.832428Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json b/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..84ead986e804e637448d745f144c3fbe9b2698d3
+--- a/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305134725136/./DE_v14_Wu2023_by_codex_20260305134725136.json
+@@ -1,36 +1,47 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Wu2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MDD",
++        "detail": "First-episode major depressive disorder clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "REST-meta-MDD"
++        ],
++        "detail": "Open-source REST meta-MDD database",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "mean": 35,
++          "sd": 12
++        },
++        "detail": "First-episode MDD patients; no min/max reported",
++        "confidence_rating": "High",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 120,
++          "male_pct": 32.5,
++          "female_n": 249,
++          "female_pct": 67.5
++        },
++        "detail": "Female count reported; male count inferred from total N=369",
++        "confidence_rating": "Medium",
++        "supporting_text": "Methods: To further investigate this question, we compared 369 first-episode MDD patients (mean age = 35 years (sd = 12), 249 females; 283 early onset, 86 mid-to-late onset) from the open-source REST meta-MDD database closely matched for age and gender to 490 never-depressed individuals (mean age = 37 years (sd = 14); 309 females) using Z -scores obtained from normative neuroanatomical modeling to assess individual variability in CC (sub)volumes.",
++        "location": "Wu2023.pdf.md: Abstract / L30"
+       }
+     }
+   ]
+
+tokens used
+34,085
+Updated the extraction JSON with Wu2023 clinical cohort details (MDD, REST-meta-MDD, age, sex) using the abstract demographics in `DE_v14_Wu2023_by_codex_20260305134725136.json`.
+
+Next steps: if you want, I can also cross-check the supplement file for any additional cohort details (age ranges or sex breakdown by subgroup).
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

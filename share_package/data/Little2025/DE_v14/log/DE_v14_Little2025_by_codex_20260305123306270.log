@@ -1,0 +1,735 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Little2025_by_codex_20260305123306270.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc0e-72d7-7380-b8a1-86ec5835eb41
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Little2025_by_codex_20260305123306270.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Searching for open guide references**
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270 succeeded in 19ms:
+DE_Guide_v14.md
+DE_v14_Little2025_by_codex_20260305123306270.json
+DE_v14_Little2025_by_codex_20260305123306270.log
+study_1
+2026-03-05T03:33:17.022315Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051233062702026-03-05T03:33:21.184883Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Searching for paper info in study list**
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270 succeeded in 27ms:
+Little2025.pdf.md
+Little2025_artifacts
+imag_a_00438-supp.pdf.md
+imag_a_00438-supp_artifacts
+2026-03-05T03:33:29.769636Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical|cohort|patients|diagnos|schiz|psych|bipolar|depress|autism|epilepsy|Alzheimer|MCI|Parkinson" -i Little2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_12026-03-05T03:33:34.319869Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 42ms:
+3:## Brain morphology normative modelling platform for abnormality and centile estimation: Brain MoNoCle
+23:Normative models of brain structure estimate the effects of covariates such as age and sex using large samples of healthy controls. These models can then be applied to, for example, smaller clinical cohorts to distinguish disease effects from other covariates. However, these advanced statistical modelling approaches can be difficult to access, and processing large healthy cohorts is computationally demanding. Thus, accessible platforms with pre-  trained normative models are needed. We present such a platform for brain morphology analysis as an open-  source web application https://cnnplab  .  shinyapps  .  io  /  BrainMoNoCle/, with six key features: (i) user-  friendly web interface, (ii) individual and group outputs, (iii) multi-  site analysis, (iv) regional and whole-  brain analysis, (v) integration with existing tools, and (vi) featuring multiple morphology metrics. Using a diverse sample of 3,276 healthy controls across 21 sites, we pre-  trained normative models on various metrics. We validated the models with a small sample of individuals with bipolar disorder, showing outputs that aligned closely with existing literature only after applying our normative modelling. Using a cohort of people with temporal lobe epilepsy, we showed that individual-  level abnormalities were in line with seizure lateralisation. Finally, with the ability to investigate multiple morphology measures in the same framework, we found that biological covariates are better explained in specific morphology measures, and for applications, only some measures are sensitive to the disease process. Our platform offers a comprehensive framework to analyse brain morphology in clinical and research settings. Validations confirm the superiority of normative models and the advantage of investigating a range of brain morphology metrics together.
+25:Keywords: normative model, brain structure, structural abnormality, morphology, bipolar disorder, temporal lobe epilepsy
+29:Brain  morphology,  the  study  of  the  shape  and  size  of brain structures, can be used to track healthy brain development and detect abnormalities associated with underlying  disease  processes.  Normative  modelling  of  brain morphology uses large and diverse datasets to estimate healthy  variance  across  the  lifespan.  In  neuroscience research, normative models can reliably remove biological  and  technical  covariates  from  unseen  data  without removing, for example, disease effects (  Pomponio   et al.,
+37:2020), which is especially valuable for small samples with a limited number of control subjects. Further, the ability of normative modelling to estimate abnormalities in individuals is crucial for clinical applications, as it enables systematic biomarker discovery and supports translational uses  in  diagnosis,  stratification,  and  localisation  (  Little et al.,   2024;   Loreto   et al.,   2024;   P .   N.   T aylor   et al.,   2022). Therefore, normative modelling of brain morphology is an indispensable  framework  that  should  be  available  and accessible to all researchers.
+39:To enable researchers without high levels of technical/ statistical know-  how, or resources for time and computationally  demanding tasks,  to  benefit  from  the  power  of the  normative  modelling  framework,  a  freely  available, pre-  trained modelling platform is needed. The normative models should be based on large, diverse, healthy population  data,  and  be  easily  applied  to  new  data.  Recent efforts  in  this  field  include  several  open-  source  tools, some allowing users to upload new, unseen brain morphology data to a web interface and generate individual abnormality scores (e.g. z-  scores or centiles) (  Bethlehem et al.,   2021;   Ge   et al.,   2024;   Rutherford   et al.,   2023). Each of  these  tools  has  some  advantages:  for  example,  (i) being accessible as an online tool that can be easily used without  any  need  for  software  download/installation  or writing/running scripts, (ii) providing individual and grouplevel outputs, (iii) multi-  site data-  as often seen in neuroscience research-  can be analysed, (iv) analysing brain shape  on  whole  hemispheres  and  smaller  regions,  (v) seamless integration with existing neuroimaging software such as FreeSurfer, and (vi) the option to explore a variety of metrics.
+41:We present a normative modelling tool of brain morphology that combines all six key features in one open and web-  based application: Brain MoNoCle (Brain Morphology Normative modelling platform for  abnormality and Centile estimation). We included a large and diverse sample of 3,276 healthy controls across 21 sites to pretrain normative models in a variety of brain morphology measures that comprehensively quantify cortical shape, including  three  novel  metrics  that  were  only  recently proposed (  Wang   et al.,   2021).  As  a  first  validation,  we demonstrate how normative modelling improves reliability and reproducibility in a small clinical dataset of individuals  with  bipolar  disorder  (BD).  We  further  validate our outputs in a dataset of temporal lobe epilepsy (TLE) at the group level, and illustrate how individual patient abnormality  scores  agree  with  their  seizure  lateralisation. Finally, with the option to explore a variety of morphology  metrics  on  our  platform,  we  highlight  the importance of investigating multiple metrics at the same time both for normative modelling itself and for clinical applications.
+45:## 2.1. Normative data
+47:We  collated  3T  T1-  weighted  MRI  scans  from  3,276 healthy individuals from several large public and in-  house datasets, detailed in Supplementary Materials S1 (  Greene et al.,   2018;   Himmelberg   et al.,   2023;   LaMontagne   et al., 2019;   Nigg   et al.,   2023;   Nooner   et al.,   2012;   Nugent   et al., 2022;   Shafto   et  al.,    2014;    J.    R.    T aylor    et  al.,    2017;    Van Essen   et al.,   2013;   Zareba   et al.,   2022). The age in the total dataset ranged from 5 to 95 years old; the age range and  sex  distribution  for  each  study  are  illustrated  in Figure 1. Scanning protocols differed across, and sometimes within datasets, which we corrected statistically in a later step. All studies had ethical approval from relevant institutional ethics boards and included written consent from  participants.  We  present  here  the  initial  dataset included in v1.0 of our app; however, we aim to continuously add to our normative reference dataset. Users of our web platform should, therefore, check the latest summary  of  the  dataset  shown  in  the  app  when  reporting their own results.
+57:Fig. 1. Demographics of the data underlying the normative model. Age distributions and proportion of female participants are shown for each study. Some studies contained multi-site data (e.g. MEGUK), but these are not shown separately here.
+67:Some of the public datasets included quality control steps as part of the study design, which are reported in the original study publications. We detected outliers in the entire dataset statistically: we ran our gamlss model described below  for  each  structural  metric  for  each  region,  and flagged outliers defined by residuals more than five median absolute deviations. In addition, we also detected outliers based on visual inspections of plots: for each dataset, we plotted each brain metric at the hemisphere level against age to flag outliers within each dataset. These were then cross  checked  with  outliers  that  were  detected  statistically. We excluded participants who were flagged as an outlier in any of these models; we performed listwise deletion rather than pairwise deletion so that the same normative reference dataset was used for each normative model, allowing comparisons of model statistics across models.
+69:## 2.5. Exemplar clinical datasets
+71:To demonstrate the utility of our normative models in predicting abnormalities in patient groups and individuals, we included two exemplar clinical datasets. A sample of 133 adults  with  mesial  TLE  (mTLE;  n  =  74  right  hemisphere seizure onset; n = 59 left hemisphere seizure onset) and 99 healthy controls (HC-  mTLE) were acquired from the recent IDEAS dataset release (  P .   N.   T aylor   et al.,   2024), which was approved by a Research Ethics Committee (22/SC/0016). We also included a sample of 56 adults with bipolar disorder (BD) and 26 healthy controls (HC-  BD) from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS) (  Little et al.,   2024;   Smith   et al.,   2018). The study was granted a favourable ethical opinion by a United Kingdom National Research Ethics Committee (14/NE/1135), and all participants provided written informed consent.
+77:We  designed  our  software  as  an  R  Shiny  App,  and  it includes  three  aspects:  (i)  Pre-  training  normative  models
+79:Table 1. Demographics of two clinical datasets.
+87:SD = standard deviation; HC = healthy controls; BD = bipolar disorder; mTLE = mesial temporal lobe epilepsy.
+89:for  each  morphological  measure,  which  can  be  readily used without re-  fitting statistical models to normative data. (ii) At the back-  end of the R Shiny App, computing z-  scores and centiles for new unseen data based on the pre-  trained models. (iii) At the front-  end of the R Shiny App, providing the  user  with  an  intuitive  interface  that  accepts  outputs directly from existing neuroimaging software, such as FreeSurfer. Each aspect is summarised below, and more technical details can be found in the Supplementary Materials.
+91:## 2.6.1. Pre-  training normative models
+93:All  brain  metrics  from  the  normative  data  were  logtransformed  before  being  used  to  train  the  normative models, so different metrics measuring different dimensionalities (e.g. thickness vs. surface area) can be treated in  the  same  way  for  the  normative  model.  Generalized additive models for location scale and shape (GAMLSS) using the gamlss package (https://cran  .  r  -  project  .  org  /  web /  packages  /  gamlss/) were used to simultaneously model the  parameters  (mean,  standard  deviation,  skew,  and kurtosis) of the distribution as response variables of the explanatory variables sex, age, and scanning site/batch. Specifically,  in  our  model,  the  mean  depends  on  sex (fixed effect), site (random effect), and a smooth function of  age;  the  standard  deviation  depends  on  sex  (fixed effect),  site  (random  effect),  and  a  smooth  function  of age; the skew depends on sex (fixed effect) and a smooth function of age; and the kurtosis depends on a smooth function of age. See the Supplementary Materials S2 for a more detailed description and justification of the statistical model. Normative models were fitted independently for  each  region  (from  the  Desikan-  Killiany  atlas)  and hemisphere, and each morphometric measure. Residuals were retained for later visualisations.
+97:The pre-  trained  normative  models  are  implemented  on the R Shiny App back-  end to score new, unseen individuals. A healthy control (HC) cohort from the new unseen site/batch is currently required.
+
+thinking
+**Locating clinical cohort demographics**
+
+I'm searching Table 1 in the PDF markdown to extract demographic details for the BD and mTLE cohorts.
+2026-03-05T03:33:37.448307Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table 1|Demographics" -n Little2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_1 succeeded in 36ms:
+57:Fig. 1. Demographics of the data underlying the normative model. Age distributions and proportion of female participants are shown for each study. Some studies contained multi-site data (e.g. MEGUK), but these are not shown separately here.
+79:Table 1. Demographics of two clinical datasets.
+
+thinking
+**Checking artifacts folder for table content**
+exec
+/bin/bash -lc 'ls study_1/Little2025_artifacts' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270 succeeded in 32ms:
+image_000000_81bf13e7a182cfcc2a49cff2e6fd5648cddd95526918ebb7d91291dd4baf0826.png
+image_000001_fbc664191eafcd72ec5c0e10d43c86efa71e16077f2d080e829dbe181c8c5eea.png
+image_000002_e5aa1cafeb3166be4af5f3d69798af266f3c2177e280815b4dc98dd89b47c61c.png
+image_000003_b9388daceac17a89f6202a39657fb65157be0a246ff7d7c3e831ba8f43a3ef52.png
+image_000004_78aab4e7443032c847588e188354156caeee36f8772b43e22a272e0e8441b510.png
+image_000005_b88df4ae37b2baa48bae749f4c0f9eceddb3d4095d3db9e6533890da4ada933e.png
+image_000006_a84b935d452341fdb75b4827596c29595ecb98c3bd16320a90aecc20ee81920d.png
+image_000007_be8bbceaac8572935f39e1d723971fb7d80ba426b9b42d7b2e978cbee933f3c8.png
+2026-03-05T03:33:50.682178Z ERROR codex_core::codex: needs_follow_up: true
+
+thinking
+**Identifying table image resource**
+
+I'm focusing on locating a table image resource and plan to use the view_image functionality to display or confirm its relevance.
+2026-03-05T03:33:53.998587Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_1/Little2025_artifacts/image_000004_78aab4e7443032c847588e188354156caeee36f8772b43e22a272e0e8441b510.png
+
+thinking
+**Noticing missing demographics image**
+
+The current task requires a demographics image for the table, so I'll look at other images in the project to find or create a suitable one.
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_1/Little2025_artifacts/image_000001_fbc664191eafcd72ec5c0e10d43c86efa71e16077f2d080e829dbe181c8c5eea.png
+2026-03-05T03:34:07.464902Z ERROR codex_core::codex: needs_follow_up: true
+2026-03-05T03:34:10.570306Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_1/Little2025_artifacts/image_000003_b9388daceac17a89f6202a39657fb65157be0a246ff7d7c3e831ba8f43a3ef52.png
+2026-03-05T03:34:16.450886Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_1/Little2025_artifacts/image_000005_b88df4ae37b2baa48bae749f4c0f9eceddb3d4095d3db9e6533890da4ada933e.png
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_1/Little2025_artifacts/image_000006_a84b935d452341fdb75b4827596c29595ecb98c3bd16320a90aecc20ee81920d.png
+2026-03-05T03:34:21.340978Z ERROR codex_core::codex: needs_follow_up: true
+2026-03-05T03:34:26.178100Z ERROR codex_core::codex: needs_follow_up: true
+viewed image /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_1/Little2025_artifacts/image_000007_be8bbceaac8572935f39e1d723971fb7d80ba426b9b42d7b2e978cbee933f3c8.png
+
+thinking
+**Locating clinical cohort demographics**
+
+Planning to extract Table 1 demographics from the paper's PDF, focusing on the section around the table for clinical cohort information.
+exec
+/bin/bash -lc 'rg -n "Table 1" -n -C 2 Little2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_12026-03-05T03:34:29.829537Z ERROR codex_core::codex: needs_follow_up: true
+ exited 1 in 21ms:
+
+
+thinking
+**Locating relevant code manually**
+
+Since the search didn't find a match, I'm opening the code around lines 70-90 to check for special characters or alternative definitions.
+2026-03-05T03:34:33.107592Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '68,100p' Little2025.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/study_1 succeeded in 21ms:
+
+## 2.5. Exemplar clinical datasets
+
+To demonstrate the utility of our normative models in predicting abnormalities in patient groups and individuals, we included two exemplar clinical datasets. A sample of 133 adults  with  mesial  TLE  (mTLE;  n  =  74  right  hemisphere seizure onset; n = 59 left hemisphere seizure onset) and 99 healthy controls (HC-  mTLE) were acquired from the recent IDEAS dataset release (  P .   N.   T aylor   et al.,   2024), which was approved by a Research Ethics Committee (22/SC/0016). We also included a sample of 56 adults with bipolar disorder (BD) and 26 healthy controls (HC-  BD) from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS) (  Little et al.,   2024;   Smith   et al.,   2018). The study was granted a favourable ethical opinion by a United Kingdom National Research Ethics Committee (14/NE/1135), and all participants provided written informed consent.
+
+Descriptive  statistics  for  these  datasets  are  summarised in Table 1. See the respective publications for full details of each sample and neuroimaging pre-  processing steps.
+
+## 2.6. Software structure
+
+We  designed  our  software  as  an  R  Shiny  App,  and  it includes  three  aspects:  (i)  Pre-  training  normative  models
+
+Table 1. Demographics of two clinical datasets.
+
+|                    | BD            | HC-  BD       | mTLE left   | mTLE right   | HC-  mTLE   |
+|--------------------|---------------|---------------|-------------|--------------|-------------|
+| N                  | 56            | 26            | 74          | 59           | 99          |
+| Age [mean (SD)]    | 45.36 (12.15) | 48.46 (11.80) | 36.0 (11.2) | 38.2 (10.8)  | 39.1 (12.1) |
+| Sex [n female (%)] | 35 (62%)      | 12 (46%)      | 43 (58%)    | 39 (66%)     | 62 (63%)    |
+
+SD = standard deviation; HC = healthy controls; BD = bipolar disorder; mTLE = mesial temporal lobe epilepsy.
+
+
+thinking
+**Clarifying clinical cohort data structure**
+
+The clinical cohorts are BD (bipolar disorder) labeled under Mood disorders from BLISS, and mTLE (mesial temporal lobe epilepsy) under Epilepsy from IDEAS. Age mean and SD exist only for left/right mTLE subgroups, so I'll calculate weighted means and pooled SDs to represent overall mTLE, keeping subgroup details noted as needed.
+thinking
+**Computing combined statistics for mTLE subgroups**
+
+I'll calculate the overall weighted mean and pooled SD for age across left and right mTLE subgroups and combine female counts to get male counts and percentages based on totals.
+2026-03-05T03:34:47.888990Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+n1,mean1,sd1=74,36.0,11.2
+n2,mean2,sd2=59,38.2,10.8
+mean=(n1*mean1+n2*mean2)/(n1+n2)
+# pooled SD (unbiased) using sample variance
+var=((n1-1)*sd1**2+(n2-1)*sd2**2 + n1*(mean1-mean)**2 + n2*(mean2-mean)**2)/(n1+n2-1)
+print(mean,var**0.5)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270 succeeded in 46ms:
+36.97593984962406 11.037512829025387
+
+
+thinking
+**Summarizing demographic details**
+
+I have clarified that age means and SDs use two decimals and specify units; for mTLE, means and SDs are weighted/pooled from left/right subgroups with that detail noted. For BD, sex breakdown is given for females with male numbers and percentages computed from total counts, highlighting the derivation. Dataset origins are BD→BLISS and mTLE→IDEAS, both clinical cohorts post-NM. Fields without known min/max use "NR".
+thinking
+**Planning source citation and JSON update**
+
+I will include supporting quoted text from the table’s left/right subgroup details with precise location referencing the paper ID and section for traceability. Next, I’ll open the existing JSON file to write the structured data.
+2026-03-05T03:34:58.227972Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Little2025_by_codex_20260305123306270.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270 succeeded in 18ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Summarizing cohort demographics**
+
+I'm extracting detailed age and sex statistics from the tables and methods section, including weighted means and pooled SDs for subgroups, along with precise supporting text for disorder names and dataset sources to ensure clear, accurate descriptions in the answer object.
+thinking
+**Preparing JSON with confidence levels**
+
+I'm drafting JSON output for two disorders including detailed age, sex, and dataset origin fields with confidence ratings reflecting the data source reliability and derivation steps, ensuring proper escaping and formatting for the final patch update.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Little2025"
+   },
+@@ -7,28 +7,84 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in exemplar dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We also included a sample of 56 adults with bipolar disorder (BD) and 26 healthy controls (HC-  BD) from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS).\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "BLISS"
++        ],
++        "detail": "Bipolar Lithium Imaging and Spectroscopy Study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS)\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 45.36,
++          "sd": 12.15
++        },
++        "detail": "BD cohort mean (SD) from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age [mean (SD)]    | 45.36 (12.15)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 21,
++          "male_pct": 38.0,
++          "female_n": 35,
++          "female_pct": 62.0
++        },
++        "detail": "Female count reported; male count and percentages derived from N=56.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex [n female (%)] | 35 (62%)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "mTLE",
++        "detail": "Mesial temporal lobe epilepsy clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"A sample of 133 adults with mesial TLE (mTLE; n = 74 right hemisphere seizure onset; n = 59 left hemisphere seizure onset)\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "IDEAS"
++        ],
++        "detail": "Imaging Database for Epilepsy and Surgery dataset release.",
++        "confidence_rating": "High",
++        "supporting_text": "\"were acquired from the recent IDEAS dataset release\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 36.98,
++          "sd": 11.04
++        },
++        "detail": "Weighted mean and pooled SD computed from left mTLE (n=74, mean 36.0, SD 11.2) and right mTLE (n=59, mean 38.2, SD 10.8).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Age [mean (SD)]    | 36.0 (11.2) | 38.2 (10.8)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 51,
++          "male_pct": 38.3,
++          "female_n": 82,
++          "female_pct": 61.7
++        },
++        "detail": "Female counts reported separately for left and right mTLE; totals combined (43+39=82). Male counts and percentages derived from N=133.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex [n female (%)] | 43 (58%)    | 39 (66%)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
+       }
+apply_patch(auto_approved=true) exited 0 in 9ms:
+Success. Updated the following files:
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json b/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..9e8492bfae0e832719048880fdea3772d3171a1c
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
+@@ -1,36 +1,92 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Little2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in exemplar dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We also included a sample of 56 adults with bipolar disorder (BD) and 26 healthy controls (HC-  BD) from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS).\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "BLISS"
++        ],
++        "detail": "Bipolar Lithium Imaging and Spectroscopy Study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS)\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 45.36,
++          "sd": 12.15
++        },
++        "detail": "BD cohort mean (SD) from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age [mean (SD)]    | 45.36 (12.15)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 21,
++          "male_pct": 38.0,
++          "female_n": 35,
++          "female_pct": 62.0
++        },
++        "detail": "Female count reported; male count and percentages derived from N=56.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex [n female (%)] | 35 (62%)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "mTLE",
++        "detail": "Mesial temporal lobe epilepsy clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"A sample of 133 adults with mesial TLE (mTLE; n = 74 right hemisphere seizure onset; n = 59 left hemisphere seizure onset)\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "IDEAS"
++        ],
++        "detail": "Imaging Database for Epilepsy and Surgery dataset release.",
++        "confidence_rating": "High",
++        "supporting_text": "\"were acquired from the recent IDEAS dataset release\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 36.98,
++          "sd": 11.04
++        },
++        "detail": "Weighted mean and pooled SD computed from left mTLE (n=74, mean 36.0, SD 11.2) and right mTLE (n=59, mean 38.2, SD 10.8).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Age [mean (SD)]    | 36.0 (11.2) | 38.2 (10.8)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 51,
++          "male_pct": 38.3,
++          "female_n": 82,
++          "female_pct": 61.7
++        },
++        "detail": "Female counts reported separately for left and right mTLE; totals combined (43+39=82). Male counts and percentages derived from N=133.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex [n female (%)] | 43 (58%)    | 39 (66%)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
+       }
+     }
+   ]
+
+2026-03-05T03:36:36.401390Z ERROR codex_core::codex: needs_follow_up: true
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json b/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..9e8492bfae0e832719048880fdea3772d3171a1c
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
+@@ -1,36 +1,92 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Little2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in exemplar dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We also included a sample of 56 adults with bipolar disorder (BD) and 26 healthy controls (HC-  BD) from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS).\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "BLISS"
++        ],
++        "detail": "Bipolar Lithium Imaging and Spectroscopy Study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS)\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 45.36,
++          "sd": 12.15
++        },
++        "detail": "BD cohort mean (SD) from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age [mean (SD)]    | 45.36 (12.15)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 21,
++          "male_pct": 38.0,
++          "female_n": 35,
++          "female_pct": 62.0
++        },
++        "detail": "Female count reported; male count and percentages derived from N=56.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex [n female (%)] | 35 (62%)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "mTLE",
++        "detail": "Mesial temporal lobe epilepsy clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"A sample of 133 adults with mesial TLE (mTLE; n = 74 right hemisphere seizure onset; n = 59 left hemisphere seizure onset)\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "IDEAS"
++        ],
++        "detail": "Imaging Database for Epilepsy and Surgery dataset release.",
++        "confidence_rating": "High",
++        "supporting_text": "\"were acquired from the recent IDEAS dataset release\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 36.98,
++          "sd": 11.04
++        },
++        "detail": "Weighted mean and pooled SD computed from left mTLE (n=74, mean 36.0, SD 11.2) and right mTLE (n=59, mean 38.2, SD 10.8).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Age [mean (SD)]    | 36.0 (11.2) | 38.2 (10.8)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 51,
++          "male_pct": 38.3,
++          "female_n": 82,
++          "female_pct": 61.7
++        },
++        "detail": "Female counts reported separately for left and right mTLE; totals combined (43+39=82). Male counts and percentages derived from N=133.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex [n female (%)] | 43 (58%)    | 39 (66%)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming exact text match approach**
+
+I verified supporting_text must exactly match the table content, allowing for extra spaces. Next, I'll finalize the response with a concise change summary and next steps, skipping tests.
+codex
+Filled the clinical cohort extraction JSON with BD and mTLE details (dataset, age, sex) and computed combined mTLE demographics from left/right subgroups in `DE_v14_Little2025_by_codex_20260305123306270.json`.
+
+If you want, I can also:
+1) compute min/max ages if available in supplements
+2) add a third entry for the matched control cohorts (if required by your schema)
+2026-03-05T03:36:41.859473Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json b/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..9e8492bfae0e832719048880fdea3772d3171a1c
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123306270/DE_v14_Little2025_by_codex_20260305123306270.json
+@@ -1,36 +1,92 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Little2025"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "BD",
++        "detail": "Bipolar disorder clinical cohort in exemplar dataset.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We also included a sample of 56 adults with bipolar disorder (BD) and 26 healthy controls (HC-  BD) from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS).\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "BLISS"
++        ],
++        "detail": "Bipolar Lithium Imaging and Spectroscopy Study.",
++        "confidence_rating": "High",
++        "supporting_text": "\"from the Bipolar Lithium Imaging and Spectroscopy Study (BLISS)\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 45.36,
++          "sd": 12.15
++        },
++        "detail": "BD cohort mean (SD) from Table 1.",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age [mean (SD)]    | 45.36 (12.15)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 21,
++          "male_pct": 38.0,
++          "female_n": 35,
++          "female_pct": 62.0
++        },
++        "detail": "Female count reported; male count and percentages derived from N=56.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex [n female (%)] | 35 (62%)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "mTLE",
++        "detail": "Mesial temporal lobe epilepsy clinical cohort.",
++        "confidence_rating": "High",
++        "supporting_text": "\"A sample of 133 adults with mesial TLE (mTLE; n = 74 right hemisphere seizure onset; n = 59 left hemisphere seizure onset)\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "IDEAS"
++        ],
++        "detail": "Imaging Database for Epilepsy and Surgery dataset release.",
++        "confidence_rating": "High",
++        "supporting_text": "\"were acquired from the recent IDEAS dataset release\"",
++        "location": "Little2025.pdf.md: 2.5. Exemplar clinical datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 36.98,
++          "sd": 11.04
++        },
++        "detail": "Weighted mean and pooled SD computed from left mTLE (n=74, mean 36.0, SD 11.2) and right mTLE (n=59, mean 38.2, SD 10.8).",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Age [mean (SD)]    | 36.0 (11.2) | 38.2 (10.8)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 51,
++          "male_pct": 38.3,
++          "female_n": 82,
++          "female_pct": 61.7
++        },
++        "detail": "Female counts reported separately for left and right mTLE; totals combined (43+39=82). Male counts and percentages derived from N=133.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Sex [n female (%)] | 43 (58%)    | 39 (66%)\"",
++        "location": "Little2025.pdf.md: Table 1. Demographics of two clinical datasets"
+       }
+     }
+   ]
+
+tokens used
+49,833
+Filled the clinical cohort extraction JSON with BD and mTLE details (dataset, age, sex) and computed combined mTLE demographics from left/right subgroups in `DE_v14_Little2025_by_codex_20260305123306270.json`.
+
+If you want, I can also:
+1) compute min/max ages if available in supplements
+2) add a third entry for the matched control cohorts (if required by your schema)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

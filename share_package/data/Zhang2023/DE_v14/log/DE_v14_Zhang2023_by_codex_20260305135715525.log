@@ -1,0 +1,498 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Zhang2023_by_codex_20260305135715525.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135715525/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc5b-7e7e-70d2-88f0-fb63f39448e5
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Zhang2023_by_codex_20260305135715525.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning to read instructions**
+
+I'm intending to locate and open the instructions file using a search tool to understand the task details better.
+2026-03-05T04:57:21.185807Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135715525 succeeded in 14ms:
+DE_Guide_v14.md
+DE_v14_Zhang2023_by_codex_20260305135715525.json
+DE_v14_Zhang2023_by_codex_20260305135715525.log
+study_1
+2026-03-05T04:57:23.350084Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135715525 succeeded in 25ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Planning file search**
+
+I'll use ripgrep to locate study files for reading and analysis next.
+2026-03-05T04:57:25.876846Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135715525 succeeded in 39ms:
+DE_v14_Zhang2023_by_codex_20260305135715525.log
+DE_v14_Zhang2023_by_codex_20260305135715525.json
+DE_Guide_v14.md
+study_1/1-s2.0-S0165032723005864-mmc3.csv
+study_1/1-s2.0-S0165032723005864-mmc2.csv
+study_1/1-s2.0-S0165032723005864-mmc1.docx.md
+study_1/Zhang2023.pdf.md
+study_1/Supplementary Data.md
+
+thinking
+**Preparing to access paper**
+exec
+/bin/bash -lc 'rg -n "normative|normative model|clinical" study_1/Zhang2023.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051357155252026-03-05T04:57:29.054222Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+37:Methods: T1-weighted magnetic resonance imaging data from the Autism Brain Imaging Database Exchange (ABIDE) (NTDC = 1146) were used to generate a normative model to map brain structure deviations of cases (NASD = 571). Voxel-based morphometry (VBM) was used to compute gray matter volume (GMV). Singular Value Decomposition (SVD) was employed to perform dimensionality reduction. A tree-based algorithm was proposed to identify the ASD subtypes according to the pattern of brain-symptom association as assessed by a homogeneous canonical correlation.
+47:show heterogeneity in both the structure (Boedhoe et al., 2020) and function of the brain (Hahamy et al., 2015), as well as in clinical manifestations (Huerta and Lord, 2012). A key challenge is to characterize the heterogeneity not only by clinical symptoms, but also by biological factors such as neuroanatomical measures (Jeste and Geschwind, 2014; Volkmar et al., 2022).
+75:The heterogeneity in ASD may suggest the existence of biological and clinical subtypes (Hong et al., 2020). However, neuroanatomical subtypes of ASD are inconsistent in the neuroimaging literature. One study clustered ASD into 3 subtypes using gray matter volume (Shan et al., 2022). Another study found 2 neuroanatomical subtypes by clustering regional volumetric measures of gray matter, white matter, and cerebrospinal fluid (Liu et al., 2022). Another study revealed 4 ASD subtypes by focusing on cortical thickness of the frontal lobe, size of the corpus callosum, hippocampus, caudate, and amygdala (Hrdlicka et al., 2005). A 2022 study even argued that instead of neuroanatomical subtypes ASD might be better described as a spectrum using a brain-wide and voxelwise  volumetric analysis  (Aglinskas et  al.,  2022).  Most  of  these  subtyping  studies  were  based  on  neuroanatomical  data  alone,  however, these neuroanatomical measures are determined by complex gene and environment interactions (Gu and Kanai, 2014). It ' s possible that the findings exposed above could be tainted by the gene-environment interactions, thus are not pathogenetic nor specific for ASD. Therefore, we proposed a novel subtyping approach by focusing on neuroanatomic abnormalities that are associated with the core symptoms of ASD.
+77:In the literature, the core symptoms of ASD have been associated with various neuroimaging measures, but the findings have significant inconsistency  (Hull  et  al.,  2016).  Such  inconsistency  exits  in  both structural measures of brain regions (Eilam-Stock et al., 2016; Hegarty et al., 2020; Supekar and Menon, 2015) and the functional connectivity between them (Assaf et al., 2010; Duan et al., 2017). Instead of a pairwise association between a symptom score and a neuroimaging measure, the symptoms of ASD have been associated with combinations of various  neuroimaging  measures  (Mei  et  al.,  2020).  These  previous findings suggest that the multivariate patterns of brain-symptom associations  might  provide  us  a  new  opportunity  to  identify  the  neuroimaging measures that are associated with the core symptoms instead of the gene-environmental factors in the general population. To address these problems, we propose here to first use a normative model of gray matter volume to estimate the individual deviations of each ASD case from the standard developmental trajectory, and then to group the cases into subtypes according to their multivariate patterns of brain-symptom associations between individual deviations and the core symptoms.
+79:The main aim of the current study was to test the hypothesis that there are ASD subtypes with distinct patterns of brain-symptom associations. First, we built a normative model of gray matter volume using typically developing controls (TDC; N = 1146), and then for each ASD case ( N = 571) we evaluated the deviations of 140 brain regions from this  normative  model  by  the  model  residuals.  Second,  we  employed singular value decomposition for dimensionality reduction of these deviations. Using the features in the low-dimensional space, we proposed an algorithm called random forest with homogeneous canonical correlation  (RFHCC)  to  identify  the  ASD  subtypes,  each  of  which  had  a distinct pattern of brain-symptom associations as assessed by a canonical  correlation  analysis  (CCA).  The  performance  of  the  algorithm  on recovering the patterns of association between two multivariate datasets was demonstrated by numerical simulations. Finally, we tested whether the  subtyping  could  significantly  improve  the  classification  accuracy between cases and controls in our sample by 1000 random permutations.  We  also  compared  the  case-control  classification  performance with a classical subtyping approach (i.e., k-means).
+85:The study analyzed both structural neuroimaging data and phenotypic  data  provided  by  the  Autism  Brain  Imaging  Data  Exchange (ABIDE) (Di Martino et al., 2017; Di Martino et al., 2014). The current study includes the data of 571 cases with ASD who had both symptom assessments and T1 images, and 1146 controls with T1 images. The cases were diagnosed according to DSM-IV-TR at each contributing site. The symptom severity was assessed by the Autism Diagnostic Observation Schedule (ADOS), consisting of 3 subscales (i.e., the communication, social,  stereotyped  behaviors  and  restricted  interests  scores).  Demographic  and  clinical  information  of  these  subjects  were  listed  in Table 1. The original studies included in ABIDE received approval from each site ' s Institutional Review Board (IRB), and all adults or the legal guardians of children and adolescents provided written informed consent after information on the research procedures at each data collection site.
+91:Table 1 Demographic and clinical information for the subjects.
+135:To identify these groups each with a homogenous brain-symptom association,  we  proposed  an  unsupervised  algorithm,  namely  the RFHCC (random forest with homogeneous canonical correlation, Fig. 1). The patients were split into subgroups according to a set of grouping features, In order to obtain the grouping features, we applied the singular value decomposition to the regional volumetric deviations given by the normative model to reduce its dimensionality, and the grouping features were the first 5 principal components with the accumulative variance explained &gt; 80 %. The goal of each split was to increase the Hs in the resulting subgroups.
+177:Using the normative model, we estimated the individual deviations from the standard developing trajectory of gray matter volume (GMV). We then applied the CCA to the data of all 571 cases, but we could not identify  any  CCA  mode  with  an  index  of  homogeneity  exceeding  5, indicating significant heterogeneity in the associations between volumetric  deviations  of  140  brain  regions  and  symptom  severities  of  3 ADOS subscales.
+199:In subtype 1, the correlation coefficient between the CC-volume and the CC-symptom (i.e., the ADOS-social subscale score) was 0.859 ( p &lt; 0.001; index of homogeneity, Hs = 10; Fig. 2A; eTable 3). In total, 39 regional  volumetric  deviations  showed  positive  correlations  with  the ADOS-social score ( r = 0.29 -0.44; p &lt; 0.05, uncorrected). Among these regions, 33 regions had positive residuals in all ASD cases, indicating that the overgrowth of these brain regions as assessed by the normative model were associated with more severe ADOS-social scores. The top 5 brain regions which had the largest positive correlations with the ADOSsocial  score  were  the  right  superior  parietal  gyrus  (SPG),  the  right inferior parietal gyrus (IPG), the right medial orbital gyrus (OFGmed), the opercular part of the left inferior frontal gyrus (IFG) and the IFG pars orbitalis (eTable 7).
+343:- Shan, X., Uddin, L.Q., Xiao, J., He, C., Ling, Z., Li, L., Huang, X., Chen, H., Duan, X., 2022. Mapping the heterogeneous brain structural phenotype of autism spectrum disorder using the normative model. Biol. Psychiatry 91 (11), 967 -976. https://doi. org/10.1016/j.biopsych.2022.01.011.
+
+thinking
+**Planning clinical cohort info table**
+
+I'll locate or create the clinical cohort information to display in Table 1 and ensure it has appropriate context around it.
+exec
+/bin/bash -lc "sed -n '80,130p' study_1/Zhang2023.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051357155252026-03-05T04:57:31.844147Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 25ms:
+
+## 2. Methods
+
+## 2.1. Participants
+
+The study analyzed both structural neuroimaging data and phenotypic  data  provided  by  the  Autism  Brain  Imaging  Data  Exchange (ABIDE) (Di Martino et al., 2017; Di Martino et al., 2014). The current study includes the data of 571 cases with ASD who had both symptom assessments and T1 images, and 1146 controls with T1 images. The cases were diagnosed according to DSM-IV-TR at each contributing site. The symptom severity was assessed by the Autism Diagnostic Observation Schedule (ADOS), consisting of 3 subscales (i.e., the communication, social,  stereotyped  behaviors  and  restricted  interests  scores).  Demographic  and  clinical  information  of  these  subjects  were  listed  in Table 1. The original studies included in ABIDE received approval from each site ' s Institutional Review Board (IRB), and all adults or the legal guardians of children and adolescents provided written informed consent after information on the research procedures at each data collection site.
+
+## 2.2. Neuroimaging preprocessing
+
+Structural neuroimaging data of participants were preprocessed by using the computational anatomy toolbox 12 (CAT12; http://www.neu ro.uni-jena.de/cat/). The main preprocessing steps in CAT12 included denoising, resampling, bias-correction, affine-registration, the standard SPM  unified  segmentation  (Ashburner  and  Friston,  2005),  adaptive maximum a posteriori (AMAP) segmentation (Rajapakse et al., 1997), a partial volume estimation (Tohka et al., 2004), and finally normalization by Geodesic Shooting (Ashburner and Friston, 2011) registrations. Before the statistically analysis, the gray matter volume images were smoothed with an 8-mm FWHM (full width at half maximum) Gaussian kernel  (Ashburner  and  Friston,  2000).  We  had  1094  participants  in ABIDE I and 1100 participants in ABIDE II who passed the preprocessing, while 18 participants in ABIDE I and 14 participants in ABIDE II
+
+Table 1 Demographic and clinical information for the subjects.
+
+|                     |                         | TC                                 | ASD                                |
+|---------------------|-------------------------|------------------------------------|------------------------------------|
+| Gender(M/F)  Age(Y) | Gender(M/F)  Age(Y)     | 868/278  15.98(8.620)  [5.89 - 64] | 503/68  17.27(9.34)  [5.22 - 62]   |
+| TIV ( cm 3 )        | TIV ( cm 3 )            | 1524.9(134.1)  [1171.4 - 1886.4]   | 1553.3(144.9)  [1163.6 - 1913.8]   |
+| IQ                  | FIQ                     | 113.1(12.7)  [71.0 - 151.0]{1052}  | 106.7(17.0)  [49.0 - 149.0]{559}   |
+|                     | VIQ                     | 113.8(13.7)  [67.0 - 156.0]{855}   | 106.7(17.3)  [45.0 - 155.0]{474}   |
+|                     | PIQ                     | 109.7(13.6)  [62.0 - 155.0]{917}   | 106.2(16.9)  [61.0 - 149.0]{470}   |
+
+thinking
+**Calculating ASD clinical cohort demographics**
+
+Preparing to compute precise male/female percentages for the 571 ASD cases using the ABIDE dataset demographics.
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+male=503
+female=68
+total=male+female
+print(total)
+print(male/total*100)
+print(female/total*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051357155252026-03-05T04:57:37.839797Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 37ms:
+571
+88.09106830122592
+11.908931698774081
+
+thinking
+**Extracting dataset and cohort details**
+
+Identified the dataset as "ABIDE (I+II)" with 571 ASD cases aged around 17.3 years and sex distribution 503M/68F; confirmed normative model applies to clinical cohort and will incorporate method quotes and table data into JSON output.
+2026-03-05T04:57:47.637108Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Zhang2023_by_codex_20260305135715525.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135715525 succeeded in 30ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Planning structured JSON answers**
+
+I'm outlining how to structure answers as JSON objects with details and exact supporting text quotes from tables and methods, following the example for age and sex. Next, I'll craft the disorder name JSON with combined direct quotes and precise location references.
+thinking
+**Structuring dataset, age, and sex JSON answers**
+
+I'm detailing dataset origin as ABIDE I+II with combined quotes from methods and preprocessing, and defining age and sex answers as numeric JSON objects with supporting text from Table 1 line. Next, I'll apply the patch ensuring all fields and locations align.
+2026-03-05T04:58:13.603156Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Zhang2023"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "DSM-IV-TR diagnosed autism spectrum disorder cases from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The current study includes the data of 571 cases with ASD who had both symptom assessments and T1 images, and 1146 controls with T1 images. The cases were diagnosed according to DSM-IV-TR at each contributing site.\"",
++        "location": "Zhang2023.pdf.md: Methods / 2.1. Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE (I+II)"
++        ],
++        "detail": "Autism Brain Imaging Data Exchange; ABIDE I and II noted in preprocessing.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The study analyzed both structural neuroimaging data and phenotypic  data  provided  by  the  Autism  Brain  Imaging  Data  Exchange (ABIDE) (Di Martino et al., 2017; Di Martino et al., 2014).\" \"We  had  1094  participants  in ABIDE I and 1100 participants in ABIDE II who passed the preprocessing\"",
++        "location": "Zhang2023.pdf.md: Methods / 2.1. Participants; Zhang2023.pdf.md: Methods / 2.2. Neuroimaging preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5.22,
++          "max": 62,
++          "mean": 17.27,
++          "sd": 9.34
++        },
++        "detail": "ASD clinical cohort (Table 1).",
++        "confidence_rating": "High",
++        "supporting_text": "\"503/68  17.27(9.34)  [5.22 - 62]\"",
++        "location": "Zhang2023.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 503,
++          "male_pct": 88.1,
++          "female_n": 68,
++          "female_pct": 11.9
++        },
++        "detail": "Percentages calculated from counts in Table 1.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"503/68  17.27(9.34)  [5.22 - 62]\"",
++        "location": "Zhang2023.pdf.md: Table 1"
+       }
+apply_patch(auto_approved=true) exited 0 in 11ms:
+Success. Updated the following files:
+M DE_v14_Zhang2023_by_codex_20260305135715525.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json b/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..8d325fc18f8d9f0df339ae64c9a26458ee023d89
+--- a/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Zhang2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "DSM-IV-TR diagnosed autism spectrum disorder cases from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The current study includes the data of 571 cases with ASD who had both symptom assessments and T1 images, and 1146 controls with T1 images. The cases were diagnosed according to DSM-IV-TR at each contributing site.\"",
++        "location": "Zhang2023.pdf.md: Methods / 2.1. Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE (I+II)"
++        ],
++        "detail": "Autism Brain Imaging Data Exchange; ABIDE I and II noted in preprocessing.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The study analyzed both structural neuroimaging data and phenotypic  data  provided  by  the  Autism  Brain  Imaging  Data  Exchange (ABIDE) (Di Martino et al., 2017; Di Martino et al., 2014).\" \"We  had  1094  participants  in ABIDE I and 1100 participants in ABIDE II who passed the preprocessing\"",
++        "location": "Zhang2023.pdf.md: Methods / 2.1. Participants; Zhang2023.pdf.md: Methods / 2.2. Neuroimaging preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5.22,
++          "max": 62,
++          "mean": 17.27,
++          "sd": 9.34
++        },
++        "detail": "ASD clinical cohort (Table 1).",
++        "confidence_rating": "High",
++        "supporting_text": "\"503/68  17.27(9.34)  [5.22 - 62]\"",
++        "location": "Zhang2023.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 503,
++          "male_pct": 88.1,
++          "female_n": 68,
++          "female_pct": 11.9
++        },
++        "detail": "Percentages calculated from counts in Table 1.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"503/68  17.27(9.34)  [5.22 - 62]\"",
++        "location": "Zhang2023.pdf.md: Table 1"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json b/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..8d325fc18f8d9f0df339ae64c9a26458ee023d89
+--- a/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Zhang2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "DSM-IV-TR diagnosed autism spectrum disorder cases from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The current study includes the data of 571 cases with ASD who had both symptom assessments and T1 images, and 1146 controls with T1 images. The cases were diagnosed according to DSM-IV-TR at each contributing site.\"",
++        "location": "Zhang2023.pdf.md: Methods / 2.1. Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE (I+II)"
++        ],
++        "detail": "Autism Brain Imaging Data Exchange; ABIDE I and II noted in preprocessing.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The study analyzed both structural neuroimaging data and phenotypic  data  provided  by  the  Autism  Brain  Imaging  Data  Exchange (ABIDE) (Di Martino et al., 2017; Di Martino et al., 2014).\" \"We  had  1094  participants  in ABIDE I and 1100 participants in ABIDE II who passed the preprocessing\"",
++        "location": "Zhang2023.pdf.md: Methods / 2.1. Participants; Zhang2023.pdf.md: Methods / 2.2. Neuroimaging preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5.22,
++          "max": 62,
++          "mean": 17.27,
++          "sd": 9.34
++        },
++        "detail": "ASD clinical cohort (Table 1).",
++        "confidence_rating": "High",
++        "supporting_text": "\"503/68  17.27(9.34)  [5.22 - 62]\"",
++        "location": "Zhang2023.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 503,
++          "male_pct": 88.1,
++          "female_n": 68,
++          "female_pct": 11.9
++        },
++        "detail": "Percentages calculated from counts in Table 1.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"503/68  17.27(9.34)  [5.22 - 62]\"",
++        "location": "Zhang2023.pdf.md: Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Summarizing validation suggestion**
+
+The file likely benefits from a validation addition, but no tests are present yet. Next steps could include implementing validation and adding tests to ensure correctness.
+codex
+Updated the clinical cohort extraction for Zhang2023 with ASD details (ABIDE I+II, age/sex, citations) and wrote it to `DE_v14_Zhang2023_by_codex_20260305135715525.json`.
+
+If you want, I can also 1) double-check Supplementary Data for any cohort refinements or 2) normalize any additional demographic fields beyond age/sex.
+2026-03-05T04:58:17.905426Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json b/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..8d325fc18f8d9f0df339ae64c9a26458ee023d89
+--- a/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305135715525/./DE_v14_Zhang2023_by_codex_20260305135715525.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Zhang2023"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "ASD",
++        "detail": "DSM-IV-TR diagnosed autism spectrum disorder cases from ABIDE.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The current study includes the data of 571 cases with ASD who had both symptom assessments and T1 images, and 1146 controls with T1 images. The cases were diagnosed according to DSM-IV-TR at each contributing site.\"",
++        "location": "Zhang2023.pdf.md: Methods / 2.1. Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ABIDE (I+II)"
++        ],
++        "detail": "Autism Brain Imaging Data Exchange; ABIDE I and II noted in preprocessing.",
++        "confidence_rating": "High",
++        "supporting_text": "\"The study analyzed both structural neuroimaging data and phenotypic  data  provided  by  the  Autism  Brain  Imaging  Data  Exchange (ABIDE) (Di Martino et al., 2017; Di Martino et al., 2014).\" \"We  had  1094  participants  in ABIDE I and 1100 participants in ABIDE II who passed the preprocessing\"",
++        "location": "Zhang2023.pdf.md: Methods / 2.1. Participants; Zhang2023.pdf.md: Methods / 2.2. Neuroimaging preprocessing"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 5.22,
++          "max": 62,
++          "mean": 17.27,
++          "sd": 9.34
++        },
++        "detail": "ASD clinical cohort (Table 1).",
++        "confidence_rating": "High",
++        "supporting_text": "\"503/68  17.27(9.34)  [5.22 - 62]\"",
++        "location": "Zhang2023.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 503,
++          "male_pct": 88.1,
++          "female_n": 68,
++          "female_pct": 11.9
++        },
++        "detail": "Percentages calculated from counts in Table 1.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"503/68  17.27(9.34)  [5.22 - 62]\"",
++        "location": "Zhang2023.pdf.md: Table 1"
+       }
+     }
+   ]
+
+tokens used
+16,913
+Updated the clinical cohort extraction for Zhang2023 with ASD details (ABIDE I+II, age/sex, citations) and wrote it to `DE_v14_Zhang2023_by_codex_20260305135715525.json`.
+
+If you want, I can also 1) double-check Supplementary Data for any cohort refinements or 2) normalize any additional demographic fields beyond age/sex.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

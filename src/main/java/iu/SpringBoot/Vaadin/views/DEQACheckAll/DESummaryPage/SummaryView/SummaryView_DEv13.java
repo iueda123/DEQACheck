@@ -17,8 +17,8 @@ import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import iu.SpringBoot.Vaadin.views.DEQACheckAll.Utils.ExternalJarLauncher;
 import iu.SpringBoot.Vaadin.views.MainView;
+import iu.SwingStyle.LCCA.Startup.RsltComparator_v13.Starter;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -41,8 +41,6 @@ import jakarta.annotation.security.RolesAllowed;
 public class SummaryView_DEv13 extends VerticalLayout {
 
     private static final String DATA_FOLDER_NAME = "share_package/data";
-    private static final String JAR_WORKING_DIR = "share_package";
-    private static final String RSLT_COMPARATOR_JAR = "share_package/jar/RsltComparator-v20260107-V2.jar";
     private static final Pattern SOURCE_PATTERN = Pattern.compile("_by_([^_]+)_", Pattern.CASE_INSENSITIVE);
     private static final String[][] RCI_KEYS = {
             {"rci1_using_msad"},
@@ -786,10 +784,23 @@ public class SummaryView_DEv13 extends VerticalLayout {
         Button launcher = new Button(normalizeNewlines(authorYear));
         launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
         launcher.addClickListener(e -> {
-            boolean ok = ExternalJarLauncher.launch(RSLT_COMPARATOR_JAR, JAR_WORKING_DIR, authorYear, "DE_v13");
-            if (ok) {
+            try {
+                String javaBin = Paths.get(System.getProperty("java.home"), "bin", "java").toString();
+                String classpath = System.getProperty("java.class.path");
+                List<String> command = new ArrayList<>();
+                command.add(javaBin);
+                command.add("-Djava.awt.headless=false");
+                command.add("-cp");
+                command.add(classpath);
+                command.add(Starter.class.getName());
+                command.add(authorYear);
+                ProcessBuilder pb = new ProcessBuilder(command);
+                pb.directory(Paths.get(System.getProperty("user.dir")).toFile());
+                pb.inheritIO();
+                pb.start();
                 Notification.show("起動要求を送信しました");
-            } else {
+            } catch (Exception ex) {
+                ex.printStackTrace();
                 Notification.show("起動に失敗しました（ログを確認してください）");
             }
         });

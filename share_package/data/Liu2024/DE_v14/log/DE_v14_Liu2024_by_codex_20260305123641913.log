@@ -1,0 +1,501 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Liu2024_by_codex_20260305123641913.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123641913/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc11-bd23-7130-a7d1-c1c80e2723ef
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Liu2024_by_codex_20260305123641913.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Locating instructions file**
+
+I'm planning to find and read the instructions file using ripgrep, then verify its content with a quick file read.
+2026-03-05T03:36:47.462411Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123641913 succeeded in 18ms:
+DE_Guide_v14.md
+DE_v14_Liu2024_by_codex_20260305123641913.json
+DE_v14_Liu2024_by_codex_20260305123641913.log
+study_1
+2026-03-05T03:36:49.749366Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123641913 succeeded in 28ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Inspecting data source in study_1**
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051236419132026-03-05T03:36:52.470845Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+1-s2.0-S0278584624001908-mmc1.docx.md
+1-s2.0-S0278584624001908-mmc1_artifacts
+Liu2024.pdf.md
+Liu2024_artifacts
+2026-03-05T03:36:56.400667Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patient|schiz|depress|bipolar|autism|Alzheimer|MCI|ADHD|ASD|epile" study_1/Liu2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123641913 succeeded in 31ms:
+9:## Individualized functional connectome abnormalities obtained using two normative model unveil neurophysiological subtypes of obsessive compulsive disorder
+25:Obsessive compulsive disorder (OCD) is a highly heterogeneous disorder. Patients with OCD show tremendous intersubject heterogeneity in symptom presentations and responses to treatment (Alexander et al., 1986; McKay et al., 2004). For example, cases with OCD might exhibit non-overlapping symptom profiles (Mataix-Cols et al., 2005). To address the heterogeneity, patients with OCD are often stratified into subtypes based on clinical symptoms (Mataix-Cols et al., 2004). Despite the great success, symptom-based subtyping has some limitations, such as no universally accepted taxonomy (McKay et al., 2004), low sensitivity and handing sub-threshold symptoms (Okada et al., 2015). Moreover, clinical symptoms interact with biological substrates in complex ways and may change over the course of the disease (Haas et al., 2024; Sun et al., 2023). Identifying neurophysiological subtypes of OCD could provide a more objective understanding of the disorder ' s
+29:The high heterogeneity observed among patients with obsessive-compulsive disorder (OCD) underscores the need to identify neurophysiological OCD subtypes to facilitate personalized diagnosis and treatment. In this study, our aim was to identify potential OCD subtypes based on individualized functional connectome abnormalities. We recruited a total of 99 patients with OCD and 104 healthy controls (HCs) matched for demographic characteristics. Individualized functional connectome abnormalities were obtained using normative models of functional connectivity strength (FCS) and used as features to unveil OCD subtypes. Sensitivity analyses were conducted to assess the reproducibility and robustness of the clustering outcomes. Patients exhibited significant intersubject heterogeneity in individualized functional connectome abnormalities. Two subtypes with distinct patterns of FCS abnormalities relative to HCs were identified. Subtype 1 patients primarily exhibited significantly decreased FCS in regions including the frontal gyrus, insula, hippocampus, and precentral/postcentral gyrus, whereas subtype 2 patients demonstrated increased FCS in widespread brain regions. When all patients were combined, no significant differences were observed. Additionally, the identified subtypes showed significant differences in age of onset. Furthermore, sensitivity analyses confirmed the reproducibility of our subtyping results. In conclusion, the identified OCD subtypes shed new light on the taxonomy and neurophysiological heterogeneity of OCD.
+33:Using modern neuroimaging methods like resting-state functional magnetic resonance imaging (fMRI), researchers have consistently linked the etiology of psychiatric disorders, including OCD, to imbalances in large-scale interconnected brain networks (Fornito et al., 2015; Han et al., 2023b). Patients with OCD often exhibit altered functional connections among brain systems and disrupted topological organization of functional connectomes (Geffen et al., 2022; Lei et al., 2017). However, findings in this area are inconsistent due to the tremendous intersubject heterogeneity of functional connectomes in patients with OCD (Lv et al., 2021b; Shan et al., 2019). Intersubject heterogeneity
+45:poses a significant obstacle in neuroimaging studies, hindering the identification of reproducible biomarkers for clinical decision-making (Boedhoe et al., 2018; Saxena and Rauch, 2000). Most neuroimaging studies still rely on traditional case-control approaches, which only capture effects observable at the group level. It ' s becoming increasingly clear that such approaches may miss neuroimaging characteristics unique to individuals (Lv et al., 2021a; Marquand et al., 2016; Wolfers et al., 2018). To address this heterogeneity, the normative model has been proposed (Marquand et al., 2016). This approach infers individualized neuroimaging abnormalities by assessing deviations from the normal distribution (Marquand et al., 2016). Using the normative model, neuroimaging studies have successfully identified subject-level structural brain alterations in mental disorders such as autism, schizophrenia, and depression (Han et al., 2023a; Wolfers and Beckmann, 2020; Wolfers et al., 2018; Zabihi et al., 2019). These individual deviations from the normative model can inform neurobiological subtypes with distinct clinical manifestations in psychiatric disorders (Sun et al., 2023).
+47:In this study, we conducted a comprehensive investigation into the neurobiological heterogeneity and subtypes of OCD using a dataset comprising 99 patients with OCD and 104 healthy controls. We obtained individualized functional connectome abnormalities, measured with functional connectivity strength (FCS), using the normative model framework. Subsequently, we identified potential subtypes based on individualized FCS abnormalities as features. Finally, we evaluated differences in clinical variables and functional connectomes between the identified OCD subtypes.
+55:Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University. Diagnosis was established independently by two experienced psychiatrists in accordance with the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) criteria for OCD. The severity of symptoms was assessed using the Yale -Brown Obsessive Compulsive Scale (Y-BOCS) (Goodman et al., 1989). Exclusion criteria ensured that none of the patients had a history of neurological disorders, brain trauma, concurrent mental or psychotic disorders, or first-degree relatives with similar conditions.
+75:First, we evaluated the performance of the Gaussian process regression model in predicting FCS values within HCs through 10-fold crossvalidation. The standardized mean squared error (MSE) between the true FCS values and predicted values was computed to assess the model ' s accuracy (Marquand et al., 2016). Subsequently, for each brain region, a Gaussian process regression model was trained to estimate the normative range of FCS values as a function of age and sex within HCs. This model was then applied to each patient, yielding a predicted FCS value. A Z -score was calculated to quantify the deviation of predicted FCS value from the normal distribution. A positive Z-score indicated a higher FCS compared to HCs, while a negative Z-score indicated the opposite. This process resulted in a Z-score vector (246 × 1) for each patient, representing individualized FCS abnormalities.
+81:percentage of participants exhibiting extreme deviations, defined as Zscores exceeding ± 1.96 (thus surpassing the two-tailed 95% confidence interval), thereby delineating extreme positive or negative deviations from the normative model (Haas et al., 2024; Sun et al., 2023).
+87:## 2.7. Characterizing subtype-related imaging and clinical differences
+89:Subsequently, we derived distinct patterns of FCS within each subtype and across all patients using a two-sample t -test while controlling for age, sex, and mean FD. Significance was established at p &lt; 0.05 after Bonferroni correction. Additionally, we explored demographic and clinical disparities among the identified subtypes, encompassing age, sex, educational level, symptom severity as measured by the total score of the Y-BOCS, illness duration, and age of onset. To assess whether head motion influenced the subtyping outcomes, we compared mean FD between the identified subtypes. This analysis aimed to ascertain the impact of motion artifacts on subtype differentiation.
+93:A series of sensitivity analyses were conducted to ensure the robustness and reproducibility of the clustering outcomes. Firstly, to evaluate the stability of our results and minimize the influence of small subsets of patients, we randomly selected 90% of the patients and performed k-means clustering on this subsample, following the same procedure as before. Subsequently, we calculated the Adjusted Rand Index (ARI) between the subtyping results obtained from this subsample and those derived from the entire patient cohort. This process was repeated 1000 times to obtain a comprehensive assessment of the clustering consistency. Secondly, we validated our primary findings by employing another brain atlas with different resolutions, specifically the Automated Anatomical Labeling (AAL) atlas. The AAL atlas contains 90 cortical and subcortical regions (excluding the cerebellum) (TzourioMazoyer et al., 2002). Considering the important role of the cerebellum in OCD, we also validated our main clustering results using all brain regions in the AAL (including the cerebellum)(Xu et al., 2019; Zhang et al., 2019b). This validation step ensured that our results were not dependent on the specific brain parcellation scheme used in the analysis, thus enhancing the generalizability of our findings.
+99:Patients with OCD did not exhibit significant differences from HCs in terms of age distribution and sex. However, compared to HCs, individuals with OCD showed significantly fewer years of education ( p &lt; 0.001). Furthermore, there was no notable distinction between OCD patients and HCs in mean FD ( p = 0.392). These findings are summarized in Table 1.
+103:Demographic and clinical characteristics.
+117:## 3.2. Highly heterogenous individualized functional connectivity strength abnormalities in patients with OCD
+119:The 10-fold cross-validation performed on HCs demonstrated a high level of generalizability in the fitting performance of normative models for FCS, as evidenced by a mean MSE close to 1 (99.94e GLYPH&lt;0&gt; 2 ± 5.84e GLYPH&lt;0&gt; 2 ). We also examined the distribution of Z scores across brain regions and subjects and found most of them fall between GLYPH&lt;0&gt; 1.96 and 1.96. The spatial distribution of MSE is depicted in Fig. S1 and Z scores across brain regions and subjects is depicted in Fig. S2. The differential pattern of Z scores between patients with OCD and HCs was showed in Fig. S3.
+121:Following confirmation of the normative model ' s performance, we applied the trained model derived from HCs to patients with OCD to ascertain individualized FCS abnormalities. Patients with OCD exhibited heterogeneous patterns of individualized FCS abnormalities. Specifically, 44.44% ( n = 44) of OCD patients demonstrated extreme negative deviations from the normative model in at least one brain region. These extreme negative deviations were predominantly observed in regions such as the precentral and postcentral gyrus, superior medial frontal gyrus, ventromedial prefrontal cortex, superior temporal gyrus, thalamus, insula, and hippocampus (Fig. 1). Additionally, 21.21% ( n = 21) of OCD patients displayed extreme positive deviations from the normative model in at least one brain region, spanning across various regions of the brain (Fig. 1). However, the percentage of patients exhibiting extreme deviations from the normative range in any single brain region was notably low, whether in positive or negative deviations (Fig. 1). These findings underscore the substantial heterogeneity in individualized FCS abnormalities among patients with OCD.
+125:The K-means clustering analysis identified two distinct subtypes of OCD, each exhibiting contrasting FCS abnormalities compared to HCs. The silhouette values representing the clustering quality are illustrated in Fig. 2A. Specifically, patients belonging to subtype 1 (73.74%, n = 73) displayed significantly decreased FCS levels (Bonferroni correction corrected p &lt; 0.05) primarily localized in regions including the superior medial frontal gyrus, inferior frontal gyrus, temporal gyrus, insula, parahippocampal gyrus, hippocampus, precentral/postcentral gyrus, and middle occipital gyrus (Fig. 2B). Conversely, patients categorized as subtype 2 (26.26%, n = 26) demonstrated increased FCS (Bonferroni correction corrected p &lt; 0.05) across distributed brain regions, such as the superior medial frontal gyrus, inferior frontal gyrus, middle frontal gyrus, thalamus, striatum, and middle occipital gyrus (Fig. 2B). We also obtained extreme deviation maps for the two subtypes for comparison with the overall patient population (Fig. S4). Interestingly, when all patients with OCD were pooled together, no significant FCS abnormalities relative to HCs were observed (Bonferroni correction corrected p &lt; 0.05). This finding suggests that the differences in FCS patterns are obscured when considering the entire OCD cohort collectively.
+127:Regarding demographic and clinical variables, patients classified as
+129:Fig. 1. The spatial overlap maps depict patients with OCD exhibiting extreme deviations from the normative range. The left panel illustrates extreme positive deviations, while the right panel illustrates extreme negative deviations.
+
+thinking
+**Preparing PDF demographic table extraction**
+exec
+/bin/bash -lc "sed -n '90,140p' study_1/Liu2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051236419132026-03-05T03:37:00.202766Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 30ms:
+
+## 2.8. Reproducibility analysis
+
+A series of sensitivity analyses were conducted to ensure the robustness and reproducibility of the clustering outcomes. Firstly, to evaluate the stability of our results and minimize the influence of small subsets of patients, we randomly selected 90% of the patients and performed k-means clustering on this subsample, following the same procedure as before. Subsequently, we calculated the Adjusted Rand Index (ARI) between the subtyping results obtained from this subsample and those derived from the entire patient cohort. This process was repeated 1000 times to obtain a comprehensive assessment of the clustering consistency. Secondly, we validated our primary findings by employing another brain atlas with different resolutions, specifically the Automated Anatomical Labeling (AAL) atlas. The AAL atlas contains 90 cortical and subcortical regions (excluding the cerebellum) (TzourioMazoyer et al., 2002). Considering the important role of the cerebellum in OCD, we also validated our main clustering results using all brain regions in the AAL (including the cerebellum)(Xu et al., 2019; Zhang et al., 2019b). This validation step ensured that our results were not dependent on the specific brain parcellation scheme used in the analysis, thus enhancing the generalizability of our findings.
+
+## 3. Results
+
+## 3.1. Demographic characteristics
+
+Patients with OCD did not exhibit significant differences from HCs in terms of age distribution and sex. However, compared to HCs, individuals with OCD showed significantly fewer years of education ( p &lt; 0.001). Furthermore, there was no notable distinction between OCD patients and HCs in mean FD ( p = 0.392). These findings are summarized in Table 1.
+
+Table 1
+
+Demographic and clinical characteristics.
+
+|                                 | OCD ( N = 99)   | HCs ( N = 104)   | p         |
+|---------------------------------|-----------------|------------------|-----------|
+| Male, No. (%)                   | 52(53.06%)      | 51(49.04%)       | 0.619 a   |
+| Age, mean (SD)                  | 23.16(9.34)     | 23.14(5.64)      | 0.987 b   |
+| Educational level, mean (SD), y | 11.95(3.04)     | 15.21(3.17)      | < 0.001 b |
+
+thinking
+**Identifying cohort details**
+
+I'm focusing on clarifying if the clinical cohort from a single-site hospital is used for the normative model applied to OCD patients, checking methods and recruitment sections for dataset origin and demographics.
+2026-03-05T03:37:03.833315Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '40,80p' study_1/Liu2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123641913 succeeded in 25ms:
+
+![Image](./Liu2024_artifacts/image_000002_d38d6de4bb72c424f3a2d506d67f4b3c088f1815eca088a2be7d5ae933444563.png)
+
+![Image](./Liu2024_artifacts/image_000003_18d23b842c87297338aabaf9f680bfcfd8e0ff08dc248753e2de5a299208a094.png)
+
+poses a significant obstacle in neuroimaging studies, hindering the identification of reproducible biomarkers for clinical decision-making (Boedhoe et al., 2018; Saxena and Rauch, 2000). Most neuroimaging studies still rely on traditional case-control approaches, which only capture effects observable at the group level. It ' s becoming increasingly clear that such approaches may miss neuroimaging characteristics unique to individuals (Lv et al., 2021a; Marquand et al., 2016; Wolfers et al., 2018). To address this heterogeneity, the normative model has been proposed (Marquand et al., 2016). This approach infers individualized neuroimaging abnormalities by assessing deviations from the normal distribution (Marquand et al., 2016). Using the normative model, neuroimaging studies have successfully identified subject-level structural brain alterations in mental disorders such as autism, schizophrenia, and depression (Han et al., 2023a; Wolfers and Beckmann, 2020; Wolfers et al., 2018; Zabihi et al., 2019). These individual deviations from the normative model can inform neurobiological subtypes with distinct clinical manifestations in psychiatric disorders (Sun et al., 2023).
+
+In this study, we conducted a comprehensive investigation into the neurobiological heterogeneity and subtypes of OCD using a dataset comprising 99 patients with OCD and 104 healthy controls. We obtained individualized functional connectome abnormalities, measured with functional connectivity strength (FCS), using the normative model framework. Subsequently, we identified potential subtypes based on individualized FCS abnormalities as features. Finally, we evaluated differences in clinical variables and functional connectomes between the identified OCD subtypes.
+
+## 2. Methods
+
+## 2.1. Participants
+
+This study adhered to the principles outlined in the Helsinki Declaration and obtained approval from the research ethics committee of the First Affiliated Hospital of Zhengzhou University. Prior to participating, each individual provided informed consent.
+
+Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University. Diagnosis was established independently by two experienced psychiatrists in accordance with the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) criteria for OCD. The severity of symptoms was assessed using the Yale -Brown Obsessive Compulsive Scale (Y-BOCS) (Goodman et al., 1989). Exclusion criteria ensured that none of the patients had a history of neurological disorders, brain trauma, concurrent mental or psychotic disorders, or first-degree relatives with similar conditions.
+
+Healthy controls (HCs, n = 104) were enlisted from the community via poster advertisements. All participants were of Han Chinese ethnicity, right-handed, and underwent screening to ensure they met specified exclusion criteria. These criteria included abstaining from medications such as anesthetics and analgesics within the preceding month, no history of substance abuse, brain tumors, traumatic brain injury, surgeries, or organic body diseases, as well as the absence of cardiovascular diseases, diabetes, or hypertension. Additionally, individuals with contraindications for MRI scanning or other structural brain abnormalities were excluded from the study.
+
+## 2.2. Scan acquisition
+
+thinking
+**Updating dataset metadata**
+
+Preparing to fill the JSON with single-site dataset info, OCD disorder minor category, sex counts, computed age stats, and paper ID before saving updates.
+2026-03-05T03:37:09.557802Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Liu2024_by_codex_20260305123641913.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123641913 succeeded in 30ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Preparing supporting text and demographic calculations**
+
+I'm identifying supporting quotes for disorder name, dataset origin, and demographics from methods and tables, computing female counts and percentages based on male data, and deciding to use "NR" strings for missing age min/max values in the answer object.
+thinking
+**Confirming disorder name as OCD**
+
+The disorder is OCD with high confidence, based on "DSM-5 OCD; first-episode and untreated patients," and the normative model applies to the clinical cohort; next, I'll update the JSON accordingly.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Liu2024"
+   },
+@@ -7,28 +7,41 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "OCD",
++        "detail": "DSM-5 obsessive compulsive disorder; first-episode and untreated patients",
++        "confidence_rating": "High",
++        "supporting_text": "\"Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University. Diagnosis was established independently by two experienced psychiatrists in accordance with the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) criteria for OCD.\"",
++        "location": "Liu2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site outpatient cohort from the First Affiliated Hospital of Zhengzhou University",
++        "confidence_rating": "High",
++        "supporting_text": "\"Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "Liu2024.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 23.16,
++          "sd": 9.34
++        },
++        "detail": "OCD clinical cohort (Table 1)",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, mean (SD) | 23.16(9.34)\"",
++        "location": "Liu2024.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 52,
++          "male_pct": 53.1,
++          "female_n": 47,
++          "female_pct": 46.9
++        },
++        "detail": "Female count and percent inferred from total N=99 and reported male count",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, No. (%) | 52(53.06%)\"",
++        "location": "Liu2024.pdf.md: Results / Table 1"
+       }
+apply_patch(auto_approved=true) exited 0 in 6ms:
+Success. Updated the following files:
+M DE_v14_Liu2024_by_codex_20260305123641913.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json b/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e28bd762a318e475cad222c6a26f67009b922964
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Liu2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "OCD",
++        "detail": "DSM-5 obsessive compulsive disorder; first-episode and untreated patients",
++        "confidence_rating": "High",
++        "supporting_text": "\"Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University. Diagnosis was established independently by two experienced psychiatrists in accordance with the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) criteria for OCD.\"",
++        "location": "Liu2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site outpatient cohort from the First Affiliated Hospital of Zhengzhou University",
++        "confidence_rating": "High",
++        "supporting_text": "\"Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "Liu2024.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 23.16,
++          "sd": 9.34
++        },
++        "detail": "OCD clinical cohort (Table 1)",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, mean (SD) | 23.16(9.34)\"",
++        "location": "Liu2024.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 52,
++          "male_pct": 53.1,
++          "female_n": 47,
++          "female_pct": 46.9
++        },
++        "detail": "Female count and percent inferred from total N=99 and reported male count",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, No. (%) | 52(53.06%)\"",
++        "location": "Liu2024.pdf.md: Results / Table 1"
+       }
+     }
+   ]
+
+2026-03-05T03:37:32.974559Z ERROR codex_core::codex: needs_follow_up: true
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json b/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e28bd762a318e475cad222c6a26f67009b922964
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Liu2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "OCD",
++        "detail": "DSM-5 obsessive compulsive disorder; first-episode and untreated patients",
++        "confidence_rating": "High",
++        "supporting_text": "\"Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University. Diagnosis was established independently by two experienced psychiatrists in accordance with the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) criteria for OCD.\"",
++        "location": "Liu2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site outpatient cohort from the First Affiliated Hospital of Zhengzhou University",
++        "confidence_rating": "High",
++        "supporting_text": "\"Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "Liu2024.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 23.16,
++          "sd": 9.34
++        },
++        "detail": "OCD clinical cohort (Table 1)",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, mean (SD) | 23.16(9.34)\"",
++        "location": "Liu2024.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 52,
++          "male_pct": 53.1,
++          "female_n": 47,
++          "female_pct": 46.9
++        },
++        "detail": "Female count and percent inferred from total N=99 and reported male count",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, No. (%) | 52(53.06%)\"",
++        "location": "Liu2024.pdf.md: Results / Table 1"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming final response**
+
+The updated file is noted; no additional next steps are necessary at this point.
+codex
+Updated `DE_v14_Liu2024_by_codex_20260305123641913.json` with the OCD clinical cohort details from `study_1/Liu2024.pdf.md`, including dataset origin, age, and sex (female inferred from total N).
+2026-03-05T03:37:35.927422Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json b/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..e28bd762a318e475cad222c6a26f67009b922964
+--- a/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305123641913/./DE_v14_Liu2024_by_codex_20260305123641913.json
+@@ -1,36 +1,49 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Liu2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "OCD",
++        "detail": "DSM-5 obsessive compulsive disorder; first-episode and untreated patients",
++        "confidence_rating": "High",
++        "supporting_text": "\"Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University. Diagnosis was established independently by two experienced psychiatrists in accordance with the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) criteria for OCD.\"",
++        "location": "Liu2024.pdf.md: Methods / Participants"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "SINGLE-SITE"
++        ],
++        "detail": "Single-site outpatient cohort from the First Affiliated Hospital of Zhengzhou University",
++        "confidence_rating": "High",
++        "supporting_text": "\"Atotal of ninety-eight first-episode and untreated patients diagnosed with OCD were recruited from outpatient services within the Department of Psychiatry at the First Affiliated Hospital of Zhengzhou University.\"",
++        "location": "Liu2024.pdf.md: Methods / Participants"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "NR",
++          "max": "NR",
++          "mean": 23.16,
++          "sd": 9.34
++        },
++        "detail": "OCD clinical cohort (Table 1)",
++        "confidence_rating": "High",
++        "supporting_text": "\"Age, mean (SD) | 23.16(9.34)\"",
++        "location": "Liu2024.pdf.md: Results / Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 52,
++          "male_pct": 53.1,
++          "female_n": 47,
++          "female_pct": 46.9
++        },
++        "detail": "Female count and percent inferred from total N=99 and reported male count",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"Male, No. (%) | 52(53.06%)\"",
++        "location": "Liu2024.pdf.md: Results / Table 1"
+       }
+     }
+   ]
+
+tokens used
+23,248
+Updated `DE_v14_Liu2024_by_codex_20260305123641913.json` with the OCD clinical cohort details from `study_1/Liu2024.pdf.md`, including dataset origin, age, and sex (female inferred from total N).
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

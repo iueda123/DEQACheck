@@ -1,0 +1,1809 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Pinaya2021_by_codex_20260305125419039.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125419039/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc21-de84-7223-9f09-20d56e43f202
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Pinaya2021_by_codex_20260305125419039.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read the guide**
+2026-03-05T03:54:24.849255Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125419039 succeeded in 19ms:
+DE_Guide_v14.md
+DE_v14_Pinaya2021_by_codex_20260305125419039.json
+DE_v14_Pinaya2021_by_codex_20260305125419039.log
+study_1
+2026-03-05T03:54:27.939790Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125419039 succeeded in 19ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Inspecting study_1 for guide and source paper**
+2026-03-05T03:54:31.825024Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125419039 succeeded in 24ms:
+DE_v14_Pinaya2021_by_codex_20260305125419039.log
+DE_v14_Pinaya2021_by_codex_20260305125419039.json
+DE_Guide_v14.md
+study_1/41598_2021_95098_MOESM1_ESM.pdf.md
+study_1/Pinaya2021.pdf.md
+
+thinking
+**Opening Pinaya2021 file**
+exec
+/bin/bash -lc 'cat study_1/Pinaya2021.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051254190392026-03-05T03:54:36.785745Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+## OPEN
+
+![Image](./Pinaya2021_artifacts/image_000000_5376c5741b0acee0c29002317ab239bf0091038ff4ba832222f0c37b3e2956c1.png)
+
+Using normative modelling to detect disease progression in mild cognitive impairment and Alzheimer's disease in a cross-sectional multi-cohort study
+
+Walter H. L. Pinaya ͷ,͸,͹ * , Cristina Scarpazza ͷ,ͺ , Rafael Garcia-Dias ͷ , Sandra Vieira ͷ , Lea Baecker ͷ , Pedro F da Costa ͻ,ͼ , Alberto Redolfi ͽ , Giovanni B. Frisoni ;,Ϳ , Michela Pievani ; , Vince D. Calhoun ͷͶ , João R. Sato ͸  &amp; Andrea Mechelli ͷ
+
+Normative modelling is an emerging method for quantifying how individuals deviate from the healthy populational pattern. Several machine learning models have been implemented to develop normative models to investigate brain disorders, including regression, support vector machines and Gaussian process models. With the advance of deep learning technology, the use of deep neural networks has also been proposed. In this study, we assessed normative models based on deep autoencoders using structural neuroimaging data from patients with Alzheimer's disease ȋn = ͸ͶͼȌ and mild cognitive impairment ȋn = ͹ͻͺȌ. We first trained the autoencoder on an independent dataset ȋUK Biobank datasetȌ with ͷͷ,Ͷ͹ͺ healthy controls. Then, we estimated how each patient deviated from this norm and established which brain regions were associated to this deviation. Finally, we compared the performance of our normative model against traditional classifiers. As expected, we found that patients exhibited deviations according to the severity of their clinical condition. The model identified medial temporal regions, including the hippocampus, and the ventricular system as critical regions for the calculation of the deviation score. Overall, the normative model had comparable cross-cohort generalizability to traditional classifiers. To promote open science, we are making all scripts and the trained models available to the wider research community.
+
+Normative modelling is an emerging method for quantifying and describing how individuals deviate from the expected pattern learned from a population or large   sample 1 . Recently, this approach has been applied to neuroimaging data to investigate a number of brain disorders, such as attention deficit hyperactivity   disorder 2, 3 , autism spectrum   disorder 4, 5 ,   schizophrenia 3, 5, 6 and   dementia 7, 8 . The procedure of normative modelling used in these studies has two steps: (i) first, statistical models are estimated to characterise the typical brain data from
+
+ͷ Department  of  Psychosis  Studies,  Institute  of  Psychiatry,  Psychology  and  Neuroscience,  King's  College London,  London,  UK. ͸ Center  of  Mathematics,  Computing,  and  Cognition,  Universidade  Federal  do  ABC, Santo  André,  Brazil. ͹ Department  of  Biomedical  Engineering,  School  of  Biomedical  Engineering  and  Imaging Sciences, King's College London, London, UK. ͺ Department of General Psychology, University of Padua, Padua, Italy. ͻ Department  of  Neuroimaging,  Institute  of  Psychiatry,  Psychology  and  Neuroscience,  King's  College London,  London,  UK. ͼ Centre  for  Brain  and  Cognitive  Development,  Birkbeck  College,  University  of  London, London, UK. ͽ Laboratory of Neuroinformatics, IRCCS Istituto Centro San Giovanni di Dio Fatebenefratelli, Brescia, Italy. ; Laboratory  of  Alzheimer's  Neuroimaging  and  Epidemiology,  IRCCS  Istituto  Centro  San  Giovanni  di  Dio Fatebenefratelli,  Brescia,  Italy. Ϳ Memory Clinic  and  LANVIE  Laboratory  of  Neuroimaging  of  Aging,  University Hospitals and University of Geneva, Geneva, Switzerland. ͷͶ Tri-Institutional Center for Translational Research in Neuroimaging and Data Science (TReNDS), Georgia State, Georgia Tech, Emory, USA. * email: walter.diaz\_sanz@ kcl.ac.uk
+
+Vol.:ȋͬͭͮͯͰͱͲͳʹ͵Ȍ
+
+Vol:.(1234567890)
+
+a reference cohort; (ii) then, the estimated model is applied to a target clinical cohort in order to quantify the variation (e.g. due to the effect of brain disorders).
+
+
+
+thinking
+**Planning clinical cohort aggregation**
+
+I'm organizing to compile clinical cohort demographics by minor category (like AD, MCI subtypes) across multiple datasets, aiming to compute weighted mean age and pooled SD, plus sex counts aggregated both per dataset and overall.
+thinking
+**Defining disorder groups and datasets**
+
+Disorders will be EMCI and LMCI from ADNI, MCI from AIBL and ARWiBo, plus AD from all five datasets; I'll compute weighted means, pooled SDs, and sex counts per group using Python for accuracy.
+2026-03-05T03:55:14.658230Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "python - <<'PY'
+import math
+
+# helper for weighted mean and pooled SD
+
+def weighted_mean(values, ns):
+    return sum(v*n for v,n in zip(values, ns))/sum(ns)
+
+def pooled_sd(means, sds, ns):
+    # pooled SD for groups with means and sds
+    # compute combined variance: sum((n-1)*sd"'^2 + n*(mean - overall_mean)''^2) / (N-1)
+    N = sum(ns)
+    overall_mean = weighted_mean(means, ns)
+    ss = 0.0
+    for mean, sd, n in zip(means, sds, ns):
+        ss += (n-1)*(sd**2) + n*(mean-overall_mean)**2
+    return math.sqrt(ss/(N-1))
+
+# Data from tables
+# EMCI
+emci_n = 159
+emci_mean = 66.4
+emci_sd = 4.2
+emci_male = 72
+emci_female = 87
+
+# LMCI
+lmci_n = 82
+lmci_mean = 66.2
+lmci_sd = 5.1
+lmci_male = 40
+lmci_female = 42
+
+# MCI (AIBL)
+aibl_mci_n=46
+aibl_mci_mean=68.2
+aibl_mci_sd=3.6
+aibl_mci_male=19
+aibl_mci_female=27
+
+# MCI (ARWiBo)
+arwibo_mci_n=67
+arwibo_mci_mean=66.4
+arwibo_mci_sd=5.7
+arwibo_mci_male=23
+arwibo_mci_female=44
+
+# AD groups
+adni_ad_n=64
+adni_ad_mean=66.6
+adni_ad_sd=5.4
+adni_ad_male=36
+adni_ad_female=28
+
+aibl_ad_n=38
+aibl_ad_mean=67.3
+aibl_ad_sd=5.2
+aibl_ad_male=17
+aibl_ad_female=21
+
+arwibo_ad_n=37
+arwibo_ad_mean=65.1
+arwibo_ad_sd=6.0
+arwibo_ad_male=14
+arwibo_ad_female=23
+
+oasis_ad_n=37
+oasis_ad_mean=69.7
+oasis_ad_sd=3.1
+oasis_ad_male=14
+oasis_ad_female=23
+
+miriad_ad_n=30
+miriad_ad_mean=66.2
+miriad_ad_sd=4.6
+miriad_ad_male=13
+miriad_ad_female=17
+
+# Compute for MCI (AIBL+ARWiBo)
+mci_means=[aibl_mci_mean, arwibo_mci_mean]
+mci_sds=[aibl_mci_sd, arwibo_mci_sd]
+mci_ns=[aibl_mci_n, arwibo_mci_n]
+
+mci_mean=weighted_mean(mci_means, mci_ns)
+mci_sd=pooled_sd(mci_means, mci_sds, mci_ns)
+
+mci_male=aibl_mci_male+arwibo_mci_male
+mci_female=aibl_mci_female+arwibo_mci_female
+mci_n=mci_male+mci_female
+
+# AD combined
+ad_means=[adni_ad_mean,aibl_ad_mean,arwibo_ad_mean,oasis_ad_mean,miriad_ad_mean]
+ad_sds=[adni_ad_sd,aibl_ad_sd,arwibo_ad_sd,oasis_ad_sd,miriad_ad_sd]
+ad_ns=[adni_ad_n,aibl_ad_n,arwibo_ad_n,oasis_ad_n,miriad_ad_n]
+
+ad_mean=weighted_mean(ad_means, ad_ns)
+ad_sd=pooled_sd(ad_means, ad_sds, ad_ns)
+
+ad_male=adni_ad_male+aibl_ad_male+arwibo_ad_male+oasis_ad_male+miriad_ad_male
+ad_female=adni_ad_female+aibl_ad_female+arwibo_ad_female+oasis_ad_female+miriad_ad_female
+ad_n=ad_male+ad_female
+
+# print results
+print('"'MCI mean',mci_mean,'sd',mci_sd,'n',mci_n,'male',mci_male,'female',mci_female)
+print('AD mean',ad_mean,'sd',ad_sd,'n',ad_n,'male',ad_male,'female',ad_female)
+
+# EMCI and LMCI percentages
+for name, male, female, n in [
+    ('EMCI', emci_male, emci_female, emci_n),
+    ('LMCI', lmci_male, lmci_female, lmci_n),
+]:
+    print(name, 'male_pct', male/n*100, 'female_pct', female/n*100)
+
+# MCI and AD percentages
+print('MCI male_pct', mci_male/mci_n*100, 'female_pct', mci_female/mci_n*100)
+print('AD male_pct', ad_male/ad_n*100, 'female_pct', ad_female/ad_n*100)
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125419039 succeeded in 28ms:
+MCI mean 67.13274336283186 sd 5.014184210778533 n 113 male 42 female 71
+AD mean 66.95825242718446 sd 5.193316986410087 n 206 male 94 female 112
+EMCI male_pct 45.28301886792453 female_pct 54.71698113207547
+LMCI male_pct 48.78048780487805 female_pct 51.21951219512195
+MCI male_pct 37.16814159292036 female_pct 62.83185840707964
+AD male_pct 45.63106796116505 female_pct 54.36893203883495
+
+
+thinking
+**Defining demographic ranges and rounding rules**
+
+I'm setting age ranges per dataset group by computing combined min/max across cohorts and specifying rounding: means and SDs to 2 decimals, percentages to 1 decimal. I'll include weighted means and pooled SDs with notation, plus dataset origins using normalized keywords and cite supporting table locations from Pinaya2021 for transparency.
+thinking
+**Preparing to update JSON output**
+
+I'm opening the existing JSON file to update it with the new processed data as instructed, deciding not to include supplemental info for now.
+2026-03-05T03:55:25.137554Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_Pinaya2021_by_codex_20260305125419039.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125419039 succeeded in 19ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Outlining detailed patch content**
+
+I'm planning to build JSON with multiple disorders, including detailed string fields and structured age/sex objects, citing supporting quotes and precise counts from tables and methods sections for each disorder and dataset origin.
+thinking
+**Refining JSON details with weighted stats**
+
+I'm clarifying age means and SDs as strings with "weighted" and "pooled" notes for multi-dataset MCI and AD, using numeric for single-dataset EMCI/LMCI, adding computed sex percentages with confidence levels, and preparing to update the JSON with four disorder objects plus paper ID.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2021"
+   },
+@@ -7,28 +7,175 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EMCI",
++        "detail": "Early mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "EMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.4,
++          "sd": 4.2
++        },
++        "detail": "EMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Mean ± SD 66.4 ± 4.2\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 72,
++          "male_pct": 45.3,
++          "female_n": 87,
++          "female_pct": 54.7
++        },
++        "detail": "Percentages calculated from ADNI EMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Men 72 (45)\"; \"Women 87 (55)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LMCI",
++        "detail": "Late mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "LMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.2,
++          "sd": 5.1
++        },
++        "detail": "LMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Mean ± SD 66.2 ± 5.1\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 40,
++          "male_pct": 48.8,
++          "female_n": 42,
++          "female_pct": 51.2
++        },
++        "detail": "Percentages calculated from ADNI LMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Men 40 (49)\"; \"Women 42 (51)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment patients (stage not known) from AIBL and ARWiBo",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final group was composed of 346 subjects, where 262 were HC, 46 were patients with MCI (stage not known), and 38 were patients with AD.\"; \"The resulting group was composed of 319 subjects, including 215 HC, 67 patients with MCI (stage not known), and 37 patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "AIBL",
++          "ARWiBo"
++        ],
++        "detail": "MCI groups from AIBL and ARWiBo clinical datasets",
++        "confidence_rating": "High",
++        "supporting_text": "\"the Australian Imaging Biomarkers and Lifestyle Study of Ageing (AIBL)\"; \"the Alzheimer's Disease Repository Without Borders (ARWiBo)\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 47,
++          "max": 73,
++          "mean": "67.13 (weighted)",
++          "sd": "5.01 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across AIBL MCI and ARWiBo MCI; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL n = 346 ... MCI n = 46\"; \"Mean ± SD 68.2 ± 3.6\"; \"Range [56, 73]\"; \"ARWiBo n = 319 ... MCI n = 67\"; \"Mean ± SD 66.4 ± 5.7\"; \"Range [47, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 42,
++          "male_pct": 37.2,
++          "female_n": 71,
++          "female_pct": 62.8
++        },
++        "detail": "Counts summed across AIBL MCI and ARWiBo MCI; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL ... MCI n = 46\"; \"Men 19 (41)\"; \"Women 27 (59)\"; \"ARWiBo ... MCI n = 67\"; \"Men 23 (34)\"; \"Women 44 (66)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Alzheimer's disease patients across ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "ARWiBo",
++          "OASIS-1",
++          "MIRIAD"
++        ],
++        "detail": "AD groups in five clinical datasets used for NM assessment",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 50,
++          "max": 73,
++          "mean": "66.96 (weighted)",
++          "sd": "5.19 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across ADNI AD, AIBL AD, ARWiBo AD, OASIS-1 AD, and MIRIAD AD; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Mean ± SD 66.6 ± 5.4\"; \"Range [56, 73]\"; \"AIBL ... AD n = 38\"; \"Mean ± SD 67.3 ± 5.2\"; \"Range [55, 73]\"; \"ARWiBo ... AD n = 37\"; \"Mean ± SD 65.1 ± 6.0\"; \"Range [50, 73]\"; \"OASIS-1 ... AD n = 37\"; \"Mean ± SD 69.7 ± 3.1\"; \"Range [62, 73]\"; \"MIRIAD ... AD n = 30\"; \"Mean ± SD 66.2 ± 4.6\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 94,
++          "male_pct": 45.6,
++          "female_n": 112,
++          "female_pct": 54.4
++        },
++        "detail": "Counts summed across five AD datasets; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD ... AD n = 30\"; \"Men 13 (43)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
+       }
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Pinaya2021_by_codex_20260305125419039.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..6109148d767f406dca4ba4a1c9ee7e19ceb543de
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+@@ -1,36 +1,183 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2021"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EMCI",
++        "detail": "Early mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "EMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.4,
++          "sd": 4.2
++        },
++        "detail": "EMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Mean ± SD 66.4 ± 4.2\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 72,
++          "male_pct": 45.3,
++          "female_n": 87,
++          "female_pct": 54.7
++        },
++        "detail": "Percentages calculated from ADNI EMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Men 72 (45)\"; \"Women 87 (55)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LMCI",
++        "detail": "Late mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "LMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.2,
++          "sd": 5.1
++        },
++        "detail": "LMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Mean ± SD 66.2 ± 5.1\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 40,
++          "male_pct": 48.8,
++          "female_n": 42,
++          "female_pct": 51.2
++        },
++        "detail": "Percentages calculated from ADNI LMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Men 40 (49)\"; \"Women 42 (51)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment patients (stage not known) from AIBL and ARWiBo",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final group was composed of 346 subjects, where 262 were HC, 46 were patients with MCI (stage not known), and 38 were patients with AD.\"; \"The resulting group was composed of 319 subjects, including 215 HC, 67 patients with MCI (stage not known), and 37 patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "AIBL",
++          "ARWiBo"
++        ],
++        "detail": "MCI groups from AIBL and ARWiBo clinical datasets",
++        "confidence_rating": "High",
++        "supporting_text": "\"the Australian Imaging Biomarkers and Lifestyle Study of Ageing (AIBL)\"; \"the Alzheimer's Disease Repository Without Borders (ARWiBo)\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 47,
++          "max": 73,
++          "mean": "67.13 (weighted)",
++          "sd": "5.01 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across AIBL MCI and ARWiBo MCI; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL n = 346 ... MCI n = 46\"; \"Mean ± SD 68.2 ± 3.6\"; \"Range [56, 73]\"; \"ARWiBo n = 319 ... MCI n = 67\"; \"Mean ± SD 66.4 ± 5.7\"; \"Range [47, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 42,
++          "male_pct": 37.2,
++          "female_n": 71,
++          "female_pct": 62.8
++        },
++        "detail": "Counts summed across AIBL MCI and ARWiBo MCI; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL ... MCI n = 46\"; \"Men 19 (41)\"; \"Women 27 (59)\"; \"ARWiBo ... MCI n = 67\"; \"Men 23 (34)\"; \"Women 44 (66)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Alzheimer's disease patients across ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "ARWiBo",
++          "OASIS-1",
++          "MIRIAD"
++        ],
++        "detail": "AD groups in five clinical datasets used for NM assessment",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 50,
++          "max": 73,
++          "mean": "66.96 (weighted)",
++          "sd": "5.19 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across ADNI AD, AIBL AD, ARWiBo AD, OASIS-1 AD, and MIRIAD AD; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Mean ± SD 66.6 ± 5.4\"; \"Range [56, 73]\"; \"AIBL ... AD n = 38\"; \"Mean ± SD 67.3 ± 5.2\"; \"Range [55, 73]\"; \"ARWiBo ... AD n = 37\"; \"Mean ± SD 65.1 ± 6.0\"; \"Range [50, 73]\"; \"OASIS-1 ... AD n = 37\"; \"Mean ± SD 69.7 ± 3.1\"; \"Range [62, 73]\"; \"MIRIAD ... AD n = 30\"; \"Mean ± SD 66.2 ± 4.6\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 94,
++          "male_pct": 45.6,
++          "female_n": 112,
++          "female_pct": 54.4
++        },
++        "detail": "Counts summed across five AD datasets; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD ... AD n = 30\"; \"Men 13 (43)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
+       }
+     }
+   ]
+
+2026-03-05T03:56:35.860295Z ERROR codex_core::codex: needs_follow_up: true
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..6109148d767f406dca4ba4a1c9ee7e19ceb543de
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+@@ -1,36 +1,183 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2021"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EMCI",
++        "detail": "Early mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "EMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.4,
++          "sd": 4.2
++        },
++        "detail": "EMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Mean ± SD 66.4 ± 4.2\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 72,
++          "male_pct": 45.3,
++          "female_n": 87,
++          "female_pct": 54.7
++        },
++        "detail": "Percentages calculated from ADNI EMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Men 72 (45)\"; \"Women 87 (55)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LMCI",
++        "detail": "Late mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "LMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.2,
++          "sd": 5.1
++        },
++        "detail": "LMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Mean ± SD 66.2 ± 5.1\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 40,
++          "male_pct": 48.8,
++          "female_n": 42,
++          "female_pct": 51.2
++        },
++        "detail": "Percentages calculated from ADNI LMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Men 40 (49)\"; \"Women 42 (51)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment patients (stage not known) from AIBL and ARWiBo",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final group was composed of 346 subjects, where 262 were HC, 46 were patients with MCI (stage not known), and 38 were patients with AD.\"; \"The resulting group was composed of 319 subjects, including 215 HC, 67 patients with MCI (stage not known), and 37 patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "AIBL",
++          "ARWiBo"
++        ],
++        "detail": "MCI groups from AIBL and ARWiBo clinical datasets",
++        "confidence_rating": "High",
++        "supporting_text": "\"the Australian Imaging Biomarkers and Lifestyle Study of Ageing (AIBL)\"; \"the Alzheimer's Disease Repository Without Borders (ARWiBo)\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 47,
++          "max": 73,
++          "mean": "67.13 (weighted)",
++          "sd": "5.01 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across AIBL MCI and ARWiBo MCI; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL n = 346 ... MCI n = 46\"; \"Mean ± SD 68.2 ± 3.6\"; \"Range [56, 73]\"; \"ARWiBo n = 319 ... MCI n = 67\"; \"Mean ± SD 66.4 ± 5.7\"; \"Range [47, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 42,
++          "male_pct": 37.2,
++          "female_n": 71,
++          "female_pct": 62.8
++        },
++        "detail": "Counts summed across AIBL MCI and ARWiBo MCI; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL ... MCI n = 46\"; \"Men 19 (41)\"; \"Women 27 (59)\"; \"ARWiBo ... MCI n = 67\"; \"Men 23 (34)\"; \"Women 44 (66)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Alzheimer's disease patients across ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "ARWiBo",
++          "OASIS-1",
++          "MIRIAD"
++        ],
++        "detail": "AD groups in five clinical datasets used for NM assessment",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 50,
++          "max": 73,
++          "mean": "66.96 (weighted)",
++          "sd": "5.19 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across ADNI AD, AIBL AD, ARWiBo AD, OASIS-1 AD, and MIRIAD AD; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Mean ± SD 66.6 ± 5.4\"; \"Range [56, 73]\"; \"AIBL ... AD n = 38\"; \"Mean ± SD 67.3 ± 5.2\"; \"Range [55, 73]\"; \"ARWiBo ... AD n = 37\"; \"Mean ± SD 65.1 ± 6.0\"; \"Range [50, 73]\"; \"OASIS-1 ... AD n = 37\"; \"Mean ± SD 69.7 ± 3.1\"; \"Range [62, 73]\"; \"MIRIAD ... AD n = 30\"; \"Mean ± SD 66.2 ± 4.6\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 94,
++          "male_pct": 45.6,
++          "female_n": 112,
++          "female_pct": 54.4
++        },
++        "detail": "Counts summed across five AD datasets; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD ... AD n = 30\"; \"Men 13 (43)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+
+thinking
+**Clarifying inferred female counts**
+
+The MIRIAD AD women count is missing in the table excerpt but can be inferred from total and men counts; I'll explicitly state this inference in the supporting text to avoid ambiguity.
+thinking
+**Updating AD sex details with inference**
+
+I'll update the AD sex supporting text and JSON to explicitly state that the female count for MIRIAD AD is inferred from total and male counts, including exact n and male numbers for clarity.
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+@@ -176,5 +176,5 @@
+         },
+-        "detail": "Counts summed across five AD datasets; percentages calculated from totals",
++        "detail": "Counts summed across five AD datasets; MIRIAD AD female count inferred from AD n and male count; percentages calculated from totals",
+         "confidence_rating": "Medium",
+-        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD ... AD n = 30\"; \"Men 13 (43)\"",
++        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD n = 48\"; \"AD n = 30\"; \"Men 13 (43)\"",
+         "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
+2026-03-05T03:56:57.186546Z ERROR codex_core::codex: needs_follow_up: true
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Pinaya2021_by_codex_20260305125419039.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..1f8950bad22519260fc07fc3f7bad998c2a50da8
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+@@ -1,36 +1,183 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2021"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EMCI",
++        "detail": "Early mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "EMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.4,
++          "sd": 4.2
++        },
++        "detail": "EMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Mean ± SD 66.4 ± 4.2\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 72,
++          "male_pct": 45.3,
++          "female_n": 87,
++          "female_pct": 54.7
++        },
++        "detail": "Percentages calculated from ADNI EMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Men 72 (45)\"; \"Women 87 (55)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LMCI",
++        "detail": "Late mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "LMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.2,
++          "sd": 5.1
++        },
++        "detail": "LMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Mean ± SD 66.2 ± 5.1\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 40,
++          "male_pct": 48.8,
++          "female_n": 42,
++          "female_pct": 51.2
++        },
++        "detail": "Percentages calculated from ADNI LMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Men 40 (49)\"; \"Women 42 (51)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment patients (stage not known) from AIBL and ARWiBo",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final group was composed of 346 subjects, where 262 were HC, 46 were patients with MCI (stage not known), and 38 were patients with AD.\"; \"The resulting group was composed of 319 subjects, including 215 HC, 67 patients with MCI (stage not known), and 37 patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "AIBL",
++          "ARWiBo"
++        ],
++        "detail": "MCI groups from AIBL and ARWiBo clinical datasets",
++        "confidence_rating": "High",
++        "supporting_text": "\"the Australian Imaging Biomarkers and Lifestyle Study of Ageing (AIBL)\"; \"the Alzheimer's Disease Repository Without Borders (ARWiBo)\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 47,
++          "max": 73,
++          "mean": "67.13 (weighted)",
++          "sd": "5.01 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across AIBL MCI and ARWiBo MCI; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL n = 346 ... MCI n = 46\"; \"Mean ± SD 68.2 ± 3.6\"; \"Range [56, 73]\"; \"ARWiBo n = 319 ... MCI n = 67\"; \"Mean ± SD 66.4 ± 5.7\"; \"Range [47, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 42,
++          "male_pct": 37.2,
++          "female_n": 71,
++          "female_pct": 62.8
++        },
++        "detail": "Counts summed across AIBL MCI and ARWiBo MCI; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL ... MCI n = 46\"; \"Men 19 (41)\"; \"Women 27 (59)\"; \"ARWiBo ... MCI n = 67\"; \"Men 23 (34)\"; \"Women 44 (66)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Alzheimer's disease patients across ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "ARWiBo",
++          "OASIS-1",
++          "MIRIAD"
++        ],
++        "detail": "AD groups in five clinical datasets used for NM assessment",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 50,
++          "max": 73,
++          "mean": "66.96 (weighted)",
++          "sd": "5.19 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across ADNI AD, AIBL AD, ARWiBo AD, OASIS-1 AD, and MIRIAD AD; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Mean ± SD 66.6 ± 5.4\"; \"Range [56, 73]\"; \"AIBL ... AD n = 38\"; \"Mean ± SD 67.3 ± 5.2\"; \"Range [55, 73]\"; \"ARWiBo ... AD n = 37\"; \"Mean ± SD 65.1 ± 6.0\"; \"Range [50, 73]\"; \"OASIS-1 ... AD n = 37\"; \"Mean ± SD 69.7 ± 3.1\"; \"Range [62, 73]\"; \"MIRIAD ... AD n = 30\"; \"Mean ± SD 66.2 ± 4.6\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 94,
++          "male_pct": 45.6,
++          "female_n": 112,
++          "female_pct": 54.4
++        },
++        "detail": "Counts summed across five AD datasets; MIRIAD AD female count inferred from AD n and male count; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD n = 48\"; \"AD n = 30\"; \"Men 13 (43)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..1f8950bad22519260fc07fc3f7bad998c2a50da8
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+@@ -1,36 +1,183 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2021"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EMCI",
++        "detail": "Early mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "EMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.4,
++          "sd": 4.2
++        },
++        "detail": "EMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Mean ± SD 66.4 ± 4.2\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 72,
++          "male_pct": 45.3,
++          "female_n": 87,
++          "female_pct": 54.7
++        },
++        "detail": "Percentages calculated from ADNI EMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Men 72 (45)\"; \"Women 87 (55)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LMCI",
++        "detail": "Late mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "LMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.2,
++          "sd": 5.1
++        },
++        "detail": "LMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Mean ± SD 66.2 ± 5.1\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 40,
++          "male_pct": 48.8,
++          "female_n": 42,
++          "female_pct": 51.2
++        },
++        "detail": "Percentages calculated from ADNI LMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Men 40 (49)\"; \"Women 42 (51)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment patients (stage not known) from AIBL and ARWiBo",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final group was composed of 346 subjects, where 262 were HC, 46 were patients with MCI (stage not known), and 38 were patients with AD.\"; \"The resulting group was composed of 319 subjects, including 215 HC, 67 patients with MCI (stage not known), and 37 patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "AIBL",
++          "ARWiBo"
++        ],
++        "detail": "MCI groups from AIBL and ARWiBo clinical datasets",
++        "confidence_rating": "High",
++        "supporting_text": "\"the Australian Imaging Biomarkers and Lifestyle Study of Ageing (AIBL)\"; \"the Alzheimer's Disease Repository Without Borders (ARWiBo)\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 47,
++          "max": 73,
++          "mean": "67.13 (weighted)",
++          "sd": "5.01 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across AIBL MCI and ARWiBo MCI; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL n = 346 ... MCI n = 46\"; \"Mean ± SD 68.2 ± 3.6\"; \"Range [56, 73]\"; \"ARWiBo n = 319 ... MCI n = 67\"; \"Mean ± SD 66.4 ± 5.7\"; \"Range [47, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 42,
++          "male_pct": 37.2,
++          "female_n": 71,
++          "female_pct": 62.8
++        },
++        "detail": "Counts summed across AIBL MCI and ARWiBo MCI; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL ... MCI n = 46\"; \"Men 19 (41)\"; \"Women 27 (59)\"; \"ARWiBo ... MCI n = 67\"; \"Men 23 (34)\"; \"Women 44 (66)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Alzheimer's disease patients across ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "ARWiBo",
++          "OASIS-1",
++          "MIRIAD"
++        ],
++        "detail": "AD groups in five clinical datasets used for NM assessment",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 50,
++          "max": 73,
++          "mean": "66.96 (weighted)",
++          "sd": "5.19 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across ADNI AD, AIBL AD, ARWiBo AD, OASIS-1 AD, and MIRIAD AD; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Mean ± SD 66.6 ± 5.4\"; \"Range [56, 73]\"; \"AIBL ... AD n = 38\"; \"Mean ± SD 67.3 ± 5.2\"; \"Range [55, 73]\"; \"ARWiBo ... AD n = 37\"; \"Mean ± SD 65.1 ± 6.0\"; \"Range [50, 73]\"; \"OASIS-1 ... AD n = 37\"; \"Mean ± SD 69.7 ± 3.1\"; \"Range [62, 73]\"; \"MIRIAD ... AD n = 30\"; \"Mean ± SD 66.2 ± 4.6\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 94,
++          "male_pct": 45.6,
++          "female_n": 112,
++          "female_pct": 54.4
++        },
++        "detail": "Counts summed across five AD datasets; MIRIAD AD female count inferred from AD n and male count; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD n = 48\"; \"AD n = 30\"; \"Men 13 (43)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+thinking
+**Validating JSON and rounding precision**
+
+I'm verifying that the EMCI/LMCI male percentage rounds correctly to one decimal and planning to ensure the JSON output is valid using Python tools.
+exec
+/bin/bash -lc "python - <<'PY'
+import json,sys
+p='DE_v14_Pinaya2021_by_codex_20260305125419039.json'
+with open(p) as f:
+    json.load(f)
+print('ok')
+PY" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051254190392026-03-05T03:57:02.203331Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 38ms:
+ok
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..1f8950bad22519260fc07fc3f7bad998c2a50da8
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+@@ -1,36 +1,183 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2021"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EMCI",
++        "detail": "Early mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "EMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.4,
++          "sd": 4.2
++        },
++        "detail": "EMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Mean ± SD 66.4 ± 4.2\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 72,
++          "male_pct": 45.3,
++          "female_n": 87,
++          "female_pct": 54.7
++        },
++        "detail": "Percentages calculated from ADNI EMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Men 72 (45)\"; \"Women 87 (55)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LMCI",
++        "detail": "Late mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "LMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.2,
++          "sd": 5.1
++        },
++        "detail": "LMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Mean ± SD 66.2 ± 5.1\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 40,
++          "male_pct": 48.8,
++          "female_n": 42,
++          "female_pct": 51.2
++        },
++        "detail": "Percentages calculated from ADNI LMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Men 40 (49)\"; \"Women 42 (51)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment patients (stage not known) from AIBL and ARWiBo",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final group was composed of 346 subjects, where 262 were HC, 46 were patients with MCI (stage not known), and 38 were patients with AD.\"; \"The resulting group was composed of 319 subjects, including 215 HC, 67 patients with MCI (stage not known), and 37 patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "AIBL",
++          "ARWiBo"
++        ],
++        "detail": "MCI groups from AIBL and ARWiBo clinical datasets",
++        "confidence_rating": "High",
++        "supporting_text": "\"the Australian Imaging Biomarkers and Lifestyle Study of Ageing (AIBL)\"; \"the Alzheimer's Disease Repository Without Borders (ARWiBo)\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 47,
++          "max": 73,
++          "mean": "67.13 (weighted)",
++          "sd": "5.01 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across AIBL MCI and ARWiBo MCI; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL n = 346 ... MCI n = 46\"; \"Mean ± SD 68.2 ± 3.6\"; \"Range [56, 73]\"; \"ARWiBo n = 319 ... MCI n = 67\"; \"Mean ± SD 66.4 ± 5.7\"; \"Range [47, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 42,
++          "male_pct": 37.2,
++          "female_n": 71,
++          "female_pct": 62.8
++        },
++        "detail": "Counts summed across AIBL MCI and ARWiBo MCI; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL ... MCI n = 46\"; \"Men 19 (41)\"; \"Women 27 (59)\"; \"ARWiBo ... MCI n = 67\"; \"Men 23 (34)\"; \"Women 44 (66)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Alzheimer's disease patients across ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "ARWiBo",
++          "OASIS-1",
++          "MIRIAD"
++        ],
++        "detail": "AD groups in five clinical datasets used for NM assessment",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 50,
++          "max": 73,
++          "mean": "66.96 (weighted)",
++          "sd": "5.19 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across ADNI AD, AIBL AD, ARWiBo AD, OASIS-1 AD, and MIRIAD AD; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Mean ± SD 66.6 ± 5.4\"; \"Range [56, 73]\"; \"AIBL ... AD n = 38\"; \"Mean ± SD 67.3 ± 5.2\"; \"Range [55, 73]\"; \"ARWiBo ... AD n = 37\"; \"Mean ± SD 65.1 ± 6.0\"; \"Range [50, 73]\"; \"OASIS-1 ... AD n = 37\"; \"Mean ± SD 69.7 ± 3.1\"; \"Range [62, 73]\"; \"MIRIAD ... AD n = 30\"; \"Mean ± SD 66.2 ± 4.6\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 94,
++          "male_pct": 45.6,
++          "female_n": 112,
++          "female_pct": 54.4
++        },
++        "detail": "Counts summed across five AD datasets; MIRIAD AD female count inferred from AD n and male count; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD n = 48\"; \"AD n = 30\"; \"Men 13 (43)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+thinking
+**Summarizing final response**
+
+The main file path is provided with weighted and pooled handling noted. No tests were added. Next steps could include reviewing JSON outputs or running safety and correctness checks, but none are strictly required.
+codex
+Clinical cohort fields filled for Pinaya2021 with EMCI, LMCI, MCI, and AD entries, including weighted/pooled aggregates across datasets where needed and explicit notes about inferred counts for MIRIAD AD. Output updated in `DE_v14_Pinaya2021_by_codex_20260305125419039.json`.
+
+Details
+- `DE_v14_Pinaya2021_by_codex_20260305125419039.json` populated with 4 disorder entries, dataset origins, age/sex stats, and supporting quotes/locations.
+
+Next steps
+1. If you want me to split AD by dataset instead of aggregated weighted/pooled values, say the word.
+2026-03-05T03:57:09.114938Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..1f8950bad22519260fc07fc3f7bad998c2a50da8
+--- a/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305125419039/./DE_v14_Pinaya2021_by_codex_20260305125419039.json
+@@ -1,36 +1,183 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "Pinaya2021"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "EMCI",
++        "detail": "Early mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "EMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.4,
++          "sd": 4.2
++        },
++        "detail": "EMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Mean ± SD 66.4 ± 4.2\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": 72,
++          "male_pct": 45.3,
++          "female_n": 87,
++          "female_pct": 54.7
++        },
++        "detail": "Percentages calculated from ADNI EMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"EMCI n = 159\"; \"Men 72 (45)\"; \"Women 87 (55)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "LMCI",
++        "detail": "Late mild cognitive impairment group in ADNI clinical cohort",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final dataset comprised of 517 subjects, where 212 were HC, 159 were patients with early MCI (EMCI), 82 were patient with late MCI (LMCI), and 64 were patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI"
++        ],
++        "detail": "LMCI subgroup from ADNI GO/2/3",
++        "confidence_rating": "High",
++        "supporting_text": "\"In this study, we included the structural MRI collected during the ADNI GO, ADNI 2 and ADNI 3 phases.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 56,
++          "max": 73,
++          "mean": 66.2,
++          "sd": 5.1
++        },
++        "detail": "LMCI age in ADNI",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Mean ± SD 66.2 ± 5.1\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 40,
++          "male_pct": 48.8,
++          "female_n": 42,
++          "female_pct": 51.2
++        },
++        "detail": "Percentages calculated from ADNI LMCI counts",
++        "confidence_rating": "High",
++        "supporting_text": "\"LMCI n = 82\"; \"Men 40 (49)\"; \"Women 42 (51)\"",
++        "location": "Pinaya2021.pdf.md: Table 1"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "MCI",
++        "detail": "Mild cognitive impairment patients (stage not known) from AIBL and ARWiBo",
++        "confidence_rating": "High",
++        "supporting_text": "\"The final group was composed of 346 subjects, where 262 were HC, 46 were patients with MCI (stage not known), and 38 were patients with AD.\"; \"The resulting group was composed of 319 subjects, including 215 HC, 67 patients with MCI (stage not known), and 37 patients with AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "AIBL",
++          "ARWiBo"
++        ],
++        "detail": "MCI groups from AIBL and ARWiBo clinical datasets",
++        "confidence_rating": "High",
++        "supporting_text": "\"the Australian Imaging Biomarkers and Lifestyle Study of Ageing (AIBL)\"; \"the Alzheimer's Disease Repository Without Borders (ARWiBo)\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 47,
++          "max": 73,
++          "mean": "67.13 (weighted)",
++          "sd": "5.01 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across AIBL MCI and ARWiBo MCI; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL n = 346 ... MCI n = 46\"; \"Mean ± SD 68.2 ± 3.6\"; \"Range [56, 73]\"; \"ARWiBo n = 319 ... MCI n = 67\"; \"Mean ± SD 66.4 ± 5.7\"; \"Range [47, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 42,
++          "male_pct": 37.2,
++          "female_n": 71,
++          "female_pct": 62.8
++        },
++        "detail": "Counts summed across AIBL MCI and ARWiBo MCI; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AIBL ... MCI n = 46\"; \"Men 19 (41)\"; \"Women 27 (59)\"; \"ARWiBo ... MCI n = 67\"; \"Men 23 (34)\"; \"Women 44 (66)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "AD",
++        "detail": "Alzheimer's disease patients across ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "dataset-of-origin": {
++        "answer": [
++          "ADNI",
++          "AIBL",
++          "ARWiBo",
++          "OASIS-1",
++          "MIRIAD"
++        ],
++        "detail": "AD groups in five clinical datasets used for NM assessment",
++        "confidence_rating": "High",
++        "supporting_text": "\"we used the UK Biobank set to train the autoencoders and the ADNI, AIBL, ARWiBo, OASIS-1, and MIRIAD datasets to assess the normative model performance on data from patients with MCI and AD.\"",
++        "location": "Pinaya2021.pdf.md: Methods / Datasets"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 50,
++          "max": 73,
++          "mean": "66.96 (weighted)",
++          "sd": "5.19 (pooled)"
++        },
++        "detail": "Weighted mean and pooled SD across ADNI AD, AIBL AD, ARWiBo AD, OASIS-1 AD, and MIRIAD AD; range combined from reported ranges",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Mean ± SD 66.6 ± 5.4\"; \"Range [56, 73]\"; \"AIBL ... AD n = 38\"; \"Mean ± SD 67.3 ± 5.2\"; \"Range [55, 73]\"; \"ARWiBo ... AD n = 37\"; \"Mean ± SD 65.1 ± 6.0\"; \"Range [50, 73]\"; \"OASIS-1 ... AD n = 37\"; \"Mean ± SD 69.7 ± 3.1\"; \"Range [62, 73]\"; \"MIRIAD ... AD n = 30\"; \"Mean ± SD 66.2 ± 4.6\"; \"Range [56, 73]\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 94,
++          "male_pct": 45.6,
++          "female_n": 112,
++          "female_pct": 54.4
++        },
++        "detail": "Counts summed across five AD datasets; MIRIAD AD female count inferred from AD n and male count; percentages calculated from totals",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"AD n = 64\"; \"Men 36 (56)\"; \"Women 28 (44)\"; \"AIBL ... AD n = 38\"; \"Men 17 (45)\"; \"Women 21 (55)\"; \"ARWiBo ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"OASIS-1 ... AD n = 37\"; \"Men 14 (38)\"; \"Women 23 (62)\"; \"MIRIAD n = 48\"; \"AD n = 30\"; \"Men 13 (43)\"",
++        "location": "Pinaya2021.pdf.md: Table 1; Pinaya2021.pdf.md: Table 2"
+       }
+     }
+   ]
+
+tokens used
+33,560
+Clinical cohort fields filled for Pinaya2021 with EMCI, LMCI, MCI, and AD entries, including weighted/pooled aggregates across datasets where needed and explicit notes about inferred counts for MIRIAD AD. Output updated in `DE_v14_Pinaya2021_by_codex_20260305125419039.json`.
+
+Details
+- `DE_v14_Pinaya2021_by_codex_20260305125419039.json` populated with 4 disorder entries, dataset origins, age/sex stats, and supporting quotes/locations.
+
+Next steps
+1. If you want me to split AD by dataset instead of aggregated weighted/pooled values, say the word.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

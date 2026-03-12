@@ -1,0 +1,197 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Wolfers2020_by_codex_20260305134354454.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134354454/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc4f-4552-7a63-bbf0-cce6199d3dd0
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Wolfers2020_by_codex_20260305134354454.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning data extraction method**
+
+I'm deciding how to read the guide and produce JSON, considering using ripgrep or directly opening the file to extract the needed content.
+2026-03-05T04:43:59.940048Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134354454 succeeded in 18ms:
+DE_Guide_v14.md
+DE_v14_Wolfers2020_by_codex_20260305134354454.json
+DE_v14_Wolfers2020_by_codex_20260305134354454.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051343544542026-03-05T04:44:01.923627Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Checking study data location**
+exec
+/bin/bash -lc 'ls study_1' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051343544542026-03-05T04:44:04.489177Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 31ms:
+S0033291719000084sup001.docx.md
+S0033291719000084sup001_artifacts
+Wolfers2020.pdf.md
+Wolfers2020_artifacts
+exec
+/bin/bash -lc 'rg -n "normative|clinical|patient|cohort|schiz|bipolar|depress|autism|ADHD|MCI|AD" Wolfers2020.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134354454/study_12026-03-05T04:44:07.842699Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+9:Cite this article: Wolfers T, Beckmann CF, Hoogman M, Buitelaar JK, Franke B, Marquand AF (2020). Individual differences v. the average patient: mapping the heterogeneity in ADHD using normative models. Psychological Medicine 50 , 314 -323. https://doi.org/10.1017/ S0033291719000084
+15:Attention-deficit/hyperactivity disorder; heterogeneity; normative modeling; precision medicine
+25:## Individual differences v. the average patient: mapping the heterogeneity in ADHD using normative models
+33:Background. The present paper presents a fundamentally novel approach to model individual differences of persons with the same biologically heterogeneous mental disorder. Unlike prevalent case-control analyses, that assume a clear distinction between patient and control groups and thereby introducing the concept of an ' average patient ' , we describe each patient ' s biology individually, gaining insights into the different facets that characterize persistent attention-deficit/hyperactivity disorder (ADHD).
+35:Methods. Using a normative modeling approach, we mapped inter-individual differences in reference to normative structural brain changes across the lifespan to examine the degree to which case-control analyses disguise differences between individuals.
+37:Results. At the level of the individual, deviations from the normative model were frequent in persistent ADHD. However, the overlap of more than 2% between participants with ADHD was only observed in few brain loci. On average, participants with ADHD showed significantly reduced gray matter in the cerebellum and hippocampus compared to healthy individuals. While the case-control differences were in line with the literature on ADHD, individuals with ADHD only marginally reflected these group differences.
+39:Conclusions. Case-control comparisons, disguise inter-individual differences in brain biology in individuals with persistent ADHD. The present results show that the ' average ADHD patient ' has limited informative value, providing the first evidence for the necessity to explore different biological facets of ADHD at the level of the individual and practical means to achieve this end.
+43:Two patients suffering from the same mental disorder may show differences in symptom expression, behavior, and pathophysiology. Case-control research paradigms ignore these sources of heterogeneity; they assume that each diagnostic group is a distinct entity. A key goal in many such studies is to identify biological markers that are reliable indicators of disease state. However, markers identified through this approach generally explain only a small part of the variance linked to mental disorders (Schmaal et al ., 2016; Hibar et al ., 2017; Hoogman et al ., 2017). Therefore, the case-control paradigm has been challenged in recent years. For example, large international initiatives aim to bridge the gap between a psychiatric diagnosis and its underlying biology through the integration of information across multiple dimensions (Insel, 2009; Insel et al ., 2010; Schumann et al ., 2014), yielding subgroups of patients stratified based on behavior (Fair et al ., 2013; Mostert et al ., 2015) or biological functioning (Marquand et al ., 2016 b ). While such stratification approaches may produce more homogeneous diagnostic groups, these approaches still do not fully inform on how patients differ from one another in terms of the underlying biology. Therefore, inter-individual differences become a novel research focus (Foulkes and Blakemore, 2018; Seghier and Price, 2018).
+45:Attention-deficit/hyperactivity disorder (ADHD) is a prevalent and impairing neurodevelopmental disorder, which persists into adulthood in a substantial part of the patients (Simon et al ., 2009). Reliable group differences between healthy individuals and those with ADHD have been established for various biological readouts (Bush et al ., 2005; Seidman et al ., 2005; Valera et al ., 2007; Cortese and Castellanos, 2012; van Ewijk et al ., 2012; van Rooij et al ., 2015; Wolfers et al ., 2016). These include neuroimaging-based brain readouts, where
+47:differences in gray matter volume, white matter volume, as well as functional brain readouts (Frodl and Skokauskas, 2012; Onnink et al ., 2014; Faraone et al ., 2015; Greven et al ., 2015; Wolfers et al ., 2015 b , 2017; Francx et al ., 2016; Norman et al ., 2016) have been reported. However, these differences are mostly of small to medium effect size and have not readily translated into individualized predictions (Wolfers et al ., 2015 a ). In line with this observation, evidence accumulated in the last decades points towards ADHD being characterized by a high degree of heterogeneity (Faraone et al ., 2015): More specifically, individuals with ADHD can differ from each other in their symptom profiles (clinical heterogeneity), their exposure to environmental stressors (environmental heterogeneity), and the underlying biology of their disorder (biological heterogeneity). This complexity, and the rather exclusive research focus on a categorical diagnosis, has hindered progress towards a better understanding of ADHD (Burmeister et al ., 2008; Sullivan et al ., 2012). Moreover, the developmental character of ADHD has been shown in numerous studies, and differences in brain development and aging have been observed across the lifespan (Shaw et al ., 2007; Greven et al ., 2015; Hoogman et al ., 2017). Therefore, the importance of modeling ADHD across the lifespan has become increasingly apparent (Shaw et al ., 2006; Hoogman et al ., 2017). For example, individually different growth trajectories of different brain regions may be an important aspect of this complex phenotype (Shaw et al ., 2006, 2007).
+49:In this study, we aimed to quantify and map the brain structural heterogeneity in adults with persistent ADHD, at the level of the individual patient. We employed a normative modeling approach for this purpose, which provides a perspective that is fundamentally different from the classic case-control approach. A normative model can be understood as a statistical model that maps demographic, behavioral, or any other variable to -for example- a quantitative brain read-out (Marquand et al ., 2016 a ), whilst providing estimates of centiles of variation within the population. Then, the individual can be placed within the normative range, allowing for the characterization of differences between individual patients in relation to the healthy range. In this way, we (i) chart the heterogeneity in abnormalities of brain structure at the level of the individual with ADHD, and (ii) investigate the degree of spatial overlap in terms of deviations from the normative model to provide concrete estimates for disorder heterogeneity. Based on previous case-control comparisons (e.g. Onnink et al ., 2014; Faraone et al ., 2015; Greven et al ., 2015; Wolfers et al ., 2015 b , 2017; Francx et al ., 2016), which introduced the notion of the ' average ADHD patient ' , we expected participants with ADHD to show on average larger negative deviations from the normative brain ageing model than healthy individuals. More importantly, we anticipated that the individual local deviance from the normative model would differ substantially between individuals, suggesting that previous group-level distinctions provide an incomplete picture of the neurobiological abnormalities in ADHD and disguise extreme inter-individual differences between individuals with ADHD.
+55:We selected adult participants with persistent ADHD and healthy individuals from the Dutch cohort of the International Multicenter persistent ADHD CollaboraTion (IMpACT; Hoogman et al ., 2011; Mostert et al ., 2015), based on data
+57:Table 1. Demographics and clinical characteristics
+73:a ADHD diagnosis was based on a structured Diagnostic Interview for ADHD in Adults (DIVA; Sandra Kooij et al ., 2008).
+83:Number of comorbid disorders such as major depressive disorder based on a SCID (Structured Clinical Interview) interview (van Groenestijn et al ., 1999; Weertman et al ., 2003; Lobbestael et al ., 2011)
+85:availability for structural MRI images. Participants with persistent ADHD were recruited from the Department of Psychiatry of the Radboud University Medical Center and through advertisements. In this recruitment process, the participants with persistent ADHD were matched for gender, age, and estimated intelligence to a healthy individual population. All participants underwent psychiatric assessments, neuropsychological testing, and neuroimaging. The diagnostic interview for persistent ADHD (DIVA; Sandra Kooij et al ., 2008) was conducted to confirm the diagnosis of ADHD in adulthood. This interview focuses on the 18 DSM-IV symptoms of ADHD and uses realistic examples to thoroughly investigate whether a symptom is currently present or was already present in childhood (Sandra Kooij et al ., 2008). In all participants in the ADHD cohort, a childhood history of ADHD symptoms was established, and persistent ADHD was diagnosed. The ADHD Rating Scale-IV was filled in by each participant to report current symptoms of attention and hyperactivity/impulsivity (Pappas, 2006). To assess comorbidities, the structured clinical interviews (SCID-I and SCID-II) for DSM-IV were administered (van Groenestijn et al ., 1999; Weertman et al ., 2003; Lobbestael et al ., 2011). The inclusion criteria for participants with ADHD were: (i) DSM-IV-TR criteria for ADHD met in childhood as well as in adulthood, (ii) no psychosis, (iii) no substance use disorder, (iv) full-scale intelligence estimate &gt;70 (prorated from Block Design and Vocabulary of the Wechsler Adult Intelligence Scale-III (Wechsler, 2012), (v) no neurological disorders, (vi) no obvious sensorimotor disabilities, (vii) no medication use other than psychostimulants or atomoxetine. Additional inclusion criteria for healthy individuals were: (viii) no current neurological or mental disorder according to DIVA, SCID-I, or
+87:## Overview of the normative model
+89:Fig. 1. In ( a ), the estimation of the normative model in healthy individuals is depicted using age and gender as covariates. In ( b ), the characterization of the normative model is shown. We see that the normative model changes with age and that, from age 20 to 70 years, gray matter is predominantly decreasing; this is true for both females and males and more strongly observed in frontal brain regions. Blue colors indicate a decrease, red colors an increase. In ( c ), we depict the application of the normative model to persistent ADHD. In ( d ), we present the steps that were taken to characterize the deviations from the normative model.
+93:SCID-II, (ix) no first-degree relatives with ADHD or other major mental disorders. All participants were Dutch and of European Caucasian ancestry. This study was approved by the regional ethics committee (Centrale Commissie Mensgebonden Onderzoek: CMO Regio Arnhem -Nijmegen; Protocol number III.04.0403). Written informed consent was obtained from all participants.
+103:8-mm full width half maximum (FWHM) Gaussian kernel, and the normative model was estimated.
+
+thinking
+**Locating demographics table**
+
+I'm opening the sections likely containing the demographics table to prepare for inclusion in the PDF markdown.
+2026-03-05T04:44:13.451002Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table 1|Demographics|demographics" Wolfers2020.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134354454/study_1 succeeded in 28ms:
+57:Table 1. Demographics and clinical characteristics
+61:| Demographics                             |                                                   |                                                    |
+125:Table 1 shows the demographics of the study population. We included 153 adults with ADHD and 146 healthy adults. About the same proportion of individuals in both groups were male (43.8% first and 41.2% second group, respectively). The average age of participants was 35 years in both groups with an age distribution that was very similar (online Supplementary Fig. S1). Individuals with persistent ADHD showed higher scores than healthy individuals for hyperactivity-impulsivity (5.45 v. 0.63; t test: p &lt; 0.01) as well as inattention (7.27 v. 0.55; t test: p &lt; 0.01).
+2026-03-05T04:44:15.959373Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "sed -n '55,90p' Wolfers2020.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134354454/study_1 succeeded in 18ms:
+We selected adult participants with persistent ADHD and healthy individuals from the Dutch cohort of the International Multicenter persistent ADHD CollaboraTion (IMpACT; Hoogman et al ., 2011; Mostert et al ., 2015), based on data
+
+Table 1. Demographics and clinical characteristics
+
+|                                          | Healthy individuals                               | Attention-deficit/ hyperactivity disorder a        |
+|------------------------------------------|---------------------------------------------------|----------------------------------------------------|
+| Demographics                             |                                                   |                                                    |
+| Total (N)                                | 146                                               | 153                                                |
+| Males (%)                                | 43.8%                                             | 41.2%                                              |
+| Age (years) (mean ± std)                 | 35.43 ± 12.01                                     | 35.05 ± 10.81                                      |
+| Education (years ± std)                  | 5.19 ± 0.808                                      | 4.78 ± 0.811                                       |
+| Estimated intelligence b (mean ± std)    | 109.94 ± 14.53                                    | 107.45 ± 15.08                                     |
+| Symptoms                                 |                                                   |                                                    |
+| Hyperactivity/impulsivity c (mean ± std) | 0.63 ± 1.12                                       | 5.45 ± 2.46                                        |
+| Inattention d (mean ± std)               | 0.55 ± 1.21                                       | 7.27 ± 1.74                                        |
+| Comorbidities e (mean ± std)             | 0.01 ± 0.117                                      | 0.20 ± 0.436                                       |
+| Stimulant medication                     | Current = 0.0% Past = 0.0% No medication = 100.0% | Current = 11.8% Past = 76.4% No medication = 11.8% |
+
+a ADHD diagnosis was based on a structured Diagnostic Interview for ADHD in Adults (DIVA; Sandra Kooij et al ., 2008).
+
+
+
+thinking
+**Calculating and documenting cohort sex counts**
+
+I'm estimating male and female counts from total N and percent male, rounding to nearest whole number with a note on estimation, and preparing a JSON output including age stats, disorder info, and dataset origin for IMpACT ADHD cohort.
+thinking
+**Structuring ADHD cohort metadata**
+
+I'm organizing metadata with disorder details, exact and estimated sex counts including notes, age stats with units, dataset origin, and precise source citations referencing table and text locations in Wolfers2020.pdf.md.
+2026-03-05T04:44:36.971207Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "cat <<'EOF' > /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134354454/DE_v14_Wolfers2020_by_codex_20260305134354454.json
+{
+  \"paper_id\": {
+    \"answer\": \"Wolfers2020\"
+  },
+  \"disorders\": [
+    {
+      \"disorder-name\": {
+        \"answer\": \"ADHD\",
+        \"detail\": \"Persistent ADHD adults\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"We selected adult participants with persistent ADHD and healthy individuals from the Dutch cohort of the International Multicenter persistent ADHD CollaboraTion (IMpACT; Hoogman et al ., 2011; Mostert et al ., 2015)\\\"\",
+        \"location\": \"Wolfers2020.pdf.md: Methods / Participants\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"IMpACT\"],
+        \"detail\": \"Dutch cohort of the IMpACT study\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"We selected adult participants with persistent ADHD and healthy individuals from the Dutch cohort of the International Multicenter persistent ADHD CollaboraTion (IMpACT; Hoogman et al ., 2011; Mostert et al ., 2015)\\\"\",
+        \"location\": \"Wolfers2020.pdf.md: Methods / Participants\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"mean\": 35.05, \"sd\": 10.81 },
+        \"detail\": \"ADHD clinical cohort\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Age (years) (mean ± std)\\\" ... \\\"35.05 ± 10.81\\\"\",
+        \"location\": \"Wolfers2020.pdf.md: Table 1\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 63, \"male_pct\": 41.2, \"female_n\": 90, \"female_pct\": 58.8 },
+        \"detail\": \"Male/female counts estimated from total N=153 and male percentage (41.2%) in Table 1\",
+        \"confidence_rating\": \"Medium\",
+        \"supporting_text\": \"\\\"Total (N)\\\" ... \\\"153\\\"; \\\"Males (%)\\\" ... \\\"41.2%\\\"\",
+        \"location\": \"Wolfers2020.pdf.md: Table 1\"
+      }
+    }
+  ]
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134354454 succeeded in 31ms:
+
+
+thinking
+**Noting lack of tests**
+
+The current work or code examined contains no tests yet, highlighting a need to add testing for future robustness.
+codex
+Wrote the clinical cohort extraction for Wolfers2020 into `DE_v14_Wolfers2020_by_codex_20260305134354454.json`, using Table 1 and the IMpACT cohort description from `study_1/Wolfers2020.pdf.md` for ADHD demographics and dataset origin.
+
+Next steps:
+1. If you want, I can also cross-check the supplementary file for any additional ADHD demographic details.
+2026-03-05T04:44:40.600484Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+23,962
+Wrote the clinical cohort extraction for Wolfers2020 into `DE_v14_Wolfers2020_by_codex_20260305134354454.json`, using Table 1 and the IMpACT cohort description from `study_1/Wolfers2020.pdf.md` for ADHD demographics and dataset origin.
+
+Next steps:
+1. If you want, I can also cross-check the supplementary file for any additional ADHD demographic details.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

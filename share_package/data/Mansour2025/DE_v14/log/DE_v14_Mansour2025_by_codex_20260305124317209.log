@@ -1,0 +1,713 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Mansour2025_by_codex_20260305124317209.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124317209/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc17-c56a-76b2-90ce-1e92bfa83537
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Mansour2025_by_codex_20260305124317209.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Planning to read DE_Guide**
+
+I’m preparing to read the DE_Guide file using shell commands to understand the instructions better before proceeding.
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:43:23.904278Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 16ms:
+DE_Guide_v14.md
+DE_v14_Mansour2025_by_codex_20260305124317209.json
+DE_v14_Mansour2025_by_codex_20260305124317209.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:43:27.211025Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 18ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating study content**
+
+I'm searching for the study content within study_1 to list the relevant information for the paper.
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:43:31.339641Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 24ms:
+DE_v14_Mansour2025_by_codex_20260305124317209.json
+DE_Guide_v14.md
+DE_v14_Mansour2025_by_codex_20260305124317209.log
+study_1/NIHPP2025.01.16.25320639v1-supplement-1.pdf.md
+study_1/Mansour2025.pdf.md
+
+thinking
+**Preparing to follow guide**
+
+I'm opening the guide paper markdown to read and follow its instructions for the task.
+exec
+/bin/bash -lc 'rg -n "normative|clinical|cohort|patients|schiz|bipolar|depress|autism|AD|MCI|Alzheimer|epilepsy|psych" study_1/Mansour2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:43:34.801908Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+5:## Spectral normative modeling of brain structure
+44:Abstract: Normative modeling in neuroscience aims to characterize interindividual variation in brain phenotypes and thus establish reference ranges, or brain charts, against which individual brains can be compared. Normative models are typically limited to coarse spatial scales due to computational constraints, limiting their spatial specificity. They additionally depend on fixed regions from fixed parcellation atlases, restricting their adaptability to alternative parcellation schemes. To overcome these key limitations, we propose spectral normative modeling (SNM), which leverages brain eigenmodes for efficient spatial reconstruction to generate normative ranges for arbitrary new regions of interest. Benchmarking against conventional counterparts, SNM achieves a 98.3% speedup in computing accurate normative ranges across spatial scales, from millimeters to the whole brain. We demonstrate its utility by elucidating high-resolution individual cortical atrophy patterns and characterizing the heterogeneous nature of neurodegeneration in Alzheimer's disease. SNM lays the groundwork for a new generation of spatially precise brain charts, offering substantial potential to drive advances in individualized precision medicine. NOTE: This preprint reports new research that has not been certified by peer review and should not be used to guide clinical practice.
+54:Normative modeling aims to estimate reference ranges of normative population-wide variation in a phenotype of interest 1-3 . Individuals can be benchmarked to an established normative range for their age and sex to determine whether they fall outside a critical healthy range 4,5 . Normative modeling is a major goal in neuroscience and such models have been established for numerous whole-brain and regional phenotypes, such as cortical thickness or volume 6 . Prior research has demonstrated how such methods can accurately model the heterogeneous nature of these deviation patterns in brain structure 4,6 . Consequently, normative techniques hold significant promise in advancing precision medicine 7-14 .
+56:Normative brain charts for magnetic resonance imaging (MRI) phenotypes can in principle be established at the highly detailed spatial resolution at which the MRI scan is acquired. This would enable highly localized and spatially specific inference about an individual's deviations in a cortical phenotype. However, thus far, concerns about computational feasibility and quality control of higherresolution phenotypes have hindered the development of efficient normative charts with high spatial precision. Conventional normative approaches are designed to estimate ranges for a single phenotypic summary statistic, such as mean cortical thickness averaged across the whole cortex 2,15,16 . To reach higher spatial specificity, normative brain charting studies typically repeat model-fitting for regional summary statistics defined over a predetermined brain atlas 6,17 .
+58:Alternatively, a computationally burdensome exhaustive repetition of conventional techniques over all voxels/vertices has been used to produce norms at high spatial resolution 8,13,18 . These approaches are inherently sensitive to noise at the level of single voxels, and their computational intractability becomes even more pronounced when population-wide normative models are trained using data collated from several large-scale imaging biobanks. Moreover, with current normative modeling approaches, determining a reference range for a new spatial region of interest requires fitting a separate normative model anew, a process often hindered by limited access to the original training data that is typically unavailable to end-users. Establishing a methodological framework that efficiently alleviates such limitations will enable a more principled and efficient mapping of brain charts at high spatial resolution compared to the current brute force approach.
+60:Developing high-resolution normative models is challenging, particularly due to the high dimensionality of the feature space, i.e. hundreds of thousands of vertices on the cortical surface mesh. Moreover, spatial dependencies across vertices/voxels undermine independence assumptions and further complicate the development of models that accurately explain high-resolution statistical interdependencies 19-21 . As such, finding an appropriate low-dimensional encoding of high-resolution cortical information may enable the development of computationally tractable techniques for high-resolution normative models.
+62:Through recent advances in brain signal processing, eigenmodes constructed from the brain's geometry and connectivity have yielded promising basis functions that can summarize phenotypic variations on the cortical surface 22-24 . As such, eigenmodes can provide a solution to high-resolution normative modeling of brain phenotypes. Spatial variation in a cortical phenotype can be captured using a lower dimensional graph spectral embedding 25,26 . We exploit this parsimonious eigenmode basis to establish normative models on the coefficients of cortical phenotypes expressed in this lower dimensional latent space. By formulating a method that relates the normative range of an arbitrary region of interest to eigenmode normative ranges, we develop a computationally efficient method that simultaneously estimates normative ranges over multiple spatial granularities.
+64:In this work, we introduce spectral normative modeling (SNM) as a novel method to establish normative reference brain charts that are independent of any spatial resolution or parcellation atlas. We explain how high-dimensional brain phenotypes (e.g., cortical thickness) can be summarized by a concise representation based on brain eigenmodes and detail the mathematical framework to reconstruct reference normative brain models at arbitrary spatial scales. We evaluate the performance of the proposed model relative to existing approaches to demonstrate its success in providing efficient and accurate multi-scale individual-level insights that advance the frontiers of precision normative assessments. Finally, we demonstrate the practical utility of SNM in characterizing individual deviations in cortical thickness linked to cognitive impairments in Alzheimer's disease (AD). This emphasizes the success of SNM in generalizing to unseen samples and elucidating individual heterogeneity in cortical atrophy.
+82:The fundamental characteristics of many engineered and natural systems can be modeled by their structural eigenmodes, which offer a simplified yet powerful means of capturing the system's behavior. Recent advances in neuroscience have similarly demonstrated that brain eigenmodes provide a parsimonious basis for characterizing cortical information 22,25,27 . By leveraging such basis sets, we aim to enhance both the efficiency and spatial versatility of conventional normative models. In particular, we use brain connectivity eigenmodes, which naturally extend across both cortical hemispheres while preserving key neuroanatomical landmarks, such as homotopic symmetries and the separation of cortical lobes. This is especially advantageous given that pathological brain alterations often propagate along the brain's structural network 28-34 , making connectivity eigenmodes well suited to capture normative deviations induced by mechanisms of axonal propagation. However, it is important to note that the methodological advances introduced in this work are not limited to connectivity eigenmodes and can be readily generalized to any orthonormal basis set for information reconstruction.
+84:Figure. 1. Schematic Comparison of Spectral Normative Modeling (SNM) with Conventional Normative Models. (A) Design diagram for conventional (direct) normative models, which require a predetermined spatial query for model training. (B) Design diagram of SNM, which alleviates the need for predefined spatial queries. Instead, SNM enables assessments of multiple, arbitrary, a posteriori-defined spatial queries, allowing for greater flexibility. (C) Cortical projections of brain connectivity eigenmodes used in SNM. Eigenmodes across a range of graph frequencies are shown, illustrating how higher frequencies capture increasingly finer spatial details. (D) Cross-basis correlation magnitudes of cortical thickness phenotypes encoded onto the eigenmode basis set. The sparsity of cross-mode dependencies is demonstrated through nested heatmaps, with the lower triangles representing correlation magnitudes and the upper triangles indicating suprathreshold eigenmode pairs at a correlation threshold of ρ = 0 . 25 .
+88:Conventional normative modeling typically aims to infer the normative range of a phenotype, such as cortical thickness, for a fixed region of interest defined by a spatial query (Figure 1A). These approaches, referred to here as direct normative models, rely on predetermined spatial queries for each region under investigation. In contrast, SNM learns the normative distribution of a high-resolution phenotype using its graph spectral encoding on the eigenmode spatial basis set (Figure 1B). As a result, normative ranges can be rapidly computed across multiple spatial queries without refitting the model for each query (see Section 4.8 for details).
+112:We first demonstrate the accuracy with which brain eigenmodes encode information represented across typical brain maps, including individual cortical thickness phenotypes, and three families of spatial queries commonly used in normative models. This tests the utility of eigenmodes as a low-dimensional basis for reconstructing brain maps, while also gauging the appropriate number of eigenmodes to be included in SNM.
+132:Similarly, eigenmodes parsimoniously reconstruct various types of spatial query maps used in multiscale normative modeling, including whole-brain, regional, and high-resolution queries. Whole-brain queries represent regions of interest spanning a large extent of the entire cortex, such as functional networks; regional queries correspond to parcels from a brain parcellation; and high-resolution queries are focused on a specific brain vertex (see Figure 2, and Section 4.9 Model Evaluation for details on these categories).
+138:We leverage eigenmodes to approximate the normative ranges of any region of interest from its spectral encoding. SNM utilizes normative models trained on the spectral coefficients of cortical phenotypes (eigenmode loadings) and their cross-dependency structure to estimate the normative range for arbitrary normative queries (see Section 4.8.3 Spectral Normative Model (SNM) for methodological details). We evaluate SNM's performance (with different numbers of modes: k = { 10 , 10 2 , 10 3 , 10 4 } ) in reconstructing normative ranges for brain-wide, regional, and high-resolution thickness queries. These results are compared to a direct model trained on the exact cortical phenotype observed for each respective query.
+140:Unlike the direct model, SNM relies solely on low-dimensional spectral approximations and is trained without prior information about the spatial extent of the query. Both models were trained on the same sample of 1,978 healthy individuals, covering a wide age range from 5 to 95 years (see Section 4.1 Brain Imaging Data and Supplementary Table S.1 for details). Model performance was assessed on an independent held-out sample of 495 individuals. Performance was evaluated using mean absolute error (MAE) to measure central tendency and mean standardized log-loss (MSLL) to assess the accuracy in modeling both normative means and deviations (see Section 4.9 Model Evaluation for details). Both models operate under the assumption that, after adjusting for covariate effects, the population distribution of each cortical thickness phenotype conforms to a Gaussian distribution; y ∼ N ( µ y , σ 2 y ) (see Section 4.8 Normative Modeling Framework).
+142:We evaluated the performance of SNMs with varying numbers of modes against direct models, testing both approaches across three spatial scales of normative queries: brain-wide, regional, and high-resolution. As shown in Figure 3, while SNM with only 10 modes shows substantially inferior performance across most queries, compared to the direct model. With as few as 100 modes, SNM yields valid normative estimates for the majority of brain-wide signals. However, most regional and high-resolution normative ranges require a higher number of modes for accurate normative estimation. Indeed, including at least 1000 modes in SNM (less than 2% of the total signal dimensionality) yields normative estimates that match the performance of direct normative models across all spatial scales. Adding more modes-up to 10,000-yields only marginal improvements, suggesting that the first ∼ 1000 modes sufficiently capture the bulk of normative cortical thickness information. Supplementary analyses further explore the spatial distribution of SNM performance across brain regions, as well as
+156:the effects of query symmetry and granularity (see Supplementary Section A.3 Cortical projections of normative performance metrics and Supplementary Section A.4 Sensitivity Analyses). These findings underscore the robustness of SNM in reliably inferring normative ranges across different spatial scales, particularly when using at least 1000 modes.
+158:Figure. 3. SNM Normative Performance. This figure compares performance metrics of the SNM at various number of modes ( k = 10 , 10 2 , 10 3 , 10 4 ) against a direct normative model. Performance is evaluated across three scales of (A) brain-wide, (B) regional, and (C) high-resolution spatial queries. The rows display performance in modeling the mean (mean absolute error, MAE, top row) and the overall shape of the normative distribution (mean standardized log-loss, MSLL, bottom row). Lower values indicate better performance for both metrics. Green violin plots represent the direct model (benchmark), and SNM performance is shown in shades from purple to red for different numbers of modes. The distributional variation in the violin plots illustrates the performance variability across different spatial queries within each spatial scale. Solid and dashed lines mark the median and first/third quartiles, with a green arrow denoting the direct model's median for reference. In all evaluations, SNMs with at least 1000 modes achieve performance comparable to the direct model.
+164:SNM not only achieves accuracy comparable to direct models but does so with significantly lower computational costs. This presents notable practical advantages, such as efficiently computing highresolution normative ranges for cortical characteristics and deriving individualized normative estimates.
+178:Figure 4 highlights a practical application in which SNM is used to derive high-resolution normative ranges of cortical thickness and chart individual thickness deviations. By utilizing SNM with K = 1000 modes, we derive normative estimates of cortical thickness across all cortical vertices using highresolution queries centered on each respective vertex. This yields smooth high-resolution normative estimates of cortical thickness distribution (mean and standard deviation, as illustrated in Figure 4A), adjusted for age, sex, and site effects (see ???).
+
+thinking
+**Extracting clinical cohort demographics**
+
+Planning to extract age and sex demographics for clinical cohorts from the supplementary materials, focusing on the MACC dataset section for relevant clinical and cohort origin details.
+exec
+/bin/bash -lc 'rg -n "MACC|AD cohort|MCI|Alzheimer|cognitive impairment|healthy controls|HC" study_1/Mansour2025.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:43:39.629931Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 21ms:
+44:Abstract: Normative modeling in neuroscience aims to characterize interindividual variation in brain phenotypes and thus establish reference ranges, or brain charts, against which individual brains can be compared. Normative models are typically limited to coarse spatial scales due to computational constraints, limiting their spatial specificity. They additionally depend on fixed regions from fixed parcellation atlases, restricting their adaptability to alternative parcellation schemes. To overcome these key limitations, we propose spectral normative modeling (SNM), which leverages brain eigenmodes for efficient spatial reconstruction to generate normative ranges for arbitrary new regions of interest. Benchmarking against conventional counterparts, SNM achieves a 98.3% speedup in computing accurate normative ranges across spatial scales, from millimeters to the whole brain. We demonstrate its utility by elucidating high-resolution individual cortical atrophy patterns and characterizing the heterogeneous nature of neurodegeneration in Alzheimer's disease. SNM lays the groundwork for a new generation of spatially precise brain charts, offering substantial potential to drive advances in individualized precision medicine. NOTE: This preprint reports new research that has not been certified by peer review and should not be used to guide clinical practice.
+64:In this work, we introduce spectral normative modeling (SNM) as a novel method to establish normative reference brain charts that are independent of any spatial resolution or parcellation atlas. We explain how high-dimensional brain phenotypes (e.g., cortical thickness) can be summarized by a concise representation based on brain eigenmodes and detail the mathematical framework to reconstruct reference normative brain models at arbitrary spatial scales. We evaluate the performance of the proposed model relative to existing approaches to demonstrate its success in providing efficient and accurate multi-scale individual-level insights that advance the frontiers of precision normative assessments. Finally, we demonstrate the practical utility of SNM in characterizing individual deviations in cortical thickness linked to cognitive impairments in Alzheimer's disease (AD). This emphasizes the success of SNM in generalizing to unseen samples and elucidating individual heterogeneity in cortical atrophy.
+194:## 2.5 SNM Uncovers Cortical Signatures of Atrophy in Alzheimer's Disease
+196:Next, we demonstrate the practical utility of SNM by applying it to an independent clinical sample. Specifically, we analyze deviations in cortical thickness in an independent imaging dataset comprising three elderly cohorts of individuals with no cognitive impairment (healthy controls, HC, N=132), mild cognitive impairments (MCI, N=202), and Alzheimer's Disease (AD, N=208) (see Section 4.1 Brain Imaging Data and Supplementary Section A.1.2 MACC Clinical Data for details about these cohorts). To leverage the transfer learning capabilities of SNM, we utilize the model trained on the large healthy dataset and fine-tune only the harmonization parameters. Consequently, the model is adapted to this independent dataset and can identify deviations in cortical thickness at high spatial resolution (i.e., vertex-wise z-scores, as described in the previous section).
+198:These deviation maps offer a powerful tool for investigating the normative thickness changes associated with AD. By spatially comparing deviation maps between healthy individuals and those diagnosed with AD, we uncover a cortical signature of structural atrophy in AD (Figure 5A). This demonstrates reduced cortical thickness in several neocortical regions spanning the temporal, parietal, and frontal lobes, indicating widespread atrophy associated with AD. While most abnormal differences indicate a thinner cortex in AD, we also find abnormally thick gray matter in certain visual areas along the lingual gyrus and cuneus. We also assess the relationship between cortical atrophy and cognitive impairment by examining Mini-Mental State Examination (MMSE) scores in relation to individualized normative assessment maps. Our results show significant effects linking cognitive impairment to widespread cortical thinning. These effects are highest in temporal regions but span several cortical areas (Figure 5B).
+200:Findings of Figure 5A,B are consistent with previous studies and are therefore not claimed as a novel achievement of SNM but are reported to demonstrate its validity in replicating established findings. SNM can additionally generate individualized predictive cortical atrophy biomarkers through extreme value statistics. Specifically, we quantify the number of cortical vertices exhibiting extreme thinning for each individual ( z &lt; -1 . 96 , see Section 4.10.2 Linking Atrophy to Cognitive Impairment for details). This extreme value statistic, termed Extremely Thin Vertex Count (ETVC), serves as a robust biomarker for cognitive impairment in AD. Namely, we find that individuals with more
+206:Figure. 5. Cortical Signature of Atrophy in Alzheimer's Disease and Its Cognitive Correlates. High-resolution deviation maps were used to compute the cortical signature of atrophy in an elderly clinical cohort and assess its ability to predict cognitive impairments that are associated with AD. (A) Group-level normative differences between HC and AD. (B) Vertexwise associations between normative deviation z-scores and cognitive performance (MMSE). (C) The ETVC metric, quantifying extreme atrophy, can predict cognitive performance in the clinical cohort. (D) Comparison of z-score thresholds for ETVC reveals that vertices with extreme atrophy provide the highest predictive power for cognitive impairment. Cortical projections highlight significant regions (dimmed for non-significant voxels) at α = 5% after FDR correction. Abbreviations: HC: Healthy Cohort, AD: Alzheimer's Disease, MMSE: Mini-Mental State Examination, ETVC: Extremely Thin Vertex Count, FDR: False Discovery Rate.
+218:pronounced cortical thinning (higher ETVC) are at a significantly higher risk for cognitive impairment ( r = -0 . 45 , p &lt; 0 . 0001 , Figure 5C).
+220:Supplementary evaluations indicate that this association is reproducible within the AD cohort ( r = -0 . 31 , p &lt; 0 . 0001 ), but not within the healthy ( r = -0 . 005 , p = 0 . 96 ) or MCI ( r = -0 . 10 , p = 0 . 14 ) cohorts (see Supplementary Section A.6 Within-group Cognitive Associations). As shown in Figure 5D, we find that regions exhibiting extreme atrophy ( -3 &lt; z &lt; -2 ) contribute more significantly to the predictive power of ETVC biomarker compared to regions with mild atrophy ( -2 &lt; z &lt; 0 ) or regions with hypertrophy ( z &gt; 0 ). In supplementary analyses, we find an inferior predictive power for the normative z-score of mean cortical thickness compared to the high-resolution ETVC biomarker (see Section A.7 Brain-wide Cognitive Associations).
+228:We next compute the empirical interindividual difference matrix (Figure 6C) and sort it by diagnostic group (HC, MCI, and AD) and, within each group by cognitive performance (as a marker of symptom severity). We find that healthy controls and MCI patients exhibit relatively smaller differences in deviation patterns. However, individuals with AD show significantly greater variability, both when compared to healthy and MCI cohorts, as well as amongst themselves. These findings suggest that AD is associated with increasingly divergent cortical atrophy patterns across individuals, highlighting the heterogeneous nature of individual atrophy in AD.
+230:To further elucidate the heterogeneity in deviation patterns, we embed the high-dimensional normative assessments into a lower-dimensional latent space that maintains the difference structure (Figure 6D, see Section 4.10.3 Examining Interindividual Heterogeneity for details). This reveals that healthy individuals form a dense central cluster, characterized by more homogeneous deviation maps. In contrast, the MCI group shows a more dispersed distribution, with greater variability in deviation patterns. The AD cohort exhibits the highest degree of deviation from the healthy cluster, with substantial diversity in the direction of deviations across individuals. This underscores various ways in which AD-diagnosed individuals deviate from normative cortical structure. When averaging deviation patterns within local neighborhoods of this landscape (cortical projections in Figure 6D, left), we observe distinct subgroups characterized by negligible (top), localized (middle), or widespread (bottom) atrophy (see Supplementary Section A.8 Heterogeneity Landscape Subgroups to further explore these local neighborhood projections). Exemplary cortical projections in Figure 6D (right) reiterate that AD-diagnosed individuals vary not only in the severity of cortical atrophy but also in the spatial
+238:Figure. 6. Heterogeneity Landscape of Atrophy Associated with Alzheimer's Disease. Individualized high-resolution deviation maps were used to assess the extent of heterogeneity in AD-related normative deviations. (A) Examples of two individuals with similar age, sex, cognitive scores, and diagnosis, who nevertheless display markedly different patterns of cortical atrophy. These maps can be overlaid onto native scans as summary reports to assist assessments of cortical atrophy. (B) Interindividual differences in normative deviations are quantified using Euclidean distance between assessment maps. Four hypothetical heatmaps illustrate how the structure of interindividual differences depends on the underlying deviation mechanisms. Deviations can be completely random and unrelated to severity (left), strictly delineated by diagnostic groups (middle left), uniformly progressive across disease stages (middle right), or display heterogeneous divergence from norms (right). (C) An empirical interindividual difference matrix is computed from the clinical cohort's deviation maps, with individuals sorted by clinical diagnosis and, within each diagnosis, by cognitive performance (from high to low MMSE). This distance matrix suggests that AD-diagnosed individuals exhibit heterogeneous normative deviations. (D) High-resolution normative assessments are projected onto a 2-dimensional landscape, while preserving interindividual difference structure. The central scatter plot displays the distribution of individuals from HC (green), MCI (yellow), and AD (red) cohorts within this landscape, with density plots (bottom) highlighting regions predominantly occupied by each cohort. Cortical projections (left) show average deviation maps for three exemplary local areas of this landscape, while exemplary individual deviation maps are shown (right) for four AD-diagnosed individuals.
+290:Our analysis supports previous findings by reproducing hallmark group-level cortical thinning patterns of AD, with the strongest reductions in cortical thickness centered on the temporal lobe (temporal pole, superior, middle, and inferior temporal gyri) 57,61-66 . These effects also extend to regions of the neocortex, including the posterior cingulate gyrus 64,67 , supramarginal and angular gyri 61,62,64,65 , superior parietal lobule, superior, middle, and inferior frontal gyri 61-64,68 , posterior cingulate cortex 64,66,68 , and the precuneus 57,61,62,64,68 . Additionally, other less established anomalies emerged, such as increased cortical thickness in certain visual and orbitofrontal areas 69 that are potentially linked to compensatory neurodegenerative mechanisms 70 . Notably, our evaluations indicate that extreme atrophy quantified by ETVC at a higher threshold is a stronger predictor of cognitive impairment than mild atrophy, underscoring the utility of high-resolution normative assessment.
+294:Clustering methods, which group individuals into subtype patterns, may also obscure unique deviations when averaging patterns within subtypes, limiting the precision of subtype assignment for individuals 82 . We observed that some AD-diagnosed individuals exhibited negligible signs of atrophy, aligning with previous findings of subtypes characterized by minimal or no atrophy 56,64,66,79 . Conversely, some HC/MCI individuals showed significant atrophy without severe cognitive decline, possibly indicating markers of brain resilience 83,84 . These findings suggest that analyzing individual atrophy patterns along continuous principal or latent dimensions 85 offers deeper insights into neurodegenerative variability than traditional subtype classifications, while also facilitating the study of resilience mechanisms in brain aging.
+302:tion of atrophy patterns, they remain preliminary. Future studies focused on specific clinical applications are necessary to fully assess SNM's role as a diagnostic and prognostic aid in clinical settings and its broader potential in personalized medicine. For example, SNM could enhance diagnostic accuracy and aid in differential diagnosis, with deviation maps serving to distinguish between various types of dementia, such as Alzheimer's disease, vascular dementia, Lewy body dementia, and frontotemporal dementia 86 . Additionally, SNM shows promise as a prognostic tool; normative deviation maps in stroke or TBI patients could help evaluate the extent of damage to functional brain regions, allowing for more personalized rehabilitation plans and improved treatment monitoring. Finally, SNM's heightened sensitivity to subtle, localized atrophy patterns may facilitate the detection of early biomarkers, such as microinfarcts, which often remain undetected but could identify individuals at risk, offering opportunities for preventive interventions before more severe events occur 87 .
+334:This study uses three publicly available healthy brain imaging datasets that were provided and curated by the Human Connectome Project (HCP) 101 ; namely, HCP's Young Adult 102 , Aging 103 , and Development 104 cohorts. These cohorts collectively comprised 2473 healthy individuals (54.7% female) spanning a wide age range, from 5 to 100 years old. The imaging acquisition and preprocessing followed previously established pipelines and were broadly consistent across the three cohorts 105,106 . In addition to the healthy datasets used to train the normative model, we evaluated the model's translational capabilities to real-world data from memory clinics (Memory, Ageing &amp; Cognition Centre at the National University of Singapore: MACC) 107,108 . This data comprised 542 samples (ages 50-91, 61.4% female), including 132 cognitively healthy individuals (24.3%), 202 individuals with mild cognitive impairment (MCI; 37.3%), and 208 individuals diagnosed with Alzheimer's Disease (38.4%) based on DSM-IV criteria 108 . Across all datasets, FreeSurfer processing of the T1-weighted (T1w) structural brain imaging data was used to extract high-resolution maps of cortical thickness. Additional details regarding acquisition and preprocessing procedures for each dataset are provided in the Supplementary Information (see Section A.1 Image Acquisition and Preprocessing).
+342:For all cohorts, cortical thickness estimates for each vertex comprising the cortical surface mesh was sourced from preprocessed data. HCP's minimal processing pipeline 105 contains procedures utilizing FreeSurfer outputs 110 to provide high-resolution thickness estimates for the fs-LR 32k surface mesh template. This template surface uses 32,492 vertices to model each hemisphere, resulting in an average inter-vertex distance of approximately 2 mm; it includes a total of 59,412 vertices after the exclusion of the medial wall. Vertices are aligned between the left and right hemispheres, enabling inter-hemispheric comparison) 102 . The same transformation was used to project MACC sample's FreeSurer cortical thickness estimates to the fs-LR surface space.
+364:The normative model, pre-trained on N train healthy individuals, was subsequently fine-tuned for the clinical sample of N MACC = 674 individuals using transfer learning. During fine-tuning, the model parameters related to age and sex were kept frozen to maintain consistency with the initial healthy cohort model. However, site parameters for dataset harmonization were fine-tuned on a subsample of 66 healthy individuals (50% of the HC cohort) from the MACC clinical cohort. The fine-tuned model was then applied to the rest of the clinical sample to generate individualized, high-resolution normative deviation maps. These maps were utilized in normative evaluations of the clinical cohort.
+550:In Section 2.5 SNM Uncovers Cortical Signatures of Atrophy in Alzheimer's Disease and Section 2.6 SNM Highlights Heterogeneity in Individual Cortical Atrophy, we examined the clinical insights provided by SNM when applied to the clinical MACC dataset. A subset of 66 healthy individuals from the MACC cohort was used to fine-tune the pretrained SNM for the clinical sample. During fine-tuning, parameters linking cortical phenotypes to age and sex ( w µ , w + σ , w ρ , α µ , α + σ , α ρ ) were held constant, while only site-specific parameters for batch effect harmonization ( β µ , β + σ , β ρ ) were updated based on the MACC data. The fine-tuned model was then applied to generate normative deviation maps for smoothed, vertex-resolution cortical thickness phenotypes.
+564:## 4.10.1 HC vs. AD Comparison
+
+thinking
+**Locating supplement table for demographics**
+
+I'm opening the supplement markdown file to find Table S.2, which should have MACC demographics including age mean, SD, and sex.
+2026-03-05T03:43:43.864294Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "Table S.2|MACC-H|Cohort|HC|MCI|AD" study_1/NIHPP2025.01.16.25320639v1-supplement-1.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124317209 succeeded in 18ms:
+21:## A.1.1 HCP Lifespan Data
+23:Healthy human brain imaging data from three cohorts of the Human Connectome Project (HCP) was aggregated to encompass a broad age range spanning the human lifespan. Table S.1 summarizes the population demographics across datasets and their respective train-test splits. The following paragraphs detail each cohort's image acquisition protocols and preprocessing steps.
+25:Table S.1. Sample Characteristic of HCP lifespan dataset. Note: Values presented as µ ± σ indicate the mean ( µ ) and standard deviation ( σ ).
+27:| Cohort         | HCP-D        | HCP-D        | HCP-YA       | HCP-YA       | HCP-A         | HCP-A         |
+36:HCP Young Adult Data Young adult imaging data was sourced from the HCP S1200 release 102 (HCP-YA). This contained structural MRI images obtained from 1096 healthy participants (54.4% female) aged 22 to 37 years old. A comprehensive report on imaging acquisition and preprocessing is available elsewhere 105 . In brief, the images were acquired with a Siemens 3T Skyra scanner with a 32-channel head coil (housed at Washington University). T1w images were acquired using a singleecho MPRAGE sequence (0.7mm isotropic resolution, TR = 2400ms, TE = 2.14ms, TI = 1000ms, flip angle = 8 ° , no partial Fourier) 105 . Acquired images underwent preprocessing using the HCP's minimal preprocessing pipeline. Notably, structural images underwent gradient distortion correction, skull stripping, readout distortion correction, and bias field correction, followed by a nonlinear registration to a standard template volumetric space. Cortical surface reconstruction was performed using FreeSurfer (version 5.2) which produced 3-dimensional meshes for the white and pial cortical surface along with segmentation and folding-based registration to the fsaverage surface. Finally, the outputs
+50:HCP Aging Data The aging imaging data was sourced from the HCP-Aging Lifespan 2.0 release 103 (HCP-A) which included structural MRI images from 725 healthy adults (56% female) aged 36 to 100+ years old. For all participants aged above 90 years old, age was reported as 100 to avoid releasing protected health information. The acquisition and preprocessing protocols for this cohort were generally consistent with the earlier acquired HCP-YA protocols, with particular necessary changes due to hardware differences that are detailed elsewhere 106 . In summary, data were collected on Siemens 3T Prisma scanners (with 32-channel head coils) located at 4 different acquisition sites in the United States. Particularly, T1w images were collected by a multi-echo MPRAGE sequence with real-time motion correction (0.8mm isotropic voxels, TR = 2500ms, TE = 1.8/3.6/5.4/7.2ms, TI = 1000ms, flip angle = 8 ° , 6/8 slice partial Fourier) 106 . The preprocessing pipeline for structural images was similar to that of HCP-YA following the minimal preprocessing pipeline 105 with minor variations including a different version of FreeSurfer (version 6.0) and an update to MSMAll using higher order smoothness constraints 139 .
+52:HCP Development Data The development imaging data was sourced from HCP-Development Lifespan 2.0 release 104 (HCP-D) which contained structural MRI images of 652 healthy participants (53.8% female) aged 5 to 22 years old. This cohort aimed to adapt existing HCP protocols to the practical challenges of studying developmental populations. The acquisition and processing of the HCP-D dataset 104 were generally consistent with the HCP-A dataset 103 . Namely, similar Prisma scanners (with 32-channel head coils) were used to collect imaging data across four acquisition sites, while a tailored 32-channel head coil was used for 5-7 year-old participants 104,106 . Identical to HCP-A, a multi-echo MPRAGE sequence was used to collect T1w images followed by the same preprocessing procedures 106 .
+56:The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing &amp; Cognition Centre at the National University of Singapore 107,108 . The dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria. AD diagnosis followed internationally accepted criteria using the National Institute of Neurological and Communicative Disorders and Stroke and Alzheimer's Disease and Related Disorders Association (NINCDS-ADRDA) guidelines.
+58:Each participant underwent neuroimaging and comprehensive clinical and neuropsychological evaluation, including the Mini-Mental State Examination (MMSE). MRI was performed on a 3T Siemens Magnetom Trio Tim scanner with a 32-channel head coil at the Clinical Imaging Research Centre of the National University of Singapore. The imaging protocol included a T1-weighted MPRAGE sequence (1 mm isotropic resolution, TR = 2300 ms, TE = 1.9 ms, TI = 900 ms, flip angle = 9 ° , 192 sagittal slices, matrix size = 256 × 256) 140 . T1-weighted scans were preprocessed using FreeSurfer 6.0 recon-all pipeline to generate cortical surfaces and thickness estimates in the fsnative surface space 141,142 . Matlab scripts and commands from Connectome Workbench and FreeSurfer were then used to project thickness data to the fs-LR surface space, aligning it with HCP thickness data to enable transfer learning from HCP datasets to MACC.
+62:Table S.2. Sample Characteristic of MACC-H dataset. Note: Values presented as µ ± σ indicate the mean ( µ ) and standard deviation ( σ ).
+64:| Cohort      | HC                      | MCI                              | AD              |
+66:| Description | No cognitive impairment | Cognitive impairment no dementia | Diagnosis of AD |
+262:To assess the significance of cognitive associations within each cohort, we repeated the analyses from Section 2.5 SNM Uncovers Cortical Signatures of Atrophy in Alzheimer's Disease on the HC, MCI, and AD subsets. For healthy controls (HC), high-resolution cortical associations did not reach significance in any region after FDR correction (Supplementary Figure S.13), and ETVC showed no association with cognitive performance, irrespective of the z-threshold. In the MCI cohort, ETVC was similarly unrelated to cognitive impairment (Supplementary Figure S.14), but regional analyses identified significant atrophy in the left entorhinal cortex and left frontal pole to be associated with cognitive impairment. In contrast, the AD cohort displayed widespread neocortical atrophy patterns significantly linked to cognitive impairment (Supplementary Figure S.15), with reductions in the temporal pole, superior and middle temporal gyri, entorhinal cortex, parahippocampal cortex, precuneus, supramarginal gyrus, and superior, middle, and inferior frontal gyri. Additionally, ETVC showed a strong association with cognitive impairment in the AD cohort, specific to extremely thin vertices. Interestingly, this predictive capacity diminished when the z-score threshold was raised to zero or any positive value, with optimal predictions achieved between z-score thresholds of -2 and -3. Together, these findings suggest that the derived normative atrophy marker of cognitive impairment is specific to AD and most sensitive to extreme signs of atrophy. However, it should be noted that limited variability in cognitive performance within HC and MCI cohorts has potentially reduced the sensitivity for detecting smaller effects in these groups.
+264:## Cognitive associations within the HC group
+266:Supplementary Figure. S.13. Cognitive Association Tests within the Healthy Cohort (HC). (A) Vertex-level normative assessments were tested for linear associations with cognitive performance (MMSE), but no vertices reached significance after nonparametric FDR correction. (B) Extreme value statistics for severe atrophy (ETVC, z-score threshold of -1.96) were assessed for their predictive capability on cognitive performance, revealing no sensitivity of ETVC to cognitive variations in HC. (C) A range of alternative z-score thresholds was tested, demonstrating that ETVC does not predict cognitive performance in HC, regardless of threshold choice.
+274:## Cognitive associations within the MCI group
+276:Supplementary Figure. S.14. Cognitive Association Tests within the MCI Cohort. (A) Vertex-level normative assessments were tested for linear associations with cognitive performance (MMSE) within the MCI cohort. A limited set of vertices within the entorhinal cortex reached statistical significance, indicating that extreme atrophy in this region may serve as a marker of cognitive impairment. (B) Extreme value statistics for severe atrophy (ETVC, z-score threshold of -1.96) were evaluated for their predictive capability on cognitive performance, showing no sensitivity of ETVC to cognitive variations within MCI. (C) Testing a range of alternative z-score thresholds confirmed that ETVC does not predict cognitive performance in MCI, regardless of the chosen threshold.
+280:## Cognitive associations within the AD cohort
+282:Supplementary Figure. S.15. Cognitive Association Tests within the AD Cohort. (A) Vertex-level normative assessments were tested for linear associations with cognitive performance (MMSE) within the AD cohort. A widespread set of cortical regions reached statistical significance, highlighting extensive brain-wide associations as markers of AD-related cognitive impairment. (B) Extreme value statistics for severe atrophy (ETVC, z-score threshold of -1.96) were evaluated for predictive capability regarding cognitive performance, revealing significant predictive power of ETVC to capture cognitive variations within the AD cohort. (C) Testing across a range of alternative z-score thresholds indicated that only ETVCs with a negative z-threshold significantly predicted cognitive performance in the AD cohort. Notably, extreme thinning (z-thresholds from -2 to -3) proved to be the strongest predictor of cognitive impairment.
+298:To highlight the benefits of inferring high-resolution spatial norms, we compare the predictive performance of the ETVC normative measure derived from high-resolution brain charting with that of a brain-wide normative z-score computed from a spatially coarse brain chart of mean cortical thickness (averaged across the entire cortex). Using the fine-tuned SNM, we calculate individual z-scores for deviations in average cortical thickness and replicate the evaluations from Figures 5C, S.13B, S.14B, and S.15B. As shown in Figure S.16, the results consistently indicate that while brain-wide normative measures can predict cognitive impairments, high-resolution ETVC measures outperform them. Specifically, ETVC achieves higher prediction accuracy in the entire sample (ETVC: | r | = 0 . 45 , brainwide: | r | = 0 . 31 ) and in the AD subsample (ETVC: | r | = 0 . 31 , brain-wide: | r | = 0 . 23 ). Notably, both normative metrics were specifically sensitive to AD-related cognitive differences as neither predicted cognition in the HC or MCI subsets.
+
+thinking
+**Checking for missing table content**
+
+I'm inspecting the source around Table S.2 to verify if content was lost during Markdown conversion.
+exec
+/bin/bash -lc "sed -n '60,90p' study_1/NIHPP2025.01.16.25320639v1-supplement-1.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:43:47.165538Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+Open Access Preprint
+
+Table S.2. Sample Characteristic of MACC-H dataset. Note: Values presented as µ ± σ indicate the mean ( µ ) and standard deviation ( σ ).
+
+| Cohort      | HC                      | MCI                              | AD              |
+|-------------|-------------------------|----------------------------------|-----------------|
+| Description | No cognitive impairment | Cognitive impairment no dementia | Diagnosis of AD |
+| Sample Size | 132                     | 202                              | 208             |
+| Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19    |
+| Sex         | 54.5% female            | 58.4% female                     | 68.8% female    |
+| MMSE        | 27.39 ± 1.90            | 24.04 ± 3.88                     | 15.60 ± 4.96    |
+
+## A.2 Stratified Sample Splitting
+
+As described in the Methods section, train test splitting was performed by a randomized approach that controls for the distribution of sample covariates (age, sec, and dataset/batch). In particular, this was implemented by scikit-learn 's train\_test\_split function by utilizing the stratify parameter. First, continuous values for individual age were grouped into 20 bins by Quantile-based discretization. Next, discrete values encoding age, sex, and dataset information were utilized for stratified splitting. Supplementary Figure S.1 demonstrates the stability of covariate distribution after train test splitting.
+
+Supplementary Figure. S.1. Distribution of demographic information before and after splitting. The distribution of demographic information is displayed for the entire sample before splitting (left) and after splitting into training (center) and test (right) sets. The violin plots illustrate the age distribution (y-axis) across different datasets (x-axis). Each plot differentiates between male (dark shades) and female (bright shades) participants. The stratified group splitting ensures that the demographic distributions of covariates are matched between the training and test samples.
+
+![Image](./NIHPP2025.01.16.25320639v1-supplement-1_artifacts/image_000000_6e1f7df1fee51122d019ef0b5e09e80ea0193664bab77fe8a51b81c2cba2d16e.png)
+
+
+
+thinking
+**Deciding dataset origin and clinical cohort labels**
+
+MACC isn’t in the dataset list, so I'll use "Unknown" as the normalized dataset origin and mention the full MACC study name in detail. For clinical cohorts, I'll include AD and MCI as disorder categories, excluding HC, since only clinical disorders are listed.
+thinking
+**Computing cohort sex counts and preparing JSON metadata**
+
+I'm calculating female and male counts per cohort by rounding percent female times N, noting these are estimates from percentages. I'll include mean and SD for age with min/max as "NR" per instructions and cite supporting text from main section 2.5 and supplement A.1.2 for disorders and dataset origin. Next, I'll write the JSON output with these details and the paper_id "Mansour2025".
+exec
+/bin/bash -lc 'cat DE_v14_Mansour2025_by_codex_20260305124317209.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:44:09.588116Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 15ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Outlining JSON fill strategy**
+
+I'll structure the disorders array with two entries and fill numeric fields for age and sex as numbers, adding supporting text quotes from the table and supplement A.1.2 for disorder descriptions and cohort details.
+thinking
+**Finalizing dataset metadata and JSON output**
+
+I'm incorporating dataset origin text from the supplement with medium confidence, noting MACC harmonization study, and including computed sex counts and age mean±sd from the table, while preparing to produce a valid JSON file rewrite via patch or direct write.
+exec
+/bin/bash -lc "cat <<'EOF' > DE_v14_Mansour2025_by_codex_20260305124317209.json
+{
+  \"paper_id\": {
+    \"answer\": \"Mansour2025\"
+  },
+  \"disorders\": [
+    {
+      \"disorder-name\": {
+        \"answer\": \"MCI\",
+        \"detail\": \"Mild cognitive impairment cohort in the MACC clinical dataset\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\"the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.\"\",
+        \"location\": \"NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"Unknown\"],
+        \"detail\": \"MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\"The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.\"\",
+        \"location\": \"NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"min\": \"NR\", \"max\": \"NR\", \"mean\": 74.29, \"sd\": 6.70 },
+        \"detail\": \"Mean and SD reported for MCI cohort; min/max not reported\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\"Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19\"\",
+        \"location\": \"NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 84, \"male_pct\": 41.6, \"female_n\": 118, \"female_pct\": 58.4 },
+        \"detail\": \"Female percentage reported; counts estimated from N=202 and reported percent\",
+        \"confidence_rating\": \"Medium\",
+        \"supporting_text\": \"\"Sex         | 54.5% female            | 58.4% female                     | 68.8% female\"\",
+        \"location\": \"NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2\"
+      }
+    },
+    {
+      \"disorder-name\": {
+        \"answer\": \"AD\",
+        \"detail\": \"Alzheimer's Disease cohort in the MACC clinical dataset\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\"the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.\"\",
+        \"location\": \"NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"Unknown\"],
+        \"detail\": \"MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\"The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.\"\",
+        \"location\": \"NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"min\": \"NR\", \"max\": \"NR\", \"mean\": 75.49, \"sd\": 7.19 },
+        \"detail\": \"Mean and SD reported for AD cohort; min/max not reported\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\"Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19\"\",
+        \"location\": \"NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 65, \"male_pct\": 31.2, \"female_n\": 143, \"female_pct\": 68.8 },
+        \"detail\": \"Female percentage reported; counts estimated from N=208 and reported percent\",
+        \"confidence_rating\": \"Medium\",
+        \"supporting_text\": \"\"Sex         | 54.5% female            | 58.4% female                     | 68.8% female\"\",
+        \"location\": \"NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2\"
+      }
+    }
+  ]
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:44:44.426794Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 20ms:
+
+
+thinking
+**Identifying JSON quoting issues**
+
+Supporting text uses unescaped double quotes inside JSON, which is invalid; these need proper escaping to fix the JSON syntax.
+exec
+/bin/bash -lc 'cat DE_v14_Mansour2025_by_codex_20260305124317209.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:44:50.213133Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+{
+  "paper_id": {
+    "answer": "Mansour2025"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "MCI",
+        "detail": "Mild cognitive impairment cohort in the MACC clinical dataset",
+        "confidence_rating": "High",
+        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
+        "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+      },
+      "dataset-of-origin": {
+        "answer": ["Unknown"],
+        "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+        "confidence_rating": "High",
+        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
+        "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+      },
+
+thinking
+**Refining quote escaping strategy**
+
+I'm deciding to remove extra double quotes around supporting_text by applying a targeted patch that replaces doubled quotes with standard escaped quotes, avoiding unnecessary outer quote marks for proper JSON formatting.
+2026-03-05T03:45:11.562893Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+@@ -10,3 +10,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+@@ -17,3 +17,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+@@ -24,3 +24,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+@@ -31,3 +31,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+@@ -40,3 +40,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+@@ -47,3 +47,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+@@ -54,3 +54,3 @@
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+@@ -61,3 +61,3 @@
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+apply_patch(auto_approved=true) exited 0 in 5ms:
+Success. Updated the following files:
+M DE_v14_Mansour2025_by_codex_20260305124317209.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json b/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+index 8899d973b67dbf0bd8b67f07cec227a6890903f6..cdc880563557f98e3d65e430be7b30c85b71e335
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+@@ -8,28 +8,28 @@
+         "answer": "MCI",
+         "detail": "Mild cognitive impairment cohort in the MACC clinical dataset",
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "dataset-of-origin": {
+         "answer": ["Unknown"],
+         "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "age": {
+         "answer": { "unit": "years", "min": "NR", "max": "NR", "mean": 74.29, "sd": 6.70 },
+         "detail": "Mean and SD reported for MCI cohort; min/max not reported",
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       },
+       "sex": {
+         "answer": { "male_n": 84, "male_pct": 41.6, "female_n": 118, "female_pct": 58.4 },
+         "detail": "Female percentage reported; counts estimated from N=202 and reported percent",
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       }
+     },
+@@ -38,28 +38,28 @@
+         "answer": "AD",
+         "detail": "Alzheimer's Disease cohort in the MACC clinical dataset",
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "dataset-of-origin": {
+         "answer": ["Unknown"],
+         "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "age": {
+         "answer": { "unit": "years", "min": "NR", "max": "NR", "mean": 75.49, "sd": 7.19 },
+         "detail": "Mean and SD reported for AD cohort; min/max not reported",
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       },
+       "sex": {
+         "answer": { "male_n": 65, "male_pct": 31.2, "female_n": 143, "female_pct": 68.8 },
+         "detail": "Female percentage reported; counts estimated from N=208 and reported percent",
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       }
+     }
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json b/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+index 8899d973b67dbf0bd8b67f07cec227a6890903f6..cdc880563557f98e3d65e430be7b30c85b71e335
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+@@ -8,28 +8,28 @@
+         "answer": "MCI",
+         "detail": "Mild cognitive impairment cohort in the MACC clinical dataset",
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "dataset-of-origin": {
+         "answer": ["Unknown"],
+         "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "age": {
+         "answer": { "unit": "years", "min": "NR", "max": "NR", "mean": 74.29, "sd": 6.70 },
+         "detail": "Mean and SD reported for MCI cohort; min/max not reported",
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       },
+       "sex": {
+         "answer": { "male_n": 84, "male_pct": 41.6, "female_n": 118, "female_pct": 58.4 },
+         "detail": "Female percentage reported; counts estimated from N=202 and reported percent",
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       }
+     },
+@@ -38,28 +38,28 @@
+         "answer": "AD",
+         "detail": "Alzheimer's Disease cohort in the MACC clinical dataset",
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "dataset-of-origin": {
+         "answer": ["Unknown"],
+         "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "age": {
+         "answer": { "unit": "years", "min": "NR", "max": "NR", "mean": 75.49, "sd": 7.19 },
+         "detail": "Mean and SD reported for AD cohort; min/max not reported",
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       },
+       "sex": {
+         "answer": { "male_n": 65, "male_pct": 31.2, "female_n": 143, "female_pct": 68.8 },
+         "detail": "Female percentage reported; counts estimated from N=208 and reported percent",
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       }
+     }
+
+
+thinking
+**Confirming non-ASCII usage acceptability**
+
+The file includes ± and apostrophe now, and though instructions say to default to ASCII unless the file already uses non-ASCII, the source JSON already includes ± in supporting text as a direct quote, so retaining it is justified.
+exec
+/bin/bash -lc 'cat DE_v14_Mansour2025_by_codex_20260305124317209.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051243172092026-03-05T03:45:16.107939Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 17ms:
+{
+  "paper_id": {
+    "answer": "Mansour2025"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "MCI",
+        "detail": "Mild cognitive impairment cohort in the MACC clinical dataset",
+        "confidence_rating": "High",
+        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+        "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+      },
+      "dataset-of-origin": {
+        "answer": ["Unknown"],
+        "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+        "confidence_rating": "High",
+        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+        "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+      },
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json b/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+index 8899d973b67dbf0bd8b67f07cec227a6890903f6..cdc880563557f98e3d65e430be7b30c85b71e335
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+@@ -8,28 +8,28 @@
+         "answer": "MCI",
+         "detail": "Mild cognitive impairment cohort in the MACC clinical dataset",
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "dataset-of-origin": {
+         "answer": ["Unknown"],
+         "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "age": {
+         "answer": { "unit": "years", "min": "NR", "max": "NR", "mean": 74.29, "sd": 6.70 },
+         "detail": "Mean and SD reported for MCI cohort; min/max not reported",
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       },
+       "sex": {
+         "answer": { "male_n": 84, "male_pct": 41.6, "female_n": 118, "female_pct": 58.4 },
+         "detail": "Female percentage reported; counts estimated from N=202 and reported percent",
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       }
+     },
+@@ -38,28 +38,28 @@
+         "answer": "AD",
+         "detail": "Alzheimer's Disease cohort in the MACC clinical dataset",
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "dataset-of-origin": {
+         "answer": ["Unknown"],
+         "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "age": {
+         "answer": { "unit": "years", "min": "NR", "max": "NR", "mean": 75.49, "sd": 7.19 },
+         "detail": "Mean and SD reported for AD cohort; min/max not reported",
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       },
+       "sex": {
+         "answer": { "male_n": 65, "male_pct": 31.2, "female_n": 143, "female_pct": 68.8 },
+         "detail": "Female percentage reported; counts estimated from N=208 and reported percent",
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       }
+     }
+
+
+thinking
+**Confirming data normalization and labeling**
+
+Validated that JSON includes only AD and MCI with normalized disorder keywords, set dataset origin as "Unknown" due to naming mismatch, and confirmed NM is applied to the clinical cohort; no further tooling needed.
+codex
+Wrote the clinical cohort extraction for MCI and AD (MACC clinical dataset) into `DE_v14_Mansour2025_by_codex_20260305124317209.json`, using Table S.2 for age/sex and the MACC description for cohort definitions and dataset origin. Sex counts are estimated from reported female percentages and N, with that noted in detail.
+
+Next steps:
+1. If you want, I can swap `Unknown` to `SINGLE-SITE` for dataset-of-origin to reflect the single-site MACC cohort.
+2026-03-05T03:45:21.889433Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json b/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+index 8899d973b67dbf0bd8b67f07cec227a6890903f6..cdc880563557f98e3d65e430be7b30c85b71e335
+--- a/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305124317209/./DE_v14_Mansour2025_by_codex_20260305124317209.json
+@@ -8,28 +8,28 @@
+         "answer": "MCI",
+         "detail": "Mild cognitive impairment cohort in the MACC clinical dataset",
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "dataset-of-origin": {
+         "answer": ["Unknown"],
+         "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "age": {
+         "answer": { "unit": "years", "min": "NR", "max": "NR", "mean": 74.29, "sd": 6.70 },
+         "detail": "Mean and SD reported for MCI cohort; min/max not reported",
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       },
+       "sex": {
+         "answer": { "male_n": 84, "male_pct": 41.6, "female_n": 118, "female_pct": 58.4 },
+         "detail": "Female percentage reported; counts estimated from N=202 and reported percent",
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       }
+     },
+@@ -38,28 +38,28 @@
+         "answer": "AD",
+         "detail": "Alzheimer's Disease cohort in the MACC clinical dataset",
+         "confidence_rating": "High",
+-        "supporting_text": ""the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria."",
++        "supporting_text": "the dataset includes 542 participants aged 50 to 91 years (61.4% female, see Table S.2 for detail), grouped into three cohorts: i) a healthy cohort (HC) of 132 cognitively healthy individuals, ii) a mild cognitive impairment cohort (MCI) of 202 individuals with cognitive impairment but no AD, and iii) an AD cohort of 208 individuals with an AD diagnosis according to the Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition (DSM-IV) criteria.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "dataset-of-origin": {
+         "answer": ["Unknown"],
+         "detail": "MACC harmonization study (Memory, Ageing & Cognition Centre, National University of Singapore)",
+         "confidence_rating": "High",
+-        "supporting_text": ""The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore."",
++        "supporting_text": "The clinical data (part of MACC harmonization study) was acquired by the Memory, Ageing & Cognition Centre at the National University of Singapore.",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: A.1.2 MACC Clinical Data"
+       },
+       "age": {
+         "answer": { "unit": "years", "min": "NR", "max": "NR", "mean": 75.49, "sd": 7.19 },
+         "detail": "Mean and SD reported for AD cohort; min/max not reported",
+         "confidence_rating": "High",
+-        "supporting_text": ""Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19"",
++        "supporting_text": "Age         | 68.49 ± 7.58            | 74.29 ± 6.70                     | 75.49 ± 7.19",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       },
+       "sex": {
+         "answer": { "male_n": 65, "male_pct": 31.2, "female_n": 143, "female_pct": 68.8 },
+         "detail": "Female percentage reported; counts estimated from N=208 and reported percent",
+         "confidence_rating": "Medium",
+-        "supporting_text": ""Sex         | 54.5% female            | 58.4% female                     | 68.8% female"",
++        "supporting_text": "Sex         | 54.5% female            | 58.4% female                     | 68.8% female",
+         "location": "NIHPP2025.01.16.25320639v1-supplement-1.pdf.md: Table S.2"
+       }
+     }
+
+tokens used
+42,786
+Wrote the clinical cohort extraction for MCI and AD (MACC clinical dataset) into `DE_v14_Mansour2025_by_codex_20260305124317209.json`, using Table S.2 for age/sex and the MACC description for cohort definitions and dataset origin. Sex counts are estimated from reported female percentages and N, with that noted in detail.
+
+Next steps:
+1. If you want, I can swap `Unknown` to `SINGLE-SITE` for dataset-of-origin to reflect the single-site MACC cohort.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

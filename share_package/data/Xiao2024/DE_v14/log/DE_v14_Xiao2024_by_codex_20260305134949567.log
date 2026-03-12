@@ -1,0 +1,307 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Xiao2024_by_codex_20260305134949567.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134949567/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc54-b090-7483-8044-b298966a6d30
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Xiao2024_by_codex_20260305134949567.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Preparing to read the guide**
+2026-03-05T04:49:56.153021Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134949567 succeeded in 19ms:
+DE_Guide_v14.md
+DE_v14_Xiao2024_by_codex_20260305134949567.json
+DE_v14_Xiao2024_by_codex_20260305134949567.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051349495672026-03-05T04:49:58.320830Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 23ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating study data**
+
+I'm listing files in the study_1 directory to identify data files related to the paper.
+2026-03-05T04:50:00.797174Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134949567 succeeded in 36ms:
+DE_v14_Xiao2024_by_codex_20260305134949567.log
+DE_Guide_v14.md
+DE_v14_Xiao2024_by_codex_20260305134949567.json
+study_1/Xiao2024.pdf.md
+study_1/1-s2.0-S2667174325000886-mmc2.xlsx.md
+study_1/1-s2.0-S2667174325000886-mmc1.pdf.md
+
+thinking
+**Opening main document for cohort details**
+exec
+/bin/bash -lc 'rg -n "clinical|cohort|patient|schizo|bipolar|depress|MDD|BD|ADHD|ASD|control|case|disorder|psycho|diagnosis|DSM|ICD|participants|sample" study_1/Xiao2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051349495672026-03-05T04:50:04.519530Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 29ms:
+9:BACKGROUND: Affective symptoms are a prevalent psychopathological feature in various psychiatric disorders. However, the underlying neurobiological mechanisms are complex and not yet fully understood.
+11:METHODS: We used normative modeling to establish a reference for functional activation of functional magnetic resonance imaging based on an emotional episodic memory task, which is frequently used to study affective symptoms in psychiatric disorders. This normative reference was derived from a large dataset of healthy individuals ( n = 409) and used to evaluate individualized functional alterations by calculating deviations from this reference in a clinical dataset, which included 164 healthy control participants and patients with major depressive disorder (MDD) ( n = 56), bipolar disorder (BD) ( n = 31), and schizophrenia (SZ) ( n = 73). The functional deviations were mapped to emotional networks (ENs) with speci /uniFB01 c emotional functions and used to predict affective symptoms in different mental disorders. The microscale cellular signatures underlying macroscale variations were identi /uniFB01 ed using imaging transcriptomic analysis and associated with affective symptoms.
+13:RESULTS: We observed distinct patterns of cross-scale neural alterations linked to affective symptoms in 3 psychiatric disorders. Macroscale neural dysfunctions in distinct disorders were embedded into non-overlapping ENs and signi /uniFB01 cantly associated with affective symptoms. Oligodendrocytes may mediate the network-speci /uniFB01 c impairments and microglia for MDD, astrocytes for BD, and excitatory neurons for SZ as replicable cell-type correlates of affective symptoms.
+15:CONCLUSIONS: These /uniFB01 ndings revealed cross-scale neural alterations underlying affective symptoms in psychiatric disorders, providing a basis for understanding their neuropathological patterns and guiding individualized treatment.
+19:Affective symptoms, a basic dimension of psychopathology, are highly prevalent across multiple psychiatric conditions (1). In clinical settings, affective symptoms in psychiatric patients manifest as disturbances in emotional processing, the result of which is emotional extremes in perception (2), attention (3), and response (4), and display signi /uniFB01 cant variability in distinct forms of clinical phenotype (5,6). Clarifying the neurobiological underpinnings related to psychiatric symptoms is a major challenge for contemporary research in psychiatry and would help advance the intervention optimization of psychiatric disorders (7 -9). However, the neurobiological alterations underlying affective symptoms in psychiatry are complex and remain poorly understood.
+21:Functional magnetic resonance imaging (fMRI) studies have been a major step forward in characterizing macroscale neural dysfunctions related to affective symptoms in psychiatric patients (5,10,11). The emotional episodic memory task (12 -14), a widely used paradigm, effectively captures functional activation associated with adaptive memory-enhancing effects induced by emotional stimuli (15 -17). Maladaptive alterations in this task have frequently been observed in major depressive disorder (MDD) (18,19), bipolar disorder (BD) (20,21), and schizophrenia (SZ) (22,23), suggesting the neural dysfunctions of affective perturbation. Disrupted emotional memory retrieval has been reported that may manifest in multiple processes of pathological emotion in psychiatric patients, involving disturbances in emotional attention (24), perceptions (25), and regulation (26). Importantly, these disruptions were thought to link to the vulnerability and development of speci /uniFB01 c clinical affective syndromes (27,28), underscoring the task ' s relevance in assessing affective symptoms.
+25:Studies using emotional episodic memory tasks have identi/uniFB01 ed altered neurofunctions related to affective symptoms in the amygdala and medial temporal lobe (MTL) system across various mental disorders (29 -31), suggesting heterogeneous patterns of neural dysfunctions in distinct diagnoses (18,32 -34). However, inconsistent results have often been reported, both within one speci /uniFB01 c diagnosis and across disorders. In MDD, increased activity in the amygdala and orbitofrontal gyrus has often been associated with emotional bias (18,19), but another study has shown no abnormalities (33). Hypoactivation in the amygdala and occipital gyrus has been recognized in patients with BD compared with patients with MDD (20,35), although an earlier study reported increased activity (36). Individuals with SZ have shown both hyperactivation and hypoactivation in the prefrontal and parietal cortices (37 -39), accompanied by coactivation with the MTL areas (37,38,40). Furthermore, while a study has reported higher activation of the cingulate cortex in patients with BD relative to patients with SZ (34), others have reported the opposite (41).
+27:Although these mixed /uniFB01 ndings could be partially due to differences in task design, one more major reason is the individual differences within and across clinical cohorts, which were often not captured by traditional case-control designs (42,43). To address this, an individualized approach that disentangles the intersubject heterogeneity of neural dysfunctions that underpin affective symptoms is therefore necessary. Normative modeling quanti /uniFB01 es each patient as an extreme deviation from normative expectations for MRI-derived phenotypes based on clinical or cognitive characteristics by incorporating neural alterations into a continuous spectrum derived from a large healthy population (44,45). This method shares similarities with other dimensional methods commonly used to predict clinical variables from neuroimaging data (46). By cutting across diagnostic classi /uniFB01 cations, this approach shifts the focus from group-level analyses to individual-level deviations, thereby mitigating confounds arising from intersubject differences to some extent.
+29:Complex clinical phenotypes of affective symptoms are not only associated with macroscale functional abnormalities but are also tied to alterations at the microscale genetic and cellular levels (47 -49). Studies of postmortem brain samples and animal models have consistently pointed toward cellular processes in the central nervous system, including pathological alterations of neurons and neuroglial cells, as important factors in the development of affective symptoms (50 -52). However, due to limitations in spatial resolution and coarse diagnostic classi /uniFB01 cations, the relationship between microscopic vulnerabilities, macroscale dysfunctions, and clinical phenotypes remains poorly understood. The Allen Human Brain Atlas (AHBA) microarray dataset has been utilized to investigate transcriptomic patterns linked to neuroimaging /uniFB01 ndings (53,54), with substantial evidence indicating a connection between gene expression and macroscale dysfunctions (55,56). The brainwide gene expression atlas has made it possible to bridge the gap between cross-scale functional alterations (57) and, by combining with a normative modeling framework, could identify the personalized multiscale associations of neural vulnerability.
+31:In the current study, we aimed to investigate cross-scale neural dysfunctions related to affective symptoms in patients with MDD, BD, and SZ (Figure 1). By utilizing 2 task-fMRI datasets and a normative modeling framework, robust and individualized functional deviations during emotional memory retrieval were /uniFB01 rst identi /uniFB01 ed. Next, we embedded deviation patterns into macroscale emotional networks (ENs) to explore the functional annotations of emotional pro /uniFB01 ling associated with neural variability in distinct disorders and assessed the associations with affective symptoms dimension. Finally, we conducted transcriptomic association analysis to plausibly determine the cellular abnormalities linked to affective symptoms by integrating macroscale dysfunctions with microscale alterations from the perspective of brainwide transcriptome and brain single-cell sequencing. The normative modeling approach enables the disentangling of the cross-scale heterogeneous patterns of neural dysfunctions underlying affective symptoms within a single diagnosis while simultaneously identifying between-diagnoses commonalities and differences. Building on evidence of common disruption in emotional memory and explicit distinction of affective symptoms across different disorders, we hypothesized that individualized deviations would converge in limited regions but diverge signi /uniFB01 -cantly across large-scale networks between diagnoses.
+37:The participants of this study were drawn from 2 datasets. The healthy dataset included 409 healthy control (HC) participants (HCtrain group) recruited from the Center for MRI Research, Peking University. The clinical dataset consisted of 324 individuals: 56 individuals with MDD, 31 individuals with BD, 73 individuals with SZ, and 164 HC participants (HCtest group). These participants were recruited from the Center for Neuroimaging, Peking University Sixth Hospital. The study was approved by the medical ethics committee of Peking University Sixth Hospital (see the Supplement for details of the ethics reviews), and all participants provided written informed consent before taking part in the study. All psychiatric patients were assessed and diagnosed using DSM-IV criteria by experienced psychiatric physicians. The severity of depression in patients with MDD was assessed using the Hamilton Depression Rating Scale (HAMD), while the clinical symptoms of BD were assessed using both the HAMD and the Young Mania Rating Scale. The symptoms of patients with SZ were evaluated using the Positive and Negative Syndrome Scale (PANSS). The HC participants had no current or lifetime history of Axis I psychiatric disorders or neurological disorders. See the Supplement for additional criteria for participants inclusion and exclusion and quality-control details.
+41:The fMRI paradigm of emotional episodic memory, which has been used in previous studies (58), was adopted in the healthy and clinical dataset. The paradigm consisted of encoding and retrieval phases, and each phase included neutral and aversive images selected from the International Affective Picture System (59,60). Both encoding and retrieval phases comprised 4 blocks of neutral scenes and 4 blocks of aversive scenes that were continuously presented, and each block included 6 scenes for 3 seconds each scene, alternating with 9 blocks of
+43:Figure 1. The work /uniFB02 ow of the current study design. (A) Data on functional activation for each participant under task -fMRI of emotional episodic memory were extracted from 2 research datasets (the healthy dataset and the clinical dataset). (B) The normative model was /uniFB01 rst established based on functional activation of each region as response variables and task performances as predicted covariates, drawing from the HCtrain group of the healthy dataset. The HCtest group from the clinical dataset was further put into the normative model to replicate validation, and individualized alterations were evaluated as deviations relative to the normative range in any given brain region for each patient in the clinical dataset. (C) Overview of analysis pipeline comprising 3 steps. Model generalizability was assessed based on the similarity between the HCtrain and HCtest groups; the stability of measurements derived from the normative reference was evaluated through the replicate validation step using different brain parcellation atlases and modeling methods and validated whether these measurements could be in /uniFB02 uenced by the medication effect (step 1). The macroscale alterations were quanti /uniFB01 ed as the differences between the proportion of individuals showing an extreme deviation of each case and HC participants at the regional level and further embedded into emotional network for speci /uniFB01 c functional annotations of emotional pro /uniFB01 ling. Individual deviations with signi /uniFB01 cant differences were used to predict affective symptoms of each psychiatric disorder (step 2). Transcriptomic analysis and cell-type enrichment were further applied to examine the microscale alterations related to macroscale variability and linked to affective symptoms in distinct disorders (step 3). BD, bipolar disorder; fMRI, functional magnetic resonance imaging; HC, healthy control; MDD, major depressive disorder; ROI, region of interest; SZ, schizophrenia.
+47:rest (18 seconds of /uniFB01 xation). During the encoding phase, participants were /uniFB01 rst instructed to determine whether each aversive or neutral picture represented an indoor or outdoor scene. Participants were not informed about the subsequent retrieval phase before scanning, and thus they did not realize that they were engaged in a memory task. Approximately 2 minutes after the encoding phase, participants had to remember whether the image presented was seen during the encoding session in the case of mixing with half new pictures and respond ' new ' or ' old ' via a button press. Finally, both reaction time (RT) and accuracy (ACC) in the encoding and retrieval phase were extracted from log /uniFB01 les of task performance after scanning. The schematic diagram of the task is shown in Figure 2A, and a detailed description is provided in the Supplement.
+51:Imaging data were acquired from participants on a 3T GE Discovery MR750 scanner in the Center for MRI Research, Peking University (healthy dataset) and the Center for Neuroimaging, Peking University Sixth Hospital (clinical dataset). The high-resolution structural T1-weighted MRI and fMRI blood oxygen level -dependent signal were acquired and preprocessed using SPM12 (http://www. /uniFB01 l.ion.ucl.ac.uk/spm) with a standardized protocol (61). The details of imaging acquisition and preprocessing can be found in the Supplement.
+61:Figure 2. The emotional episodic memory task and generalizability evaluation of the normative model. (A) The emotional episodic memory task consisted of encoding and retrieval phases, and each phase included neutral and aversive scenes. The participants were instructed to determine whether each image represented an indoor or outdoor scene in the encoding phase (left) and to respond ' new ' or ' old ' in the retrieval phase (right). (B) The distribution of mean regional deviations in the HCtrain and HCtest groups. There was no signi /uniFB01 cant difference between these 2 distributions. (C) The spatial distribution of the regional deviation map in the HCtrain group exhibited signi /uniFB01 cant spatial correlations with the group-averaged activation and regional deviation maps in the HCtest group. HC, healthy control.
+65:emotional episodic memory using the Predictive Clinical Neuroscience toolkit (https://pcntoolkit.readthedocs.io/en/ latest). First, the task activation maps were used as response variables, and predictive factors comprised task performances including RT in the encoding and retrieval phase and ACC in the retrieval phase. We set the HCtrain group as the training sample to establish the normative reference, and the testing sample that comprised the clinical dataset (HCtest group) was positioned on the normative percentile charts for replicate validation and individualized evaluation. Next, we derived a z value from a model that quanti /uniFB01 ed the deviation from the normative reference for each participant in any given brain
+79:The brainwide transcriptome was acquired from postmortem brain tissue samples of 6 neurotypical adult donors derived from the AHBA (http://human.brain-map.org) and preprocessed using the abagen toolbox (https://www.github.com/ netneurolab/abagen) following established protocols (65). The spatial correlations between the expression of each gene and neuroimaging deviations were calculated separately at the group and individual level. Two brain single-cell gene sequencing datasets were acquired from the Lake et al. (66) and Li et al. (67) cell-type gene markers. Seven cell types were adopted following a previous study (54), including astrocytes, endothelial cells, excitatory neurons, inhibitory neurons, microglia, oligodendrocytes, and oligodendrocyte precursors. The fast gene set enrichment analysis method was applied to perform cell-type enrichment analysis (68) and then obtained normalized enrichment scores (NESs) at the group and individual level, respectively. Pearson correlations were used to evaluate the relationship between individual NESs and affective symptoms in distinct disorders. More details are provided in the Supplement.
+85:The demographic and clinical characteristics of participants are presented in Table 1. There were no signi /uniFB01 cant differences in sex ( c 2 3 = 0.333, p = .954) or age ( F 3,320 = 2.195, p = .089) among the HCtest, MDD, BD, and SZ groups. The statistical analysis of task performance found that an emotional memoryenhancing effect was observed across all groups of the 2 datasets (Table S2). Detailed results of task performances are provided in the Supplement.
+89:Our models predicted a normative reference for functional activations given task performances and /uniFB01 tted well in healthy individuals, showing that 99.51% of individuals in the HCtrain group and 100% of individuals in the HCtest group were located within the normative range ( 2 2.6 , z , 2.6) for the mean regional deviations (Figure 2B). There was no signi /uniFB01 cant difference in the distribution of mean regional normative z scores between the HCtrain and HCtest groups (KolmogorovSmirnov test = 0.087, p = .320). The spatial distribution of group-averaged functional activation was highly correlated with the regional deviation map of the HCtrain group ( r = 0.973, p spin , .001) (Figure 2C), indicating a spatial alignment between group-averaged effect and individualized components by characterizing neural activation in given task performances. The normative model exhibited higher generalizability as indicated by internal cross-validation (Figure S4) and independent external sample validation, showing that the mean regional deviation maps in the HCtrain and HCtest groups were highly associated ( r = 0.956, p spin , .001). The normative model established based on behavior performances, sex, and age also showed a high correlation with current models, which
+
+thinking
+**Identifying demographics table**
+
+The demographics table with clinical cohort age and sex for MDD, BD, and SZ is needed, likely found in Table 1 of the main text or supplement. Next, I'll locate and review Table 1.
+exec
+/bin/bash -lc 'rg -n "Table 1|Table S1|demographic|Age|Sex|female|male" study_1/Xiao2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051349495672026-03-05T04:50:10.120760Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 34ms:
+71:To investigate brain regions with signi /uniFB01 cant extreme deviations, we further de /uniFB01 ned extreme deviations by thresholding the individualized deviation ( z value) derived from normative modeling using z of 6 2.6 (corresponding to p , .005 in a standard normal distribution) (Figure S1), as was performed in previous studies (42,63). A percentage map quantifying the proportion of individuals showing an extreme deviation was calculated for each group, separately for positive and negative extreme deviations. The proportion difference ( D percentage map) of individuals with extreme deviations was assessed between each diagnostic group with the HCtest group. A nonparametric group-based permutation test was conducted to identify signi /uniFB01 cant brain regions for each diagnostic group, and statistical signi /uniFB01 cance was set at .0167 (.05/3) with multiple comparisons correction based on the false discovery rate (FDR). The statistically signi /uniFB01 cant positive and negative extreme deviations were de /uniFB01 ned as supranormal and infranormal, respectively. To avoid reliance on a single threshold, the D percentage map of each group was validated based on a threshold-weighted calculation for de /uniFB01 ning extreme deviations, which integrated results across a range of thresholds (see the Supplement). Region-level deviations were embedded into large-scale ENs. A well-recognized framework of 4 ENs was revealed by a recent meta-analysis study (64), with distinct spatial distributions and functional pro /uniFB01 les ranging from emotional generation to regulation (EN 1: working memory and response inhibition; EN 2: cognitive appraisal and language processing of emotional stimuli; EN 3: emotion perception and generation; EN 4: emotional reactivity), and positioned on the DK atlas (Figure S2 and Table S1). The signi /uniFB01 cant networks were then evaluated for each diagnostic group using a groupbased permutation test at the regional level. The details of the method can be found in the Supplement and Figure S3 and in previous studies (63).
+85:The demographic and clinical characteristics of participants are presented in Table 1. There were no signi /uniFB01 cant differences in sex ( c 2 3 = 0.333, p = .954) or age ( F 3,320 = 2.195, p = .089) among the HCtest, MDD, BD, and SZ groups. The statistical analysis of task performance found that an emotional memoryenhancing effect was observed across all groups of the 2 datasets (Table S2). Detailed results of task performances are provided in the Supplement.
+113:Table 1. Demographic and Clinical Characteristics of Study Participants
+118:| Sex, Female/Male | 206/203           | 101/63             | 36/20              | 18/13              | 45/28              | 0.333 (.954)       |
+119:| Age, Years       | 24.6 (3.8)        | 24.6 (4.0)         | 25.1 (5.0)         | 27.0 (5.3)         | 25.2 (5.6)         | 2.195 (.086)       |
+
+thinking
+**Exploring table structure**
+
+I'm inspecting the table and its surrounding code to understand groupings and how the full table is constructed for further work.
+exec
+/bin/bash -lc "sed -n '105,130p' study_1/Xiao2024.pdf.md" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051349495672026-03-05T04:50:13.079748Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 26ms:
+The macroscale alterations showed little spatial overlaps (Figure S10 and Table S3), but the overall spatial distribution
+
+Figure 4. Imaging transcriptomic analysis and cell-type enrichment. (A) Schematic diagram of imaging transcriptomic analysis at the group and individual level, respectively. Infra- and supranormal D percentage maps for each diagnostic group were spatially correlated with the 15,633 gene expressions of 6 postmortem brain tissue samples from the Allen Human Brain Atlas (AHBA) using Spearman correlation analysis. Individual deviation maps from each patient with a psychiatric disorder were also spatially correlated with AHBA gene expressions. Based on 2 independent cell-type gene markers, the analysis of celltype enrichment was conducted using the fast gene set enrichment analysis (FGSEA) method in the sorted gene rank to separately calculate group cell-type enrichment and individual-level cell-type enrichment scores. (B) Group-level cell-type enrichment. Cell types enriched by infra- and supranormal deviations are shown across 2 cell-type gene markers. The horizontal bar plots showed the statistical signi /uniFB01 cance of enrichment that was quanti /uniFB01 ed by sign(normalized enrichment score [NES]) 32 log10( pvalue) given by the FGSEA method. The replicable signi /uniFB01 cant cell types across 2 datasets are labeled. The network group effects of individual deviations corresponding to signi /uniFB01 cant cell-type enrichment are also marked on the side. (C) Symptom associations of individual cell-type enrichment. The associations between individual-level NES of speci /uniFB01 c cell type and clinical affective symptoms were examined using the Pearson correlation analysis in distinct psychiatric disorders. The cell types that were signi /uniFB01 cantly enriched at the group level also exhibited signi /uniFB01 cant associations with clinical affective symptoms in each psychiatric disorder. The bar plots show the statistical signi /uniFB01 cance of correlations, and replicable signi /uniFB01 cant cell types across 2 datasets are labeled. BD, bipolar disorder; EN, emotional network; MDD, major depressive disorder; OPC, oligodendrocyte precursor; SZ, schizophrenia.
+
+![Image](./Xiao2024_artifacts/image_000003_1eb5eb4e7b0ae3faa99b97a8d73a3d63d54cf35bf0f1fc75f0b4aa45e3ce189d.png)
+
+was extraordinarily different. The infranormal regions in the patients with MDD were mainly located in the frontal and temporal lobe, while the supranormal regions were in the superior frontal gyrus, superior temporal gyrus, and amygdala (Figure 3A and Table S4). Patients with BD showed infranormal regions in the occipital lobe, precuneus, hippocampus, and
+
+Table 1. Demographic and Clinical Characteristics of Study Participants
+
+|                  | Healthy Dataset   | Clinical Dataset   | Clinical Dataset   | Clinical Dataset   | Clinical Dataset   | Clinical Dataset   |
+|------------------|-------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| Characteristic   | HCtrain, n = 409  | HCtest, n = 164    | MDD, n = 56        | BD, n = 31         | SZ, n = 73         | c 2 / F ( p )      |
+| Sex, Female/Male | 206/203           | 101/63             | 36/20              | 18/13              | 45/28              | 0.333 (.954)       |
+| Age, Years       | 24.6 (3.8)        | 24.6 (4.0)         | 25.1 (5.0)         | 27.0 (5.3)         | 25.2 (5.6)         | 2.195 (.086)       |
+| HAMD             | -                 | -                  | 24.982 (5.472)     | 12.581 (14.631)    | -                  | -                  |
+| YMRS             | -                 | -                  | -                  | 4.581 (8.007)      | -                  | -                  |
+| PANSS            | -                 | -                  | -                  | -                  | 67.833 (14.049)    | -                  |
+| On Medications   | -                 | -                  | 37                 | 14/9/7 c           | 39                 | -                  |
+
+
+thinking
+**Extracting clinical cohort details**
+
+I'm consolidating clinical cohort info for MDD, BD, and SZ from a single-site dataset at Peking Univ Sixth Hospital, calculating sex percentages and preparing to update the JSON with age stats, dataset origin, disorder entries, and paper ID.
+exec
+/bin/bash -lc 'cat DE_v14_Xiao2024_by_codex_20260305134949567.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051349495672026-03-05T04:50:21.229220Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 24ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Planning patch content for clinical dataset details**
+
+I'm preparing to add supporting text and citations for disorder names, dataset origin, and demographics from the methods and Table 1 of Xiao2024.pdf.md, focusing on lines around 37 and Table 1 for MDD, BD, SZ groups.
+thinking
+**Preparing JSON-compliant patch output**
+
+I'm ensuring the patch content is valid ASCII JSON with proper quoting and planning to replace the entire file using a here-document for clean file overwrite.
+2026-03-05T04:50:54.828692Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc "cat <<'EOF' > DE_v14_Xiao2024_by_codex_20260305134949567.json
+{
+  \"paper_id\": {
+    \"answer\": \"Xiao2024\"
+  },
+  \"disorders\": [
+    {
+      \"disorder-name\": {
+        \"answer\": \"MDD\",
+        \"detail\": \"Major depressive disorder clinical cohort.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"The clinical dataset consisted of 324 individuals: 56 individuals with MDD, 31 individuals with BD, 73 individuals with SZ, and 164 HC participants (HCtest group).\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Methods / Participants\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"SINGLE-SITE\"],
+        \"detail\": \"Clinical dataset recruited from a single site (Peking University Sixth Hospital).\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"These participants were recruited from the Center for Neuroimaging, Peking University Sixth Hospital.\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Methods / Participants\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"mean\": 25.1, \"sd\": 5.0 },
+        \"detail\": \"MDD group in clinical dataset.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Age, Years | 25.1 (5.0)\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Table 1\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 20, \"male_pct\": 35.7, \"female_n\": 36, \"female_pct\": 64.3 },
+        \"detail\": \"Percentages calculated from counts in Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Sex, Female/Male | 36/20\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Table 1\"
+      }
+    },
+    {
+      \"disorder-name\": {
+        \"answer\": \"BD\",
+        \"detail\": \"Bipolar disorder clinical cohort.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"The clinical dataset consisted of 324 individuals: 56 individuals with MDD, 31 individuals with BD, 73 individuals with SZ, and 164 HC participants (HCtest group).\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Methods / Participants\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"SINGLE-SITE\"],
+        \"detail\": \"Clinical dataset recruited from a single site (Peking University Sixth Hospital).\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"These participants were recruited from the Center for Neuroimaging, Peking University Sixth Hospital.\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Methods / Participants\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"mean\": 27.0, \"sd\": 5.3 },
+        \"detail\": \"BD group in clinical dataset.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Age, Years | 27.0 (5.3)\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Table 1\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 13, \"male_pct\": 41.9, \"female_n\": 18, \"female_pct\": 58.1 },
+        \"detail\": \"Percentages calculated from counts in Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Sex, Female/Male | 18/13\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Table 1\"
+      }
+    },
+    {
+      \"disorder-name\": {
+        \"answer\": \"SCZ\",
+        \"detail\": \"Schizophrenia clinical cohort.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"The clinical dataset consisted of 324 individuals: 56 individuals with MDD, 31 individuals with BD, 73 individuals with SZ, and 164 HC participants (HCtest group).\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Methods / Participants\"
+      },
+      \"dataset-of-origin\": {
+        \"answer\": [\"SINGLE-SITE\"],
+        \"detail\": \"Clinical dataset recruited from a single site (Peking University Sixth Hospital).\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"These participants were recruited from the Center for Neuroimaging, Peking University Sixth Hospital.\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Methods / Participants\"
+      },
+      \"age\": {
+        \"answer\": { \"unit\": \"years\", \"mean\": 25.2, \"sd\": 5.6 },
+        \"detail\": \"SZ group in clinical dataset.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Age, Years | 25.2 (5.6)\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Table 1\"
+      },
+      \"sex\": {
+        \"answer\": { \"male_n\": 28, \"male_pct\": 38.4, \"female_n\": 45, \"female_pct\": 61.6 },
+        \"detail\": \"Percentages calculated from counts in Table 1.\",
+        \"confidence_rating\": \"High\",
+        \"supporting_text\": \"\\\"Sex, Female/Male | 45/28\\\"\",
+        \"location\": \"Xiao2024.pdf.md: Table 1\"
+      }
+    }
+  ]
+}
+EOF" in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305134949567 succeeded in 23ms:
+
+
+thinking
+**Summarizing final updates**
+
+No tests were run, but code changes have been completed as planned and are ready for review or deployment.
+codex
+Clinical cohort extraction for Xiao2024 is filled out and written to `DE_v14_Xiao2024_by_codex_20260305134949567.json`, including MDD, BD, and SCZ demographics with single-site dataset origin.
+
+- Updated `DE_v14_Xiao2024_by_codex_20260305134949567.json` with paper_id and three disorder entries sourced from `study_1/Xiao2024.pdf.md`.
+- Age and sex values are taken from Table 1; sex percentages are computed from counts and noted.
+- Dataset-of-origin set to `SINGLE-SITE` with supporting text from participant recruitment description.
+
+Next steps if you want:
+1) Validate any additional details in supplemental files (e.g., min/max age).  
+2) Proceed to the next paper.
+2026-03-05T04:50:59.424300Z ERROR codex_core::codex: needs_follow_up: false
+tokens used
+25,320
+Clinical cohort extraction for Xiao2024 is filled out and written to `DE_v14_Xiao2024_by_codex_20260305134949567.json`, including MDD, BD, and SCZ demographics with single-site dataset origin.
+
+- Updated `DE_v14_Xiao2024_by_codex_20260305134949567.json` with paper_id and three disorder entries sourced from `study_1/Xiao2024.pdf.md`.
+- Age and sex values are taken from Table 1; sex percentages are computed from counts and noted.
+- Dataset-of-origin set to `SINGLE-SITE` with supporting text from participant recruitment description.
+
+Next steps if you want:
+1) Validate any additional details in supplemental files (e.g., min/max age).  
+2) Proceed to the next paper.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

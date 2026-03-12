@@ -1,0 +1,999 @@
+
+========== Codex コマンド ==========
+codex exec --full-auto --skip-git-repo-check -C . \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_VillalonReina2024_by_codex_20260305133735068.json へ書き込んでください。"
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Codex が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+OpenAI Codex v0.84.0 (research preview)
+--------
+workdir: /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133735068/.
+model: gpt-5.2-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: auto
+session id: 019cbc49-7b3b-7102-917f-f95cd63376df
+--------
+user
+./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_VillalonReina2024_by_codex_20260305133735068.json へ書き込んでください。
+mcp startup: no servers
+
+thinking
+**Locating relevant instructions**
+
+I'm searching the DE_Guide_v14.md to find the specific instructions needed for the current task.
+2026-03-05T04:37:41.960740Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc ls in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133735068 succeeded in 18ms:
+DE_Guide_v14.md
+DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+DE_v14_VillalonReina2024_by_codex_20260305133735068.log
+study_1
+exec
+/bin/bash -lc 'cat DE_Guide_v14.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051337350682026-03-05T04:37:44.161515Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+# Clinical Cohort Info 抽出プロンプト
+
+-------------------
+
+## プロンプト概要
+
+あなたは神経画像のノルマティブモデリング（NM）研究からデータを抽出する熟練したレビューアです。
+本プロンプトでは、指定された 1 つの文献について、NM 構築後に適用される Clinical Cohort のデータセット特性および人口統計情報を抽出してください。
+
+-------------------
+
+## 抽出対象
+
+- 各研究が NM 構築後に Clinical Cohort に NM を適用している前提で、Clinical Cohort 情報を抽出する。
+- 疾患 Minor カテゴリごとに抽出し、`disorders` 配列に記録する。
+- もし Clinical Cohort への NM 適用が確認できない場合は、`disorders` を空配列 `[]` とする。
+
+-------------------
+
+## 一般的な抽出ルール
+
+thinking
+**Locating source paper info**
+
+I'm searching the study_1 directory to find relevant source paper information for reference or extraction.
+exec
+/bin/bash -lc 'rg --files' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051337350682026-03-05T04:37:46.782455Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 34ms:
+DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+DE_v14_VillalonReina2024_by_codex_20260305133735068.log
+DE_Guide_v14.md
+study_1/media-1.pdf.md
+study_1/VillalonReina2024.pdf.md
+
+thinking
+**Searching for paper VillalonReina2024**
+exec
+/bin/bash -lc 'cat study_1/VillalonReina2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051337350682026-03-05T04:37:49.624263Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 27ms:
+## Lifespan Normative Modeling of Brain Microstructure
+
+Julio E. Villalón-Reina 1 , Alyssa H. Zhu 1 , Sebastian Benavidez 1 , Clara A. Moreau 6 , Yixue Feng 1 , Tamoghna Chattopadhyay 1 , Leila Nabulsi 1 , Leila Kushan 2 , John P. John 3 , Himanshu Joshi 3 , Sophia I. Thomopoulos 1 , Katherine E. Lawrence 1 , Talia M. Nir 1 , Neda Jahanshad 1 , Carrie E. Bearden 2 , Seyed Mostafa Kia 4,5 , Andre F. Marquand 4 , Paul M. Thompson 1 &amp; the Alzheimer's Disease Neuroimaging Initiative 7   1
+
+1.  Imaging Genetics Center, Mark &amp; Mary Stevens Institute for Neuroimaging &amp; Informatics, Keck School of Medicine, University of Southern California, Los Angeles, CA, USA
+2.  Semel Institute for Neuroscience and Human Behavior, Departments of Psychiatry and Biobehavioral Sciences and Psychology,  University of California, Los Angeles, CA, USA
+3.  National Institute of Mental Health and Neuro Sciences (NIMHANS), Bengaluru, India
+4.  Donders Centre for Cognitive Neuroimaging, Donders Institute for Brain, Cognition and Behaviour. Radboud University, Nijmegen, The Netherlands
+5.  Department of Cognitive Science and Artificial Intelligence, Tilburg School of Humanities and Digital Sciences, Tilburg University, Tilburg, The Netherlands
+6.  Sainte Justine Hospital Azrieli Research Center, Department of Psychiatry and Addictology, University of Montreal, Canada
+7.  Alzheimer's Disease Neuroimaging Initiative (ADNI) (see Acknowledgments*)
+
+## Abstract
+
+Normative models of brain metrics based on large populations could be extremely valuable for detecting brain  abnormalities  in  patients  with  a  variety  of  disorders,  including  degenerative,  psychiatric  and neurodevelopmental  conditions,  but  no  such  models  exist  for  the  brain's  white  matter  (WM) microstructure. Here we present the first large-scale normative model of brain WM microstructurebased on 19 international diffusion MRI datasets covering almost the entire lifespan (totaling N=54,583 individuals;  age:  4-91  years).  We  extracted  regional  diffusion  tensor  imaging  (DTI)  metrics  using  a standardized analysis and quality control protocol and used hierarchical Bayesian regression (HBR) to model the statistical distribution of derived WM metrics as a function of age and sex. We extracted the average lifespan trajectories and corresponding centile curves for each WM region. We illustrate the utility of the method by applying it to detect and visualize profiles of WM microstructural deviations in a variety of contexts: in mild cognitive impairment, Alzheimer's disease, and  22q11.2 deletion syndrome - a neurogenetic condition that markedly increases risk for schizophrenia. The resulting large-scale model  provides  a  common  reference  to  identify  disease  effects  on  the  brain's  microstructure  in
+
+1 Data used in preparation of this article were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu). As such, the investigators within the ADNI contributed to the design and implementation of ADNI and/or provided data but most of them did not participate in analysis or writing of this report. A complete listing of ADNI investigators may be found at: http://adni.loni.usc.edu/wpcontent/uploads/how\_to\_apply/ADNI\_Acknowledgement\_List.pdf
+
+available under aCC-BY-NC-ND 4.0 International license. (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made bioRxiv preprint doi: https://doi.org/10.1101/2024.12.15.628527; this version posted December 17, 2024. The copyright holder for this preprint individuals or groups, and to compare disorders, and discover factors affecting WM abnormalities. The derived  normative  models  are  a  new  resource  publicly  available  to  the  community,  adaptable  and extendable to future datasets as the available data expands.
+
+
+thinking
+**Planning search for clinical cohorts**
+
+I'm targeting disorders MCI, Dementia, and 22q11.2 deletion syndrome to confirm NM's application to clinical cohorts by searching relevant terms in the results.
+2026-03-05T04:37:53.620774Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'rg -n "MCI|Dementia|22q" study_1/VillalonReina2024.pdf.md' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133735068 succeeded in 28ms:
+15:Normative models of brain metrics based on large populations could be extremely valuable for detecting brain  abnormalities  in  patients  with  a  variety  of  disorders,  including  degenerative,  psychiatric  and neurodevelopmental  conditions,  but  no  such  models  exist  for  the  brain's  white  matter  (WM) microstructure. Here we present the first large-scale normative model of brain WM microstructurebased on 19 international diffusion MRI datasets covering almost the entire lifespan (totaling N=54,583 individuals;  age:  4-91  years).  We  extracted  regional  diffusion  tensor  imaging  (DTI)  metrics  using  a standardized analysis and quality control protocol and used hierarchical Bayesian regression (HBR) to model the statistical distribution of derived WM metrics as a function of age and sex. We extracted the average lifespan trajectories and corresponding centile curves for each WM region. We illustrate the utility of the method by applying it to detect and visualize profiles of WM microstructural deviations in a variety of contexts: in mild cognitive impairment, Alzheimer's disease, and  22q11.2 deletion syndrome - a neurogenetic condition that markedly increases risk for schizophrenia. The resulting large-scale model  provides  a  common  reference  to  identify  disease  effects  on  the  brain's  microstructure  in
+29:We built normative models for the most widely used dMRI brain metrics - fractional anisotropy (FA), and mean, radial, and axial diffusivity (MD/RD/AD) - based on 54,583 individuals scanned in 19 public neuroimaging studies. We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)  for  the
+31:development phase. In this anomaly detection scenario, we first show how the deviation scores from the reference population norm can identify abnormal microstructure in mild cognitive impairment (MCI), dementia, and 22qDel.
+85:| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |
+86:| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |
+89:| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |
+90:| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |
+93:| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |
+100:|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |
+103:| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |
+159:Anomaly detection in elderly individuals with mild cognitive impairment (MCI) and dementia (ADNI3 and OASIS3 datasets) . The WM regions shown have AUC &gt; 0.5 (i.e., the models in these regions significantly discriminate the cases from controls) and passed multiple comparisons testing while controlling the false discovery rate (FDR). The extreme deviations (|Z|&gt;2) are shown for FA, MD, AD in 2D, and for RD in 3D. The regions are color-coded based on the percentage of participants with extreme deviations --blue scale for negative deviations, red scale for positive deviations. The metric with the greatest proportion of extreme deviations is RD, with up to 36% of positive extreme deviations for the CGH in dementia patients. As expected, the extreme deviations for FA are in the opposite direction than for diffusivity metrics, i.e., MD, AD, RD. The centile curves on the right are specifically for the ADNI3-S55 dataset. Dots displayed on the centile curves denote the ADNI3-S55 patients. The dots in red are those with Z&gt;2. CGH =cingulum of the hippocampus; SCC =splenium of the corpus callosum.
+183:As detailed in the Methods, we next set out to find significant deviations from the reference model for each ROI per metric across 10 experimental repetitions. We did this for two datasets, for which 80% of healthy controls were used in the model estimation, i.e., ADNI3 and OASIS3. The anomaly detection focused on the participants with dementia or MCI. The Z-scores were first converted to abnormality scores,  i.e.,  the  probability  of  each  metric  being  normal,  based  on  a  modified  normal  cumulative distribution function 16 . To determine the discriminative ability of the brain metrics for each condition, we calculated the area under the ROC curve (AUC) for classification of the patients (AlzD or MCI) versus the 20% controls in the test set for each of the 10 experimental repetitions. Here, we report the regions per  metric  with  significantly  above  the  chance  performance  (AUC&gt;0.5)  that  passed  multiple comparisons correction (across metrics) in 9 out of 10 repetitions to consider deviations significant and stable; for dementia, we found the highest classification accuracy for the CGH for RD (AUC=0.74), for MD (AUC=0.7) and FA (AUC=0.65). For axial diffusivity in dementia, the BCC had the highest accuracy (AUC=0.67). For MCI, the AUCs were lower, as expected, than in dementia: values ranged from 0.55 to 0.6 ( Table S4 &amp; S5 ). The best performance was observed for MD in the SCC (AUC=0.6), for AD in the BCC (AUC=0.67), and in the FX for FA and MD (AUC=0.58/0.59, respectively). Extreme deviations (|Z|&gt;2)  were  mostly  in  the  same  direction  for  dementia  and  MCI;  most  subjects  showed  positive deviations (Z&gt;2) for the diffusivity measures (MD, RD, AD) and negative deviations for FA ( Tables S2 &amp; S3 ). In MCI and dementia, the metric with the largest number of extreme deviations was RD ( Figure 4 ). 37% of dementia participants had positive extreme deviations for RD in the CGH, and 25% in the SCC; 17% of subjects with MCI had positive extreme deviations in the SCC and 11% of subjects in the CGH. For FA, negative extreme deviations were mostly found in the CGH for dementia (20%) and the FX (21%) and in the SCC for MCI (13%).
+187:Next, we adapted the large-scale trained reference model to healthy controls from two new independent datasets. We assume that these two datasets were not available during the development phase of the reference model to simulate a real-world scenario where the model needs to be adapted to local data in the deployment stage. The NIMHANS elderly cohort has MCI and dementia participants and agematched  healthy  controls;  and  the  UCLA  neurogenetic  dataset  has  22qDel  participants  and  agematched  healthy  controls  ( Table  2 ).  For  each  dataset  we  used  50%  of  the  healthy  controls  for recalibrating the model. Thereafter, the remaining 50% of healthy controls and the patients were used for anomaly detection, as described in the Methods (sections 9 and 10). For the NIMHANS cohort, we found a greater severity -assessed by the percentage of subjects with extreme deviations- for MCI compared to dementia ( Figure 7A &amp; 7B ). Additionally, for MCI we found subjects with extreme positive deviations  for  MD,  AD  and  RD,  whereas  for  dementia,  all  four  DTI  metrics  showed  regions  with significant  extreme  deviations;  negative  deviations  for  FA  and  positive  deviations  for  diffusivities ( Tables S6, S7, S8, S9).
+189:For 22qDel, we found significant effects in multiple regions for MD and AD. MD showed more regions with extreme deviations (9 of 21 regions) than AD (5 of 21 regions). Interestingly, the entire corona radiata showed  negative  extreme  deviations  (ACR,  SCR,  PCR).  For  both  DTI  metrics,  extreme available under aCC-BY-NC-ND 4.0 International license. (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made bioRxiv preprint doi: https://doi.org/10.1101/2024.12.15.628527; this version posted December 17, 2024. The copyright holder for this preprint
+195:Results of the model adaptation experiment. Anomaly detection for patients with Mild Cognitive Impairment (MCI) and dementia in the NIMHANS dataset and patients with 22q11.2 Deletion Syndrome (22qDel) in the UCLA dataset. The colored ROIs are those that passed FDR correction, with AUC&gt;0.5 when tested against the test sample of healthy controls (50%) from the same dataset (UCLA or NIMHANS). We show the AUCs per ROI and the percentage of extreme deviations for MD (Z&gt;2 &amp; Z&lt;-2). A) Discriminative results for the MCI patients from the NIMHANS dataset. B) Discriminative ROIs  for the dementia patients from the NIMHANS dataset. C) Discriminative ROIs  for 22qDel.
+203:Here, we used HBR to create normative models of the brain's WM microstructure, based on a diverse, large-scale international dataset of diffusion MRI scans. In addition to revealing lifespan trends for the most widely used metrics of brain microstructure, we showed how the model is useful for investigating neurological, and neurogenetic conditions. Reference models were created to quantify the distributional properties of FA, MD, AD, and RD throughout life. By mapping their normal range of variation, and projecting clinical data into this normative range, we detected patterns of deviation from this range for dementia, MCI, and 22qDel. Such large-scale normative models offer transdiagnostic clinical value; unlike  group  differences  in  case-control  analyses,  normative  modeling  yields  individual  profiles  of anomalies, which are agnostic to the clinical labels and accommodate the well-supported premise that not all individuals with the same disease deviate in the same brain regions and in the same direction 1,3 . Mapping the extent and scope of individual-level deviations can complement the aggregated group difference effects reported in large-scale case-control studies, but may also flag anomaly patterns that would be washed out in group comparisons of cases and controls.
+213:The post-analysis of the anomaly detection experiments identified extreme deviations (|Z|&gt;2) in both directions,  positive  and  negative-a  hallmark  of  heterogeneity  within  the  clinical  group.  In  MCI  and dementia, most deviations for MD and RD were positive, indicating higher WM diffusivity; however, for some regions, a smaller set of participants showed negative deviations (lower diffusivity). This was more prevalent in MCI than in dementia, and more prevalent for FA and AD than for MD and RD. FA may indeed be higher in the early stages of MCI than in healthy controls, and may even reflect recent evidence  of  Alzheimer's  disease  subtypes:  typical,  limbic-predominant,  and  hippocampal-sparing Alzheimer's disease 36 . In the future, normative models may help to identify the disease subtype to which an individual belongs to, given the availability of other biomarkers such as tau, amyloid, and APOE, although this is beyond the scope of the current manuscript.
+215:Our anomaly detection framework was also able to gauge disease severity in new subjects by adapting the normative models to an unseen sample. For the NIMHANS dataset, we found some WM regions with  extreme  deviations  in  MCI,  whereas  all  regions  had  significantly  anomalous  deviations  for dementia, especially for MD. We found some differences between the ADNI3/OASIS3 and NIMHANS samples for MCI and dementia, perhaps due to differences in sample sizes and study recruitment inclusion  criteria.  Ancestry  might  play  a  role  as  well,  as  ADNI3/OASIS3  consist  primarily  of  white Caucasian North Americans and NIMHANS evaluates Indian ancestry participants resident in India.
+217:We also found a similar phenomenon for 22qDel: for some regions, a proportion of 22qDel participants also had deviations in the opposite direction to the majority of subjects; this aspect would be missed using approaches that averaged multi-subject data prior to group comparisons. In particular, for 22qDel, even though the largest case-control studies show lower diffusivity for almost the entire WM 37 , we identified some regions for which a small proportion of extreme deviations was in the opposite directionthat is, higher diffusivity (MD and AD). This may reflect  biological differences within the sample of cases, such as the length of the 22q11.2 locus deletion. Another reason may be that many factors influence DTI, such as neurite density, axonal dispersion, and crossing fibers; higher-order diffusion models and advanced data acquisitions may be needed to disentangle these effects.
+233:Several clinical datasets were also included in the analyses: the third phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI3) 61,62 , the third release of the Open Access Series of Imaging Studies (OASIS3) 63 , the Parkinson's Progression Markers Initiative (PPMI) 64 , and the Healthy Brain Network (HBN) 65 . Importantly, only the healthy controls (HC) of the latter four datasets were added to the pool of  training  data  to  build  the  normative  models,  yielding  a  total  of  19  public  datasets. Figure  1A summarizes the age distribution for the 19 datasets used for training. In contrast, the patients in ADNI3 and OASIS3 were included as test data for the anomaly detection experiment. ADNI3 and OASIS3 included patients with mild cognitive impairment (MCI) and dementia. Two additional datasets were used for the model adaptation experiments: the National Institute of Mental Health and Neuro Sciences (NIMHANS) dataset 66   and  the  22q11.2  copy  number  variant  (CNV)  dataset  from  the  University  of California Los Angeles (UCLA) 67,68 . Table 2 summarizes the demographics of all datasets analyzed.
+
+
+thinking
+**Planning demographic extraction approach**
+
+The clinical cohort demographics need age stats from Table 2, which provides median and SD but not mean; I'll represent mean as "NR" and include median in details, using min/max and SD as available to fit the schema while noting sex as N (Males %) per cohort.
+thinking
+**Deciding dataset-specific demographic formatting**
+
+I'll represent age and sex demographics per disorder with semicolon-separated values for each dataset, setting mean as "NR" since only median is given, computing male/female counts from N and male%, and citing Table 2 plus textual locations for supporting evidence using normalized dataset keywords like ADNI-3, OASIS-3, NIMHANS, and UCLA-NGD.
+2026-03-05T04:38:38.478857Z ERROR codex_core::codex: needs_follow_up: true
+exec
+/bin/bash -lc 'cat DE_v14_VillalonReina2024_by_codex_20260305133735068.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133735068 succeeded in 27ms:
+{
+  "paper_id": {
+    "answer": ""
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "",
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+      "dataset-of-origin": {
+        "answer": [],
+        "detail": "",
+        "confidence_rating": "",
+        "supporting_text": "",
+        "location": ""
+      },
+
+
+thinking
+**Planning multi-disorder JSON with quotes**
+
+I'm preparing to create a JSON with three disorders using exact minor categories from the table: MCI, Dementia, and 22q11.2 del. I'll extract direct quotes for supporting text from Table 2 rows matching datasets and demographics for each disorder, starting with MCI from ADNI3, OASIS3, and NIMHANS.
+thinking
+**Extracting precise disorder data for JSON**
+
+I've gathered detailed dataset info, demographics, and supporting quotes for MCI, Dementia, and 22q11.2 deletion from Table 2 and text lines, computing missing counts and assigning confidence levels. Next, I'll assemble the final JSON with these exact minors, dataset origins, demographics objects, and direct supporting text, ensuring valid formatting before applying the patch.
+2026-03-05T04:40:02.055614Z ERROR codex_core::codex: needs_follow_up: true
+file update
+M /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+@@ -2,3 +2,3 @@
+   "paper_id": {
+-    "answer": ""
++    "answer": "VillalonReina2024"
+   },
+@@ -7,28 +7,121 @@
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort where normative model deviations were evaluated for mild cognitive impairment.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "MCI cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "55;62;52",
++          "max": "93;87;88",
++          "mean": "NR;NR;NR",
++          "sd": "8.0;7.5;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 MCI 75.4 (8.0); OASIS3 MCI 76.8 (7.5); NIMHANS MCI 68.0 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "122;4;58",
++          "male_pct": "57.0;36.0;65.0",
++          "female_n": "92;7;31",
++          "female_pct": "43.0;64.0;35.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS MCI cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Dementia",
++        "detail": "Clinical cohort where normative model deviations were evaluated for dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "Dementia cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "55;65;51",
++          "max": "95;82;86",
++          "mean": "NR;NR;NR",
++          "sd": "8.8;5.1;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 dementia 78 (8.8); OASIS3 dementia 76.1 (5.1); NIMHANS dementia 70.5 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": "41;5;52",
++          "male_pct": "59.0;41.0;58.0",
++          "female_n": "28;7;38",
++          "female_pct": "41.0;59.0;42.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS dementia cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "22q11.2 del",
++        "detail": "Clinical cohort where normative model deviations were evaluated for 22q11.2 deletion syndrome.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["UCLA-NGD"],
++        "detail": "22q11.2 deletion syndrome cohort is reported for the UCLA dataset in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 6,
++          "max": 27,
++          "mean": "NR",
++          "sd": 6.1
++        },
++        "detail": "Median age (SD) reported for UCLA 22q11.2 deletion syndrome cohort: 14.0 (6.1). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 37,
++          "male_pct": 46.0,
++          "female_n": 43,
++          "female_pct": 54.0
++        },
++        "detail": "Counts computed from N and male % in Table 2 for the UCLA 22q11.2 deletion syndrome cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       }
+apply_patch(auto_approved=true) exited 0 in 8ms:
+Success. Updated the following files:
+M DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json b/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..c00846a2547e6a04af023f8475cce3b5f27ae642
+--- a/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+@@ -1,36 +1,129 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "VillalonReina2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort where normative model deviations were evaluated for mild cognitive impairment.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "MCI cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "55;62;52",
++          "max": "93;87;88",
++          "mean": "NR;NR;NR",
++          "sd": "8.0;7.5;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 MCI 75.4 (8.0); OASIS3 MCI 76.8 (7.5); NIMHANS MCI 68.0 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "122;4;58",
++          "male_pct": "57.0;36.0;65.0",
++          "female_n": "92;7;31",
++          "female_pct": "43.0;64.0;35.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS MCI cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Dementia",
++        "detail": "Clinical cohort where normative model deviations were evaluated for dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "Dementia cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "55;65;51",
++          "max": "95;82;86",
++          "mean": "NR;NR;NR",
++          "sd": "8.8;5.1;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 dementia 78 (8.8); OASIS3 dementia 76.1 (5.1); NIMHANS dementia 70.5 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": "41;5;52",
++          "male_pct": "59.0;41.0;58.0",
++          "female_n": "28;7;38",
++          "female_pct": "41.0;59.0;42.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS dementia cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "22q11.2 del",
++        "detail": "Clinical cohort where normative model deviations were evaluated for 22q11.2 deletion syndrome.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["UCLA-NGD"],
++        "detail": "22q11.2 deletion syndrome cohort is reported for the UCLA dataset in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 6,
++          "max": 27,
++          "mean": "NR",
++          "sd": 6.1
++        },
++        "detail": "Median age (SD) reported for UCLA 22q11.2 deletion syndrome cohort: 14.0 (6.1). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 37,
++          "male_pct": 46.0,
++          "female_n": 43,
++          "female_pct": 54.0
++        },
++        "detail": "Counts computed from N and male % in Table 2 for the UCLA 22q11.2 deletion syndrome cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       }
+     }
+   ]
+
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json b/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..c00846a2547e6a04af023f8475cce3b5f27ae642
+--- a/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+@@ -1,36 +1,129 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "VillalonReina2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort where normative model deviations were evaluated for mild cognitive impairment.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "MCI cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "55;62;52",
++          "max": "93;87;88",
++          "mean": "NR;NR;NR",
++          "sd": "8.0;7.5;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 MCI 75.4 (8.0); OASIS3 MCI 76.8 (7.5); NIMHANS MCI 68.0 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "122;4;58",
++          "male_pct": "57.0;36.0;65.0",
++          "female_n": "92;7;31",
++          "female_pct": "43.0;64.0;35.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS MCI cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Dementia",
++        "detail": "Clinical cohort where normative model deviations were evaluated for dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "Dementia cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "55;65;51",
++          "max": "95;82;86",
++          "mean": "NR;NR;NR",
++          "sd": "8.8;5.1;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 dementia 78 (8.8); OASIS3 dementia 76.1 (5.1); NIMHANS dementia 70.5 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": "41;5;52",
++          "male_pct": "59.0;41.0;58.0",
++          "female_n": "28;7;38",
++          "female_pct": "41.0;59.0;42.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS dementia cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "22q11.2 del",
++        "detail": "Clinical cohort where normative model deviations were evaluated for 22q11.2 deletion syndrome.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["UCLA-NGD"],
++        "detail": "22q11.2 deletion syndrome cohort is reported for the UCLA dataset in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 6,
++          "max": 27,
++          "mean": "NR",
++          "sd": 6.1
++        },
++        "detail": "Median age (SD) reported for UCLA 22q11.2 deletion syndrome cohort: 14.0 (6.1). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 37,
++          "male_pct": 46.0,
++          "female_n": 43,
++          "female_pct": 54.0
++        },
++        "detail": "Counts computed from N and male % in Table 2 for the UCLA 22q11.2 deletion syndrome cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+thinking
+**Verifying JSON string escaping**
+
+I'm checking that the "supporting_text" properly uses escaped quotes inside strings to ensure valid JSON formatting.
+exec
+/bin/bash -lc 'cat DE_v14_VillalonReina2024_by_codex_20260305133735068.json' in /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/codex_DE_v14_202603051337350682026-03-05T04:40:08.830843Z ERROR codex_core::codex: needs_follow_up: true
+ succeeded in 19ms:
+{
+  "paper_id": {
+    "answer": "VillalonReina2024"
+  },
+  "disorders": [
+    {
+      "disorder-name": {
+        "answer": "MCI",
+        "detail": "Clinical cohort where normative model deviations were evaluated for mild cognitive impairment.",
+        "confidence_rating": "High",
+        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
+        "location": "VillalonReina2024.pdf.md: Introduction"
+      },
+      "dataset-of-origin": {
+        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
+        "detail": "MCI cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
+        "confidence_rating": "High",
+        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
+        "location": "VillalonReina2024.pdf.md: Table 2"
+      },
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json b/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..c00846a2547e6a04af023f8475cce3b5f27ae642
+--- a/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+@@ -1,36 +1,129 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "VillalonReina2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort where normative model deviations were evaluated for mild cognitive impairment.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "MCI cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "55;62;52",
++          "max": "93;87;88",
++          "mean": "NR;NR;NR",
++          "sd": "8.0;7.5;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 MCI 75.4 (8.0); OASIS3 MCI 76.8 (7.5); NIMHANS MCI 68.0 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "122;4;58",
++          "male_pct": "57.0;36.0;65.0",
++          "female_n": "92;7;31",
++          "female_pct": "43.0;64.0;35.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS MCI cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Dementia",
++        "detail": "Clinical cohort where normative model deviations were evaluated for dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "Dementia cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "55;65;51",
++          "max": "95;82;86",
++          "mean": "NR;NR;NR",
++          "sd": "8.8;5.1;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 dementia 78 (8.8); OASIS3 dementia 76.1 (5.1); NIMHANS dementia 70.5 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": "41;5;52",
++          "male_pct": "59.0;41.0;58.0",
++          "female_n": "28;7;38",
++          "female_pct": "41.0;59.0;42.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS dementia cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "22q11.2 del",
++        "detail": "Clinical cohort where normative model deviations were evaluated for 22q11.2 deletion syndrome.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["UCLA-NGD"],
++        "detail": "22q11.2 deletion syndrome cohort is reported for the UCLA dataset in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 6,
++          "max": 27,
++          "mean": "NR",
++          "sd": 6.1
++        },
++        "detail": "Median age (SD) reported for UCLA 22q11.2 deletion syndrome cohort: 14.0 (6.1). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 37,
++          "male_pct": 46.0,
++          "female_n": 43,
++          "female_pct": 54.0
++        },
++        "detail": "Counts computed from N and male % in Table 2 for the UCLA 22q11.2 deletion syndrome cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       }
+     }
+   ]
+
+
+thinking
+**Confirming disorder terminology**
+
+Considering whether to specify "Alzheimer's disease" along with MCI/dementia for disorder naming before providing the final response.
+codex
+Filled the extraction for VillalonReina2024, including MCI, Dementia, and 22q11.2 deletion syndrome cohorts with dataset origins, age, and sex details from Table 2, and wrote the results to `DE_v14_VillalonReina2024_by_codex_20260305133735068.json`.
+
+If you want, I can also:
+1) Normalize the multi-dataset age/sex answers into per-dataset disorder entries instead of semicolon-separated fields.
+2) Recalculate any derived values using a different rounding rule.
+2026-03-05T04:40:12.980445Z ERROR codex_core::codex: needs_follow_up: false
+file update:
+diff --git a/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json b/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+index 99698c92b1c2023393b234c28bb468e03f190b97..c00846a2547e6a04af023f8475cce3b5f27ae642
+--- a/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
++++ b/share_package/ai_workspace/codex_DE_v14_20260305133735068/./DE_v14_VillalonReina2024_by_codex_20260305133735068.json
+@@ -1,36 +1,129 @@
+ {
+   "paper_id": {
+-    "answer": ""
++    "answer": "VillalonReina2024"
+   },
+   "disorders": [
+     {
+       "disorder-name": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": "MCI",
++        "detail": "Clinical cohort where normative model deviations were evaluated for mild cognitive impairment.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
+       },
+       "dataset-of-origin": {
+-        "answer": [],
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "MCI cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "age": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "unit": "years",
++          "min": "55;62;52",
++          "max": "93;87;88",
++          "mean": "NR;NR;NR",
++          "sd": "8.0;7.5;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 MCI 75.4 (8.0); OASIS3 MCI 76.8 (7.5); NIMHANS MCI 68.0 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       },
+       "sex": {
+-        "answer": "",
+-        "detail": "",
+-        "confidence_rating": "",
+-        "supporting_text": "",
+-        "location": ""
++        "answer": {
++          "male_n": "122;4;58",
++          "male_pct": "57.0;36.0;65.0",
++          "female_n": "92;7;31",
++          "female_pct": "43.0;64.0;35.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS MCI cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | MCI                | 55 - 93     | 75.4 (8.0)        | 214 (57)      | United States   |\"; \"| OASIS3          | MCI                | 62 - 87     | 76.8 (7.5)        | 11 (36)       | United States   |\"; \"| NIMHANS         | MCI                | 52 - 88     | 68.0 (7.4)        | 89 (65)       | India           |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "Dementia",
++        "detail": "Clinical cohort where normative model deviations were evaluated for dementia.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["ADNI-3", "OASIS-3", "NIMHANS"],
++        "detail": "Dementia cohorts are reported for ADNI3, OASIS3, and NIMHANS in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": "55;65;51",
++          "max": "95;82;86",
++          "mean": "NR;NR;NR",
++          "sd": "8.8;5.1;7.4"
++        },
++        "detail": "Median age (SD) reported by dataset: ADNI3 dementia 78 (8.8); OASIS3 dementia 76.1 (5.1); NIMHANS dementia 70.5 (7.4). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": "41;5;52",
++          "male_pct": "59.0;41.0;58.0",
++          "female_n": "28;7;38",
++          "female_pct": "41.0;59.0;42.0"
++        },
++        "detail": "Counts computed from N and male % in Table 2 for ADNI3, OASIS3, and NIMHANS dementia cohorts.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| ADNI3           | Dementia           | 55 - 95     | 78 (8.8)          | 69 (59)       | United States   |\"; \"| OASIS3          | Dementia           | 65 - 82     | 76.1 (5.1)        | 12 (41)       | United States   |\"; \"|      | Dementia        | 51 - 86   | 70.5 (7.4)   | 90 (58)   |               |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      }
++    },
++    {
++      "disorder-name": {
++        "answer": "22q11.2 del",
++        "detail": "Clinical cohort where normative model deviations were evaluated for 22q11.2 deletion syndrome.",
++        "confidence_rating": "High",
++        "supporting_text": "\"We then leveraged the estimated normative models for 21 deep WM regions to identify WM abnormalities in two age-related conditions: dementia, mild cognitive impairment (MCI) for senescence  phase  and  a  neurogenetic  disorder,  22q11.2  deletion  syndrome  (22qDel)\"",
++        "location": "VillalonReina2024.pdf.md: Introduction"
++      },
++      "dataset-of-origin": {
++        "answer": ["UCLA-NGD"],
++        "detail": "22q11.2 deletion syndrome cohort is reported for the UCLA dataset in the demographics table.",
++        "confidence_rating": "High",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "age": {
++        "answer": {
++          "unit": "years",
++          "min": 6,
++          "max": 27,
++          "mean": "NR",
++          "sd": 6.1
++        },
++        "detail": "Median age (SD) reported for UCLA 22q11.2 deletion syndrome cohort: 14.0 (6.1). Mean not reported.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
++      },
++      "sex": {
++        "answer": {
++          "male_n": 37,
++          "male_pct": 46.0,
++          "female_n": 43,
++          "female_pct": 54.0
++        },
++        "detail": "Counts computed from N and male % in Table 2 for the UCLA 22q11.2 deletion syndrome cohort.",
++        "confidence_rating": "Medium",
++        "supporting_text": "\"| UCLA | 22q11.2 Del. S. | 6 - 27    | 14.0 (6.1)   | 80 (46)   | United States |\"",
++        "location": "VillalonReina2024.pdf.md: Table 2"
+       }
+     }
+   ]
+
+tokens used
+38,015
+Filled the extraction for VillalonReina2024, including MCI, Dementia, and 22q11.2 deletion syndrome cohorts with dataset origins, age, and sex details from Table 2, and wrote the results to `DE_v14_VillalonReina2024_by_codex_20260305133735068.json`.
+
+If you want, I can also:
+1) Normalize the multi-dataset age/sex answers into per-dataset disorder entries instead of semicolon-separated fields.
+2) Recalculate any derived values using a different rounding rule.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Codex による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
