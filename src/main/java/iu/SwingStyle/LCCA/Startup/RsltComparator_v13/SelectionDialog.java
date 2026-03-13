@@ -70,10 +70,11 @@ public class SelectionDialog extends JDialog {
     }
 
     private void scanAuthorYears() {
-        File dataDir = new File("./data");
+        String baseDir = System.getProperty("LCCA_BASE_DIR", ".");
+        File dataDir = new File(baseDir, "data");
         if (!dataDir.exists() || !dataDir.isDirectory()) {
             JOptionPane.showMessageDialog(this,
-                    "./data/ フォルダが見つかりません。\n作業ディレクトリを確認してください。",
+                    dataDir.getPath() + " フォルダが見つかりません。\n作業ディレクトリを確認してください。",
                     "エラー", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -93,7 +94,8 @@ public class SelectionDialog extends JDialog {
         String ay = authorYearList.getSelectedValue();
         if (ay == null) return;
 
-        File ayDir = new File("./data/" + ay);
+        String baseDir = System.getProperty("LCCA_BASE_DIR", ".");
+        File ayDir = new File(new File(baseDir, "data"), ay);
         if (!ayDir.exists() || !ayDir.isDirectory()) return;
 
         File[] dirs = ayDir.listFiles(File::isDirectory);

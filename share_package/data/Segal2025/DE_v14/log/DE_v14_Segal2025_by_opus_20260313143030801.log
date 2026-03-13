@@ -1,0 +1,138 @@
+
+========== Opus via Copilot コマンド ==========
+copilot  --prompt \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Segal2025_by_opus_20260313143030801.json へ書き込んでください。" \
+    --model "claude-opus-4.6" \
+    --allow-all-tools \
+    --add-dir . \
+    --deny-url "*" 
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Opus via Copilot が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+
+
+
+● Read DE_Guide_v14.md
+  └ 1 line read
+
+● List directory .
+  └ 5 files found
+
+● Read DE_v14_Segal2025_by_opus_20260313143030801.json
+  └ 37 lines read
+
+● List directory study_1
+  └ 4 files found
+
+● Read DE_Guide_v14.md lines 1-80
+  └ 79 lines read
+
+● Read DE_Guide_v14.md lines 80-200
+  └ 121 lines read
+
+● List study_1 contents
+  $ ls -la /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_
+  20260313143030801/study_1/
+  └ 8 lines...
+
+● Read DE_Guide_v14.md lines 200-400
+  └ 131 lines read
+
+● Read beginning of study paper
+  $ head -200 /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v
+  14_20260313143030801/study_1/Segal2025.pdf.md
+  └ 8 lines...
+
+● Read DE_Guide_v14.md lines 330-400
+  └ 1 line read
+
+● Count lines in paper
+  $ wc -l /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_2
+  0260313143030801/study_1/Segal2025.pdf.md
+  └ 2 lines...
+
+Now let me read the full paper and the supplementary material to extract the required data.
+
+● Read study_1/Segal2025.pdf.md
+  └ 1 line read
+
+● Count lines in supplement
+  $ wc -l /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_2
+  0260313143030801/study_1/1-s2.0-S2451902225001272-mmc1.pdf.md
+  └ 2 lines...
+
+● Read study_1/Segal2025.pdf.md lines 1-100
+  └ 95 lines read
+
+● Read study_1/Segal2025.pdf.md lines 100-200
+  └ 88 lines read
+
+● Read study_1/Segal2025.pdf.md lines 200-333
+  └ 76 lines read
+
+Now let me read the supplementary material for more detailed demographic data.
+
+● Read start of supplementary material
+  $ head -200 /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v
+  14_20260313143030801/study_1/1-s2.0-S2451902225001272-mmc1.pdf.md
+  └ 8 lines...
+
+● Read study_1/1-s2.0-S2451902225001272-mmc1.pdf.md lines 1-100
+  └ 99 lines read
+
+● Search supplement for demographic info
+  $ grep -n -i "table s1\|Table
+  S1\|demographic\|participants\|SPAINOCD\|YoDA\|KANMDD\|FEMS\|TOP15\|IMpACT"
+  /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_202603131
+  43030801/study_1/1-s2.0-S2451902225001272-mmc1.pdf.md | head -40
+  └ 22 lines...
+
+I now have all the information I need from the paper (Segal2025) and the supplementary material. Let me compile the extraction.
+
+● Write extraction JSON
+  $ cat > /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14
+  _20260313143030801/DE_v14_Segal2025_by_opus_20260313143030801.json << 'JSONEOF'
+  {
+    "paper_id": {
+      "answer": "Segal2025"...
+  └ 225 lines...
+
+● Validate JSON output
+  $ cd /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_20
+  260313143030801 && python3 -c "import json;
+  f=open('DE_v14_Segal2025_by_opus_20260313143030801.json'); d=json.load(f); print('Valid JSON
+  ✓'); print(f'Paper ID: {d[\"paper_id\"][\"answer\"]}'); print(f'Disorders:
+  {len(d[\"disorders\"])}'); [print(f'  - {x[\"disorder-name\"][\"answer\"]}: ...
+  └ 12 lines...
+
+抽出完了しました。Segal2025 論文（White Matter Morphometry in Psychiatric Disorders）から6疾患の Clinical Cohort 情報を抽出しました。
+
+**抽出結果サマリ:**
+
+| Disorder | n | Age Median (SD) | % Male | Datasets |
+|----------|---|-----------------|--------|----------|
+| ADHD | 153 | 34 (10.77) | 41.18% | IMpACT |
+| ASD | 202 | 24.5 (10.41) | 100% | ABIDE-I, ABIDE-II, MITASD, WASHASD |
+| BD | 228 | 29 (11.46) | 47.37% | FEMS, TOP |
+| MDD | 161 | 22 (7.49) | 34.16% | KANMDD, RUSMDD, YoDA |
+| OCD | 167 | 34 (9.40) | 50.30% | OCDPG, SPAINOCD |
+| SCZ | 383 | 32 (10.09) | 62.14% | ASRB, TOP |
+
+**注意点:**
+- 年齢は mean ではなく **median** (SD) [range] で報告されており、mean は NR としました
+- 性別の female N は総 N から male N を差し引いて推定
+- MITASD, WASHASD, FEMS, KANMDD, RUSMDD, YoDA, OCDPG, SPAINOCD は正規化キーワード一覧に未掲載
+
+
+Total usage est:        3 Premium requests
+API time spent:         8m 58s
+Total session time:     9m 20s
+Total code changes:     +0 -0
+Breakdown by AI model:
+ claude-opus-4.6         550.8k in, 24.1k out, 428.5k cached (Est. 3 Premium requests)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Opus via Copilot による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,127 @@
+
+========== Opus via Copilot コマンド ==========
+copilot  --prompt \
+    "./DE_Guide_v14.md に従って作業をしてください。作業結果は ./DE_v14_Giacomel2025_by_opus_20260313130948529.json へ書き込んでください。" \
+    --model "claude-opus-4.6" \
+    --allow-all-tools \
+    --add-dir . \
+    --deny-url "*" 
+====================================
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Opus via Copilot が作業を実行中...
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+
+
+
+● Read DE_Guide_v14.md
+  └ 1 line read
+
+● List directory study_1
+  └ 4 files found
+
+● Read DE_v14_Giacomel2025_by_opus_20260313130948529.json
+  └ 37 lines read
+
+● Read DE_Guide_v14.md lines 1-100
+  └ 100 lines read
+
+● Read DE_Guide_v14.md lines 100-250
+  └ 151 lines read
+
+● Read DE_Guide_v14.md lines 250-400
+  └ 81 lines read
+
+Now let me read the study files to extract the required data.
+
+● Read study_1/Giacomel2025.pdf.md lines 1-100
+  └ 89 lines read
+
+● Check file sizes
+  $ wc -l /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_2
+  0260313130948529/study_1/Giacomel2025.pdf.md /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/sha
+  re_package/ai_workspace/opus_DE_v14_20260313130948529/study_1/Giacomel2025_sup.docx.md
+  └ 4 lines...
+
+● Read study_1/Giacomel2025.pdf.md lines 83-200
+  └ 23 lines read
+
+● Read study_1/Giacomel2025_sup.docx.md lines 1-100
+  └ 100 lines read
+
+● Read study_1/Giacomel2025.pdf.md lines 85-115
+  └ 21 lines read
+
+● Read study_1/Giacomel2025.pdf.md lines 106-200
+  └ 76 lines read
+
+● List directory study_1/Giacomel2025_artifacts
+  └ 28 files found
+
+● Read study_1/Giacomel2025.pdf.md lines 200-350
+  └ 147 lines read
+
+Let me view the Table 1 image to properly read the demographics.
+
+● Read study_1/Giacomel2025_artifacts/image_000009_3a3efb5c85e028428938d3a3545f4dd0b4da4358d187bb994f
+  9aaf800f3fd6b2.png
+  └ 1 line read
+
+Let me find the Table 1 image with demographics data.
+
+● Read study_1/Giacomel2025_artifacts/image_000012_30fbddceae032d06e54cb8b3211d0a8f9cce42b848131f290b
+  5d6b80da676e4d.png
+  └ 1 line read
+
+● Read study_1/Giacomel2025_artifacts/image_000013_eb5feef3b92478a2a93849fa30399994397616fc40c7764fae
+  1d144aff6225a9.png
+  └ 1 line read
+
+Not Table 1. Let me read the rest of the paper and supplement to get all patient demographics.
+
+● Read study_1/Giacomel2025_sup.docx.md lines 100-338
+  └ 238 lines read
+
+● Read study_1/Giacomel2025.pdf.md lines 347-538
+  └ 51 lines read
+
+I've now read the full paper and supplement. No patient-only demographics are reported separately—Table 1 shows combined HC+patient demographics per dataset except for FDOPA_04 (patients only, N=36). Let me now write the extraction JSON.
+
+● Edit DE_v14_Giacomel2025_by_opus_20260313130948529.json (+51 -21)
+
+Now let me validate the JSON is well-formed:
+
+● Validate JSON output
+  $ cd /media/iu/STORAGE/__GitHub__/Prjct_2025_DEQACheck/share_package/ai_workspace/opus_DE_v14_20
+  260313130948529 && python3 -c "import json;
+  data=json.load(open('DE_v14_Giacomel2025_by_opus_20260313130948529.json')); print('Valid
+  JSON'); print(f'Paper ID: {data[\"paper_id\"][\"answer\"]}'); print(f'Disorders:
+  {len(data[\"disorders\"])}'); [print(f'  - {d[\"disorder-name\"][\"answer\"]}: ...
+  └ 7 lines...
+
+JSON is valid. Here's a summary of the extraction:
+
+**Paper:** Giacomel2025 — Normative modelling of [18F]FDOPA PET in schizophrenia & first-episode psychosis
+
+**2 Clinical Cohorts identified (NM applied to all):**
+
+| | FEP | SCZ |
+|---|---|---|
+| **N** | 25 (FDOPA_01) | 84 (FDOPA_02: 24 + FDOPA_03: 24 + FDOPA_04: 36) |
+| **Dataset** | SINGLE-SITE (Invicro, London) | MULTI-SITE (3 sites) |
+| **Age** | NR (patient-only not reported) | mean 30.63, SD 10.91 (FDOPA_04 only; patient-only unavailable for FDOPA_02/03) |
+| **Sex** | NR (patient-only not reported) | 8F/28M (FDOPA_04 only) |
+
+**Key notes:** Table 1 reports combined HC+patient demographics per dataset. Only FDOPA_04 (patients-only dataset, N=36) provides clean patient-specific demographics. FDOPA_04 includes some schizophreniform patients (noted in detail). All confidence ratings for age/sex are Low due to partial coverage.
+
+
+Total usage est:        3 Premium requests
+API time spent:         14m 27s
+Total session time:     14m 53s
+Total code changes:     +51 -21
+Breakdown by AI model:
+ claude-opus-4.6         822.6k in, 47.4k out, 628.5k cached (Est. 3 Premium requests)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Opus via Copilot による作業が完了しました
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

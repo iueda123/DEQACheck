@@ -32,6 +32,11 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
     /** Whether "reason" key is used instead of "detail" (QA_v9, DE_v10_1 style) */
     private boolean usesReasonKey = false;
     private final String desiredDisorderName;
+    private boolean preserveAnswerDirtyOnReload = false;
+    private boolean preserveDetailDirtyOnReload = false;
+    private boolean preserveConfidenceDirtyOnReload = false;
+    private boolean preserveSupportingTextDirtyOnReload = false;
+    private boolean preserveLocationDirtyOnReload = false;
 
     public ComparisonColumnPane(
             String jsonFolderPathStr,
@@ -83,6 +88,10 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
         buttonBox.add(openJsonFileButton);
         buttonBox.add(openJsonFolderButton);
         buttonBox.add(copyToTheHumanPanelButton);
+        if ("human".equalsIgnoreCase(aiName)) {
+            copyToTheHumanPanelButton.setEnabled(false);
+            copyToTheHumanPanelButton.setToolTipText("HumanパネルではCtoHは使用できません");
+        }
         buttonBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         headerBox.add(buttonBox);
 
@@ -250,6 +259,15 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
 
     @Override
     public void loadJson() {
+        if ("human".equalsIgnoreCase(aiName)) {
+            preserveAnswerDirtyOnReload = tArea_Answer.isUpdated();
+            preserveDetailDirtyOnReload = tArea_Detail.isUpdated();
+            preserveConfidenceDirtyOnReload = tArea_ConfidenceRating.isUpdated();
+            preserveSupportingTextDirtyOnReload = tArea_SupportingText.isUpdated();
+            preserveLocationDirtyOnReload = tArea_Location.isUpdated();
+        } else {
+            clearPreserveDirtyFlags();
+        }
         jsonManager.reloadFromDisk();
     }
 
@@ -323,6 +341,11 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
     @Override
     public void actionAfterSuccessfullyReloadingJson(JsonManagerWithConflictSafe jm) {
         populateFieldsFromJson(jm);
+        if ("human".equalsIgnoreCase(aiName)) {
+            reapplyDirtyHighlightIfNeeded();
+            clearPreserveDirtyFlags();
+            return;
+        }
         resetBackgroundColorOfTAreasTFields();
     }
 
@@ -414,6 +437,18 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
             arr = element.getAsJsonArray();
         }
 
+        // Remove placeholders whose disorder-name.answer is empty.
+        for (int i = arr.size() - 1; i >= 0; i--) {
+            com.google.gson.JsonElement e = arr.get(i);
+            if (e == null || !e.isJsonObject()) {
+                continue;
+            }
+            String name = readDisorderName(e.getAsJsonObject());
+            if (name == null || name.trim().isEmpty()) {
+                arr.remove(i);
+            }
+        }
+
         for (int i = 0; i < arr.size(); i++) {
             com.google.gson.JsonElement e = arr.get(i);
             if (e != null && e.isJsonObject()) {
@@ -446,5 +481,21 @@ public class ComparisonColumnPane extends One_DEQAResult_Pane_Abs {
             }
         }
         return null;
+    }
+
+    private void reapplyDirtyHighlightIfNeeded() {
+        if (preserveAnswerDirtyOnReload) tArea_Answer.setBackground(Color.PINK);
+        if (preserveDetailDirtyOnReload) tArea_Detail.setBackground(Color.PINK);
+        if (preserveConfidenceDirtyOnReload) tArea_ConfidenceRating.setBackground(Color.PINK);
+        if (preserveSupportingTextDirtyOnReload) tArea_SupportingText.setBackground(Color.PINK);
+        if (preserveLocationDirtyOnReload) tArea_Location.setBackground(Color.PINK);
+    }
+
+    private void clearPreserveDirtyFlags() {
+        preserveAnswerDirtyOnReload = false;
+        preserveDetailDirtyOnReload = false;
+        preserveConfidenceDirtyOnReload = false;
+        preserveSupportingTextDirtyOnReload = false;
+        preserveLocationDirtyOnReload = false;
     }
 }

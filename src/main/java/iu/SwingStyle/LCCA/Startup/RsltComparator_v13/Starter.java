@@ -9,6 +9,7 @@ import iu.SwingStyle.LCCA.Member.Concretes.componentholder.MainWindow.MainWindow
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.io.File;
 import java.util.Enumeration;
 
 /**
@@ -22,6 +23,16 @@ public class Starter {
 
         /* **** フォントサイズを1.25倍に設定 **** */
         setUIFont(new FontUIResource("SansSerif", Font.PLAIN, 15));
+
+        /* **** ベースディレクトリ調整: share_package 配下で実行する想定を補助 **** */
+        String baseDir = System.getProperty("LCCA_BASE_DIR", ".");
+        File dataDir = new File(baseDir, "data");
+        if (!dataDir.exists()) {
+            File shareDataDir = new File("share_package/data");
+            if (shareDataDir.exists()) {
+                System.setProperty("LCCA_BASE_DIR", "share_package");
+            }
+        }
 
         /* **** AuthorYear と Version を決定 **** */
         String authorYear;
