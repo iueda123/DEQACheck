@@ -69,7 +69,8 @@ input 2: docs/20251202_jhbm-2026/figs/pubdate_by_authorYear.tsv
 `pubdate_by_authorYear.tsv` を `df` に left_join して `pub_year` / `pub_month` を付与する。
 
 - **一次ソース**: `pubdate_by_authorYear.tsv`（DOI 経由で取得した正確な出版年。100件をカバー）。
-- **フォールバック**: TSV に存在しない 22件については `authorYear` 末尾の 4桁数字から `pub_year` を補完（`A`/`B` サフィックスは除去して変換）。
+  - うち 4件（Bhome2024, Gimbel2025, Gordaliza2024, Romascano2024）は `pub_month` が空欄。これらは **`pub_month = 12`（12月）として扱う**。
+- **フォールバック**: TSV に存在しない 22件については `authorYear` 末尾の 4桁数字から `pub_year` を補完（`A`/`B` サフィックスは除去して変換）。`pub_month` は **12（12月）として扱う**。
 - 未取得 22件: Berthet2025, Cirstian2024, Coupe2022, Feng2024, Feng2025, FukamiGartner2023, Ge2024, Han2023, Janssen2021, Ji2023, Jia2025, Jing2023, Kumar2024, Lin2024, Loreto2024, Pinaya2019, RehakBuckova2025, Rutherford2022, Verdi2024, Yang2025, Yu2024, Zhang2022
 
 ---
@@ -78,15 +79,15 @@ input 2: docs/20251202_jhbm-2026/figs/pubdate_by_authorYear.tsv
 
 出力解像度: **300 dpi**、フォーマット: PNG。
 
-### Fig.1　研究数の年次推移（優先図）
+### Fig.1　研究数の四半期別推移（優先図）
 
 | 項目 | 仕様 |
 |------|------|
-| 変数 | `pub_year`（2005–2025） |
-| グラフ種 | 累積積み上げ棒グラフ（x: 年、y: 研究件数、fill: モダリティ 4カテゴリ） |
+| 変数 | `pub_year` + `pub_month` → `pub_quarter`（例: `2005 Q1`）を算出して使用 |
+| グラフ種 | 累積積み上げ棒グラフ（x: 四半期、y: 研究件数、fill: モダリティ 4カテゴリ） |
 | 参考既存図 | `figs/fig10_modality_trend_by_quarter_cumulative_stacked.png` |
-| 出力ファイル | `figs/fig_trend_by_year.png` |
-| 注意 | 旧図は旧データに基づく。新ノートブックで `record_ver20260313.csv` から再生成する。 |
+| 出力ファイル | `figs/fig_trend_by_quarter.png` |
+| 注意 | 旧図は旧データに基づく。新ノートブックで `record_ver20260313.csv` から再生成する。pub_month 欠損分は 12月（Q4）として扱う。 |
 
 ### Fig.2　モダリティ内訳
 
@@ -252,7 +253,7 @@ Step 2  manuscript.md の作成
         └─ 図の挿入位置に ![fig](figs/fig_xxx.png) を記述
         └─ §3.3 の数値対照表に従い旧値を更新
 
-Step 3  Md2Poster への入力（A0 縦）
+Step 3  Md2Poster への入力（A0 縦）　※ユーザーが実施
         └─ manuscript.md を Md2Poster に入力
         └─ 図サイズ・フォントを調整
 ```
@@ -271,3 +272,53 @@ Step 3  Md2Poster への入力（A0 縦）
 | 図の解像度 | 300 dpi |
 | 年齢統計の欠損補完（35件） | 学会後に対応 |
 | findings 欠損 15件の補完 | 学会後に対応 |
+
+---
+
+## 6. 実装 ToDoリスト
+
+### 事前作業
+
+- [ ] `record_ver20260313.csv` を git コミット（Little2025 origin 修正含む）
+- [ ] `pubdate_by_authorYear.tsv` を git コミット
+
+### Step 1　`make-figures-and-tables.ipynb` の作成・実行
+
+**1-A. ノートブック作成**
+
+- [ ] R カーネルの Jupyter Notebook として `make-figures-and-tables.ipynb` を新規作成
+- [ ] データ前処理チャンク（§1）
+  - [ ] `record_ver20260313.csv` の読み込み・ゴミ行除去
+  - [ ] phase 重複解消（Train > Overall > Uninvestigated）→ `df`（122件）
+  - [ ] モダリティ正規化（sMRI/fMRI/dMRI/Other）→ `df_mod`
+  - [ ] 疾患名正規化（略語のみ表示）→ `df_dis`
+  - [ ] `pubdate_by_authorYear.tsv` を left_join → `pub_year` / `pub_month` 付与（フォールバック: authorYear 末尾4桁、pub_month = 12）
+  - [ ] TSV内 pub_month 欠損 4件（Bhome2024, Gimbel2025, Gordaliza2024, Romascano2024）を 12 で補完
+- [ ] Fig.1 チャンク: pub_quarter を算出し四半期別推移（累積積み上げ棒グラフ）→ `figs/fig_trend_by_quarter.png`
+- [ ] Fig.2 チャンク: モダリティ内訳（横棒グラフ）→ `figs/fig_modality_bar.png`
+- [ ] Fig.3 チャンク: 疾患別研究件数・上位10（横棒グラフ）→ `figs/fig_disease_bar.png`
+- [ ] Fig.4 チャンク: N の分布（箱ひげ図 + jitter、対数スケール）→ `figs/fig_N_boxplot.png`
+- [ ] Fig.5 チャンク: 年齢平均の分布（箱ひげ図 + jitter）→ `figs/fig_age_boxplot.png`
+- [ ] Fig.6 チャンク: 女性比率の分布（箱ひげ図 + jitter + 50% reference line）→ `figs/fig_female_boxplot.png`
+- [ ] Fig.7 チャンク: Model Origin（円グラフ、件数ラベル付き）→ `figs/fig_origin_pie.png`
+- [ ] Table 1 チャンク: 研究サマリー統計表（`gt` または `knitr::kable`）→ `figs/table1_summary.png`
+
+**1-B. 実行・確認**
+
+- [ ] ノートブックを最初から実行し、エラーなく完了することを確認
+- [ ] `figs/*.png` 8ファイル（Fig.1–7 + Table 1）の出力を目視確認
+- [ ] pubdate 未取得 22件のフォールバック補完が年次推移に及ぼす影響を目視確認
+
+### Step 2　`manuscript.md` の作成
+
+- [ ] `manuscript.md` を新規作成
+  - [ ] §3.2 の構成に従いセクション・テキストを記述（背景・方法・結果・考察・結論・参考文献）
+  - [ ] 図の挿入位置に `![fig](figs/fig_xxx.png)` を配置（Fig.1–7、Table 1）
+  - [ ] §3.3 の数値対照表に従い最新値を使用（ver5 旧値は使わない）
+  - [ ] 著者・所属を ver5 抄録に準じて記述
+
+### Step 3　Md2Poster によるポスター化　※ユーザーが実施
+
+- [ ] `manuscript.md` を Md2Poster に入力（A0 縦）
+- [ ] 図サイズ・フォントを調整してレイアウトを確認
+- [ ] ポスター PDF を出力・最終確認
