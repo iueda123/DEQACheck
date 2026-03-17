@@ -118,29 +118,89 @@ DE_v10 human JSON の `caa8_key_findings_brief` フィールドから、**107/12
 Baldwin2022, Bayer2022, Bedford2025, Bethlehem2020, Bethlehem2021, Bhome2024, CardenasDeLaParra2019, Chan2025A, Chan2025B, Chien2022, Cirstian2024, Coupe2022, Elad2021, Gimbel2025, Haas2024
 
 
-## 4. ポスター作成に向けた実務上の示唆
+## 4. 追加資料: Takamatsu2026 草稿（NM_draft46）が示すポスターのストーリー
 
-### 4.1 ストーリーライン
+### 4.1 資料の位置づけ
 
-- 背景: 診断群比較の限界と NM の必要性
+`docs/20251202_jhbm-2026/PDFs/Importants/optimized/Takamatsu2026/NM_draft46.docx.md`
+
+NM に関する系統的レビューおよび **NORMA 報告チェックリスト**を提案する論文草稿（高松ら、投稿準備中）。本ポスターの背景・考察のストーリーラインと直接対応する。
+
+### 4.2 Case-control パラダイムの限界（定量的根拠）
+
+| 知見 | 出典 |
+|------|------|
+| SCZ の海馬体積縮小: Cohen's d ≈ −0.46（患者・対照群の分布は大きく重複） | van Erp 2016（ENIGMA） |
+| SCZ・BD・MDD の皮質下体積 effect-size profile の相関: r = 0.95–0.98（診断非特異的） | Cheon 2022 |
+| 脳構造と行動表現型の再現可能な関連には数万人規模が必要 | Marek 2022 |
+| 8大精神疾患のリスク遺伝子座の約 3/4 が複数疾患に共有（pleiotropic） | Cross-Disorder Group PGC 2019 |
+
+### 4.3 個人偏位の不均一性（NM の必要性を支持するエビデンス）
+
+| 知見 | 出典 |
+|------|------|
+| 6疾患横断解析: 同一脳領域に偏位が共存する患者割合 **< 7%** | Segal 2023 |
+| SCZ 322例: 単一領域の infra-normal 偏位 ≤ 17% / 脳内のどこかに偏位あり: **79%** | Lv 2021 |
+| MDD 機能的結合: 同一領域に extreme deviation を示す患者 **< 3%** | Sun 2023 |
+| ASD: 極端な偏位者を除外すると群間有意差の **半数が消失** | Bethlehem 2020 |
+| ASD: 多数派と逆符号の構造的偏位を示す患者 **≈ 28%** | Shan 2022 |
+| SCZ 5,600例以上のクラスタリング: SCZ の **51%** が正常範囲内の biotype に属する | Okada 2023 |
+| うつ・不安の fMRI biotype 6種は診断カテゴリに対応せず; 1種はHCと差なし | Tozzi 2024 |
+
+### 4.4 NORMA チェックリストの位置づけと活用方針
+
+Takamatsu2026 草稿は NM 研究の方法論的透明性と比較可能性を高めるための **NORMA チェックリスト**を提案する内容である。ただし**本論文は未発表・投稿準備中**であり、ポスターで直接引用することはしない。
+
+活用方針:
+- 背景・考察の内容を組み立てる際の**参考資料**として使用する
+- ポスター本文では「NORMA チェックリスト」という語は**将来的な標準化の方向性**として言及するに留める（「このようなチェックリストの整備が必要」という文脈）
+- Takamatsu2026 本人は共著者であるため、議論の文脈を共有した上でポスターのストーリーに反映する
+
+本ポスターの Reporting Minimum Set と NORMA の概念的対応（内部参照用）:
+
+| 本ポスターの Reporting Minimum Set | NORMA が扱う領域 |
+|------------------------------------|----------------|
+| Phase（Train/Overall）の系統的記録 | モデル構築・検証手順の透明性 |
+| 年齢統計の完全性（mean/sd/median/iqr/min/max） | 参照コホートの記述統計の標準化 |
+| モダリティ表記の統一 | 計測手法の標準報告 |
+| 疾患名の正規化 | 対象集団の標準記述 |
+
+### 4.5 ポスターストーリーへの反映方針
+
+**背景セクション**（強化ポイント）:
+- Case-control 限界を定量値で示す（d ≈ −0.46、r = 0.95–0.98）
+- NM を「脳の成長曲線」として直感的に説明（成長曲線アナロジー）
+- 個人偏位の不均一性エビデンスを 1–2 文で提示（<7%、79%）
+
+**考察セクション**（強化ポイント）:
+- 「本横断集計が示す報告欠損・表記揺れは NM 研究の横断比較を阻む実際的な障壁である」と記述
+- Reporting Minimum Set の 4 点を提案し、「NORMA チェックリストのような標準化ツールの整備が今後必要」という方向性に言及する（Takamatsu2026 の直接引用は行わない）
+
+---
+
+## 5. ポスター作成に向けた実務上の示唆
+
+### 5.1 ストーリーライン
+
+- 背景: 診断群比較の限界（定量的根拠）と NM の必要性・成長曲線アナロジー
 - 方法: PRISMA 準拠の文献抽出とメタ情報正規化
 - 結果: 文献分布・デモグラフィ・モダリティ・疾患分布
-- 議論: Reporting Minimum Set の必要性
+- 議論: Reporting Minimum Set の提案（NORMA チェックリストのような標準化ツールの必要性に言及）
 
-### 4.2 図表で優先すべき項目
+### 5.2 図表で優先すべき項目
 
 図表は JupyterNotebook or R 上で確認しながら生成する予定。
 
-- **研究数の年次推移グラフ**（抄録に添えたもの、優先的に掲載）
-  - 既存ファイル: `figs/fig09_modality_trend_by_year.png`、`figs/fig10_modality_trend_by_quarter_cumulative_stacked.png` 等
-- N、年齢、女性比率の分布図（箱ひげ or 要約統計表）
+- **研究数の四半期別推移グラフ**（優先的に掲載）
+  - 既存参考ファイル: `figs/fig10_modality_trend_by_quarter_cumulative_stacked.png`
+- N、年齢、女性比率の分布図（箱ひげ + Table 1）
 - モダリティ内訳（sMRI / fMRI / dMRI / Other の 4 分類）
 - 疾患カテゴリ頻度（上位疾患）
 - Model origin（New vs Pre-trained）
 
-## 5. 残課題（ポスター反映前に要対応）
+## 6. 残課題（ポスター反映前に要対応）
 
-- Little2025 の origin を CSV で "Yes" → "New" に修正し git コミット。
+- Little2025 の origin を CSV で "Yes" → "New" に修正し git コミット（修正済み、コミット未実施）。
 - モダリティ表記の正規化（`Data-Extraction-Protocol.md` の sMRI/fMRI/dMRI/Other 4カテゴリ、原稿づくりの段階で適用）。
 - 疾患名の正規化（`Data-Extraction-Protocol.md` に従い、原稿づくりの段階で適用）。
 - localhost エンドポイントとの目視照合（human JSON 由来データのみ使用）。
@@ -148,10 +208,9 @@ Baldwin2022, Bayer2022, Bedford2025, Bethlehem2020, Bethlehem2021, Bhome2024, Ca
 - どの集計を「本文図」、どれを「補足表」に回すかの確定。
 - 年齢統計の欠損補完は学会後の作業とする（対象 AuthorYear は 3.2 節に記載）。
 
-## 6. 直近の作業方針
+## 7. 直近の作業方針
 
-- ポスターの Table 1（研究横断的な集計表）の最終版を固定する。
+- `make-figures-and-tables.ipynb`（R カーネル）と `manuscript.md` を作成する（計画書: `plan_make-manuscript-for-poster.md`）。
   - 参照元データ: `record_ver20260313.csv`（ポスターの集計表はこの CSV から生成する）。
-  - ポスター向け最終 CSV は集計時に正規化処理を施したうえで使用する。
-- その後、抄録本文（ver6 相当）と完全整合する図表セットを作成する（JupyterNotebook or R を使用）。
-- 最終的なポスター化は `Md2Poster` を利用する。
+  - 背景・考察は §4（Takamatsu2026 草稿）の知見・参考文献を反映する。
+- 最終的なポスター化は `Md2Poster` を利用する（ユーザーが実施）。
