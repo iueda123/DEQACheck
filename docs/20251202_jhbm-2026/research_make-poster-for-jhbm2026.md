@@ -1,3 +1,9 @@
+[INDEX](./INDEX.md)
+
+*docs/20251202_jhbm-2026/research_make-poster-for-jhbm2026.md*
+
+**━━━━━━━━━━━━━━━━━━━━━━━━**
+
 # JHBM2026 ポスター作成前の調査結果まとめ
 
 ## 1. 調査の目的
@@ -214,3 +220,134 @@ Takamatsu2026 草稿は NM 研究の方法論的透明性と比較可能性を�
   - 参照元データ: `record_ver20260313.csv`（ポスターの集計表はこの CSV から生成する）。
   - 背景・考察は §4（Takamatsu2026 草稿）の知見・参考文献を反映する。
 - 最終的なポスター化は `Md2Poster` を利用する（ユーザーが実施）。
+
+---
+
+## 8. manuscript.md 注釈への対応方法（実現可能性調査）
+
+`manuscript.md` に追記された 2 つの注釈について、現状データから実現する方法を検討した。
+
+---
+
+### 8.1 [^1] PRISMA フローチャート図の追加と数値更新
+
+#### 要望内容
+
+`notes/BPCNPNP2025_Takamatsu_artifacts/image_000003_....png`（BPCNPNP2025 発表スライドの PRISMA フロー図）と同等の図を本ポスターに掲載したい。ただし数値を以下のように更新する：
+
+| 変更箇所 | BPCNPNP2025 値 | 本ポスター使用値 |
+|---|---|---|
+| No clinical population | n=18 | n=19 |
+| No neuropsychiatric application | n=14 | n=15 |
+| 最終文献数 | n=124 | n=122 |
+
+#### 実施済み対応
+
+元となる PowerPoint ファイル（`notes/BPCNPNP2025_Takamatsu.pptx`）が存在したため、これを直接編集して数値を更新し（`notes/BPCNPNP2025_Takamatsu_ueda.pptx`）、フローチャートを PNG としてエクスポートした。
+
+- **生成済みファイル**: `notes/BPCNPNP2025_Takamatsu_ueda_flow-chart.png`
+
+pptx ベースの編集は Inkscape による PNG 直接編集より精度が高く（ベクター要素の保持・フォント整合）、最も品質の高い出力が得られた。
+
+#### データからの自動生成について
+
+`record_ver20260313.csv` は最終包含済み 122 件のみを収録しており、スクリーニング各ステップの除外数（タイトル/抄録スクリーニング、全文スクリーニング等）は含まない。そのため**データからフロー全体を自動生成することは不可**。除外数は COVIDENCE の記録から手動で転記する。
+
+#### 残タスク
+
+1. `notes/BPCNPNP2025_Takamatsu_ueda_flow-chart.png` を `figs/fig_prisma_flow.png` としてコピーする
+2. `manuscript.md` の「文献概要」セクションで `![PRISMA flow](figs/fig_prisma_flow.png)` として参照する
+
+---
+
+### 8.2 疾患棒グラフのモダリティ色分け & Modality × Disease クロス表
+
+#### 要望内容
+
+1. **Fig.3（疾患別棒グラフ）の各棒をモダリティ（sMRI/fMRI/dMRI/Other）で色分け**
+2. **`BPCNPNP2025_Takamatsu.pdf.md` にあるような Modality × Disease クロス集計テーブルの作成**
+
+#### 現状データからの実現可能性
+
+どちらも `df_mod`（1行 = 1文献×1モダリティ）と `df_dis`（1行 = 1文献×1疾患）を authorYear で結合することで作成できる。**現状データから実現可能**。
+
+```r
+# df_mod × df_dis の結合
+df_mod_dis <- df_mod %>%
+  inner_join(df_dis, by = "authorYear", relationship = "many-to-many") %>%
+  distinct(authorYear, modality_cat, disease_norm)
+```
+
+#### a. モダリティ色分け積み上げ横棒グラフ（Fig.3 の代替・拡張版）
+
+- 実装方法：`df_mod_dis` を疾患別・モダリティ別にカウントし、`geom_bar(position="stack")` で描画
+- 注意点：1 文献が複数モダリティ × 複数疾患を持つ場合、全組み合わせが重複カウントされる。図のキャプションで「各研究は使用モダリティ×対象疾患の全組み合わせで計上」と明示すること
+- 出力ファイル候補：`figs/fig_disease_modality_stacked.png`
+
+```r
+df_fig3b <- df_mod_dis %>%
+  count(disease_norm, modality_cat, name = "n") %>%
+  # 上位疾患を集計してフィルタ
+  filter(disease_norm %in% top10_diseases) %>%
+  mutate(disease_norm = fct_reorder(disease_norm, n, .fun = sum))
+
+ggplot(df_fig3b, aes(x = n, y = disease_norm, fill = modality_cat)) +
+  geom_bar(stat = "identity", position = "stack") +
+  scale_fill_manual(values = mod_colors) + ...
+```
+
+#### b. Modality × Disease クロス集計テーブル（BPCNPNP2025 形式）
+
+BPCNPNP2025 の表の列構造は疾患を Psychiatric / Neurological に大分類している。同等の表を作成するには、`disease_norm`（略語）から大分類マッピングが必要。
+
+**大分類マッピング（案）**:
+
+| 略語 | 大分類 | 表示列名 |
+|------|------|------|
+| SCZ, FEP, CHR-P, EP | Psychiatric | SCZ 系 |
+| ASD | Psychiatric | ASD |
+| MDD, BD | Psychiatric | Dep/BD |
+| ADHD | Psychiatric | ADHD |
+| その他精神疾患 | Psychiatric | Other |
+| AD, MCI | Neurological | AD/MCI |
+| PD | Neurological | PD |
+| その他神経疾患 | Neurological | Other |
+
+実装方法：
+
+```r
+# クロス集計
+df_cross <- df_mod_dis %>%
+  mutate(disease_group = case_when(
+    disease_norm %in% c("SCZ", "FEP", "CHR-P", "EP") ~ "SCZ系",
+    disease_norm == "ASD" ~ "ASD",
+    disease_norm %in% c("MDD", "BD") ~ "Dep/BD",
+    disease_norm == "ADHD" ~ "ADHD",
+    disease_norm %in% c("AD", "MCI") ~ "AD/MCI",
+    disease_norm == "PD" ~ "PD",
+    TRUE ~ "Other"
+  )) %>%
+  count(modality_cat, disease_group) %>%
+  pivot_wider(names_from = disease_group, values_from = n, values_fill = 0)
+
+# gt でテーブル出力
+df_cross %>% gt() %>% gtsave("figs/table_modality_disease.png")
+```
+
+- 出力ファイル候補：`figs/table_modality_disease.png`
+- 注意点：BPCNPNP2025 の「Mix」（複数モダリティ）カテゴリは本データの正規化体系にない。複数モダリティ研究は現状 `df_mod` で各カテゴリに分散計上されるため、「Mix」行を再現したい場合は `df`（元データ）の `modality` 列を再集計する必要がある。
+
+#### 推奨実装手順
+
+1. `make-figures-and-tables.ipynb` に以下のチャンクを追加する：
+   - **チャンク 11**: `df_mod_dis` の生成（`df_mod` × `df_dis` の join）
+   - **チャンク 12**: Fig.3b（モダリティ色分け積み上げ横棒）→ `figs/fig_disease_modality_stacked.png`
+   - **チャンク 13**: Table 2（Modality × Disease クロス表）→ `figs/table_modality_disease.png`
+
+2. `manuscript.md` の「対象疾患」セクションで `figs/fig_disease_modality_stacked.png` または `figs/table_modality_disease.png` を参照する
+
+**━━━━━━━━━━━━━━━━━━━━━━━━**
+
+*docs/20251202_jhbm-2026/research_make-poster-for-jhbm2026.md*
+
+[INDEX](./INDEX.md)

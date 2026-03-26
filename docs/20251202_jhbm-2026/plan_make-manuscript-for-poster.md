@@ -1,3 +1,9 @@
+[INDEX](./INDEX.md)
+
+*docs/20251202_jhbm-2026/plan_make-manuscript-for-poster.md*
+
+**━━━━━━━━━━━━━━━━━━━━━━━━**
+
 # 計画書：ポスター用原稿・図表スクリプト作成
 
 ver. 2026-03-13
@@ -155,6 +161,117 @@ input 2: docs/20251202_jhbm-2026/figs/pubdate_by_authorYear.tsv
 
 ---
 
+### Fig.3b　疾患別研究件数（モダリティ色分け積み上げ横棒）　※追加図
+
+| 項目 | 仕様 |
+|------|------|
+| 目的 | Fig.3（単色横棒）の拡張版。各疾患棒をモダリティ（sMRI/fMRI/dMRI/Other）で色分けし、どの疾患でどのモダリティが使われているかを示す |
+| 変数 | `df_mod_dis`（`df_mod` × `df_dis` を authorYear で inner_join、1行 = 1文献×1モダリティ×1疾患の組み合わせ） |
+| 対象疾患 | Fig.3 の上位 10疾患と同じセットを使用 |
+| グラフ種 | **横棒グラフ、積み上げ（position = "stack"）**（x: 件数、y: 疾患名、fill: モダリティ 4カテゴリ） |
+| カラーパレット | Fig.1・Fig.2 と同じ `mod_colors`（sMRI=#4472C4、fMRI=#ED7D31、dMRI=#A9D18E、Other=#BFBFBF） |
+| キャプション注記 | 「各研究は使用モダリティ×対象疾患の全組み合わせで計上（重複カウント）」 |
+| 出力ファイル | `figs/fig_disease_modality_stacked.png` |
+| 注意 | 1文献が複数モダリティ×複数疾患を持つ場合、全組み合わせが重複カウントされる。棒の長さは Fig.3 の件数と一致しない点を明示すること |
+
+**実装の前提データ（Chunk 11）**:
+
+```r
+df_mod_dis <- df_mod %>%
+  inner_join(df_dis, by = "authorYear", relationship = "many-to-many") %>%
+  distinct(authorYear, modality_cat, disease_norm)
+```
+
+**グラフ生成（Chunk 12）**:
+
+```r
+top10_diseases <- df_dis %>%
+  count(disease_norm) %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  pull(disease_norm)
+
+df_fig3b <- df_mod_dis %>%
+  filter(disease_norm %in% top10_diseases) %>%
+  count(disease_norm, modality_cat, name = "n") %>%
+  mutate(
+    disease_norm = factor(disease_norm, levels = top10_diseases),
+    modality_cat = factor(modality_cat, levels = rev(c("sMRI","fMRI","dMRI","Other")))
+  )
+
+# 疾患を合計件数で降順ソート
+disease_order <- df_fig3b %>%
+  group_by(disease_norm) %>%
+  summarise(total = sum(n)) %>%
+  arrange(total) %>%
+  pull(disease_norm)
+
+df_fig3b <- df_fig3b %>%
+  mutate(disease_norm = factor(disease_norm, levels = disease_order))
+
+ggplot(df_fig3b, aes(x = n, y = disease_norm, fill = modality_cat)) +
+  geom_bar(stat = "identity", position = "stack", width = 0.6) +
+  scale_fill_manual(values = mod_colors, breaks = c("sMRI","fMRI","dMRI","Other")) +
+  labs(x = "Number of studies", y = NULL, fill = "Modality",
+       caption = "Studies with multiple modalities × diseases are counted in each combination.") +
+  theme_classic(base_size = 14)
+```
+
+---
+
+### Table 2　Modality × Disease クロス集計表　※追加表
+
+| 項目 | 仕様 |
+|------|------|
+| 目的 | モダリティ行 × 疾患グループ列のクロス集計。BPCNPNP2025_Takamatsu スライド（Psychiatric/Neurological 大分類）に倣った形式 |
+| 変数 | `df_mod_dis` から `modality_cat`（行）× `disease_group`（列）を集計 |
+| 疾患グループ定義 | 下表参照 |
+| 実装 | `pivot_wider` でクロス表を作成し `gt` で PNG 出力 |
+| 出力ファイル | `figs/table_modality_disease.png` |
+
+**疾患グループ定義（Chunk 13）**:
+
+| `disease_norm`（略語） | `disease_group` 列名 |
+|---|---|
+| SCZ, FEP, CHR-P, EP | SCZ系 |
+| ASD | ASD |
+| MDD | MDD |
+| BD | BD |
+| ADHD | ADHD |
+| AD, MCI | AD/MCI |
+| PD | PD |
+| MS | MS |
+| その他 | Other |
+
+```r
+df_cross <- df_mod_dis %>%
+  mutate(disease_group = case_when(
+    disease_norm %in% c("SCZ", "FEP", "CHR-P", "EP") ~ "SCZ系",
+    disease_norm == "ASD"                              ~ "ASD",
+    disease_norm == "MDD"                              ~ "MDD",
+    disease_norm == "BD"                               ~ "BD",
+    disease_norm == "ADHD"                             ~ "ADHD",
+    disease_norm %in% c("AD", "MCI")                  ~ "AD/MCI",
+    disease_norm == "PD"                               ~ "PD",
+    disease_norm == "MS"                               ~ "MS",
+    TRUE                                               ~ "Other"
+  )) %>%
+  count(modality_cat, disease_group) %>%
+  pivot_wider(names_from = disease_group, values_from = n, values_fill = 0L) %>%
+  mutate(Total = rowSums(across(where(is.integer)))) %>%
+  rename(Modality = modality_cat)
+
+df_cross %>%
+  gt() %>%
+  tab_header(title = "Table 2: Modality × Disease cross-tabulation",
+             subtitle = "n = 122 studies; studies counted in each modality-disease combination") %>%
+  tab_options(table.font.size = 13) %>%
+  gtsave("figs/table_modality_disease.png")
+```
+
+**注意**: BPCNPNP2025 の「Mix」行（複数モダリティ混在）は本データの正規化体系にない。複数モダリティを持つ研究は `df_mod_dis` で各カテゴリに分散計上されるため、Mix 行は作成しない（代わりに注釈でその旨を示す）。
+
+---
+
 ## 3. manuscript.md の構成仕様
 
 ### 3.1 ファイルの目的
@@ -292,46 +409,68 @@ Step 3  Md2Poster への入力（A0 縦）　※ユーザーが実施
 
 ### 事前作業
 
-- [ ] `record_ver20260313.csv` を git コミット（Little2025 origin 修正含む）
-- [ ] `pubdate_by_authorYear.tsv` を git コミット
+- [x] `record_ver20260313.csv` を git コミット（Little2025 origin 修正含む）
+- [x] `pubdate_by_authorYear.tsv` を git コミット
 
 ### Step 1　`make-figures-and-tables.ipynb` の作成・実行
 
 **1-A. ノートブック作成**
 
-- [ ] R カーネルの Jupyter Notebook として `make-figures-and-tables.ipynb` を新規作成
-- [ ] データ前処理チャンク（§1）
-  - [ ] `record_ver20260313.csv` の読み込み・ゴミ行除去
-  - [ ] phase 重複解消（Train > Overall > Uninvestigated）→ `df`（122件）
-  - [ ] モダリティ正規化（sMRI/fMRI/dMRI/Other）→ `df_mod`
-  - [ ] 疾患名正規化（略語のみ表示）→ `df_dis`
-  - [ ] `pubdate_by_authorYear.tsv` を left_join → `pub_year` / `pub_month` 付与（フォールバック: authorYear 末尾4桁、pub_month = 12）
-  - [ ] TSV内 pub_month 欠損 4件（Bhome2024, Gimbel2025, Gordaliza2024, Romascano2024）を 12 で補完
-- [ ] Fig.1 チャンク: pub_quarter を算出し四半期別推移（累積積み上げ棒グラフ）→ `figs/fig_trend_by_quarter.png`
-- [ ] Fig.2 チャンク: モダリティ内訳（横棒グラフ）→ `figs/fig_modality_bar.png`
-- [ ] Fig.3 チャンク: 疾患別研究件数・上位10（横棒グラフ）→ `figs/fig_disease_bar.png`
-- [ ] Fig.4 チャンク: N の分布（箱ひげ図 + jitter、対数スケール）→ `figs/fig_N_boxplot.png`
-- [ ] Fig.5 チャンク: 年齢平均の分布（箱ひげ図 + jitter）→ `figs/fig_age_boxplot.png`
-- [ ] Fig.6 チャンク: 女性比率の分布（箱ひげ図 + jitter + 50% reference line）→ `figs/fig_female_boxplot.png`
-- [ ] Fig.7 チャンク: Model Origin（円グラフ、件数ラベル付き）→ `figs/fig_origin_pie.png`
-- [ ] Table 1 チャンク: 研究サマリー統計表（`gt` または `knitr::kable`）→ `figs/table1_summary.png`
+- [x] R カーネルの Jupyter Notebook として `make-figures-and-tables.ipynb` を新規作成
+- [x] データ前処理チャンク（§1）
+  - [x] `record_ver20260313.csv` の読み込み・ゴミ行除去
+  - [x] phase 重複解消（Train > Overall > Uninvestigated）→ `df`（122件）
+  - [x] モダリティ正規化（sMRI/fMRI/dMRI/Other）→ `df_mod`
+  - [x] 疾患名正規化（略語のみ表示）→ `df_dis`
+  - [x] `pubdate_by_authorYear.tsv` を left_join → `pub_year` / `pub_month` 付与（フォールバック: authorYear 末尾4桁、pub_month = 12）
+  - [x] TSV内 pub_month 欠損 4件（Bhome2024, Gimbel2025, Gordaliza2024, Romascano2024）を 12 で補完
+- [x] Fig.1 チャンク: pub_quarter を算出し四半期別推移（累積積み上げ棒グラフ）→ `figs/fig_trend_by_quarter.png`
+- [x] Fig.2 チャンク: モダリティ内訳（横棒グラフ）→ `figs/fig_modality_bar.png`
+- [x] Fig.3 チャンク: 疾患別研究件数・上位10（横棒グラフ）→ `figs/fig_disease_bar.png`
+- [x] Fig.4 チャンク: N の分布（箱ひげ図 + jitter、対数スケール）→ `figs/fig_N_boxplot.png`
+- [x] Fig.5 チャンク: 年齢平均の分布（箱ひげ図 + jitter）→ `figs/fig_age_boxplot.png`
+- [x] Fig.6 チャンク: 女性比率の分布（箱ひげ図 + jitter + 50% reference line）→ `figs/fig_female_boxplot.png`
+- [x] Fig.7 チャンク: Model Origin（円グラフ、件数ラベル付き）→ `figs/fig_origin_pie.png`
+- [x] Table 1 チャンク: 研究サマリー統計表（`gt`）→ `figs/table1_summary.png`
+
+**1-C. 追加図表チャンク（§2 追記分）**
+
+- [x] チャンク 11: `df_mod_dis` の生成（`df_mod` × `df_dis` を authorYear で inner_join → `distinct(authorYear, modality_cat, disease_norm)`）
+- [x] チャンク 12: Fig.3b チャンク: 疾患別×モダリティ色分け積み上げ横棒 → `figs/fig_disease_modality_stacked.png`
+- [x] チャンク 13: Table 2 チャンク: Modality × Disease クロス集計表（`gt`）→ `figs/table_modality_disease.png`
 
 **1-B. 実行・確認**
 
-- [ ] ノートブックを最初から実行し、エラーなく完了することを確認
-- [ ] `figs/*.png` 8ファイル（Fig.1–7 + Table 1）の出力を目視確認
-- [ ] pubdate 未取得 22件のフォールバック補完が年次推移に及ぼす影響を目視確認
+- [x] ノートブックを最初から実行し、エラーなく完了することを確認（`my-env-202508` 環境で実行）
+- [x] `figs/*.png` 8ファイル（Fig.1–7 + Table 1）の出力を目視確認
+- [ ] pubdate 未取得 22件のフォールバック補完が年次推移に及ぼす影響を目視確認（ユーザーが確認）
+
+> **実行環境メモ**: `jupyter-nbconvert` は `/home/iu/miniconda3/envs/my-env-202508/bin/` を使用すること（FSL 環境の jupyter は壊れた拡張機能により起動不可）。
 
 ### Step 2　`manuscript.md` の作成
 
-- [ ] `manuscript.md` を新規作成
-  - [ ] §3.2 の構成に従いセクション・テキストを記述（背景・方法・結果・考察・結論・参考文献）
-  - [ ] 図の挿入位置に `![fig](figs/fig_xxx.png)` を配置（Fig.1–7、Table 1）
-  - [ ] §3.3 の数値対照表に従い最新値を使用（ver5 旧値は使わない）
-  - [ ] 著者・所属を ver5 抄録に準じて記述
+- [x] `manuscript.md` を新規作成
+  - [x] §3.2 の構成に従いセクション・テキストを記述（背景・方法・結果・考察・結論・参考文献）
+  - [x] 図の挿入位置に `![fig](figs/fig_xxx.png)` を配置（Fig.1–7、Table 1）
+  - [x] §3.3 の数値対照表に従い最新値を使用（ver5 旧値は使わない）
+  - [x] 著者・所属を ver5 抄録に準じて記述
+
+> **集計値メモ**（notebook 実行結果、2026-03-17）:
+> - N: 中央値 770（IQR 322–6871）
+> - age_mean: 中央値 32.64 歳（IQR 17.10–44.75）、87 件（欠損 35 件）
+> - female_pct: 中央値 51.0%（IQR 44.9–54.0%）、102 件（欠損 20 件）
+> - sMRI 95 / fMRI 27 / dMRI 9 / Other 27
+> - New 100 / Pre-trained 22
+> - 疾患上位: SCZ 37、ASD 32、AD 20、MDD 20、BD 19
 
 ### Step 3　Md2Poster によるポスター化　※ユーザーが実施
 
 - [ ] `manuscript.md` を Md2Poster に入力（A0 縦）
 - [ ] 図サイズ・フォントを調整してレイアウトを確認
 - [ ] ポスター PDF を出力・最終確認
+
+**━━━━━━━━━━━━━━━━━━━━━━━━**
+
+*docs/20251202_jhbm-2026/plan_make-manuscript-for-poster.md*
+
+[INDEX](./INDEX.md)

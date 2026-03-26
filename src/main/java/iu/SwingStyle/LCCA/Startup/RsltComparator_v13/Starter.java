@@ -9,7 +9,8 @@ import iu.SwingStyle.LCCA.Member.Concretes.componentholder.MainWindow.MainWindow
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 
 /**
@@ -19,20 +20,15 @@ import java.util.Enumeration;
  */
 public class Starter {
 
+    private static final String DEFAULT_VERSION = "DE_v13";
+
     public static void main(String[] args) {
 
         /* **** フォントサイズを1.25倍に設定 **** */
         setUIFont(new FontUIResource("SansSerif", Font.PLAIN, 15));
 
         /* **** ベースディレクトリ調整: share_package 配下で実行する想定を補助 **** */
-        String baseDir = System.getProperty("LCCA_BASE_DIR", ".");
-        File dataDir = new File(baseDir, "data");
-        if (!dataDir.exists()) {
-            File shareDataDir = new File("share_package/data");
-            if (shareDataDir.exists()) {
-                System.setProperty("LCCA_BASE_DIR", "share_package");
-            }
-        }
+        configureBaseDir();
 
         /* **** AuthorYear と Version を決定 **** */
         String authorYear;
@@ -42,6 +38,11 @@ public class Starter {
             /* コマンドライン引数で両方指定された場合（例: SummaryView経由）はダイアログをスキップ */
             authorYear = args[0];
             version = args[1];
+            System.out.println("Selected (from args): " + authorYear + " / " + version);
+        } else if (args.length == 1) {
+            /* AuthorYear のみ指定された場合は DE_v13 を固定してダイアログをスキップ */
+            authorYear = args[0];
+            version = DEFAULT_VERSION;
             System.out.println("Selected (from args): " + authorYear + " / " + version);
         } else {
             /* 通常起動: SelectionDialog で AuthorYear と Version を選択 */
@@ -94,5 +95,29 @@ public class Starter {
                 UIManager.put(key, font);
             }
         }
+    }
+
+    private static void configureBaseDir() {
+        String configuredBaseDir = System.getProperty("LCCA_BASE_DIR");
+        if (configuredBaseDir != null && !configuredBaseDir.isBlank()) {
+            Path normalized = Paths.get(configuredBaseDir).toAbsolutePath().normalize();
+            System.setProperty("LCCA_BASE_DIR", normalized.toString());
+            return;
+        }
+
+        Path workingDir = Paths.get("").toAbsolutePath().normalize();
+        Path dataDir = workingDir.resolve("data");
+        if (dataDir.toFile().isDirectory()) {
+            System.setProperty("LCCA_BASE_DIR", workingDir.toString());
+            return;
+        }
+
+        Path sharePackageDir = workingDir.resolve("share_package");
+        if (sharePackageDir.resolve("data").toFile().isDirectory()) {
+            System.setProperty("LCCA_BASE_DIR", sharePackageDir.toString());
+            return;
+        }
+
+        System.setProperty("LCCA_BASE_DIR", workingDir.toString());
     }
 }

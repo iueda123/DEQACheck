@@ -43,6 +43,7 @@ import jakarta.annotation.security.RolesAllowed;
 public class SummaryView_DEv13_2 extends VerticalLayout {
 
     private static final String DATA_FOLDER_NAME = "share_package/data";
+    private static final String VERSION_NAME = "DE_v13";
     private static final String SECTION_KEY = "reference_cohort_info_part";
     private static final Pattern SOURCE_PATTERN = Pattern.compile("_by_([^_]+)_", Pattern.CASE_INSENSITIVE);
 
@@ -143,7 +144,7 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         columnCopySelect.setItems(
                 "AuthorYear", "ModelName", "Phase", "n",
                 "female_n", "female_pct", "male_n", "male_pct",
-                "age_mean", "age_sd", "age_min", "age_max"
+                "age_mean", "age_sd", "age_min", "age_max", "Note"
         );
         columnCopySelect.setValue("AuthorYear");
         controlLayout.add(columnCopySelect);
@@ -389,6 +390,8 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
                 return row.ageMin;
             case "age_max":
                 return row.ageMax;
+            case "Note":
+                return row.note;
             default:
                 return "";
         }
@@ -477,15 +480,18 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
             try {
                 String javaBin = Paths.get(System.getProperty("java.home"), "bin", "java").toString();
                 String classpath = System.getProperty("java.class.path");
+                Path sharePackageDir = resolveSharePackageDir();
                 List<String> command = new ArrayList<>();
                 command.add(javaBin);
                 command.add("-Djava.awt.headless=false");
+                command.add("-DLCCA_BASE_DIR=" + sharePackageDir.toAbsolutePath());
                 command.add("-cp");
                 command.add(classpath);
                 command.add(Starter.class.getName());
                 command.add(authorYear);
+                command.add(VERSION_NAME);
                 ProcessBuilder pb = new ProcessBuilder(command);
-                pb.directory(Paths.get(System.getProperty("user.dir")).toFile());
+                pb.directory(sharePackageDir.toFile());
                 pb.inheritIO();
                 pb.start();
                 Notification.show("起動要求を送信しました");
@@ -554,6 +560,10 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
     private String normalizeNewlines(String text) {
         if (text == null) return "";
         return text.replace("\r\n", " ").replace("\r", " ").replace("\n", " ");
+    }
+
+    private Path resolveSharePackageDir() {
+        return Paths.get(System.getProperty("user.dir"), "share_package").toAbsolutePath().normalize();
     }
 
     private static class ModelRow {
