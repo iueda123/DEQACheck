@@ -57,7 +57,8 @@ AIエージェント（Gemini, Claude, Codex, Copilot等）を使用して、
 データ抽出（DE）または品質評価（QA）を自動実行するスクリプトです。
 
 オプション:
-  -a, --agent AGENT      AIエージェント名を指定 (gemini|claude|codex|cgemini|opus|sonnet)
+  -a, --agent AGENT      AIエージェント名を指定 (gemini|claude|codex|cpilot)
+  -m, --model MODEL      エージェントに対応するモデル名を指定
   -n, --name NAME        処理名を指定（結果ファイル名に使用、例: DE, QA）
   -l, --list FILE        処理すべき研究名が1行ずつ記載されたファイルのパス
   -s, --study STUDY      単一の研究のみ処理 (互換目的)
@@ -70,22 +71,22 @@ AIエージェント（Gemini, Claude, Codex, Copilot等）を使用して、
 
 使用例:
   # 研究名の一覧を記したファイルを指定して実行（例: list.txt）
-  ${this_script_name} --agent gemini --name DE --list tools/TaegetStudies.txt
+  ${this_script_name} --agent gemini --model gemini-2.5-flash --name DE --list tools/TaegetStudies.txt
 
   # Claudeを使用してQA処理を実行（複数の研究を対象）
-  ${this_script_name} -a claude -n QA -l tools/TaegetStudies.txt
+  ${this_script_name} -a claude -m claude-sonnet-4-6 -n QA -l tools/TaegetStudies.txt
 
   # ドライラン（実行内容の確認のみ・デフォルト）
-  ${this_script_name} -a codex -n DE -l tools/TaegetStudies.txt
+  ${this_script_name} -a codex -m gpt-5.4-mini -n DE -l tools/TaegetStudies.txt
 
   # 実行モードで処理を走らせる
-  ${this_script_name} -a codex -n DE -l tools/TaegetStudies.txt -r
+  ${this_script_name} -a cpilot -m openai-gpt-5.4 -n DE -l tools/TaegetStudies.txt -r
 
   # JSON整形の後処理を実行（モデル指定あり）
-  ${this_script_name} -a gemini -n DE -l tools/TaegetStudies.txt -r --ensure-json-structure-by codex
+  ${this_script_name} -a gemini -m gemini-2.5-flash -n DE -l tools/TaegetStudies.txt -r --ensure-json-structure-by codex
 
 注意事項:
-  - --agent と --name は必須オプションです
+  - --agent, --model, --name は必須オプションです
   - -l/--list または -s/--study のいずれかが必須です。
   - 既定はドライランです（実コマンドは実行されません）
   - 実行モードにするには -r または --run を指定してください
@@ -94,10 +95,119 @@ EOF
     exit 0
 }
 
+normalize_agent_name() {
+    case "$1" in
+        cpilot|copilot) printf '%s\n' "copilot" ;;
+        gemini|claude|codex) printf '%s\n' "$1" ;;
+        *) printf '%s\n' "$1" ;;
+    esac
+}
+
+sanitize_name_token() {
+    printf '%s' "$1" | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]'
+}
+
+print_agent_choices() {
+    cat << EOF
+有効な --agent (-a) の選択肢:
+  gemini
+  claude
+  codex
+  cpilot
+EOF
+}
+
+print_model_choices_for_agent() {
+    case "$1" in
+        gemini)
+            cat << EOF
+${1} で使える --model (-m):
+  gemini-3-flash-preview
+  gemini-3.1-flash-lite-preview
+  gemini-2.5-flash
+  gemini-2.5-flash-lite
+EOF
+            ;;
+        claude)
+            cat << EOF
+${1} で使える --model (-m):
+  claude-sonnet-4-6
+  claude-opus-4-6
+  claude-haiku-4-5
+EOF
+            ;;
+        codex)
+            cat << EOF
+${1} で使える --model (-m):
+  gpt-5.4
+  gpt-5.4-mini
+  gpt-5.3-codex
+  gpt-5.2-codex
+  gpt-5.2
+  gpt-5.1-codex-max
+  gpt-5.1-codex-mini
+EOF
+            ;;
+        copilot)
+            cat << EOF
+${1} で使える --model (-m):
+  claude-opus-4.6
+  claude-sonnet-4.5
+  google-gemini-3-pro
+  openai-gpt-5.4
+EOF
+            ;;
+        *)
+            print_agent_choices
+            ;;
+    esac
+}
+
+is_valid_agent() {
+    case "$1" in
+        gemini|claude|codex|copilot) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+is_valid_model_for_agent() {
+    local _agent="$1"
+    local _model="$2"
+    case "${_agent}:${_model}" in
+        gemini:gemini-3-flash-preview|\
+        gemini:gemini-3.1-flash-lite-preview|\
+        gemini:gemini-2.5-flash|\
+        gemini:gemini-2.5-flash-lite|\
+        claude:claude-sonnet-4-6|\
+        claude:claude-opus-4-6|\
+        claude:claude-haiku-4-5|\
+        codex:gpt-5.4|\
+        codex:gpt-5.4-mini|\
+        codex:gpt-5.3-codex|\
+        codex:gpt-5.2-codex|\
+        codex:gpt-5.2|\
+        codex:gpt-5.1-codex-max|\
+        codex:gpt-5.1-codex-mini|\
+        copilot:claude-opus-4.6|\
+        copilot:claude-sonnet-4.5|\
+        copilot:google-gemini-3-pro|\
+        copilot:openai-gpt-5.4)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
 #######################
 # デフォルト値
 #######################
 AiAgentName=""
+AiModelName=""
+AiAgentNameRaw=""
+AiModelNameRaw=""
+AiAgentModelToken=""
 DE_Name=""
 ListFilePath=""
 SingleStudy=""  # backward-compat for -s/--study (deprecated)
@@ -112,6 +222,12 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         -a|--agent)
             AiAgentName="$2"
+            AiAgentNameRaw="$2"
+            shift 2
+            ;;
+        -m|--model)
+            AiModelName="$2"
+            AiModelNameRaw="$2"
             shift 2
             ;;
         -n|--name)
@@ -164,7 +280,35 @@ done
 #######################
 if [[ -z "${AiAgentName}" ]]; then
     echo "エラー: AIエージェント名が指定されていません（-a または --agent を使用）"
-    echo "ヘルプを表示するには -h または --help を使用してください"
+    print_agent_choices
+    exit 1
+fi
+
+AiAgentName="$(normalize_agent_name "${AiAgentName}")"
+
+if ! is_valid_agent "${AiAgentName}"; then
+    echo "エラー: 無効なAIエージェント名: ${AiAgentName}"
+    print_agent_choices
+    exit 1
+fi
+
+if [[ -z "${AiModelName}" ]]; then
+    echo "エラー: モデル名が指定されていません（-m または --model を使用）"
+    print_model_choices_for_agent "${AiAgentName}"
+    exit 1
+fi
+
+if ! is_valid_model_for_agent "${AiAgentName}" "${AiModelName}"; then
+    echo "エラー: --agent ${AiAgentName} と --model ${AiModelName} の組み合わせは無効です"
+    print_model_choices_for_agent "${AiAgentName}"
+    exit 1
+fi
+
+AiAgentModelToken="$(sanitize_name_token "${AiAgentNameRaw}")"
+AiModelToken="$(sanitize_name_token "${AiModelNameRaw}")"
+AiAgentModelToken="${AiAgentModelToken}-${AiModelToken}"
+if [[ "${AiAgentModelToken}" == "-" || -z "${AiAgentModelToken}" ]]; then
+    echo "エラー: ファイル名用の agent/model 識別子を生成できませんでした"
     exit 1
 fi
 
@@ -181,13 +325,6 @@ if [[ -n "${EnsureJsonStructureBy}" ]]; then
         echo "有効な値: gemini, claude, codex"
         exit 1
     fi
-fi
-
-# AIエージェント名の検証
-if [[ ! "${AiAgentName}" =~ ^(gemini|claude|codex|cgemini|opus|sonnet)$ ]]; then
-    echo "エラー: 無効なAIエージェント名: ${AiAgentName}"
-    echo "有効な値: gemini, claude, codex, cgemini, opus, sonnet"
-    exit 1
 fi
 
 # 処理名の検証（ファイル名として有効な文字列かチェック）
@@ -253,6 +390,7 @@ if [[ ${Verbose} == true ]]; then
     echo "============================================"
     echo "スクリプトパス: ${this_script_path}"
     echo "AIエージェント: ${AiAgentName}"
+    echo "モデル名: ${AiModelName}"
     echo "ガイドファイル: ${GuideFile}"
     if [[ -n "${ListFilePath}" ]]; then
         echo "リストファイル: ${ListFilePath}"
@@ -333,17 +471,18 @@ function cleanup_lockfile(){
 function askAiAgent(){
 
     _ai_agent_name=$1
-    _guide_file=$2
-    _result_file_name=$3
-    _actual_run=$4
-    _log_file_name=$5
+    _ai_model_name=$2
+    _guide_file=$3
+    _result_file_name=$4
+    _actual_run=$5
+    _log_file_name=$6
 
-if [[ ${_ai_agent_name} == "opus" ]]; then
+if [[ ${_ai_agent_name} == "copilot" ]]; then
         techo ""
-        techo "========== Opus via Copilot コマンド =========="
+        techo "========== Copilot コマンド =========="
         techo "copilot  --prompt \\"
         techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
-        techo "    --model \"claude-opus-4.6\" \\"
+        techo "    --model \"${_ai_model_name}\" \\"
         techo "    --allow-all-tools \\"
         techo "    --add-dir . \\"
         techo "    --deny-url \"*\" "
@@ -353,85 +492,25 @@ if [[ ${_ai_agent_name} == "opus" ]]; then
         if [[ ${_actual_run} == true ]]; then
             sleep 3
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-            techo "Opus via Copilot が作業を実行中..."
+            techo "Copilot が作業を実行中..."
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
             copilot --prompt "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
-                --model "claude-opus-4.6" \
+                --model "${_ai_model_name}" \
                 --allow-all-tools \
                 --add-dir . \
                 --deny-url "*" \
                 2>&1 | tee -a ${_log_file_name}
 
             techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-            techo "Opus via Copilot による作業が完了しました"
-            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-        fi
-
-   elif [[ ${_ai_agent_name} == "cgemini" ]]; then
-        techo ""
-        techo "========== Gemini via Copilot コマンド =========="
-        techo "copilot  --prompt \\"
-        techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
-        techo "    --model \"gemini-3-pro-preview\" \\"
-        techo "    --allow-all-tools \\"
-        techo "    --add-dir . \\"
-        techo "    --deny-url \"*\" "
-        techo "===================================="
-        techo ""
-
-        if [[ ${_actual_run} == true ]]; then
-            sleep 3
-            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-            techo "Gemini via Copilot が作業を実行中..."
-            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-
-            copilot --prompt "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
-                --model "gemini-3-pro-preview" \
-                --allow-all-tools \
-                --add-dir . \
-                --deny-url "*" \
-                2>&1 | tee -a ${_log_file_name}
-
-            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-            techo "Gemini via Copilot による作業が完了しました"
-            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-        fi
-
-    elif [[ ${_ai_agent_name} == "sonnet" ]]; then
-        techo ""
-        techo "========== Sonnet via Copilot コマンド =========="
-        techo "copilot  --prompt \\"
-        techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
-        techo "    --model \"claude-sonnet-4.6\" \\"
-        techo "    --allow-all-tools \\"
-        techo "    --add-dir . \\"
-        techo "    --deny-url \"*\" "
-        techo "===================================="
-        techo ""
-
-        if [[ ${_actual_run} == true ]]; then
-            sleep 3
-            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-            techo "Sonnet via Copilot が作業を実行中..."
-            techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-
-            copilot --prompt "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
-                --model "claude-sonnet-4.6" \
-                --allow-all-tools \
-                --add-dir . \
-                --deny-url "*" \
-                2>&1 | tee -a ${_log_file_name}
-
-            techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-            techo "Sonnet via Copilot による作業が完了しました"
+            techo "Copilot による作業が完了しました"
             techo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
         fi
 
     elif [[ ${_ai_agent_name} == "gemini" ]]; then
         techo ""
         techo "========== Gemini コマンド =========="
-        techo "gemini -p \\"
+        techo "gemini -m \"${_ai_model_name}\" -p \\"
         techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
         techo "    --approval-mode auto_edit \\"
         techo "    --allowed-tools \"run_shell_command\""
@@ -444,7 +523,7 @@ if [[ ${_ai_agent_name} == "opus" ]]; then
             techo "Gemini が作業を実行中..."
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
-            gemini -p "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
+            gemini -m "${_ai_model_name}" -p "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
                 --approval-mode auto_edit \
                 --allowed-tools "run_shell_command" \
                 2>&1 | tee -a ${_log_file_name}
@@ -459,6 +538,7 @@ if [[ ${_ai_agent_name} == "opus" ]]; then
         techo "========== Claude コマンド =========="
         techo "claude -p \\"
         techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\" \\"
+        techo "    --model \"${_ai_model_name}\" \\"
         techo "    --allowedTools \"Bash,Read\" \\"
         techo "    --permission-mode acceptEdits"
         techo "===================================="
@@ -472,6 +552,7 @@ if [[ ${_ai_agent_name} == "opus" ]]; then
 
             claude -p \
                 "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
+                --model "${_ai_model_name}" \
                 --allowedTools "Bash,Read" \
                 --permission-mode acceptEdits \
                 2>&1 | tee -a ${_log_file_name}
@@ -484,7 +565,7 @@ if [[ ${_ai_agent_name} == "opus" ]]; then
     elif [[ ${_ai_agent_name} == "codex" ]]; then
         techo ""
         techo "========== Codex コマンド =========="
-        techo "codex exec --full-auto --skip-git-repo-check -C . \\"
+        techo "codex exec -m \"${_ai_model_name}\" --full-auto --skip-git-repo-check -C . \\"
         techo "    \"${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。\""
         techo "===================================="
         techo ""
@@ -495,7 +576,7 @@ if [[ ${_ai_agent_name} == "opus" ]]; then
             techo "Codex が作業を実行中..."
             techo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
-            codex exec --full-auto --skip-git-repo-check -C . \
+            codex exec -m "${_ai_model_name}" --full-auto --skip-git-repo-check -C . \
                 "${_guide_file} に従って作業をしてください。作業結果は ${_result_file_name} へ書き込んでください。" \
                 2>&1 | tee -a ${_log_file_name}
 
@@ -643,7 +724,7 @@ function normalize_json_file(){
 #######################
 echo ""
 echo "============================================"
-echo "  ${AiAgentName} を使用した ${DE_Name} 処理を開始"
+echo "  ${AiAgentName} (${AiModelName}) を使用した ${DE_Name} 処理を開始"
 echo "============================================"
 echo ""
 
@@ -662,7 +743,7 @@ for _author_year in "${AuthorYearArray[@]}"; do
   # Ask AI agent if the result json was not found.
   _folder="${this_script_parent}/../data/${_author_year}/${DE_Name}/json/"
   if [[ ! -d ${_folder} ]]; then mkdir -p ${_folder}; fi
-  _expected_result_file="${DE_Name}_${_author_year}_by_${AiAgentName}_*.json"
+  _expected_result_file="${DE_Name}_${_author_year}_by_${AiAgentModelToken}_*.json"
 
   _proceed=false
   if find ${_folder} -maxdepth 1 -type f -iname ${_expected_result_file} | grep -q .; then
@@ -687,7 +768,7 @@ for _author_year in "${AuthorYearArray[@]}"; do
 
       # Make a flag file
       echo "The result json file is not created yet." \
-          > ${this_script_parent}/${DE_Name}_${_author_year}_by_${AiAgentName}_is_not_yet.txt
+          > ${this_script_parent}/${DE_Name}_${_author_year}_by_${AiAgentModelToken}_is_not_yet.txt
 
       # Set Working Directory
       # ai_workspace/<timestamp>/ にGuideファイルとTemplateファイルを配置
@@ -772,7 +853,7 @@ EOF
           echo "エラー: テンプレートファイルが見つかりません: ${TemplateFile}"
           exit 1
       fi
-      _result_file_name="${DE_Name}_${_author_year}_by_${AiAgentName}_${_timestamp}.json"
+      _result_file_name="${DE_Name}_${_author_year}_by_${AiAgentModelToken}_${_timestamp}.json"
       cp "${TemplateFile}" "${ai_workspace}/${_result_file_name}"
       echo "Templateファイルをコピー: ${ai_workspace}/${_result_file_name}"
 
@@ -806,7 +887,7 @@ EOF
       _result_file_relative="./${_result_file_name}"
       _log_file_relative="./${_log_file_name}"
 
-      askAiAgent "${AiAgentName}" "${_guide_file_relative}" "${_result_file_relative}" "${_run_agent}" "${_log_file_relative}"
+      askAiAgent "${AiAgentName}" "${AiModelName}" "${_guide_file_relative}" "${_result_file_relative}" "${_run_agent}" "${_log_file_relative}"
 
 
 
@@ -840,7 +921,7 @@ EOF
               if [[ ! -d "${_dst}" ]]; then mkdir -p "${_dst}"; fi
               cp "${ai_workspace}/${_log_file_name}" "${_dst}" #logファイルをコピー
 
-              rm "${this_script_parent}/${DE_Name}_${_author_year}_by_${AiAgentName}_is_not_yet.txt"
+              rm "${this_script_parent}/${DE_Name}_${_author_year}_by_${AiAgentModelToken}_is_not_yet.txt"
 
               echo "結果ファイル: ${_dst}/${_result_file_name}"
           fi

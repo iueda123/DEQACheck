@@ -63,7 +63,8 @@ public class SideBySideComparisonHolder extends AbstCHolderMember implements Sub
         this.version = version;
 
         // JSONフォルダのパス構築
-        Path jsonFolderPath = Paths.get("./data", authorYear, version, "json");
+        String baseDir = System.getProperty("LCCA_BASE_DIR", ".");
+        Path jsonFolderPath = Paths.get(baseDir, "data", authorYear, version, "json");
         this.jsonFolderPathStr = jsonFolderPath.toString();
         File jsonDir = jsonFolderPath.toFile();
 
@@ -153,7 +154,8 @@ public class SideBySideComparisonHolder extends AbstCHolderMember implements Sub
      * バージョンに応じたテンプレートファイルを見つける。
      */
     private File findTemplate() {
-        Path templatesDir = Paths.get("./templates");
+        String baseDir = System.getProperty("LCCA_BASE_DIR", ".");
+        Path templatesDir = Paths.get(baseDir, "templates");
         Map<String, String> templateNames = new LinkedHashMap<>();
         templateNames.put("DE_v14", "DE_v14_Author20XX_by_Someone_YYYYmmddHHMMSS.json");
         templateNames.put("DE_v13", "DE_v13_Author20XX_by_Someone_YYYYmmddHHMMSS.json");
@@ -203,7 +205,8 @@ public class SideBySideComparisonHolder extends AbstCHolderMember implements Sub
         String guideFileName = deriveGuideFileName();
         if (guideFileName == null) return;
 
-        Path guidePath = Paths.get("./prompts", guideFileName);
+        String baseDir = System.getProperty("LCCA_BASE_DIR", ".");
+        Path guidePath = Paths.get(baseDir, "prompts", guideFileName);
         if (!guidePath.toFile().exists()) {
             System.err.println("Prompt guide not found: " + guidePath);
             return;

@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,7 +20,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import iu.SpringBoot.Vaadin.views.MainView;
-import iu.SwingStyle.LCCA.Startup.RsltComparator_v13.Starter;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,6 +30,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -466,7 +468,7 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
     private void appendCell(Element tr, String text) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s); white-space: pre-wrap; word-break: break-word;");
-        td.setText(text == null ? "" : text);
+        td.setText(text == null ? "" : normalizeNewlines(text));
         tr.appendChild(td);
     }
 
@@ -474,32 +476,11 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         Element td = new Element("td");
         td.setAttribute("style", "position: sticky; left: 0; z-index: 1; background: inherit; border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
 
-        Button launcher = new Button(normalizeNewlines(authorYear));
-        launcher.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
-        launcher.addClickListener(e -> {
-            try {
-                String javaBin = Paths.get(System.getProperty("java.home"), "bin", "java").toString();
-                String classpath = System.getProperty("java.class.path");
-                Path sharePackageDir = resolveSharePackageDir();
-                List<String> command = new ArrayList<>();
-                command.add(javaBin);
-                command.add("-Djava.awt.headless=false");
-                command.add("-DLCCA_BASE_DIR=" + sharePackageDir.toAbsolutePath());
-                command.add("-cp");
-                command.add(classpath);
-                command.add(Starter.class.getName());
-                command.add(authorYear);
-                command.add(VERSION_NAME);
-                ProcessBuilder pb = new ProcessBuilder(command);
-                pb.directory(sharePackageDir.toFile());
-                pb.inheritIO();
-                pb.start();
-                Notification.show("起動要求を送信しました");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                Notification.show("起動に失敗しました（ログを確認してください）");
-            }
-        });
+        Anchor launcher = new Anchor("summary-view-5-launch/" + authorYear, normalizeNewlines(authorYear));
+        launcher.setTarget("_blank");
+        launcher.getStyle().set("color", "var(--lumo-primary-text-color)");
+        launcher.getStyle().set("text-decoration", "underline");
+        launcher.getStyle().set("cursor", "pointer");
 
         td.appendChild(launcher.getElement());
         tr.appendChild(td);
@@ -554,16 +535,22 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
     private void showSaveMessage(String message) {
         saveMessagePara.setText(message);
         saveMessagePara.setVisible(true);
-        saveMessagePara.getElement().executeJs("setTimeout(() => { this.style.display = 'none'; }, 10000)");
+        saveMessagePara.getStyle().remove("display");
+        saveMessagePara.getElement().executeJs(
+                """
+                        if (this.__hideTimer) {
+                            clearTimeout(this.__hideTimer);
+                        }
+                        this.__hideTimer = setTimeout(() => {
+                            this.hidden = true;
+                        }, 10000);
+                        """
+        );
     }
 
     private String normalizeNewlines(String text) {
         if (text == null) return "";
         return text.replace("\r\n", " ").replace("\r", " ").replace("\n", " ");
-    }
-
-    private Path resolveSharePackageDir() {
-        return Paths.get(System.getProperty("user.dir"), "share_package").toAbsolutePath().normalize();
     }
 
     private static class ModelRow {

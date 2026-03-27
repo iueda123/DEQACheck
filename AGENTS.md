@@ -89,6 +89,10 @@ README.md を参照のこと
 #### docs/ 各フォルダの推奨構成
   * `INDEX.md`（必須）
   * `files/`（画像・PDF・添付資料。任意）
+
+## 検証環境
+
+  * conda environment: env_for_DECheck_java17
  
 ----
  
