@@ -4,14 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -30,7 +27,6 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -174,7 +170,13 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         saveMessagePara.getStyle().set("font-weight", "bold");
         saveMessagePara.getStyle().set("margin", "0");
         saveMessagePara.setVisible(false);
+        saveMessagePara.setId("summary-view-5-save-message");
         add(saveMessagePara);
+
+        Element actionFrame = new Element("iframe");
+        actionFrame.setAttribute("name", "summary-view-5-action-frame");
+        actionFrame.setAttribute("style", "display:none;");
+        getElement().appendChild(actionFrame);
 
         scrollWrapper = new Div();
         scrollWrapper.getStyle().set("max-height", "70vh");
@@ -426,6 +428,7 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
 
         Element tbody = new Element("tbody");
         boolean even = false;
+        int rowIndex = 0;
         for (ModelRow row : filteredRows) {
             Element tr = new Element("tr");
             if (even) {
@@ -443,9 +446,10 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
             appendCell(tr, row.ageSd);
             appendCell(tr, row.ageMin);
             appendCell(tr, row.ageMax);
-            appendNoteCell(tr, row);
+            appendNoteCell(tr, row, "sv5-note-" + rowIndex);
             tbody.appendChild(tr);
             even = !even;
+            rowIndex++;
         }
         table.appendChild(tbody);
         scrollWrapper.getElement().appendChild(table);
@@ -476,46 +480,46 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         Element td = new Element("td");
         td.setAttribute("style", "position: sticky; left: 0; z-index: 1; background: inherit; border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
 
-        Anchor launcher = new Anchor("summary-view-5-launch/" + authorYear, normalizeNewlines(authorYear));
-        launcher.setTarget("_blank");
-        launcher.getStyle().set("color", "var(--lumo-primary-text-color)");
-        launcher.getStyle().set("text-decoration", "underline");
-        launcher.getStyle().set("cursor", "pointer");
+        Element form = new Element("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/api/summary-view-5/launch/" + authorYear);
+        form.setAttribute("target", "summary-view-5-action-frame");
+        form.setAttribute("style", "margin:0;");
 
-        td.appendChild(launcher.getElement());
+        Element launcher = new Element("button");
+        launcher.setAttribute("type", "submit");
+        launcher.setAttribute("style", "background: transparent; border: none; padding: 0; margin: 0; color: var(--lumo-primary-text-color); text-decoration: underline; cursor: pointer;");
+        launcher.setText(normalizeNewlines(authorYear));
+
+        form.appendChild(launcher);
+        td.appendChild(form);
         tr.appendChild(td);
     }
 
-    private void appendNoteCell(Element tr, ModelRow row) {
+    private void appendNoteCell(Element tr, ModelRow row, String textareaId) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s); min-width: 220px; vertical-align: top;");
 
-        TextArea textArea = new TextArea();
-        textArea.setValue(row.note != null ? row.note : "");
-        textArea.setWidth("200px");
-        textArea.getStyle().set("font-size", "var(--lumo-font-size-s)");
+        Element form = new Element("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/api/summary-view-5/note/" + row.authorYear);
+        form.setAttribute("target", "summary-view-5-action-frame");
+        form.setAttribute("style", "margin:0;");
 
-        Button saveButton = new Button("保存", e -> {
-            String content = textArea.getValue();
-            Path notePath = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME,
-                    row.authorYear, "DE_v13", "note", "summary-view-5.txt");
-            try {
-                Files.createDirectories(notePath.getParent());
-                Files.writeString(notePath, content);
-                for (ModelRow r : rows) {
-                    if (r.authorYear.equals(row.authorYear)) {
-                        r.note = content;
-                    }
-                }
-                showSaveMessage("保存しました → " + notePath.toAbsolutePath());
-            } catch (IOException ex) {
-                showSaveMessage("保存に失敗しました: " + ex.getMessage());
-            }
-        });
-        saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SMALL);
+        Element textArea = new Element("textarea");
+        textArea.setAttribute("id", textareaId);
+        textArea.setAttribute("name", "content");
+        textArea.setAttribute("style", "width: 200px; min-height: 120px; font-size: var(--lumo-font-size-s);");
+        textArea.setProperty("value", row.note != null ? row.note : "");
 
-        td.appendChild(textArea.getElement());
-        td.appendChild(saveButton.getElement());
+        Element saveButton = new Element("button");
+        saveButton.setAttribute("type", "submit");
+        saveButton.setAttribute("style", "margin-top: var(--lumo-space-xs);");
+        saveButton.setText("保存");
+
+        form.appendChild(textArea);
+        form.appendChild(saveButton);
+        td.appendChild(form);
         tr.appendChild(td);
     }
 

@@ -94,6 +94,8 @@ public class SecurityConfig extends VaadinWebSecurity {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/api/summary-view-5/**"));
+
         // Allow access to static resources
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/images/**", "/icons/**", "/styles/**").permitAll()
