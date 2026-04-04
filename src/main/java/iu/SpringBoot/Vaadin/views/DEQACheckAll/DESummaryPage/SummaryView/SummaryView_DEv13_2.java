@@ -145,23 +145,28 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
                 "age_mean", "age_sd", "age_min", "age_max", "Note"
         );
         columnCopySelect.setValue("AuthorYear");
+        columnCopySelect.addValueChangeListener(e -> {
+            if (e.getValue() != null) {
+                getElement().executeJs("window._sv5SelectedColumn = $0;", e.getValue());
+            }
+        });
         controlLayout.add(columnCopySelect);
 
-        Button copyButton = new Button("Copy Column", e -> {
-            String column = columnCopySelect.getValue();
-            if (column == null || column.isBlank()) {
-                Notification.show("列を選択してください");
-                return;
-            }
-            List<String> values = new ArrayList<>();
-            for (ModelRow row : filteredRows) {
-                values.add(getColumnValue(row, column));
-            }
-            String joined = String.join("\n", values);
-            getUI().ifPresent(ui -> ui.getPage().executeJs("navigator.clipboard.writeText($0)", joined));
-            Notification.show("コピーしました: " + column);
-        });
-        controlLayout.add(copyButton);
+        Div copyButtonWrapper = new Div();
+        Element copyButtonEl = new Element("button");
+        copyButtonEl.setAttribute("type", "button");
+        copyButtonEl.setAttribute("onclick", "window.summaryView5CopyColumn(window._sv5SelectedColumn)");
+        copyButtonEl.setText("Copy Column");
+        copyButtonWrapper.getElement().appendChild(copyButtonEl);
+        controlLayout.add(copyButtonWrapper);
+
+        Div copyAllButtonWrapper = new Div();
+        Element copyAllButtonEl = new Element("button");
+        copyAllButtonEl.setAttribute("type", "button");
+        copyAllButtonEl.setAttribute("onclick", "window.summaryView5CopyAll()");
+        copyAllButtonEl.setText("Copy All (TSV)");
+        copyAllButtonWrapper.getElement().appendChild(copyAllButtonEl);
+        controlLayout.add(copyAllButtonWrapper);
 
         add(controlLayout);
 
@@ -172,11 +177,6 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         saveMessagePara.setVisible(false);
         saveMessagePara.setId("summary-view-5-save-message");
         add(saveMessagePara);
-
-        Element actionFrame = new Element("iframe");
-        actionFrame.setAttribute("name", "summary-view-5-action-frame");
-        actionFrame.setAttribute("style", "display:none;");
-        getElement().appendChild(actionFrame);
 
         scrollWrapper = new Div();
         scrollWrapper.getStyle().set("max-height", "70vh");
@@ -453,6 +453,28 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         }
         table.appendChild(tbody);
         scrollWrapper.getElement().appendChild(table);
+
+        updateClientColumnData();
+    }
+
+    private void updateClientColumnData() {
+        List<String> columns = List.of(
+                "AuthorYear", "ModelName", "Phase", "n",
+                "female_n", "female_pct", "male_n", "male_pct",
+                "age_mean", "age_sd", "age_min", "age_max", "Note");
+        try {
+            Map<String, List<String>> data = new LinkedHashMap<>();
+            for (String col : columns) {
+                List<String> vals = new ArrayList<>();
+                for (ModelRow r : filteredRows) {
+                    vals.add(getColumnValue(r, col));
+                }
+                data.put(col, vals);
+            }
+            String json = mapper.writeValueAsString(data);
+            getElement().executeJs("window._sv5Data = JSON.parse($0);", json);
+        } catch (Exception ignored) {
+        }
     }
 
     private void appendHeaderCell(Element tr, String text) {
@@ -480,31 +502,20 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         Element td = new Element("td");
         td.setAttribute("style", "position: sticky; left: 0; z-index: 1; background: inherit; border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s);");
 
-        Element form = new Element("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", "/api/summary-view-5/launch/" + authorYear);
-        form.setAttribute("target", "summary-view-5-action-frame");
-        form.setAttribute("style", "margin:0;");
-
         Element launcher = new Element("button");
-        launcher.setAttribute("type", "submit");
+        launcher.setAttribute("type", "button");
         launcher.setAttribute("style", "background: transparent; border: none; padding: 0; margin: 0; color: var(--lumo-primary-text-color); text-decoration: underline; cursor: pointer;");
+        launcher.setAttribute("onclick", "window.summaryView5Launch(this.dataset.authorYear)");
+        launcher.setAttribute("data-author-year", authorYear);
         launcher.setText(normalizeNewlines(authorYear));
 
-        form.appendChild(launcher);
-        td.appendChild(form);
+        td.appendChild(launcher);
         tr.appendChild(td);
     }
 
     private void appendNoteCell(Element tr, ModelRow row, String textareaId) {
         Element td = new Element("td");
         td.setAttribute("style", "border-bottom: 1px solid var(--lumo-contrast-10pct); padding: var(--lumo-space-xs) var(--lumo-space-s); min-width: 220px; vertical-align: top;");
-
-        Element form = new Element("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", "/api/summary-view-5/note/" + row.authorYear);
-        form.setAttribute("target", "summary-view-5-action-frame");
-        form.setAttribute("style", "margin:0;");
 
         Element textArea = new Element("textarea");
         textArea.setAttribute("id", textareaId);
@@ -513,13 +524,18 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
         textArea.setProperty("value", row.note != null ? row.note : "");
 
         Element saveButton = new Element("button");
-        saveButton.setAttribute("type", "submit");
+        saveButton.setAttribute("type", "button");
         saveButton.setAttribute("style", "margin-top: var(--lumo-space-xs);");
+        saveButton.setAttribute(
+                "onclick",
+                "window.summaryView5SaveNote(this.dataset.authorYear, this.dataset.textareaId, 'summary-view-5-save-message')"
+        );
+        saveButton.setAttribute("data-author-year", row.authorYear);
+        saveButton.setAttribute("data-textarea-id", textareaId);
         saveButton.setText("保存");
 
-        form.appendChild(textArea);
-        form.appendChild(saveButton);
-        td.appendChild(form);
+        td.appendChild(textArea);
+        td.appendChild(saveButton);
         tr.appendChild(td);
     }
 
@@ -555,6 +571,175 @@ public class SummaryView_DEv13_2 extends VerticalLayout {
     private String normalizeNewlines(String text) {
         if (text == null) return "";
         return text.replace("\r\n", " ").replace("\r", " ").replace("\n", " ");
+    }
+
+    @Override
+    protected void onAttach(com.vaadin.flow.component.AttachEvent attachEvent) {
+        super.onAttach(attachEvent);
+        getElement().executeJs(
+                """
+                        window.summaryView5CopyColumn = async (column) => {
+                            if (!column || !window._sv5Data || !window._sv5Data[column]) {
+                                window.summaryView5FlashMessage(
+                                    'summary-view-5-save-message',
+                                    '列を選択してください',
+                                    'var(--lumo-error-color)'
+                                );
+                                return;
+                            }
+                            const text = window._sv5Data[column].join('\\n');
+                            const fallback = () => {
+                                const ta = document.createElement('textarea');
+                                ta.value = text;
+                                ta.style.position = 'fixed';
+                                ta.style.top = '-9999px';
+                                document.body.appendChild(ta);
+                                ta.select();
+                                let ok = false;
+                                try { ok = document.execCommand('copy'); } catch (ex) {}
+                                document.body.removeChild(ta);
+                                return ok;
+                            };
+                            if (navigator.clipboard && window.isSecureContext) {
+                                try {
+                                    await navigator.clipboard.writeText(text);
+                                    window.summaryView5FlashMessage(
+                                        'summary-view-5-save-message',
+                                        'コピーしました: ' + column,
+                                        'var(--lumo-success-color)'
+                                    );
+                                    return;
+                                } catch (ex) {}
+                            }
+                            const ok = fallback();
+                            window.summaryView5FlashMessage(
+                                'summary-view-5-save-message',
+                                ok ? 'コピーしました: ' + column : 'コピーに失敗しました。ブラウザの権限を確認してください。',
+                                ok ? 'var(--lumo-success-color)' : 'var(--lumo-error-color)'
+                            );
+                        };
+
+                        window.summaryView5FlashMessage = (messageId, text, color) => {
+                            const node = document.getElementById(messageId);
+                            if (!node) {
+                                return;
+                            }
+                            node.textContent = text || '';
+                            node.hidden = false;
+                            node.style.display = '';
+                            node.style.color = color || 'var(--lumo-success-color)';
+                            node.style.fontWeight = 'bold';
+                            if (node.__hideTimer) {
+                                clearTimeout(node.__hideTimer);
+                            }
+                            node.__hideTimer = setTimeout(() => {
+                                node.hidden = true;
+                            }, 10000);
+                        };
+
+                        window.summaryView5Launch = async (authorYear) => {
+                            try {
+                                const response = await fetch('/api/summary-view-5/launch/' + encodeURIComponent(authorYear), {
+                                    method: 'POST',
+                                    credentials: 'same-origin'
+                                });
+                                const text = await response.text();
+                                const doc = new DOMParser().parseFromString(text, 'text/html');
+                                const message = (doc.body && doc.body.textContent ? doc.body.textContent : '').trim();
+                                window.summaryView5FlashMessage(
+                                    'summary-view-5-save-message',
+                                    message || ('起動要求を送信しました: ' + authorYear),
+                                    response.ok ? 'var(--lumo-success-color)' : 'var(--lumo-error-color)'
+                                );
+                            } catch (error) {
+                                window.summaryView5FlashMessage(
+                                    'summary-view-5-save-message',
+                                    '起動に失敗しました: ' + error,
+                                    'var(--lumo-error-color)'
+                                );
+                            }
+                        };
+
+                        window._sv5SelectedColumn = 'AuthorYear';
+
+                        window.summaryView5CopyAll = async () => {
+                            if (!window._sv5Data) {
+                                window.summaryView5FlashMessage(
+                                    'summary-view-5-save-message',
+                                    'データがまだ読み込まれていません',
+                                    'var(--lumo-error-color)'
+                                );
+                                return;
+                            }
+                            const cols = Object.keys(window._sv5Data);
+                            const rowCount = window._sv5Data[cols[0]].length;
+                            const escape = s => (s == null ? '' : String(s).replace(/\\r\\n/g, '\\\\n').replace(/\\r/g, '\\\\n').replace(/\\n/g, '\\\\n'));
+                            const lines = [cols.join('\\t')];
+                            for (let i = 0; i < rowCount; i++) {
+                                lines.push(cols.map(c => escape(window._sv5Data[c][i])).join('\\t'));
+                            }
+                            const text = lines.join('\\n');
+                            const fallback = () => {
+                                const ta = document.createElement('textarea');
+                                ta.value = text;
+                                ta.style.position = 'fixed';
+                                ta.style.top = '-9999px';
+                                document.body.appendChild(ta);
+                                ta.select();
+                                let ok = false;
+                                try { ok = document.execCommand('copy'); } catch (ex) {}
+                                document.body.removeChild(ta);
+                                return ok;
+                            };
+                            if (navigator.clipboard && window.isSecureContext) {
+                                try {
+                                    await navigator.clipboard.writeText(text);
+                                    window.summaryView5FlashMessage(
+                                        'summary-view-5-save-message',
+                                        'コピーしました: 全列 (' + rowCount + ' 行)',
+                                        'var(--lumo-success-color)'
+                                    );
+                                    return;
+                                } catch (ex) {}
+                            }
+                            const ok = fallback();
+                            window.summaryView5FlashMessage(
+                                'summary-view-5-save-message',
+                                ok ? 'コピーしました: 全列 (' + rowCount + ' 行)' : 'コピーに失敗しました。ブラウザの権限を確認してください。',
+                                ok ? 'var(--lumo-success-color)' : 'var(--lumo-error-color)'
+                            );
+                        };
+
+                        window.summaryView5SaveNote = async (authorYear, textareaId, messageId) => {
+                            const textarea = document.getElementById(textareaId);
+                            const content = textarea ? textarea.value : '';
+                            try {
+                                const response = await fetch('/api/summary-view-5/note/' + encodeURIComponent(authorYear), {
+                                    method: 'POST',
+                                    credentials: 'same-origin',
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                                    body: 'content=' + encodeURIComponent(content)
+                                });
+                                const text = await response.text();
+                                const doc = new DOMParser().parseFromString(text, 'text/html');
+                                const message = (doc.body && doc.body.textContent ? doc.body.textContent : '').trim();
+                                window.summaryView5FlashMessage(
+                                    messageId,
+                                    message || ('保存しました: ' + authorYear),
+                                    response.ok ? 'var(--lumo-success-color)' : 'var(--lumo-error-color)'
+                                );
+                            } catch (error) {
+                                window.summaryView5FlashMessage(
+                                    messageId,
+                                    '保存に失敗しました: ' + error,
+                                    'var(--lumo-error-color)'
+                                );
+                            }
+                        };
+                        """
+        );
+        // onAttach 時に確実にデータを送る（コンストラクタでの executeJs は未アタッチで捨てられるため）
+        updateClientColumnData();
     }
 
     private static class ModelRow {

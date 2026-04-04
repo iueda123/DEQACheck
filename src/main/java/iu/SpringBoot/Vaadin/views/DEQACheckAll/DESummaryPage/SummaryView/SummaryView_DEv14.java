@@ -41,7 +41,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("ADMIN")
 public class SummaryView_DEv14 extends VerticalLayout {
 
-    private static final String DATA_FOLDER_NAME = "share_package/data";
+    private static final String DATA_DIR_NAME = "data";
     private static final Pattern SOURCE_PATTERN = Pattern.compile("_by_([^_]+)_", Pattern.CASE_INSENSITIVE);
 
     private final ObjectMapper mapper = new ObjectMapper();
@@ -51,6 +51,7 @@ public class SummaryView_DEv14 extends VerticalLayout {
     private ComboBox<String> sourceFilter;
     private ComboBox<String> columnCopySelect;
     private Paragraph saveMessagePara;
+    private final Path sharePackageBaseDir;
 
     public SummaryView_DEv14() {
         getStyle().set("padding", "var(--lumo-space-m)");
@@ -59,7 +60,8 @@ public class SummaryView_DEv14 extends VerticalLayout {
 
         add(new H2("DE_v14 (human/gemini/claude/codex/opus/sonnet) 一覧"));
 
-        Path base = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME);
+        sharePackageBaseDir = resolveSharePackageBaseDir();
+        Path base = sharePackageBaseDir.resolve(DATA_DIR_NAME);
         if (!Files.exists(base) || !Files.isDirectory(base)) {
             add(new Paragraph("Data ディレクトリが見つかりません: " + base.toAbsolutePath()));
             return;
@@ -355,7 +357,13 @@ public class SummaryView_DEv14 extends VerticalLayout {
             try {
                 return mapper.readTree(text);
             } catch (IOException e) {
-                return node;
+                // 値位置に裸の NR が含まれる場合（例: "mean": NR）を "NR" に置換してリトライ
+                String fixed = text.replaceAll(":\\s*NR\\b", ": \"NR\"");
+                try {
+                    return mapper.readTree(fixed);
+                } catch (IOException e2) {
+                    return node;
+                }
             }
         }
         return node;
@@ -510,12 +518,13 @@ public class SummaryView_DEv14 extends VerticalLayout {
                 List<String> command = new ArrayList<>();
                 command.add(javaBin);
                 command.add("-Djava.awt.headless=false");
+                command.add("-DLCCA_BASE_DIR=" + sharePackageBaseDir.toAbsolutePath().normalize());
                 command.add("-cp");
                 command.add(classpath);
                 command.add(Starter.class.getName());
                 command.add(authorYear);
                 ProcessBuilder pb = new ProcessBuilder(command);
-                pb.directory(Paths.get(System.getProperty("user.dir")).toFile());
+                pb.directory(sharePackageBaseDir.toFile());
                 pb.inheritIO();
                 pb.start();
                 Notification.show("起動要求を送信しました");
@@ -540,8 +549,11 @@ public class SummaryView_DEv14 extends VerticalLayout {
 
         Button saveButton = new Button("保存", e -> {
             String content = textArea.getValue();
-            Path notePath = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME,
-                    row.authorYear, "DE_v14", "note", "summary-view-6.txt");
+            Path notePath = sharePackageBaseDir.resolve(DATA_DIR_NAME)
+                    .resolve(row.authorYear)
+                    .resolve("DE_v14")
+                    .resolve("note")
+                    .resolve("summary-view-6.txt");
             try {
                 Files.createDirectories(notePath.getParent());
                 Files.writeString(notePath, content);
@@ -563,8 +575,11 @@ public class SummaryView_DEv14 extends VerticalLayout {
     }
 
     private String loadNote(String authorYear) {
-        Path notePath = Paths.get(System.getProperty("user.dir"), DATA_FOLDER_NAME,
-                authorYear, "DE_v14", "note", "summary-view-6.txt");
+        Path notePath = sharePackageBaseDir.resolve(DATA_DIR_NAME)
+                .resolve(authorYear)
+                .resolve("DE_v14")
+                .resolve("note")
+                .resolve("summary-view-6.txt");
         if (Files.exists(notePath)) {
             try {
                 return Files.readString(notePath);
@@ -580,6 +595,18 @@ public class SummaryView_DEv14 extends VerticalLayout {
         saveMessagePara.getStyle().remove("display");
         saveMessagePara.setVisible(true);
         saveMessagePara.getElement().executeJs("setTimeout(() => { this.style.display = 'none'; }, 10000)");
+    }
+
+    private Path resolveSharePackageBaseDir() {
+        Path workingDir = Paths.get(System.getProperty("user.dir")).toAbsolutePath().normalize();
+        Path sharePackageDir = workingDir.resolve("share_package");
+        if (Files.isDirectory(sharePackageDir.resolve(DATA_DIR_NAME))) {
+            return sharePackageDir;
+        }
+        if (Files.isDirectory(workingDir.resolve(DATA_DIR_NAME))) {
+            return workingDir;
+        }
+        return sharePackageDir;
     }
 
     private static class DisorderRow {

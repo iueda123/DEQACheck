@@ -8,6 +8,7 @@ import iu.SwingStyle.LCCA.Member.Abstracts.componentholder.AbstCHolderMemberFact
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.MainWindow.MainWindowHolder;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.MainWindow.MainWindowHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.StatusPanel.StatusPanelHolderFactory;
+import iu.SwingStyle.LCCA.Member.Concretes.componentholder.DEQAResult.WithNotebookLMPane.WithNotebookLMPanelHolderFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.RsltComparator.SideBySideComparisonHolderFactory;
 
 import java.nio.file.Path;
@@ -78,6 +79,16 @@ public class RCCHolderMediator extends CHolderMediator {
         comparisonHolder.setCHolderMediator(this);
         comparisonHolder.initialize();
         getMemberMap().put(comparisonHolder.getMemberName(), comparisonHolder);
+
+        // NotebookLM panel
+        factory = MemberFactoryLoader.loadFactory(
+                WithNotebookLMPanelHolderFactory.class.getName(),
+                AbstCHolderMemberFactory.class);
+        AbstCHolderMember notebookLmHolder = factory.createCHolder(
+                "with_notebook_lm_pane_holder", "With NotebookLM Pane Holder", authorYears[0]);
+        notebookLmHolder.setCHolderMediator(this);
+        notebookLmHolder.initialize();
+        getMemberMap().put(notebookLmHolder.getMemberName(), notebookLmHolder);
     }
 
     /**

@@ -5,13 +5,13 @@ import iu.SwingStyle.LCCA.Mediator.RsltComparator.RCActionMediatorFactory;
 import iu.SwingStyle.LCCA.Mediator.RsltComparator.RCCHolderMediator;
 import iu.SwingStyle.LCCA.Mediator.RsltComparator.RCCHolderMediatorFactory;
 import iu.SwingStyle.LCCA.Member.Concretes.componentholder.MainWindow.MainWindowHolder;
-import iu.SwingStyle.LCCA.Startup.RsltComparator_v13.RCBasePaneCreator;
 import iu.SwingStyle.LCCA.Startup.RsltComparator_v13.RCMenuBarCreator;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 
 /**
@@ -20,24 +20,19 @@ import java.util.Enumeration;
  */
 public class Starter {
 
+    private static final String DEFAULT_VERSION = "DE_v14";
+
     public static void main(String[] args) {
 
-        /* **** フォントサイズを1.25倍に設定 **** */
+        /* ****  フォントサイズを1.25倍に設定 **** */
         setUIFont(new FontUIResource("SansSerif", Font.PLAIN, 15));
+
+        /* **** ベースディレクトリ調整: share_package 配下で実行する想定を補助 **** */
+        configureBaseDir();
 
         /* **** AuthorYear と Version を決定 **** */
         String authorYear;
-        String version = "DE_v14";
-
-        // ベースディレクトリ調整: share_package 配下で実行する想定を補助
-        String baseDir = System.getProperty("LCCA_BASE_DIR", ".");
-        File dataDir = new File(baseDir, "data");
-        if (!dataDir.exists()) {
-            File shareDataDir = new File("share_package/data");
-            if (shareDataDir.exists()) {
-                System.setProperty("LCCA_BASE_DIR", "share_package");
-            }
-        }
+        String version = DEFAULT_VERSION;
 
         if (args.length >= 1) {
             authorYear = args[0];
@@ -91,5 +86,29 @@ public class Starter {
                 UIManager.put(key, font);
             }
         }
+    }
+
+    private static void configureBaseDir() {
+        String configuredBaseDir = System.getProperty("LCCA_BASE_DIR");
+        if (configuredBaseDir != null && !configuredBaseDir.isBlank()) {
+            Path normalized = Paths.get(configuredBaseDir).toAbsolutePath().normalize();
+            System.setProperty("LCCA_BASE_DIR", normalized.toString());
+            return;
+        }
+
+        Path workingDir = Paths.get("").toAbsolutePath().normalize();
+        Path dataDir = workingDir.resolve("data");
+        if (dataDir.toFile().isDirectory()) {
+            System.setProperty("LCCA_BASE_DIR", workingDir.toString());
+            return;
+        }
+
+        Path sharePackageDir = workingDir.resolve("share_package");
+        if (sharePackageDir.resolve("data").toFile().isDirectory()) {
+            System.setProperty("LCCA_BASE_DIR", sharePackageDir.toString());
+            return;
+        }
+
+        System.setProperty("LCCA_BASE_DIR", workingDir.toString());
     }
 }
