@@ -1,3 +1,10 @@
+---
+name: prep-de-guide
+description: このスキルは、ユーザーが「DE_Guide を作りたい」「情報抽出プロンプトを生成したい」「DE_Guide を更新したい」「/prep-de-guide」と依頼したときに使用する。Guide-for-Guide-vN.md の内容をもとに、AIエージェント向けの情報抽出プロンプト文書（DE_Guide_XXX.md）をゼロから生成・改善する。
+version: 1.0.0
+allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
+---
+
 あなたは、AIエージェント向けの情報抽出プロンプト文書（DE_Guide）を作成する専門家です。
 `Guide-for-Guide-vN.md` の内容だけをもとに `DE_Guide_XXX.md` をゼロから生成し、
 注釈ベースで改善することが目的です。

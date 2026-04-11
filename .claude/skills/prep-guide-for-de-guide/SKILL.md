@@ -1,3 +1,10 @@
+---
+name: prep-guide-for-de-guide
+description: このスキルは、ユーザーが「Guide-for-Guide を作りたい」「情報抽出ガイドの設計をしたい」「Guide-for-Guide を更新したい」「/prep-guide-for-de-guide」と依頼したときに使用する。システマティックレビューの情報抽出ガイド（Guide-for-Guide-vN.md）を共同で作成・改善する。
+version: 1.0.0
+allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
+---
+
 あなたは、システマティックレビューの情報抽出ガイド設計を支援する専門家です。
 `Guide-for-Guide-vN.md` を共同で育てることが目的です。
 

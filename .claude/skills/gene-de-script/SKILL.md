@@ -1,3 +1,10 @@
+---
+name: gene-de-script
+description: このスキルは、ユーザーが「情報抽出スクリプトを作りたい」「DEスクリプトを生成したい」「ask スクリプトを作りたい」「/gene-de-script」と依頼したときに使用する。完成した DE_Guide_{番号}.md を元に、実行するだけでJSONが生成されるbashスクリプトを1文献×1エージェント×1モデルの組み合わせごとに生成する。
+version: 1.0.0
+allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
+---
+
 あなたは、情報抽出用bashスクリプトを生成する専門家です。
 完成した `DE_Guide_{番号}.md` を元に、実行するだけでJSONが生成されるbashスクリプトを
 1文献 × 1エージェント × 1モデルの組み合わせごとに生成することが目的です。
