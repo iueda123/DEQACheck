@@ -57,7 +57,7 @@ AIエージェント（Gemini, Claude, Codex, Copilot等）を使用して、
 データ抽出（DE）または品質評価（QA）を自動実行するスクリプトです。
 
 オプション:
-  -a, --agent AGENT      AIエージェント名を指定 (gemini|claude|codex|cpilot)
+  -a, --agent AGENT      AIエージェント名を指定 (gemini|claude|codex|copilot)
   -m, --model MODEL      エージェントに対応するモデル名を指定
   -n, --name NAME        処理名を指定（結果ファイル名に使用、例: DE, QA）
   -l, --list FILE        処理すべき研究名が1行ずつ記載されたファイルのパス
@@ -80,7 +80,7 @@ AIエージェント（Gemini, Claude, Codex, Copilot等）を使用して、
   ${this_script_name} -a codex -m gpt-5.4-mini -n DE -l tools/TaegetStudies.txt
 
   # 実行モードで処理を走らせる
-  ${this_script_name} -a cpilot -m openai-gpt-5.4 -n DE -l tools/TaegetStudies.txt -r
+  ${this_script_name} -a copilot -m openai-gpt-5.4 -n DE -l tools/TaegetStudies.txt -r
 
   # JSON整形の後処理を実行（モデル指定あり）
   ${this_script_name} -a gemini -m gemini-2.5-flash -n DE -l tools/TaegetStudies.txt -r --ensure-json-structure-by codex
@@ -97,8 +97,7 @@ EOF
 
 normalize_agent_name() {
     case "$1" in
-        cpilot|copilot) printf '%s\n' "copilot" ;;
-        gemini|claude|codex) printf '%s\n' "$1" ;;
+        copilot|gemini|claude|codex) printf '%s\n' "$1" ;;
         *) printf '%s\n' "$1" ;;
     esac
 }
@@ -113,7 +112,7 @@ print_agent_choices() {
   gemini
   claude
   codex
-  cpilot
+  copilot
 EOF
 }
 
