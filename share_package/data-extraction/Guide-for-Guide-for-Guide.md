@@ -128,15 +128,18 @@ share_package/
  |         :
 
 .claude/
- +-- commands/
-      +-- prep-guide-for-de-guide.md   ← SKILL /prep-guide-for-de-guide の実体
-      +-- prep-de-guide.md             ← SKILL /prep-de-guide の実体
-      +-- gene-de-script.md         ← SKILL /gene-de-script の実体
+ +-- skills/
+      +-- prep-guide-for-de-guide/
+      |    +-- SKILL.md   ← SKILL /prep-guide-for-de-guide の実体
+      +-- prep-de-guide/
+      |    +-- SKILL.md   ← SKILL /prep-de-guide の実体
+      +-- gene-de-script/
+           +-- SKILL.md   ← SKILL /gene-de-script の実体
 ```
 
 > **補足**: `SKILL.md`（`data-extraction/` 内）はドラフトとして育てる。
 > Claude Code がスラッシュコマンドとして認識するには、完成した内容を
-> `.claude/commands/` 以下の各ファイルに配置する必要がある。
+> `.claude/skills/{skill-name}/SKILL.md` として配置する必要がある。
 
 ---
 
@@ -173,7 +176,7 @@ share_package/
 - 作業の区切り（Phase 1 完成、Phase 2 完成、Phase 3 完成など）ごとに `SKILL.md` を更新する
 - `/prep-guide-for-de-guide`・`/prep-de-guide`・`/gene-de-script` それぞれについて、AIが迷わず再現できる粒度で記述する
 - 具体的には: 使用ファイル・実行コマンド・出力の確認方法・典型的なつまずきと対処
-- 内容が固まったら `.claude/commands/` 以下の各ファイルに配置してスラッシュコマンドとして登録する
+- 内容が固まったら `.claude/skills/{skill-name}/SKILL.md` として配置してスラッシュコマンドとして登録する
 
 **━━━━━━━━━━━━━━━━━━━━━━━━**
 
