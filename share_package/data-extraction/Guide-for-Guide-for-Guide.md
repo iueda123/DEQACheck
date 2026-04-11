@@ -52,18 +52,14 @@
 
 ### Phase 3 — bashスクリプトの生成（`/gene-de-script` の作業）
 
-**前準備（自動スクリプトによる materials 加工）:**
-- `share_package/data/{AuthorYear}/materials/optimized/*.md` を `Studies/{AuthorYear}/materials/optimized/` へコピーし、アンカーを自動で埋め込む
-- この処理は専用の前処理スクリプト（`prep-study-materials.sh`）で一括自動化する
-- `/gene-de-script` 実行時にこのスクリプトも生成・実行する
-
 **スクリプト生成:**
 - `/gene-de-script` を呼び出すと、AIが対話形式で以下を順に確認する:
   1. 対象文献（`Studies/` 配下の `{AuthorYear}` を列挙して選ばせる。複数選択可）
   2. 使用エージェント（`llm-provider-settings.json` の `cli` キー: `claude` / `codex` / `copilot` / `gemini`）
   3. 使用モデル（選択したエージェントに対応するモデル一覧から選ばせる）
 - 選択肢の定義元: `/media/iu/STORAGE/__GitHub__/wiki-concierge/main/src/main/resources/llm-provider-settings.json`（`cli` セクション）
-- 確認後、**1文献 × 1エージェント × 1モデルの組み合わせごとに個別の**bashスクリプトを生成する
+- 確認後、**1文献 × 1エージェント × 1モデルの組み合わせごとに個別の統合スクリプト**を生成する
+- 各スクリプトは前処理（materials のコピーとアンカー付与）と AI 呼び出しを1本にまとめる
 - 生成されたスクリプトを `DE_Guide_XXX.md` と同じ `Guides/{番号}/` に配置する
 - 既存のスクリプト例として `share_package/tools/ask_AiToDe_v14_2.sh` を参考にする
 
@@ -106,14 +102,13 @@ share_package/
  |    +-- Guides/
  |    |    +-- 001/
  |    |    |    +-- DE_Guide_001.md                                    ← Phase 2 成果物
- |    |    |    +-- prep-study-materials.sh                            ← materials 前処理スクリプト（Phase 3 成果物）
- |    |    |    +-- ask-claude-to-de-from-Ge2024-using-opus46.sh       ← Phase 3 成果物（文献×エージェント×モデル個別）
+ |    |    |    +-- dataset-name-keywords.md                           ← DE_Guide が参照するローカルファイル（Phase 2 成果物）
+ |    |    |    +-- ask-claude-to-de-from-Ge2024-using-opus46.sh       ← Phase 3 成果物（前処理+抽出の統合スクリプト、文献×エージェント×モデル個別）
  |    |    |    +-- ask-claude-to-de-from-Geng2025-using-opus46.sh
  |    |    |    +-- ask-codex-to-de-from-Ge2024-using-gpt51.sh
  |    |    |    :
  |    |    +-- 002/
  |    |    |    +-- DE_Guide_002.md
- |    |    |    +-- prep-study-materials.sh
  |    |    |    +-- ask-{agent}-to-de-from-{AuthorYear}-using-{model}.sh
  |    |    :
  |    +-- Studies/
