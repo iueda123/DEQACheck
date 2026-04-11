@@ -15,11 +15,11 @@
 
 3つの SKILL を定義する。
 
-| SKILL                   | 役割                                                                                                                                                        |
-|:------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SKILL                      | 役割                                                                                                                                                        |
+|:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `/prep-guide-for-de-guide` | `Guide-for-Guide.md` を育てる（抽出設計の共同作業）                                                                                                         |
 | `/prep-de-guide`           | `Guide-for-Guide.md` を元に `DE_Guide_XXX.md` を生成し、注釈ベースで繰り返し改善する                                                                        |
-| `/gene-de-script`       | 完成した `DE_Guide_XXX.md` を元に、実行するだけで抽出結果JSONが生成される bash スクリプト `ask-{agent}-to-de-from-{AuthorYear}-using-{model}.sh` を生成する |
+| `/gene-de-script`          | 完成した `DE_Guide_XXX.md` を元に、実行するだけで抽出結果JSONが生成される bash スクリプト `ask-{agent}-to-de-from-{AuthorYear}-using-{model}.sh` を生成する |
 
 情報抽出そのものを SKILL で直接行うのではなく、**情報抽出を実行するbashスクリプトを生成するSKILL**を作ることが目標。
 最終フェーズのスクリプト実行は人間が行うものであり、SKILL は不要。
@@ -34,21 +34,36 @@
 
 ### Phase 1 — `Guide-for-Guide.md` の作成（`/prep-guide-for-de-guide` の作業）
 
-- 私またはAIが初稿を作る
-- 私が注釈の形で修正依頼や確認事項を書き込む
-- AIが注釈に対応して改善する
-- これを繰り返して良質な `Guide-for-Guide.md` を目指す
+`/prep-guide-for-de-guide` 呼び出し時の動作:
+
+1. AIが既存の `Guide-for-Guide.md` を読み込む
+2. AIが不足・曖昧な点を能動的に質問し（1問ずつ）、ユーザーの回答を元に文書を更新する
+3. 一通り質問が終わったら注釈ドリブンモードへ移行 — ユーザーが注釈を入れて「注釈に対応して」と依頼するループに入る
+4. これを繰り返して良質な `Guide-for-Guide.md` を目指す
 
 ### Phase 2 — `DE_Guide_XXX.md` の生成・改善（`/prep-de-guide` の作業）
 
-- `Guide-for-Guide.md` を元にエージェント向けプロンプト `DE_Guide_XXX.md` を生成する
+- 対象の `Guide-for-Guide-vN.md` の内容**だけ**を元にゼロから `DE_Guide_XXX.md` を生成する（既存テンプレートは使わない）
+- `Guide-for-Guide-vN.md` の番号と `Guides/{番号}/` の番号は**独立**（1つの `vN` から複数の `Guides/{番号}/` が生まれることがある）
+- 生成された `DE_Guide_XXX.md` のヘッダーには派生元 `Guide-for-Guide-vN.md` のバージョンを記録し、トレーサビリティを確保する
 - 初回生成で良質なものにならない可能性があるため、注釈ベースで繰り返し改善する
 - 完成した `DE_Guide_XXX.md` を `Guides/{番号}/` に配置する
 - 番号は**情報抽出目的ごと**に変える（同じ目的の改訂は同番号で上書き）
 
 ### Phase 3 — bashスクリプトの生成（`/gene-de-script` の作業）
 
-- 完成した `DE_Guide_XXX.md` を元に、対象文献・エージェント・モデルを指定して実行可能な bashスクリプトを生成する
+**前準備（自動スクリプトによる materials 加工）:**
+- `share_package/data/{AuthorYear}/materials/optimized/*.md` を `Studies/{AuthorYear}/materials/optimized/` へコピーし、アンカーを自動で埋め込む
+- この処理は専用の前処理スクリプト（`prep-study-materials.sh`）で一括自動化する
+- `/gene-de-script` 実行時にこのスクリプトも生成・実行する
+
+**スクリプト生成:**
+- `/gene-de-script` を呼び出すと、AIが対話形式で以下を順に確認する:
+  1. 対象文献（`Studies/` 配下の `{AuthorYear}` を列挙して選ばせる。複数選択可）
+  2. 使用エージェント（`llm-provider-settings.json` の `cli` キー: `claude` / `codex` / `copilot` / `gemini`）
+  3. 使用モデル（選択したエージェントに対応するモデル一覧から選ばせる）
+- 選択肢の定義元: `/media/iu/STORAGE/__GitHub__/wiki-concierge/main/src/main/resources/llm-provider-settings.json`（`cli` セクション）
+- 確認後、**1文献 × 1エージェント × 1モデルの組み合わせごとに個別の**bashスクリプトを生成する
 - 生成されたスクリプトを `DE_Guide_XXX.md` と同じ `Guides/{番号}/` に配置する
 - 既存のスクリプト例として `share_package/tools/ask_AiToDe_v14_2.sh` を参考にする
 
@@ -84,14 +99,21 @@ share_package/
  :
  +-- data-extraction/
  |    +-- Guide-for-Guide-for-Guide.md   ← この文書（作業指針）
- |    +-- Guide-for-Guide.md             ← 抽出ガイドの設計方針（Phase 1 成果物）
+ |    +-- Guide-for-Guide-v1.md          ← 抽出ガイドの設計方針（Phase 1 成果物、タスクごとに新バージョン）
+ |    +-- Guide-for-Guide-v2.md
+ |    :
  |    +-- SKILL.md                       ← 3つのSKILLのドラフト（随時更新）
  |    +-- Guides/
  |    |    +-- 001/
- |    |    |    +-- DE_Guide_001.md      ← エージェント向けプロンプト（Phase 2 成果物）
- |    |    |    +-- ask-{agent}-to-de-from-{AuthorYear}-using-{model}.sh  ← 生成スクリプト（Phase 3 成果物）
+ |    |    |    +-- DE_Guide_001.md                                    ← Phase 2 成果物
+ |    |    |    +-- prep-study-materials.sh                            ← materials 前処理スクリプト（Phase 3 成果物）
+ |    |    |    +-- ask-claude-to-de-from-Ge2024-using-opus46.sh       ← Phase 3 成果物（文献×エージェント×モデル個別）
+ |    |    |    +-- ask-claude-to-de-from-Geng2025-using-opus46.sh
+ |    |    |    +-- ask-codex-to-de-from-Ge2024-using-gpt51.sh
+ |    |    |    :
  |    |    +-- 002/
  |    |    |    +-- DE_Guide_002.md
+ |    |    |    +-- prep-study-materials.sh
  |    |    |    +-- ask-{agent}-to-de-from-{AuthorYear}-using-{model}.sh
  |    |    :
  |    +-- Studies/
