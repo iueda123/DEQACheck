@@ -20,14 +20,14 @@ allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
 
 ### Step 2: 対象文献の選択
 
-`share_package/data-extraction/Studies/` 配下の `{AuthorYear}` フォルダを番号付きで提示する。
-`Studies/` が存在しない、またはフォルダが空の場合は `share_package/data/` 配下のフォルダ一覧を代わりに使用する
+`share_package/data-extraction/studies/` 配下の `{AuthorYear}` フォルダを番号付きで提示する。
+`studies/` が存在しない、またはフォルダが空の場合は `share_package/data/` 配下のフォルダ一覧を代わりに使用する
 （`Someone` と `settings` は除外）。
 複数選択可（例: "1,3,5" または "all"）。文献名の直接入力も受け付ける。
 
 ### Step 3: 使用エージェントの選択
 
-`/media/iu/STORAGE/__GitHub__/wiki-concierge/main/src/main/resources/llm-provider-settings.json`
+`.claude/skills/gene-de-script/references/llm-provider-settings.json`
 の `cli` セクションを実際に読み込み、キー名をエージェント選択肢として番号付きで提示する。
 
 ### Step 4: 使用モデルの選択
@@ -51,7 +51,7 @@ Step 3 で選択したエージェントの `models` 配列を同ファイルか
 
 **内包する処理 1: 材料の前処理**
 - `share_package/data/{AuthorYear}/materials/optimized/*.md` を
-  `share_package/data-extraction/Studies/{AuthorYear}/materials/optimized/` にコピー
+  `share_package/data-extraction/studies/{AuthorYear}/materials/optimized/` にコピー
 - 各 Markdown 見出しに `{#anchor-id}` 形式のアンカーを自動付与（awk で処理）
   （例: `## Methods` → `## Methods {#methods}`、`## Table 1` → `## Table 1 {#table-1}`）
 - アンカーID: 見出しテキストを lowercase・空白→ハイフン・英数字とハイフン以外を除去
@@ -65,7 +65,7 @@ Step 3 で選択したエージェントの `models` 配列を同ファイルか
 - 実行後、結果ファイルを出力先にコピーしてワークスペースを削除する
 
 **出力先**:
-- JSON: `Studies/{AuthorYear}/extracted-info/{番号}/{AuthorYear}_by-{agent}-{model}_{timestamp}.json`
+- JSON: `studies/{AuthorYear}/extracted-info/{番号}/{AuthorYear}_by-{agent}-{model}_{timestamp}.json`
 - ログ: 同フォルダ（`.log` ファイル）
 - タイムスタンプ形式: `%Y%m%d-%H%M%S`（例: `20260411-224510`）
 - 出力ディレクトリが存在しない場合は自動作成
@@ -78,4 +78,4 @@ Step 3 で選択したエージェントの `models` 配列を同ファイルか
 
 - `share_package/data-extraction/Guides/{番号}/DE_Guide_{番号}.md`
 - `share_package/tools/ask_AiToDe_v14_2.sh`（スクリプト構造の参考）
-- `/media/iu/STORAGE/__GitHub__/wiki-concierge/main/src/main/resources/llm-provider-settings.json`（`cli` セクション）
+- `.claude/skills/gene-de-script/references/llm-provider-settings.json`（`cli` セクション）
